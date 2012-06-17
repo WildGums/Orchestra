@@ -1,0 +1,31 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BrowserModule.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Orchestra.Modules.Browser
+{
+    using Services;
+    using ViewModels;
+
+    /// <summary>
+    /// Browser module.
+    /// </summary>
+    public class BrowserModule : ModuleBase
+    {
+        /// <summary>
+        /// Name of the module.
+        /// </summary>
+        public const string ModuleName = "Browser";
+
+        /// <summary>
+        /// Called when the module has been initialized.
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            var orchestraService = GetService<IOrchestraService>();
+            orchestraService.ShowDocument<BrowserViewModel>();
+        }
+    }
+}

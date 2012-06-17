@@ -1,0 +1,305 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Catel.Extensions.Prism</name>
+    </assembly>
+    <members>
+        <member name="T:Catel.BootstrapperBase">
+            <summary>
+            The service locator bootstrapper.
+            </summary>
+        </member>
+        <member name="F:Catel.BootstrapperBase._useDefaultConfiguration">
+            <summary>
+            The use default configuration.
+            </summary>
+        </member>
+        <member name="M:Catel.BootstrapperBase.CreateContainer">
+            <summary>
+            The create container.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:Catel.BootstrapperBase.Run(System.Boolean)">
+            <summary>
+            The run.
+            </summary>
+            <param name="runWithDefaultConfiguration">
+            The run with default configuration.
+            </param>
+            <exception cref="T:System.InvalidOperationException">
+            Thrown when the Logger is not successfully initialized
+            -or-
+            The ModuleCatalog is not successfully initialized
+            -or-
+            The ServiceLocator is not successfully initialized
+            </exception>
+        </member>
+        <member name="M:Catel.BootstrapperBase.CreateLogger">
+            <summary>
+            Create the <see cref="T:Microsoft.Practices.Prism.Logging.ILoggerFacade"/> used by the bootstrapper.
+            </summary>
+            <returns>
+            An implementation of <see cref="T:Microsoft.Practices.Prism.Logging.ILoggerFacade"/>.
+            </returns>
+        </member>
+        <member name="M:Catel.BootstrapperBase.ConfigureContainer">
+            <summary>
+            The configure container.
+            </summary>
+        </member>
+        <member name="M:Catel.BootstrapperBase.ConfigureServiceLocator">
+            <summary>
+            Configures the LocatorProvider for the <see cref="T:Catel.IoC.ServiceLocator"/>.
+            </summary>
+        </member>
+        <member name="M:Catel.BootstrapperBase.InitializeModules">
+            <summary>
+            Initializes the modules. May be overwritten in a derived class to use a custom Modules Catalog
+            </summary>
+        </member>
+        <member name="P:Catel.BootstrapperBase.Container">
+            <summary>
+            Gets the default <see cref="T:Catel.IoC.IServiceLocator"/> for the application.
+            </summary>
+            <value>The default <see cref="T:Catel.IoC.IServiceLocator"/> instance.</value>
+        </member>
+        <member name="T:Catel.BootstrapperBase.LoggerFacadeAdapter">
+            <summary>
+            The logger facade adapter.
+            </summary>
+        </member>
+        <member name="F:Catel.BootstrapperBase.LoggerFacadeAdapter.log">
+            <summary>
+            The log.
+            </summary>
+        </member>
+        <member name="M:Catel.BootstrapperBase.LoggerFacadeAdapter.#ctor(Catel.Logging.ILog)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Catel.BootstrapperBase.LoggerFacadeAdapter"/> class. 
+            </summary>
+            <param name="log">
+            The log.
+            </param>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="log"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:Catel.BootstrapperBase.LoggerFacadeAdapter.Log(System.String,Microsoft.Practices.Prism.Logging.Category,Microsoft.Practices.Prism.Logging.Priority)">
+            <summary>
+            The log.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+            <param name="category">
+            The category.
+            </param>
+            <param name="priority">
+            The priority.
+            </param>
+        </member>
+        <member name="T:Catel.IViewRegionItem">
+            <summary>
+            The view region item interface.
+            </summary>
+        </member>
+        <member name="P:Catel.IViewRegionItem.View">
+            <summary>
+            Gets View.
+            </summary>
+        </member>
+        <member name="P:Catel.IViewRegionItem.Region">
+            <summary>
+            Gets Region.
+            </summary>
+        </member>
+        <member name="T:Catel.IUIVisualizerServiceExtensions">
+            <summary>
+            Extension methods for the <see cref="T:Catel.MVVM.Services.IUIVisualizerService"/>.
+            </summary>
+        </member>
+        <member name="F:Catel.IUIVisualizerServiceExtensions.InvalidOperationErrorMessage">
+            <summary>
+            The invalid operation error message.
+            </summary>
+        </member>
+        <member name="F:Catel.IUIVisualizerServiceExtensions._cache">
+            <summary>
+            The cache storage.
+            </summary>
+        </member>
+        <member name="M:Catel.IUIVisualizerServiceExtensions.Activate(Catel.MVVM.Services.IUIVisualizerService,Catel.MVVM.IViewModel,System.String)">
+            <summary>
+            Activate a view into a specific <see cref="T:Microsoft.Practices.Prism.Regions.IRegion"/> via <see cref="T:Microsoft.Practices.Prism.Regions.IRegionManager"/> from a given view model.
+            </summary>
+            <param name="this">
+            The <see cref="T:Catel.MVVM.Services.IUIVisualizerService"/> service self instance.
+            </param>
+            <param name="viewModel">
+            The view model.
+            </param>
+            <param name="regionName">
+            The region name.
+            </param>
+            <exception cref="T:System.InvalidOperationException">
+            If <paramref name="regionName"/> is <c>null</c> and the <paramref name="viewModel"/> was no show at least one time in a <see cref="T:Microsoft.Practices.Prism.Regions.IRegion"/>.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            If the view that belongs to the <paramref name="viewModel"/> is already the logical child of another element.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            If the implementation of <see cref="T:Microsoft.Practices.Prism.Regions.IRegionManager"/> is not registered in the IoC container.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+            If the implementation of IRegionManager is not registered in the IoC container
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            The <paramref name="viewModel"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:Catel.IUIVisualizerServiceExtensions.Activate(Catel.MVVM.IViewModel,System.String)">
+            <summary>
+            The activate.
+            </summary>
+            <param name="viewModel">
+            The view model.
+            </param>
+            <param name="regionName">
+            The region name. 
+            </param>
+            <exception cref="T:System.NotSupportedException">
+            If the implementation of <see cref="T:Microsoft.Practices.Prism.Regions.IRegionManager"/> is not registered in the IoC container.
+            </exception>
+        </member>
+        <member name="M:Catel.IUIVisualizerServiceExtensions.Reactivate(Catel.MVVM.IViewModel)">
+            <summary>
+            The reactivate.
+            </summary>
+            <param name="viewModel">
+            The view model.
+            </param>
+            <exception cref="T:System.InvalidOperationException">
+            If the <paramref name="viewModel"/> was no show at least one time in a <see cref="T:Microsoft.Practices.Prism.Regions.IRegion"/>.
+            </exception>
+        </member>
+        <member name="M:Catel.IUIVisualizerServiceExtensions.ViewModelOnClosed(System.Object,Catel.MVVM.ViewModelClosedEventArgs)">
+            <summary>
+            The view model on closed.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="viewModelClosedEventArgs">
+            The view model closed event args.
+            </param>
+        </member>
+        <member name="M:Catel.IUIVisualizerServiceExtensions.Deactivate(Catel.MVVM.Services.IUIVisualizerService,Catel.MVVM.IViewModel)">
+            <summary>
+            Deactivate the views that belongs to the <paramref name="viewModel"/> instance.
+            </summary>
+            <param name="this">
+            The <see cref="T:Catel.MVVM.Services.IUIVisualizerService"/> service self instance.
+            </param>
+            <param name="viewModel">
+            The view model.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <paramref name="viewModel"/> is <c>null</c>.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            If the <paramref name="viewModel"/> was no show at least one time in a <see cref="T:Microsoft.Practices.Prism.Regions.IRegion"/>.
+            </exception>
+        </member>
+        <member name="M:Catel.IUIVisualizerServiceExtensions.Deactivate(Catel.MVVM.IViewModel)">
+            <summary>
+            Deactivate the views that belongs to the <paramref name="viewModel"/> instance.
+            </summary>
+            <param name="viewModel">
+            The view model instance.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <paramref name="viewModel"/> is <c>null</c>.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            If the <paramref name="viewModel"/> was no show at least one time in a <see cref="T:Microsoft.Practices.Prism.Regions.IRegion"/>.
+            </exception>
+        </member>
+        <member name="T:Catel.ServiceLocatorAdapter">
+            <summary>
+            The catel service locator adapter.
+            </summary>
+        </member>
+        <member name="F:Catel.ServiceLocatorAdapter._serviceLocator">
+            <summary>
+            The service locator.
+            </summary>
+        </member>
+        <member name="M:Catel.ServiceLocatorAdapter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Catel.ServiceLocatorAdapter"/> class.
+            </summary>
+            <remarks>
+            Do not remove this method, the <see cref="T:Catel.IoC.ServiceLocator"/> cannot instantiate classes with arguments.
+            </remarks>
+        </member>
+        <member name="M:Catel.ServiceLocatorAdapter.#ctor(Catel.IoC.IServiceLocator)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Catel.ServiceLocatorAdapter"/> class. 
+            </summary>
+            <param name="serviceLocator">The service Locator. If <c>null</c>, <see cref="P:Catel.IoC.ServiceLocator.Instance"/> will be used.</param>
+        </member>
+        <member name="M:Catel.ServiceLocatorAdapter.DoGetInstance(System.Type,System.String)">
+            <summary>
+            The do get instance.
+            </summary>
+            <param name="serviceType">
+            The service type.
+            </param>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            An instance of the type registered on the interface.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="serviceType"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:Catel.ServiceLocatorAdapter.DoGetAllInstances(System.Type)">
+            <summary>
+            The do get all instances.
+            </summary>
+            <param name="serviceType">
+            The service type.
+            </param>
+            <returns>
+            An instance of the type registered on the interface. 
+            </returns>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="serviceType"/> is <c>null</c>.</exception>
+        </member>
+        <member name="T:Catel.ViewRegionItem">
+            <summary>
+            The view region item.
+            </summary>
+        </member>
+        <member name="M:Catel.ViewRegionItem.#ctor(System.Windows.FrameworkElement,Microsoft.Practices.Prism.Regions.IRegion)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Catel.ViewRegionItem"/> class.
+            </summary>
+            <param name="view">
+            The view.
+            </param>
+            <param name="region">
+            The region.
+            </param>
+        </member>
+        <member name="P:Catel.ViewRegionItem.Catel#IViewRegionItem#View">
+            <summary>
+            Gets View.
+            </summary>
+        </member>
+        <member name="P:Catel.ViewRegionItem.Catel#IViewRegionItem#Region">
+            <summary>
+            Gets Region.
+            </summary>
+        </member>
+    </members>
+</doc>
