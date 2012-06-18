@@ -1,12 +1,11 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SharedAssemblyInfo.cs" company="Catel development team">
-//   Copyright (c) 2008 - 2012 Catel development team. All rights reserved.
+// <copyright file="SolutionAssemblyInfo.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 #pragma warning disable 1699    // 1699 = Use command line option '/keyfile' or appropriate project settings instead of 'AssemblyKeyFile'
 
-using System;
 using System.Reflection;
 using System.Resources;
 
@@ -36,6 +35,7 @@ using System.Resources;
 [assembly: AssemblyInformationalVersion("0.1")]
 
 #if DEBUG
+
 [assembly: AssemblyConfiguration("Debug build")]
 #else
 [assembly: AssemblyConfiguration("Release build")]

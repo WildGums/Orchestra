@@ -10,6 +10,7 @@ namespace Orchestra
     using Catel;
     using Catel.Logging;
     using Microsoft.Practices.Prism.Modularity;
+    using Modules;
     using Services;
     using Views;
 
@@ -35,7 +36,7 @@ namespace Orchestra
         /// <returns></returns>
         protected override IModuleCatalog CreateModuleCatalog()
         {
-            var moduleCatalog = new DirectoryModuleCatalog {ModulePath = @".\Modules"};
+            var moduleCatalog = new DirectoryModuleCatalog { ModulePath = @".\" + ModuleBase.ModulesDirectory};
 
             moduleCatalog.Initialize();
 

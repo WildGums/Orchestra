@@ -2,12 +2,12 @@
 {
     using Catel.IoC;
     using Catel.Messaging;
-    using Catel.Windows.Controls;
+    using Orchestra.Views;
 
     /// <summary>
     /// Interaction logic for BrowserView.xaml.
     /// </summary>
-    public partial class BrowserView : UserControl
+    public partial class BrowserView : DocumentView
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BrowserView"/> class.

@@ -15,6 +15,11 @@ namespace Orchestra.Modules
     [Module]
     public abstract class ModuleBase : IModule, IServiceProvider
     {
+        /// <summary>
+        /// The modules directory name.
+        /// </summary>
+        public const string ModulesDirectory = "Modules";
+
         #region Properties
         #endregion
 

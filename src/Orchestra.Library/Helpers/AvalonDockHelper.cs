@@ -14,6 +14,7 @@ namespace Orchestra
     using Catel.IoC;
     using Catel.MVVM;
     using Microsoft.Practices.Prism.Regions;
+    using Views;
 
     /// <summary>
     /// Helper class for avalon dock.
@@ -112,11 +113,15 @@ namespace Orchestra
         /// <param name="e">The <see cref="AvalonDock.DocumentClosedEventArgs"/> instance containing the event data.</param>
         private static void OnDockingManagerDocumentClosed(object sender, DocumentClosedEventArgs e)
         {
-            var containerView = (LayoutDocument)sender;
-            var view = (FrameworkElement)containerView.Content;
-            var region = RegionManager.Regions[(string)view.Tag];
+            var containerView = e.Document;
+            var view = containerView.Content as IDocumentView;
+            if (view != null)
+            {
+                view.CloseDocument();
+            }
 
-            region.Remove(sender);
+            //var region = RegionManager.Regions[(string)view.Tag];
+            //region.Remove(sender);
         }
         #endregion
     }

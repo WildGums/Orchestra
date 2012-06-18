@@ -1,0 +1,35 @@
+Orchestra history
+=================
+
+(+) Added
+(*) Changed
+(-) Removed
+(x) Error / bug (fix)
+
+For more information about issues or new feature requests, please visit:
+
+http://orchestra.codeplex.com
+
+**********************************************************
+
+===========
+Version 0.1
+===========
+
+Release date:
+=============
+2012/xx/xx
+
+Added/fixed:
+============
+xxxx
+
+To-do:
+======
+See http://orchestra.codeplex.com/workitem/list/basic
+
+Known bugs:
+===========
+See http://orchestra.codeplex.com/workitem/list/basic
+
+**********************************************************

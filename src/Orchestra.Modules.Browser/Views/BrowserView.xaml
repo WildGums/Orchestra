@@ -1,14 +1,10 @@
-﻿<catel:UserControl x:Class="Orchestra.Modules.Browser.Views.BrowserView"
-                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				   xmlns:catel="http://catel.codeplex.com"
-                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
+﻿<orchestra:DocumentView x:Class="Orchestra.Modules.Browser.Views.BrowserView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				        xmlns:catel="http://catel.codeplex.com"
+                        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                        xmlns:orchestra="http://orchestra.codeplex.com">
     
-    <!-- Resources -->
-    <UserControl.Resources>
-    </UserControl.Resources>
-
-    <!-- Content -->
     <catel:StackGrid>
 		<catel:StackGrid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -44,4 +40,5 @@
 
         <WebBrowser x:Name="webBrowser" Grid.ColumnSpan="4" />
     </catel:StackGrid>
-</catel:UserControl>
+    
+</orchestra:DocumentView>

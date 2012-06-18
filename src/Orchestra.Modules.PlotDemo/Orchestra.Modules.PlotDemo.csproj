@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{229FD375-8CE6-4A12-A722-10BF916265AF}</ProjectGuid>
+    <ProjectGuid>{1A89EADA-6757-4D7B-BCE2-2789713F1B9F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Orchestra.Modules.Browser</RootNamespace>
-    <AssemblyName>Orchestra.Modules.Browser</AssemblyName>
+    <RootNamespace>Orchestra.Modules.PlotDemo</RootNamespace>
+    <AssemblyName>Orchestra.Modules.PlotDemo</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\output\debug\Client\Modules\Orchestra.Modules.Browser.XML</DocumentationFile>
+    <DocumentationFile>..\..\output\debug\Client\Modules\Orchestra.Modules.PlotDemo.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -31,7 +31,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\output\release\Client\Modules\Orchestra.Modules.Browser.XML</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\output\release\Client\Modules\Orchestra.Modules.PlotDemo.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
@@ -46,17 +47,15 @@
     <Reference Include="Catel.MVVM, Version=3.2.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Catel.MVVM.3.1.1206182014-beta\lib\net40\Catel.MVVM.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
+    <Reference Include="Microsoft.Practices.Prism, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="OxyPlot">
+      <HintPath>..\..\lib\OxyPlot.Wpf.2012.3.111.1\lib\OxyPlot.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Prism">
-      <HintPath>..\..\lib\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.dll</HintPath>
+    <Reference Include="OxyPlot.Wpf">
+      <HintPath>..\..\lib\OxyPlot.Wpf.2012.3.111.1\lib\OxyPlot.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Prism.Interactivity">
-      <HintPath>..\..\lib\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\lib\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    <Reference Include="OxyPlot.Xps">
+      <HintPath>..\..\lib\OxyPlot.Wpf.2012.3.111.1\lib\OxyPlot.Xps.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -71,19 +70,22 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
     <None Include="FodyWeavers.xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Orchestra\Properties\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="BrowserModule.cs" />
+    <Compile Include="PlotDemoModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\BrowserViewModel.cs" />
-    <Compile Include="Views\BrowserView.xaml.cs">
-      <DependentUpon>BrowserView.xaml</DependentUpon>
+    <Compile Include="ViewModels\PlotDemoViewModel.cs" />
+    <Compile Include="Views\PlotDemoView.xaml.cs">
+      <DependentUpon>PlotDemoView.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Orchestra.Library\Orchestra.Library.csproj">
@@ -92,22 +94,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\BrowserView.xaml">
+    <Page Include="Views\PlotDemoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\action_browse.png" />
-    <Resource Include="Resources\Images\action_left.png" />
-    <Resource Include="Resources\Images\action_refresh.png" />
-    <Resource Include="Resources\Images\action_right.png" />
+    <Folder Include="Models\" />
+    <Folder Include="Resources\Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
