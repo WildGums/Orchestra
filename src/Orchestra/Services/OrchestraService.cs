@@ -7,8 +7,11 @@
 namespace Orchestra.Services
 {
     using System;
+    using System.Windows.Input;
     using Catel;
     using Catel.MVVM;
+    using Fluent;
+    using Models;
 
     /// <summary>
     /// Orchestra service implementation.
@@ -19,20 +22,23 @@ namespace Orchestra.Services
         /// Shows the document in the main shell.
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
-        public void ShowDocument<TViewModel>() 
+        /// <param name="tag">The tag.</param>
+        public void ShowDocument<TViewModel>(object tag = null) 
             where TViewModel : IViewModel, new()
         {
             var viewModel = new TViewModel();
 
-            ShowDocument(viewModel);
+            ShowDocument(viewModel, tag);
         }
 
         /// <summary>
         /// Shows the document in the main shell.
         /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="viewModel">The view model to show which will automatically be resolved to a view.</param>
+        /// <param name="tag">The tag.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="viewModel"/> is <c>null</c>.</exception>
-        public void ShowDocument<TViewModel>(TViewModel viewModel) 
+        public void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null) 
             where TViewModel : IViewModel
         {
             Argument.IsNotNull("viewModel", viewModel);
@@ -40,9 +46,45 @@ namespace Orchestra.Services
             var viewLocator = GetService<IViewLocator>();
             var viewType = viewLocator.ResolveView(viewModel.GetType());
 
-            var view = ViewHelper.ConstructViewWithViewModel(viewType, viewModel);
+            var document = AvalonDockHelper.FindDocument(viewType, tag);
+            if (document == null)
+            {
+                var view = ViewHelper.ConstructViewWithViewModel(viewType, viewModel);
+                document = AvalonDockHelper.CreateDocument(view, tag);
+            }
 
-            AvalonDockHelper.ActivateDocumentContent(view, "MainRegion");
+            AvalonDockHelper.ActivateDocument(document);
+        }
+
+        /// <summary>
+        /// Adds a new ribbon item to the main ribbon.
+        /// </summary>
+        /// <param name="ribbonItem">The ribbon item.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        public void AddRibbonItem(IRibbonItem ribbonItem)
+        {
+            Argument.IsNotNull("ribbonItem", ribbonItem);
+
+            var ribbon = GetService<Ribbon>();
+
+            var tab = ribbon.EnsureTabItem(ribbonItem.TabItemHeader);
+            var group = tab.EnsureGroupBox(ribbonItem.GroupBoxHeader);
+            group.AddButton(ribbonItem.ItemHeader, ribbonItem.ItemImage, ribbonItem.ItemImage, ribbonItem.Command);
+        }
+
+        /// <summary>
+        /// Removes the specified ribbon item to the main ribbon.
+        /// <para />
+        /// This method will ignore calls when the item is not available in the ribbon.
+        /// </summary>
+        /// <param name="ribbonItem">The ribbon item.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        public void RemoveRibbonItem(IRibbonItem ribbonItem)
+        {
+            Argument.IsNotNull("ribbonItem", ribbonItem);
+
+            var ribbon = GetService<Ribbon>();
+            ribbon.RemoveItem(ribbonItem);
         }
     }
 }

@@ -6,6 +6,8 @@
 
 namespace Orchestra.Modules.Browser
 {
+    using Catel.MVVM;
+    using Models;
     using Services;
     using ViewModels;
 
@@ -25,6 +27,10 @@ namespace Orchestra.Modules.Browser
         protected override void OnInitialized()
         {
             var orchestraService = GetService<IOrchestraService>();
+
+            var openRibbonItem = new RibbonItem(ModuleName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>()));
+            orchestraService.AddRibbonItem(openRibbonItem);
+
             orchestraService.ShowDocument<BrowserViewModel>();
         }
     }

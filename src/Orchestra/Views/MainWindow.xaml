@@ -1,40 +1,20 @@
-﻿<catel:DataWindow x:Class="Orchestra.Views.MainWindow"
-                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				  xmlns:catel="http://catel.codeplex.com"
-                  xmlns:avalondock="http://avalondock.codeplex.com"
-                  xmlns:local="clr-namespace:Orchestra"
-                  xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
-                  xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
-                  ShowInTaskbar="True" ResizeMode="CanResize" SizeToContent="Manual" WindowStartupLocation="Manual" WindowState="Maximized">
+﻿<Fluent:RibbonWindow x:Class="Orchestra.Views.MainWindow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				     xmlns:catel="http://catel.codeplex.com"
+                     xmlns:avalondock="http://avalondock.codeplex.com"
+                     xmlns:local="clr-namespace:Orchestra"
+                     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+                     ShowInTaskbar="True" ResizeMode="CanResize" SizeToContent="Manual" WindowStartupLocation="Manual" WindowState="Maximized">
     
-    <!-- Resources -->
-    <catel:DataWindow.Resources>
-    </catel:DataWindow.Resources>
-    
-    <!-- Content -->
-     <catel:StackGrid x:Name="LayoutRoot">
+     <catel:StackGrid>
 		<catel:StackGrid.RowDefinitions>
-            <RowDefinition Height="24" />
+            <RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 			<RowDefinition Height="24" />
 		</catel:StackGrid.RowDefinitions>
 
-        <Fluent:Ribbon>
-            <!--Backstage-->
-            <Fluent:Ribbon.Menu>
-                <Fluent:Backstage>
-                </Fluent:Backstage>
-            </Fluent:Ribbon.Menu>
-            
-            <!--Tabs-->
-            <Fluent:RibbonTabItem Header="Tab">
-                <Fluent:RibbonGroupBox Header="Group">
-                    <Fluent:Button Name="buttonGreen" Header="Green" Icon="Images\Green.png" LargeIcon="Images\GreenLarge.png" />
-                    <Fluent:Button Name="buttonGray" Header="Grey" Icon="Images\Gray.png" LargeIcon="Images\GrayLarge.png" />
-                </Fluent:RibbonGroupBox>
-            </Fluent:RibbonTabItem>
-        </Fluent:Ribbon>
+        <Fluent:Ribbon x:Name="ribbon" />
 
         <avalondock:DockingManager x:Name="dockingManager">
             <avalondock:DockingManager.LayoutUpdateStrategy>
@@ -64,4 +44,4 @@
             <StatusBarItem Content="[statusbar]"/>
         </StatusBar>
     </catel:StackGrid>
-</catel:DataWindow>
+</Fluent:RibbonWindow>

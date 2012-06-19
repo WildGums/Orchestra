@@ -6,7 +6,7 @@
             <ResourceDictionary.MergedDictionaries>
 
                 <!-- Fluent ribbon theme -->
-                <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Silver.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Office2010/Silver.xaml" />
 
                 <!-- Generic Catel theme -->
                 <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic.xaml" />

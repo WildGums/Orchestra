@@ -53,6 +53,10 @@
     <Reference Include="Catel.MVVM, Version=3.2.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Catel.MVVM.3.1.1206182014-beta\lib\net40\Catel.MVVM.dll</HintPath>
     </Reference>
+    <Reference Include="Fluent, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\FluentRibbon\Fluent.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
@@ -85,9 +89,12 @@
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Helpers\AvalonDockHelper.cs" />
+    <Compile Include="Helpers\FluentRibbonHelper.cs" />
+    <Compile Include="Models\RibbonItem.cs" />
     <Compile Include="Modules\ModuleBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IOrchestraService.cs" />
+    <Compile Include="Models\Interface\IRibbonItem.cs" />
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Views\DocumentView.cs" />
     <Compile Include="Views\Interfaces\IDocumentView.cs" />

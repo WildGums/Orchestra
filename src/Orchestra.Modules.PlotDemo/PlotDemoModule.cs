@@ -6,6 +6,8 @@
 
 namespace Orchestra.Modules.PlotDemo
 {
+    using Catel.MVVM;
+    using Models;
     using Services;
     using ViewModels;
 
@@ -25,6 +27,10 @@ namespace Orchestra.Modules.PlotDemo
         protected override void OnInitialized()
         {
             var orchestraService = GetService<IOrchestraService>();
+
+            var showRibbonItem = new RibbonItem(ModuleName, ModuleName, "Show", new Command(() => orchestraService.ShowDocument<PlotDemoViewModel>()));
+            orchestraService.AddRibbonItem(showRibbonItem);
+
             orchestraService.ShowDocument<PlotDemoViewModel>();
         }
     }

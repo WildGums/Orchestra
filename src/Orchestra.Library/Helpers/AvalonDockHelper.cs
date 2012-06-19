@@ -7,6 +7,7 @@
 namespace Orchestra
 {
     using System;
+    using System.Linq;
     using System.Windows;
     using AvalonDock;
     using AvalonDock.Layout;
@@ -55,44 +56,61 @@ namespace Orchestra
 
         #region Methods
         /// <summary>
-        /// Activates the content of the document.
+        /// Gets the document.
+        /// </summary>
+        /// <param name="viewType">Type of the view.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns>The found document or <c>null</c> if no document was found.</returns>
+        /// <exception cref="ArgumentNullException">The <paramref name="viewType"/> is <c>null</c>.</exception>
+        public static LayoutDocument FindDocument(Type viewType, object tag = null)
+        {
+            Argument.IsNotNull("viewType", viewType);
+
+            // TODO: Add tag options
+
+            return (from document in LayoutDocumentPane.Children
+                    where document is LayoutDocument && document.Content.GetType() == viewType
+                    select document).Cast<LayoutDocument>().FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Activates the document in the docking manager, which makes it the active document.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="document"/> is <c>null</c>.</exception>
+        public static void ActivateDocument(LayoutDocument document)
+        {
+            Argument.IsNotNull("document", document);
+
+            LayoutDocumentPane.SelectedContentIndex = LayoutDocumentPane.IndexOfChild(document);
+        }
+
+        /// <summary>
+        /// Creates the document.
         /// </summary>
         /// <param name="view">The view.</param>
-        /// <param name="regionName">Name of the region.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns>The created layout document.</returns>
         /// <exception cref="ArgumentNullException">The <paramref name="view"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">The <paramref name="regionName"/> is <c>null</c> or whitespace.</exception>
-        public static void ActivateDocumentContent(FrameworkElement view, string regionName)
+        public static LayoutDocument CreateDocument(FrameworkElement view, object tag = null)
         {
             Argument.IsNotNull("view", view);
-            Argument.IsNotNullOrWhitespace("regionName", regionName);
 
-            var layoutDocument = WrapViewInLayoutDocument(view);
+            var layoutDocument = WrapViewInLayoutDocument(view, tag);
 
-            // TODO: Check if child already added, then only activate
             LayoutDocumentPane.Children.Add(layoutDocument);
 
-            //var region = RegionManager.Regions[regionName];
-            //view.Tag = regionName;
-
-            //var document = region.Views.Cast<LayoutDocument>().FirstOrDefault(d => ((FrameworkElement)d.Content).Name == view.Name);
-            //if (document != null)
-            //{
-            //    region.Activate(document);
-            //}
-            //else
-            //{
-            //    region.Add(view);
-            //    region.Activate(view);
-            //}
+            return layoutDocument;
         }
 
         /// <summary>
         /// Wraps the view in a layout document.
         /// </summary>
         /// <param name="view">The view.</param>
+        /// <param name="tag">The tag.</param>
         /// <returns>A wrapped layout document.</returns>
         /// <exception cref="ArgumentNullException">The <paramref name="view"/> is <c>null</c>.</exception>
-        private static LayoutDocument WrapViewInLayoutDocument(FrameworkElement view)
+        private static LayoutDocument WrapViewInLayoutDocument(FrameworkElement view, object tag = null)
         {
             Argument.IsNotNull("view", view);
 
@@ -100,8 +118,10 @@ namespace Orchestra
 
             layoutDocument.CanFloat = false;
             // TODO: Make bindable => automatic updates
-            layoutDocument.Title = ((IViewModel) view.DataContext).Title;
+            layoutDocument.Title = ((IViewModel)view.DataContext).Title;
             layoutDocument.Content = view;
+
+            view.Tag = tag;
 
             return layoutDocument;
         }

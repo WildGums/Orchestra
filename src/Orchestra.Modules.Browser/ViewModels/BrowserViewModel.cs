@@ -47,19 +47,12 @@ namespace Orchestra.Modules.Browser.ViewModels
         public string Url { get; set; }
         #endregion
 
-        #region Properties
+        #region Commands
         /// <summary>
         /// Gets the GoBack command.
         /// </summary>
         public Command GoBack { get; private set; }
 
-        /// <summary>
-        /// Gets the GoForward command.
-        /// </summary>
-        public Command GoForward { get; private set; }
-        #endregion
-
-        #region Commands
         /// <summary>
         /// Method to check whether the GoBack command can be executed.
         /// </summary>
@@ -76,6 +69,11 @@ namespace Orchestra.Modules.Browser.ViewModels
         {
             // TODO: Handle command logic here
         }
+
+        /// <summary>
+        /// Gets the GoForward command.
+        /// </summary>
+        public Command GoForward { get; private set; }
 
         /// <summary>
         /// Method to check whether the GoForward command can be executed.
