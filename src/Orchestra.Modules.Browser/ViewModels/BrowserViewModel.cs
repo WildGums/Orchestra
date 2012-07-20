@@ -118,7 +118,7 @@ namespace Orchestra.Modules.Browser.ViewModels
             }
 
             var messageMediator = GetService<IMessageMediator>();
-            messageMediator.SendMessage(url, BrowserModule.ModuleName);
+            messageMediator.SendMessage(url, BrowserModule.Name);
         }
         #endregion
     }

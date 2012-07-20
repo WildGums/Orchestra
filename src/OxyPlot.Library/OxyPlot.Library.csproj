@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{229FD375-8CE6-4A12-A722-10BF916265AF}</ProjectGuid>
+    <ProjectGuid>{375D8D80-3540-4CAA-A15C-CF580CDFC6D0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Orchestra.Modules.Browser</RootNamespace>
-    <AssemblyName>Orchestra.Modules.Browser</AssemblyName>
+    <RootNamespace>OxyPlot</RootNamespace>
+    <AssemblyName>OxyPlot.Library</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,21 +17,22 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\output\debug\Client\Modules\</OutputPath>
+    <OutputPath>..\..\output\debug\Client\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\output\debug\Client\Modules\Orchestra.Modules.Browser.XML</DocumentationFile>
+    <DocumentationFile>..\..\output\debug\Client\OxyPlot.Library.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\output\release\Client\Modules\</OutputPath>
+    <OutputPath>..\..\output\release\Client\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\output\release\Client\Modules\Orchestra.Modules.Browser.XML</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\output\release\Client\OxyPlot.Library.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
@@ -46,77 +47,33 @@
     <Reference Include="Catel.MVVM, Version=3.3.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Catel.MVVM.3.2.1207201148-beta\lib\net40\Catel.MVVM.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Prism">
-      <HintPath>..\..\lib\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Prism.Interactivity">
-      <HintPath>..\..\lib\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\lib\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Catel.MVVM.3.2.1207201148-beta\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-    <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Orchestra\Properties\SolutionAssemblyInfo.cs">
-      <Link>Properties\SolutionAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="BrowserModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\BrowserViewModel.cs" />
-    <Compile Include="Views\BrowserView.xaml.cs">
-      <DependentUpon>BrowserView.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Orchestra.Library\Orchestra.Library.csproj">
-      <Project>{433BCE8B-95AE-4628-ABED-86A224D5E8C9}</Project>
-      <Name>Orchestra.Library</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\BrowserView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\action_browse.png" />
-    <Resource Include="Resources\Images\action_left.png" />
-    <Resource Include="Resources\Images\action_refresh.png" />
-    <Resource Include="Resources\Images\action_right.png" />
+    <Folder Include="Services\Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets. -->
-  <UsingTask TaskName="PepitaGet.RestorePackagesTask" AssemblyFile="..\..\tools\Pepita\PepitaGet.dll" />
+       Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
-    <PepitaGet.RestorePackagesTask />
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  <Import Project="$(SolutionDir)\Tools\Fody\Fody.targets" />
+  -->
 </Project>

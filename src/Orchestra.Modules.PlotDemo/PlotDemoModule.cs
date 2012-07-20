@@ -17,9 +17,17 @@ namespace Orchestra.Modules.PlotDemo
     public class PlotDemoModule : ModuleBase
     {
         /// <summary>
-        /// Name of the module.
+        /// The module name.
         /// </summary>
-        public const string ModuleName = "PlotDemo";
+        public const string Name = "PlotDemo";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// </summary>
+        public PlotDemoModule()
+            : base(Name)
+        {
+        }
 
         /// <summary>
         /// Called when the module has been initialized.

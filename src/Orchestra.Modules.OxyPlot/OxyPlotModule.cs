@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="BrowserModule.cs" company="Orchestra development team">
+// <copyright file="OxyPlotModule.cs" company="Orchestra development team">
 //   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Orchestra.Modules.Browser
+namespace Orchestra.Modules.OxyPlot
 {
     using Catel.MVVM;
     using Models;
@@ -12,22 +12,24 @@ namespace Orchestra.Modules.Browser
     using ViewModels;
 
     /// <summary>
-    /// Browser module.
+    /// The oxyplot module.
     /// </summary>
-    public class BrowserModule : ModuleBase
+    public class OxyPlotModule : ModuleBase
     {
         /// <summary>
         /// The module name.
         /// </summary>
-        public const string Name = "Browser";
+        public const string Name = "OxyPlot";
 
+        #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// Initializes a new instance of the <see cref="T:Catel.Modules.ModuleBase`1"/> class.
         /// </summary>
-        public BrowserModule()
+        public OxyPlotModule()
             : base(Name)
         {
         }
+        #endregion
 
         /// <summary>
         /// Called when the module has been initialized.
@@ -36,10 +38,10 @@ namespace Orchestra.Modules.Browser
         {
             var orchestraService = GetService<IOrchestraService>();
 
-            var openRibbonItem = new RibbonItem(ModuleName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>()));
-            orchestraService.AddRibbonItem(openRibbonItem);
+            var showRibbonItem = new RibbonItem(ModuleName, ModuleName, "Show", new Command(() => orchestraService.ShowDocument<OxyPlotViewModel>()));
+            orchestraService.AddRibbonItem(showRibbonItem);
 
-            orchestraService.ShowDocument<BrowserViewModel>();
+            orchestraService.ShowDocument<OxyPlotViewModel>();
         }
     }
 }

@@ -50,6 +50,8 @@ namespace Orchestra
         {
             base.ConfigureContainer();
 
+            Catel.Environment.RegisterDefaultViewModelServices();
+
             Container.RegisterType<IOrchestraService, OrchestraService>();
         }
 

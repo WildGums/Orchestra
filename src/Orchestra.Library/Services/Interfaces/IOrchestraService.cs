@@ -16,6 +16,13 @@ namespace Orchestra.Services
     public interface IOrchestraService
     {
         /// <summary>
+        /// Gets or sets a value indicating whether to show the debug window.
+        /// </summary>
+        /// <value><c>true</c> if the debug window should be shown; otherwise, <c>false</c>.</value>
+        /// <remarks></remarks>
+        bool ShowDebuggingWindow { get; set; }
+
+        /// <summary>
         /// Shows the document in the main shell.
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>

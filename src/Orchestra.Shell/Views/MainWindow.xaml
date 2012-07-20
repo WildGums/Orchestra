@@ -22,21 +22,21 @@
             </avalondock:DockingManager.LayoutUpdateStrategy>            
             
             <avalondock:LayoutRoot>               
-                <avalondock:LayoutPanel>
-
-                    <!--<avalondock:LayoutPanel>
-                        <avalondock:LayoutAnchorablePane />
-                    </avalondock:LayoutPanel>-->
+                <avalondock:LayoutPanel Orientation="Vertical">
 
                     <avalondock:LayoutDocumentPane x:Name="layoutDocumentPane">
                     </avalondock:LayoutDocumentPane>
 
-                    <!--<avalondock:LayoutPanel>
-                        <avalondock:LayoutAnchorablePane />
-                    </avalondock:LayoutPanel>-->
-
+                    <avalondock:LayoutAnchorablePaneGroup DockHeight="225">
+                        <avalondock:LayoutAnchorablePane>
+                            <avalondock:LayoutAnchorable ContentId="traceOutputAnchorable" Title="Debugging window"
+                                                         IconSource="/AvalonDock.TestApp;component/Images/address-book--pencil.png">
+                                <catel:TraceOutputControl />
+                            </avalondock:LayoutAnchorable>
+                        </avalondock:LayoutAnchorablePane>
+                    </avalondock:LayoutAnchorablePaneGroup>
                 </avalondock:LayoutPanel>
-                
+
             </avalondock:LayoutRoot>
         </avalondock:DockingManager>
 

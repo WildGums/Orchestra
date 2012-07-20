@@ -19,7 +19,7 @@
             InitializeComponent();
 
             var messageMediator = ServiceLocator.Instance.ResolveType<IMessageMediator>();
-            messageMediator.Register<string>(this, OnBrowse, BrowserModule.ModuleName);
+            messageMediator.Register<string>(this, OnBrowse, BrowserModule.Name);
         }
 
         /// <summary>
@@ -36,9 +36,9 @@
         /// </summary>
         protected override void InitializeRibbon()
         {
-            AddRibbonItem(new RibbonItem(BrowserModule.ModuleName, BrowserModule.ModuleName, "Back", ViewModel.GoBack) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png"});
-            AddRibbonItem(new RibbonItem(BrowserModule.ModuleName, BrowserModule.ModuleName, "Forward", ViewModel.GoForward) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" });
-            AddRibbonItem(new RibbonItem(BrowserModule.ModuleName, BrowserModule.ModuleName, "Browse", ViewModel.Browse) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
+            AddRibbonItem(new RibbonItem(BrowserModule.Name, BrowserModule.Name, "Back", ViewModel.GoBack) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png" });
+            AddRibbonItem(new RibbonItem(BrowserModule.Name, BrowserModule.Name, "Forward", ViewModel.GoForward) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" });
+            AddRibbonItem(new RibbonItem(BrowserModule.Name, BrowserModule.Name, "Browse", ViewModel.Browse) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
         }
 
         private void OnBrowse(string url)

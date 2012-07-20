@@ -12,12 +12,51 @@ namespace Orchestra.Services
     using Catel.MVVM;
     using Fluent;
     using Models;
+    using Views;
 
     /// <summary>
     /// Orchestra service implementation.
     /// </summary>
     public class OrchestraService : ServiceBase, IOrchestraService
     {
+        /// <summary>
+        /// The shell.
+        /// </summary>
+        private readonly MainWindow _shell;
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrchestraService"/> class.
+        /// </summary>
+        /// <param name="shell">The shell.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="shell"/> is <c>null</c>.</exception>
+        public OrchestraService(MainWindow shell)
+        {
+            Argument.IsNotNull("shell", shell);
+
+            _shell = shell;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to show the debug window.
+        /// </summary>
+        /// <value><c>true</c> if the debug window should be shown; otherwise, <c>false</c>.</value>
+        /// <remarks></remarks>
+        public bool ShowDebuggingWindow
+        {
+            get { return _shell.IsAnchorableVisible(MainWindow.TraceOutputAnchorable); }
+            set
+            {
+                if (value)
+                {
+                    _shell.ShowAnchorable(MainWindow.TraceOutputAnchorable);
+                }
+                else
+                {
+                    _shell.ShowAnchorable(MainWindow.TraceOutputAnchorable);
+                }
+            }
+        }
+
         /// <summary>
         /// Shows the document in the main shell.
         /// </summary>

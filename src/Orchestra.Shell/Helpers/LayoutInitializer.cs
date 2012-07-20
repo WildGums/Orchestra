@@ -43,6 +43,16 @@ namespace Orchestra
         }
 
         /// <summary>
+        /// Called after an anchorable item is inserted.
+        /// </summary>
+        /// <param name="layout">The layout.</param>
+        /// <param name="anchorableShown">The anchorable shown.</param>
+        public void AfterInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableShown)
+        {
+            
+        }
+
+        /// <summary>
         /// Inserts the anchorable.
         /// </summary>
         /// <param name="layout">The layout.</param>

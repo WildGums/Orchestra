@@ -13,60 +13,21 @@ namespace Orchestra.Modules
     /// Base class for all modules used by Orchestra.
     /// </summary>
     [Module]
-    public abstract class ModuleBase : IModule, IServiceProvider
+    public abstract class ModuleBase : Catel.Modules.ModuleBase
     {
         /// <summary>
         /// The modules directory name.
         /// </summary>
         public const string ModulesDirectory = "Modules";
 
-        #region Properties
-        #endregion
-
-        #region Methods
         /// <summary>
-        /// Notifies the module that it has be initialized.
+        /// Initializes a new instance of the <see cref="ModuleBase"/> class.
         /// </summary>
-        public void Initialize()
-        {
-            OnInitializing();
-
-            OnInitialized();
-        }
-
-        /// <summary>
-        /// Called when the module is initializing.
-        /// </summary>
-        protected virtual void OnInitializing()
+        /// <param name="moduleName">Name of the module.</param>
+        /// <exception cref="ArgumentException">The <paramref name="moduleName"/> is <c>null</c> or whitespace.</exception>
+        protected ModuleBase(string moduleName) 
+            : base(moduleName)
         {
         }
-
-        /// <summary>
-        /// Called when the module has been initialized.
-        /// </summary>
-        protected virtual void OnInitialized()
-        {
-        }
-
-        /// <summary>
-        /// Gets the service object of the specified type.
-        /// </summary>
-        /// <param name="serviceType">An object that specifies the type of service object to get.</param>
-        /// <returns>A service object of type <paramref name="serviceType"/>.-or- null if there is no service object of type <paramref name="serviceType"/>.</returns>
-        public object GetService(Type serviceType)
-        {
-            return Catel.IoC.ServiceLocator.Instance.ResolveType(serviceType);
-        }
-
-        /// <summary>
-        /// Gets the service object of the specified type.
-        /// </summary>
-        /// <typeparam name="T">Type of the service.</typeparam>
-        /// <returns>The service instance.</returns>
-        public T GetService<T>()
-        {
-            return (T) GetService(typeof (T));
-        }
-        #endregion
     }
 }
