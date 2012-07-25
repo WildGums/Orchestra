@@ -7,6 +7,7 @@
 namespace Orchestra.Modules.OxyPlot.ViewModels
 {
     using System;
+    using Catel;
     using Catel.MVVM;
     using global::OxyPlot;
 
@@ -17,11 +18,15 @@ namespace Orchestra.Modules.OxyPlot.ViewModels
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="OxyPlotViewModel"/> class.
+        /// Initializes a new instance of the <see cref="OxyPlotViewModel" /> class.
         /// </summary>
-        public OxyPlotViewModel()
+        /// <param name="plotModel">The plot model.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="plotModel"/> is <c>null</c>.</exception>
+        public OxyPlotViewModel(global::OxyPlot.Models.PlotModel plotModel)
         {
-            CreateDemoModels();
+            Argument.IsNotNull("plotModel", plotModel);
+
+            PlotModel = TransformPlotModelIntoActualPlotModel(plotModel);
         }
         #endregion
 
@@ -32,44 +37,21 @@ namespace Orchestra.Modules.OxyPlot.ViewModels
         /// <value>The title.</value>
         public override string Title
         {
-            get { return "Plot demo"; }
+            get { return "OxyPlot"; }
         }
 
         /// <summary>
-        /// Gets the first demo model.
+        /// Gets the OxyPlot model.
         /// </summary>
-        public PlotModel Model1 { get; private set; }
-
-        /// <summary>
-        /// Gets the second demo model.
-        /// </summary>
-        public PlotModel Model2 { get; private set; }
-
-        /// <summary>
-        /// Gets the third demo model.
-        /// </summary>
-        public PlotModel Model3 { get; private set; }
-
-        /// <summary>
-        /// Gets the fourth demo model.
-        /// </summary>
-        public PlotModel Model4 { get; private set; }
-        #endregion
-
-        #region Commands
-        // TODO: Register commands with the vmcommand or vmcommandwithcanexecute codesnippets
+        public PlotModel PlotModel { get; private set; }
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Creates the demo models.
-        /// </summary>
-        private void CreateDemoModels()
+        private static PlotModel TransformPlotModelIntoActualPlotModel(global::OxyPlot.Models.PlotModel plotModel)
         {
-            Model1 = CreateSquareWaveDemoModel();
-            Model2 = CreateLinePlotModel();
-            Model3 = CreatePieModel();
-            Model4 = CreatePolarModel();
+            Argument.IsNotNull("plotModel", plotModel);
+
+            throw new NotImplementedException();
         }
 
         private PlotModel CreateSquareWaveDemoModel()

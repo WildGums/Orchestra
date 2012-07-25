@@ -16,10 +16,7 @@
             <ColumnDefinition Width="*" />
         </catel:StackGrid.ColumnDefinitions>
 
-        <oxy:Plot Model="{Binding Model1}" />
-        <oxy:Plot Model="{Binding Model2}" />
-        <oxy:Plot Model="{Binding Model3}" />
-        <oxy:Plot Model="{Binding Model4}" />
+        <oxy:Plot Model="{Binding PlotModel}" />
     </catel:StackGrid>
     
 </orchestra:DocumentView>

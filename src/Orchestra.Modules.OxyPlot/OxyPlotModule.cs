@@ -6,10 +6,13 @@
 
 namespace Orchestra.Modules.OxyPlot
 {
+    using Catel.IoC;
     using Catel.MVVM;
     using Models;
+    using Orchestra.Services;
     using Services;
     using ViewModels;
+    using global::OxyPlot.Services;
 
     /// <summary>
     /// The oxyplot module.
@@ -36,12 +39,8 @@ namespace Orchestra.Modules.OxyPlot
         /// </summary>
         protected override void OnInitialized()
         {
-            var orchestraService = GetService<IOrchestraService>();
-
-            var showRibbonItem = new RibbonItem(ModuleName, ModuleName, "Show", new Command(() => orchestraService.ShowDocument<OxyPlotViewModel>()));
-            orchestraService.AddRibbonItem(showRibbonItem);
-
-            orchestraService.ShowDocument<OxyPlotViewModel>();
+            var serviceLocator = ServiceLocator.Instance;
+            serviceLocator.RegisterType<IOxyPlotService, OxyPlotService>();
         }
     }
 }
