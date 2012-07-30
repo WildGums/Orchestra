@@ -16,14 +16,14 @@ namespace OxyPlot.Models
         /// </summary>
         Line,
 
-        /// <summary>
-        /// Bar series.
-        /// </summary>
-        Bar,
+        ///// <summary>
+        ///// Bar series.
+        ///// </summary>
+        //Bar,
 
-        /// <summary>
-        /// Column series.
-        /// </summary>
-        Column
+        ///// <summary>
+        ///// Column series.
+        ///// </summary>
+        //Column
     }
 }

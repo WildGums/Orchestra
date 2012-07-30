@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Plot.cs" company="Orchestra development team">
+// <copyright file="OxyPlotModel.cs" company="Orchestra development team">
 //   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -13,23 +13,36 @@ namespace OxyPlot.Models
     /// <summary>
     /// Defines plot data that can be drawn in OxyPlot.
     /// </summary>
-    public class PlotModel
+    public class OxyPlotModel
     {
+        #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="PlotModel" /> class.
+        /// Initializes a new instance of the <see cref="OxyPlotModel" /> class.
         /// </summary>
+        /// <param name="serieType">The serie type.</param>.
         /// <param name="name">The name.</param>
         /// <param name="legend">The legend.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="name"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="legend"/> is <c>null</c>.</exception>
-        public PlotModel(string name, string legend)
+        public OxyPlotModel(SerieTypes serieType, string name, string legend)
         {
             Argument.IsNotNull("name", name);
             Argument.IsNotNull("legend", legend);
 
+            SerieType = serieType;
             Name = name;
             Legend = legend;
+
+            Series = new List<LineSeries>();
         }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Gets the serie type.
+        /// </summary>
+        /// <value>The serie type.</value>
+        public SerieTypes SerieType { get; private set; }
 
         /// <summary>
         /// Gets the name.
@@ -66,5 +79,12 @@ namespace OxyPlot.Models
         /// </summary>
         /// <value>The Y values.</value>
         public List<double> YValues { get; set; }
+
+        /// <summary>
+        /// Gets the line series.
+        /// </summary>
+        /// <value>The line series.</value>
+        public List<LineSeries> Series { get; private set; }
+        #endregion
     }
 }

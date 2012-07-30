@@ -1,4 +1,6 @@
 Orchestra FAQ
 =============
 
-The FAQ can be found at http://orchestra.catenalogic.com
+1) I get an error that the url cannot be registered
+
+This is when running WCF services on a local machine. Please run ..\tools\register local url.bat as administrator

@@ -6,13 +6,15 @@
 
 namespace Orchestra.Modules.OxyPlot
 {
+    using System;
+    using System.ServiceModel;
+    using System.ServiceModel.Web;
     using Catel.IoC;
-    using Catel.MVVM;
-    using Models;
-    using Orchestra.Services;
+    using Catel.Logging;
+    using Nancy;
     using Services;
-    using ViewModels;
     using global::OxyPlot.Services;
+    using Nancy.Hosting.Wcf;
 
     /// <summary>
     /// The oxyplot module.
@@ -23,6 +25,21 @@ namespace Orchestra.Modules.OxyPlot
         /// The module name.
         /// </summary>
         public const string Name = "OxyPlot";
+
+        /// <summary>
+        /// The log.
+        /// </summary>
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        /// <summary>
+        /// The base uri.
+        /// </summary>
+        private static readonly Uri BaseUri = new Uri("http://localhost:4242/oxyplot/");
+
+        /// <summary>
+        /// The web service host.
+        /// </summary>
+        private WebServiceHost _host;
 
         #region Constructors
         /// <summary>
@@ -41,6 +58,14 @@ namespace Orchestra.Modules.OxyPlot
         {
             var serviceLocator = ServiceLocator.Instance;
             serviceLocator.RegisterType<IOxyPlotService, OxyPlotService>();
+
+            Log.Info("Starting OxyPlot web service at address '{0}'", BaseUri);
+
+            _host = new WebServiceHost(new NancyWcfGenericService(new DefaultNancyBootstrapper()), BaseUri);
+            _host.AddServiceEndpoint(typeof(NancyWcfGenericService), new WebHttpBinding(), string.Empty);
+            _host.Open();
+
+            Log.Info("Started OxyPlot web service at address '{0}'", BaseUri);
         }
     }
 }

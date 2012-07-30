@@ -22,11 +22,11 @@ namespace Orchestra.Modules.OxyPlot.ViewModels
         /// </summary>
         /// <param name="plotModel">The plot model.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="plotModel"/> is <c>null</c>.</exception>
-        public OxyPlotViewModel(global::OxyPlot.Models.PlotModel plotModel)
+        public OxyPlotViewModel(global::OxyPlot.Models.OxyPlotModel plotModel)
         {
             Argument.IsNotNull("plotModel", plotModel);
 
-            PlotModel = TransformPlotModelIntoActualPlotModel(plotModel);
+            PlotModel = plotModel.TransformPlotModelIntoActualPlotModel();
         }
         #endregion
 
@@ -47,13 +47,6 @@ namespace Orchestra.Modules.OxyPlot.ViewModels
         #endregion
 
         #region Methods
-        private static PlotModel TransformPlotModelIntoActualPlotModel(global::OxyPlot.Models.PlotModel plotModel)
-        {
-            Argument.IsNotNull("plotModel", plotModel);
-
-            throw new NotImplementedException();
-        }
-
         private PlotModel CreateSquareWaveDemoModel()
         {
             var model = new PlotModel("Square wave");

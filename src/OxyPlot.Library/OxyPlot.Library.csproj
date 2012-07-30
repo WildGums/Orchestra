@@ -50,6 +50,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Catel.MVVM.3.2.1207201411-beta\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -60,7 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\PlotModel.cs" />
+    <Compile Include="Models\DataPoint.cs" />
+    <Compile Include="Models\LineSeries.cs" />
+    <Compile Include="Models\OxyPlotModel.cs" />
     <Compile Include="Models\SerieTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IOxyPlotService.cs" />

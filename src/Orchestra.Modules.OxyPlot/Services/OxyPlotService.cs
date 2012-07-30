@@ -30,7 +30,7 @@ namespace Orchestra.Modules.OxyPlot.Services
         /// </summary>
         /// <param name="plotModel">The plotModel.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="plotModel"/> is <c>null</c>.</exception>
-        public void Plot(PlotModel plotModel)
+        public void Plot(OxyPlotModel plotModel)
         {
             Argument.IsNotNull("plotModel", plotModel);
 

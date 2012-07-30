@@ -51,7 +51,15 @@
             var files = Directory.GetFiles(ModuleBase.ModulesDirectory, "*.dll", SearchOption.AllDirectories);
             foreach (var file in files)
             {
-                if (file.Contains(assemblyName))
+                var fileInfo = new FileInfo(file);
+                var fileAssemblyName = fileInfo.Name;
+                int extensionStart = fileAssemblyName.LastIndexOf(fileInfo.Extension);
+                if (extensionStart > 0)
+                {
+                    fileAssemblyName = fileAssemblyName.Substring(0, extensionStart);
+                }
+
+                if (string.Equals(fileAssemblyName, assemblyName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     return ResolveAssemblyAndReferencedAssemblies(file);
                 }
@@ -77,6 +85,21 @@
             {
                 if (!appDomain.GetAssemblies().Any(a => string.CompareOrdinal(a.GetName().Name, referencedAssembly.Name) == 0))
                 {
+                    // First, try to load from GAC
+                    if (referencedAssembly.GetPublicKeyToken() != null)
+                    {
+                        try
+                        {
+                            appDomain.Load(referencedAssembly.FullName);
+                            continue;
+                        }
+                        catch (Exception)
+                        {
+                            Log.Debug("Failed to load assembly '{0}' from GAC, trying local file", referencedAssembly.FullName);
+                        }
+                    }
+
+                    // Second, try to load from directory
                     var referencedAssemblyPath = Path.Combine(assemblyDirectory, referencedAssembly.Name + ".dll");
                     ResolveAssemblyAndReferencedAssemblies(referencedAssemblyPath);
                 }

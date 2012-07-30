@@ -48,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4E196E
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.OxyPlotConsumer", "Orchestra.Examples.OxyPlotConsumer\Orchestra.Examples.OxyPlotConsumer.csproj", "{9CA43424-CA3E-4C49-92EC-84D4CD9BD4FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,10 @@ Global
 		{375D8D80-3540-4CAA-A15C-CF580CDFC6D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{375D8D80-3540-4CAA-A15C-CF580CDFC6D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{375D8D80-3540-4CAA-A15C-CF580CDFC6D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CA43424-CA3E-4C49-92EC-84D4CD9BD4FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CA43424-CA3E-4C49-92EC-84D4CD9BD4FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CA43424-CA3E-4C49-92EC-84D4CD9BD4FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CA43424-CA3E-4C49-92EC-84D4CD9BD4FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,5 +106,6 @@ Global
 		{1718ED0D-7219-48B2-B9F5-6C91EE01EB0B} = {F303DD2B-42E8-448D-B2F4-F2A6B0E29A25}
 		{375D8D80-3540-4CAA-A15C-CF580CDFC6D0} = {F303DD2B-42E8-448D-B2F4-F2A6B0E29A25}
 		{5D766F57-F5E8-4D13-8443-02CFA7D93F10} = {1CA9559C-A511-4B77-9BE7-9BA84AF029F0}
+		{9CA43424-CA3E-4C49-92EC-84D4CD9BD4FB} = {B8DAF83A-CF12-4C39-8359-FFA5D970DE5E}
 	EndGlobalSection
 EndGlobal
