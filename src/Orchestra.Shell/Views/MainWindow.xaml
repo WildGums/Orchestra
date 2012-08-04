@@ -29,8 +29,7 @@
 
                     <avalondock:LayoutAnchorablePaneGroup DockHeight="225">
                         <avalondock:LayoutAnchorablePane>
-                            <avalondock:LayoutAnchorable ContentId="traceOutputAnchorable" Title="Debugging window"
-                                                         IconSource="/AvalonDock.TestApp;component/Images/address-book--pencil.png">
+                            <avalondock:LayoutAnchorable ContentId="traceOutputAnchorable" Title="Debugging window">
                                 <catel:TraceOutputControl />
                             </avalondock:LayoutAnchorable>
                         </avalondock:LayoutAnchorablePane>

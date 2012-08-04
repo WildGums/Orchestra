@@ -39,9 +39,9 @@
             InitializeComponent();
 
             _windowLogic = new WindowLogic(this, typeof(MainWindowViewModel));
-            _windowLogic.ViewModelChanged += (s, e) => ViewModelChanged.SafeInvoke(s, e);
-            _windowLogic.ViewModelPropertyChanged += (s, e) => ViewModelPropertyChanged.SafeInvoke(s, e);
-            _windowLogic.PropertyChanged += (s, e) => PropertyChanged.SafeInvoke(s, e);
+            _windowLogic.ViewModelChanged += (s, e) => ViewModelChanged.SafeInvoke(this, e);
+            _windowLogic.ViewModelPropertyChanged += (s, e) => ViewModelPropertyChanged.SafeInvoke(this, e);
+            _windowLogic.PropertyChanged += (s, e) => PropertyChanged.SafeInvoke(this, e);
 
             var serviceLocator = ServiceLocator.Instance;
 
