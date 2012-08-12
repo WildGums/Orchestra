@@ -27,9 +27,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Modules.Browser", "Orchestra.Modules.Browser\Orchestra.Modules.Browser.csproj", "{229FD375-8CE6-4A12-A722-10BF916265AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5D766F57-F5E8-4D13-8443-02CFA7D93F10}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{1CA9559C-A511-4B77-9BE7-9BA84AF029F0}"
 EndProject

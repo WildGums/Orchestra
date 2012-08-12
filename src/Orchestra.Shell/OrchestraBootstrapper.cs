@@ -6,9 +6,16 @@
 
 namespace Orchestra
 {
+    using System.Threading;
     using System.Windows;
     using Catel;
+    using Catel.IoC;
     using Catel.Logging;
+    using Catel.MVVM;
+    using Catel.MVVM.Services;
+    using Catel.MVVM.Tasks;
+    using Catel.MVVM.ViewModels;
+    using Catel.Windows;
     using Microsoft.Practices.Prism.Modularity;
     using Modules;
     using Services;
@@ -50,8 +57,6 @@ namespace Orchestra
         {
             base.ConfigureContainer();
 
-            Catel.Environment.RegisterDefaultViewModelServices();
-
             Container.RegisterType<IOrchestraService, OrchestraService>();
         }
 
@@ -72,9 +77,18 @@ namespace Orchestra
         {
             var shell = new MainWindow();
 
-            shell.Show();
-
             return shell;
+        }
+
+        /// <summary>
+        /// Initializes the shell.
+        /// </summary>
+        protected override void InitializeShell()
+        {
+            var mainWindow = (MainWindow) Shell;
+
+            mainWindow.Show();
+            mainWindow.BringWindowToTop();
         }
         #endregion
     }

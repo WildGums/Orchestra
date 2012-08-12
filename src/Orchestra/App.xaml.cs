@@ -5,7 +5,10 @@
     using System.Linq;
     using System.Reflection;
     using System.Windows;
+    using Catel.IoC;
     using Catel.Logging;
+    using Catel.MVVM;
+    using Catel.MVVM.ViewModels;
     using Catel.Reflection;
     using Catel.Windows;
     using Modules;
@@ -31,8 +34,17 @@
 
             StyleHelper.CreateStyleForwardersForDefaultStyles(Current.Resources.MergedDictionaries[1]);
 
+            var serviceLocator = ServiceLocator.Instance;
+            Catel.Environment.RegisterDefaultViewModelServices();
+
+            var viewLocator = serviceLocator.ResolveType<IViewLocator>();
+            viewLocator.Register(typeof(ProgressNotifyableViewModel), typeof(Views.SplashScreen));
+
+            var viewModelLocator = serviceLocator.ResolveType<IViewModelLocator>();
+            viewModelLocator.Register(typeof(Views.SplashScreen), typeof(ProgressNotifyableViewModel));
+
             var bootstrapper = new OrchestraBootstrapper();
-            bootstrapper.Run();
+            bootstrapper.RunWithSplashScreen<ProgressNotifyableViewModel>();
 
             base.OnStartup(e);
         }

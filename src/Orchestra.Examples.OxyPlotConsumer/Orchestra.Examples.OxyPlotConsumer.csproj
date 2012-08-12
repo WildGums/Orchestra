@@ -64,7 +64,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.Core.3.2.1208021008-beta\lib\NET40\Catel.Core.dll</HintPath>
+      <HintPath>..\..\lib\Catel.Core.3.2.1208121328-beta\lib\NET40\Catel.Core.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Newtonsoft.Json.4.5.8\lib\net40\Newtonsoft.Json.dll</HintPath>
