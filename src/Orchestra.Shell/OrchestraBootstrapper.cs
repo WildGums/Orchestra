@@ -38,25 +38,31 @@ namespace Orchestra
 
             var appDomain = AppDomain.CurrentDomain;
             appDomain.AssemblyResolve += OnAssemblyResolve;
+
+            string modulesDirectory = ModulesDirectory;
+            if (!Directory.Exists(modulesDirectory))
+            {
+                Log.Warning("Modules path '{0}' is missing, creating it", modulesDirectory);
+
+                Directory.CreateDirectory(modulesDirectory);
+            }
         }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// The modules directory.
+        /// </summary>
+        private string ModulesDirectory { get { return Path.Combine(".", ModuleBase.ModulesDirectory); } }
         #endregion
 
         #region Methods
         /// <summary>
         /// Creates the <see cref="T:Microsoft.Practices.Prism.Modularity.IModuleCatalog"/> used by Prism.
         /// </summary>
-        /// <returns></returns>
         protected override IModuleCatalog CreateModuleCatalog()
         {
-            var moduleCatalog = new DirectoryModuleCatalog { ModulePath = @".\" + ModuleBase.ModulesDirectory};
-
-            string directory = moduleCatalog.ModulePath;
-            if (!Directory.Exists(directory))
-            {
-                Log.Warning("Modules path '{0}' is missing, creating it", directory);
-
-                Directory.CreateDirectory(directory);
-            }
+            var moduleCatalog = new DirectoryModuleCatalog { ModulePath = ModulesDirectory };
 
             moduleCatalog.Initialize();
 
