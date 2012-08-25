@@ -12,6 +12,8 @@
     <AssemblyName>Orchestra.Modules.Browser</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,7 +37,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.Core.3.2.1208211704-beta\lib\NET40\Catel.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Catel.Core.3.2.1208121328-beta\lib\NET40\Catel.Core.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Extensions.Controls, Version=3.3.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Catel.Extensions.Controls.3.2.1208211704-beta\lib\NET40\Catel.Extensions.Controls.dll</HintPath>
@@ -122,4 +125,5 @@
   <Target Name="AfterBuild">
   </Target>
   <Import Project="$(SolutionDir)\Tools\Fody\Fody.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>
