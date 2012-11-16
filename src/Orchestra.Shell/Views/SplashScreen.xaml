@@ -5,7 +5,7 @@
                   WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="true">
     
     <Grid>
-        <Image HorizontalAlignment="Stretch" Height="357" Width="574" VerticalAlignment="Stretch"  Source="/Orchestra.Shell;component/Resources/Images/SplashScreen.png" Margin="0" />
+        <Image x:Name="splashScreenImage" HorizontalAlignment="Stretch" Height="357" Width="574" VerticalAlignment="Stretch" Margin="0" />
         <ProgressBar Value="{Binding Percentage}" Height="27" HorizontalAlignment="Left" Margin="12,318,0,0" VerticalAlignment="Top" Width="550" />
         <Label Content="{Binding TaskName}" Height="27" HorizontalAlignment="Left" Margin="24,318,0,0" VerticalAlignment="Top" Width="538" VerticalContentAlignment="Center" />
     </Grid>

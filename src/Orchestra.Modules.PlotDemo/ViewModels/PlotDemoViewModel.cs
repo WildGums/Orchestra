@@ -13,7 +13,7 @@ namespace Orchestra.Modules.PlotDemo.ViewModels
     /// <summary>
     /// PlotDemo view model.
     /// </summary>
-    public class PlotDemoViewModel : ViewModelBase
+    public class PlotDemoViewModel : Orchestra.ViewModels.ViewModelBase
     {
         #region Constructors
         /// <summary>

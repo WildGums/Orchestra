@@ -14,7 +14,7 @@ namespace Orchestra.Modules.OxyPlot.ViewModels
     /// <summary>
     /// PlotDemo view model.
     /// </summary>
-    public class OxyPlotViewModel : ViewModelBase
+    public class OxyPlotViewModel : Orchestra.ViewModels.ViewModelBase
     {
         #region Constructors
         /// <summary>
