@@ -8,6 +8,7 @@ namespace Orchestra.Views
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Windows.Input;
     using Catel;
     using Catel.IoC;
@@ -31,6 +32,9 @@ namespace Orchestra.Views
         /// </summary>
         public DocumentView()
         {
+            if (EnvironmentHelper.IsProcessHostedByTool() || DesignerProperties.GetIsInDesignMode(this))
+                return;
+
             CloseViewModelOnUnloaded = false;
         }
 
