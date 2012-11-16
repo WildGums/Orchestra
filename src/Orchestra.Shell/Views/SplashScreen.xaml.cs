@@ -6,6 +6,10 @@
 
 namespace Orchestra.Views
 {
+    using System;
+    using System.IO;
+    using System.Reflection;
+    using System.Windows.Media.Imaging;
     using Catel.Windows;
 
     /// <summary>
@@ -13,6 +17,9 @@ namespace Orchestra.Views
     /// </summary>
     public partial class SplashScreen : DataWindow
     {
+        private const string SplashScreenLocation = "Resources\\Images\\SplashScreen.png";
+        private const string SplashScreenFallbackLocation = "/Orchestra.Shell;component/Resources/Images/SplashScreen.png";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SplashScreen" /> class.
         /// </summary>
@@ -20,15 +27,32 @@ namespace Orchestra.Views
             : base(DataWindowMode.Custom)
         {
             InitializeComponent();
+
+            InitializeSplashScreen();
         }
 
         /// <summary>
-        /// Called when a property on the current <see cref="P:Catel.Windows.DataWindow.ViewModel" /> has changed.
+        /// Initializes the splash screen.
         /// </summary>
-        /// <param name="e">The <see cref="T:System.ComponentModel.PropertyChangedEventArgs" /> instance containing the event data.</param>
-        protected override void OnViewModelPropertyChanged(System.ComponentModel.PropertyChangedEventArgs e)
+        private void InitializeSplashScreen()
         {
-            base.OnViewModelPropertyChanged(e);
+            var directory = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+
+            try
+            {
+                string firstAttemptFile = Path.Combine(directory, SplashScreenLocation);
+                if (File.Exists(firstAttemptFile))
+                {
+                    splashScreenImage.Source = new BitmapImage(new Uri(firstAttemptFile, UriKind.Absolute));
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                // Swallow exception
+            }
+
+            splashScreenImage.Source = new BitmapImage(new Uri(SplashScreenFallbackLocation, UriKind.RelativeOrAbsolute));
         }
     }
 }

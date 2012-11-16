@@ -47,6 +47,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4E196E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.OxyPlotConsumer", "Orchestra.Examples.OxyPlotConsumer\Orchestra.Examples.OxyPlotConsumer.csproj", "{9CA43424-CA3E-4C49-92EC-84D4CD9BD4FB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{81EB4E1A-06AF-4C1B-A4E4-74015061D64A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "csharp", "csharp", "{B6E7F67D-60DF-4CF6-865B-D6AB7AA3AB2A}"
+	ProjectSection(SolutionItems) = preProject
+		..\templates\C#\Orchestra.Module.zip = ..\templates\C#\Orchestra.Module.zip
+		..\templates\C#\Orchestra.Shell.zip = ..\templates\C#\Orchestra.Shell.zip
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,5 +112,6 @@ Global
 		{375D8D80-3540-4CAA-A15C-CF580CDFC6D0} = {F303DD2B-42E8-448D-B2F4-F2A6B0E29A25}
 		{5D766F57-F5E8-4D13-8443-02CFA7D93F10} = {1CA9559C-A511-4B77-9BE7-9BA84AF029F0}
 		{9CA43424-CA3E-4C49-92EC-84D4CD9BD4FB} = {B8DAF83A-CF12-4C39-8359-FFA5D970DE5E}
+		{B6E7F67D-60DF-4CF6-865B-D6AB7AA3AB2A} = {81EB4E1A-06AF-4C1B-A4E4-74015061D64A}
 	EndGlobalSection
 EndGlobal

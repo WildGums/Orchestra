@@ -13,7 +13,7 @@ namespace Orchestra.Modules.Browser.ViewModels
     /// <summary>
     /// UserControl view model.
     /// </summary>
-    public class BrowserViewModel : ViewModelBase
+    public class BrowserViewModel : Orchestra.ViewModels.ViewModelBase
     {
         private readonly List<string> _previousPages = new List<string>();
         private readonly List<string> _nextPages = new List<string>();
