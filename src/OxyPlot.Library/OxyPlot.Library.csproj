@@ -37,21 +37,21 @@
     <DocumentationFile>..\..\output\release\Client\OxyPlot.Library.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.Core, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Core.3.2.1209051950-beta\lib\NET40\Catel.Core.dll</HintPath>
+      <HintPath>..\packages\Catel.Core.3.3.1211181944-beta\lib\NET40\Catel.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Controls, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.Extensions.Controls, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Extensions.Controls.3.2.1209051950-beta\lib\NET40\Catel.Extensions.Controls.dll</HintPath>
+      <HintPath>..\packages\Catel.Extensions.Controls.3.3.1211181944-beta\lib\NET40\Catel.Extensions.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Prism, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.Extensions.Prism, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Extensions.Prism.3.2.1209051950-beta\lib\NET40\Catel.Extensions.Prism.dll</HintPath>
+      <HintPath>..\packages\Catel.Extensions.Prism.3.3.1211181944-beta\lib\NET40\Catel.Extensions.Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.MVVM, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.MVVM, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.MVVM.3.2.1209051950-beta\lib\net40\Catel.MVVM.dll</HintPath>
+      <HintPath>..\packages\Catel.MVVM.3.3.1211181944-beta\lib\net40\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,8 +59,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.MVVM.3.2.1209051950-beta\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\Catel.MVVM.3.3.1211181944-beta\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />

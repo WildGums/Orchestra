@@ -18,7 +18,7 @@
         {
             InitializeComponent();
 
-            var messageMediator = ServiceLocator.Instance.ResolveType<IMessageMediator>();
+            var messageMediator = ServiceLocator.Default.ResolveType<IMessageMediator>();
             messageMediator.Register<string>(this, OnBrowse, BrowserModule.Name);
         }
 

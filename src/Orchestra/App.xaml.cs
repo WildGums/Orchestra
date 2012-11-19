@@ -19,7 +19,7 @@
         {
             StyleHelper.CreateStyleForwardersForDefaultStyles(Current.Resources.MergedDictionaries[1]);
 
-            var serviceLocator = ServiceLocator.Instance;
+            var serviceLocator = ServiceLocator.Default;
             Catel.Environment.RegisterDefaultViewModelServices();
 
             var viewLocator = serviceLocator.ResolveType<IViewLocator>();
