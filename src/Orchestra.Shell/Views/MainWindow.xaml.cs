@@ -6,6 +6,7 @@
     using System.Windows;
     using AvalonDock.Layout;
     using Catel;
+    using Catel.Data;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
@@ -41,9 +42,9 @@
             _windowLogic = new WindowLogic(this, typeof(MainWindowViewModel));
             _windowLogic.ViewModelChanged += (s, e) => ViewModelChanged.SafeInvoke(this, e);
             _windowLogic.ViewModelPropertyChanged += (s, e) => ViewModelPropertyChanged.SafeInvoke(this, e);
-            _windowLogic.TargetControlPropertyChanged += (s, e) => PropertyChanged.SafeInvoke(this, e);
+            _windowLogic.TargetControlPropertyChanged += (s, e) => PropertyChanged.SafeInvoke(this, new AdvancedPropertyChangedEventArgs(s, this, e.PropertyName, e.OldValue, e.NewValue));
 
-            var serviceLocator = ServiceLocator.Instance;
+            var serviceLocator = ServiceLocator.Default;
 
             serviceLocator.RegisterInstance(this);
             serviceLocator.RegisterInstance(ribbon);
@@ -79,7 +80,7 @@
         /// This event makes it possible to externally subscribe to property changes of a <see cref="DependencyObject"/>
         /// (mostly the container of a view model) because the .NET Framework does not allows us to.
         /// </remarks>
-        public event EventHandler<PropertyChangedEventArgs> PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Determines whether the anchorable with the specified name is currently visible.

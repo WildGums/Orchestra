@@ -27,8 +27,8 @@ namespace Orchestra
         /// <summary>
         /// Ensures that a tab item with the specified header exists.
         /// </summary>
-        /// <param header="ribbon">The ribbon.</param>
-        /// <param header="header">The header.</param>
+        /// <param name="ribbon">The ribbon.</param>
+        /// <param name="header">The header.</param>
         /// <returns>The existing or newly created <see cref="RibbonTabItem"/>.</returns>
         /// <exception cref="ArgumentNullException">The <paramref header="ribbon"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">The <paramref header="header"/> is <c>null</c> or whitespace.</exception>
@@ -54,8 +54,8 @@ namespace Orchestra
         /// <summary>
         /// Ensures that a groupbox with the specified header exists.
         /// </summary>
-        /// <param header="tabItem">The tab item.</param>
-        /// <param header="header">The header.</param>
+        /// <param name="tabItem">The tab item.</param>
+        /// <param name="header">The header.</param>
         /// <returns>The existing or newlhy created <see cref="RibbonGroupBox"/>.</returns>
         /// <exception cref="ArgumentNullException">The <paramref header="tabItem"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">The <paramref header="header"/> is <c>null</c> or whitespace.</exception>

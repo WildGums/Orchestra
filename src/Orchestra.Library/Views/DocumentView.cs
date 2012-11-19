@@ -55,7 +55,7 @@ namespace Orchestra.Views
         {
             Argument.IsNotNull("ribbonItem", ribbonItem);
 
-            var orchestraService = ServiceLocator.Instance.ResolveType<IOrchestraService>();
+            var orchestraService = ServiceLocator.Default.ResolveType<IOrchestraService>();
             orchestraService.AddRibbonItem(ribbonItem);
 
             _ribbonItems.Add(ribbonItem);
@@ -68,7 +68,7 @@ namespace Orchestra.Views
         /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         protected override void OnViewModelClosed(object sender, Catel.MVVM.ViewModelClosedEventArgs e)
         {
-            var orchestraService = ServiceLocator.Instance.ResolveType<IOrchestraService>();
+            var orchestraService = ServiceLocator.Default.ResolveType<IOrchestraService>();
 
             foreach (var ribbonItem in _ribbonItems)
             {

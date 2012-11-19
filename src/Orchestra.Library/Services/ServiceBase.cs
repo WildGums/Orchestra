@@ -21,7 +21,7 @@ namespace Orchestra.Services
         /// <returns>A service object of type <paramref name="serviceType"/>.-or- null if there is no service object of type <paramref name="serviceType"/>.</returns>
         public object GetService(Type serviceType)
         {
-            return Catel.IoC.ServiceLocator.Instance.ResolveType(serviceType);
+            return Catel.IoC.ServiceLocator.Default.ResolveType(serviceType);
         }
 
         /// <summary>

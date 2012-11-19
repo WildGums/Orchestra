@@ -59,7 +59,7 @@ namespace Orchestra.Examples.OxyPlotConsumer
             var model = new OxyPlotModel(SerieTypes.Line, "Test", "legend");
 
             // Create two line series (markers are hidden by default)
-            var series1 = new LineSeries("Series 1"); //{ MarkerType = MarkerType.Circle };
+            var series1 = new LineSeries("Series 1"); // { MarkerType = MarkerType.Circle };
             series1.Points.Add(new DataPoint(0, 0));
             series1.Points.Add(new DataPoint(10, 18));
             series1.Points.Add(new DataPoint(20, 12));

@@ -56,7 +56,7 @@ namespace Orchestra.Modules.OxyPlot
         /// </summary>
         protected override void OnInitialized()
         {
-            var serviceLocator = ServiceLocator.Instance;
+            var serviceLocator = ServiceLocator.Default;
             serviceLocator.RegisterType<IOxyPlotService, OxyPlotService>();
 
             Log.Info("Starting OxyPlot web service at address '{0}'", BaseUri);

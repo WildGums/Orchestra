@@ -38,10 +38,10 @@ namespace Orchestra
         /// <remarks></remarks>
         static AvalonDockHelper()
         {
-            DockingManager = ServiceLocator.Instance.ResolveType<DockingManager>();
+            DockingManager = ServiceLocator.Default.ResolveType<DockingManager>();
             DockingManager.DocumentClosed += OnDockingManagerDocumentClosed;
 
-            LayoutDocumentPane = ServiceLocator.Instance.ResolveType<LayoutDocumentPane>();
+            LayoutDocumentPane = ServiceLocator.Default.ResolveType<LayoutDocumentPane>();
         }
 
         #region Properties
@@ -50,7 +50,7 @@ namespace Orchestra
         /// </summary>
         private static IRegionManager RegionManager
         {
-            get { return ServiceLocator.Instance.ResolveType<IRegionManager>(); }
+            get { return ServiceLocator.Default.ResolveType<IRegionManager>(); }
         }
         #endregion
 

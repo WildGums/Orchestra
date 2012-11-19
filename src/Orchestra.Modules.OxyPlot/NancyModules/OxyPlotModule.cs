@@ -29,7 +29,7 @@ namespace Orchestra.Modules.OxyPlot.NancyModules
         /// </summary>
         public OxyPlotModule()
         {
-            var serviceLocator = ServiceLocator.Instance;
+            var serviceLocator = ServiceLocator.Default;
             _service = serviceLocator.ResolveType<IOxyPlotService>();
 
             Get["/"] = parameters =>
