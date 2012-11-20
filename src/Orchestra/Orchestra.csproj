@@ -108,7 +108,9 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <None Include="app.config" />
-    <None Include="FodyWeavers.xml" />
+    <None Include="FodyWeavers.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
