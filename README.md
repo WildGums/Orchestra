@@ -1,6 +1,6 @@
 # Orchestra
 
-Orchestra is a composable shell built on top of [Catel](Catel.Codeplex.com).
+Orchestra is a composable shell built on top of [Catel](http://Catel.Codeplex.com).
 
 Orchestra consists of a main shell including an SDK with services that allows developers to communicate with the shell. Developers can write their own modules which implement the actual functionality of their application.
 
@@ -10,7 +10,7 @@ These modules can communicate with the shell, but also with each other through t
 
 - Framework developed with best practices in mind which will allow you to deploy robust applications
 - Allows you to focus on the business logic so you application will be completed a lot sooner
-- Built on [Catel](Catel.Codeplex.com) and all that goes with it giving you a head start on your project
+- Built on [Catel](http://Catel.Codeplex.com) and all that goes with it giving you a head start on your project
 - Nuget packages released regulary:
     - [Orchestra.Library](http://nuget.org/packages/Orchestra.Library)
     - [Orchestra.Shell](http://nuget.org/packages/Orchestra.Shell)
@@ -22,10 +22,10 @@ These modules can communicate with the shell, but also with each other through t
 Orchestra uses a plugin architecture with some already well know open source libraries already implemented:
 
 - [AvalonDock](http://avalondock.codeplex.com/) (docking library)
-- [Catel](Catel.Codeplex.com) (MVVM framework plut a lot more)
+- [Catel](http://Catel.Codeplex.com) (MVVM framework plut a lot more)
 - [Fluent Ribbon](http://fluent.codeplex.com/)
 - [Prism](http://compositewpf.codeplex.com/)
-- [Nancy](www.nancyfx.org) (Lightweight Web Framework for .NET)
+- [Nancy](http://www.nancyfx.org) (Lightweight Web Framework for .NET)
 - [OxyPlot](http://oxyplot.codeplex.com/) (Cross platform plotting library - Work in progress)
 - [DataGrid](http://wpftoolkit.codeplex.com/) coming soon...
 
