@@ -22,7 +22,7 @@ namespace Orchestra.Modules.Browser
         public const string Name = "Browser";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// Initializes a new instance of the <see cref="BrowserModule"/> class. 
         /// </summary>
         public BrowserModule()
             : base(Name)
