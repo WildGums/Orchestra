@@ -1,45 +1,46 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="BrowserModule.cs" company="Orchestra development team">
+// <copyright file="DataGridModule.cs" company="Orchestra development team">
 //   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Orchestra.Modules.Browser
+namespace Orchestra.Modules.DataGrid
 {
     using Catel.MVVM;
-    using Models;
-    using Services;
-    using ViewModels;
+
+    using Orchestra.Models;
+    using Orchestra.Modules.DataGrid.ViewModels;
+    using Orchestra.Services;
 
     /// <summary>
-    /// Browser module.
+    /// The data grid module.
     /// </summary>
-    public class BrowserModule : ModuleBase
+    public class DataGridModule : ModuleBase
     {
         /// <summary>
         /// The module name.
         /// </summary>
-        public const string Name = "Browser";
+        public const string Name = "DataGrid";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BrowserModule"/> class. 
+        /// Initializes a new instance of the <see cref="DataGridModule" /> class.
         /// </summary>
-        public BrowserModule()
+        public DataGridModule()
             : base(Name)
         {
         }
 
         /// <summary>
-        /// Called when the module has been initialized.
+        /// The on initialized.
         /// </summary>
         protected override void OnInitialized()
         {
             var orchestraService = GetService<IOrchestraService>();
 
-            var openRibbonItem = new RibbonItem(ModuleName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>()));
-            orchestraService.AddRibbonItem(openRibbonItem);
+            var open = new RibbonItem(ModuleName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<DataGridViewModel>()));
+            orchestraService.AddRibbonItem(open);
 
-            orchestraService.ShowDocument<BrowserViewModel>();
+            orchestraService.ShowDocument<DataGridViewModel>();
         }
     }
 }

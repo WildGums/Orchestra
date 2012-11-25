@@ -1,58 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1718ED0D-7219-48B2-B9F5-6C91EE01EB0B}</ProjectGuid>
+    <ProjectGuid>{192792F7-68A2-4816-B5CD-00D8B94ACB4F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Orchestra</RootNamespace>
-    <AssemblyName>Orchestra.Shell</AssemblyName>
+    <RootNamespace>Orchestra.Modules.DataGrid</RootNamespace>
+    <AssemblyName>Orchestra.Modules.DataGrid</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\output\debug\Client\</OutputPath>
+    <OutputPath>..\..\output\debug\Client\Modules\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\output\debug\Client\Orchestra.Shell.XML</DocumentationFile>
+    <DocumentationFile>..\..\output\debug\Client\Modules\Orchestra.Modules.DataGrid.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\output\release\Client\</OutputPath>
+    <OutputPath>..\..\output\release\Client\Modules\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\output\release\Client\Orchestra.Shell.XML</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\output\release\Client\Modules\Orchestra.Modules.DataGrid.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AvalonDock, Version=2.0.1715.0, Culture=neutral, PublicKeyToken=96637cf0d3eefdfb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.dll</HintPath>
-    </Reference>
-    <Reference Include="AvalonDock.Themes.Aero, Version=2.0.1715.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.Themes.Aero.dll</HintPath>
-    </Reference>
-    <Reference Include="AvalonDock.Themes.Expression, Version=2.0.1715.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.Themes.Expression.dll</HintPath>
-    </Reference>
-    <Reference Include="AvalonDock.Themes.VS2010, Version=2.0.1715.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AvalonDock.2.0.1715\lib\net40\AvalonDock.Themes.VS2010.dll</HintPath>
-    </Reference>
     <Reference Include="Catel.Core, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Catel.Core.3.3.1211241220-beta\lib\NET40\Catel.Core.dll</HintPath>
@@ -69,20 +55,22 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Catel.MVVM.3.3.1211241220-beta\lib\net40\Catel.MVVM.dll</HintPath>
     </Reference>
-    <Reference Include="Fluent, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Fluent.Ribbon.2.0.0\lib\net40\Fluent.dll</HintPath>
+    <Reference Include="CsvHelper">
+      <HintPath>..\packages\CsvHelper.1.12.1\lib\net40-client\CsvHelper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Prism">
+    <Reference Include="Microsoft.Practices.Prism, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Prism.Interactivity">
+    <Reference Include="Microsoft.Practices.Prism.Interactivity, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -99,46 +87,40 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <None Include="FodyWeavers.xml" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\LayoutInitializer.cs" />
-    <Compile Include="OrchestraBootstrapper.cs" />
+    <Compile Include="..\Orchestra\Properties\SolutionAssemblyInfo.cs">
+      <Link>Properties\SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="DataGridModule.cs" />
+    <Compile Include="ViewModels\DataGridViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\OrchestraService.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Views\DataGridView.xaml.cs">
+      <DependentUpon>DataGridView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SplashScreen.xaml.cs">
-      <DependentUpon>SplashScreen.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\SplashScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Orchestra.Library\Orchestra.Library.csproj">
-      <Project>{433BCE8B-95AE-4628-ABED-86A224D5E8C9}</Project>
+      <Project>{433bce8b-95ae-4628-abed-86a224d5e8c9}</Project>
       <Name>Orchestra.Library</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\SplashScreen.png" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Views\DataGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -148,5 +130,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="$(ProjectPath)\..\..\Tools\Fody\Fody.targets" />
   <Import Project="$(ProjectPath)\..\..\Tools\Pepita\PepitaGet.targets" />
 </Project>
