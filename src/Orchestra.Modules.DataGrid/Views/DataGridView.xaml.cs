@@ -31,6 +31,12 @@ namespace Orchestra.Modules.DataGrid.Views
             get { return (DataGridViewModel)base.ViewModel; }
         }
 
+        /// <summary>
+        /// Initializes the ribbon.
+        /// <para />
+        /// This is an ease-of-use method to register ribbons without having to care about any view model initialization. This
+        /// method is only invoked once and when a view model is available.
+        /// </summary>
         protected override void InitializeRibbon()
         {
             AddRibbonItem(new RibbonItem(DataGridModule.Name, DataGridModule.Name, "Open file", ViewModel.OpenFileCommand));
