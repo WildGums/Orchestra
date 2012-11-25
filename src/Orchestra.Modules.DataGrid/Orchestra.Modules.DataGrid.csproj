@@ -131,4 +131,5 @@
   </Target>
   -->
   <Import Project="$(ProjectPath)\..\..\Tools\Fody\Fody.targets" />
+  <Import Project="$(ProjectPath)\..\..\Tools\Pepita\PepitaGet.targets" />
 </Project>
