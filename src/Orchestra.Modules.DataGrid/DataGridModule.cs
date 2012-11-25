@@ -13,17 +13,17 @@ namespace Orchestra.Modules.DataGrid
     using Orchestra.Services;
 
     /// <summary>
-    ///     The data grid module.
+    /// The data grid module.
     /// </summary>
     public class DataGridModule : ModuleBase
     {
         /// <summary>
-        ///     The module name.
+        /// The module name.
         /// </summary>
         public const string Name = "DataGrid";
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="DataGridModule" /> class.
+        /// Initializes a new instance of the <see cref="DataGridModule" /> class.
         /// </summary>
         public DataGridModule()
             : base(Name)
@@ -31,7 +31,7 @@ namespace Orchestra.Modules.DataGrid
         }
 
         /// <summary>
-        ///     The on initialized.
+        /// The on initialized.
         /// </summary>
         protected override void OnInitialized()
         {

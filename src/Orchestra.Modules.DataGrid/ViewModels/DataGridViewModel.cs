@@ -50,11 +50,15 @@ namespace Orchestra.Modules.DataGrid.ViewModels
             var openFileService = GetService<IOpenFileService>();
             openFileService.Filter = "*.csv|*.csv";
             if (!openFileService.DetermineFile())
+            {
                 return;
+            }
 
             var reader = new CsvReader(new StreamReader(openFileService.FileName));
             if (!reader.Read())
+            {
                 return;
+            }
 
             var dataTable = new DataTable();
             dataTable.Columns.AddRange(reader.FieldHeaders.Select(columnName => new DataColumn(columnName)).ToArray());
@@ -88,7 +92,9 @@ namespace Orchestra.Modules.DataGrid.ViewModels
             var saveFileService = GetService<ISaveFileService>();
             saveFileService.Filter = "*.csv|*.csv";
             if (!saveFileService.DetermineFile())
+            {
                 return;
+            }
 
             using (var writer = new CsvWriter(new StreamWriter(saveFileService.FileName)))
             {
@@ -96,14 +102,18 @@ namespace Orchestra.Modules.DataGrid.ViewModels
 
                 // Writing columns.
                 foreach (DataColumn column in dataTable.Columns)
+                {
                     writer.WriteField(column);
+                }
                 writer.NextRecord();
 
                 // Writing data rows.
                 foreach (DataRow row in dataTable.Rows)
                 {
                     foreach (DataColumn column in dataTable.Columns)
+                    {
                         writer.WriteField(row[column]);
+                    }
                     writer.NextRecord();
                 }
             }
