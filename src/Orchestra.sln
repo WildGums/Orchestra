@@ -43,11 +43,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyPlot.Library", "OxyPlot.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{B8DAF83A-CF12-4C39-8359-FFA5D970DE5E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4E196E76-C51F-48FC-9A57-9B1860C7E027}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.OxyPlotConsumer", "Orchestra.Examples.OxyPlotConsumer\Orchestra.Examples.OxyPlotConsumer.csproj", "{9CA43424-CA3E-4C49-92EC-84D4CD9BD4FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{81EB4E1A-06AF-4C1B-A4E4-74015061D64A}"

@@ -123,5 +123,4 @@
   <Target Name="AfterBuild">
   </Target>
   <Import Project="$(SolutionDir)\Tools\Fody\Fody.targets" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>
