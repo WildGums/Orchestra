@@ -34,7 +34,14 @@ namespace Orchestra
         /// </summary>
         public OrchestraBootstrapper()
         {
+#if DEBUG
             LogManager.RegisterDebugListener();
+#endif
+
+            Log.Debug("Optimizing performance by disable the WarningAndErrorValidator in Catel");
+
+            Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
+            Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
 
             var appDomain = AppDomain.CurrentDomain;
             appDomain.AssemblyResolve += OnAssemblyResolve;

@@ -255,4 +255,6 @@ II.2.12 &lt;HandlesEvent /&gt;&#xD;
   Copyright (c) 2008 - $CURRENT_YEAR$ Orchestra development team. All rights reserved.&#xD;
 &lt;/copyright&gt;&#xD;
 --------------------------------------------------------------------------------------------------------------------</s:String>
-	<s:String x:Key="/Default/Environment/UserInterface/ShortcutSchemeName/@EntryValue">None</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/Environment/UserInterface/ShortcutSchemeName/@EntryValue">None</s:String>
+	<s:String x:Key="/Default/FilterSettingsManager/AttributeFilterXml/@EntryValue">&lt;data /&gt;</s:String>
+	<s:String x:Key="/Default/FilterSettingsManager/CoverageFilterXml/@EntryValue">&lt;data&gt;&lt;IncludeFilters /&gt;&lt;ExcludeFilters /&gt;&lt;/data&gt;</s:String></wpf:ResourceDictionary>

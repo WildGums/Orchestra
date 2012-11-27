@@ -19,6 +19,11 @@
         {
             StyleHelper.CreateStyleForwardersForDefaultStyles(Current.Resources.MergedDictionaries[1]);
 
+            // Example of best performance options for Catel (but at the cost of validation features)
+            Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
+            Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
+            Catel.Data.ModelBase.SuspendValidationForAllModels = true;
+
             var serviceLocator = ServiceLocator.Default;
             Catel.Environment.RegisterDefaultViewModelServices();
 
