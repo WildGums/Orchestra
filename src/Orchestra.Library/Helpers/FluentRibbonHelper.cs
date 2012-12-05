@@ -38,7 +38,7 @@ namespace Orchestra
             Argument.IsNotNullOrWhitespace("header", header);
 
             var tabItem = (from tab in ribbon.Tabs
-                           where string.Compare(tab.Header.ToString(), header) == 0
+                           where String.CompareOrdinal(tab.Header.ToString(), header) == 0
                            select tab).FirstOrDefault();
             if (tabItem == null)
             {
