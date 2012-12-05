@@ -26,22 +26,15 @@ namespace Orchestra.Services
 
         private readonly MainWindow _shell;
 
-        private readonly LayoutDocumentPane _layoutDocumentPane;
-        
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrchestraService"/> class.
+        /// Initializes a new instance of the <see cref="OrchestraService" /> class.
         /// </summary>
         /// <param name="shell">The shell.</param>
-        /// <param name="layoutDocumentPane">The layout document pane</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="shell"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="layoutDocumentPane"/> is <c>null</c>.</exception>
-        public OrchestraService(MainWindow shell, LayoutDocumentPane layoutDocumentPane)
+        public OrchestraService(MainWindow shell)
         {
             Argument.IsNotNull("shell", shell);
-            Argument.IsNotNull("layoutDocumentPane", layoutDocumentPane);
 
             _shell = shell;
-            _layoutDocumentPane.PropertyChanged += OnLayoutDocumentPanePropertyChange;
         }
 
         /// <summary>
@@ -108,23 +101,14 @@ namespace Orchestra.Services
         }
 
         /// <summary>
-        /// Adds a new ribbon item to the main ribbon.
+        /// Adds the specified ribbon item to the main ribbon.
         /// </summary>
         /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        /// <exception cref="System.NotImplementedException"></exception>
         public void AddRibbonItem(IRibbonItem ribbonItem)
         {
-            Argument.IsNotNull("ribbonItem", ribbonItem);
-
-            Log.Debug("Adding ribbon item '{0}'", ribbonItem);
-
-            var ribbon = GetService<Ribbon>();
-
-            var tab = ribbon.EnsureTabItem(ribbonItem.TabItemHeader);
-            var group = tab.EnsureGroupBox(ribbonItem.GroupBoxHeader);
-            group.AddButton(ribbonItem.ItemHeader, ribbonItem.ItemImage, ribbonItem.ItemImage, ribbonItem.Command);
-
-            Log.Debug("Added ribbon item '{0}'", ribbonItem);
+            // Marked obsolete on the interface
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -133,43 +117,11 @@ namespace Orchestra.Services
         /// This method will ignore calls when the item is not available in the ribbon.
         /// </summary>
         /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        /// <exception cref="System.NotImplementedException"></exception>
         public void RemoveRibbonItem(IRibbonItem ribbonItem)
         {
-            Argument.IsNotNull("ribbonItem", ribbonItem);
-
-            Log.Debug("Removing ribbon '{0}'", ribbonItem);
-
-            var ribbon = GetService<Ribbon>();
-            ribbon.RemoveItem(ribbonItem);
-
-            Log.Debug("Removed ribbon '{0}'", ribbonItem);
-        }
-
-        private void OnLayoutDocumentPanePropertyChange(object sender, PropertyChangedEventArgs e)
-        {
-            if (string.Equals(e.PropertyName, "SelectedContent"))
-            {
-                Log.Debug("SelectedContent changed, activating the right ribbon");
-
-                var ribbon = GetService<Ribbon>();
-
-                var documentView = _layoutDocumentPane.SelectedContent as IDocumentView;
-                if (documentView == null)
-                {
-                    Log.Debug("SelectecContent is not a document view, selecting home ribbon item");
-
-                    ribbon.SelectedTabIndex = 0;
-                    return;
-                }
-
-                //var documentViewRibbon = documentView.
-
-                // TODO: Find ribbon item, select it
-
-                // TODO: If no ribbon item is available, select home
-
-            }
+            // Marked obsolete on the interface
+            throw new NotImplementedException();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Orchestra.Modules.DataGrid
     using Orchestra.Models;
     using Orchestra.Modules.DataGrid.ViewModels;
     using Orchestra.Services;
+    using Views;
 
     /// <summary>
     /// The data grid module.
@@ -36,11 +37,25 @@ namespace Orchestra.Modules.DataGrid
         protected override void OnInitialized()
         {
             var orchestraService = GetService<IOrchestraService>();
-
-            var open = new RibbonItem(ModuleName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<DataGridViewModel>()));
-            orchestraService.AddRibbonItem(open);
-
             orchestraService.ShowDocument<DataGridViewModel>();
+        }
+
+        /// <summary>
+        /// Initializes the ribbon.
+        /// <para />
+        /// Use this method to hook up views to ribbon items.
+        /// </summary>
+        /// <param name="ribbonService">The ribbon service.</param>
+        protected override void InitializeRibbon(IRibbonService ribbonService)
+        {
+            var orchestraService = GetService<IOrchestraService>();
+
+            // Module specific
+            ribbonService.RegisterRibbonItem(new RibbonItem(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<DataGridViewModel>())));
+
+            // View specific
+            ribbonService.RegisterViewSpecificRibbonItem<DataGridView>(new RibbonItem(Name, Name, "Open file", "OpenFileCommand"));
+            ribbonService.RegisterViewSpecificRibbonItem<DataGridView>(new RibbonItem(Name, Name, "Save file", "SaveToFileCommand"));
         }
     }
 }

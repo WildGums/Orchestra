@@ -19,7 +19,6 @@ namespace Orchestra.Services
         /// Gets or sets a value indicating whether to show the debug window.
         /// </summary>
         /// <value><c>true</c> if the debug window should be shown; otherwise, <c>false</c>.</value>
-        /// <remarks></remarks>
         bool ShowDebuggingWindow { get; set; }
 
         /// <summary>
@@ -45,6 +44,7 @@ namespace Orchestra.Services
         /// </summary>
         /// <param name="ribbonItem">The ribbon item.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        [ObsoleteEx(Replacement = "IRibbonService", TreatAsErrorFromVersion = "0.1", RemoveInVersion = "1.0")]
         void AddRibbonItem(IRibbonItem ribbonItem);
 
         /// <summary>
@@ -54,6 +54,7 @@ namespace Orchestra.Services
         /// </summary>
         /// <param name="ribbonItem">The ribbon item.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        [ObsoleteEx(Replacement = "IRibbonService", TreatAsErrorFromVersion = "0.1", RemoveInVersion = "1.0")]
         void RemoveRibbonItem(IRibbonItem ribbonItem);
     }
 }

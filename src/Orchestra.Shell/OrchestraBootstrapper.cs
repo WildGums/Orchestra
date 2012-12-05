@@ -84,6 +84,7 @@ namespace Orchestra
             base.ConfigureContainer();
 
             Container.RegisterType<IOrchestraService, OrchestraService>();
+            Container.RegisterType<IRibbonService, RibbonService>();
         }
 
         /// <summary>

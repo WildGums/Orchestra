@@ -35,11 +35,24 @@ namespace Orchestra.Modules.PlotDemo
         protected override void OnInitialized()
         {
             var orchestraService = GetService<IOrchestraService>();
-
-            var showRibbonItem = new RibbonItem(ModuleName, ModuleName, "Show", new Command(() => orchestraService.ShowDocument<PlotDemoViewModel>()));
-            orchestraService.AddRibbonItem(showRibbonItem);
-
             orchestraService.ShowDocument<PlotDemoViewModel>();
+        }
+
+        /// <summary>
+        /// Initializes the ribbon.
+        /// <para />
+        /// Use this method to hook up views to ribbon items.
+        /// </summary>
+        /// <param name="ribbonService">The ribbon service.</param>
+        protected override void InitializeRibbon(IRibbonService ribbonService)
+        {
+            var orchestraService = GetService<IOrchestraService>();
+
+            // Module specific
+            ribbonService.RegisterRibbonItem(new RibbonItem(HomeRibbonTabName, ModuleName, "Show", new Command(() => orchestraService.ShowDocument<PlotDemoViewModel>())));
+
+            // View specific
+            // TODO: Register view specific ribbon items
         }
     }
 }

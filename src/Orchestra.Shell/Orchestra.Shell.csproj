@@ -112,6 +112,7 @@
     <Compile Include="OrchestraBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\OrchestraService.cs" />
+    <Compile Include="Services\RibbonService.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
