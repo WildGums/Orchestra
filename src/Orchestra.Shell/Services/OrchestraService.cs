@@ -52,7 +52,7 @@ namespace Orchestra.Services
                 }
                 else
                 {
-                    _shell.ShowAnchorable(MainWindow.TraceOutputAnchorable);
+                    _shell.HideAnchorable(MainWindow.TraceOutputAnchorable);
                 }
             }
         }
