@@ -38,19 +38,19 @@
   <ItemGroup>
     <Reference Include="Catel.Core, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Catel.Core.3.3.1211261932-beta\lib\NET40\Catel.Core.dll</HintPath>
+      <HintPath>..\packages\Catel.Core.3.3.1212052007-beta\lib\NET40\Catel.Core.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Extensions.Controls, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Catel.Extensions.Controls.3.3.1211261932-beta\lib\NET40\Catel.Extensions.Controls.dll</HintPath>
+      <HintPath>..\packages\Catel.Extensions.Controls.3.3.1212052007-beta\lib\NET40\Catel.Extensions.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Extensions.Prism, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Catel.Extensions.Prism.3.3.1211261932-beta\lib\NET40\Catel.Extensions.Prism.dll</HintPath>
+      <HintPath>..\packages\Catel.Extensions.Prism.3.3.1212052007-beta\lib\NET40\Catel.Extensions.Prism.dll</HintPath>
     </Reference>
     <Reference Include="Catel.MVVM, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Catel.MVVM.3.3.1211261932-beta\lib\net40\Catel.MVVM.dll</HintPath>
+      <HintPath>..\packages\Catel.MVVM.3.3.1212052007-beta\lib\net40\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
@@ -64,12 +64,15 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Obsolete">
+      <HintPath>..\packages\Obsolete.Fody.1.3.0.0\lib\NET40\Obsolete.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Catel.MVVM.3.3.1211261932-beta\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\Catel.MVVM.3.3.1212052007-beta\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -118,10 +121,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets. -->
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
+  <Target Name="BeforeBuild"></Target>
+  <Target Name="AfterBuild"></Target>
   <Import Project="$(SolutionDir)\Tools\Fody\Fody.targets" />
   <Import Project="$(ProjectPath)\..\..\Tools\Pepita\PepitaGet.targets" />
 </Project>

@@ -8,6 +8,7 @@ namespace Orchestra.Modules
 {
     using System;
     using Microsoft.Practices.Prism.Modularity;
+    using Services;
 
     /// <summary>
     /// Base class for all modules used by Orchestra.
@@ -28,6 +29,17 @@ namespace Orchestra.Modules
         protected ModuleBase(string moduleName) 
             : base(moduleName)
         {
+        }
+
+        /// <summary>
+        /// Initializes the ribbon.
+        /// <para />
+        /// Use this method to hook up views to ribbon items.
+        /// </summary>
+        /// <param name="ribbonService">The ribbon service.</param>
+        public virtual void InitializeRibbon(IRibbonService ribbonService)
+        {
+            
         }
     }
 }
