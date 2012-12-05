@@ -7,8 +7,11 @@
 namespace Orchestra.Services
 {
     using System;
+    using System.ComponentModel;
     using System.Windows.Input;
+    using AvalonDock.Layout;
     using Catel;
+    using Catel.Logging;
     using Catel.MVVM;
     using Fluent;
     using Models;
@@ -19,21 +22,26 @@ namespace Orchestra.Services
     /// </summary>
     public class OrchestraService : ServiceBase, IOrchestraService
     {
-        /// <summary>
-        /// The shell.
-        /// </summary>
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         private readonly MainWindow _shell;
+
+        private readonly LayoutDocumentPane _layoutDocumentPane;
         
         /// <summary>
         /// Initializes a new instance of the <see cref="OrchestraService"/> class.
         /// </summary>
         /// <param name="shell">The shell.</param>
+        /// <param name="layoutDocumentPane">The layout document pane</param>
         /// <exception cref="ArgumentNullException">The <paramref name="shell"/> is <c>null</c>.</exception>
-        public OrchestraService(MainWindow shell)
+        /// <exception cref="ArgumentNullException">The <paramref name="layoutDocumentPane"/> is <c>null</c>.</exception>
+        public OrchestraService(MainWindow shell, LayoutDocumentPane layoutDocumentPane)
         {
             Argument.IsNotNull("shell", shell);
+            Argument.IsNotNull("layoutDocumentPane", layoutDocumentPane);
 
             _shell = shell;
+            _layoutDocumentPane.PropertyChanged += OnLayoutDocumentPanePropertyChange;
         }
 
         /// <summary>
@@ -82,6 +90,8 @@ namespace Orchestra.Services
         {
             Argument.IsNotNull("viewModel", viewModel);
 
+            Log.Debug("Showing document for view model '{0}'", viewModel.UniqueIdentifier);
+
             var viewLocator = GetService<IViewLocator>();
             var viewType = viewLocator.ResolveView(viewModel.GetType());
 
@@ -93,6 +103,8 @@ namespace Orchestra.Services
             }
 
             AvalonDockHelper.ActivateDocument(document);
+
+            Log.Debug("Showed document for view model '{0}'", viewModel.UniqueIdentifier);
         }
 
         /// <summary>
@@ -104,11 +116,15 @@ namespace Orchestra.Services
         {
             Argument.IsNotNull("ribbonItem", ribbonItem);
 
+            Log.Debug("Adding ribbon item '{0}'", ribbonItem);
+
             var ribbon = GetService<Ribbon>();
 
             var tab = ribbon.EnsureTabItem(ribbonItem.TabItemHeader);
             var group = tab.EnsureGroupBox(ribbonItem.GroupBoxHeader);
             group.AddButton(ribbonItem.ItemHeader, ribbonItem.ItemImage, ribbonItem.ItemImage, ribbonItem.Command);
+
+            Log.Debug("Added ribbon item '{0}'", ribbonItem);
         }
 
         /// <summary>
@@ -122,8 +138,38 @@ namespace Orchestra.Services
         {
             Argument.IsNotNull("ribbonItem", ribbonItem);
 
+            Log.Debug("Removing ribbon '{0}'", ribbonItem);
+
             var ribbon = GetService<Ribbon>();
             ribbon.RemoveItem(ribbonItem);
+
+            Log.Debug("Removed ribbon '{0}'", ribbonItem);
+        }
+
+        private void OnLayoutDocumentPanePropertyChange(object sender, PropertyChangedEventArgs e)
+        {
+            if (string.Equals(e.PropertyName, "SelectedContent"))
+            {
+                Log.Debug("SelectedContent changed, activating the right ribbon");
+
+                var ribbon = GetService<Ribbon>();
+
+                var documentView = _layoutDocumentPane.SelectedContent as IDocumentView;
+                if (documentView == null)
+                {
+                    Log.Debug("SelectecContent is not a document view, selecting home ribbon item");
+
+                    ribbon.SelectedTabIndex = 0;
+                    return;
+                }
+
+                //var documentViewRibbon = documentView.
+
+                // TODO: Find ribbon item, select it
+
+                // TODO: If no ribbon item is available, select home
+
+            }
         }
     }
 }

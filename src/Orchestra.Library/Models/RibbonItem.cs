@@ -37,6 +37,8 @@ namespace Orchestra.Models
             GroupBoxHeader = groupBoxHeader;
             ItemHeader = itemHeader;
             Command = command;
+
+            OnlyShowWhenTabIsActivated = false;
         }
 
         /// <summary>
@@ -68,5 +70,11 @@ namespace Orchestra.Models
         /// </summary>
         /// <value>The command.</value>
         public ICommand Command { get; private set; }
+
+        /// <summary>
+        /// Gets a value indiciating whether this ribbon item should only be shown when 
+        /// the tab is actually activated.
+        /// </summary>
+        public bool OnlyShowWhenTabIsActivated { get; set; }
     }
 }

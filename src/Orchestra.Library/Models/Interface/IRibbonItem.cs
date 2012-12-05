@@ -41,5 +41,11 @@ namespace Orchestra.Models
         /// </summary>
         /// <value>The command.</value>
         ICommand Command { get; }
+
+        /// <summary>
+        /// Gets a value indiciating whether this ribbon item should only be shown when 
+        /// the tab is actually activated.
+        /// </summary>
+        bool OnlyShowWhenTabIsActivated { get; set; }
     }
 }

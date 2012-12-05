@@ -24,9 +24,7 @@ namespace Orchestra.Views
     /// </summary>
     public class DocumentView : UserControl, IDocumentView
     {
-        private readonly List<IRibbonItem> _ribbonItems = new List<IRibbonItem>();
-
-        private bool _initializedRibbon;
+        private List<IRibbonItem> _ribbonItems;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentView"/> class. 
@@ -34,7 +32,9 @@ namespace Orchestra.Views
         public DocumentView()
         {
             if (Catel.Environment.IsInDesignMode)
+            {
                 return;
+            }
 
             CloseViewModelOnUnloaded = false;
         }
@@ -49,43 +49,45 @@ namespace Orchestra.Views
         }
         #endregion
 
-        /// <summary>
-        /// Adds an item to the ribbon. As soon as the view is closed, the item is removed from the ribbon again.
-        /// </summary>
-        /// <param name="ribbonItem">
-        /// The ribbon item.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// The <paramref name="ribbonItem"/> is <c>null</c>.
-        /// </exception>
-        protected void AddRibbonItem(IRibbonItem ribbonItem)
-        {
-            Argument.IsNotNull("ribbonItem", ribbonItem);
+        ///// <summary>
+        ///// Adds an item to the ribbon. As soon as the view is closed, the item is removed from the ribbon again.
+        ///// </summary>
+        ///// <param name="ribbonItem">
+        ///// The ribbon item.
+        ///// </param>
+        ///// <exception cref="ArgumentNullException">
+        ///// The <paramref name="ribbonItem"/> is <c>null</c>.
+        ///// </exception>
+        //protected void AddRibbonItem(IRibbonItem ribbonItem)
+        //{
+        //    Argument.IsNotNull("ribbonItem", ribbonItem);
 
-            var orchestraService = ServiceLocator.Default.ResolveType<IOrchestraService>();
-            orchestraService.AddRibbonItem(ribbonItem);
+        //    var orchestraService = ServiceLocator.Default.ResolveType<IOrchestraService>();
+        //    orchestraService.AddRibbonItem(ribbonItem);
 
-            _ribbonItems.Add(ribbonItem);
-        }
+        //    _ribbonItems.Add(ribbonItem);
+        //}
 
-        /// <summary>
-        /// Called when the <see cref="P:Catel.Windows.Controls.UserControl.ViewModel"/> has been closed.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="T:System.EventArgs"/> instance containing the event data.
-        /// </param>
-        protected override void OnViewModelClosed(object sender, ViewModelClosedEventArgs e)
-        {
-            var orchestraService = ServiceLocator.Default.ResolveType<IOrchestraService>();
+        ///// <summary>
+        ///// Called when the <see cref="P:Catel.Windows.Controls.UserControl.ViewModel"/> has been closed.
+        ///// </summary>
+        ///// <param name="sender">
+        ///// The sender.
+        ///// </param>
+        ///// <param name="e">
+        ///// The <see cref="T:System.EventArgs"/> instance containing the event data.
+        ///// </param>
+        //protected override void OnViewModelClosed(object sender, ViewModelClosedEventArgs e)
+        //{
+        //    var orchestraService = ServiceLocator.Default.ResolveType<IOrchestraService>();
 
-            foreach (IRibbonItem ribbonItem in _ribbonItems)
-                orchestraService.RemoveRibbonItem(ribbonItem);
+        //    foreach (IRibbonItem ribbonItem in _ribbonItems)
+        //    {
+        //        orchestraService.RemoveRibbonItem(ribbonItem);
+        //    }
 
-            _ribbonItems.Clear();
-        }
+        //    _ribbonItems.Clear();
+        //}
 
         /// <summary>
         /// Initializes the ribbon.
@@ -93,20 +95,19 @@ namespace Orchestra.Views
         /// This is an ease-of-use method to register ribbons without having to care about any view model initialization. This
         /// method is only invoked once and when a view model is available.
         /// </summary>
+        [Obsolete("Use GetRibbonItems instead", true)]
         protected virtual void InitializeRibbon()
         {
         }
 
         /// <summary>
-        /// Called when the <see cref="P:Catel.Windows.Controls.UserControl.ViewModel"/> has changed.
+        /// Returns a list of <see cref="IRibbonItem"/> elements that should be visible in the ribbon. The
+        /// framework will automatically take care of the adding and removing of the ribbon items.
         /// </summary>
-        protected override void OnViewModelChanged()
+        /// <returns>The ribbon items.</returns>
+        public virtual IEnumerable<IRibbonItem> GetRibbonItems()
         {
-            if (ViewModel == null || _initializedRibbon)
-                return;
-
-            InitializeRibbon();
-            _initializedRibbon = true;
+            return new List<IRibbonItem>();
         }
     }
 }
