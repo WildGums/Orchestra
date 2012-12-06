@@ -6,17 +6,22 @@
 
 namespace Orchestra.Modules.DataGrid.ViewModels
 {
-    using System.Data;
+    using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
+    using System.Windows;
 
+    using Catel;
     using Catel.Data;
     using Catel.MVVM;
     using Catel.MVVM.Services;
 
     using CsvHelper;
 
-    using ViewModelBase = Orchestra.ViewModels.ViewModelBase;
+    using Orchestra.Modules.DataGrid.Models;
+
+    using TableView;
 
     /// <summary>
     /// The data grid view model.
@@ -28,8 +33,25 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         /// </summary>
         public override string Title
         {
-            get { return "Data grid"; }
+            get { return "DataGrid"; }
         }
+
+        #region Items property
+        /// <summary>
+        /// Items property data.
+        /// </summary>
+        public static readonly PropertyData ItemsProperty = RegisterProperty(
+            "Items", typeof(ObservableCollection<Row>), () => new ObservableCollection<Row>());
+
+        /// <summary>
+        /// Gets or sets the Items value.
+        /// </summary>
+        public ObservableCollection<Row> Items
+        {
+            get { return GetValue<ObservableCollection<Row>>(ItemsProperty); }
+            set { SetValue(ItemsProperty, value); }
+        }
+        #endregion
 
         #region OpenFile command
         private Command _openFileCommand;
@@ -54,22 +76,43 @@ namespace Orchestra.Modules.DataGrid.ViewModels
                 return;
             }
 
+            ObservableCollection<Row> items = Items;
+            ObservableCollection<TableViewColumn> columns = Columns;
+
+            Debug.Assert(items != null);
+            Debug.Assert(columns != null);
+
+            items.Clear();
+            columns.Clear();
+
             var reader = new CsvReader(new StreamReader(openFileService.FileName));
             if (!reader.Read())
             {
                 return;
             }
 
-            var dataTable = new DataTable();
-            dataTable.Columns.AddRange(reader.FieldHeaders.Select(columnName => new DataColumn(columnName)).ToArray());
+            for (int i = 0; i < reader.FieldHeaders.Length; i++)
+            {
+                string fieldHeader = reader.FieldHeaders[i];
+                Columns.Add(
+                    new TableViewColumn { Title = fieldHeader, ContextBindingPath = string.Format("Cells[{0}]", i), Padding = new Thickness(0) });
+            }
 
             do
             {
-                dataTable.Rows.Add(reader.CurrentRecord);
+                if (reader.CurrentRecord == null)
+                {
+                    continue;
+                }
+
+                var row = new Row();
+                for (int i = 0; i < Columns.Count; i++)
+                {
+                    row.Cells.Add(new StringCell(reader.CurrentRecord[i]));
+                }
+                Items.Add(row);
             }
             while (reader.Read());
-
-            DataTable = dataTable;
         }
         #endregion
 
@@ -98,21 +141,21 @@ namespace Orchestra.Modules.DataGrid.ViewModels
 
             using (var writer = new CsvWriter(new StreamWriter(saveFileService.FileName)))
             {
-                DataTable dataTable = DataTable;
+                ObservableCollection<Row> items = Items;
 
                 // Writing columns.
-                foreach (DataColumn column in dataTable.Columns)
+                foreach (TableViewColumn column in Columns)
                 {
-                    writer.WriteField(column);
+                    writer.WriteField(column.Title);
                 }
                 writer.NextRecord();
 
                 // Writing data rows.
-                foreach (DataRow row in dataTable.Rows)
+                foreach (Row row in items)
                 {
-                    foreach (DataColumn column in dataTable.Columns)
+                    foreach (int iColumn in Enumerable.Range(0, Columns.Count))
                     {
-                        writer.WriteField(row[column]);
+                        writer.WriteField(row.Cells[iColumn].Value);
                     }
                     writer.NextRecord();
                 }
@@ -120,20 +163,27 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         }
         #endregion
 
-        #region DataTable property
+        #region Columns property
         /// <summary>
-        /// DataTable property data.
+        /// Columns property data.
         /// </summary>
-        public static readonly PropertyData DataTableProperty = RegisterProperty("DataTable", typeof(DataTable));
+        public static readonly PropertyData ColumnsProperty = RegisterProperty(
+            "Columns", typeof(ObservableCollection<TableViewColumn>), () => new ObservableCollection<TableViewColumn>());
 
         /// <summary>
-        /// Gets or sets the DataTable value.
+        /// Gets or sets the Columns value.
         /// </summary>
-        public DataTable DataTable
+        public ObservableCollection<TableViewColumn> Columns
         {
-            get { return GetValue<DataTable>(DataTableProperty); }
-            set { SetValue(DataTableProperty, value); }
+            get { return GetValue<ObservableCollection<TableViewColumn>>(ColumnsProperty); }
+            set { SetValue(ColumnsProperty, value); }
         }
         #endregion
+
+        private static string GetSafeColumnName(string columnName)
+        {
+            Argument.IsNotNullOrWhitespace("columnName", columnName);
+            return columnName.Replace(" ", "_").Replace("-", "_").Replace("/", "_").Replace(".", "_");
+        }
     }
 }
