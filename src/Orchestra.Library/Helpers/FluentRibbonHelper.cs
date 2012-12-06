@@ -57,6 +57,33 @@ namespace Orchestra
         }
 
         /// <summary>
+        /// Ensures that a contextual tab item group with the specified header exists.
+        /// </summary>
+        /// <param name="ribbon">The ribbon.</param>
+        /// <param name="header">The header.</param>
+        /// <returns>The existing or newly created <see cref="RibbonTabItem"/>.</returns>
+        /// <exception cref="ArgumentNullException">The <paramref header="ribbon"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="header"/> is <c>null</c> or whitespace.</exception>
+        public static RibbonContextualTabGroup EnsureContextualTabGroup(this Ribbon ribbon, string header)
+        {
+            Argument.IsNotNull("ribbon", ribbon);
+            Argument.IsNotNullOrWhitespace("header", header);
+
+            var tabGroup = (from tab in ribbon.ContextualGroups
+                            where string.Equals(tab.Header, header)
+                            select tab).FirstOrDefault();
+            if (tabGroup == null)
+            {
+                tabGroup = new RibbonContextualTabGroup();
+                tabGroup.Header = header;
+
+                ribbon.ContextualGroups.Add(tabGroup);
+            }
+
+            return tabGroup;
+        }
+
+        /// <summary>
         /// Ensures that a tab item with the specified header exists.
         /// </summary>
         /// <param name="ribbon">The ribbon.</param>
@@ -79,6 +106,28 @@ namespace Orchestra
 
                 ribbon.Tabs.Add(tabItem);
             }
+
+            return tabItem;
+        }
+
+        /// <summary>
+        /// Ensures that a contextual tab item with the specified header exists.
+        /// </summary>
+        /// <param name="ribbon">The ribbon.</param>
+        /// <param name="header">The header.</param>
+        /// <param name="contextualTabGroupHeader">The contextual tab group header.</param>
+        /// <returns>The existing or newly created <see cref="RibbonTabItem"/>.</returns>
+        /// <exception cref="ArgumentNullException">The <paramref header="ribbon"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="header"/> is <c>null</c> or whitespace.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="contextualTabGroupHeader"/> is <c>null</c> or whitespace.</exception>
+        public static RibbonTabItem EnsureContextualTabItem(this Ribbon ribbon, string header, string contextualTabGroupHeader)
+        {
+            Argument.IsNotNull("ribbon", ribbon);
+            Argument.IsNotNullOrWhitespace("header", header);
+            Argument.IsNotNullOrWhitespace("contextualTabGroupHeader", contextualTabGroupHeader);
+
+            var tabItem = EnsureTabItem(ribbon, header);
+            tabItem.Group = ribbon.EnsureContextualTabGroup(contextualTabGroupHeader);
 
             return tabItem;
         }
@@ -223,7 +272,7 @@ namespace Orchestra
             if (ribbonButton == null)
             {
                 Log.Warning("Cannot find group '{0}' on the ribbon, cannot remove item '{1}'", ribbonItem.GroupBoxHeader, ribbonItem.ItemHeader);
-                return;                
+                return;
             }
 
             ribbonGroupBox.Items.Remove(ribbonButton);

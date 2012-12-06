@@ -34,8 +34,8 @@ namespace Orchestra.Modules.PlotDemo
         /// </summary>
         protected override void OnInitialized()
         {
-            var orchestraService = GetService<IOrchestraService>();
-            orchestraService.ShowDocument<PlotDemoViewModel>();
+            //var orchestraService = GetService<IOrchestraService>();
+            //orchestraService.ShowDocument<PlotDemoViewModel>();
         }
 
         /// <summary>
@@ -49,7 +49,8 @@ namespace Orchestra.Modules.PlotDemo
             var orchestraService = GetService<IOrchestraService>();
 
             // Module specific
-            ribbonService.RegisterRibbonItem(new RibbonItem(HomeRibbonTabName, ModuleName, "Show", new Command(() => orchestraService.ShowDocument<PlotDemoViewModel>())));
+            ribbonService.RegisterRibbonItem(new RibbonItem(HomeRibbonTabName, ModuleName, "Show", new Command(() => orchestraService.ShowDocument<PlotDemoViewModel>())) 
+            { ItemImage = "/Orchestra.Modules.PlotDemo;component/Resources/Images/Graph.png" });
 
             // View specific
             // TODO: Register view specific ribbon items

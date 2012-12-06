@@ -50,12 +50,13 @@ namespace Orchestra.Modules.Browser
             var orchestraService = GetService<IOrchestraService>();
 
             // Module specific
-            ribbonService.RegisterRibbonItem(new RibbonItem(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>())));
+            ribbonService.RegisterRibbonItem(new RibbonItem(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>()))
+                { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
             // View specific
-            ribbonService.RegisterViewSpecificRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Back", "GoBack") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png" });
-            ribbonService.RegisterViewSpecificRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Forward", "GoForward") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" });
-            ribbonService.RegisterViewSpecificRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Browse", "Browse") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Back", "GoBack") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png" }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Forward", "GoForward") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Browse", "Browse") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" }, ModuleName);
         }
     }
 }

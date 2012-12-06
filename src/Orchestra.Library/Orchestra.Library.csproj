@@ -126,6 +126,22 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ActionAccept.png" />
+    <Resource Include="Resources\Images\ActionAdd.png" />
+    <Resource Include="Resources\Images\ActionCancel.png" />
+    <Resource Include="Resources\Images\ActionRefresh.png" />
+    <Resource Include="Resources\Images\ActionRemove.png" />
+    <Resource Include="Resources\Images\ArrowDown.png" />
+    <Resource Include="Resources\Images\ArrowLeft.png" />
+    <Resource Include="Resources\Images\ArrowRight.png" />
+    <Resource Include="Resources\Images\ArrowUp.png" />
+    <Resource Include="Resources\Images\FileOpen.png" />
+    <Resource Include="Resources\Images\FileSave.png" />
+    <Resource Include="Resources\Images\ValidationError.png" />
+    <Resource Include="Resources\Images\ValidationInfo.png" />
+    <Resource Include="Resources\Images\ValidationWarning.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets. -->

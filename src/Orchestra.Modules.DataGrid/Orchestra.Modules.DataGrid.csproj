@@ -118,7 +118,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\Table.png" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Views\DataGridView.xaml">
       <SubType>Designer</SubType>

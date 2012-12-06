@@ -10,12 +10,15 @@ namespace Orchestra.Services
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using System.Windows;
     using System.Windows.Data;
     using AvalonDock.Layout;
     using Catel;
     using Catel.Logging;
+    using Catel.MVVM.Services;
     using Fluent;
     using Models;
+    using Modules;
     using Views;
 
     /// <summary>
@@ -29,19 +32,59 @@ namespace Orchestra.Services
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly LayoutDocumentPane _layoutDocumentPane;
+        private readonly IDispatcherService _dispatcherService;
+        private readonly Ribbon _ribbon;
         private readonly Dictionary<Type, List<IRibbonItem>> _viewSpecificRibbonItems = new Dictionary<Type, List<IRibbonItem>>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RibbonService" /> class.
         /// </summary>
         /// <param name="layoutDocumentPane">The layout document pane.</param>
+        /// <param name="dispatcherService">The dispatcher service.</param>
+        /// <param name="ribbon">The ribbon.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="layoutDocumentPane"/> is <c>null</c>.</exception>
-        public RibbonService(LayoutDocumentPane layoutDocumentPane)
+        /// <exception cref="ArgumentNullException">The <paramref name="dispatcherService"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="ribbon"/> is <c>null</c>.</exception>
+        public RibbonService(LayoutDocumentPane layoutDocumentPane, IDispatcherService dispatcherService, Ribbon ribbon)
         {
             Argument.IsNotNull("layoutDocumentPane", layoutDocumentPane);
+            Argument.IsNotNull("dispatcherService", dispatcherService);
+            Argument.IsNotNull("ribbon", ribbon);
 
             _layoutDocumentPane = layoutDocumentPane;
+            _dispatcherService = dispatcherService;
+            _ribbon = ribbon;
+
             _layoutDocumentPane.PropertyChanged += OnLayoutDocumentPanePropertyChange;
+            _ribbon.Loaded += OnRibbonLoaded;
+        }
+
+        /// <summary>
+        /// Called when the ribbon is loaded.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        /// <remarks>
+        /// This is a workaround. If this code is not used, you will get issues with showing the second contextual tab group.
+        /// </remarks>
+        private void OnRibbonLoaded(object sender, RoutedEventArgs e)
+        {
+            _ribbon.Loaded -= OnRibbonLoaded;
+
+            foreach (var group in _ribbon.ContextualGroups)
+            {
+                group.Visibility = Visibility.Visible;
+            }
+
+            _dispatcherService.BeginInvoke(() =>
+            {
+                foreach (var group in _ribbon.ContextualGroups)
+                {
+                    group.Visibility = Visibility.Hidden;
+                }
+
+                ActivateTabForCurrentlySelectedDocumentView();
+            });
         }
 
         /// <summary>
@@ -63,11 +106,13 @@ namespace Orchestra.Services
         /// </summary>
         /// <typeparam name="TView">The type of the T view.</typeparam>
         /// <param name="ribbonItem">The ribbon item.</param>
+        /// <param name="contextualTabGroupName">The contextual tab group name.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
-        public void RegisterViewSpecificRibbonItem<TView>(IRibbonItem ribbonItem)
+        /// <exception cref="ArgumentException">The <paramref name="contextualTabGroupName"/> is <c>null</c> or whitespace.</exception>
+        public void RegisterContextualRibbonItem<TView>(IRibbonItem ribbonItem, string contextualTabGroupName)
             where TView : DocumentView
         {
-            RegisterViewSpecificRibbonItem(typeof(TView), ribbonItem);
+            RegisterContextualRibbonItem(typeof(TView), ribbonItem, contextualTabGroupName);
         }
 
         /// <summary>
@@ -75,12 +120,16 @@ namespace Orchestra.Services
         /// </summary>
         /// <param name="viewType">Type of the view.</param>
         /// <param name="ribbonItem">The ribbon item.</param>
+        /// <param name="contextualTabGroupName">The contextual tab group name.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="viewType"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
-        public void RegisterViewSpecificRibbonItem(Type viewType, IRibbonItem ribbonItem)
+        /// <exception cref="ArgumentException">The <paramref name="contextualTabGroupName"/> is <c>null</c> or whitespace.</exception>
+        public void RegisterContextualRibbonItem(Type viewType, IRibbonItem ribbonItem, string contextualTabGroupName)
         {
             Argument.IsNotNull("viewType", viewType);
             Argument.IsNotNull("ribbonItem", ribbonItem);
+
+            ribbonItem.ContextualTabItemGroupName = contextualTabGroupName;
 
             if (!_viewSpecificRibbonItems.ContainsKey(viewType))
             {
@@ -89,10 +138,7 @@ namespace Orchestra.Services
 
             _viewSpecificRibbonItems[viewType].Add(ribbonItem);
 
-            if (!ribbonItem.OnlyShowWhenTabIsActivated)
-            {
-                AddRibbonItem(ribbonItem);
-            }
+            AddRibbonItem(ribbonItem);
         }
 
         /// <summary>
@@ -108,7 +154,16 @@ namespace Orchestra.Services
 
             var ribbon = GetService<Ribbon>();
 
-            var tab = ribbon.EnsureTabItem(ribbonItem.TabItemHeader);
+            RibbonTabItem tab;
+            if (ribbonItem.Context == RibbonContext.View)
+            {
+                tab = ribbon.EnsureContextualTabItem(ribbonItem.TabItemHeader, ribbonItem.ContextualTabItemGroupName);
+            }
+            else
+            {
+                tab = ribbon.EnsureTabItem(ribbonItem.TabItemHeader);
+            }
+
             var group = tab.EnsureGroupBox(ribbonItem.GroupBoxHeader);
 
             if (ribbonItem.Command != null)
@@ -146,48 +201,70 @@ namespace Orchestra.Services
         {
             if (string.Equals(e.PropertyName, "SelectedContent"))
             {
-                Log.Debug("SelectedContent changed, activating the right ribbon");
+                Log.Debug("SelectedContent changed, activating the right ribbon tabs");
 
-                // TODO: How to unsubscribe previous actions?
+                Log.Debug("Clearing data context of ribbon");
 
-                var ribbon = GetService<Ribbon>();
+                _ribbon.ClearValue(Ribbon.DataContextProperty);
 
-                var selectedContent = _layoutDocumentPane.SelectedContent;
-                if (selectedContent == null)
+                Log.Debug("Hiding all contextual groups");
+
+                foreach (var contextualTabGroup in _ribbon.ContextualGroups)
                 {
-                    Log.Debug("SelectedContent is null, cannot handle this change");
-                    return;
+                    contextualTabGroup.Visibility = Visibility.Collapsed;
                 }
 
-                var documentView = selectedContent.Content as IDocumentView;
-                if (documentView == null)
+                ActivateTabForCurrentlySelectedDocumentView();
+            }
+        }
+
+        private void ActivateTabForCurrentlySelectedDocumentView()
+        {
+            var selectedContent = _layoutDocumentPane.SelectedContent;
+            if (selectedContent == null)
+            {
+                Log.Debug("SelectedContent is null, cannot activate tab for no selection");
+                return;
+            }
+
+            var documentView = selectedContent.Content as IDocumentView;
+            if (documentView == null)
+            {
+                Log.Debug("SelectedContent is not a document view, selecting home ribbon tab");
+
+                _ribbon.SelectTabItem(ModuleBase.HomeRibbonTabName);
+                return;
+            }
+
+            var documentViewType = documentView.GetType();
+
+            if (!_viewSpecificRibbonItems.ContainsKey(documentViewType))
+            {
+                return;
+            }
+
+            var viewSpecificRibbonItems = _viewSpecificRibbonItems[documentViewType];
+            foreach (var viewSpecificRibbonItem in viewSpecificRibbonItems)
+            {
+                if (viewSpecificRibbonItem.Context == RibbonContext.View)
                 {
-                    Log.Debug("SelectedContent is not a document view, selecting home ribbon tab");
+                    Log.Debug("Adding ribbon item '{0}' which has a view context", viewSpecificRibbonItem);
 
-                    ribbon.SelectTabItem("Home");
-                    return;
+                    var contextualGroup = _ribbon.EnsureContextualTabGroup(viewSpecificRibbonItem.ContextualTabItemGroupName);
+                    contextualGroup.Visibility = Visibility.Visible;
                 }
+            }
 
-                var documentViewType = documentView.GetType();
+            var lastRibbonItem = viewSpecificRibbonItems.Last();
+            if (lastRibbonItem.Behavior == RibbonBehavior.ActivateTab)
+            {
+                Log.Debug("Updating data context of ribbon");
 
-                // TODO: Should we add view specific ribbon items?
+                var ribbonBinding = new Binding("ViewModel");
+                ribbonBinding.Source = documentView;
+                _ribbon.SetBinding(Ribbon.DataContextProperty, ribbonBinding);
 
-                if (_viewSpecificRibbonItems.ContainsKey(documentViewType))
-                {
-                    var firstRibbonItem = _viewSpecificRibbonItems[documentViewType][0];
-
-                    Log.Debug("Selecting ribbon tab '{0}'", firstRibbonItem.TabItemHeader);
-
-                    var selectedTab = ribbon.SelectTabItem(firstRibbonItem.TabItemHeader);
-                    if (selectedTab != null)
-                    {
-                        Log.Debug("Selected tab is a valid ribbon tab, updating data context");
-
-                        var tabItemBinding = new Binding("ViewModel");
-                        tabItemBinding.Source = documentView;
-                        selectedTab.SetBinding(RibbonTabItem.DataContextProperty, tabItemBinding);
-                    }
-                }
+                _dispatcherService.BeginInvoke(() => _ribbon.SelectTabItem(lastRibbonItem.TabItemHeader));
             }
         }
     }

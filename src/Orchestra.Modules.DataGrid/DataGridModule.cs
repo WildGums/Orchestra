@@ -7,10 +7,9 @@
 namespace Orchestra.Modules.DataGrid
 {
     using Catel.MVVM;
-
-    using Orchestra.Models;
-    using Orchestra.Modules.DataGrid.ViewModels;
-    using Orchestra.Services;
+    using Models;
+    using Services;
+    using ViewModels;
     using Views;
 
     /// <summary>
@@ -18,11 +17,14 @@ namespace Orchestra.Modules.DataGrid
     /// </summary>
     public class DataGridModule : ModuleBase
     {
+        #region Constants
         /// <summary>
         /// The module name.
         /// </summary>
         public const string Name = "DataGrid";
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridModule" /> class.
         /// </summary>
@@ -30,14 +32,16 @@ namespace Orchestra.Modules.DataGrid
             : base(Name)
         {
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// The on initialized.
         /// </summary>
         protected override void OnInitialized()
         {
-            var orchestraService = GetService<IOrchestraService>();
-            orchestraService.ShowDocument<DataGridViewModel>();
+            //var orchestraService = GetService<IOrchestraService>();
+            //orchestraService.ShowDocument<DataGridViewModel>();
         }
 
         /// <summary>
@@ -51,11 +55,13 @@ namespace Orchestra.Modules.DataGrid
             var orchestraService = GetService<IOrchestraService>();
 
             // Module specific
-            ribbonService.RegisterRibbonItem(new RibbonItem(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<DataGridViewModel>())));
+            ribbonService.RegisterRibbonItem(new RibbonItem(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<DataGridViewModel>()))
+                                             {ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/Table.png"});
 
             // View specific
-            ribbonService.RegisterViewSpecificRibbonItem<DataGridView>(new RibbonItem(Name, Name, "Open file", "OpenFileCommand"));
-            ribbonService.RegisterViewSpecificRibbonItem<DataGridView>(new RibbonItem(Name, Name, "Save file", "SaveToFileCommand"));
+            ribbonService.RegisterContextualRibbonItem<DataGridView>(new RibbonItem(Name, Name, "Open", "OpenFileCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/FileOpen.png" }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<DataGridView>(new RibbonItem(Name, Name, "Save", "SaveToFileCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/FileSave.png" }, ModuleName);
         }
+        #endregion
     }
 }

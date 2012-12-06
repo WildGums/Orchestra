@@ -51,6 +51,7 @@
             serviceLocator.RegisterInstance(dockingManager);
             serviceLocator.RegisterInstance(layoutDocumentPane);
 
+            ribbon.AutomaticStateManagement = true;
             ribbon.EnsureTabItem("Home");
         }
 
