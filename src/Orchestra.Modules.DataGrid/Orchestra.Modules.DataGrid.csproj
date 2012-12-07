@@ -91,20 +91,18 @@
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <None Include="FodyWeavers.xml" />
-    <Reference Include="WPFToolkit.Extended">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\WPFToolkit.Extended.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.DataGrid">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Orchestra\Properties\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DataGridModule.cs" />
+    <Compile Include="Models\Cell.cs" />
     <Compile Include="ViewModels\DataGridViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\ICell.cs" />
+    <Compile Include="Models\Row.cs" />
+    <Compile Include="Models\StringCell.cs" />
     <Compile Include="Views\DataGridView.xaml.cs">
       <DependentUpon>DataGridView.xaml</DependentUpon>
     </Compile>
@@ -113,6 +111,10 @@
     <ProjectReference Include="..\Orchestra.Library\Orchestra.Library.csproj">
       <Project>{433bce8b-95ae-4628-abed-86a224d5e8c9}</Project>
       <Name>Orchestra.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TableView\TableView.csproj">
+      <Project>{ba0fbf16-225e-4f9a-9dd3-4700633dc724}</Project>
+      <Name>TableView</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
