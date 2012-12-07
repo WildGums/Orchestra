@@ -7,10 +7,11 @@
 namespace Orchestra.Modules.DataGrid
 {
     using Catel.MVVM;
-    using Models;
-    using Services;
-    using ViewModels;
-    using Views;
+
+    using Orchestra.Models;
+    using Orchestra.Modules.DataGrid.ViewModels;
+    using Orchestra.Modules.DataGrid.Views;
+    using Orchestra.Services;
 
     /// <summary>
     /// The data grid module.
@@ -55,12 +56,19 @@ namespace Orchestra.Modules.DataGrid
             var orchestraService = GetService<IOrchestraService>();
 
             // Module specific
-            ribbonService.RegisterRibbonItem(new RibbonItem(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<DataGridViewModel>()))
-                                             {ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/Table.png"});
+            ribbonService.RegisterRibbonItem(
+                new RibbonItem(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<DataGridViewModel>()))
+                {
+                    ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/Table.png"
+                });
 
             // View specific
-            ribbonService.RegisterContextualRibbonItem<DataGridView>(new RibbonItem(Name, Name, "Open", "OpenFileCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/FileOpen.png" }, ModuleName);
-            ribbonService.RegisterContextualRibbonItem<DataGridView>(new RibbonItem(Name, Name, "Save", "SaveToFileCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/FileSave.png" }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<DataGridView>(
+                new RibbonItem(Name, Name, "Open", "OpenFileCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/FileOpen.png" },
+                ModuleName);
+            ribbonService.RegisterContextualRibbonItem<DataGridView>(
+                new RibbonItem(Name, Name, "Save", "SaveToFileCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/FileSave.png" },
+                ModuleName);
         }
         #endregion
     }
