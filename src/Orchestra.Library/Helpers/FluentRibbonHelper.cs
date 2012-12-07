@@ -8,6 +8,8 @@ namespace Orchestra
 {
     using System;
     using System.Linq;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
     using System.Windows.Input;
     using Catel;
     using Catel.Logging;
@@ -15,7 +17,7 @@ namespace Orchestra
     using Models;
 
     /// <summary>
-    /// Helper class for the <see cref="Ribbon"/> control.
+    /// Helper class for the <see cref="Ribbon" /> control.
     /// </summary>
     public static class FluentRibbonHelper
     {
@@ -23,6 +25,63 @@ namespace Orchestra
         /// The log.
         /// </summary>
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        /// <summary>
+        /// Selects the tab item in the ribbon. If the tab cannot be found, the first tab will be
+        /// selected.
+        /// </summary>
+        /// <param name="ribbon">The ribbon.</param>
+        /// <param name="header">The header.</param>
+        /// <returns>The selected ribbon tab item.</returns>
+        /// <exception cref="ArgumentNullException">The <paramref header="ribbon"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="header"/> is <c>null</c> or whitespace.</exception>
+        public static RibbonTabItem SelectTabItem(this Ribbon ribbon, string header)
+        {
+            Argument.IsNotNull("ribbon", ribbon);
+            Argument.IsNotNullOrWhitespace("header", header);
+
+            var tabItem = (from tab in ribbon.Tabs
+                           where string.Equals(tab.Header.ToString(), header)
+                           select tab).FirstOrDefault();
+
+            if (tabItem != null)
+            {
+                ribbon.SelectedTabItem = tabItem;
+            }
+            else if (ribbon.Tabs.Count > 0)
+            {
+                ribbon.SelectedTabIndex = 0;
+            }
+
+            return ribbon.SelectedTabItem;
+        }
+
+        /// <summary>
+        /// Ensures that a contextual tab item group with the specified header exists.
+        /// </summary>
+        /// <param name="ribbon">The ribbon.</param>
+        /// <param name="header">The header.</param>
+        /// <returns>The existing or newly created <see cref="RibbonTabItem"/>.</returns>
+        /// <exception cref="ArgumentNullException">The <paramref header="ribbon"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="header"/> is <c>null</c> or whitespace.</exception>
+        public static RibbonContextualTabGroup EnsureContextualTabGroup(this Ribbon ribbon, string header)
+        {
+            Argument.IsNotNull("ribbon", ribbon);
+            Argument.IsNotNullOrWhitespace("header", header);
+
+            var tabGroup = (from tab in ribbon.ContextualGroups
+                            where string.Equals(tab.Header, header)
+                            select tab).FirstOrDefault();
+            if (tabGroup == null)
+            {
+                tabGroup = new RibbonContextualTabGroup();
+                tabGroup.Header = header;
+
+                ribbon.ContextualGroups.Add(tabGroup);
+            }
+
+            return tabGroup;
+        }
 
         /// <summary>
         /// Ensures that a tab item with the specified header exists.
@@ -38,7 +97,7 @@ namespace Orchestra
             Argument.IsNotNullOrWhitespace("header", header);
 
             var tabItem = (from tab in ribbon.Tabs
-                           where String.CompareOrdinal(tab.Header.ToString(), header) == 0
+                           where string.Equals(tab.Header.ToString(), header)
                            select tab).FirstOrDefault();
             if (tabItem == null)
             {
@@ -47,6 +106,28 @@ namespace Orchestra
 
                 ribbon.Tabs.Add(tabItem);
             }
+
+            return tabItem;
+        }
+
+        /// <summary>
+        /// Ensures that a contextual tab item with the specified header exists.
+        /// </summary>
+        /// <param name="ribbon">The ribbon.</param>
+        /// <param name="header">The header.</param>
+        /// <param name="contextualTabGroupHeader">The contextual tab group header.</param>
+        /// <returns>The existing or newly created <see cref="RibbonTabItem"/>.</returns>
+        /// <exception cref="ArgumentNullException">The <paramref header="ribbon"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="header"/> is <c>null</c> or whitespace.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="contextualTabGroupHeader"/> is <c>null</c> or whitespace.</exception>
+        public static RibbonTabItem EnsureContextualTabItem(this Ribbon ribbon, string header, string contextualTabGroupHeader)
+        {
+            Argument.IsNotNull("ribbon", ribbon);
+            Argument.IsNotNullOrWhitespace("header", header);
+            Argument.IsNotNullOrWhitespace("contextualTabGroupHeader", contextualTabGroupHeader);
+
+            var tabItem = EnsureTabItem(ribbon, header);
+            tabItem.Group = ribbon.EnsureContextualTabGroup(contextualTabGroupHeader);
 
             return tabItem;
         }
@@ -65,7 +146,7 @@ namespace Orchestra
             Argument.IsNotNullOrWhitespace("header", header);
 
             var groupBox = (from ribbonGroup in tabItem.Groups
-                            where string.Compare(ribbonGroup.Header, header) == 0
+                            where string.Equals(ribbonGroup.Header, header)
                             select ribbonGroup).FirstOrDefault();
             if (groupBox == null)
             {
@@ -92,15 +173,63 @@ namespace Orchestra
         /// <exception cref="ArgumentNullException">The <paramref header="command"/> is <c>null</c>.</exception>
         public static Button AddButton(this RibbonGroupBox groupBox, string header, string icon, string largeIcon, ICommand command)
         {
+            Argument.IsNotNull("command", command);
+
+            var button = CreateButtonWithoutCommandBinding(groupBox, header, icon, largeIcon);
+            button.Command = command;
+
+            return button;
+        }
+
+        /// <summary>
+        /// Adds a new button to the specified <see cref="RibbonGroupBox"/>.
+        /// </summary>
+        /// <param name="groupBox">The group box.</param>
+        /// <param name="header">The header.</param>
+        /// <param name="icon">The icon.</param>
+        /// <param name="largeIcon">The large icon.</param>
+        /// <param name="commandName">The command name.</param>
+        /// <param name="commandSource">The command source, can be <c>null</c> to respect the data context.</param>
+        /// <returns>The created button.</returns>
+        /// <exception cref="ArgumentNullException">The <paramref header="groupBox"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="header"/> is <c>null</c> or whitespace.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="commandName"/> is <c>null</c> or whitespace.</exception>
+        public static Button AddButton(this RibbonGroupBox groupBox, string header, string icon, string largeIcon, string commandName, object commandSource = null)
+        {
+            Argument.IsNotNullOrWhitespace("commandName", commandName);
+
+            var button = CreateButtonWithoutCommandBinding(groupBox, header, icon, largeIcon);
+
+            var commandBinding = new Binding(commandName);
+            if (commandSource != null)
+            {
+                commandBinding.Source = commandSource;
+            }
+
+            button.SetBinding(ButtonBase.CommandProperty, commandBinding);
+
+            return button;
+        }
+
+        /// <summary>
+        /// Creates the button without command binding.
+        /// </summary>
+        /// <param name="groupBox">The group box.</param>
+        /// <param name="header">The header.</param>
+        /// <param name="icon">The icon.</param>
+        /// <param name="largeIcon">The large icon.</param>
+        /// <returns>Button.</returns>
+        /// <exception cref="ArgumentNullException">The <paramref header="groupBox"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="header"/> is <c>null</c> or whitespace.</exception>
+        private static Button CreateButtonWithoutCommandBinding(this RibbonGroupBox groupBox, string header, string icon, string largeIcon)
+        {
             Argument.IsNotNull("groupBox", groupBox);
             Argument.IsNotNullOrWhitespace("header", header);
-            Argument.IsNotNull("command", command);
 
             var button = new Button();
             button.Header = header;
             button.Icon = icon;
             button.LargeIcon = largeIcon;
-            button.Command = command;
 
             groupBox.Items.Add(button);
 
@@ -120,7 +249,7 @@ namespace Orchestra
             Argument.IsNotNull("ribbonItem", ribbonItem);
 
             var ribbonTab = (from tab in ribbon.Tabs
-                             where tab.Header.ToString() == ribbonItem.TabItemHeader
+                             where string.Equals(tab.Header.ToString(), ribbonItem.TabItemHeader)
                              select tab).FirstOrDefault();
             if (ribbonTab == null)
             {
@@ -129,7 +258,7 @@ namespace Orchestra
             }
 
             var ribbonGroupBox = (from groupBox in ribbonTab.Groups
-                                  where groupBox.Header == ribbonItem.GroupBoxHeader
+                                  where string.Equals(groupBox.Header, ribbonItem.GroupBoxHeader)
                                   select groupBox).FirstOrDefault();
             if (ribbonGroupBox == null)
             {
@@ -138,12 +267,12 @@ namespace Orchestra
             }
 
             var ribbonButton = (from button in ribbonGroupBox.Items.Cast<Button>()
-                                where button.Header.ToString() == ribbonItem.ItemHeader
+                                where string.Equals(button.Header.ToString(), ribbonItem.ItemHeader)
                                 select button).FirstOrDefault();
             if (ribbonButton == null)
             {
                 Log.Warning("Cannot find group '{0}' on the ribbon, cannot remove item '{1}'", ribbonItem.GroupBoxHeader, ribbonItem.ItemHeader);
-                return;                
+                return;
             }
 
             ribbonGroupBox.Items.Remove(ribbonButton);

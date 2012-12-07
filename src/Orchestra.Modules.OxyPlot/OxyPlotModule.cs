@@ -12,6 +12,7 @@ namespace Orchestra.Modules.OxyPlot
     using Catel.IoC;
     using Catel.Logging;
     using Nancy;
+    using Orchestra.Services;
     using Services;
     using global::OxyPlot.Services;
     using Nancy.Hosting.Wcf;
@@ -66,6 +67,21 @@ namespace Orchestra.Modules.OxyPlot
             _host.Open();
 
             Log.Info("Started OxyPlot web service at address '{0}'", BaseUri);
+        }
+
+        /// <summary>
+        /// Initializes the ribbon.
+        /// <para />
+        /// Use this method to hook up views to ribbon items.
+        /// </summary>
+        /// <param name="ribbonService">The ribbon service.</param>
+        protected override void InitializeRibbon(Orchestra.Services.IRibbonService ribbonService)
+        {
+            // Module specific
+            // TODO: Register module specific ribbon items
+
+            // View specific
+            // TODO: Register view specific ribbon items
         }
     }
 }

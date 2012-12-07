@@ -8,6 +8,7 @@ namespace Orchestra.Modules
 {
     using System;
     using Microsoft.Practices.Prism.Modularity;
+    using Services;
 
     /// <summary>
     /// Base class for all modules used by Orchestra.
@@ -15,6 +16,11 @@ namespace Orchestra.Modules
     [Module]
     public abstract class ModuleBase : Catel.Modules.ModuleBase
     {
+        /// <summary>
+        /// The name of the home ribbon tab.
+        /// </summary>
+        public const string HomeRibbonTabName = "Home";
+
         /// <summary>
         /// The modules directory name.
         /// </summary>
@@ -28,6 +34,19 @@ namespace Orchestra.Modules
         protected ModuleBase(string moduleName) 
             : base(moduleName)
         {
+            var ribbonService = GetService<IRibbonService>();
+            InitializeRibbon(ribbonService);
+        }
+
+        /// <summary>
+        /// Initializes the ribbon.
+        /// <para />
+        /// Use this method to hook up views to ribbon items.
+        /// </summary>
+        /// <param name="ribbonService">The ribbon service.</param>
+        protected virtual void InitializeRibbon(IRibbonService ribbonService)
+        {
+            
         }
     }
 }

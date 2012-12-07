@@ -13,9 +13,11 @@ namespace Orchestra.Views
     /// </summary>
     public interface IDocumentView : IView
     {
+        #region Methods
         /// <summary>
         /// Closes the document.
         /// </summary>
         void CloseDocument();
+        #endregion
     }
 }

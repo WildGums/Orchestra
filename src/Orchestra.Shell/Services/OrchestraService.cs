@@ -7,8 +7,11 @@
 namespace Orchestra.Services
 {
     using System;
+    using System.ComponentModel;
     using System.Windows.Input;
+    using AvalonDock.Layout;
     using Catel;
+    using Catel.Logging;
     using Catel.MVVM;
     using Fluent;
     using Models;
@@ -19,16 +22,14 @@ namespace Orchestra.Services
     /// </summary>
     public class OrchestraService : ServiceBase, IOrchestraService
     {
-        /// <summary>
-        /// The shell.
-        /// </summary>
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         private readonly MainWindow _shell;
-        
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrchestraService"/> class.
+        /// Initializes a new instance of the <see cref="OrchestraService" /> class.
         /// </summary>
         /// <param name="shell">The shell.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="shell"/> is <c>null</c>.</exception>
         public OrchestraService(MainWindow shell)
         {
             Argument.IsNotNull("shell", shell);
@@ -82,6 +83,8 @@ namespace Orchestra.Services
         {
             Argument.IsNotNull("viewModel", viewModel);
 
+            Log.Debug("Showing document for view model '{0}'", viewModel.UniqueIdentifier);
+
             var viewLocator = GetService<IViewLocator>();
             var viewType = viewLocator.ResolveView(viewModel.GetType());
 
@@ -93,22 +96,19 @@ namespace Orchestra.Services
             }
 
             AvalonDockHelper.ActivateDocument(document);
+
+            Log.Debug("Showed document for view model '{0}'", viewModel.UniqueIdentifier);
         }
 
         /// <summary>
-        /// Adds a new ribbon item to the main ribbon.
+        /// Adds the specified ribbon item to the main ribbon.
         /// </summary>
         /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        /// <exception cref="System.NotImplementedException"></exception>
         public void AddRibbonItem(IRibbonItem ribbonItem)
         {
-            Argument.IsNotNull("ribbonItem", ribbonItem);
-
-            var ribbon = GetService<Ribbon>();
-
-            var tab = ribbon.EnsureTabItem(ribbonItem.TabItemHeader);
-            var group = tab.EnsureGroupBox(ribbonItem.GroupBoxHeader);
-            group.AddButton(ribbonItem.ItemHeader, ribbonItem.ItemImage, ribbonItem.ItemImage, ribbonItem.Command);
+            // Marked obsolete on the interface
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -117,13 +117,11 @@ namespace Orchestra.Services
         /// This method will ignore calls when the item is not available in the ribbon.
         /// </summary>
         /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        /// <exception cref="System.NotImplementedException"></exception>
         public void RemoveRibbonItem(IRibbonItem ribbonItem)
         {
-            Argument.IsNotNull("ribbonItem", ribbonItem);
-
-            var ribbon = GetService<Ribbon>();
-            ribbon.RemoveItem(ribbonItem);
+            // Marked obsolete on the interface
+            throw new NotImplementedException();
         }
     }
 }
