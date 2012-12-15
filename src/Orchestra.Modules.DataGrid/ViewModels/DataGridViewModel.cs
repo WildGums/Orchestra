@@ -12,7 +12,6 @@ namespace Orchestra.Modules.DataGrid.ViewModels
     using System.Linq;
     using System.Windows;
 
-    using Catel;
     using Catel.Data;
     using Catel.MVVM;
     using Catel.MVVM.Services;
@@ -163,6 +162,58 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         }
         #endregion
 
+        #region AddRow command
+        private Command _addRowCommand;
+
+        /// <summary>
+        /// Gets the AddRow command.
+        /// </summary>
+        public Command AddRowCommand
+        {
+            get { return _addRowCommand ?? (_addRowCommand = new Command(AddRow)); }
+        }
+
+        /// <summary>
+        /// Method to invoke when the AddRow command is executed.
+        /// </summary>
+        private void AddRow()
+        {
+            Items.Add(new Row(Enumerable.Range(0, Columns.Count).Select(i => new StringCell())));
+            SelectedRowIndex = Items.Count - 1;
+        }
+        #endregion
+
+        #region RemoveRow command
+        private Command _removeRowCommand;
+
+        /// <summary>
+        /// Gets the RemoveRow command.
+        /// </summary>
+        public Command RemoveRowCommand
+        {
+            get { return _removeRowCommand ?? (_removeRowCommand = new Command(RemoveRow, CanRemoveRow)); }
+        }
+
+        /// <summary>
+        /// Method to invoke when the RemoveRow command is executed.
+        /// </summary>
+        private void RemoveRow()
+        {
+            int rowIndexToDelete = SelectedRowIndex;
+            Items.RemoveAt(rowIndexToDelete);
+            SelectedRowIndex = Items.Count == 1 ? -1 : SelectedRowIndex > 0 ? SelectedRowIndex - 1 : 0;
+        }
+
+        /// <summary>
+        /// Method to check whether the RemoveRow command can be executed.
+        /// </summary>
+        /// <returns><c>true</c> if the command can be executed; otherwise <c>false</c></returns>
+        private bool CanRemoveRow()
+        {
+            return SelectedRowIndex >= 0;
+        }
+        #endregion
+
         #region Columns property
         /// <summary>
         /// Columns property data.
@@ -180,10 +231,32 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         }
         #endregion
 
-        private static string GetSafeColumnName(string columnName)
+        #region SelectedRowIndex property
+        /// <summary>
+        /// SelectedRowIndex property data.
+        /// </summary>
+        public static readonly PropertyData SelectedRowIndexProperty = RegisterProperty(
+            "SelectedRowIndex", typeof(int), -1, propertyChangedEventHandler: SelectedRowIndexChangedEventHandler);
+
+        /// <summary>
+        /// Gets or sets the SelectedRowIndex value.
+        /// </summary>
+        public int SelectedRowIndex
         {
-            Argument.IsNotNullOrWhitespace("columnName", columnName);
-            return columnName.Replace(" ", "_").Replace("-", "_").Replace("/", "_").Replace(".", "_");
+            get { return GetValue<int>(SelectedRowIndexProperty); }
+            set { SetValue(SelectedRowIndexProperty, value); }
         }
+
+        private static void SelectedRowIndexChangedEventHandler(object sender, AdvancedPropertyChangedEventArgs advancedPropertyChangedEventArgs)
+        {
+            var vm = sender as DataGridViewModel;
+            if (vm == null)
+            {
+                return;
+            }
+
+            vm.RemoveRowCommand.RaiseCanExecuteChanged();
+        }
+        #endregion
     }
 }
