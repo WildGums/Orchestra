@@ -27,7 +27,8 @@
             ColumnsSource="{Binding Columns}"
             ShowHorizontalGridLines="True"
             ShowVerticalGridLines="True"
-            GridLinesBrush="DarkGray">
+            GridLinesBrush="DarkGray"
+            FocusedRowIndex="{Binding SelectedRowIndex}">
         </TableView:TableView>
     </Grid>
 </orchestra:DocumentView>

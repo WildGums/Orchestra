@@ -293,7 +293,7 @@ namespace TableView
         #region SelectedRowIndex dependency property
         public static readonly DependencyProperty SelectedRowIndexProperty = DependencyProperty.Register(
             "SelectedRowIndex",
-            typeof(object),
+            typeof(int),
             typeof(TableView),
             new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
@@ -321,14 +321,25 @@ namespace TableView
         #region FocusedRowIndex dependency property
         public static readonly DependencyProperty FocusedRowIndexProperty = DependencyProperty.Register(
             "FocusedRowIndex",
-            typeof(object),
+            typeof(int),
             typeof(TableView),
-            new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, FocusedRowIndexChangedCallback));
 
         public int FocusedRowIndex
         {
             get { return (int)GetValue(FocusedRowIndexProperty); }
             set { SetValue(FocusedRowIndexProperty, value); }
+        }
+
+        private static void FocusedRowIndexChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var tableView = dependencyObject as TableView;
+            if (tableView == null)
+            {
+                return;
+            }
+
+            tableView.RowsPresenter.BringIndexIntoView((int)args.NewValue);
         }
         #endregion
 
