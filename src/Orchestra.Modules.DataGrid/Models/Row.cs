@@ -6,6 +6,7 @@
 
 namespace Orchestra.Modules.DataGrid.Models
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
     /// <summary>
@@ -16,9 +17,9 @@ namespace Orchestra.Modules.DataGrid.Models
         /// <summary>
         /// Initizlizes a new instance of the <see cref="Row"/> class.
         /// </summary>
-        public Row()
+        public Row(IEnumerable<ICell> cells = null)
         {
-            Cells = new ObservableCollection<ICell>();
+            Cells = cells != null ? new ObservableCollection<ICell>(cells) : new ObservableCollection<ICell>();
         }
 
         /// <summary>

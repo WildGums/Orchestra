@@ -1,61 +1,72 @@
-﻿using System.Windows.Controls;
-using System.Windows;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="TableViewRowsPanel.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace TableView
 {
-  public class TableViewRowsPanel : VirtualizingStackPanel
-  {
-    private TableView _parentTableView;
-    private TableView ParentTableView
-    {
-      get
-      {
-        if (_parentTableView == null)
-          _parentTableView = TableViewUtils.FindParent<TableView>(this);
-        return _parentTableView;
-      }
-    }
+    using System.Windows;
+    using System.Windows.Controls;
 
-    private TableViewRowsPresenter _parentRowsPresenter;
-    private TableViewRowsPresenter ParentRowsPresenter
+    public class TableViewRowsPanel : VirtualizingStackPanel
     {
-      get
-      {
-        if (_parentRowsPresenter == null)
-          _parentRowsPresenter = TableViewUtils.FindParent<TableViewRowsPresenter>(this);
-        return _parentRowsPresenter;
-      }
-    }
+        private TableViewRowsPresenter _parentRowsPresenter;
 
-    protected override void OnViewportOffsetChanged(Vector oldViewportOffset, Vector newViewportOffset)
-    {
-      ParentTableView.HorizontalScrollOffset = newViewportOffset.X;
-    }
+        private TableView _parentTableView;
 
-    protected override void OnIsItemsHostChanged(bool oldIsItemsHost, bool newIsItemsHost)
-    {
-      base.OnIsItemsHostChanged(oldIsItemsHost, newIsItemsHost);
-      this.Style = ParentTableView.RowsPanelStyle;
-      this.ParentRowsPresenter.RowsPanel = this;
-    }
+        private TableView ParentTableView
+        {
+            get { return _parentTableView ?? (_parentTableView = TableViewUtils.FindParent<TableView>(this)); }
+        }
 
-    public void BringRowIntoView(int idx)
-    {
-      if( idx >= 0 && idx < ParentRowsPresenter.Items.Count)
-        this.BringIndexIntoView(idx);
-    }
+        private TableViewRowsPresenter ParentRowsPresenter
+        {
+            get { return _parentRowsPresenter ?? (_parentRowsPresenter = TableViewUtils.FindParent<TableViewRowsPresenter>(this)); }
+        }
 
-    internal void ColumnsChanged()
-    {
-      foreach (var child in Children)
-        (child as TableViewCellsPresenter).ColumnsChanged();
+        protected override void OnViewportOffsetChanged(Vector oldViewportOffset, Vector newViewportOffset)
+        {
+            ParentTableView.HorizontalScrollOffset = newViewportOffset.X;
+        }
 
-    }
+        protected override void OnIsItemsHostChanged(bool oldIsItemsHost, bool newIsItemsHost)
+        {
+            base.OnIsItemsHostChanged(oldIsItemsHost, newIsItemsHost);
+            Style = ParentTableView.RowsPanelStyle;
+            ParentRowsPresenter.RowsPanel = this;
+        }
 
-    internal void RowsInvalidateArrange()
-    {
-      foreach (var child in Children)
-        (child as TableViewCellsPresenter).CellsInvalidateArrange();
+        public void BringRowIntoView(int idx)
+        {
+            if (idx >= 0 && idx < ParentRowsPresenter.Items.Count)
+            {
+                BringIndexIntoView(idx);
+            }
+        }
+
+        internal void ColumnsChanged()
+        {
+            foreach (object child in Children)
+            {
+                var tableViewCellsPresenter = child as TableViewCellsPresenter;
+                if (tableViewCellsPresenter != null)
+                {
+                    tableViewCellsPresenter.ColumnsChanged();
+                }
+            }
+        }
+
+        internal void RowsInvalidateArrange()
+        {
+            foreach (object child in Children)
+            {
+                var tableViewCellsPresenter = child as TableViewCellsPresenter;
+                if (tableViewCellsPresenter != null)
+                {
+                    tableViewCellsPresenter.CellsInvalidateArrange();
+                }
+            }
+        }
     }
-  }
 }
