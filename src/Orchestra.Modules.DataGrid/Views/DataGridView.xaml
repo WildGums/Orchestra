@@ -16,7 +16,7 @@
 
         <DataTemplate DataType="{x:Type Models:StringCell}">
             <TextBox Text="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Margin="0" />
+                Margin="0" BorderThickness="0" />
         </DataTemplate>
 
     </orchestra:DocumentView.Resources>
