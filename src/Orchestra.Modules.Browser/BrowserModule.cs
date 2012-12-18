@@ -35,8 +35,8 @@ namespace Orchestra.Modules.Browser
         /// </summary>
         protected override void OnInitialized()
         {
-            var orchestraService = GetService<IOrchestraService>();
-            orchestraService.ShowDocument<BrowserViewModel>();
+            // var orchestraService = GetService<IOrchestraService>();
+            // orchestraService.ShowDocument<BrowserViewModel>();
         }
 
         /// <summary>
