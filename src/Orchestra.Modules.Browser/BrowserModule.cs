@@ -31,15 +31,6 @@ namespace Orchestra.Modules.Browser
         }
 
         /// <summary>
-        /// Called when the module has been initialized.
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            var orchestraService = GetService<IOrchestraService>();
-            orchestraService.ShowDocument<BrowserViewModel>();
-        }
-
-        /// <summary>
         /// Initializes the ribbon.
         /// <para />
         /// Use this method to hook up views to ribbon items.
