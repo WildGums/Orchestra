@@ -57,6 +57,13 @@ namespace Orchestra.Modules.Browser
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Back", "GoBack") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png" }, ModuleName);
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Forward", "GoForward") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" }, ModuleName);
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Browse", "Browse") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" }, ModuleName);
+
+            // Demo: show two pages with different tags
+            var orchestraViewModel = new BrowserViewModel("Orchestra") { Url = "http://www.github.com/Orcomp/Orchestra" };
+            orchestraService.ShowDocument<BrowserViewModel>(orchestraViewModel, "orchestra");
+
+            var catelViewModel = new BrowserViewModel("Catel") {Url = "http://catel.codeplex.com"};
+            orchestraService.ShowDocument<BrowserViewModel>(catelViewModel, "catel");
         }
     }
 }

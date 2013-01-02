@@ -14,6 +14,7 @@ namespace Orchestra
     using Catel;
     using Catel.IoC;
     using Catel.MVVM;
+    using Catel.Windows.Controls;
     using Microsoft.Practices.Prism.Regions;
     using Views;
 
@@ -66,10 +67,9 @@ namespace Orchestra
         {
             Argument.IsNotNull("viewType", viewType);
 
-            // TODO: Add tag options
-
             return (from document in LayoutDocumentPane.Children
-                    where document is LayoutDocument && document.Content.GetType() == viewType
+                    where document is LayoutDocument && document.Content.GetType() == viewType &&
+                          TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag)
                     select document).Cast<LayoutDocument>().FirstOrDefault();
         }
 

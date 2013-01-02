@@ -17,8 +17,19 @@ namespace Orchestra.Modules.Browser.ViewModels
     {
         private readonly List<string> _previousPages = new List<string>();
         private readonly List<string> _nextPages = new List<string>();
+        private readonly string _title;
 
         #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BrowserViewModel"/> class.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public BrowserViewModel(string title)
+            : this()
+        {
+            _title = title ?? "Browser";
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BrowserViewModel"/> class.
         /// </summary>
@@ -37,7 +48,7 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// <value>The title.</value>
         public override string Title
         {
-            get { return "Browser"; }
+            get { return _title; }
         }
 
         /// <summary>
