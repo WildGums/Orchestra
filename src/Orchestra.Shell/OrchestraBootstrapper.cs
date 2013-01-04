@@ -12,10 +12,14 @@ namespace Orchestra
     using System.Reflection;
     using Catel;
     using Catel.Logging;
+    using Catel.MVVM;
+    using Catel.MVVM.Services;
     using Catel.Reflection;
     using Microsoft.Practices.Prism.Modularity;
+    using Models;
     using Modules;
     using Services;
+    using ViewModels;
     using Views;
 
     /// <summary>
@@ -28,15 +32,20 @@ namespace Orchestra
         /// </summary>
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
+        private readonly bool _createAboutRibbon;
+
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrchestraBootstrapper"/> class.
+        /// Initializes a new instance of the <see cref="OrchestraBootstrapper" /> class.
         /// </summary>
-        public OrchestraBootstrapper()
+        /// <param name="createAboutRibbon">if set to <c>true</c>, a ribbon item for the about box will be created.</param>
+        public OrchestraBootstrapper(bool createAboutRibbon = true)
         {
 #if DEBUG
             LogManager.RegisterDebugListener();
 #endif
+
+            _createAboutRibbon = createAboutRibbon;
 
             Log.Debug("Optimizing performance by disable the WarningAndErrorValidator in Catel");
 
@@ -85,6 +94,24 @@ namespace Orchestra
 
             Container.RegisterType<IOrchestraService, OrchestraService>();
             Container.RegisterType<IRibbonService, RibbonService>();
+        }
+
+        /// <summary>
+        /// Initializes the modules. May be overwritten in a derived class to use a custom Modules Catalog.
+        /// </summary>
+        protected override void InitializeModules()
+        {
+            base.InitializeModules();
+
+            if (_createAboutRibbon)
+            {
+                var ribbonService = Container.ResolveType<IRibbonService>();
+                ribbonService.RegisterRibbonItem(new RibbonItem("Orchestra", "Help", "About", new Command(() =>
+                {
+                    var uiVisualizerService = Container.ResolveType<IUIVisualizerService>();
+                    uiVisualizerService.ShowDialog(new AboutViewModel());
+                })));
+            }
         }
 
         /// <summary>
