@@ -27,7 +27,10 @@ namespace Orchestra.Modules.Browser.ViewModels
         public BrowserViewModel(string title)
             : this()
         {
-            _title = title ?? "Browser";
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                _title = title;
+            }
         }
 
         /// <summary>
@@ -38,6 +41,8 @@ namespace Orchestra.Modules.Browser.ViewModels
             GoBack = new Command(OnGoBackExecute, OnGoBackCanExecute);
             GoForward = new Command(OnGoForwardExecute, OnGoForwardCanExecute);
             Browse = new Command(OnBrowseExecute, OnBrowseCanExecute);
+
+            _title = "Browser";
         }
         #endregion
 

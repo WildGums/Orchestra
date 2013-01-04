@@ -69,12 +69,17 @@ namespace Orchestra.Modules.DataGrid
             ribbonService.RegisterContextualRibbonItem<DataGridView>(
                 new RibbonItem(Name, "File", "Save", "SaveToFileCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/FileSave.png" },
                 ModuleName);
+
             ribbonService.RegisterContextualRibbonItem<DataGridView>(
                 new RibbonItem(Name, "Rows", "Add", "AddRowCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/ActionAdd.png" },
                 ModuleName);
             ribbonService.RegisterContextualRibbonItem<DataGridView>(
                 new RibbonItem(Name, "Rows", "Remove", "RemoveRowCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/ActionRemove.png" },
                 ModuleName);
+
+            ribbonService.RegisterContextualRibbonItem<DataGridView>(
+                            new RibbonItem(Name, "Tools", "Plot", "Plot") { ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/ActionPlot.png" },
+                            ModuleName);
         }
         #endregion
     }

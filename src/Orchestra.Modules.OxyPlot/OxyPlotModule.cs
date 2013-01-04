@@ -7,13 +7,16 @@
 namespace Orchestra.Modules.OxyPlot
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.ServiceModel;
     using System.ServiceModel.Web;
     using Catel.IoC;
     using Catel.Logging;
+    using Catel.Messaging;
     using Nancy;
     using Orchestra.Services;
     using Services;
+    using ViewModels;
     using global::OxyPlot.Services;
     using Nancy.Hosting.Wcf;
 
@@ -49,6 +52,8 @@ namespace Orchestra.Modules.OxyPlot
         public OxyPlotModule()
             : base(Name)
         {
+            var messageMediator = MessageMediator.Default;
+            messageMediator.Register(this, new Action<Tuple<ObservableCollection<int>, ObservableCollection<int>>>(OnPlot));
         }
         #endregion
 
@@ -75,13 +80,23 @@ namespace Orchestra.Modules.OxyPlot
         /// Use this method to hook up views to ribbon items.
         /// </summary>
         /// <param name="ribbonService">The ribbon service.</param>
-        protected override void InitializeRibbon(Orchestra.Services.IRibbonService ribbonService)
+        protected override void InitializeRibbon(IRibbonService ribbonService)
         {
             // Module specific
             // TODO: Register module specific ribbon items
 
             // View specific
             // TODO: Register view specific ribbon items
+        }
+
+        private void OnPlot(Tuple<ObservableCollection<int>, ObservableCollection<int>> data)
+        {
+            Log.Info("Received plot message");
+
+            var plotViewModel = new PlotViewModel(data.Item1, data.Item2);
+
+            var orchestraService = GetService<IOrchestraService>();
+            orchestraService.ShowDocument(plotViewModel);
         }
     }
 }

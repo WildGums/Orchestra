@@ -6,16 +6,17 @@
 
 namespace Orchestra.Modules.DataGrid.ViewModels
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Windows;
-
+    using Catel;
     using Catel.Data;
     using Catel.MVVM;
     using Catel.MVVM.Services;
-
+    using Catel.Messaging;
     using CsvHelper;
 
     using Orchestra.Modules.DataGrid.Models;
@@ -214,6 +215,40 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         }
         #endregion
 
+        private Command _plotCommand;
+
+        /// <summary>
+        /// Gets the Plot command.
+        /// </summary>
+        public Command Plot
+        {
+            get { return _plotCommand ?? (_plotCommand = new Command(OnPlotExecute)); }
+        }
+
+        /// <summary>
+        /// Method to invoke when the Plot command is executed.
+        /// </summary>
+        private void OnPlotExecute()
+        {
+            var plotVm = new PlotViewModel(from column in Columns
+                                           select column.Title as string);
+            var uiVisualizerService = GetService<IUIVisualizerService>();
+            if (uiVisualizerService.ShowDialog(plotVm) ?? false)
+            {
+                var x = GetColumnByTitle(plotVm.XAxis);
+                var y = GetColumnByTitle(plotVm.YAxis);
+
+                var xvalues = new ObservableCollection<int>(from item in Items
+                                                            select Convert.ToInt32(item.Cells[x.ColumnIndex].Value));
+
+                var yvalues = new ObservableCollection<int>(from item in Items
+                                                            select Convert.ToInt32(item.Cells[y.ColumnIndex].Value));
+
+                var messageMediator = MessageMediator.Default;
+                messageMediator.SendMessage(new Tuple<ObservableCollection<int>, ObservableCollection<int>>(xvalues, yvalues));
+            }
+        }
+
         #region Columns property
         /// <summary>
         /// Columns property data.
@@ -256,6 +291,17 @@ namespace Orchestra.Modules.DataGrid.ViewModels
             }
 
             vm.RemoveRowCommand.RaiseCanExecuteChanged();
+        }
+        #endregion
+
+        #region Methods
+        private TableViewColumn GetColumnByTitle(string title)
+        {
+            Argument.IsNotNullOrWhitespace("title", title);
+
+            return (from column in Columns
+                    where ObjectHelper.AreEqual(column.Title, title)
+                    select column).FirstOrDefault();
         }
         #endregion
     }
