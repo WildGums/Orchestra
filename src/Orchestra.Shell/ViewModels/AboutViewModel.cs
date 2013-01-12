@@ -9,8 +9,10 @@ namespace Orchestra.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using Catel.MVVM;
+    using Catel.MVVM.Services;
     using Catel.Modules.ModuleManager;
     using Catel.Modules.ModuleManager.Models;
+    using Catel.Reflection;
     using Microsoft.Practices.Prism.Modularity;
 
     /// <summary>
@@ -24,17 +26,19 @@ namespace Orchestra.ViewModels
         public AboutViewModel()
         {
             var knownModules = GetService<IModuleInfoManager>().KnownModules;
-            var tempModules = knownModules.Select(moduleInfo => new ModuleTemplate
+            var tempModules = knownModules.Select(moduleInfo => new Models.ModuleInfo()
             {
                 ModuleName = moduleInfo.ModuleName,
                 Enabled = moduleInfo.InitializationMode == InitializationMode.WhenAvailable,
-                State = moduleInfo.InitializationMode == InitializationMode.WhenAvailable ? "Active" : "OnDemand"
+                State = moduleInfo.InitializationMode == InitializationMode.WhenAvailable ? "Active" : "OnDemand",
+                LicenseUrl = ((Modules.ModuleBase)ServiceLocator.ResolveType(TypeHelper.GetType(moduleInfo.ModuleType))).GetLicenseUrl()
             }).ToList();
 
             var sorted = tempModules.OrderBy(module => module.ModuleName);
             Modules = new ObservableCollection<ModuleTemplate>(sorted);
 
             CloseCommand = new Command(OnCloseExecute);
+            ViewLicense = new Command<Models.ModuleInfo>(OnViewLicenseExecute, OnViewLicenseCanExecute);
         }
 
         /// <summary>
@@ -54,6 +58,34 @@ namespace Orchestra.ViewModels
         private void OnCloseExecute()
         {
             CloseViewModel(true);
+        }
+
+        /// <summary>
+        /// Gets the ViewLicense command.
+        /// </summary>
+        public Command<Models.ModuleInfo> ViewLicense { get; private set; }
+
+        /// <summary>
+        /// Method to check whether the ViewLicense command can be executed.
+        /// </summary>
+        /// <returns><c>true</c> if the command can be executed; otherwise <c>false</c></returns>
+        private bool OnViewLicenseCanExecute(Models.ModuleInfo moduleInfo)
+        {
+            if (moduleInfo == null)
+            {
+                return false;
+            }
+
+            return !string.IsNullOrWhiteSpace(moduleInfo.LicenseUrl);
+        }
+
+        /// <summary>
+        /// Method to invoke when the ViewLicense command is executed.
+        /// </summary>
+        private void OnViewLicenseExecute(Models.ModuleInfo moduleInfo)
+        {
+            var processService = GetService<IProcessService>();
+            processService.StartProcess(moduleInfo.LicenseUrl);
         }
     }
 }

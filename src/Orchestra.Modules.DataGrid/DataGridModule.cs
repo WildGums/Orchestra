@@ -1,17 +1,16 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DataGridModule.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Orchestra.Modules.DataGrid
 {
     using Catel.MVVM;
-
     using Orchestra.Models;
-    using Orchestra.Modules.DataGrid.ViewModels;
-    using Orchestra.Modules.DataGrid.Views;
-    using Orchestra.Services;
+    using Services;
+    using ViewModels;
+    using Views;
 
     /// <summary>
     /// The data grid module.
@@ -36,6 +35,17 @@ namespace Orchestra.Modules.DataGrid
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Gets the license URL.
+        /// <para />
+        /// If this method returns an empty string, it is assumed the module has no license.
+        /// </summary>
+        /// <returns>The url of the license.</returns>
+        public override string GetLicenseUrl()
+        {
+            return "https://github.com/Orcomp/Orchestra";
+        }
+
         /// <summary>
         /// The on initialized.
         /// </summary>
@@ -64,22 +74,22 @@ namespace Orchestra.Modules.DataGrid
 
             // View specific
             ribbonService.RegisterContextualRibbonItem<DataGridView>(
-                new RibbonItem(Name, "File", "Open", "OpenFileCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/FileOpen.png" },
+                new RibbonItem(Name, "File", "Open", "OpenFileCommand") {ItemImage = "/Orchestra.Library;component/Resources/Images/FileOpen.png"},
                 ModuleName);
             ribbonService.RegisterContextualRibbonItem<DataGridView>(
-                new RibbonItem(Name, "File", "Save", "SaveToFileCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/FileSave.png" },
-                ModuleName);
-
-            ribbonService.RegisterContextualRibbonItem<DataGridView>(
-                new RibbonItem(Name, "Rows", "Add", "AddRowCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/ActionAdd.png" },
-                ModuleName);
-            ribbonService.RegisterContextualRibbonItem<DataGridView>(
-                new RibbonItem(Name, "Rows", "Remove", "RemoveRowCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/ActionRemove.png" },
+                new RibbonItem(Name, "File", "Save", "SaveToFileCommand") {ItemImage = "/Orchestra.Library;component/Resources/Images/FileSave.png"},
                 ModuleName);
 
             ribbonService.RegisterContextualRibbonItem<DataGridView>(
-                            new RibbonItem(Name, "Tools", "Plot", "Plot") { ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/ActionPlot.png" },
-                            ModuleName);
+                new RibbonItem(Name, "Rows", "Add", "AddRowCommand") {ItemImage = "/Orchestra.Library;component/Resources/Images/ActionAdd.png"},
+                ModuleName);
+            ribbonService.RegisterContextualRibbonItem<DataGridView>(
+                new RibbonItem(Name, "Rows", "Remove", "RemoveRowCommand") {ItemImage = "/Orchestra.Library;component/Resources/Images/ActionRemove.png"},
+                ModuleName);
+
+            ribbonService.RegisterContextualRibbonItem<DataGridView>(
+                new RibbonItem(Name, "Tools", "Plot", "Plot") {ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/ActionPlot.png"},
+                ModuleName);
         }
         #endregion
     }

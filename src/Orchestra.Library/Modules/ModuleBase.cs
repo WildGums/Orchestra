@@ -27,6 +27,17 @@ namespace Orchestra.Modules
         public const string ModulesDirectory = "Modules";
 
         /// <summary>
+        /// Gets the license URL.
+        /// <para />
+        /// If this method returns an empty string, it is assumed the module has no license.
+        /// </summary>
+        /// <returns>The url of the license.</returns>
+        public virtual string GetLicenseUrl()
+        {
+            return string.Empty;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ModuleBase"/> class.
         /// </summary>
         /// <param name="moduleName">Name of the module.</param>
