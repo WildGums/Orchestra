@@ -10,6 +10,7 @@ namespace Orchestra.Modules.OxyPlot.ViewModels
     using Catel;
     using Orchestra.ViewModels;
     using global::OxyPlot;
+    using global::OxyPlot.Series;
 
     /// <summary>
     /// Plot view model.

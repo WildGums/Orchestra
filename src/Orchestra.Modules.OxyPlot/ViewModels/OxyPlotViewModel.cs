@@ -8,8 +8,9 @@ namespace Orchestra.Modules.OxyPlot.ViewModels
 {
     using System;
     using Catel;
-    using Catel.MVVM;
     using global::OxyPlot;
+    using global::OxyPlot.Axes;
+    using global::OxyPlot.Series;
 
     /// <summary>
     /// PlotDemo view model.

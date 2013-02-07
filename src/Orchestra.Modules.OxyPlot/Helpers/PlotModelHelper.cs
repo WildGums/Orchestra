@@ -9,6 +9,7 @@ namespace Orchestra.Modules.OxyPlot
     using System;
     using Catel;
     using global::OxyPlot;
+    using global::OxyPlot.Series;
 
     /// <summary>
     /// Plot model helper.

@@ -31,7 +31,7 @@ namespace Orchestra.ViewModels
                 ModuleName = moduleInfo.ModuleName,
                 Enabled = moduleInfo.InitializationMode == InitializationMode.WhenAvailable,
                 State = moduleInfo.InitializationMode == InitializationMode.WhenAvailable ? "Active" : "OnDemand",
-                LicenseUrl = ((Modules.ModuleBase)ServiceLocator.ResolveType(TypeHelper.GetType(moduleInfo.ModuleType))).GetLicenseUrl()
+                LicenseUrl = ((Modules.ModuleBase)ServiceLocator.ResolveType(TypeCache.GetType(moduleInfo.ModuleType))).GetLicenseUrl()
             }).ToList();
 
             var sorted = tempModules.OrderBy(module => module.ModuleName);
