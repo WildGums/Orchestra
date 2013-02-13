@@ -25,7 +25,7 @@
       <dependency id="AvalonDock" version="2.0.1746" />
       <dependency id="Catel.Extensions.Controls" version="3.4.1302091623-beta" />
       <dependency id="Catel.Extensions.Prism" version="3.4.1302091623-beta" />
-	  <dependency id="Orchestra.Library" version="[VERSION]" />
+      <dependency id="Orchestra.Library" version="%build.number%-beta" />
       <dependency id="Prism" version="4.1.0.0" />
     </dependencies>
   </metadata>
