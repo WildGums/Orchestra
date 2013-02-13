@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Orchestra.Library</id>
+    <version>[VERSION]</version>
+    <title>Orchestra.Library</title>
+    <authors>GeertvanHorrik</authors>
+    <owners>GeertvanHorrik</owners>
+	
+	<description>
+	  The library for all modules created for the Orchestra shell.
+	</description>
+	
+	<tags>mvvm orchestra shell prism framework wpf</tags>
+	
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Copyright © Orchestra team 2010 - 2012</copyright>
+	
+	<language>en-US</language>
+	<projectUrl>https://github.com/Orcomp/Orchestra</projectUrl>	
+	<!--<licenseUrl>http://catel.codeplex.com/license</licenseUrl>-->
+	<!--<iconUrl>http://www.catenalogic.com/catel.png</iconUrl>-->
+	
+    <dependencies>
+      <dependency id="AvalonDock" version="2.0.1746" />
+      <dependency id="Catel.Extensions.Controls" version="3.4.1302091623-beta" />
+      <dependency id="Catel.Extensions.Prism" version="3.4.1302091623-beta" />
+      <dependency id="Prism" version="4.1.0.0" />
+    </dependencies>
+  </metadata>
+</package>
