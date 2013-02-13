@@ -5,8 +5,7 @@
     <version>%build.number%-beta</version>
     <title>Orchestra.Library</title>
     <authors>GeertvanHorrik</authors>
-    <owners>GeertvanHorrik</owners>
-    <owners>OrchestraDevs</owners>
+    <owners>GeertvanHorrik, OrchestraDevs</owners>
 
 	<description>
 	  The library for all modules created for the Orchestra shell.

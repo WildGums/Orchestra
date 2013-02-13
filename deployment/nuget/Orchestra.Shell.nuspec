@@ -5,8 +5,7 @@
     <version>%build.number%-beta</version>
     <title>Orchestra.Shell</title>
     <authors>GeertvanHorrik</authors>
-    <owners>GeertvanHorrik</owners>
-    <owners>OrchestraDevs</owners>
+    <owners>GeertvanHorrik, OrchestraDevs</owners>
 
 	<description>
 	  The main shell reference for Orchestra based applications.
