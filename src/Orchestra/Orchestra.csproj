@@ -124,11 +124,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>Properties\SolutionAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\SolutionAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -166,10 +168,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets. -->
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  <Import Project="$(SolutionDir)\Tools\Fody\Fody.targets" />
-  <Import Project="$(ProjectPath)\..\..\Tools\Pepita\PepitaGet.targets" />
+  <Target Name="BeforeBuild"></Target>
+  <Target Name="AfterBuild"></Target>
+  <Import Project="$(ProjectPath)\..\..\..\Tools\Fody\Fody.targets" />
+  <Import Project="$(ProjectPath)\..\..\..\Tools\Pepita\PepitaGet.targets" />
 </Project>

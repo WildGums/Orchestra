@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\output\debug\Client\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -30,7 +30,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\output\release\Client\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\output\release\Client\Orchestra.Shell.XML</DocumentationFile>
@@ -109,6 +109,9 @@
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>Properties\SolutionAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Helpers\LayoutInitializer.cs" />
     <Compile Include="Models\ModuleInfo.cs" />
     <Compile Include="OrchestraBootstrapper.cs" />
@@ -167,6 +170,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="$(ProjectPath)\..\..\Tools\Pepita\PepitaGet.targets" />
-  <Import Project="$(ProjectPath)\..\..\Tools\Fody\Fody.targets" />
+  <Import Project="$(ProjectPath)\..\..\..\Tools\Pepita\PepitaGet.targets" />
+  <Import Project="$(ProjectPath)\..\..\..\Tools\Fody\Fody.targets" />
 </Project>
