@@ -147,7 +147,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Orchestra.Library\Orchestra.Library.csproj">
       <Project>{433BCE8B-95AE-4628-ABED-86A224D5E8C9}</Project>

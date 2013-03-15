@@ -17,8 +17,6 @@
         /// <param name="e">A <see cref="T:System.Windows.StartupEventArgs"/> that contains the event data.</param>
         protected override void OnStartup(StartupEventArgs e)
         {
-            StyleHelper.CreateStyleForwardersForDefaultStyles(Current.Resources.MergedDictionaries[1]);
-
             // Example of best performance options for Catel (but at the cost of validation features)
             //Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
             //Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
@@ -34,6 +32,9 @@
             viewModelLocator.Register(typeof(Views.SplashScreen), typeof(ProgressNotifyableViewModel));
 
             var bootstrapper = new OrchestraBootstrapper();
+
+            StyleHelper.CreateStyleForwardersForDefaultStyles(Current.Resources.MergedDictionaries[1]);
+
             bootstrapper.RunWithSplashScreen<ProgressNotifyableViewModel>();
 
             base.OnStartup(e);

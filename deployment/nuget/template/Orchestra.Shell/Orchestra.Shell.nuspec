@@ -22,9 +22,10 @@
 	<!--<iconUrl>http://www.catenalogic.com/catel.png</iconUrl>-->
 
     <dependencies>
-      <dependency id="AvalonDock" version="[AVALONDOCKVERSION]" />
-      <dependency id="Catel.Extensions.Controls" version="3.4.1302091623-beta" />
-      <dependency id="Catel.Extensions.Prism" version="3.4.1302091623-beta" />
+      <!--<dependency id="AvalonDock" version="[AVALONDOCKVERSION]" />-->
+      <dependency id="Catel.Extensions.Controls" version="[CATELVERSION]" />
+      <dependency id="Catel.Extensions.Prism" version="[CATELVERSION]" />
+	  <!--<dependency id="Fluent.Ribbon" version="[FLUENTVERSION]" />-->
       <dependency id="Orchestra.Library" version="[VERSION]" />
       <dependency id="Prism" version="4.1.0.0" />
     </dependencies>

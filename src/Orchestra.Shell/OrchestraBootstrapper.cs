@@ -10,6 +10,7 @@ namespace Orchestra
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Windows;
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
@@ -51,6 +52,22 @@ namespace Orchestra
 
             Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
             Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
+
+            Log.Info("Loading application themes");
+
+            // Force loading of type
+            var ribbonType = typeof(Fluent.Ribbon);
+            Log.Debug("Loaded ribbon type '{0}'", ribbonType.Name);
+
+            var application  = Application.Current;
+            application.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/Fluent;Component/Themes/Office2010/Silver.xaml", UriKind.RelativeOrAbsolute)
+            });
+            application.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("/Catel.Extensions.Controls;component/themes/generic.xaml", UriKind.RelativeOrAbsolute)
+            });
 
             var appDomain = AppDomain.CurrentDomain;
             appDomain.AssemblyResolve += OnAssemblyResolve;
