@@ -62,7 +62,7 @@ namespace Orchestra.Modules.Browser
             var orchestraViewModel = new BrowserViewModel("Orchestra") { Url = "http://www.github.com/Orcomp/Orchestra" };
             orchestraService.ShowDocument<BrowserViewModel>(orchestraViewModel, "orchestra");
 
-            var catelViewModel = new BrowserViewModel("Catel") {Url = "http://catel.codeplex.com"};
+            var catelViewModel = new BrowserViewModel("Catel") {Url = "http://www.catelproject.com"};
             orchestraService.ShowDocument<BrowserViewModel>(catelViewModel, "catel");
         }
     }

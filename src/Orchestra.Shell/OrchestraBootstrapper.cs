@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="OrchestraBootstrapper.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -12,6 +12,7 @@ namespace Orchestra
     using System.Reflection;
     using System.Windows;
     using Catel;
+    using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.MVVM.Services;

@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <FodyPath>..\..\lib\Fody.1.13.7.0</FodyPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,23 +37,24 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Fody.targets" />
     <None Include="packages.config" />
-    <Reference Include="Catel.Core, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.Core, Version=3.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Core.3.4.1303081031-beta\lib\NET45\Catel.Core.dll</HintPath>
+      <HintPath>..\..\lib\Catel.Core.3.5.1305021550-beta\lib\NET45\Catel.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Prism, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.Extensions.Prism, Version=3.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Extensions.Prism.3.4.1303081031-beta\lib\NET45\Catel.Extensions.Prism.dll</HintPath>
+      <HintPath>..\..\lib\Catel.Extensions.Prism.3.5.1305021550-beta\lib\NET45\Catel.Extensions.Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.MVVM, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.MVVM, Version=3.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.MVVM.3.4.1303081031-beta\lib\net45\Catel.MVVM.dll</HintPath>
+      <HintPath>..\..\lib\Catel.MVVM.3.5.1305021550-beta\lib\net45\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <None Include="FodyWeavers.xml" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.MVVM.3.4.1303081031-beta\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\lib\Catel.MVVM.3.5.1305021550-beta\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -107,6 +109,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="$(ProjectPath)\..\..\..\Tools\Fody\Fody.targets" />
   <Import Project="$(ProjectPath)\..\..\..\Tools\Pepita\PepitaGet.targets" />
+  <Import Project="Fody.targets" />
 </Project>

@@ -36,7 +36,7 @@ using System.Runtime.CompilerServices;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("0.1")]
-[assembly: AssemblyInformationalVersion("0.50, Nightly, Released on 2013-03-15 17:46")]
+[assembly: AssemblyInformationalVersion("0.50, Nightly, Released on 2013-03-21 19:51")]
 
 #if DEBUG
 

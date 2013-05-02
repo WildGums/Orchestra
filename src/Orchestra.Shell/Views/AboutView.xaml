@@ -75,7 +75,7 @@
 
         <WrapPanel catel:StackGrid.ColumnSpan="2">
             <catel:LinkLabel Content="AvalonDock" Url="http://avalondock.codeplex.com" ClickBehavior="OpenUrlInBrowser" />
-            <catel:LinkLabel Content="Catel" Url="http://catel.codeplex.com/" ClickBehavior="OpenUrlInBrowser" />
+            <catel:LinkLabel Content="Catel" Url="http://www.catelproject.com" ClickBehavior="OpenUrlInBrowser" />
             <catel:LinkLabel Content="FluentRibbon" Url="http://fluent.codeplex.com" ClickBehavior="OpenUrlInBrowser" />
             <!--<catel:LinkLabel Content="OxyPlot" Url="http://oxyplot.codeplex.com" ClickBehavior="OpenUrlInBrowser" />-->
         </WrapPanel>
