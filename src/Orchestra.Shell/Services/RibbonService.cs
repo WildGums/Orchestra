@@ -11,6 +11,7 @@ namespace Orchestra.Services
     using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Data;
     using AvalonDock.Layout;
     using Catel;
@@ -93,10 +94,12 @@ namespace Orchestra.Services
         /// <param name="ribbonItem">The ribbon item.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonItem"/> is <c>null</c>.</exception>
         public void RegisterRibbonItem(IRibbonItem ribbonItem)
         {
             Argument.IsNotNull("ribbonItem", ribbonItem);
-            Argument.IsSupported(ribbonItem.Command != null, "When registering a non-view-specific ribbon item, the Command property cannot be null");
+            Argument.IsOfType(() => ribbonItem, typeof(IRibbonButton)); // TODO: consider using IRibbonButton parameter instead of IRibbonItem
+            Argument.IsSupported(((IRibbonButton)ribbonItem).Command != null, "When registering a non-view-specific ribbon item, the Command property cannot be null");
 
             AddRibbonItem(ribbonItem);
         }
@@ -166,13 +169,30 @@ namespace Orchestra.Services
 
             var group = tab.EnsureGroupBox(ribbonItem.GroupBoxHeader);
 
-            if (ribbonItem.Command != null)
+            Control ribbonItemControl = null;
+
+            var ribbonButton = ribbonItem as IRibbonButton;
+            if (ribbonButton != null)
             {
-                group.AddButton(ribbonItem.ItemHeader, ribbonItem.ItemImage, ribbonItem.ItemImage, ribbonItem.Command);
+                if (ribbonButton.Command != null)
+                {
+                    ribbonItemControl = group.AddButton(ribbonButton.ItemHeader, ribbonButton.ItemImage, ribbonButton.ItemImage, ribbonButton.Command);
+                }
+                else
+                {
+                    ribbonItemControl = group.AddButton(ribbonButton.ItemHeader, ribbonButton.ItemImage, ribbonButton.ItemImage, ribbonButton.CommandName);
+                }
             }
-            else
+            var ribbonComboBox = ribbonItem as IRibbonComboBox;
+
+            if (ribbonComboBox != null)
             {
-                group.AddButton(ribbonItem.ItemHeader, ribbonItem.ItemImage, ribbonItem.ItemImage, ribbonItem.CommandName);
+                ribbonItemControl = group.AddComboBox(ribbonComboBox.ItemHeader, ribbonComboBox.ItemsSource, ribbonComboBox.SelectedItem);
+            }
+
+            if (ribbonItem.Layout != null && ribbonItemControl != null)
+            {
+                group.ApplyLayout(ribbonItemControl, ribbonItem.Layout);
             }
 
             Log.Debug("Added ribbon item '{0}'", ribbonItem);

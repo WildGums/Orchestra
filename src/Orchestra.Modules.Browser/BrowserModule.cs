@@ -6,6 +6,8 @@
 
 namespace Orchestra.Modules.Browser
 {
+    using Catel;
+    using Catel.Linq;
     using Catel.MVVM;
     using Models;
     using Services;
@@ -50,13 +52,19 @@ namespace Orchestra.Modules.Browser
             var orchestraService = GetService<IOrchestraService>();
 
             // Module specific
-            ribbonService.RegisterRibbonItem(new RibbonItem(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>()))
+            ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>()))
                 { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
+            
+
             // View specific
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Back", "GoBack") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png" }, ModuleName);
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Forward", "GoForward") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" }, ModuleName);
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonItem(Name, Name, "Browse", "Browse") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Back", "GoBack") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png" }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Forward", "GoForward") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Browse", "Browse") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonComboBox(Name, "Recent Sites", null, "RecentSites", "SelectedSite")
+            {
+                Layout = new RibbonItemLayout {Width = 150}
+            }, ModuleName);
 
             // Demo: show two pages with different tags
             var orchestraViewModel = new BrowserViewModel("Orchestra") { Url = "http://www.github.com/Orcomp/Orchestra" };

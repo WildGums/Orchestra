@@ -49,7 +49,7 @@ namespace Orchestra.Modules.PlotDemo
             var orchestraService = GetService<IOrchestraService>();
 
             // Module specific
-            ribbonService.RegisterRibbonItem(new RibbonItem(HomeRibbonTabName, ModuleName, "Show", new Command(() => orchestraService.ShowDocument<PlotDemoViewModel>())) 
+            ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Show", new Command(() => orchestraService.ShowDocument<PlotDemoViewModel>())) 
             { ItemImage = "/Orchestra.Modules.PlotDemo;component/Resources/Images/Graph.png" });
 
             // View specific

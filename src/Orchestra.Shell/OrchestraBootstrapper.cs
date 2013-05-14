@@ -124,7 +124,7 @@ namespace Orchestra
             if (_createAboutRibbon)
             {
                 var ribbonService = Container.ResolveType<IRibbonService>();
-                ribbonService.RegisterRibbonItem(new RibbonItem("Orchestra", "Help", "About", new Command(() =>
+                ribbonService.RegisterRibbonItem(new RibbonButton("Orchestra", "Help", "About", new Command(() =>
                 {
                     var uiVisualizerService = Container.ResolveType<IUIVisualizerService>();
                     uiVisualizerService.ShowDialog(new AboutViewModel());
