@@ -9,6 +9,7 @@ namespace Orchestra.Modules.Browser.ViewModels
     using System.Collections.Generic;
     using Catel.Data;
     using Catel.MVVM;
+    using Catel.MVVM.Services;
     using Catel.Messaging;
 
     /// <summary>
@@ -39,11 +40,17 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// </summary>
         public BrowserViewModel()
         {
-            GoBack = new Command(OnGoBackExecute, OnGoBackCanExecute);
+            GoBack = new Command(() => OnGoBackExecute(), OnGoBackCanExecute);
             GoForward = new Command(OnGoForwardExecute, OnGoForwardCanExecute);
             Browse = new Command(OnBrowseExecute, OnBrowseCanExecute);
+            Test = new Command(OnTestExecute);
 
             _title = "Browser";
+        }
+
+        private void OnTestExecute()
+        {
+            GetService<IMessageService>().ShowInformation("This is a test, for loading dynamic content into the ribbon...");
         }
         #endregion
 
@@ -69,7 +76,7 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// <value>
         /// The recent sites.
         /// </value>
-        public string[] RecentSites { get { return new[] {"Orchestra", "Catel"}; } }
+        public string[] RecentSites { get { return new[] { "Orchestra", "Catel" }; } }
 
         #region SelectedSite property
 
@@ -85,7 +92,7 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// <summary>
         /// SelectedSite property data.
         /// </summary>
-        public static readonly PropertyData SelectedSiteProperty = RegisterProperty("SelectedSite", typeof (string), null, OnSelectedSiteChanged);
+        public static readonly PropertyData SelectedSiteProperty = RegisterProperty("SelectedSite", typeof(string), null, OnSelectedSiteChanged);
 
         /// <summary>
         /// Called when the SelectedSite value changed.
@@ -94,7 +101,7 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// <param name="e">The <see cref="AdvancedPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void OnSelectedSiteChanged(object sender, AdvancedPropertyChangedEventArgs e)
         {
-            var _this = ((BrowserViewModel) sender);
+            var _this = ((BrowserViewModel)sender);
 
             switch (_this.SelectedSite)
             {
@@ -117,6 +124,14 @@ namespace Orchestra.Modules.Browser.ViewModels
         #endregion
 
         #region Commands
+        /// <summary>
+        /// Gets the test command.
+        /// </summary>
+        /// <value>
+        /// The test.
+        /// </value>
+        public Command Test { get; private set; }
+
         /// <summary>
         /// Gets the GoBack command.
         /// </summary>
