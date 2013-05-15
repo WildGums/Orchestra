@@ -194,7 +194,7 @@ namespace Orchestra.Services
 
             if (ribbonContentControl != null)
             {
-                group.AddContentControl(ribbonItem.ItemHeader, ribbonContentControl.ContentTemplate);
+                ribbonItemControl = group.AddContentControl(ribbonItem.ItemHeader, ribbonContentControl.ContentTemplate);
             }
 
             if (ribbonItem.Layout != null && ribbonItemControl != null)

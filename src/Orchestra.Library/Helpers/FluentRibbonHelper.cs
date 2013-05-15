@@ -288,10 +288,15 @@ namespace Orchestra
         /// <param name="groupBox">The group box.</param>
         /// <param name="header">The header.</param>
         /// <param name="template">The DataTemplate for the ContentTemplate of the ContentControl.</param>
-        public static void AddContentControl(this RibbonGroupBox groupBox, string header, DataTemplate template)
+        public static ContentControl AddContentControl(this RibbonGroupBox groupBox, string header, DataTemplate template)
         {
             var contentControl = new ContentControl { ContentTemplate = template };
             groupBox.Items.Add(contentControl);
+
+            var binding = new Binding("DataContext") { Source = contentControl };
+            contentControl.SetBinding(ContentControl.ContentProperty, binding);
+
+            return contentControl;
         }
 
 

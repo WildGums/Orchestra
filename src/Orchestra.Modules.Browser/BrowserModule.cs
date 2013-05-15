@@ -6,6 +6,7 @@
 
 namespace Orchestra.Modules.Browser
 {
+    using System;
     using System.Windows;
     using Catel;
     using Catel.Linq;
@@ -50,12 +51,12 @@ namespace Orchestra.Modules.Browser
         /// <param name="ribbonService">The ribbon service.</param>
         protected override void InitializeRibbon(IRibbonService ribbonService)
         {
+            LoadResourceDictionary();
+
             var orchestraService = GetService<IOrchestraService>();
 
             // Module specific
             ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>())) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
-
-
 
             // View specific
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Back", "GoBack") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png" }, ModuleName);
@@ -69,7 +70,7 @@ namespace Orchestra.Modules.Browser
             // Find the template to show as dynamic content. TODO: Refactor, make more elegant.
             var template = Application.Current.Resources["TestTemplate"] as DataTemplate;
 
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content", "Test") { ContentTemplate = template }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content", "Test") { ContentTemplate = template, Layout = new RibbonItemLayout {Width = 120}}, ModuleName);
 
             // Demo: show two pages with different tags
             var orchestraViewModel = new BrowserViewModel("Orchestra") { Url = "http://www.github.com/Orcomp/Orchestra" };
@@ -77,6 +78,11 @@ namespace Orchestra.Modules.Browser
 
             var catelViewModel = new BrowserViewModel("Catel") { Url = "http://www.catelproject.com" };
             orchestraService.ShowDocument<BrowserViewModel>(catelViewModel, "catel");
+        }
+
+        private void LoadResourceDictionary()
+        {
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("/Orchestra.Modules.Browser;component/ResourceDictionary.xaml", UriKind.RelativeOrAbsolute) });
         }
     }
 }

@@ -2,16 +2,5 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <DataTemplate x:Key="TestTemplate">
-                        <!-- RelativeSource needed to bind to the ViewModel-->
-                        <Button Content="Test" Command="{Binding DataContext.Test, RelativeSource={RelativeSource AncestorType=ContentControl}}"/>
-                    </DataTemplate>
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-
     </Application.Resources>
 </Application>
