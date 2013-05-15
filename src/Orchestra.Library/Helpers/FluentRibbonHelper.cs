@@ -13,6 +13,7 @@ namespace Orchestra
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Input;
+    using System.Windows.Media;
     using Catel;
     using Catel.Logging;
     using Fluent;
@@ -280,6 +281,19 @@ namespace Orchestra
 
             return comboBox;
         }
+
+        /// <summary>
+        /// Adds the content control.
+        /// </summary>
+        /// <param name="groupBox">The group box.</param>
+        /// <param name="header">The header.</param>
+        /// <param name="template">The DataTemplate for the ContentTemplate of the ContentControl.</param>
+        public static void AddContentControl(this RibbonGroupBox groupBox, string header, DataTemplate template)
+        {
+            var contentControl = new ContentControl { ContentTemplate = template };
+            groupBox.Items.Add(contentControl);
+        }
+
 
         /// <summary>
         /// Creates the combobox without command binding.
