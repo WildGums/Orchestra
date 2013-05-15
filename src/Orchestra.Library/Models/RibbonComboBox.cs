@@ -19,6 +19,8 @@
         public RibbonComboBox(string tabItemHeader, string groupBoxHeader, string itemHeader, string itemsSource, string selectedItem, RibbonBehavior behavior = RibbonBehavior.ActivateTab) 
             : base(tabItemHeader, groupBoxHeader, itemHeader, behavior)
         {
+            // TODO: consider to make itemHeader parameter optional and set default null value
+
             Argument.IsNotNullOrEmpty(() => itemsSource);
             Argument.IsNotNullOrEmpty(() => selectedItem);
 

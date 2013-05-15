@@ -5,4 +5,9 @@
         <Button Content="Test" Command="{Binding Test}" />
     </DataTemplate>
 
+    <Style x:Key="SelectedSitesComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="IsEditable" Value="False" />
+        <Setter Property="Margin" Value="0 6 6 6" />
+    </Style>
+
 </ResourceDictionary>

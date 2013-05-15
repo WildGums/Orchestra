@@ -305,20 +305,18 @@ namespace Orchestra
         /// </summary>
         /// <param name="groupBox">The group box.</param>
         /// <param name="header">The header.</param>
-        /// <param name="isEditable">if set to <c>true</c> the combo box is editable.</param>
         /// <returns>
         /// Button.
         /// </returns>
         /// <exception cref="ArgumentNullException">The <paramref header="groupBox" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">The <paramref header="header" /> is <c>null</c> or whitespace.</exception>
-        private static ComboBox CreateComboBoxWithoutBinding(this RibbonGroupBox groupBox, string header, bool isEditable = false)
+        private static ComboBox CreateComboBoxWithoutBinding(this RibbonGroupBox groupBox, string header)
         {
             Argument.IsNotNull("groupBox", groupBox);
 
             var comboBox = new ComboBox
             {
                 Header = header,
-                IsEditable = isEditable
             };
 
             groupBox.Items.Add(comboBox);

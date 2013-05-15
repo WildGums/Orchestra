@@ -27,10 +27,9 @@
         /// <param name="groupBoxHeader">The group box header.</param>
         /// <param name="itemHeader">The item header.</param>
         /// <param name="behavior">The behavior.</param>
-        public RibbonContentControl(string tabItemHeader, string groupBoxHeader, string itemHeader, RibbonBehavior behavior = RibbonBehavior.ActivateTab)
+        public RibbonContentControl(string tabItemHeader, string groupBoxHeader, string itemHeader = null, RibbonBehavior behavior = RibbonBehavior.ActivateTab)
             : base(tabItemHeader, groupBoxHeader, itemHeader, behavior)
         {
-            Argument.IsNotNullOrWhitespace("itemHeader", itemHeader);
         }
 
         /// <summary>

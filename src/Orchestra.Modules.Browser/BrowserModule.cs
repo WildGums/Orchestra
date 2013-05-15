@@ -64,13 +64,14 @@ namespace Orchestra.Modules.Browser
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Browse", "Browse") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" }, ModuleName);
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonComboBox(Name, "Recent Sites", null, "RecentSites", "SelectedSite")
             {
-                Layout = new RibbonItemLayout { Width = 150 }
+                Layout = new RibbonItemLayout { Width = 150 },
+                Style = Application.Current.Resources["SelectedSitesComboBoxStyle"] as Style
             }, ModuleName);
 
             // Find the template to show as dynamic content. TODO: Refactor, make more elegant.
             var template = Application.Current.Resources["TestTemplate"] as DataTemplate;
 
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content", "Test") { ContentTemplate = template, Layout = new RibbonItemLayout {Width = 120}}, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content") { ContentTemplate = template, Layout = new RibbonItemLayout {Width = 120}}, ModuleName);
 
             // Demo: show two pages with different tags
             var orchestraViewModel = new BrowserViewModel("Orchestra") { Url = "http://www.github.com/Orcomp/Orchestra" };

@@ -6,8 +6,7 @@
 
 namespace Orchestra.Models
 {
-    using System.Security.Cryptography.X509Certificates;
-    using System.Windows.Input;
+    using System.Windows;
 
     /// <summary>
     /// The ribbon context.
@@ -97,5 +96,13 @@ namespace Orchestra.Models
         /// The ribbon item layout.
         /// </value>
         IRibbonItemLayout Layout { get; }
+
+        /// <summary>
+        /// Gets the ribbon item style.
+        /// </summary>
+        /// <value>
+        /// The ribbon item style.
+        /// </value>
+        Style Style { get; }
     }
 }

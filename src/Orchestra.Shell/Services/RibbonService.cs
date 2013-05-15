@@ -92,9 +92,9 @@ namespace Orchestra.Services
         /// Registers the specified ribbon item to the main ribbon.
         /// </summary>
         /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonItem"/> is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem" /> is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonItem" /> is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonItem" /> is <c>null</c>.</exception>
         public void RegisterRibbonItem(IRibbonItem ribbonItem)
         {
             Argument.IsNotNull("ribbonItem", ribbonItem);
@@ -197,10 +197,19 @@ namespace Orchestra.Services
                 ribbonItemControl = group.AddContentControl(ribbonItem.ItemHeader, ribbonContentControl.ContentTemplate);
             }
 
-            if (ribbonItem.Layout != null && ribbonItemControl != null)
+            if (ribbonItemControl != null)
             {
-                group.ApplyLayout(ribbonItemControl, ribbonItem.Layout);
+                if (ribbonItem.Layout != null)
+                {
+                    group.ApplyLayout(ribbonItemControl, ribbonItem.Layout);
+                }
+
+                if (ribbonItem.Style != null)
+                {
+                    ribbonItemControl.Style = ribbonItem.Style;
+                }
             }
+
 
             Log.Debug("Added ribbon item '{0}'", ribbonItem);
         }

@@ -7,6 +7,7 @@
 namespace Orchestra.Models
 {
     using System;
+    using System.Windows;
     using Catel;
 
     /// <summary>
@@ -87,6 +88,14 @@ namespace Orchestra.Models
         /// The ribbon item layout.
         /// </value>
         public IRibbonItemLayout Layout { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ribbon item style.
+        /// </summary>
+        /// <value>
+        /// The ribbon item style.
+        /// </value>
+        public Style Style { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
