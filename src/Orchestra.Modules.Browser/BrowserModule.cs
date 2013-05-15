@@ -6,6 +6,7 @@
 
 namespace Orchestra.Modules.Browser
 {
+    using System.Windows;
     using Catel;
     using Catel.Linq;
     using Catel.MVVM;
@@ -52,10 +53,9 @@ namespace Orchestra.Modules.Browser
             var orchestraService = GetService<IOrchestraService>();
 
             // Module specific
-            ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>()))
-                { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
+            ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>())) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
-            
+
 
             // View specific
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Back", "GoBack") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png" }, ModuleName);
@@ -63,14 +63,19 @@ namespace Orchestra.Modules.Browser
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Browse", "Browse") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" }, ModuleName);
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonComboBox(Name, "Recent Sites", null, "RecentSites", "SelectedSite")
             {
-                Layout = new RibbonItemLayout {Width = 150}
+                Layout = new RibbonItemLayout { Width = 150 }
             }, ModuleName);
+
+            // Find the template to show as dynamic content. TODO: Refactor, make more elegant.
+            var template = Application.Current.Resources["TestTemplate"] as DataTemplate;
+
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content", "Test") { ContentTemplate = template }, ModuleName);
 
             // Demo: show two pages with different tags
             var orchestraViewModel = new BrowserViewModel("Orchestra") { Url = "http://www.github.com/Orcomp/Orchestra" };
             orchestraService.ShowDocument<BrowserViewModel>(orchestraViewModel, "orchestra");
 
-            var catelViewModel = new BrowserViewModel("Catel") {Url = "http://www.catelproject.com"};
+            var catelViewModel = new BrowserViewModel("Catel") { Url = "http://www.catelproject.com" };
             orchestraService.ShowDocument<BrowserViewModel>(catelViewModel, "catel");
         }
     }

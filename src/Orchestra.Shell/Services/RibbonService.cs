@@ -190,6 +190,13 @@ namespace Orchestra.Services
                 ribbonItemControl = group.AddComboBox(ribbonComboBox.ItemHeader, ribbonComboBox.ItemsSource, ribbonComboBox.SelectedItem);
             }
 
+            var ribbonContentControl = ribbonItem as IRibbonContentControl;
+
+            if (ribbonContentControl != null)
+            {
+                group.AddContentControl(ribbonItem.ItemHeader, ribbonContentControl.ContentTemplate);
+            }
+
             if (ribbonItem.Layout != null && ribbonItemControl != null)
             {
                 group.ApplyLayout(ribbonItemControl, ribbonItem.Layout);

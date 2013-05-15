@@ -122,6 +122,7 @@
     <Compile Include="Models\Interface\IRibbonButton.cs" />
     <Compile Include="Models\Interface\IRibbonComboBox.cs" />
     <Compile Include="Models\Interface\IRibbonItemLayout.cs" />
+    <Compile Include="Models\RibbonContentControl.cs" />
     <Compile Include="Models\RibbonItemLayout.cs" />
     <Compile Include="Models\RibbonButton.cs" />
     <Compile Include="Models\RibbonComboBox.cs" />
