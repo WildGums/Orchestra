@@ -263,21 +263,31 @@ namespace Orchestra
         /// <exception cref="ArgumentNullException">The <paramref header="groupBox" /> is <c>null</c>.</exception>
         public static ComboBox AddComboBox(this RibbonGroupBox groupBox, string header, string itemsSource, string selectedItem, object bindingSource = null)
         {
-            Argument.IsNotNull("itemsSource", itemsSource);
-            Argument.IsNotNull("selectedItem", selectedItem);
-
             var comboBox = CreateComboBoxWithoutBinding(groupBox, header);
 
-            var itemsSourceBinding = new Binding(itemsSource);
-            var selectedItemBinding = new Binding(selectedItem);
-            if (bindingSource != null)
+            if (!string.IsNullOrWhiteSpace(itemsSource))
             {
-                itemsSourceBinding.Source = bindingSource;
-                selectedItemBinding.Source = bindingSource;
+                var itemsSourceBinding = new Binding(itemsSource);
+
+                if (bindingSource != null)
+                {
+                    itemsSourceBinding.Source = bindingSource;
+                }
+
+                comboBox.SetBinding(ItemsControl.ItemsSourceProperty, itemsSourceBinding);
             }
 
-            comboBox.SetBinding(ItemsControl.ItemsSourceProperty, itemsSourceBinding);
-            comboBox.SetBinding(Selector.SelectedItemProperty, selectedItemBinding);
+            if (!string.IsNullOrWhiteSpace(selectedItem))
+            {
+                var selectedItemBinding = new Binding(selectedItem);
+
+                if (bindingSource != null)
+                {
+                    selectedItemBinding.Source = bindingSource;
+                }
+
+                comboBox.SetBinding(Selector.SelectedItemProperty, selectedItemBinding);
+            }
 
             return comboBox;
         }
