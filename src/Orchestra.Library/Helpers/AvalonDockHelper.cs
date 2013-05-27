@@ -7,6 +7,7 @@
 namespace Orchestra
 {
     using System;
+    using System.ComponentModel;
     using System.Linq;
     using System.Windows;
     using AvalonDock;
@@ -113,17 +114,35 @@ namespace Orchestra
         private static LayoutDocument WrapViewInLayoutDocument(FrameworkElement view, object tag = null)
         {
             Argument.IsNotNull("view", view);
+            Argument.IsNotNull("viewModel", view.DataContext);
+            Argument.IsOfType(() => view.DataContext, typeof(IViewModel));
 
             var layoutDocument = new LayoutDocument();
-
             layoutDocument.CanFloat = false;
-            // TODO: Make bindable => automatic updates
             layoutDocument.Title = ((IViewModel)view.DataContext).Title;
             layoutDocument.Content = view;
+
+            ((IViewModel)view.DataContext).PropertyChanged += OnLayoutDocumentViewModelPropertyChanged(layoutDocument);
 
             view.Tag = tag;
 
             return layoutDocument;
+        }
+
+        /// <summary>
+        /// Called when a property on the ViewModel changed.
+        /// </summary>
+        /// <param name="layoutDocument">The layout document.</param>
+        /// <returns></returns>
+        private static PropertyChangedEventHandler OnLayoutDocumentViewModelPropertyChanged(LayoutDocument layoutDocument)
+        {
+            return (s, e) =>
+            {
+                if (e.PropertyName == "Title")
+                {
+                    layoutDocument.Title = ((IViewModel)s).Title;
+                }
+            };
         }
 
         /// <summary>
@@ -138,6 +157,7 @@ namespace Orchestra
             if (view != null)
             {
                 view.CloseDocument();
+                ((IViewModel)view.DataContext).PropertyChanged -= OnLayoutDocumentViewModelPropertyChanged(containerView);
             }
 
             //var region = RegionManager.Regions[(string)view.Tag];
