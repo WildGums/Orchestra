@@ -27,17 +27,17 @@
         </catel:StackGrid.ColumnDefinitions>
 
         <Grid catel:StackGrid.ColumnSpan="2">
-            <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Source="/Orchestra.Shell;component/Resources/Images/About.png" Stretch="None" />
+            <Image Name="imgAboutBG" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0" Source="pack://application:,,,/Resources/Images/About.png" Stretch="Fill" />
         </Grid>
 
         <Label catel:StackGrid.ColumnSpan="2">
-            <TextBlock TextWrapping="Wrap">
-                Orchestra is a composable shell built on top of Catel.
+            <TextBlock TextWrapping="Wrap" Name="tbQuickDescription">
+                AboutView_tbQuickDescription
             </TextBlock>
         </Label>
 
-        <TextBlock catel:StackGrid.ColumnSpan="2" Margin="6,0,0,0">
-            Loaded modules:
+        <TextBlock catel:StackGrid.ColumnSpan="2" Margin="6,0,0,0" Name="tbLoadedModules">
+            AboutView_tbLoadedModules
         </TextBlock>
 
         <ListView x:Name="modulesListView" ItemsSource="{Binding Modules}" catel:StackGrid.ColumnSpan="2" >
@@ -73,16 +73,12 @@
             Used libraries:
         </TextBlock>
 
-        <WrapPanel catel:StackGrid.ColumnSpan="2">
-            <catel:LinkLabel Content="AvalonDock" Url="http://avalondock.codeplex.com" ClickBehavior="OpenUrlInBrowser" />
-            <catel:LinkLabel Content="Catel" Url="http://www.catelproject.com" ClickBehavior="OpenUrlInBrowser" />
-            <catel:LinkLabel Content="FluentRibbon" Url="http://fluent.codeplex.com" ClickBehavior="OpenUrlInBrowser" />
-            <!--<catel:LinkLabel Content="OxyPlot" Url="http://oxyplot.codeplex.com" ClickBehavior="OpenUrlInBrowser" />-->
+        <WrapPanel catel:StackGrid.ColumnSpan="2" Name="wpLinksPanel">
         </WrapPanel>
 
         <Label>
-            <TextBlock TextWrapping="Wrap">
-                Orchestra is released as open source (MS-PL license), so you are free to use it in commercial applications
+            <TextBlock TextWrapping="Wrap" Name="tbAboutLongDescription">
+                AboutView_tbAboutLongDescription
             </TextBlock>
         </Label>
 

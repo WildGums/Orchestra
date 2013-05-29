@@ -10,6 +10,7 @@ namespace Orchestra
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Resources;
     using System.Windows;
     using Catel;
     using Catel.IoC;
@@ -115,16 +116,25 @@ namespace Orchestra
         }
 
         /// <summary>
+        /// Resources manager for texts.
+        /// </summary>
+        private ResourceManager _textResourceManager;
+
+        /// <summary>
         /// Initializes the modules. May be overwritten in a derived class to use a custom Modules Catalog.
         /// </summary>
         protected override void InitializeModules()
         {
+            var assembly = Assembly.GetEntryAssembly();
+            _textResourceManager = new ResourceManager(String.Format("{0}.Resources.Texts", assembly.GetName().Name), assembly);
+
             base.InitializeModules();
 
             if (_createAboutRibbon)
             {
                 var ribbonService = Container.ResolveType<IRibbonService>();
-                ribbonService.RegisterRibbonItem(new RibbonButton("Orchestra", "Help", "About", new Command(() =>
+                string helpButtonName = _textResourceManager.GetString("Ribbon_HelpButton_Name");
+                ribbonService.RegisterRibbonItem(new RibbonButton(helpButtonName, "Help", "About", new Command(() =>
                 {
                     var uiVisualizerService = Container.ResolveType<IUIVisualizerService>();
                     uiVisualizerService.ShowDialog(new AboutViewModel());

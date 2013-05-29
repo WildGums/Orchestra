@@ -117,8 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="main" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\main.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AboutView_tbAboutLongDescription" xml:space="preserve">
+    <value>Orchestra is released as open source (MS-PL license), so you are free to use it in commercial applications</value>
+  </data>
+  <data name="AboutView_tbLoadedModules" xml:space="preserve">
+    <value>Loaded modules:</value>
+  </data>
+  <data name="AboutView_tbQuickDescription" xml:space="preserve">
+    <value>Orchestra is a composable shell built on top of Catel.</value>
   </data>
 </root>

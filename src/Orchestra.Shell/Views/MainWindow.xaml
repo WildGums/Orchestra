@@ -5,7 +5,8 @@
                      xmlns:avalondock="http://avalondock.codeplex.com"
                      xmlns:local="clr-namespace:Orchestra"
                      xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
-                     ShowInTaskbar="True" ResizeMode="CanResize" SizeToContent="Manual" WindowStartupLocation="Manual" WindowState="Maximized">
+                     ShowInTaskbar="True" ResizeMode="CanResize" SizeToContent="Manual" WindowStartupLocation="Manual" WindowState="Maximized"
+                     >
     
      <catel:StackGrid>
 		<catel:StackGrid.RowDefinitions>
