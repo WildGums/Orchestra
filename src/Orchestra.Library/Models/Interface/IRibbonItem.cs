@@ -6,7 +6,7 @@
 
 namespace Orchestra.Models
 {
-    using System.Windows.Input;
+    using System.Windows;
 
     /// <summary>
     /// The ribbon context.
@@ -41,7 +41,7 @@ namespace Orchestra.Models
     }
 
     /// <summary>
-    /// Class defining a ribbon item.
+    /// Provides a common ribbon item methods and properties.
     /// </summary>
     public interface IRibbonItem
     {
@@ -72,29 +72,6 @@ namespace Orchestra.Models
         string ItemHeader { get; }
 
         /// <summary>
-        /// Gets or sets the item image.
-        /// </summary>
-        string ItemImage { get; set; }
-
-        /// <summary>
-        /// Gets the command.
-        /// <para />
-        /// If this command is set, it will be used directly. Otherwise a binding to the active document will be created 
-        /// using the <see cref="CommandName"/> property.
-        /// </summary>
-        /// <value>The command.</value>
-        ICommand Command { get; }
-
-        /// <summary>
-        /// Gets the name of the command.
-        /// <para />
-        /// The <see cref="Command"/> property always is used first. If that value is <c>null</c>, this value will be used
-        /// to bind the command to the active document.
-        /// </summary>
-        /// <value>The name of the command.</value>
-        string CommandName { get; }
-
-        /// <summary>
         /// Gets a value indiciating whether this ribbon item should only be shown when 
         /// the tab is actually activated.
         /// </summary>
@@ -111,5 +88,21 @@ namespace Orchestra.Models
         /// </summary>
         /// <value>The behavior.</value>
         RibbonBehavior Behavior { get; set; }
+
+        /// <summary>
+        /// Gets the ribbon item layout.
+        /// </summary>
+        /// <value>
+        /// The ribbon item layout.
+        /// </value>
+        IRibbonItemLayout Layout { get; }
+
+        /// <summary>
+        /// Gets the ribbon item style.
+        /// </summary>
+        /// <value>
+        /// The ribbon item style.
+        /// </value>
+        Style Style { get; }
     }
 }

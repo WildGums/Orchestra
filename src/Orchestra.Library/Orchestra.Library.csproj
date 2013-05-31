@@ -119,6 +119,14 @@
     </Compile>
     <Compile Include="Helpers\AvalonDockHelper.cs" />
     <Compile Include="Helpers\FluentRibbonHelper.cs" />
+    <Compile Include="Models\Interface\IRibbonButton.cs" />
+    <Compile Include="Models\Interface\IRibbonComboBox.cs" />
+    <Compile Include="Models\Interface\IRibbonItemLayout.cs" />
+    <Compile Include="Models\RibbonContentControl.cs" />
+    <Compile Include="Models\RibbonItemLayout.cs" />
+    <Compile Include="Models\RibbonButton.cs" />
+    <Compile Include="Models\RibbonComboBox.cs" />
+    <Compile Include="Models\RibbonItemBase.cs" />
     <Compile Include="Models\RibbonItem.cs" />
     <Compile Include="Modules\ModuleBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

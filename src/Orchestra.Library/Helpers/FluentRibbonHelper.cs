@@ -8,13 +8,18 @@ namespace Orchestra
 {
     using System;
     using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Input;
+    using System.Windows.Media;
     using Catel;
     using Catel.Logging;
     using Fluent;
     using Models;
+    using Button = Fluent.Button;
+    using ComboBox = Fluent.ComboBox;
 
     /// <summary>
     /// Helper class for the <see cref="Ribbon" /> control.
@@ -159,6 +164,8 @@ namespace Orchestra
             return groupBox;
         }
 
+        #region AddButton Methods
+
         /// <summary>
         /// Adds a new button to the specified <see cref="RibbonGroupBox"/>.
         /// </summary>
@@ -235,6 +242,119 @@ namespace Orchestra
 
             return button;
         }
+
+        #endregion
+
+        #region AddComboBox Methods
+
+        /// <summary>
+        /// Adds a new combobox to the specified <see cref="RibbonGroupBox" />.
+        /// </summary>
+        /// <param name="groupBox">The group box.</param>
+        /// <param name="header">The header.</param>
+        /// <param name="itemsSource">The items source collection.</param>
+        /// <param name="selectedItem">The selected item.</param>
+        /// <param name="bindingSource">The binding source.</param>
+        /// <returns>
+        /// The created <see cref="ComboBox"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">The <paramref header="groupBox" /> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="header" /> is <c>null</c> or whitespace.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref header="groupBox" /> is <c>null</c>.</exception>
+        public static ComboBox AddComboBox(this RibbonGroupBox groupBox, string header, string itemsSource, string selectedItem, object bindingSource = null)
+        {
+            var comboBox = CreateComboBoxWithoutBinding(groupBox, header);
+
+            if (!string.IsNullOrWhiteSpace(itemsSource))
+            {
+                var itemsSourceBinding = new Binding(itemsSource);
+
+                if (bindingSource != null)
+                {
+                    itemsSourceBinding.Source = bindingSource;
+                }
+
+                comboBox.SetBinding(ItemsControl.ItemsSourceProperty, itemsSourceBinding);
+            }
+
+            if (!string.IsNullOrWhiteSpace(selectedItem))
+            {
+                var selectedItemBinding = new Binding(selectedItem);
+
+                if (bindingSource != null)
+                {
+                    selectedItemBinding.Source = bindingSource;
+                }
+
+                comboBox.SetBinding(Selector.SelectedItemProperty, selectedItemBinding);
+            }
+
+            return comboBox;
+        }
+
+        /// <summary>
+        /// Adds the content control.
+        /// </summary>
+        /// <param name="groupBox">The group box.</param>
+        /// <param name="header">The header.</param>
+        /// <param name="template">The DataTemplate for the ContentTemplate of the ContentControl.</param>
+        public static ContentControl AddContentControl(this RibbonGroupBox groupBox, string header, DataTemplate template)
+        {
+            var contentControl = new ContentControl { ContentTemplate = template };
+            groupBox.Items.Add(contentControl);
+
+            var binding = new Binding("DataContext") { Source = contentControl };
+            contentControl.SetBinding(ContentControl.ContentProperty, binding);
+
+            return contentControl;
+        }
+
+
+        /// <summary>
+        /// Creates the combobox without command binding.
+        /// </summary>
+        /// <param name="groupBox">The group box.</param>
+        /// <param name="header">The header.</param>
+        /// <returns>
+        /// Button.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">The <paramref header="groupBox" /> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">The <paramref header="header" /> is <c>null</c> or whitespace.</exception>
+        private static ComboBox CreateComboBoxWithoutBinding(this RibbonGroupBox groupBox, string header)
+        {
+            Argument.IsNotNull("groupBox", groupBox);
+
+            var comboBox = new ComboBox
+            {
+                Header = header,
+            };
+
+            groupBox.Items.Add(comboBox);
+
+            return comboBox;
+        }
+
+        #endregion
+
+        #region ApplyLayout Methods
+
+        /// <summary>
+        /// Applies the layout.
+        /// </summary>
+        /// <param name="groupBox">The group box.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="layout">The layout.</param>
+        public static void ApplyLayout(this RibbonGroupBox groupBox, Control control, IRibbonItemLayout layout)
+        {
+            if (layout.Width > 0)
+            {
+                control.Width = layout.Width;
+            }
+        }
+
+
+        #endregion
+
 
         /// <summary>
         /// Removes the specified <see cref="IRibbonItem"/> from the ribbon.

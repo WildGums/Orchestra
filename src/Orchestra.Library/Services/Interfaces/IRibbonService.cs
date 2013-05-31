@@ -19,8 +19,8 @@ namespace Orchestra.Services
         /// Registers the specified ribbon item to the main ribbon.
         /// </summary>
         /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem" /> is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonItem" /> is <c>null</c>.</exception>
         void RegisterRibbonItem(IRibbonItem ribbonItem);
 
         /// <summary>

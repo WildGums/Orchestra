@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Orchestra.Properties {
+namespace Orchestra.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Orchestra.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Texts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Texts() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Orchestra.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Orchestra.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Orchestra.Resources.Texts", typeof(Texts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,12 +61,65 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        ///   Looks up a localized string similar to AvalonDock.
         /// </summary>
-        internal static System.Drawing.Icon main {
+        internal static string AboutView_Links_0_Content {
             get {
-                object obj = ResourceManager.GetObject("main", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                return ResourceManager.GetString("AboutView_Links_0_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://avalondock.codeplex.com.
+        /// </summary>
+        internal static string AboutView_Links_0_Url {
+            get {
+                return ResourceManager.GetString("AboutView_Links_0_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catel.
+        /// </summary>
+        internal static string AboutView_Links_1_Content {
+            get {
+                return ResourceManager.GetString("AboutView_Links_1_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.catelproject.com.
+        /// </summary>
+        internal static string AboutView_Links_1_Url {
+            get {
+                return ResourceManager.GetString("AboutView_Links_1_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FluentRibbon.
+        /// </summary>
+        internal static string AboutView_Links_2_Content {
+            get {
+                return ResourceManager.GetString("AboutView_Links_2_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://fluent.codeplex.com.
+        /// </summary>
+        internal static string AboutView_Links_2_Url {
+            get {
+                return ResourceManager.GetString("AboutView_Links_2_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3.
+        /// </summary>
+        internal static string AboutView_Links_Count {
+            get {
+                return ResourceManager.GetString("AboutView_Links_Count", resourceCulture);
             }
         }
     }

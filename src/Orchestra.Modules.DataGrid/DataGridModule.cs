@@ -67,28 +67,28 @@ namespace Orchestra.Modules.DataGrid
 
             // Module specific
             ribbonService.RegisterRibbonItem(
-                new RibbonItem(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<DataGridViewModel>()))
+                new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<DataGridViewModel>()))
                 {
                     ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/Table.png"
                 });
 
             // View specific
             ribbonService.RegisterContextualRibbonItem<DataGridView>(
-                new RibbonItem(Name, "File", "Open", "OpenFileCommand") {ItemImage = "/Orchestra.Library;component/Resources/Images/FileOpen.png"},
+                new RibbonButton(Name, "File", "Open", "OpenFileCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/FileOpen.png" },
                 ModuleName);
             ribbonService.RegisterContextualRibbonItem<DataGridView>(
-                new RibbonItem(Name, "File", "Save", "SaveToFileCommand") {ItemImage = "/Orchestra.Library;component/Resources/Images/FileSave.png"},
-                ModuleName);
-
-            ribbonService.RegisterContextualRibbonItem<DataGridView>(
-                new RibbonItem(Name, "Rows", "Add", "AddRowCommand") {ItemImage = "/Orchestra.Library;component/Resources/Images/ActionAdd.png"},
-                ModuleName);
-            ribbonService.RegisterContextualRibbonItem<DataGridView>(
-                new RibbonItem(Name, "Rows", "Remove", "RemoveRowCommand") {ItemImage = "/Orchestra.Library;component/Resources/Images/ActionRemove.png"},
+                new RibbonButton(Name, "File", "Save", "SaveToFileCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/FileSave.png" },
                 ModuleName);
 
             ribbonService.RegisterContextualRibbonItem<DataGridView>(
-                new RibbonItem(Name, "Tools", "Plot", "Plot") {ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/ActionPlot.png"},
+                new RibbonButton(Name, "Rows", "Add", "AddRowCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/ActionAdd.png" },
+                ModuleName);
+            ribbonService.RegisterContextualRibbonItem<DataGridView>(
+                new RibbonButton(Name, "Rows", "Remove", "RemoveRowCommand") { ItemImage = "/Orchestra.Library;component/Resources/Images/ActionRemove.png" },
+                ModuleName);
+
+            ribbonService.RegisterContextualRibbonItem<DataGridView>(
+                new RibbonButton(Name, "Tools", "Plot", "Plot") { ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/ActionPlot.png" },
                 ModuleName);
         }
         #endregion
