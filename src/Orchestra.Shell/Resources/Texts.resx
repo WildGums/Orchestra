@@ -126,4 +126,7 @@
   <data name="AboutView_tbQuickDescription" xml:space="preserve">
     <value>Orchestra is a composable shell built on top of Catel.</value>
   </data>
+  <data name="Ribbon_HelpButton_Name" xml:space="preserve">
+    <value>Orchestra</value>
+  </data>
 </root>

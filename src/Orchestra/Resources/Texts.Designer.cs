@@ -61,101 +61,65 @@ namespace Orchestra.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 3.
-        /// </summary>
-        internal static string AboutView__numberOfLinks {
-            get {
-                return ResourceManager.GetString("AboutView__numberOfLinks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to AvalonDock.
         /// </summary>
-        internal static string AboutView_Link_0_Content {
+        internal static string AboutView_Links_0_Content {
             get {
-                return ResourceManager.GetString("AboutView_Link_0_Content", resourceCulture);
+                return ResourceManager.GetString("AboutView_Links_0_Content", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to http://avalondock.codeplex.com.
         /// </summary>
-        internal static string AboutView_Link_0_Url {
+        internal static string AboutView_Links_0_Url {
             get {
-                return ResourceManager.GetString("AboutView_Link_0_Url", resourceCulture);
+                return ResourceManager.GetString("AboutView_Links_0_Url", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Catel.
         /// </summary>
-        internal static string AboutView_Link_1_Content {
+        internal static string AboutView_Links_1_Content {
             get {
-                return ResourceManager.GetString("AboutView_Link_1_Content", resourceCulture);
+                return ResourceManager.GetString("AboutView_Links_1_Content", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to http://www.catelproject.com.
         /// </summary>
-        internal static string AboutView_Link_1_Url {
+        internal static string AboutView_Links_1_Url {
             get {
-                return ResourceManager.GetString("AboutView_Link_1_Url", resourceCulture);
+                return ResourceManager.GetString("AboutView_Links_1_Url", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to FluentRibbon.
         /// </summary>
-        internal static string AboutView_Link_2_Content {
+        internal static string AboutView_Links_2_Content {
             get {
-                return ResourceManager.GetString("AboutView_Link_2_Content", resourceCulture);
+                return ResourceManager.GetString("AboutView_Links_2_Content", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to http://fluent.codeplex.com.
         /// </summary>
-        internal static string AboutView_Link_2_Url {
+        internal static string AboutView_Links_2_Url {
             get {
-                return ResourceManager.GetString("AboutView_Link_2_Url", resourceCulture);
+                return ResourceManager.GetString("AboutView_Links_2_Url", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Orchestra is released as open source (MS-PL license), so you are free to use it in commercial applications.
+        ///   Looks up a localized string similar to 3.
         /// </summary>
-        internal static string AboutView_tbAboutLongDescription {
+        internal static string AboutView_Links_Count {
             get {
-                return ResourceManager.GetString("AboutView_tbAboutLongDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Loaded modules:.
-        /// </summary>
-        internal static string AboutView_tbLoadedModules {
-            get {
-                return ResourceManager.GetString("AboutView_tbLoadedModules", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Orchestra is a composable shell built on top of Catel..
-        /// </summary>
-        internal static string AboutView_tbQuickDescription {
-            get {
-                return ResourceManager.GetString("AboutView_tbQuickDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Orchestra.
-        /// </summary>
-        internal static string Ribbon_HelpButton_Name {
-            get {
-                return ResourceManager.GetString("Ribbon_HelpButton_Name", resourceCulture);
+                return ResourceManager.GetString("AboutView_Links_Count", resourceCulture);
             }
         }
     }

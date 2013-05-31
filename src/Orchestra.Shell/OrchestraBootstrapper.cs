@@ -38,6 +38,7 @@ namespace Orchestra
         private readonly bool _createAboutRibbon;
 
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OrchestraBootstrapper" /> class.
         /// </summary>
@@ -61,7 +62,7 @@ namespace Orchestra
             var ribbonType = typeof(Fluent.Ribbon);
             Log.Debug("Loaded ribbon type '{0}'", ribbonType.Name);
 
-            var application  = Application.Current;
+            var application = Application.Current;
             application.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
                 Source = new Uri("pack://application:,,,/Fluent;Component/Themes/Office2010/Silver.xaml", UriKind.RelativeOrAbsolute)
@@ -82,16 +83,20 @@ namespace Orchestra
                 Directory.CreateDirectory(modulesDirectory);
             }
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Properties
+
         /// <summary>
         /// The modules directory.
         /// </summary>
         private string ModulesDirectory { get { return Path.Combine(".", ModuleBase.ModulesDirectory); } }
-        #endregion
+
+        #endregion Properties
 
         #region Methods
+
         /// <summary>
         /// Creates the <see cref="T:Microsoft.Practices.Prism.Modularity.IModuleCatalog"/> used by Prism.
         /// </summary>
@@ -113,6 +118,7 @@ namespace Orchestra
 
             Container.RegisterType<IOrchestraService, OrchestraService>();
             Container.RegisterType<IRibbonService, RibbonService>();
+            Container.RegisterType<DynamicTextsSource>();
         }
 
         /// <summary>
@@ -133,7 +139,8 @@ namespace Orchestra
             if (_createAboutRibbon)
             {
                 var ribbonService = Container.ResolveType<IRibbonService>();
-                string helpButtonName = _textResourceManager.GetString("Ribbon_HelpButton_Name");
+                dynamic textsSource = Container.ResolveType<DynamicTextsSource>();
+                string helpButtonName = textsSource.Ribbon_HelpButton_Name;
                 ribbonService.RegisterRibbonItem(new RibbonButton(helpButtonName, "Help", "About", new Command(() =>
                 {
                     var uiVisualizerService = Container.ResolveType<IUIVisualizerService>();
@@ -143,7 +150,7 @@ namespace Orchestra
         }
 
         /// <summary>
-        /// Called when the resolving of assemblies failed. In that case, this method will try to load the 
+        /// Called when the resolving of assemblies failed. In that case, this method will try to load the
         /// assemblies from the modules directory.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -217,6 +224,7 @@ namespace Orchestra
 
             return assembly;
         }
-        #endregion
+
+        #endregion Methods
     }
 }

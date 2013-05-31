@@ -2,11 +2,19 @@
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 				  xmlns:catel="http://catel.codeplex.com"
+                  xmlns:orchestra.shell.data="clr-namespace:Orchestra.ViewModels"
+                  xmlns:orchestra.controls="clr-namespace:Orchestra.Controls"
                   Width="600" Height="500" SizeToContent="Manual">
 
     <!-- Resources -->
     <catel:DataWindow.Resources>
         <catel:BooleanToHidingVisibilityConverter x:Key="BooleanToHidingVisibilityConverter" />
+        <orchestra.shell.data:DynamicTextsSource x:Key="DynamicTextsSource"/>
+        <DataTemplate x:Key="LinkLabelTemplate">
+            <catel:LinkLabel ClickBehavior="OpenUrlInBrowser" 
+                             Content="{Binding Content}" Url="{Binding Url}"
+                             ></catel:LinkLabel>
+        </DataTemplate>
     </catel:DataWindow.Resources>
 
     <!-- Content -->
@@ -31,14 +39,14 @@
         </Grid>
 
         <Label catel:StackGrid.ColumnSpan="2">
-            <TextBlock TextWrapping="Wrap" Name="tbQuickDescription">
-                AboutView_tbQuickDescription
-            </TextBlock>
+            <orchestra.controls:LocalizedTextBlock
+                TextWrapping="Wrap" x:Name="tbQuickDescription"
+                LocalizationContainer="AboutView" />
         </Label>
 
-        <TextBlock catel:StackGrid.ColumnSpan="2" Margin="6,0,0,0" Name="tbLoadedModules">
-            AboutView_tbLoadedModules
-        </TextBlock>
+        <orchestra.controls:LocalizedTextBlock
+                catel:StackGrid.ColumnSpan="2" Margin="6,0,0,0" x:Name="tbLoadedModules"
+                LocalizationContainer="AboutView" />
 
         <ListView x:Name="modulesListView" ItemsSource="{Binding Modules}" catel:StackGrid.ColumnSpan="2" >
             <ListView.View>
@@ -74,12 +82,26 @@
         </TextBlock>
 
         <WrapPanel catel:StackGrid.ColumnSpan="2" Name="wpLinksPanel">
+            <ItemsControl FlowDirection="LeftToRight" Width="Auto"
+                ItemsSource="{Binding Source={StaticResource DynamicTextsSource}, Path=AboutView_Links#Collection}"
+                ItemTemplate="{StaticResource LinkLabelTemplate}" 
+                >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <!--<ContentControl 
+                Content="{Binding Source={StaticResource DynamicTextsSource}, Path=AboutView_Links#Collection}"
+                ContentTemplate="{StaticResource LinkLabelTemplate}">
+            </ContentControl>-->
         </WrapPanel>
 
         <Label>
-            <TextBlock TextWrapping="Wrap" Name="tbAboutLongDescription">
-                AboutView_tbAboutLongDescription
-            </TextBlock>
+            <orchestra.controls:LocalizedTextBlock
+                TextWrapping="Wrap"
+                x:Name="tbAboutLongDescription" LocalizationContainer="AboutView" />
         </Label>
 
         <Button HorizontalAlignment="Right" Margin="8" Content="Close" Command="{Binding CloseCommand}" Width="75" />

@@ -117,37 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutView_Link_0_Content" xml:space="preserve">
+  <data name="AboutView_Links_0_Content" xml:space="preserve">
     <value>AvalonDock</value>
   </data>
-  <data name="AboutView_Link_0_Url" xml:space="preserve">
+  <data name="AboutView_Links_0_Url" xml:space="preserve">
     <value>http://avalondock.codeplex.com</value>
   </data>
-  <data name="AboutView_Link_1_Content" xml:space="preserve">
+  <data name="AboutView_Links_1_Content" xml:space="preserve">
     <value>Catel</value>
   </data>
-  <data name="AboutView_Link_1_Url" xml:space="preserve">
+  <data name="AboutView_Links_1_Url" xml:space="preserve">
     <value>http://www.catelproject.com</value>
   </data>
-  <data name="AboutView_Link_2_Content" xml:space="preserve">
+  <data name="AboutView_Links_2_Content" xml:space="preserve">
     <value>FluentRibbon</value>
   </data>
-  <data name="AboutView_Link_2_Url" xml:space="preserve">
+  <data name="AboutView_Links_2_Url" xml:space="preserve">
     <value>http://fluent.codeplex.com</value>
   </data>
-  <data name="AboutView_tbAboutLongDescription" xml:space="preserve">
-    <value>Orchestra is released as open source (MS-PL license), so you are free to use it in commercial applications</value>
-  </data>
-  <data name="AboutView_tbLoadedModules" xml:space="preserve">
-    <value>Loaded modules:</value>
-  </data>
-  <data name="AboutView_tbQuickDescription" xml:space="preserve">
-    <value>Orchestra is a composable shell built on top of Catel.</value>
-  </data>
-  <data name="AboutView__numberOfLinks" xml:space="preserve">
+  <data name="AboutView_Links_Count" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="Ribbon_HelpButton_Name" xml:space="preserve">
-    <value>Orchestra</value>
   </data>
 </root>
