@@ -10,6 +10,7 @@ namespace Orchestra
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Resources;
     using System.Windows;
     using Catel;
     using Catel.IoC;
@@ -37,6 +38,7 @@ namespace Orchestra
         private readonly bool _createAboutRibbon;
 
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OrchestraBootstrapper" /> class.
         /// </summary>
@@ -60,7 +62,7 @@ namespace Orchestra
             var ribbonType = typeof(Fluent.Ribbon);
             Log.Debug("Loaded ribbon type '{0}'", ribbonType.Name);
 
-            var application  = Application.Current;
+            var application = Application.Current;
             application.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
                 Source = new Uri("pack://application:,,,/Fluent;Component/Themes/Office2010/Silver.xaml", UriKind.RelativeOrAbsolute)
@@ -81,16 +83,20 @@ namespace Orchestra
                 Directory.CreateDirectory(modulesDirectory);
             }
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Properties
+
         /// <summary>
         /// The modules directory.
         /// </summary>
         private string ModulesDirectory { get { return Path.Combine(".", ModuleBase.ModulesDirectory); } }
-        #endregion
+
+        #endregion Properties
 
         #region Methods
+
         /// <summary>
         /// Creates the <see cref="T:Microsoft.Practices.Prism.Modularity.IModuleCatalog"/> used by Prism.
         /// </summary>
@@ -112,19 +118,30 @@ namespace Orchestra
 
             Container.RegisterType<IOrchestraService, OrchestraService>();
             Container.RegisterType<IRibbonService, RibbonService>();
+            Container.RegisterType<DynamicTextsSource>();
         }
+
+        /// <summary>
+        /// Resources manager for texts.
+        /// </summary>
+        private ResourceManager _textResourceManager;
 
         /// <summary>
         /// Initializes the modules. May be overwritten in a derived class to use a custom Modules Catalog.
         /// </summary>
         protected override void InitializeModules()
         {
+            var assembly = Assembly.GetEntryAssembly();
+            _textResourceManager = new ResourceManager(String.Format("{0}.Resources.Texts", assembly.GetName().Name), assembly);
+
             base.InitializeModules();
 
             if (_createAboutRibbon)
             {
                 var ribbonService = Container.ResolveType<IRibbonService>();
-                ribbonService.RegisterRibbonItem(new RibbonButton("Orchestra", "Help", "About", new Command(() =>
+                dynamic textsSource = Container.ResolveType<DynamicTextsSource>();
+                string helpButtonName = textsSource.Ribbon_HelpButton_Name;
+                ribbonService.RegisterRibbonItem(new RibbonButton(helpButtonName, "Help", "About", new Command(() =>
                 {
                     var uiVisualizerService = Container.ResolveType<IUIVisualizerService>();
                     uiVisualizerService.ShowDialog(new AboutViewModel());
@@ -133,7 +150,7 @@ namespace Orchestra
         }
 
         /// <summary>
-        /// Called when the resolving of assemblies failed. In that case, this method will try to load the 
+        /// Called when the resolving of assemblies failed. In that case, this method will try to load the
         /// assemblies from the modules directory.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -207,6 +224,7 @@ namespace Orchestra
 
             return assembly;
         }
-        #endregion
+
+        #endregion Methods
     }
 }

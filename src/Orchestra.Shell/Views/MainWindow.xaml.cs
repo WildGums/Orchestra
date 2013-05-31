@@ -4,9 +4,9 @@
     using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Media.Imaging;
     using AvalonDock.Layout;
     using Catel;
-    using Catel.Data;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
@@ -57,6 +57,8 @@
 
             ribbon.AutomaticStateManagement = true;
             ribbon.EnsureTabItem("Home");
+
+            LoadIcon();
         }
 
         /// <summary>
@@ -155,6 +157,15 @@
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Loads image for application from resources.
+        /// </summary>
+        private void LoadIcon()
+        {
+            Uri iconUri = new Uri("pack://application:,,,/Resources/main.ico", UriKind.RelativeOrAbsolute);
+            this.Icon = BitmapFrame.Create(iconUri);
         }
     }
 }
