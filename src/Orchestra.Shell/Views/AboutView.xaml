@@ -92,10 +92,6 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <!--<ContentControl 
-                Content="{Binding Source={StaticResource DynamicTextsSource}, Path=AboutView_Links#Collection}"
-                ContentTemplate="{StaticResource LinkLabelTemplate}">
-            </ContentControl>-->
         </WrapPanel>
 
         <Label>
