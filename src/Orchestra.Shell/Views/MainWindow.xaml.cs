@@ -2,8 +2,11 @@
 {
     using System;
     using System.ComponentModel;
+    using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Windows;
+    using System.Windows.Media.Imaging;
     using AvalonDock.Layout;
     using Catel;
     using Catel.Data;
@@ -32,12 +35,16 @@
 
         private readonly WindowLogic _windowLogic;
 
+        private const string ApplicationIconLocation = "Resources\\Images\\ApplicationIcon.png";
+        private const string ApplicationIconFallbackLocation = "/Orchestra.Shell;component/Resources/Images/ApplicationIcon.png";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            InitializeMainWindow();
 
             _windowLogic = new WindowLogic(this, typeof(MainWindowViewModel));
             _windowLogic.ViewModelChanged += (s, e) =>
@@ -155,6 +162,28 @@
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Initializes the splash screen.
+        /// </summary>
+        private void InitializeMainWindow()
+        {
+            var directory = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+
+            try
+            {
+                string firstAttemptFile = Path.Combine(directory, ApplicationIconLocation);
+                if (File.Exists(firstAttemptFile))
+                {
+                    this.Icon = new BitmapImage(new Uri(firstAttemptFile, UriKind.Absolute));
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                // Swallow exception
+            }            
         }
     }
 }

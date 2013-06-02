@@ -28,13 +28,7 @@
 
         <Grid catel:StackGrid.ColumnSpan="2">
             <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Source="/Orchestra.Shell;component/Resources/Images/About.png" Stretch="None" />
-        </Grid>
-
-        <Label catel:StackGrid.ColumnSpan="2">
-            <TextBlock TextWrapping="Wrap">
-                Orchestra is a composable shell built on top of Catel.
-            </TextBlock>
-        </Label>
+        </Grid>       
 
         <TextBlock catel:StackGrid.ColumnSpan="2" Margin="6,0,0,0">
             Loaded modules:
@@ -77,14 +71,8 @@
             <catel:LinkLabel Content="AvalonDock" Url="http://avalondock.codeplex.com" ClickBehavior="OpenUrlInBrowser" />
             <catel:LinkLabel Content="Catel" Url="http://www.catelproject.com" ClickBehavior="OpenUrlInBrowser" />
             <catel:LinkLabel Content="FluentRibbon" Url="http://fluent.codeplex.com" ClickBehavior="OpenUrlInBrowser" />
-            <!--<catel:LinkLabel Content="OxyPlot" Url="http://oxyplot.codeplex.com" ClickBehavior="OpenUrlInBrowser" />-->
-        </WrapPanel>
-
-        <Label>
-            <TextBlock TextWrapping="Wrap">
-                Orchestra is released as open source (MS-PL license), so you are free to use it in commercial applications
-            </TextBlock>
-        </Label>
+            <catel:LinkLabel Content="Orchestra" Url="http://https://github.com/Orcomp/Orchestra" ClickBehavior="OpenUrlInBrowser" />
+        </WrapPanel>       
 
         <Button HorizontalAlignment="Right" Margin="8" Content="Close" Command="{Binding CloseCommand}" Width="75" />
     </catel:StackGrid>
