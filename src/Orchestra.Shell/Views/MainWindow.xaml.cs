@@ -35,8 +35,7 @@
 
         private readonly WindowLogic _windowLogic;
 
-        private const string ApplicationIconLocation = "Resources\\Images\\ApplicationIcon.png";
-        private const string ApplicationIconFallbackLocation = "/Orchestra.Shell;component/Resources/Images/ApplicationIcon.png";
+        const string ApplicationIconLocation = "Resources\\Images\\ApplicationIcon.png";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -165,25 +164,28 @@
         }
 
         /// <summary>
-        /// Initializes the splash screen.
+        /// Loads the application Icon.
         /// </summary>
         private void InitializeMainWindow()
         {
+            
             var directory = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
 
             try
             {
                 string firstAttemptFile = Path.Combine(directory, ApplicationIconLocation);
+                
                 if (File.Exists(firstAttemptFile))
                 {
-                    this.Icon = new BitmapImage(new Uri(firstAttemptFile, UriKind.Absolute));
-                    return;
+                    Icon = BitmapFrame.Create(new Uri(firstAttemptFile, UriKind.Absolute));
                 }
             }
-            catch (Exception)
-            {
-                // Swallow exception
-            }            
+            catch
+            {    
+                // Don't change default Icon.            
+            }
+            
+                
         }
     }
 }
