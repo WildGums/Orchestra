@@ -35,7 +35,7 @@ namespace Orchestra
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly bool _createAboutRibbon;
-
+        
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="OrchestraBootstrapper" /> class.
@@ -45,10 +45,9 @@ namespace Orchestra
         {
 #if DEBUG
             LogManager.RegisterDebugListener();
-#endif
-
+#endif            
             _createAboutRibbon = createAboutRibbon;
-
+            
             Log.Debug("Optimizing performance by disable the WarningAndErrorValidator in Catel");
 
             Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
@@ -80,6 +79,8 @@ namespace Orchestra
 
                 Directory.CreateDirectory(modulesDirectory);
             }
+
+            Catel.IoC.ServiceLocator.Default.RegisterInstance<IConfigurationService>(new ConfigurationService());
         }
         #endregion
 
@@ -111,7 +112,7 @@ namespace Orchestra
             base.ConfigureContainer();
 
             Container.RegisterType<IOrchestraService, OrchestraService>();
-            Container.RegisterType<IRibbonService, RibbonService>();
+            Container.RegisterType<IRibbonService, RibbonService>();                    
         }
 
         /// <summary>
@@ -119,12 +120,14 @@ namespace Orchestra
         /// </summary>
         protected override void InitializeModules()
         {
+            var configurationService = (IConfigurationService)ServiceLocator.Default.GetService(typeof(IConfigurationService));
+
             base.InitializeModules();
 
             if (_createAboutRibbon)
             {
                 var ribbonService = Container.ResolveType<IRibbonService>();
-                ribbonService.RegisterRibbonItem(new RibbonButton("Orchestra", "Help", "About", new Command(() =>
+                ribbonService.RegisterRibbonItem(new RibbonItem(configurationService.Configuration.HelpTabText, configurationService.Configuration.HelpGroupText, configurationService.Configuration.HelpButtonText, new Command(() =>
                 {
                     var uiVisualizerService = Container.ResolveType<IUIVisualizerService>();
                     uiVisualizerService.ShowDialog(new AboutViewModel());

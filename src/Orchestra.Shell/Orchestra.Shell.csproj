@@ -119,8 +119,15 @@
     </Compile>
     <Compile Include="Helpers\LayoutInitializer.cs" />
     <Compile Include="Models\ModuleInfo.cs" />
+    <Compile Include="Models\Configuration.cs" />
     <Compile Include="OrchestraBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Orchestra.Shell.Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Orchestra.Shell.Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Services\OrchestraService.cs" />
     <Compile Include="Services\RibbonService.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
@@ -165,6 +172,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\About.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Orchestra.Shell.Resources.de-De.resx" />
+    <EmbeddedResource Include="Resources\Orchestra.Shell.Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Orchestra.Shell.Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ApplicationIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

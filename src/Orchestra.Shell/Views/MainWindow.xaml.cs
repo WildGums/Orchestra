@@ -2,8 +2,11 @@
 {
     using System;
     using System.ComponentModel;
+    using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Windows;
+    using System.Windows.Media.Imaging;
     using AvalonDock.Layout;
     using Catel;
     using Catel.Data;
@@ -32,12 +35,15 @@
 
         private readonly WindowLogic _windowLogic;
 
+        const string ApplicationIconLocation = "Resources\\Images\\ApplicationIcon.png";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            InitializeMainWindow();
 
             _windowLogic = new WindowLogic(this, typeof(MainWindowViewModel));
             _windowLogic.ViewModelChanged += (s, e) =>
@@ -155,6 +161,31 @@
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Loads the application Icon.
+        /// </summary>
+        private void InitializeMainWindow()
+        {
+            
+            var directory = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+
+            try
+            {
+                string firstAttemptFile = Path.Combine(directory, ApplicationIconLocation);
+                
+                if (File.Exists(firstAttemptFile))
+                {
+                    Icon = BitmapFrame.Create(new Uri(firstAttemptFile, UriKind.Absolute));
+                }
+            }
+            catch
+            {    
+                // Don't change default Icon.            
+            }
+            
+                
         }
     }
 }
