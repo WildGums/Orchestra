@@ -3,4 +3,4 @@ Orchestra readme
 
 [EXPLANATION]
 
-For more information, visit http://orchestra.codeplex.com
+For more information, visit https://github.com/Orcomp/Orchestra

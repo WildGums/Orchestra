@@ -8,7 +8,7 @@ Orchestra history
 
 For more information about issues or new feature requests, please visit:
 
-http://orchestra.codeplex.com
+https://github.com/Orcomp/Orchestra
 
 **********************************************************
 
@@ -26,10 +26,10 @@ xxxx
 
 To-do:
 ======
-See http://orchestra.codeplex.com/workitem/list/basic
+See https://github.com/Orcomp/Orchestra/issues
 
-Known bugs:
-===========
-See http://orchestra.codeplex.com/workitem/list/basic
+Known issues:
+=============
+See https://github.com/Orcomp/Orchestra/issues
 
 **********************************************************
