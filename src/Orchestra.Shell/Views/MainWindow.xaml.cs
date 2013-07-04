@@ -1,4 +1,9 @@
-﻿namespace Orchestra.Views
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="MainWindow.xaml.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+namespace Orchestra.Views
 {
     using System;
     using System.ComponentModel;
@@ -7,42 +12,52 @@
     using System.Reflection;
     using System.Windows;
     using System.Windows.Media.Imaging;
+
     using AvalonDock.Layout;
+
     using Catel;
-    using Catel.Data;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Windows.Controls;
     using Catel.Windows.Controls.MVVMProviders.Logic;
+
     using Fluent;
-    using ViewModels;
+
+    using Orchestra.Services;
+    using Orchestra.ViewModels;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
     /// </summary>
     public partial class MainWindow : RibbonWindow, IView
     {
-        /// <summary>
-        /// The log.
-        /// </summary>
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        #region Constants
         /// <summary>
         /// Name of the trace output anchorable.
         /// </summary>
         public const string TraceOutputAnchorable = "traceOutputAnchorable";
 
+        private const string ApplicationIconLocation = "Resources\\Images\\ApplicationIcon.png";
+
+        /// <summary>
+        /// The log.
+        /// </summary>
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        #endregion
+
+        #region Fields
         private readonly WindowLogic _windowLogic;
+        #endregion
 
-        const string ApplicationIconLocation = "Resources\\Images\\ApplicationIcon.png";
-
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+
             InitializeMainWindow();
 
             _windowLogic = new WindowLogic(this, typeof(MainWindowViewModel));
@@ -52,8 +67,8 @@
                 PropertyChanged.SafeInvoke(this, new PropertyChangedEventArgs("ViewModel"));
             };
             _windowLogic.ViewModelPropertyChanged += (s, e) => ViewModelPropertyChanged.SafeInvoke(this, e);
-            //_windowLogic.TargetControlPropertyChanged += (s, e) => PropertyChanged.SafeInvoke(this, new AdvancedPropertyChangedEventArgs(s, this, e.PropertyName, e.OldValue, e.NewValue));
 
+            // _windowLogic.TargetControlPropertyChanged += (s, e) => PropertyChanged.SafeInvoke(this, new AdvancedPropertyChangedEventArgs(s, this, e.PropertyName, e.OldValue, e.NewValue));
             var serviceLocator = ServiceLocator.Default;
 
             serviceLocator.RegisterInstance(this);
@@ -63,8 +78,32 @@
 
             ribbon.AutomaticStateManagement = true;
             ribbon.EnsureTabItem("Home");
+
+            Loaded += (sender, e) =>
+            {
+                traceOutputAnchorable.Hide();
+            };
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Gets or sets the status bar.
+        /// </summary>
+        /// <value>The status bar.</value>
+        public string StatusBar
+        {
+            get { return (string)GetValue(StatusBarProperty); }
+            set { SetValue(StatusBarProperty, value); }
         }
 
+        /// <summary>
+        /// The status bar property.
+        /// </summary>
+        public static readonly DependencyProperty StatusBarProperty = DependencyProperty.Register("StatusBar", typeof(string), typeof(MainWindow), new PropertyMetadata(string.Empty));
+        #endregion
+
+        #region IView Members
         /// <summary>
         /// Gets the view model that is contained by the container.
         /// </summary>
@@ -73,7 +112,10 @@
         /// </value>
         public IViewModel ViewModel
         {
-            get { return _windowLogic.ViewModel; }
+            get
+            {
+                return _windowLogic.ViewModel;
+            }
         }
 
         /// <summary>
@@ -94,14 +136,24 @@
         /// (mostly the container of a view model) because the .NET Framework does not allows us to.
         /// </remarks>
         public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Determines whether the anchorable with the specified name is currently visible.
         /// </summary>
-        /// <param name="name">The name of the anchorable.</param>
-        /// <returns><c>true</c> if the anchorable with the specified name is visible; otherwise, <c>false</c>.</returns>
-        /// <exception cref="ArgumentException">The <paramref name="name"/> is <c>null</c> or whitespace.</exception>
-        /// <exception cref="InvalidOperationException">The anchorable with the specified name cannot be found.</exception>
+        /// <param name="name">
+        /// The name of the anchorable.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the anchorable with the specified name is visible; otherwise, <c>false</c>.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="name"/> is <c>null</c> or whitespace.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// The anchorable with the specified name cannot be found.
+        /// </exception>
         public bool IsAnchorableVisible(string name)
         {
             Argument.IsNotNullOrWhitespace("name", name);
@@ -113,9 +165,15 @@
         /// <summary>
         /// Shows the anchorable with the specified name.
         /// </summary>
-        /// <param name="name">The name of the anchorable.</param>
-        /// <exception cref="ArgumentException">The <paramref name="name"/> is <c>null</c> or whitespace.</exception>
-        /// <exception cref="InvalidOperationException">The anchorable with the specified name cannot be found.</exception>
+        /// <param name="name">
+        /// The name of the anchorable.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="name"/> is <c>null</c> or whitespace.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// The anchorable with the specified name cannot be found.
+        /// </exception>
         public void ShowAnchorable(string name)
         {
             Argument.IsNotNullOrWhitespace("name", name);
@@ -127,9 +185,15 @@
         /// <summary>
         /// Hides the anchorable with the specified name.
         /// </summary>
-        /// <param name="name">The name of the anchorable.</param>
-        /// <exception cref="ArgumentException">The <paramref name="name"/> is <c>null</c> or whitespace.</exception>
-        /// <exception cref="InvalidOperationException">The anchorable with the specified name cannot be found.</exception>
+        /// <param name="name">
+        /// The name of the anchorable.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="name"/> is <c>null</c> or whitespace.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// The anchorable with the specified name cannot be found.
+        /// </exception>
         public void HideAnchorable(string name)
         {
             Argument.IsNotNullOrWhitespace("name", name);
@@ -141,26 +205,46 @@
         /// <summary>
         /// Finds the anchorable with the specified name.
         /// </summary>
-        /// <param name="name">The name of the anchorable.</param>
-        /// <param name="throwExceptionWhenNotFound">if set to <c>true</c>, this method will throw an <see cref="InvalidOperationException"/> when the anchorable cannot be found.</param>
-        /// <returns>The <see cref="LayoutAnchorable"/> or <c>null</c> if the anchorable cannot be found.</returns>
-        /// <exception cref="ArgumentException">The <paramref name="name"/> is <c>null</c> or whitespace.</exception>
+        /// <param name="name">
+        /// The name of the anchorable.
+        /// </param>
+        /// <param name="throwExceptionWhenNotFound">
+        /// If set to <c>true</c>, this method will throw an <see cref="InvalidOperationException"/> when the anchorable cannot be found.
+        /// </param>
+        /// <returns>
+        /// The <see cref="LayoutAnchorable"/> or <c>null</c> if the anchorable cannot be found.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="name"/> is <c>null</c> or whitespace.
+        /// </exception>
         private LayoutAnchorable FindAnchorable(string name, bool throwExceptionWhenNotFound = false)
         {
             Argument.IsNotNullOrWhitespace("name", name);
 
-            var result = (from anchorable in dockingManager.AnchorablesSource.Cast<LayoutAnchorable>()
-                          where TagHelper.AreTagsEqual(anchorable.ContentId, name)
-                          select anchorable).FirstOrDefault();
+            var visibleAnchorable = (from child in dockingManager.Layout.Children
+                                     where child is LayoutAnchorable && TagHelper.AreTagsEqual(((LayoutAnchorable)child).ContentId, name)
+                                     select (LayoutAnchorable)child).FirstOrDefault();
+            if (visibleAnchorable != null)
+            {
+                return visibleAnchorable;
+            }
 
-            if (throwExceptionWhenNotFound && result == null)
+            var invisibleAnchorable = (from child in dockingManager.Layout.Hidden
+                                       where TagHelper.AreTagsEqual((child).ContentId, name)
+                                       select child).FirstOrDefault();
+            if (invisibleAnchorable != null)
+            {
+                return invisibleAnchorable;
+            }
+
+            if (throwExceptionWhenNotFound)
             {
                 string error = string.Format("Anchorable with name '{0}' cannot be found", name);
                 Log.Error(error);
                 throw new InvalidOperationException(error);
             }
 
-            return result;
+            return null;
         }
 
         /// <summary>
@@ -168,24 +252,22 @@
         /// </summary>
         private void InitializeMainWindow()
         {
-            
             var directory = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
 
             try
             {
                 string firstAttemptFile = Path.Combine(directory, ApplicationIconLocation);
-                
+
                 if (File.Exists(firstAttemptFile))
                 {
                     Icon = BitmapFrame.Create(new Uri(firstAttemptFile, UriKind.Absolute));
                 }
             }
             catch
-            {    
+            {
                 // Don't change default Icon.            
             }
-            
-                
         }
+        #endregion
     }
 }

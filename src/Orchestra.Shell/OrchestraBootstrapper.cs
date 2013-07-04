@@ -40,15 +40,16 @@ namespace Orchestra
         /// <summary>
         /// Initializes a new instance of the <see cref="OrchestraBootstrapper" /> class.
         /// </summary>
-        /// <param name="createAboutRibbon">if set to <c>true</c>, a ribbon item for the about box will be created.</param>
+        /// <param name="createAboutRibbon">If set to <c>true</c>, a ribbon item for the about box will be created.</param>
         public OrchestraBootstrapper(bool createAboutRibbon = true)
         {
 #if DEBUG
             LogManager.RegisterDebugListener();
 #endif            
+
             _createAboutRibbon = createAboutRibbon;
             
-            Log.Debug("Optimizing performance by disable the WarningAndErrorValidator in Catel");
+            Log.Debug("Optimizing performance by disabling the WarningAndErrorValidator in Catel");
 
             Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
             Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
@@ -80,7 +81,11 @@ namespace Orchestra
                 Directory.CreateDirectory(modulesDirectory);
             }
 
-            Catel.IoC.ServiceLocator.Default.RegisterInstance<IConfigurationService>(new ConfigurationService());
+            CreatedShell += (sender, e) =>
+            {
+                var statusBarService = ServiceLocator.Default.ResolveType<IStatusBarService>();
+                statusBarService.UpdateStatus("Ready");
+            };
         }
         #endregion
 
@@ -112,7 +117,9 @@ namespace Orchestra
             base.ConfigureContainer();
 
             Container.RegisterType<IOrchestraService, OrchestraService>();
-            Container.RegisterType<IRibbonService, RibbonService>();                    
+            Container.RegisterType<IStatusBarService, StatusBarService>();
+            Container.RegisterType<IRibbonService, RibbonService>();     
+            Container.RegisterInstance<IConfigurationService>(new ConfigurationService());   
         }
 
         /// <summary>

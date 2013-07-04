@@ -13,6 +13,8 @@ namespace Orchestra.Services
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
+    using Catel.Windows.Threading;
+
     using Fluent;
     using Models;
     using Views;
@@ -26,6 +28,8 @@ namespace Orchestra.Services
 
         private readonly MainWindow _shell;
 
+        private bool _showDebuggingWindow;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OrchestraService" /> class.
         /// </summary>
@@ -35,6 +39,13 @@ namespace Orchestra.Services
             Argument.IsNotNull("shell", shell);
 
             _shell = shell;
+            _shell.Loaded += (sender, e) =>
+            {
+                if (ShowDebuggingWindow)
+                {
+                    _shell.Dispatcher.BeginInvoke(() => _shell.ShowAnchorable(MainWindow.TraceOutputAnchorable));
+                }
+            };
         }
 
         /// <summary>
@@ -44,16 +55,28 @@ namespace Orchestra.Services
         /// <remarks></remarks>
         public bool ShowDebuggingWindow
         {
-            get { return _shell.IsAnchorableVisible(MainWindow.TraceOutputAnchorable); }
+            get
+            {
+                return _showDebuggingWindow;
+            }
             set
             {
-                if (value)
+                _showDebuggingWindow = value;
+
+                try
                 {
-                    _shell.ShowAnchorable(MainWindow.TraceOutputAnchorable);
+                    if (_showDebuggingWindow)
+                    {
+                        _shell.ShowAnchorable(MainWindow.TraceOutputAnchorable);
+                    }
+                    else
+                    {
+                        _shell.HideAnchorable(MainWindow.TraceOutputAnchorable);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    _shell.HideAnchorable(MainWindow.TraceOutputAnchorable);
+                    Log.Warning(ex, "Failed to show/hide the debugging window");
                 }
             }
         }
