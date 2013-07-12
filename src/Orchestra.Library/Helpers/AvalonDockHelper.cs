@@ -3,22 +3,18 @@
 //   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace Orchestra
 {
     using System;
-    using System.ComponentModel;
     using System.Linq;
     using System.Windows;
-
     using Catel;
     using Catel.IoC;
-    using Catel.MVVM;
     using Catel.Windows.Controls;
-
     using Microsoft.Practices.Prism.Regions;
     using Orchestra.Controls;
     using Orchestra.Views;
-
     using Xceed.Wpf.AvalonDock;
     using Xceed.Wpf.AvalonDock.Layout;
 
@@ -58,10 +54,7 @@ namespace Orchestra
         /// </summary>
         private static IRegionManager RegionManager
         {
-            get
-            {
-                return ServiceLocator.Default.ResolveType<IRegionManager>();
-            }
+            get { return ServiceLocator.Default.ResolveType<IRegionManager>(); }
         }
         #endregion
 
@@ -77,7 +70,7 @@ namespace Orchestra
         {
             Argument.IsNotNull("viewType", viewType);
 
-            return (from document in LayoutDocumentPane.Children where document is LayoutDocument && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).Cast<LayoutDocument>().FirstOrDefault();
+            return (from document in LayoutDocumentPane.Children where document is LayoutDocument && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView) document.Content).Tag) select document).Cast<LayoutDocument>().FirstOrDefault();
         }
 
         /// <summary>
@@ -138,6 +131,18 @@ namespace Orchestra
 
             // var region = RegionManager.Regions[(string)view.Tag];
             // region.Remove(sender);
+        }
+
+        /// <summary>
+        /// Closes the document.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="document" /> is <c>null</c>.</exception>
+        public static void CloseDocument(LayoutDocument document)
+        {
+            Argument.IsNotNull(() => document);
+
+            document.Close();
         }
         #endregion
     }

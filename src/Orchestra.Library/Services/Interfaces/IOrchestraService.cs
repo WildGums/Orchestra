@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IOrchestraService.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -8,19 +8,22 @@ namespace Orchestra.Services
 {
     using System;
     using Catel.MVVM;
-    using Models;
+    using Orchestra.Models;
 
     /// <summary>
     /// The orchestra service that allows communication with the shell.
     /// </summary>
     public interface IOrchestraService
     {
+        #region Properties
         /// <summary>
         /// Gets or sets a value indicating whether to show the debug window.
         /// </summary>
         /// <value><c>true</c> if the debug window should be shown; otherwise, <c>false</c>.</value>
         bool ShowDebuggingWindow { get; set; }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Shows the document in the main shell.
         /// </summary>
@@ -40,6 +43,14 @@ namespace Orchestra.Services
             where TViewModel : IViewModel;
 
         /// <summary>
+        /// Closes the document in the main shell with the specified view model.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <param name="tag">The tag.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="viewModel"/> is <c>null</c>.</exception>
+        void CloseDocument(IViewModel viewModel, object tag = null);
+
+        /// <summary>
         /// Adds the specified ribbon item to the main ribbon.
         /// </summary>
         /// <param name="ribbonItem">The ribbon item.</param>
@@ -56,5 +67,6 @@ namespace Orchestra.Services
         /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
         [ObsoleteEx(Replacement = "IRibbonService", TreatAsErrorFromVersion = "0.1", RemoveInVersion = "1.0")]
         void RemoveRibbonItem(IRibbonItem ribbonItem);
+        #endregion
     }
 }

@@ -124,6 +124,32 @@ namespace Orchestra.Services
         }
 
         /// <summary>
+        /// Closes the document in the main shell with the specified view model.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <param name="tag">The tag.</param>
+        public void CloseDocument(IViewModel viewModel, object tag = null)
+        {
+            Argument.IsNotNull(() => viewModel);
+
+            Log.Debug("Closing document for view model '{0}'", viewModel.UniqueIdentifier);
+
+            var viewLocator = GetService<IViewLocator>();
+            var viewType = viewLocator.ResolveView(viewModel.GetType());
+
+            var document = AvalonDockHelper.FindDocument(viewType, tag);
+            if (document == null)
+            {
+                Log.Warning("Cannot find document belonging to view model '{0}' with id '{1}' thus cannot close the document",
+                    ObjectToStringHelper.ToTypeString(viewModel), viewModel.UniqueIdentifier);
+            }
+
+            AvalonDockHelper.CloseDocument(document);
+
+            Log.Debug("Closed document for view model '{0}'", viewModel.UniqueIdentifier);
+        }
+
+        /// <summary>
         /// Adds the specified ribbon item to the main ribbon.
         /// </summary>
         /// <param name="ribbonItem">The ribbon item.</param>

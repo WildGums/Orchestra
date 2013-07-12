@@ -62,6 +62,7 @@ namespace Orchestra.Modules.Browser
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Back", "GoBack") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png" }, ModuleName);
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Forward", "GoForward") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" }, ModuleName);
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Browse", "Browse") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Close", "CloseBrowser") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_close.png" }, ModuleName);
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonComboBox(Name, "Recent Sites")
             {
                 ItemsSource = "RecentSites",

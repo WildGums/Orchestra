@@ -8,9 +8,11 @@ namespace Orchestra.Modules.Browser.ViewModels
 {
     using System.Collections.Generic;
     using Catel.Data;
+    using Catel.IoC;
     using Catel.MVVM;
     using Catel.MVVM.Services;
     using Catel.Messaging;
+    using Orchestra.Services;
 
     /// <summary>
     /// UserControl view model.
@@ -19,6 +21,8 @@ namespace Orchestra.Modules.Browser.ViewModels
     {
         private readonly List<string> _previousPages = new List<string>();
         private readonly List<string> _nextPages = new List<string>();
+
+        private readonly IOrchestraService _orchestraService;
 
         #region Constructors
         /// <summary>
@@ -43,8 +47,11 @@ namespace Orchestra.Modules.Browser.ViewModels
             GoForward = new Command(OnGoForwardExecute, OnGoForwardCanExecute);
             Browse = new Command(OnBrowseExecute, OnBrowseCanExecute);
             Test = new Command(OnTestExecute);
+            CloseBrowser = new Command(OnCloseBrowserExecute);
 
             Title = "Browser";
+
+            _orchestraService = ServiceLocator.ResolveType<IOrchestraService>();
         }
 
         private void OnTestExecute()
@@ -195,6 +202,19 @@ namespace Orchestra.Modules.Browser.ViewModels
             messageMediator.SendMessage(url, BrowserModule.Name);
 
             Title = string.Format("Browser: {0}", url);
+        }
+
+        /// <summary>
+        /// Gets the CloseBrowser command.
+        /// </summary>
+        public Command CloseBrowser { get; private set; }
+
+        /// <summary>
+        /// Method to invoke when the CloseBrowser command is executed.
+        /// </summary>
+        private void OnCloseBrowserExecute()
+        {
+            _orchestraService.CloseDocument(this);
         }
         #endregion
     }
