@@ -1,21 +1,12 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DocumentView.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Orchestra.Views
 {
-    using System;
-    using System.Collections.Generic;
-
-    using Catel;
-    using Catel.IoC;
-    using Catel.MVVM;
     using Catel.Windows.Controls;
-
-    using Orchestra.Models;
-    using Orchestra.Services;
 
     /// <summary>
     /// Base class for all views that should be used as documents in Orchestra.
@@ -24,8 +15,8 @@ namespace Orchestra.Views
     /// </summary>
     public class DocumentView : UserControl, IDocumentView
     {
-        //private List<IRibbonItem> _ribbonItems;
-
+        // private List<IRibbonItem> _ribbonItems;
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentView"/> class. 
         /// </summary>
@@ -38,6 +29,7 @@ namespace Orchestra.Views
 
             CloseViewModelOnUnloaded = false;
         }
+        #endregion
 
         #region IDocumentView Members
         /// <summary>

@@ -1,14 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LayoutInitializer.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Orchestra
 {
     using System.Linq;
-
-    using AvalonDock.Layout;
+    using Xceed.Wpf.AvalonDock.Layout;
 
     /// <summary>
     /// Layout initializer for Orchestra.
@@ -16,22 +15,13 @@ namespace Orchestra
     public class LayoutInitializer : ILayoutUpdateStrategy
     {
         #region ILayoutUpdateStrategy Members
-
         /// <summary>
         /// Befores the insert anchorable.
         /// </summary>
-        /// <param name="layout">
-        /// The layout.
-        /// </param>
-        /// <param name="anchorableToShow">
-        /// The anchorable to show.
-        /// </param>
-        /// <param name="destinationContainer">
-        /// The destination container.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
+        /// <param name="layout">The layout.</param>
+        /// <param name="anchorableToShow">The anchorable to show.</param>
+        /// <param name="destinationContainer">The destination container.</param>
+        /// <returns>The <see cref="bool" />.</returns>
         public bool BeforeInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableToShow, ILayoutContainer destinationContainer)
         {
             // AD wants to add the anchorable into destinationContainer
@@ -43,7 +33,7 @@ namespace Orchestra
                 return false;
             }
 
-            var toolsPane = layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(d => d.Name == "ToolsPane");
+            var toolsPane = layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(d => string.Equals(d.Name, "ToolsPane"));
             if (toolsPane != null)
             {
                 toolsPane.Children.Add(anchorableToShow);
@@ -56,12 +46,8 @@ namespace Orchestra
         /// <summary>
         /// Called after an anchorable item is inserted.
         /// </summary>
-        /// <param name="layout">
-        /// The layout.
-        /// </param>
-        /// <param name="anchorableShown">
-        /// The anchorable shown.
-        /// </param>
+        /// <param name="layout">The layout.</param>
+        /// <param name="anchorableShown">The anchorable shown.</param>
         public void AfterInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableShown)
         {
         }
@@ -69,18 +55,10 @@ namespace Orchestra
         /// <summary>
         /// The before insert document.
         /// </summary>
-        /// <param name="layout">
-        /// The layout.
-        /// </param>
-        /// <param name="anchorableToShow">
-        /// The anchorable to show.
-        /// </param>
-        /// <param name="destinationContainer">
-        /// The destination container.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
+        /// <param name="layout">The layout.</param>
+        /// <param name="anchorableToShow">The anchorable to show.</param>
+        /// <param name="destinationContainer">The destination container.</param>
+        /// <returns>The <see cref="bool" />.</returns>
         public bool BeforeInsertDocument(LayoutRoot layout, LayoutDocument anchorableToShow, ILayoutContainer destinationContainer)
         {
             return false;
@@ -89,36 +67,25 @@ namespace Orchestra
         /// <summary>
         /// The after insert document.
         /// </summary>
-        /// <param name="layout">
-        /// The layout.
-        /// </param>
-        /// <param name="anchorableShown">
-        /// The anchorable shown.
-        /// </param>
+        /// <param name="layout">The layout.</param>
+        /// <param name="anchorableShown">The anchorable shown.</param>
         public void AfterInsertDocument(LayoutRoot layout, LayoutDocument anchorableShown)
         {
         }
-
         #endregion
 
+        #region Methods
         /// <summary>
         /// Inserts the anchorable.
         /// </summary>
-        /// <param name="layout">
-        /// The layout.
-        /// </param>
-        /// <param name="anchorableToShow">
-        /// The anchorable to show.
-        /// </param>
-        /// <param name="destinationContainer">
-        /// The destination container.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
+        /// <param name="layout">The layout.</param>
+        /// <param name="anchorableToShow">The anchorable to show.</param>
+        /// <param name="destinationContainer">The destination container.</param>
+        /// <returns>The <see cref="bool" />.</returns>
         public bool InsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableToShow, ILayoutContainer destinationContainer)
         {
             return false;
         }
+        #endregion
     }
 }

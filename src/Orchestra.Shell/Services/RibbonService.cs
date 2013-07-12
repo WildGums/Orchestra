@@ -13,7 +13,6 @@ namespace Orchestra.Services
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using AvalonDock.Layout;
     using Catel;
     using Catel.Logging;
     using Catel.MVVM.Services;
@@ -21,6 +20,8 @@ namespace Orchestra.Services
     using Models;
     using Modules;
     using Views;
+
+    using Xceed.Wpf.AvalonDock.Layout;
 
     /// <summary>
     /// The ribbon service.

@@ -19,7 +19,6 @@ namespace Orchestra.Modules.Browser.ViewModels
     {
         private readonly List<string> _previousPages = new List<string>();
         private readonly List<string> _nextPages = new List<string>();
-        private readonly string _title;
 
         #region Constructors
         /// <summary>
@@ -31,7 +30,7 @@ namespace Orchestra.Modules.Browser.ViewModels
         {
             if (!string.IsNullOrWhiteSpace(title))
             {
-                _title = title;
+                Title = title;
             }
         }
 
@@ -40,12 +39,12 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// </summary>
         public BrowserViewModel()
         {
-            GoBack = new Command(() => OnGoBackExecute(), OnGoBackCanExecute);
+            GoBack = new Command(OnGoBackExecute, OnGoBackCanExecute);
             GoForward = new Command(OnGoForwardExecute, OnGoForwardCanExecute);
             Browse = new Command(OnBrowseExecute, OnBrowseCanExecute);
             Test = new Command(OnTestExecute);
 
-            _title = "Browser";
+            Title = "Browser";
         }
 
         private void OnTestExecute()
@@ -55,15 +54,6 @@ namespace Orchestra.Modules.Browser.ViewModels
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Gets the title of the view model.
-        /// </summary>
-        /// <value>The title.</value>
-        public override string Title
-        {
-            get { return _title; }
-        }
-
         /// <summary>
         /// Gets or sets the URL.
         /// </summary>
@@ -203,6 +193,8 @@ namespace Orchestra.Modules.Browser.ViewModels
 
             var messageMediator = GetService<IMessageMediator>();
             messageMediator.SendMessage(url, BrowserModule.Name);
+
+            Title = string.Format("Browser: {0}", url);
         }
         #endregion
     }

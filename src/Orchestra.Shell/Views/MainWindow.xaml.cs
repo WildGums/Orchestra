@@ -3,6 +3,7 @@
 //   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace Orchestra.Views
 {
     using System;
@@ -12,20 +13,15 @@ namespace Orchestra.Views
     using System.Reflection;
     using System.Windows;
     using System.Windows.Media.Imaging;
-
-    using AvalonDock.Layout;
-
     using Catel;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Windows.Controls;
     using Catel.Windows.Controls.MVVMProviders.Logic;
-
     using Fluent;
-
-    using Orchestra.Services;
     using Orchestra.ViewModels;
+    using Xceed.Wpf.AvalonDock.Layout;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
@@ -44,6 +40,11 @@ namespace Orchestra.Views
         /// The log.
         /// </summary>
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        /// <summary>
+        /// The status bar property.
+        /// </summary>
+        public static readonly DependencyProperty StatusBarProperty = DependencyProperty.Register("StatusBar", typeof (string), typeof (MainWindow), new PropertyMetadata(string.Empty));
         #endregion
 
         #region Fields
@@ -60,12 +61,12 @@ namespace Orchestra.Views
 
             InitializeMainWindow();
 
-            _windowLogic = new WindowLogic(this, typeof(MainWindowViewModel));
+            _windowLogic = new WindowLogic(this, typeof (MainWindowViewModel));
             _windowLogic.ViewModelChanged += (s, e) =>
-            {
-                ViewModelChanged.SafeInvoke(this, e);
-                PropertyChanged.SafeInvoke(this, new PropertyChangedEventArgs("ViewModel"));
-            };
+                {
+                    ViewModelChanged.SafeInvoke(this, e);
+                    PropertyChanged.SafeInvoke(this, new PropertyChangedEventArgs("ViewModel"));
+                };
             _windowLogic.ViewModelPropertyChanged += (s, e) => ViewModelPropertyChanged.SafeInvoke(this, e);
 
             // _windowLogic.TargetControlPropertyChanged += (s, e) => PropertyChanged.SafeInvoke(this, new AdvancedPropertyChangedEventArgs(s, this, e.PropertyName, e.OldValue, e.NewValue));
@@ -79,10 +80,7 @@ namespace Orchestra.Views
             ribbon.AutomaticStateManagement = true;
             ribbon.EnsureTabItem("Home");
 
-            Loaded += (sender, e) =>
-            {
-                traceOutputAnchorable.Hide();
-            };
+            Loaded += (sender, e) => { traceOutputAnchorable.Hide(); };
         }
         #endregion
 
@@ -93,14 +91,9 @@ namespace Orchestra.Views
         /// <value>The status bar.</value>
         public string StatusBar
         {
-            get { return (string)GetValue(StatusBarProperty); }
+            get { return (string) GetValue(StatusBarProperty); }
             set { SetValue(StatusBarProperty, value); }
         }
-
-        /// <summary>
-        /// The status bar property.
-        /// </summary>
-        public static readonly DependencyProperty StatusBarProperty = DependencyProperty.Register("StatusBar", typeof(string), typeof(MainWindow), new PropertyMetadata(string.Empty));
         #endregion
 
         #region IView Members
@@ -112,10 +105,7 @@ namespace Orchestra.Views
         /// </value>
         public IViewModel ViewModel
         {
-            get
-            {
-                return _windowLogic.ViewModel;
-            }
+            get { return _windowLogic.ViewModel; }
         }
 
         /// <summary>
@@ -222,8 +212,8 @@ namespace Orchestra.Views
             Argument.IsNotNullOrWhitespace("name", name);
 
             var visibleAnchorable = (from child in dockingManager.Layout.Children
-                                     where child is LayoutAnchorable && TagHelper.AreTagsEqual(((LayoutAnchorable)child).ContentId, name)
-                                     select (LayoutAnchorable)child).FirstOrDefault();
+                                     where child is LayoutAnchorable && TagHelper.AreTagsEqual(((LayoutAnchorable) child).ContentId, name)
+                                     select (LayoutAnchorable) child).FirstOrDefault();
             if (visibleAnchorable != null)
             {
                 return visibleAnchorable;
