@@ -13,7 +13,7 @@ namespace Orchestra.Models
     /// <summary>
     /// Represents a ribbon button
     /// </summary>
-    public class RibbonButton : RibbonItemBase, IRibbonButton
+    public class RibbonButton : RibbonControlBase, IRibbonButton
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RibbonButton"/> class.

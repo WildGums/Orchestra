@@ -18,7 +18,7 @@
     /// <summary>
     /// RibbonItem with the ability to show dynamic content.
     /// </summary>
-    public class RibbonContentControl : RibbonItemBase, IRibbonContentControl
+    public class RibbonContentControl : RibbonControlBase, IRibbonContentControl
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RibbonContentControl"/> class.

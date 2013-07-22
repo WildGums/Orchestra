@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a ribbon combo box
     /// </summary>
-    public class RibbonComboBox : RibbonItemBase, IRibbonComboBox
+    public class RibbonComboBox : RibbonControlBase, IRibbonComboBox
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RibbonComboBox" /> class.

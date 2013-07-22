@@ -11,7 +11,7 @@ namespace Orchestra.Models
     /// <summary>
     /// Provides a ribbon button methods and properties.
     /// </summary>
-    public interface IRibbonButton : IRibbonItem
+    public interface IRibbonButton : IRibbonControl
     {
         /// <summary>
         /// Gets or sets the item image.

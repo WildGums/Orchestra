@@ -22,6 +22,7 @@ namespace Orchestra.Services
     using Views;
 
     using Xceed.Wpf.AvalonDock.Layout;
+    using IRibbonControl = Models.IRibbonControl;
 
     /// <summary>
     /// The ribbon service.
@@ -36,7 +37,7 @@ namespace Orchestra.Services
         private readonly LayoutDocumentPane _layoutDocumentPane;
         private readonly IDispatcherService _dispatcherService;
         private readonly Ribbon _ribbon;
-        private readonly Dictionary<Type, List<IRibbonItem>> _viewSpecificRibbonItems = new Dictionary<Type, List<IRibbonItem>>();
+        private readonly Dictionary<Type, List<IRibbonControl>> _viewSpecificRibbonItems = new Dictionary<Type, List<IRibbonControl>>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RibbonService" /> class.
@@ -92,127 +93,87 @@ namespace Orchestra.Services
         /// <summary>
         /// Registers the specified ribbon item to the main ribbon.
         /// </summary>
-        /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem" /> is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonItem" /> is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonItem" /> is <c>null</c>.</exception>
-        public void RegisterRibbonItem(IRibbonItem ribbonItem)
+        /// <param name="ribbonControl">The ribbon item.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="ribbonControl" /> is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonControl" /> is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">The <c>Command</c> property of the <paramref name="ribbonControl" /> is <c>null</c>.</exception>
+        public void RegisterRibbonItem(IRibbonControl ribbonControl)
         {
-            Argument.IsNotNull("ribbonItem", ribbonItem);
-            Argument.IsOfType(() => ribbonItem, typeof(IRibbonButton)); // TODO: consider using IRibbonButton parameter instead of IRibbonItem
-            Argument.IsSupported(((IRibbonButton)ribbonItem).Command != null, "When registering a non-view-specific ribbon item, the Command property cannot be null");
+            Argument.IsNotNull("ribbonControl", ribbonControl);
+            Argument.IsOfType(() => ribbonControl, typeof(IRibbonButton)); // TODO: consider using IRibbonButton parameter instead of IRibbonControl
+            Argument.IsSupported(((IRibbonButton)ribbonControl).Command != null, "When registering a non-view-specific ribbon item, the Command property cannot be null");
 
-            AddRibbonItem(ribbonItem);
+            AddRibbonItem(ribbonControl);
         }
 
         /// <summary>
         /// Registers the ribbon item bound to a specific view type.
         /// </summary>
         /// <typeparam name="TView">The type of the T view.</typeparam>
-        /// <param name="ribbonItem">The ribbon item.</param>
+        /// <param name="ribbonControl">The ribbon item.</param>
         /// <param name="contextualTabGroupName">The contextual tab group name.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="ribbonControl"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">The <paramref name="contextualTabGroupName"/> is <c>null</c> or whitespace.</exception>
-        public void RegisterContextualRibbonItem<TView>(IRibbonItem ribbonItem, string contextualTabGroupName)
+        public void RegisterContextualRibbonItem<TView>(IRibbonControl ribbonControl, string contextualTabGroupName)
             where TView : DocumentView
         {
-            RegisterContextualRibbonItem(typeof(TView), ribbonItem, contextualTabGroupName);
+            RegisterContextualRibbonItem(typeof(TView), ribbonControl, contextualTabGroupName);
         }
 
         /// <summary>
         /// Registers the ribbon item bound to a specific view type.
         /// </summary>
         /// <param name="viewType">Type of the view.</param>
-        /// <param name="ribbonItem">The ribbon item.</param>
+        /// <param name="ribbonControl">The ribbon item.</param>
         /// <param name="contextualTabGroupName">The contextual tab group name.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="viewType"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="ribbonControl"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">The <paramref name="contextualTabGroupName"/> is <c>null</c> or whitespace.</exception>
-        public void RegisterContextualRibbonItem(Type viewType, IRibbonItem ribbonItem, string contextualTabGroupName)
+        public void RegisterContextualRibbonItem(Type viewType, IRibbonControl ribbonControl, string contextualTabGroupName)
         {
             Argument.IsNotNull("viewType", viewType);
-            Argument.IsNotNull("ribbonItem", ribbonItem);
+            Argument.IsNotNull("ribbonControl", ribbonControl);
 
-            ribbonItem.ContextualTabItemGroupName = contextualTabGroupName;
+            ribbonControl.ContextualTabItemGroupName = contextualTabGroupName;
 
             if (!_viewSpecificRibbonItems.ContainsKey(viewType))
             {
-                _viewSpecificRibbonItems[viewType] = new List<IRibbonItem>();
+                _viewSpecificRibbonItems[viewType] = new List<IRibbonControl>();
             }
 
-            _viewSpecificRibbonItems[viewType].Add(ribbonItem);
+            _viewSpecificRibbonItems[viewType].Add(ribbonControl);
 
-            AddRibbonItem(ribbonItem);
+            AddRibbonItem(ribbonControl);
         }
 
         /// <summary>
         /// Adds a new ribbon item to the main ribbon.
         /// </summary>
-        /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
-        private void AddRibbonItem(IRibbonItem ribbonItem)
+        /// <param name="ribbonControl">The ribbon item.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="ribbonControl"/> is <c>null</c>.</exception>
+        private void AddRibbonItem(IRibbonControl ribbonControl)
         {
-            Argument.IsNotNull("ribbonItem", ribbonItem);
+            Argument.IsNotNull("ribbonControl", ribbonControl);
 
-            Log.Debug("Adding ribbon item '{0}'", ribbonItem);
+            Log.Debug("Adding ribbon item '{0}'", ribbonControl);
 
             var ribbon = GetService<Ribbon>();
 
             RibbonTabItem tab;
-            if (ribbonItem.Context == RibbonContext.View)
+            if (ribbonControl.Context == RibbonContext.View)
             {
-                tab = ribbon.EnsureContextualTabItem(ribbonItem.TabItemHeader, ribbonItem.ContextualTabItemGroupName);
+                tab = ribbon.EnsureContextualTabItem(ribbonControl.TabItemHeader, ribbonControl.ContextualTabItemGroupName);
             }
             else
             {
-                tab = ribbon.EnsureTabItem(ribbonItem.TabItemHeader);
+                tab = ribbon.EnsureTabItem(ribbonControl.TabItemHeader);
             }
 
-            var group = tab.EnsureGroupBox(ribbonItem.GroupBoxHeader);
+            var group = tab.EnsureGroupBox(ribbonControl.GroupBoxHeader);
 
-            Control ribbonItemControl = null;
+            group.AddRibbonItem(ribbonControl);
 
-            var ribbonButton = ribbonItem as IRibbonButton;
-            if (ribbonButton != null)
-            {
-                if (ribbonButton.Command != null)
-                {
-                    ribbonItemControl = group.AddButton(ribbonButton.ItemHeader, ribbonButton.ItemImage, ribbonButton.ItemImage, ribbonButton.Command);
-                }
-                else
-                {
-                    ribbonItemControl = group.AddButton(ribbonButton.ItemHeader, ribbonButton.ItemImage, ribbonButton.ItemImage, ribbonButton.CommandName);
-                }
-            }
-            var ribbonComboBox = ribbonItem as IRibbonComboBox;
-
-            if (ribbonComboBox != null)
-            {
-                ribbonItemControl = group.AddComboBox(ribbonComboBox.ItemHeader, ribbonComboBox.ItemsSource, ribbonComboBox.SelectedItem);
-            }
-
-            var ribbonContentControl = ribbonItem as IRibbonContentControl;
-
-            if (ribbonContentControl != null)
-            {
-                ribbonItemControl = group.AddContentControl(ribbonItem.ItemHeader, ribbonContentControl.ContentTemplate);
-            }
-
-            if (ribbonItemControl != null)
-            {
-                if (ribbonItem.Layout != null)
-                {
-                    group.ApplyLayout(ribbonItemControl, ribbonItem.Layout);
-                }
-
-                if (ribbonItem.Style != null)
-                {
-                    ribbonItemControl.Style = ribbonItem.Style;
-                }
-            }
-
-
-            Log.Debug("Added ribbon item '{0}'", ribbonItem);
+            Log.Debug("Added ribbon item '{0}'", ribbonControl);
         }
 
         /// <summary>
@@ -220,18 +181,18 @@ namespace Orchestra.Services
         /// <para />
         /// This method will ignore calls when the item is not available in the ribbon.
         /// </summary>
-        /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
-        private void RemoveRibbonItem(IRibbonItem ribbonItem)
+        /// <param name="ribbonControl">The ribbon item.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="ribbonControl"/> is <c>null</c>.</exception>
+        private void RemoveRibbonItem(IRibbonControl ribbonControl)
         {
-            Argument.IsNotNull("ribbonItem", ribbonItem);
+            Argument.IsNotNull("ribbonControl", ribbonControl);
 
-            Log.Debug("Removing ribbon '{0}'", ribbonItem);
+            Log.Debug("Removing ribbon '{0}'", ribbonControl);
 
             var ribbon = GetService<Ribbon>();
-            ribbon.RemoveItem(ribbonItem);
+            ribbon.RemoveItem(ribbonControl);
 
-            Log.Debug("Removed ribbon '{0}'", ribbonItem);
+            Log.Debug("Removed ribbon '{0}'", ribbonControl);
         }
 
         private void OnLayoutDocumentPanePropertyChange(object sender, PropertyChangedEventArgs e)

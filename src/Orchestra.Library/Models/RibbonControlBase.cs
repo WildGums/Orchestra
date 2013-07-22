@@ -1,22 +1,25 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RibbonItemBase.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2012 Orchestra development team. All rights reserved.
+// <copyright file="RibbonControlBase.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 
 namespace Orchestra.Models
 {
     using System;
     using System.Windows;
+    using System.Windows.Controls;
     using Catel;
 
     /// <summary>
     /// Defines a ribbon item base class
     /// </summary>
-    public abstract class RibbonItemBase : IRibbonItem
+    public abstract class RibbonControlBase : IRibbonControl
     {
+        #region Constructors
         /// <summary>
-        /// Prevents a default instance of the <see cref="RibbonItemBase" /> class from being created.
+        /// Prevents a default instance of the <see cref="RibbonControlBase" /> class from being created.
         /// </summary>
         /// <param name="tabItemHeader">The tab item header.</param>
         /// <param name="groupBoxHeader">The group box header.</param>
@@ -24,7 +27,7 @@ namespace Orchestra.Models
         /// <param name="behavior">The behavior.</param>
         /// <exception cref="ArgumentException">The <paramref name="tabItemHeader"/> is <c>null</c> or whitespace.</exception>
         /// <exception cref="ArgumentException">The <paramref name="groupBoxHeader"/> is <c>null</c> or whitespace.</exception>
-        protected RibbonItemBase(string tabItemHeader, string groupBoxHeader, string itemHeader, RibbonBehavior behavior = RibbonBehavior.ActivateTab)
+        protected RibbonControlBase(string tabItemHeader, string groupBoxHeader, string itemHeader, RibbonBehavior behavior = RibbonBehavior.ActivateTab)
         {
             Argument.IsNotNullOrWhitespace("tabItemHeader", tabItemHeader);
             Argument.IsNotNullOrWhitespace("groupBoxHeader", groupBoxHeader);
@@ -36,7 +39,9 @@ namespace Orchestra.Models
 
             OnlyShowWhenTabIsActivated = false;
         }
+        #endregion
 
+        #region IRibbonControl Members
         /// <summary>
         /// Gets or sets the name of the contextual tab item group.
         /// <para />
@@ -73,7 +78,10 @@ namespace Orchestra.Models
         /// Gets or sets the context.
         /// </summary>
         /// <value>The context.</value>
-        public RibbonContext Context { get { return string.IsNullOrWhiteSpace(ContextualTabItemGroupName) ? RibbonContext.Global : RibbonContext.View; } }
+        public RibbonContext Context
+        {
+            get { return string.IsNullOrWhiteSpace(ContextualTabItemGroupName) ? RibbonContext.Global : RibbonContext.View; }
+        }
 
         /// <summary>
         /// Gets or sets the behavior.
@@ -98,6 +106,16 @@ namespace Orchestra.Models
         public Style Style { get; set; }
 
         /// <summary>
+        /// Gets or sets the ribbon item tool tip.
+        /// </summary>
+        /// <value>
+        /// The ribbon item tool tip.
+        /// </value>
+        public IRibbonToolTip ToolTip { get; set; }
+        #endregion
+
+        #region Methods
+        /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
@@ -105,5 +123,6 @@ namespace Orchestra.Models
         {
             return string.Format("{0}.{1}.{2}", TabItemHeader, GroupBoxHeader, ItemHeader);
         }
+        #endregion
     }
 }

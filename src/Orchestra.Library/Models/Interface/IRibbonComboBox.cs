@@ -9,7 +9,7 @@ namespace Orchestra.Models
     /// <summary>
     /// Provides a ribbon combo box methods and properties.
     /// </summary>
-    public interface IRibbonComboBox : IRibbonItem
+    public interface IRibbonComboBox : IRibbonControl
     {
         /// <summary>
         /// Gets the items source.

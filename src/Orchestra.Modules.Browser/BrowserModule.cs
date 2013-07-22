@@ -7,7 +7,9 @@
 namespace Orchestra.Modules.Browser
 {
     using System;
+    using System.Collections.Generic;
     using System.Windows;
+    using System.Windows.Controls;
     using Catel;
     using Catel.Linq;
     using Catel.MVVM;
@@ -59,10 +61,25 @@ namespace Orchestra.Modules.Browser
             ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>())) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
             // View specific
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Back", "GoBack") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png" }, ModuleName);
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Forward", "GoForward") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" }, ModuleName);
+            var backButton = new RibbonButton(Name, Name, "Back", "GoBack") {ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png"};
+            var forwardButton = new RibbonButton(Name, Name, "Forward", "GoForward") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" };
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(backButton, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(forwardButton, ModuleName);
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Browse", "Browse") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" }, ModuleName);
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Close", "CloseBrowser") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_close.png" }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonSplitButton(Name, Name, "Close", "CloseBrowser")
+            {
+                ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_close.png",
+                ToolTip = new RibbonToolTip { Title = "Close (Ctrl+X)", Text = "Closes the browser page." },
+                Items = new List<IRibbonItem> 
+                { 
+                    new RibbonGallery
+                    {
+                        Items = new List<IRibbonItem> { backButton, forwardButton },
+                        Orientation = Orientation.Horizontal,
+                        ItemWidth = 56, ItemHeight = 64
+                    } 
+                }
+            }, ModuleName);
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonComboBox(Name, "Recent Sites")
             {
                 ItemsSource = "RecentSites",
