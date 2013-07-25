@@ -1,4 +1,11 @@
-﻿namespace Orchestra.Models
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IRibbonGallery.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+
+namespace Orchestra.Models
 {
     using System.Windows.Controls;
 
@@ -7,6 +14,7 @@
     /// </summary>
     public interface IRibbonGallery : IRibbonItemsCollection
     {
+        #region Properties
         /// <summary>
         /// Gets or sets the orientation of gallery.
         /// </summary>
@@ -54,5 +62,6 @@
         /// The max items in row.
         /// </value>
         int MaxItemsInRow { get; set; }
+        #endregion
     }
 }

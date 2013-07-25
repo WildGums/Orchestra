@@ -1,4 +1,11 @@
-﻿namespace Orchestra.Models
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="RibbonSplitButton.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+
+namespace Orchestra.Models
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -9,6 +16,7 @@
     /// </summary>
     public class RibbonSplitButton : RibbonButton, IRibbonSplitButton
     {
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="RibbonSplitButton"/> class.
         /// </summary>
@@ -17,7 +25,7 @@
         /// <param name="itemHeader">The item header.</param>
         /// <param name="command">The command.</param>
         /// <param name="behavior">The behavior.</param>
-        public RibbonSplitButton(string tabItemHeader, string groupBoxHeader, string itemHeader, ICommand command, RibbonBehavior behavior = RibbonBehavior.ActivateTab) 
+        public RibbonSplitButton(string tabItemHeader, string groupBoxHeader, string itemHeader, ICommand command, RibbonBehavior behavior = RibbonBehavior.ActivateTab)
             : base(tabItemHeader, groupBoxHeader, itemHeader, command, behavior)
         {
         }
@@ -30,11 +38,13 @@
         /// <param name="itemHeader">The item header.</param>
         /// <param name="commandName">The name of the command.</param>
         /// <param name="behavior">The behavior.</param>
-        public RibbonSplitButton(string tabItemHeader, string groupBoxHeader, string itemHeader, string commandName, RibbonBehavior behavior = RibbonBehavior.ActivateTab) 
+        public RibbonSplitButton(string tabItemHeader, string groupBoxHeader, string itemHeader, string commandName, RibbonBehavior behavior = RibbonBehavior.ActivateTab)
             : base(tabItemHeader, groupBoxHeader, itemHeader, commandName, behavior)
         {
         }
+        #endregion
 
+        #region IRibbonSplitButton Members
         /// <summary>
         /// Gets or sets the gallery items.
         /// </summary>
@@ -50,5 +60,6 @@
         /// The item container style.
         /// </value>
         public Style ItemContainerStyle { get; set; }
+        #endregion
     }
 }

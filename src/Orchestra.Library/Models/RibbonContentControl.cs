@@ -1,18 +1,26 @@
-﻿namespace Orchestra.Models
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="RibbonContentControl.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+
+namespace Orchestra.Models
 {
     using System.Windows;
-    using Catel;
 
     /// <summary>
     /// Interface for RibbonItem with the ability to show dynamic content
     /// </summary>
     public interface IRibbonContentControl
     {
+        #region Properties
         /// <summary>
         /// Gets or sets ContentTemplate for the custom content.
         /// </summary>
         /// <value>The item image.</value>
         DataTemplate ContentTemplate { get; set; }
+        #endregion
     }
 
     /// <summary>
@@ -20,6 +28,7 @@
     /// </summary>
     public class RibbonContentControl : RibbonControlBase, IRibbonContentControl
     {
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="RibbonContentControl"/> class.
         /// </summary>
@@ -31,11 +40,14 @@
             : base(tabItemHeader, groupBoxHeader, itemHeader, behavior)
         {
         }
+        #endregion
 
+        #region IRibbonContentControl Members
         /// <summary>
         /// Gets or sets ContentTemplate for the custom content.
         /// </summary>
         /// <value>The item image.</value>
         public DataTemplate ContentTemplate { get; set; }
+        #endregion
     }
 }

@@ -12,7 +12,7 @@ namespace Orchestra.Models
     /// <summary>
     /// Implementation of the <see cref="IRibbonButton" />.
     /// </summary>
-    [Obsolete("Please use RibbonButton instead.")]
+    [ObsoleteEx(Replacement = "RibbonButton", RemoveInVersion = "2.0", TreatAsErrorFromVersion = "1.0")]
     public class RibbonItem : RibbonButton
     {
         /// <summary>
