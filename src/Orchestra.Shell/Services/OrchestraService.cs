@@ -143,8 +143,10 @@ namespace Orchestra.Services
                 Log.Warning("Cannot find document belonging to view model '{0}' with id '{1}' thus cannot close the document",
                     ObjectToStringHelper.ToTypeString(viewModel), viewModel.UniqueIdentifier);
             }
-
-            AvalonDockHelper.CloseDocument(document);
+            else
+            {
+                AvalonDockHelper.CloseDocument(document);    
+            }
 
             Log.Debug("Closed document for view model '{0}'", viewModel.UniqueIdentifier);
         }
