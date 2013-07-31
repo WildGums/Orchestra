@@ -8,7 +8,7 @@ namespace Orchestra.Services
     using System;
 
     using Catel;
-
+    using Catel.Windows.Threading;
     using Orchestra.Views;
 
     /// <summary>
@@ -39,7 +39,7 @@ namespace Orchestra.Services
         {
             Argument.IsNotNull(() => status);
 
-            _shell.StatusBar = status;
+            _shell.Dispatcher.BeginInvoke(() => _shell.StatusBar = status);
         }
     }
 }

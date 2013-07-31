@@ -13,8 +13,9 @@ namespace Orchestra
     using Catel.MVVM;
     using Catel.MVVM.ViewModels;
     using Catel.Windows;
-
+    using Catel.Windows.Threading;
     using Orchestra.Services;
+    using Orchestra.ViewModels;
 
     /// <summary>
     /// Interaction logic for App.xaml.
@@ -41,10 +42,10 @@ namespace Orchestra
             Catel.Environment.RegisterDefaultViewModelServices();
 
             var viewLocator = serviceLocator.ResolveType<IViewLocator>();
-            viewLocator.Register(typeof(ProgressNotifyableViewModel), typeof(Views.SplashScreen));
+            viewLocator.Register(typeof(SplashScreenViewModel), typeof(Views.SplashScreen));
 
             var viewModelLocator = serviceLocator.ResolveType<IViewModelLocator>();
-            viewModelLocator.Register(typeof(Views.SplashScreen), typeof(ProgressNotifyableViewModel));
+            viewModelLocator.Register(typeof(Views.SplashScreen), typeof(SplashScreenViewModel));
 
             var bootstrapper = new OrchestraBootstrapper();
 
@@ -52,16 +53,19 @@ namespace Orchestra
 
             bootstrapper.CreatedShell += (sender, e2) =>
             {
-                // Configure shell when it's created
-                var configurationService = ServiceLocator.Default.ResolveType<IConfigurationService>();
-                ConfigureShell(configurationService);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    // Configure shell when it's created
+                    var configurationService = ServiceLocator.Default.ResolveType<IConfigurationService>();
+                    ConfigureShell(configurationService);
 
-                // Disable debugging window
-                var orchestraService = ServiceLocator.Default.ResolveType<IOrchestraService>();
-                orchestraService.ShowDebuggingWindow = false;
+                    // Disable debugging window
+                    var orchestraService = ServiceLocator.Default.ResolveType<IOrchestraService>();
+                    orchestraService.ShowDebuggingWindow = false;
+                });
             };
 
-            bootstrapper.RunWithSplashScreen<ProgressNotifyableViewModel>();
+            bootstrapper.RunWithSplashScreen<SplashScreenViewModel>();
 
             base.OnStartup(e);
         }

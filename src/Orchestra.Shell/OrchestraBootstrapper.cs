@@ -17,6 +17,7 @@ namespace Orchestra
     using Catel.MVVM;
     using Catel.MVVM.Services;
     using Catel.Reflection;
+    using Catel.Windows.Threading;
     using Microsoft.Practices.Prism.Modularity;
     using Models;
     using Modules;
@@ -83,8 +84,11 @@ namespace Orchestra
 
             CreatedShell += (sender, e) =>
             {
-                var statusBarService = ServiceLocator.Default.ResolveType<IStatusBarService>();
-                statusBarService.UpdateStatus("Ready");
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var statusBarService = ServiceLocator.Default.ResolveType<IStatusBarService>();
+                    statusBarService.UpdateStatus("Ready");
+                });
             };
         }
         #endregion
