@@ -30,7 +30,7 @@ namespace Orchestra.Services
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="tag">The tag.</param>
         void ShowDocument<TViewModel>(object tag = null)
-            where TViewModel : IViewModel, new();
+            where TViewModel : IViewModel;
 
         /// <summary>
         /// Shows the document in the main shell.

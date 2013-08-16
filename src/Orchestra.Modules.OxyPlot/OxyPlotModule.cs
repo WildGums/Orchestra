@@ -47,12 +47,12 @@ namespace Orchestra.Modules.OxyPlot
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Catel.Modules.ModuleBase`1"/> class.
+        /// Initializes a new instance of the <see cref="T:Catel.Modules.ModuleBase`1" /> class.
         /// </summary>
-        public OxyPlotModule()
+        /// <param name="messageMediator">The message mediator.</param>
+        public OxyPlotModule(IMessageMediator messageMediator)
             : base(Name)
         {
-            var messageMediator = MessageMediator.Default;
             messageMediator.Register(this, new Action<Tuple<ObservableCollection<int>, ObservableCollection<int>>>(OnPlot));
         }
         #endregion

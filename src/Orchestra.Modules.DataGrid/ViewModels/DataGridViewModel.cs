@@ -28,6 +28,25 @@ namespace Orchestra.Modules.DataGrid.ViewModels
     /// </summary>
     public class DataGridViewModel : ViewModelBase
     {
+        private readonly IOpenFileService _openFileService;
+        private readonly ISaveFileService _saveFileService;
+        private readonly IUIVisualizerService _uiVisualizerService;
+        private readonly IMessageMediator _messageMediator;
+
+        public DataGridViewModel(IOpenFileService openFileService, ISaveFileService saveFileService, IUIVisualizerService uiVisualizerService,
+            IMessageMediator messageMediator)
+        {
+            Argument.IsNotNull(() => openFileService);
+            Argument.IsNotNull(() => saveFileService);
+            Argument.IsNotNull(() => uiVisualizerService);
+            Argument.IsNotNull(() => messageMediator);
+
+            _openFileService = openFileService;
+            _saveFileService = saveFileService;
+            _uiVisualizerService = uiVisualizerService;
+            _messageMediator = messageMediator;
+        }
+
         /// <summary>
         /// Gets the title.
         /// </summary>
@@ -69,9 +88,8 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         /// </summary>
         private void OpenFile()
         {
-            var openFileService = GetService<IOpenFileService>();
-            openFileService.Filter = "*.csv|*.csv";
-            if (!openFileService.DetermineFile())
+            _openFileService.Filter = "*.csv|*.csv";
+            if (!_openFileService.DetermineFile())
             {
                 return;
             }
@@ -85,7 +103,7 @@ namespace Orchestra.Modules.DataGrid.ViewModels
             items.Clear();
             columns.Clear();
 
-            var reader = new CsvReader(new StreamReader(openFileService.FileName));
+            var reader = new CsvReader(new StreamReader(_openFileService.FileName));
             if (!reader.Read())
             {
                 return;
@@ -132,14 +150,13 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         /// </summary>
         private void SaveToFile()
         {
-            var saveFileService = GetService<ISaveFileService>();
-            saveFileService.Filter = "*.csv|*.csv";
-            if (!saveFileService.DetermineFile())
+            _saveFileService.Filter = "*.csv|*.csv";
+            if (!_saveFileService.DetermineFile())
             {
                 return;
             }
 
-            using (var writer = new CsvWriter(new StreamWriter(saveFileService.FileName)))
+            using (var writer = new CsvWriter(new StreamWriter(_saveFileService.FileName)))
             {
                 ObservableCollection<Row> items = Items;
 
@@ -232,8 +249,7 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         {
             var plotVm = new PlotViewModel(from column in Columns
                                            select column.Title as string);
-            var uiVisualizerService = GetService<IUIVisualizerService>();
-            if (uiVisualizerService.ShowDialog(plotVm) ?? false)
+            if (_uiVisualizerService.ShowDialog(plotVm) ?? false)
             {
                 var x = GetColumnByTitle(plotVm.XAxis);
                 var y = GetColumnByTitle(plotVm.YAxis);
@@ -244,8 +260,7 @@ namespace Orchestra.Modules.DataGrid.ViewModels
                 var yvalues = new ObservableCollection<int>(from item in Items
                                                             select Convert.ToInt32(item.Cells[y.ColumnIndex].Value));
 
-                var messageMediator = MessageMediator.Default;
-                messageMediator.SendMessage(new Tuple<ObservableCollection<int>, ObservableCollection<int>>(xvalues, yvalues));
+                _messageMediator.SendMessage(new Tuple<ObservableCollection<int>, ObservableCollection<int>>(xvalues, yvalues));
             }
         }
 
@@ -271,7 +286,7 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         /// SelectedRowIndex property data.
         /// </summary>
         public static readonly PropertyData SelectedRowIndexProperty = RegisterProperty(
-            "SelectedRowIndex", typeof(int), -1, propertyChangedEventHandler: SelectedRowIndexChangedEventHandler);
+            "SelectedRowIndex", typeof(int), -1, SelectedRowIndexChangedEventHandler);
 
         /// <summary>
         /// Gets or sets the SelectedRowIndex value.

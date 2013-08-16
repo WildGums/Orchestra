@@ -11,6 +11,7 @@ namespace Orchestra.Modules.Browser
     using System.Windows;
     using System.Windows.Controls;
     using Catel;
+    using Catel.IoC;
     using Catel.Linq;
     using Catel.MVVM;
     using Models;
@@ -58,7 +59,9 @@ namespace Orchestra.Modules.Browser
             var orchestraService = GetService<IOrchestraService>();
 
             // Module specific
-            ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<BrowserViewModel>())) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
+            var typeFactory = TypeFactory.Default;
+            var browserViewModel = typeFactory.CreateInstance<BrowserViewModel>();
+            ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument(browserViewModel))) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
             // View specific
             var backButton = new RibbonButton(Name, Name, "Back", "GoBack") {ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png"};
@@ -94,11 +97,13 @@ namespace Orchestra.Modules.Browser
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content") { ContentTemplate = template, Layout = new RibbonItemLayout {Width = 120}}, ModuleName);
 
             // Demo: show two pages with different tags
-            var orchestraViewModel = new BrowserViewModel("Orchestra") { Url = "http://www.github.com/Orcomp/Orchestra" };
-            orchestraService.ShowDocument<BrowserViewModel>(orchestraViewModel, "orchestra");
+            var orchestraViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Orchestra");
+            orchestraViewModel.Url = "http://www.github.com/Orcomp/Orchestra";
+            orchestraService.ShowDocument(orchestraViewModel, "orchestra");
 
-            var catelViewModel = new BrowserViewModel("Catel") { Url = "http://www.catelproject.com" };
-            orchestraService.ShowDocument<BrowserViewModel>(catelViewModel, "catel");
+            var catelViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Catel");
+            catelViewModel.Url = "http://www.catelproject.com";
+            orchestraService.ShowDocument(catelViewModel, "catel");
         }
 
         private void LoadResourceDictionary()

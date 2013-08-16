@@ -8,6 +8,7 @@ namespace Orchestra.ViewModels
 {
     using System.Collections.ObjectModel;
     using System.Linq;
+    using Catel;
     using Catel.MVVM;
     using Catel.MVVM.Services;
     using Catel.Modules.ModuleManager;
@@ -20,12 +21,21 @@ namespace Orchestra.ViewModels
     /// </summary>
     public class AboutViewModel : ViewModelBase
     {
+        private readonly IModuleInfoManager _moduleInfoManager;
+        private readonly IProcessService _processService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AboutViewModel" /> class.
         /// </summary>
-        public AboutViewModel()
+        public AboutViewModel(IModuleInfoManager moduleInfoManager, IProcessService processService)
         {
-            var knownModules = GetService<IModuleInfoManager>().KnownModules;
+            Argument.IsNotNull(() => moduleInfoManager);
+            Argument.IsNotNull(() => processService);
+
+            _moduleInfoManager = moduleInfoManager;
+            _processService = processService;
+
+            var knownModules = moduleInfoManager.KnownModules;
             var tempModules = knownModules.Select(moduleInfo => new Models.ModuleInfo()
             {
                 ModuleName = moduleInfo.ModuleName,
@@ -84,8 +94,7 @@ namespace Orchestra.ViewModels
         /// </summary>
         private void OnViewLicenseExecute(Models.ModuleInfo moduleInfo)
         {
-            var processService = GetService<IProcessService>();
-            processService.StartProcess(moduleInfo.LicenseUrl);
+            _processService.StartProcess(moduleInfo.LicenseUrl);
         }
     }
 }

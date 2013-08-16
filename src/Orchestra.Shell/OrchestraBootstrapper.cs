@@ -141,7 +141,10 @@ namespace Orchestra
                 ribbonService.RegisterRibbonItem(new RibbonButton(configurationService.Configuration.HelpTabText, configurationService.Configuration.HelpGroupText, configurationService.Configuration.HelpButtonText, new Command(() =>
                 {
                     var uiVisualizerService = Container.ResolveType<IUIVisualizerService>();
-                    uiVisualizerService.ShowDialog(new AboutViewModel());
+                    var typeFactory = TypeFactory.Default;
+                    var aboutViewModel = typeFactory.CreateInstance<AboutViewModel>();
+
+                    uiVisualizerService.ShowDialog(aboutViewModel);
                 })));
             }
         }

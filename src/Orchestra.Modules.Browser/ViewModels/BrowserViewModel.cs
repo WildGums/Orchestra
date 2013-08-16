@@ -7,8 +7,8 @@
 namespace Orchestra.Modules.Browser.ViewModels
 {
     using System.Collections.Generic;
+    using Catel;
     using Catel.Data;
-    using Catel.IoC;
     using Catel.MVVM;
     using Catel.MVVM.Services;
     using Catel.Messaging;
@@ -22,15 +22,20 @@ namespace Orchestra.Modules.Browser.ViewModels
         private readonly List<string> _previousPages = new List<string>();
         private readonly List<string> _nextPages = new List<string>();
 
+        private readonly IMessageService _messageService;
         private readonly IOrchestraService _orchestraService;
+        private readonly IMessageMediator _messageMediator;
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="BrowserViewModel"/> class.
+        /// Initializes a new instance of the <see cref="BrowserViewModel" /> class.
         /// </summary>
         /// <param name="title">The title.</param>
-        public BrowserViewModel(string title)
-            : this()
+        /// <param name="messageService">The message service.</param>
+        /// <param name="orchestraService">The orchestra service.</param>
+        /// <param name="messageMediator">The message mediator.</param>
+        public BrowserViewModel(string title, IMessageService messageService, IOrchestraService orchestraService, IMessageMediator messageMediator)
+            : this(messageService, orchestraService, messageMediator)
         {
             if (!string.IsNullOrWhiteSpace(title))
             {
@@ -39,10 +44,21 @@ namespace Orchestra.Modules.Browser.ViewModels
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BrowserViewModel"/> class.
+        /// Initializes a new instance of the <see cref="BrowserViewModel" /> class.
         /// </summary>
-        public BrowserViewModel()
+        /// <param name="messageService">The message service.</param>
+        /// <param name="orchestraService">The orchestra service.</param>
+        /// <param name="messageMediator">The message mediator.</param>
+        public BrowserViewModel(IMessageService messageService, IOrchestraService orchestraService, IMessageMediator messageMediator)
         {
+            Argument.IsNotNull(() => orchestraService);
+            Argument.IsNotNull(() => orchestraService);
+            Argument.IsNotNull(() => messageMediator);
+
+            _messageService = messageService;
+            _orchestraService = orchestraService;
+            _messageMediator = messageMediator;
+
             GoBack = new Command(OnGoBackExecute, OnGoBackCanExecute);
             GoForward = new Command(OnGoForwardExecute, OnGoForwardCanExecute);
             Browse = new Command(OnBrowseExecute, OnBrowseCanExecute);
@@ -50,13 +66,11 @@ namespace Orchestra.Modules.Browser.ViewModels
             CloseBrowser = new Command(OnCloseBrowserExecute);
 
             Title = "Browser";
-
-            _orchestraService = ServiceLocator.ResolveType<IOrchestraService>();
         }
 
         private void OnTestExecute()
         {
-            GetService<IMessageService>().ShowInformation("This is a test, for loading dynamic content into the ribbon...");
+            _messageService.ShowInformation("This is a test, for loading dynamic content into the ribbon...");
         }
         #endregion
 
@@ -198,8 +212,7 @@ namespace Orchestra.Modules.Browser.ViewModels
                 url = "http://" + url;
             }
 
-            var messageMediator = GetService<IMessageMediator>();
-            messageMediator.SendMessage(url, BrowserModule.Name);
+            _messageMediator.SendMessage(url, BrowserModule.Name);
 
             Title = string.Format("Browser: {0}", url);
         }

@@ -54,7 +54,7 @@ namespace Orchestra.Modules.OxyPlot.NancyModules
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, "Failed to handle incomding request /plot");
+                    Log.Error(ex, "Failed to handle incoming request /plot");
 
                     return 503;
                 }

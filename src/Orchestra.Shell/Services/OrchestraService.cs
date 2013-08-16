@@ -8,6 +8,7 @@ namespace Orchestra.Services
     using System;
 
     using Catel;
+    using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Windows.Threading;
@@ -88,9 +89,11 @@ namespace Orchestra.Services
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="tag">The tag.</param>
-        public void ShowDocument<TViewModel>(object tag = null) where TViewModel : IViewModel, new()
+        public void ShowDocument<TViewModel>(object tag = null) 
+            where TViewModel : IViewModel
         {
-            var viewModel = new TViewModel();
+            var typeFactory = TypeFactory.Default;
+            var viewModel = typeFactory.CreateInstance<TViewModel>();
 
             ShowDocument(viewModel, tag);
         }
@@ -102,7 +105,8 @@ namespace Orchestra.Services
         /// <param name="viewModel">The view model to show which will automatically be resolved to a view.</param>
         /// <param name="tag">The tag.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="viewModel" /> is <c>null</c>.</exception>
-        public void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null) where TViewModel : IViewModel
+        public void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null) 
+            where TViewModel : IViewModel
         {
             Argument.IsNotNull("viewModel", viewModel);
 

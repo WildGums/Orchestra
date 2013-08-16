@@ -6,6 +6,8 @@
 
 namespace Orchestra.Modules.DataGrid
 {
+    using Catel;
+    using Catel.IoC;
     using Catel.MVVM;
     using Orchestra.Models;
     using Services;
@@ -17,6 +19,8 @@ namespace Orchestra.Modules.DataGrid
     /// </summary>
     public class DataGridModule : ModuleBase
     {
+        private readonly IOrchestraService _orchestraService;
+
         #region Constants
         /// <summary>
         /// The module name.
@@ -28,9 +32,12 @@ namespace Orchestra.Modules.DataGrid
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridModule" /> class.
         /// </summary>
-        public DataGridModule()
+        public DataGridModule(IOrchestraService orchestraService)
             : base(Name)
         {
+            Argument.IsNotNull(() => orchestraService);
+
+            _orchestraService = orchestraService;
         }
         #endregion
 
@@ -63,11 +70,9 @@ namespace Orchestra.Modules.DataGrid
         /// <param name="ribbonService">The ribbon service.</param>
         protected override void InitializeRibbon(IRibbonService ribbonService)
         {
-            var orchestraService = GetService<IOrchestraService>();
-
             // Module specific
             ribbonService.RegisterRibbonItem(
-                new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument<DataGridViewModel>()))
+                new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => _orchestraService.ShowDocument<DataGridViewModel>()))
                 {
                     ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/Table.png"
                 });
