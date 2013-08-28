@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Orchestra
+namespace Orchestra.Layout
 {
     using System.Linq;
     using Xceed.Wpf.AvalonDock.Layout;

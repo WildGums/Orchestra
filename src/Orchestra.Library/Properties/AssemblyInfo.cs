@@ -16,4 +16,5 @@ using System.Windows.Markup;
 [assembly: AssemblyDescription("")]
 
 [assembly: XmlnsPrefix("http://orchestra.codeplex.com", "orchestra")]
+[assembly: XmlnsDefinition("http://orchestra.codeplex.com", "Orchestra.Layout")]
 [assembly: XmlnsDefinition("http://orchestra.codeplex.com", "Orchestra.Views")]

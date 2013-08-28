@@ -7,10 +7,12 @@
 namespace Orchestra
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Windows;
+    using System.Windows.Documents;
     using Catel;
     using Catel.IoC;
     using Catel.Logging;
@@ -36,7 +38,7 @@ namespace Orchestra
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly bool _createAboutRibbon;
-        
+
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="OrchestraBootstrapper" /> class.
@@ -46,10 +48,10 @@ namespace Orchestra
         {
 #if DEBUG
             LogManager.RegisterDebugListener();
-#endif            
+#endif
 
             _createAboutRibbon = createAboutRibbon;
-            
+
             Log.Debug("Optimizing performance by disabling the WarningAndErrorValidator in Catel");
 
             Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
@@ -61,7 +63,7 @@ namespace Orchestra
             var ribbonType = typeof(Fluent.Ribbon);
             Log.Debug("Loaded ribbon type '{0}'", ribbonType.Name);
 
-            var application  = Application.Current;
+            var application = Application.Current;
             application.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
                 Source = new Uri("pack://application:,,,/Fluent;Component/Themes/Office2010/Silver.xaml", UriKind.RelativeOrAbsolute)
@@ -122,8 +124,8 @@ namespace Orchestra
 
             Container.RegisterType<IOrchestraService, OrchestraService>();
             Container.RegisterType<IStatusBarService, StatusBarService>();
-            Container.RegisterType<IRibbonService, RibbonService>();     
-            Container.RegisterInstance<IConfigurationService>(new ConfigurationService());   
+            Container.RegisterType<IRibbonService, RibbonService>();
+            Container.RegisterInstance<IConfigurationService>(new ConfigurationService());
         }
 
         /// <summary>
@@ -160,7 +162,11 @@ namespace Orchestra
         {
             var assemblyName = TypeHelper.GetAssemblyNameWithoutOverhead(args.Name);
 
-            var files = Directory.GetFiles(ModuleBase.ModulesDirectory, "*.dll", SearchOption.AllDirectories);
+            // Load shell files
+            var files = new List<string>(Directory.GetFiles(typeof(OrchestraBootstrapper).Assembly.GetDirectory(), "*.dll"));
+
+            // Load module files
+            files.AddRange(Directory.GetFiles(ModuleBase.ModulesDirectory, "*.dll", SearchOption.AllDirectories));
             foreach (var file in files)
             {
                 var fileInfo = new FileInfo(file);
@@ -173,7 +179,14 @@ namespace Orchestra
 
                 if (string.Equals(fileAssemblyName, assemblyName, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return ResolveAssemblyAndReferencedAssemblies(file);
+                    var dependencyResolver = this.GetDependencyResolver();
+                    var missingAssemblyResolverService = dependencyResolver.Resolve<IMissingAssemblyResolverService>();
+                    if (missingAssemblyResolverService != null)
+                    {
+                        return missingAssemblyResolverService.ResolveAssembly(fileInfo.FullName);
+                    }
+
+                    return null;
                 }
             }
 
@@ -181,49 +194,7 @@ namespace Orchestra
             return null;
         }
 
-        /// <summary>
-        /// Resolves the assembly and referenced assemblies.
-        /// </summary>
-        private Assembly ResolveAssemblyAndReferencedAssemblies(string assemblyFileName)
-        {
-            Log.Debug("Resolving assembly '{0}' manually", assemblyFileName);
 
-            var appDomain = AppDomain.CurrentDomain;
-            var assemblyDirectory = Catel.IO.Path.GetParentDirectory(assemblyFileName);
-
-            // Load references
-            var assemblyForReflectionOnly = Assembly.ReflectionOnlyLoadFrom(assemblyFileName);
-            foreach (var referencedAssembly in assemblyForReflectionOnly.GetReferencedAssemblies())
-            {
-                if (!appDomain.GetAssemblies().Any(a => string.CompareOrdinal(a.GetName().Name, referencedAssembly.Name) == 0))
-                {
-                    // First, try to load from GAC
-                    if (referencedAssembly.GetPublicKeyToken() != null)
-                    {
-                        try
-                        {
-                            appDomain.Load(referencedAssembly.FullName);
-                            continue;
-                        }
-                        catch (Exception)
-                        {
-                            Log.Debug("Failed to load assembly '{0}' from GAC, trying local file", referencedAssembly.FullName);
-                        }
-                    }
-
-                    // Second, try to load from directory
-                    var referencedAssemblyPath = Path.Combine(assemblyDirectory, referencedAssembly.Name + ".dll");
-                    ResolveAssemblyAndReferencedAssemblies(referencedAssemblyPath);
-                }
-            }
-
-            // Load assembly itself
-            var assembly = Assembly.LoadFrom(assemblyFileName);
-
-            Log.Info("Resolved assembly '{0}' manually", assemblyFileName);
-
-            return assembly;
-        }
         #endregion
     }
 }
