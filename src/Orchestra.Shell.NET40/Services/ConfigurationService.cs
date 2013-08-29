@@ -36,9 +36,9 @@
         private void CreateDefaultConfiguration()
         {
             _configuration = new Configuration();
-            _configuration.HelpTabText = Resources.Orchestra_Shell_Resources.HelpRibbonTabText;
-            _configuration.HelpGroupText = Resources.Orchestra_Shell_Resources.HelpGroupText;
-            _configuration.HelpButtonText = Resources.Orchestra_Shell_Resources.HelpButtonText;
+            //_configuration.HelpTabText = Resources.Orchestra_Shell_Resources.HelpRibbonTabText;
+            //_configuration.HelpGroupText = Resources.Orchestra_Shell_Resources.HelpGroupText;
+            //_configuration.HelpButtonText = Resources.Orchestra_Shell_Resources.HelpButtonText;
         }
 
         /// <summary>

@@ -118,7 +118,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Orchestra.Library\Orchestra.Library.csproj">
+    <ProjectReference Include="..\Orchestra.Library.NET40\Orchestra.Library.NET40.csproj">
       <Project>{433bce8b-95ae-4628-abed-86a224d5e8c9}</Project>
       <Name>Orchestra.Library</Name>
     </ProjectReference>

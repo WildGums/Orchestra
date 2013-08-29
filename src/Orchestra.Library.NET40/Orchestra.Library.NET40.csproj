@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1A89EADA-6757-4D7B-BCE2-2789713F1B9F}</ProjectGuid>
+    <ProjectGuid>{433BCE8B-95AE-4628-ABED-86A224D5E8C9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Orchestra.Modules.PlotDemo</RootNamespace>
-    <AssemblyName>Orchestra.Modules.PlotDemo</AssemblyName>
+    <RootNamespace>Orchestra</RootNamespace>
+    <AssemblyName>Orchestra.Library</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -20,22 +20,22 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\output\debug\Client\Modules\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>..\..\output\debug\NET40\Orchestra.Library\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\output\debug\Client\Modules\Orchestra.Modules.PlotDemo.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\output\debug\NET40\Orchestra.Library\Orchestra.Library.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\output\release\Client\Modules\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>..\..\output\release\NET40\Orchestra.Library\</OutputPath>
+    <DefineConstants>TRACE;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\output\release\NET40\Orchestra.Library\Orchestra.Library.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\output\release\Client\Modules\Orchestra.Modules.PlotDemo.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -54,6 +54,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Catel.MVVM.3.6.1308271743-beta\lib\net40\Catel.MVVM.dll</HintPath>
     </Reference>
+    <Reference Include="Fluent, Version=2.1.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Fluent.Ribbon.2.1.0-f\lib\net40\Fluent.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
@@ -71,24 +75,12 @@
       <HintPath>..\..\lib\Obsolete.Fody.2.3.0\Lib\NET35\Obsolete.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="OxyPlot, Version=2013.1.74.1, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\OxyPlot.Core.2013.1.74.1\lib\portable-net4+sl4+wp71+win8\OxyPlot.dll</HintPath>
-    </Reference>
-    <Reference Include="OxyPlot.Wpf, Version=2013.1.74.1, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\OxyPlot.Wpf.2013.1.74.1\lib\NET40\OxyPlot.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="OxyPlot.Xps, Version=2013.1.74.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\OxyPlot.Wpf.2013.1.74.1\lib\NET40\OxyPlot.Xps.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.MVVM.3.6.1308271743-beta\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\lib\Fluent.Ribbon.2.1.0-f\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -96,43 +88,82 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <None Include="Fody.targets" />
-    <None Include="FodyWeavers.xml" />
     <Reference Include="WindowsBase" />
+    <None Include="Fody.targets" />
+    <None Include="FodyWeavers.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\..\lib\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\..\lib\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Expression">
+      <HintPath>..\..\lib\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.Expression.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\..\lib\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\..\lib\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="PlotDemoModule.cs" />
+    <Compile Include="Controls\BindableLayoutDocument.cs" />
+    <Compile Include="Helpers\AvalonDockHelper.cs" />
+    <Compile Include="Helpers\FluentRibbonHelper.cs" />
+    <Compile Include="Layout\LayoutInitializer.cs" />
+    <Compile Include="Models\Interface\IRibbonButton.cs" />
+    <Compile Include="Models\Interface\IRibbonComboBox.cs" />
+    <Compile Include="Models\Interface\IRibbonGallery.cs" />
+    <Compile Include="Models\Interface\IRibbonItem.cs" />
+    <Compile Include="Models\Interface\IRibbonItemLayout.cs" />
+    <Compile Include="Models\Interface\IRibbonItemsCollection.cs" />
+    <Compile Include="Models\Interface\IRibbonSplitButton.cs" />
+    <Compile Include="Models\Interface\IRibbonToolTip.cs" />
+    <Compile Include="Models\RibbonContentControl.cs" />
+    <Compile Include="Models\RibbonGallery.cs" />
+    <Compile Include="Models\RibbonItemLayout.cs" />
+    <Compile Include="Models\RibbonButton.cs" />
+    <Compile Include="Models\RibbonComboBox.cs" />
+    <Compile Include="Models\RibbonControlBase.cs" />
+    <Compile Include="Models\RibbonItem.cs" />
+    <Compile Include="Models\RibbonSplitButton.cs" />
+    <Compile Include="Models\RibbonToolTip.cs" />
+    <Compile Include="ModuleInitializer.cs" />
+    <Compile Include="Modules\ModuleBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\PlotDemoViewModel.cs" />
-    <Compile Include="Views\PlotDemoView.xaml.cs">
-      <DependentUpon>PlotDemoView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Services\Interfaces\IOrchestraService.cs" />
+    <Compile Include="Models\Interface\IRibbonControl.cs" />
+    <Compile Include="Services\Interfaces\IRibbonService.cs" />
+    <Compile Include="Services\Interfaces\IStatusBarService.cs" />
+    <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\DocumentView.cs" />
+    <Compile Include="Views\Interfaces\IDocumentView.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Orchestra.Library.NET40\Orchestra.Library.NET40.csproj">
-      <Project>{433BCE8B-95AE-4628-ABED-86A224D5E8C9}</Project>
-      <Name>Orchestra.Library</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\PlotDemoView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\Graph.png" />
+    <Resource Include="Resources\Images\ActionAccept.png" />
+    <Resource Include="Resources\Images\ActionAdd.png" />
+    <Resource Include="Resources\Images\ActionCancel.png" />
+    <Resource Include="Resources\Images\ActionRefresh.png" />
+    <Resource Include="Resources\Images\ActionRemove.png" />
+    <Resource Include="Resources\Images\ArrowDown.png" />
+    <Resource Include="Resources\Images\ArrowLeft.png" />
+    <Resource Include="Resources\Images\ArrowRight.png" />
+    <Resource Include="Resources\Images\ArrowUp.png" />
+    <Resource Include="Resources\Images\FileOpen.png" />
+    <Resource Include="Resources\Images\FileSave.png" />
+    <Resource Include="Resources\Images\ValidationError.png" />
+    <Resource Include="Resources\Images\ValidationInfo.png" />
+    <Resource Include="Resources\Images\ValidationWarning.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

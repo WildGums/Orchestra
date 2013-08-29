@@ -165,11 +165,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Orchestra.Library\Orchestra.Library.csproj">
+    <ProjectReference Include="..\Orchestra.Library.NET40\Orchestra.Library.NET40.csproj">
       <Project>{433BCE8B-95AE-4628-ABED-86A224D5E8C9}</Project>
       <Name>Orchestra.Library</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Orchestra.Shell\Orchestra.Shell.csproj">
+    <ProjectReference Include="..\Orchestra.Shell.NET40\Orchestra.Shell.NET40.csproj">
       <Project>{1718ED0D-7219-48B2-B9F5-6C91EE01EB0B}</Project>
       <Name>Orchestra.Shell</Name>
     </ProjectReference>

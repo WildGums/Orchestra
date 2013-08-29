@@ -1,62 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1718ED0D-7219-48B2-B9F5-6C91EE01EB0B}</ProjectGuid>
+    <ProjectGuid>{A51ADAC8-E38E-4B63-9F5A-933898793E05}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Orchestra</RootNamespace>
     <AssemblyName>Orchestra.Shell</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
     <FodyPath>..\..\lib\Fody.1.15.0.0</FodyPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\output\debug\Orchestra.Shell\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
+    <OutputPath>..\..\output\debug\NET45\Orchestra.Shell\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\output\debug\Orchestra.Shell\Orchestra.Shell.XML</DocumentationFile>
+    <DocumentationFile>..\..\output\debug\NET45\Orchestra.Shell\Orchestra.Shell.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\output\release\Orchestra.Shell\</OutputPath>
-    <DefineConstants>TRACE;NET40</DefineConstants>
+    <OutputPath>..\..\output\release\NET45\Orchestra.Shell\</OutputPath>
+    <DefineConstants>TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\output\release\Orchestra.Shell\Orchestra.Shell.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\output\release\NET45\Orchestra.Shell\Orchestra.Shell.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Core.3.6.1308271743-beta\lib\net40\Catel.Core.dll</HintPath>
+    <Reference Include="Catel.Core">
+      <HintPath>..\..\lib\Catel.Core.3.6.1308271743-beta\lib\net45\Catel.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Controls, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Extensions.Controls.3.6.1308271743-beta\lib\net40\Catel.Extensions.Controls.dll</HintPath>
+    <Reference Include="Catel.Extensions.Controls">
+      <HintPath>..\..\lib\Catel.Extensions.Controls.3.6.1308271743-beta\lib\net45\Catel.Extensions.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Prism, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Extensions.Prism.3.6.1308271743-beta\lib\net40\Catel.Extensions.Prism.dll</HintPath>
+    <Reference Include="Catel.Extensions.Prism">
+      <HintPath>..\..\lib\Catel.Extensions.Prism.3.6.1308271743-beta\lib\net45\Catel.Extensions.Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.MVVM, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.MVVM.3.6.1308271743-beta\lib\net40\Catel.MVVM.dll</HintPath>
+    <Reference Include="Catel.MVVM">
+      <HintPath>..\..\lib\Catel.MVVM.3.6.1308271743-beta\lib\net45\Catel.MVVM.dll</HintPath>
     </Reference>
-    <Reference Include="Fluent, Version=2.1.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Fluent\Fluent.dll</HintPath>
+    <Reference Include="Fluent">
+      <HintPath>..\..\lib\Fluent.Ribbon.2.1.0-f\lib\net45\Fluent.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
@@ -70,8 +62,7 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\lib\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Obsolete, Version=2.3.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Obsolete">
       <HintPath>..\..\lib\Obsolete.Fody.2.3.0\Lib\NET35\Obsolete.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -79,8 +70,8 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.MVVM.3.6.1308271743-beta\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Fluent.Ribbon.2.1.0-f\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -89,10 +80,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <None Include="Fody.targets" />
-    <None Include="FodyWeavers.xml">
-      <SubType>Designer</SubType>
-    </None>
     <Reference Include="Xceed.Wpf.AvalonDock">
       <HintPath>..\..\lib\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -110,28 +97,51 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Orchestra.Shell.NET40\Models\Configuration.cs">
+      <Link>Models\Configuration.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\Models\ModuleInfo.cs">
+      <Link>Models\ModuleInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\ModuleInitializer.cs">
+      <Link>ModuleInitializer.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\OrchestraBootstrapper.cs">
+      <Link>OrchestraBootstrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\Services\ConfigurationService.cs">
+      <Link>Services\ConfigurationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\Services\Interfaces\IMissingAssemblyResolverService.cs">
+      <Link>Services\Interfaces\IMissingAssemblyResolverService.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\Services\MissingAssemblyResolverService.cs">
+      <Link>Services\MissingAssemblyResolverService.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\Services\OrchestraService.cs">
+      <Link>Services\OrchestraService.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\Services\RibbonService.cs">
+      <Link>Services\RibbonService.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\Services\StatusBarService.cs">
+      <Link>Services\StatusBarService.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\ViewModels\AboutViewModel.cs">
+      <Link>ViewModels\AboutViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\ViewModels\MainWindowViewModel.cs">
+      <Link>ViewModels\MainWindowViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\ViewModels\SplashScreenViewModel.cs">
+      <Link>ViewModels\SplashScreenViewModel.cs</Link>
+    </Compile>
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Models\ModuleInfo.cs" />
-    <Compile Include="Models\Configuration.cs" />
-    <Compile Include="ModuleInitializer.cs" />
-    <Compile Include="OrchestraBootstrapper.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Orchestra.Shell.Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Orchestra.Shell.Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Services\ConfigurationService.cs" />
-    <Compile Include="Services\Interfaces\IMissingAssemblyResolverService.cs" />
-    <Compile Include="Services\MissingAssemblyResolverService.cs" />
-    <Compile Include="Services\OrchestraService.cs" />
-    <Compile Include="Services\RibbonService.cs" />
-    <Compile Include="Services\StatusBarService.cs" />
-    <Compile Include="ViewModels\AboutViewModel.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\SplashScreenViewModel.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
@@ -143,47 +153,47 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
+    <None Include="Fody.targets" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Orchestra.Shell.NET40\Resources\Images\About.png">
+      <Link>Resources\Images\About.png</Link>
+    </Content>
+    <Content Include="..\Orchestra.Shell.NET40\Resources\Images\ApplicationIcon.png">
+      <Link>Resources\Images\ApplicationIcon.png</Link>
+    </Content>
+    <Content Include="..\Orchestra.Shell.NET40\Resources\Images\SplashScreen.png">
+      <Link>Resources\Images\SplashScreen.png</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Page Include="Views\AboutView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SplashScreen.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Orchestra.Library\Orchestra.Library.csproj">
-      <Project>{433BCE8B-95AE-4628-ABED-86A224D5E8C9}</Project>
-      <Name>Orchestra.Library</Name>
+    <ProjectReference Include="..\Orchestra.Library.NET45\Orchestra.Library.NET45.csproj">
+      <Project>{4529b8af-c5a4-429d-9da4-798bbca0ffd9}</Project>
+      <Name>Orchestra.Library.NET45</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\SplashScreen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\About.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Orchestra.Shell.Resources.de-De.resx" />
-    <EmbeddedResource Include="Resources\Orchestra.Shell.Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Orchestra.Shell.Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\ApplicationIcon.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="Fody.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -192,5 +202,4 @@
   </Target>
   -->
   <Import Project="$(ProjectDir)\..\..\Tools\Pepita\PepitaGet.targets" />
-  <Import Project="Fody.targets" />
 </Project>
