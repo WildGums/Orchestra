@@ -16,16 +16,17 @@ namespace Orchestra
     using Catel;
     using Catel.IoC;
     using Catel.Logging;
+    using Catel.Modules;
     using Catel.MVVM;
     using Catel.MVVM.Services;
     using Catel.Reflection;
     using Catel.Windows.Threading;
     using Microsoft.Practices.Prism.Modularity;
     using Models;
-    using Modules;
     using Services;
     using ViewModels;
     using Views;
+    using ModuleBase = Orchestra.Modules.ModuleBase;
 
     /// <summary>
     /// The bootstrapper that will create and run the shell.
@@ -108,9 +109,7 @@ namespace Orchestra
         /// </summary>
         protected override IModuleCatalog CreateModuleCatalog()
         {
-            var moduleCatalog = new DirectoryModuleCatalog { ModulePath = ModulesDirectory };
-
-            moduleCatalog.Initialize();
+            var moduleCatalog = new SafeDirectoryModuleCatalog { ModulePath = ModulesDirectory };
 
             return moduleCatalog;
         }

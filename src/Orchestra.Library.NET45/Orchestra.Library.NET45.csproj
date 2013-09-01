@@ -35,17 +35,21 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core">
-      <HintPath>..\..\lib\Catel.Core.3.6.1308271743-beta\lib\net45\Catel.Core.dll</HintPath>
+    <Reference Include="Catel.Core, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Catel.Core.3.6.1309011310-beta\lib\net45\Catel.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Controls">
-      <HintPath>..\..\lib\Catel.Extensions.Controls.3.6.1308271743-beta\lib\net45\Catel.Extensions.Controls.dll</HintPath>
+    <Reference Include="Catel.Extensions.Controls, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Catel.Extensions.Controls.3.6.1309011310-beta\lib\net45\Catel.Extensions.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Prism">
-      <HintPath>..\..\lib\Catel.Extensions.Prism.3.6.1308271743-beta\lib\net45\Catel.Extensions.Prism.dll</HintPath>
+    <Reference Include="Catel.Extensions.Prism, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Catel.Extensions.Prism.3.6.1309011310-beta\lib\net45\Catel.Extensions.Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.MVVM">
-      <HintPath>..\..\lib\Catel.MVVM.3.6.1308271743-beta\lib\net45\Catel.MVVM.dll</HintPath>
+    <Reference Include="Catel.MVVM, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Catel.MVVM.3.6.1309011310-beta\lib\net45\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="Fluent">
       <HintPath>..\..\lib\Fluent.Ribbon.2.1.0-f\lib\net45\Fluent.dll</HintPath>
@@ -71,7 +75,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Fluent.Ribbon.2.1.0-f\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\lib\Catel.MVVM.3.6.1309011310-beta\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -198,48 +202,48 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ActionAccept.png">
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ActionAccept.png">
       <Link>Resources\Images\ActionAccept.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ActionAdd.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ActionAdd.png">
       <Link>Resources\Images\ActionAdd.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ActionCancel.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ActionCancel.png">
       <Link>Resources\Images\ActionCancel.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ActionRefresh.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ActionRefresh.png">
       <Link>Resources\Images\ActionRefresh.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ActionRemove.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ActionRemove.png">
       <Link>Resources\Images\ActionRemove.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ArrowDown.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ArrowDown.png">
       <Link>Resources\Images\ArrowDown.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ArrowLeft.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ArrowLeft.png">
       <Link>Resources\Images\ArrowLeft.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ArrowRight.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ArrowRight.png">
       <Link>Resources\Images\ArrowRight.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ArrowUp.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ArrowUp.png">
       <Link>Resources\Images\ArrowUp.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\FileOpen.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\FileOpen.png">
       <Link>Resources\Images\FileOpen.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\FileSave.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\FileSave.png">
       <Link>Resources\Images\FileSave.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ValidationError.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ValidationError.png">
       <Link>Resources\Images\ValidationError.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ValidationInfo.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ValidationInfo.png">
       <Link>Resources\Images\ValidationInfo.png</Link>
-    </Content>
-    <Content Include="..\Orchestra.Library.NET40\Resources\Images\ValidationWarning.png">
+    </Resource>
+    <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ValidationWarning.png">
       <Link>Resources\Images\ValidationWarning.png</Link>
-    </Content>
+    </Resource>
     <None Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </None>
