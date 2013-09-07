@@ -27,7 +27,7 @@
         </catel:StackGrid.ColumnDefinitions>
 
         <Grid catel:StackGrid.ColumnSpan="2">
-            <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Source="/Orchestra.Shell;component/Resources/Images/About.png" Stretch="None" />
+            <Image Name="aboutImage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Source="/Orchestra.Shell;component/Resources/Images/About.png" Stretch="None" />
         </Grid>       
 
         <TextBlock catel:StackGrid.ColumnSpan="2" Margin="6,0,0,0">
