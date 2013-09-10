@@ -17,21 +17,22 @@ namespace Orchestra.Controls
     /// Bindable implementation of the <see cref="LayoutDocument"/> which automatically binds
     /// the title.
     /// </summary>
-    public class BindableLayoutDocument : LayoutDocument
+    public class BindableLayoutDocument : LayoutAnchorable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BindableLayoutDocument" /> class.
         /// </summary>
         /// <param name="view">The view.</param>
         /// <param name="tag">The tag.</param>
+        /// <param name="canFloat">if set to <c>true</c> [can float].</param>
         /// <exception cref="ArgumentNullException">The <paramref name="view" /> is <c>null</c>.</exception>
-        public BindableLayoutDocument(FrameworkElement view, object tag = null)
+        public BindableLayoutDocument(FrameworkElement view, object tag = null, bool canFloat = false)
         {
             Argument.IsNotNull(() => view);
             Argument.IsNotNull(() => view.DataContext);
             Argument.IsOfType(() => view.DataContext, typeof(IViewModel));
 
-            CanFloat = false;
+            CanFloat = canFloat;
             Title = ((IViewModel)view.DataContext).Title;
             Content = view;
 

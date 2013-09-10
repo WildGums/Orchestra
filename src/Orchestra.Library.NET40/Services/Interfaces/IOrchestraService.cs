@@ -38,8 +38,10 @@ namespace Orchestra.Services
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="viewModel">The view model to show which will automatically be resolved to a view.</param>
         /// <param name="tag">The tag.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="viewModel"/> is <c>null</c>.</exception>
-        void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null)
+        /// <param name="dockLocation">The dock location.</param>
+        /// <param name="contextualParentViewModel">The contextual parent view model.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="viewModel" /> is <c>null</c>.</exception>
+        void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null, Orchestra.ViewModels.ViewModelBase contextualParentViewModel = null)
             where TViewModel : IViewModel;
 
         /// <summary>

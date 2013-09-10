@@ -200,6 +200,7 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Models\DockLocation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ActionAccept.png">

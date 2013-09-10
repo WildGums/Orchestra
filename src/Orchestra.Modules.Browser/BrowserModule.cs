@@ -104,6 +104,15 @@ namespace Orchestra.Modules.Browser
             var catelViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Catel");
             catelViewModel.Url = "http://www.catelproject.com";
             orchestraService.ShowDocument(catelViewModel, "catel");
+
+            var propertiesViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<PropertiesViewModel>("Orchestra properties");
+            orchestraService.ShowDocument(propertiesViewModel, "properties", DockLocation.Right, orchestraViewModel);
+
+            var propertiesViewModel2 = typeFactory.CreateInstanceWithParametersAndAutoCompletion<PropertiesViewModel>("Catel properties");
+            orchestraService.ShowDocument(propertiesViewModel2, "properties2", DockLocation.Left, catelViewModel);
+
+            var propertiesViewModel3 = typeFactory.CreateInstanceWithParametersAndAutoCompletion<PropertiesViewModel>("Catel properties 2");
+            orchestraService.ShowDocument(propertiesViewModel2, "properties2", DockLocation.Right, catelViewModel);
         }
 
         private void LoadResourceDictionary()

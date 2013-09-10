@@ -117,6 +117,7 @@
     <Compile Include="Helpers\AvalonDockHelper.cs" />
     <Compile Include="Helpers\FluentRibbonHelper.cs" />
     <Compile Include="Layout\LayoutInitializer.cs" />
+    <Compile Include="Models\DockLocation.cs" />
     <Compile Include="Models\Interface\IRibbonButton.cs" />
     <Compile Include="Models\Interface\IRibbonComboBox.cs" />
     <Compile Include="Models\Interface\IRibbonGallery.cs" />
