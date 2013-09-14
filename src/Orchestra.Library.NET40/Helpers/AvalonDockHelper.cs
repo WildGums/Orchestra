@@ -12,14 +12,15 @@ namespace Orchestra
     using System.Windows;
     using Catel;
     using Catel.IoC;
+    using Catel.MVVM;
     using Catel.Windows.Controls;
     using Microsoft.Practices.Prism.Regions;
     using Models;
     using Orchestra.Controls;
     using Orchestra.Views;
-    using ViewModels;
     using Xceed.Wpf.AvalonDock;
     using Xceed.Wpf.AvalonDock.Layout;
+    using ViewModelBase = ViewModels.ViewModelBase;
 
     /// <summary>
     /// Helper class for avalon dock.
@@ -52,12 +53,12 @@ namespace Orchestra
         /// </summary>
         private static readonly LayoutAnchorablePane LeftLayoutAnchorablePane;
 
-        // TODO MAVE: Only using the viewmodels -> should we keep the view? -> change view to viewmodel saves getting the viewmodel off of it. 
-        // TODO MAVE: Keep this here, or create a ContextualService/ContextualHelper, rethink
         /// <summary>
-        /// The documents collection, we need this collection to find relationships between views when the ActivatedView changes.
+        /// The <see cref="IContextualViewModelManager" />
         /// </summary>
-        private static readonly Collection<DocumentView> DocumentsCollection  = new Collection<DocumentView>();
+        private static readonly IContextualViewModelManager ContextualViewModelManager;
+        
+        
         #endregion
 
         #region Constructors
@@ -65,7 +66,8 @@ namespace Orchestra
         /// Initializes static members of the <see cref="AvalonDockHelper"/> class. 
         /// </summary>
         static AvalonDockHelper()
-        {            
+        {
+            ContextualViewModelManager = ServiceLocator.Default.ResolveType<IContextualViewModelManager>();
             DockingManager = ServiceLocator.Default.ResolveType<DockingManager>();
             DockingManager.DocumentClosed += OnDockingManagerDocumentClosed;
 
@@ -125,6 +127,9 @@ namespace Orchestra
             LayoutDocumentPane.SelectedContentIndex = LayoutDocumentPane.IndexOfChild(document);
         }
 
+        private static void DockView()
+        {}
+
         /// <summary>
         /// Creates the document.
         /// </summary>
@@ -136,7 +141,7 @@ namespace Orchestra
         /// The created layout document.
         /// </returns>
         /// <exception cref="ArgumentNullException">The <paramref name="view" /> is <c>null</c>.</exception>
-        public static LayoutAnchorable CreateDocument(FrameworkElement view, object tag = null, DockLocation? dockLocation = null, ViewModelBase contextualViewModel = null)
+        public static LayoutAnchorable CreateDocument(FrameworkElement view, object tag = null, DockLocation? dockLocation = null, IViewModel contextualViewModel = null)
         {
             // TODO MAVE: rethink name contextualViewModel..
             Argument.IsNotNull("view", view);
@@ -147,17 +152,15 @@ namespace Orchestra
 
             if (documentView != null)
             {
-                DocumentsCollection.Add(documentView);
+                ContextualViewModelManager.RegisterDocumentView(documentView);
 
                 if (contextualViewModel != null)
                 {
-                    isContextualView = true;
+                    isContextualView = true;                    
 
-                    var viewModel = documentView.ViewModel as ViewModelBase;
-
-                    if (viewModel != null && !viewModel.ContextualViewModels.Contains(contextualViewModel))
+                    if (documentView.ViewModel != null && !ContextualViewModelManager.HasContextualRelationShip(documentView.ViewModel, contextualViewModel))
                     {
-                        viewModel.ContextualViewModels.Add(contextualViewModel);
+                        ContextualViewModelManager.RegisterContextViewModel(documentView.ViewModel, contextualViewModel);                        
                     }
                 }
             }
@@ -260,29 +263,7 @@ namespace Orchestra
                 return;
             }
 
-            // Check what contextual documents have a relationship with the activated document, and set the visibility accordingly
-            foreach (var document in DocumentsCollection)
-            {
-                if (ActivatedView.Equals(document))
-                {
-                    continue;
-                }
-
-                // TODO MAVE: This now only works for Orchestra.ViewModels.ViewModelBase .. is this ok?? rethink
-                if (document.ViewModel is ViewModelBase)
-                {
-                    var viewModel = (ViewModelBase)document.ViewModel;
-
-                    if (!viewModel.IsContextualViewModel || viewModel.ContextualViewModels.Contains((ViewModelBase)ActivatedView.ViewModel))
-                    {
-                        document.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        document.Visibility = Visibility.Collapsed;
-                    }
-                }
-            }
+            ContextualViewModelManager.SetVisibilityForContextualViews(ActivatedView);
         }
         #endregion
     }

@@ -20,7 +20,7 @@ namespace Orchestra
     using Catel.MVVM;
     using Catel.MVVM.Services;
     using Catel.Reflection;
-    using Catel.Windows.Threading;
+    using Catel.Windows.Threading;    
     using Microsoft.Practices.Prism.Modularity;
     using Models;
     using Services;
@@ -125,6 +125,7 @@ namespace Orchestra
             Container.RegisterType<IStatusBarService, StatusBarService>();
             Container.RegisterType<IRibbonService, RibbonService>();
             Container.RegisterInstance<IConfigurationService>(new ConfigurationService());
+            Container.RegisterInstance<IContextualViewModelManager>(new ContextualViewModelManager());
         }
 
         /// <summary>
