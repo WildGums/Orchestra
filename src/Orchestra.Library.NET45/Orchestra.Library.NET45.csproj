@@ -113,6 +113,9 @@
     <Compile Include="..\Orchestra.Library.NET40\Layout\LayoutInitializer.cs">
       <Link>Layout\LayoutInitializer.cs</Link>
     </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\Models\DockLocation.cs">
+      <Link>Models\DockLocation.cs</Link>
+    </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Models\Interface\IRibbonButton.cs">
       <Link>Models\Interface\IRibbonButton.cs</Link>
     </Compile>
@@ -188,6 +191,12 @@
     <Compile Include="..\Orchestra.Library.NET40\Services\ServiceBase.cs">
       <Link>Services\ServiceBase.cs</Link>
     </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\ViewModels\ContextualViewModelManager.cs">
+      <Link>ViewModels\ContextualViewModelManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\ViewModels\Interfaces\IContextualViewModelManager.cs">
+      <Link>ViewModels\Interfaces\IContextualViewModelManager.cs</Link>
+    </Compile>
     <Compile Include="..\Orchestra.Library.NET40\ViewModels\ViewModelBase.cs">
       <Link>ViewModels\ViewModelBase.cs</Link>
     </Compile>
@@ -200,7 +209,6 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Models\DockLocation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ActionAccept.png">

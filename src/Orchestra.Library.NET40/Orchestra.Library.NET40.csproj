@@ -115,7 +115,7 @@
     </Compile>
     <Compile Include="Controls\BindableLayoutDocument.cs" />
     <Compile Include="Helpers\AvalonDockHelper.cs" />
-    <Compile Include="Helpers\ContextualViewModelManager.cs" />
+    <Compile Include="ViewModels\ContextualViewModelManager.cs" />
     <Compile Include="Helpers\FluentRibbonHelper.cs" />
     <Compile Include="Layout\LayoutInitializer.cs" />
     <Compile Include="Models\DockLocation.cs" />
@@ -144,6 +144,7 @@
     <Compile Include="Services\Interfaces\IRibbonService.cs" />
     <Compile Include="Services\Interfaces\IStatusBarService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="ViewModels\Interfaces\IContextualViewModelManager.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\DocumentView.cs" />
     <Compile Include="Views\Interfaces\IDocumentView.cs" />
