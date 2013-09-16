@@ -57,8 +57,16 @@ namespace Orchestra
         /// The <see cref="IContextualViewModelManager" />
         /// </summary>
         private static readonly IContextualViewModelManager ContextualViewModelManager;
-        
-        
+
+        /// <summary>
+        /// The layout anchor group on the bottom side.
+        /// </summary>
+        private static readonly LayoutAnchorGroup BottomPropertiesPane;
+
+        /// <summary>
+        /// The layout anchor group on the Top.
+        /// </summary>
+        private static readonly LayoutAnchorGroup TopPropertiesPane;
         #endregion
 
         #region Constructors
@@ -74,11 +82,12 @@ namespace Orchestra
             DockingManager.ActiveContentChanged += DockingManagerActiveContentChanged;
 
             LayoutDocumentPane = ServiceLocator.Default.ResolveType<LayoutDocumentPane>();
-            LayoutAnchorGroup = ServiceLocator.Default.ResolveType<LayoutAnchorGroup>();
-
-            // TODO MAVE: Find the typed extension method
+            LayoutAnchorGroup = ServiceLocator.Default.ResolveType<LayoutAnchorGroup>();            
+            
             RightLayoutAnchorablePane = (LayoutAnchorablePane)ServiceLocator.Default.ResolveType(typeof(LayoutAnchorablePane), "rightPropertiesPane");
-            LeftLayoutAnchorablePane = (LayoutAnchorablePane)ServiceLocator.Default.ResolveType(typeof(LayoutAnchorablePane), "leftPropertiesPane"); 
+            LeftLayoutAnchorablePane = (LayoutAnchorablePane)ServiceLocator.Default.ResolveType(typeof(LayoutAnchorablePane), "leftPropertiesPane");
+            BottomPropertiesPane = (LayoutAnchorGroup)ServiceLocator.Default.ResolveType(typeof(LayoutAnchorGroup), "bottomPropertiesPane");
+            TopPropertiesPane = (LayoutAnchorGroup)ServiceLocator.Default.ResolveType(typeof(LayoutAnchorGroup), "topPropertiesPane");             
         }        
         #endregion
 
@@ -127,8 +136,47 @@ namespace Orchestra
             LayoutDocumentPane.SelectedContentIndex = LayoutDocumentPane.IndexOfChild(document);
         }
 
-        private static void DockView()
-        {}
+        /// <summary>
+        /// Dock a view to the specified <see cref="DockLocation" />
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <param name="dockLocation">The <see cref="DockLocation" />.</param>
+        public static void DockView(LayoutAnchorable document, DockLocation dockLocation)
+        {
+            switch (dockLocation)
+            {
+                case DockLocation.Bottom:
+                    BottomPropertiesPane.Children.Add(document);
+                    break;
+                case DockLocation.Left:
+                    LeftLayoutAnchorablePane.Children.Add(document);
+                    break;
+                case DockLocation.Right:
+                    RightLayoutAnchorablePane.Children.Add(document);
+                    break;
+                case DockLocation.Top:
+                    TopPropertiesPane.Children.Add(document);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Sets the context for view model.
+        /// </summary>
+        /// <param name="documentView">The document view.</param>
+        /// <param name="contextualParentViewModel">The contextual child view.</param>
+        public static void SetContextForViewModel(DocumentView documentView, IViewModel contextualParentViewModel)
+        {
+            Argument.IsNotNull("view", documentView);
+            Argument.IsNotNull("contextualParentViewModel", contextualParentViewModel);
+
+            ContextualViewModelManager.RegisterDocumentView(documentView);
+            
+            if (documentView.ViewModel != null && !ContextualViewModelManager.HasContextualRelationShip(documentView.ViewModel, contextualParentViewModel))
+            {
+                ContextualViewModelManager.RegisterContextViewModel(documentView.ViewModel, contextualParentViewModel);
+            }
+        }
 
         /// <summary>
         /// Creates the document.
@@ -136,65 +184,39 @@ namespace Orchestra
         /// <param name="view">The view.</param>
         /// <param name="tag">The tag.</param>
         /// <param name="dockLocation">The dock location.</param>
-        /// <param name="contextualViewModel">The contextual parent view model.</param>
+        /// <param name="contextualParentViewModel">The contextual parent view model.</param>
         /// <returns>
         /// The created layout document.
         /// </returns>
         /// <exception cref="ArgumentNullException">The <paramref name="view" /> is <c>null</c>.</exception>
-        public static LayoutAnchorable CreateDocument(FrameworkElement view, object tag = null, DockLocation? dockLocation = null, IViewModel contextualViewModel = null)
-        {
-            // TODO MAVE: rethink name contextualViewModel..
+        public static LayoutAnchorable CreateDocument(FrameworkElement view, object tag = null, DockLocation? dockLocation = null, IViewModel contextualParentViewModel = null)
+        {            
             Argument.IsNotNull("view", view);
-
-            bool isContextualView = false;
+            
             var layoutDocument = WrapViewInLayoutDocument(view, tag, true );
             var documentView = view as DocumentView;
 
-            if (documentView != null)
+            if (documentView != null && contextualParentViewModel != null)
             {
-                ContextualViewModelManager.RegisterDocumentView(documentView);
-
-                if (contextualViewModel != null)
-                {
-                    isContextualView = true;                    
-
-                    if (documentView.ViewModel != null && !ContextualViewModelManager.HasContextualRelationShip(documentView.ViewModel, contextualViewModel))
-                    {
-                        ContextualViewModelManager.RegisterContextViewModel(documentView.ViewModel, contextualViewModel);                        
-                    }
-                }
+                SetContextForViewModel(documentView, contextualParentViewModel);
             }
 
-           if (dockLocation != null)
-            {                              
-                switch (dockLocation)
-	            {                      
-	                case DockLocation.Bottom:
-                        // TODO MAVE: Keep or not ...
-                        throw new NotImplementedException();
-                    case DockLocation.Left:
-                        LeftLayoutAnchorablePane.Children.Add(layoutDocument);
-	                    break;
-                    case DockLocation.Right:
-                        RightLayoutAnchorablePane.Children.Add(layoutDocument);
-	                    break;                    
-                    case DockLocation.Top:
-                        // TODO MAVE: Keep or not ...
-                        throw new NotImplementedException();
-	            }                                                         
-            }
-            else
+            if (dockLocation == null)
             {
                 LayoutDocumentPane.Children.Add(layoutDocument);
             }
+            else
+            {
+                DockView(layoutDocument, (DockLocation)dockLocation);
+            }
 
             // A new 'contextual' view has been added, now this must be set to visible or collapsed depending on the activated view.
-           if (isContextualView && ActivatedView != null)
+            if (contextualParentViewModel != null && ActivatedView != null)
            {
                SetVisibilityForContextualViews();
            }
 
-            return layoutDocument;
+            return layoutDocument;            
         }
 
         /// <summary>
@@ -224,7 +246,8 @@ namespace Orchestra
             if (view != null)
             {
                 view.CloseDocument();
-            }
+                ContextualViewModelManager.UnregisterContextViewModel(view.ViewModel);
+            }            
 
             // var region = RegionManager.Regions[(string)view.Tag];
             // region.Remove(sender);

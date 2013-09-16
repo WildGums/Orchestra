@@ -22,7 +22,7 @@ namespace Orchestra
         /// <value>
         /// <c>true</c> if this instance is contextual view model; otherwise, <c>false</c>.
         /// </value>
-        bool IsContextualViewModel(IViewModel viewModel);
+        bool IsContextDependentViewModel(IViewModel viewModel);
 
         /// <summary>
         /// Determines whether this view model has a contextual relation ship with the specified view model.
@@ -44,9 +44,15 @@ namespace Orchestra
         /// <summary>
         /// Registers the context view model.
         /// </summary>
-        /// <param name="contextViewModel">The context view model the main view.</param>
-        /// <param name="relatedViewModel">The related view model (properties for example).</param>
-        void RegisterContextViewModel(IViewModel contextViewModel, IViewModel relatedViewModel);
+        /// <param name="contextParentViewModel">The context view model the main view.</param>
+        /// <param name="contextDependendendViewModel">The related view model (properties for example).</param>
+        void RegisterContextViewModel(IViewModel contextParentViewModel, IViewModel contextDependendendViewModel);
+
+        /// <summary>
+        /// Unregisters the context view model.
+        /// </summary>
+        /// <param name="contextViewModel">The context view model.</param>
+        void UnregisterContextViewModel(IViewModel contextViewModel);
 
         /// <summary>
         /// Sets the visibility for contextual views.

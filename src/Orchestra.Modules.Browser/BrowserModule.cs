@@ -112,7 +112,7 @@ namespace Orchestra.Modules.Browser
             orchestraService.ShowDocument(propertiesViewModel2, "properties2", DockLocation.Left, catelViewModel);
 
             var propertiesViewModel3 = typeFactory.CreateInstanceWithParametersAndAutoCompletion<PropertiesViewModel>("Catel properties 2");
-            orchestraService.ShowDocument(propertiesViewModel2, "properties2", DockLocation.Right, catelViewModel);
+            orchestraService.ShowDocument(propertiesViewModel3, "properties2", DockLocation.Top, catelViewModel);            
         }
 
         private void LoadResourceDictionary()

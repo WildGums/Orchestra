@@ -65,18 +65,27 @@ namespace Orchestra
         }
 
         /// <summary>
+        /// Unregisters the context view model.
+        /// </summary>
+        /// <param name="contextViewModel">The context view model.</param>
+        public void UnregisterContextViewModel(IViewModel contextViewModel)
+        {
+            _contextualViewModels.Remove(contextViewModel);
+        }
+
+        /// <summary>
         /// Gets a value indicating whether this instance is contextual view model.
         /// </summary>
         /// <value>
         /// <c>true</c> if this instance is contextual view model; otherwise, <c>false</c>.
         /// </value>
-        public bool IsContextualViewModel(IViewModel viewModel)
+        public bool IsContextDependentViewModel(IViewModel viewModel)
         {
             return _contextualViewModels.ContainsKey(viewModel);
 
             //return _contextualViewModels.Any(pair => pair.Value.Contains(viewModel));
         }
-
+        
         /// <summary>
         /// Determines whether this view model has a contextual relation ship with the specified view model.
         /// </summary>
@@ -111,7 +120,7 @@ namespace Orchestra
         {
             Argument.IsNotNull("The activated view", activatedView);
 
-            if (activatedView.ViewModel == null)
+            if (activatedView.ViewModel == null || IsContextDependentViewModel(activatedView.ViewModel))
             {
                 return;
             }
@@ -120,11 +129,11 @@ namespace Orchestra
             foreach (var document in _documentViewsCollection)
             {
                 if (activatedView.Equals(document))
-                {
+                {                    
                     continue;
                 }
 
-                if (!IsContextualViewModel(document.ViewModel) || HasContextualRelationShip(document.ViewModel, activatedView.ViewModel))
+                if (!IsContextDependentViewModel(document.ViewModel) || HasContextualRelationShip(document.ViewModel, activatedView.ViewModel))
                 {
                     document.Visibility = Visibility.Visible;
                 }

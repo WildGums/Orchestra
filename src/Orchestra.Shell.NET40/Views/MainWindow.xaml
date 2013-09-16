@@ -28,6 +28,14 @@
             </avalondock:DockingManager.LayoutUpdateStrategy>
 
             <avalondock:LayoutRoot>
+
+                <avalondock:LayoutRoot.TopSide>
+                    <avalondock:LayoutAnchorSide>
+                        <avalondock:LayoutAnchorGroup x:Name="topPropertiesPane">                                                        
+                        </avalondock:LayoutAnchorGroup>
+                    </avalondock:LayoutAnchorSide>
+                </avalondock:LayoutRoot.TopSide>
+
                 <avalondock:LayoutPanel Orientation="Horizontal">
 
                     <avalondock:LayoutAnchorablePaneGroup DockWidth="125">
@@ -42,11 +50,11 @@
                         <avalondock:LayoutAnchorablePane x:Name="rightPropertiesPane">                            
                         </avalondock:LayoutAnchorablePane>
                     </avalondock:LayoutAnchorablePaneGroup>
-                </avalondock:LayoutPanel>
-               
+                </avalondock:LayoutPanel>                              
+                
                 <avalondock:LayoutRoot.BottomSide>
                     <avalondock:LayoutAnchorSide>
-                        <avalondock:LayoutAnchorGroup>
+                        <avalondock:LayoutAnchorGroup x:Name="bottomPropertiesPane">
                             <avalondock:LayoutAnchorable x:Name="traceOutputAnchorable"
                                                          ContentId="traceOutputAnchorable"
                                                          Title="Debugging window">

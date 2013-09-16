@@ -78,7 +78,9 @@ namespace Orchestra.Views
             serviceLocator.RegisterInstance(layoutDocumentPane);
             serviceLocator.RegisterInstance(typeof(LayoutAnchorablePane), rightPropertiesPane, "rightPropertiesPane");
             serviceLocator.RegisterInstance(typeof(LayoutAnchorablePane), leftPropertiesPane, "leftPropertiesPane");
-                        
+            serviceLocator.RegisterInstance(typeof(LayoutAnchorGroup), bottomPropertiesPane, "bottomPropertiesPane");
+            serviceLocator.RegisterInstance(typeof(LayoutAnchorGroup), topPropertiesPane, "topPropertiesPane");
+            
             ribbon.AutomaticStateManagement = true;
             ribbon.EnsureTabItem("Home");
 
