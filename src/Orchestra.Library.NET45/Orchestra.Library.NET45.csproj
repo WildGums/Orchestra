@@ -209,6 +209,7 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Models\ContextSensitviveViewModelData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ActionAccept.png">

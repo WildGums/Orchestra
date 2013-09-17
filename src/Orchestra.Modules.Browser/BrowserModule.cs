@@ -96,6 +96,9 @@ namespace Orchestra.Modules.Browser
 
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content") { ContentTemplate = template, Layout = new RibbonItemLayout {Width = 120}}, ModuleName);
 
+            var contextualViewModelManager = GetService<IContextualViewModelManager>();
+            contextualViewModelManager.RegisterContextualView<BrowserViewModel, PropertiesViewModel>("Properties", DockLocation.Bottom);
+
             // Demo: show two pages with different tags
             var orchestraViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Orchestra");
             orchestraViewModel.Url = "http://www.github.com/Orcomp/Orchestra";
@@ -103,16 +106,7 @@ namespace Orchestra.Modules.Browser
 
             var catelViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Catel");
             catelViewModel.Url = "http://www.catelproject.com";
-            orchestraService.ShowDocument(catelViewModel, "catel");
-
-            var propertiesViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<PropertiesViewModel>("Orchestra properties");
-            orchestraService.ShowDocument(propertiesViewModel, "properties", DockLocation.Right, orchestraViewModel);
-
-            var propertiesViewModel2 = typeFactory.CreateInstanceWithParametersAndAutoCompletion<PropertiesViewModel>("Catel properties");
-            orchestraService.ShowDocument(propertiesViewModel2, "properties2", DockLocation.Left, catelViewModel);
-
-            var propertiesViewModel3 = typeFactory.CreateInstanceWithParametersAndAutoCompletion<PropertiesViewModel>("Catel properties 2");
-            orchestraService.ShowDocument(propertiesViewModel3, "properties2", DockLocation.Top, catelViewModel);            
+            orchestraService.ShowDocument(catelViewModel, "catel");            
         }
 
         private void LoadResourceDictionary()

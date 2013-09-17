@@ -121,7 +121,31 @@ namespace Orchestra
         {
             Argument.IsNotNull("viewType", viewType);
 
-            return (from document in LayoutDocumentPane.Children where document is LayoutAnchorable && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).Cast<LayoutAnchorable>().FirstOrDefault();
+            LayoutAnchorable doc = null;
+
+            doc = (from document in LayoutDocumentPane.Children where document is LayoutAnchorable && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).Cast<LayoutAnchorable>().FirstOrDefault();
+
+            if (doc == null)
+            {
+                doc = (from document in RightLayoutAnchorablePane.Children where document != null && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
+            }
+
+            if (doc == null)
+            {
+                doc = (from document in LeftLayoutAnchorablePane.Children where document != null && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
+            }
+
+            if (doc == null)
+            {
+                doc = (from document in BottomPropertiesPane.Children where document != null && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
+            }
+
+            if (doc == null)
+            {
+                doc = (from document in TopPropertiesPane.Children where document != null && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
+            }
+
+            return doc;
         }
 
         /// <summary>
@@ -160,23 +184,23 @@ namespace Orchestra
             }
         }
 
-        /// <summary>
-        /// Sets the context for view model.
-        /// </summary>
-        /// <param name="documentView">The document view.</param>
-        /// <param name="contextualParentViewModel">The contextual child view.</param>
-        public static void SetContextForViewModel(DocumentView documentView, IViewModel contextualParentViewModel)
-        {
-            Argument.IsNotNull("view", documentView);
-            Argument.IsNotNull("contextualParentViewModel", contextualParentViewModel);
+        ///// <summary>
+        ///// Sets the context for view model.
+        ///// </summary>
+        ///// <param name="documentView">The document view.</param>
+        ///// <param name="contextualParentViewModel">The contextual child view.</param>
+        //public static void SetContextForViewModel(DocumentView documentView, IViewModel contextualParentViewModel)
+        //{
+        //    Argument.IsNotNull("view", documentView);
+        //    Argument.IsNotNull("contextualParentViewModel", contextualParentViewModel);
 
-            ContextualViewModelManager.RegisterDocumentView(documentView);
+        //    ContextualViewModelManager.RegisterDocumentView(documentView);
             
-            if (documentView.ViewModel != null && !ContextualViewModelManager.HasContextualRelationShip(documentView.ViewModel, contextualParentViewModel))
-            {
-                ContextualViewModelManager.RegisterContextViewModel(documentView.ViewModel, contextualParentViewModel);
-            }
-        }
+        //    if (documentView.ViewModel != null && !ContextualViewModelManager.HasContextualRelationShip(documentView.ViewModel, contextualParentViewModel))
+        //    {
+        //        ContextualViewModelManager.RegisterContextViewModel(documentView.ViewModel, contextualParentViewModel);
+        //    }
+        //}
 
         /// <summary>
         /// Creates the document.
@@ -194,12 +218,9 @@ namespace Orchestra
             Argument.IsNotNull("view", view);
             
             var layoutDocument = WrapViewInLayoutDocument(view, tag, true );
-            var documentView = view as DocumentView;
+            var documentView = view as DocumentView;            
 
-            if (documentView != null && contextualParentViewModel != null)
-            {
-                SetContextForViewModel(documentView, contextualParentViewModel);
-            }
+            ContextualViewModelManager.RegisterDocumentView(documentView);
 
             if (dockLocation == null)
             {
@@ -214,9 +235,43 @@ namespace Orchestra
             if (contextualParentViewModel != null && ActivatedView != null)
            {
                SetVisibilityForContextualViews();
-           }
+           }            
 
             return layoutDocument;            
+        }
+
+        private static Collection<LayoutAnchorable> hiddenViews = new Collection<LayoutAnchorable>();
+
+        /// <summary>
+        /// Hides the document.
+        /// </summary>
+        /// <param name="documentView">The document view.</param>
+        /// <param name="tag">The tag.</param>
+        public static void HideDocument(IDocumentView documentView, object tag)
+        {
+            var document = FindDocument(documentView.GetType(), tag);
+
+            if (document != null)
+            {
+                hiddenViews.Add(document);
+                document.IsVisible = false;
+            }
+        }
+
+        /// <summary>
+        /// Shows the document.
+        /// </summary>
+        /// <param name="documentView">The document view.</param>
+        /// <param name="tag">The tag.</param>
+        public static void ShowDocument(IDocumentView documentView, object tag)
+        {            
+            var doc = (from document in hiddenViews where document != null && document.Content.GetType() == documentView.GetType() && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
+
+            if (doc != null)
+            {
+                doc.Show();
+                hiddenViews.Remove(doc);
+            }
         }
 
         /// <summary>
@@ -246,7 +301,7 @@ namespace Orchestra
             if (view != null)
             {
                 view.CloseDocument();
-                ContextualViewModelManager.UnregisterContextViewModel(view.ViewModel);
+                ContextualViewModelManager.UnregisterDocumentView(view);
             }            
 
             // var region = RegionManager.Regions[(string)view.Tag];

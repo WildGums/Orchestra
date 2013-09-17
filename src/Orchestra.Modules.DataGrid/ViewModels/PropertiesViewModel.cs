@@ -1,4 +1,4 @@
-﻿namespace Orchestra.Modules.Browser.ViewModels
+﻿namespace Orchestra.Modules.DataGrid.ViewModels
 {
     /// <summary>
     /// Backing ViewModel for the PropertiesView
@@ -16,13 +16,5 @@
                 Title = title;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the URL.
-        /// </summary>
-        /// <value>
-        /// The URL.
-        /// </value>
-        public string Url { get; set; }
     }
 }

@@ -8,6 +8,7 @@
 namespace Orchestra
 {
     using Catel.MVVM;
+    using Models;
     using Orchestra.Views;
 
     /// <summary>
@@ -28,37 +29,37 @@ namespace Orchestra
         /// Determines whether this view model has a contextual relation ship with the specified view model.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
-        /// <param name="contetxtualViewModel">The contetxtual view model.</param>
+        /// <param name="contextualViewModel">The contetxtual view model.</param>
         /// <returns>
         ///   <c>true</c> if a contextual relation ship exists with the specified view model]; otherwise, <c>false</c>.
         /// </returns>
-        bool HasContextualRelationShip(IViewModel viewModel, IViewModel contetxtualViewModel);
+        bool HasContextualRelationShip(IViewModel viewModel, IViewModel contextualViewModel);
 
         /// <summary>
         /// Registers the <see cref="DocumentView"/>.
         /// Now that it is known in the IContextualViewModelManager, the visibility can be made contextsensitive.
         /// </summary>
         /// <param name="documentView">The document view.</param>
-        void RegisterDocumentView(DocumentView documentView);
-
-        /// <summary>
-        /// Registers the context view model.
-        /// </summary>
-        /// <param name="contextParentViewModel">The context view model the main view.</param>
-        /// <param name="contextDependendendViewModel">The related view model (properties for example).</param>
-        void RegisterContextViewModel(IViewModel contextParentViewModel, IViewModel contextDependendendViewModel);
-
-        /// <summary>
-        /// Unregisters the context view model.
-        /// </summary>
-        /// <param name="contextViewModel">The context view model.</param>
-        void UnregisterContextViewModel(IViewModel contextViewModel);
-
+        void RegisterDocumentView(IDocumentView documentView);
+       
         /// <summary>
         /// Sets the visibility for contextual views.
         /// </summary>
         /// <param name="activatedView">The activated view.</param>
-        void SetVisibilityForContextualViews(DocumentView activatedView);
+        void SetVisibilityForContextualViews(IDocumentView activatedView);
         #endregion
+
+        /// <summary>
+        /// Registers the context sensitive parent view.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TP"></typeparam>
+        void RegisterContextualView<T, TP>(string title, DockLocation dockLocation);
+
+        /// <summary>
+        /// Unregisters the contextual document view.
+        /// </summary>
+        /// <param name="documentView">The document view.</param>
+        void UnregisterDocumentView(IDocumentView documentView);
     }
 }

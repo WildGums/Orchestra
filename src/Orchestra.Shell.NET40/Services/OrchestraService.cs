@@ -105,10 +105,9 @@ namespace Orchestra.Services
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="viewModel">The view model to show which will automatically be resolved to a view.</param>
         /// <param name="tag">The tag.</param>
-        /// <param name="dockLocation">The dock location.</param>
-        /// <param name="contextualParentViewModel">The contextual parent view model.</param>
+        /// <param name="dockLocation">The dock location.</param>        
         /// <exception cref="ArgumentNullException">The <paramref name="viewModel" /> is <c>null</c>.</exception>
-        public void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null, Orchestra.ViewModels.ViewModelBase contextualParentViewModel = null) 
+        public void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null) 
             where TViewModel : IViewModel
         {
             Argument.IsNotNull("viewModel", viewModel);
@@ -122,7 +121,7 @@ namespace Orchestra.Services
             if (document == null)
             {
                 var view = ViewHelper.ConstructViewWithViewModel(viewType, viewModel);
-                document = AvalonDockHelper.CreateDocument(view, tag, dockLocation, contextualParentViewModel);
+                document = AvalonDockHelper.CreateDocument(view, tag, dockLocation);
             }            
 
             AvalonDockHelper.ActivateDocument(document);

@@ -95,6 +95,9 @@ namespace Orchestra.Modules.DataGrid
             ribbonService.RegisterContextualRibbonItem<DataGridView>(
                 new RibbonButton(Name, "Tools", "Plot", "Plot") { ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/ActionPlot.png" },
                 ModuleName);
+
+            var contextualViewModelManager = GetService<IContextualViewModelManager>();
+            contextualViewModelManager.RegisterContextualView<DataGridViewModel, PropertiesViewModel>("Properties", DockLocation.Right);
         }
         #endregion
     }
