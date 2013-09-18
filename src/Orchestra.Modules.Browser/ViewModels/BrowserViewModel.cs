@@ -25,6 +25,7 @@ namespace Orchestra.Modules.Browser.ViewModels
         private readonly IMessageService _messageService;
         private readonly IOrchestraService _orchestraService;
         private readonly IMessageMediator _messageMediator;
+        private readonly IContextualViewModelManager _contextualViewModelManager;
 
         #region Constructors
         /// <summary>
@@ -34,8 +35,9 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// <param name="messageService">The message service.</param>
         /// <param name="orchestraService">The orchestra service.</param>
         /// <param name="messageMediator">The message mediator.</param>
-        public BrowserViewModel(string title, IMessageService messageService, IOrchestraService orchestraService, IMessageMediator messageMediator)
-            : this(messageService, orchestraService, messageMediator)
+        /// <param name="contextualViewModelManager">The contextual view model manager.</param>
+        public BrowserViewModel(string title, IMessageService messageService, IOrchestraService orchestraService, IMessageMediator messageMediator, IContextualViewModelManager contextualViewModelManager)
+            : this(messageService, orchestraService, messageMediator, contextualViewModelManager)
         {
             if (!string.IsNullOrWhiteSpace(title))
             {
@@ -49,7 +51,8 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// <param name="messageService">The message service.</param>
         /// <param name="orchestraService">The orchestra service.</param>
         /// <param name="messageMediator">The message mediator.</param>
-        public BrowserViewModel(IMessageService messageService, IOrchestraService orchestraService, IMessageMediator messageMediator)
+        /// <param name="contextualViewModelManager">The contextual view model manager.</param>
+        public BrowserViewModel(IMessageService messageService, IOrchestraService orchestraService, IMessageMediator messageMediator, IContextualViewModelManager contextualViewModelManager)
         {
             Argument.IsNotNull(() => orchestraService);
             Argument.IsNotNull(() => orchestraService);
@@ -58,14 +61,14 @@ namespace Orchestra.Modules.Browser.ViewModels
             _messageService = messageService;
             _orchestraService = orchestraService;
             _messageMediator = messageMediator;
+            _contextualViewModelManager = contextualViewModelManager;
 
             GoBack = new Command(OnGoBackExecute, OnGoBackCanExecute);
             GoForward = new Command(OnGoForwardExecute, OnGoForwardCanExecute);
             Browse = new Command(OnBrowseExecute, OnBrowseCanExecute);
             Test = new Command(OnTestExecute);
             CloseBrowser = new Command(OnCloseBrowserExecute);
-
-            Title = "Browser";
+            this.Title = "Browser";
         }
 
         private void OnTestExecute()
@@ -215,6 +218,19 @@ namespace Orchestra.Modules.Browser.ViewModels
             _messageMediator.SendMessage(url, BrowserModule.Name);
 
             Title = string.Format("Browser: {0}", url);
+        }
+
+        /// <summary>
+        /// Activateds this instance.
+        /// </summary>
+        public void Activated()
+        {
+            PropertiesViewModel propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<PropertiesViewModel>() as PropertiesViewModel;
+            
+            if (propertiesViewModel != null)
+            {
+                propertiesViewModel.Url = this.Url;
+            }
         }
 
         /// <summary>

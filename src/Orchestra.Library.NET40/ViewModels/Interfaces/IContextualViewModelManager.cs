@@ -61,5 +61,17 @@ namespace Orchestra
         /// </summary>
         /// <param name="documentView">The document view.</param>
         void UnregisterDocumentView(IDocumentView documentView);
+
+        /// <summary>
+        /// Hides all context sensitive views.
+        /// </summary>
+        void HideAllContextSensitiveViews();
+
+        /// <summary>
+        /// Gets the view model for context sensitive view.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        IViewModel GetViewModelForContextSensitiveView<T>();
     }
 }

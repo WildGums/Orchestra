@@ -254,7 +254,7 @@ namespace Orchestra
             if (document != null)
             {
                 hiddenViews.Add(document);
-                document.IsVisible = false;
+                document.Hide();
             }
         }
 
@@ -338,6 +338,7 @@ namespace Orchestra
         {
             if (ActivatedView == null || ActivatedView.ViewModel == null)
             {
+                ContextualViewModelManager.HideAllContextSensitiveViews();
                 return;
             }
 

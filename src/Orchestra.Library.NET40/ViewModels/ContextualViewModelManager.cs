@@ -9,7 +9,6 @@ namespace Orchestra
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Windows;
     using Catel;
     using Catel.MVVM;
     using Models;
@@ -35,10 +34,10 @@ namespace Orchestra
         /// </summary>
         private readonly Collection<IViewModel> _openContextSensitiveViews = new Collection<IViewModel>(); 
 
-        ///// <summary>
-        ///// The documents collection, we need this collection to find relationships between views when the ActivatedView changes.
-        ///// </summary>
-        private readonly Collection<IDocumentView> _documentViewsCollection = new Collection<IDocumentView>();
+        /// <summary>
+        /// The collection of documents that are opened in Orchestra, we need this collection to find relationships between views when the ActivatedView changes.
+        /// </summary>
+        private readonly Collection<IDocumentView> _openDocumentViewsCollection = new Collection<IDocumentView>();
         #endregion
 
         #region IContextualViewModelManager Members
@@ -70,9 +69,9 @@ namespace Orchestra
         /// <param name="documentView">The document view.</param>
         public void RegisterDocumentView(IDocumentView documentView)
         {
-            if (!_documentViewsCollection.Contains(documentView))
+            if (!_openDocumentViewsCollection.Contains(documentView))
             {
-                _documentViewsCollection.Add(documentView);
+                _openDocumentViewsCollection.Add(documentView);
                 ShowContextSensitiveViews(documentView);
             }
         }
@@ -84,7 +83,26 @@ namespace Orchestra
         /// <param name="documentView">The document view.</param>
         public void UnregisterDocumentView(IDocumentView documentView)
         {
-            _documentViewsCollection.Remove(documentView);
+            _openDocumentViewsCollection.Remove(documentView);            
+            HideContextSensitiveViews(documentView);
+        }
+
+        /// <summary>
+        /// Are there any open documents in orchestra, with this Type.
+        /// </summary>
+        /// <param name="documentType">Type of the document.</param>
+        /// <returns><c>True</c> when there are open documents with this Type, otherwise <c>false</c></returns>
+        private bool TypeHasOpenDocuments(Type documentType)
+        {
+            return _openDocumentViewsCollection.Any(document => document.GetType() == documentType);
+        }
+
+        private void HideContextSensitiveViews(IDocumentView documentView)
+        {                       
+            if (HasContextSensitiveViewAssociated(documentView))
+            {
+                SetVisibilityForContextualViews(documentView);
+            } 
         }
 
         private void ShowContextSensitiveViews(IDocumentView documentView)
@@ -124,8 +142,15 @@ namespace Orchestra
             }
         }
 
+        /// <summary>
+        /// Determines whether this view has context sensitive views associated.
+        /// </summary>
+        /// <param name="documentView">The document view.</param>
+        /// <returns>
+        ///   <c>true</c> if the view has context sensitive view(s) associated, otherwise, <c>false</c>.
+        /// </returns>
         private bool HasContextSensitiveViewAssociated(IDocumentView documentView)
-        {
+        {            
             return _contextualViewModelCollection.ContainsKey(documentView.ViewModel.GetType());
         }
 
@@ -182,7 +207,7 @@ namespace Orchestra
             }                        
 
             // Check what contextual documents have a relationship with the activated document, and set the visibility accordingly
-            foreach (var document in _documentViewsCollection)
+            foreach (var document in _openDocumentViewsCollection)
             {
                 if (activatedView.Equals(document))
                 {
@@ -198,14 +223,46 @@ namespace Orchestra
                 if (HasContextualRelationShip(document.ViewModel, activatedView.ViewModel))
                 {
                     AvalonDockHelper.ShowDocument(document, null);
-                    ((DocumentView)document).Visibility = Visibility.Visible;                                        
+                    //((DocumentView)document).Visibility = Visibility.Visible;                                        
                 }
                 else
                 {
                     AvalonDockHelper.HideDocument(document, null);
-                    ((DocumentView)document).Visibility = Visibility.Collapsed;
+                    //((DocumentView)document).Visibility = Visibility.Collapsed;
                 }
             }           
+        }
+
+        /// <summary>
+        /// Gets the view model for context sensitive view.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public IViewModel GetViewModelForContextSensitiveView<T>()
+        {
+            if (_openContextSensitiveViews == null || _openContextSensitiveViews.Count == 0)
+            {
+                return null;
+            }
+
+            return _openContextSensitiveViews.FirstOrDefault(vm => vm.GetType() == typeof (T));            
+        }
+
+        /// <summary>
+        /// Hides all context sensitive views.
+        /// </summary>
+        public void HideAllContextSensitiveViews()
+        {
+            foreach (var document in _openDocumentViewsCollection)
+            {                
+                // When the document is not context sensitive, leave it alone.
+                if (!IsContextDependentViewModel(document.ViewModel))
+                {
+                    continue;
+                }
+                
+                AvalonDockHelper.HideDocument(document, null);                                    
+            }  
         }
         #endregion
     }   
