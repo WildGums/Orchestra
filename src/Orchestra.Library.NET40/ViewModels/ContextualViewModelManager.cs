@@ -9,6 +9,8 @@ namespace Orchestra
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Windows;
+    using System.Windows.Threading;
     using Catel;
     using Catel.MVVM;
     using Models;
@@ -204,33 +206,36 @@ namespace Orchestra
             if (activatedView.ViewModel == null || IsContextDependentViewModel(activatedView.ViewModel))
             {
                 return;
-            }                        
+            }
 
-            // Check what contextual documents have a relationship with the activated document, and set the visibility accordingly
-            foreach (var document in _openDocumentViewsCollection)
+            ((FrameworkElement)activatedView).Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Action)(() =>
             {
-                if (activatedView.Equals(document))
+                // Check what contextual documents have a relationship with the activated document, and set the visibility accordingly
+                foreach (var document in _openDocumentViewsCollection)
                 {
-                    continue;
-                }
+                    if (activatedView.Equals(document))
+                    {
+                        continue;
+                    }
                 
-                // When the document is not context sensitive, leave it alone.
-                if (!IsContextDependentViewModel(document.ViewModel))
-                {
-                    continue;
-                }
+                    // When the document is not context sensitive, leave it alone.
+                    if (!IsContextDependentViewModel(document.ViewModel))
+                    {
+                        continue;
+                    }
 
-                if (HasContextualRelationShip(document.ViewModel, activatedView.ViewModel))
-                {
-                    AvalonDockHelper.ShowDocument(document, null);
-                    //((DocumentView)document).Visibility = Visibility.Visible;                                        
+                    if (HasContextualRelationShip(document.ViewModel, activatedView.ViewModel))
+                    {
+                        AvalonDockHelper.ShowDocument(document, null);
+                        //((DocumentView)document).Visibility = Visibility.Visible;                                        
+                    }
+                    else
+                    {
+                        AvalonDockHelper.HideDocument(document, null);
+                        //((DocumentView)document).Visibility = Visibility.Collapsed;
+                    }
                 }
-                else
-                {
-                    AvalonDockHelper.HideDocument(document, null);
-                    //((DocumentView)document).Visibility = Visibility.Collapsed;
-                }
-            }           
+            }));
         }
 
         /// <summary>
