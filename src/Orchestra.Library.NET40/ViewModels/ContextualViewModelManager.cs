@@ -13,11 +13,13 @@ namespace Orchestra
     using System.Windows.Threading;
     using Catel;
     using Catel.MVVM;
+    using Catel.Windows.Controls;
     using Models;
     using Orchestra.Views;
     using System;
     using Services;
-    
+    using Xceed.Wpf.AvalonDock.Layout;
+
     /// <summary>
     /// The ContextualViewModelManager manages views and there context sensitive views.
     /// </summary>
@@ -40,6 +42,12 @@ namespace Orchestra
         /// The collection of documents that are opened in Orchestra, we need this collection to find relationships between views when the ActivatedView changes.
         /// </summary>
         private readonly Collection<IDocumentView> _openDocumentViewsCollection = new Collection<IDocumentView>();
+
+        /// <summary>
+        /// Collection of context dependent views, that are currently hidden. 
+        /// </summary>
+        private static readonly Collection<LayoutAnchorable> HiddenViews = new Collection<LayoutAnchorable>();
+
         #endregion
 
         #region IContextualViewModelManager Members
@@ -226,13 +234,11 @@ namespace Orchestra
 
                     if (HasContextualRelationShip(document.ViewModel, activatedView.ViewModel))
                     {
-                        AvalonDockHelper.ShowDocument(document, null);
-                        //((DocumentView)document).Visibility = Visibility.Visible;                                        
+                        ShowDocument(document, null);                        
                     }
                     else
                     {
-                        AvalonDockHelper.HideDocument(document, null);
-                        //((DocumentView)document).Visibility = Visibility.Collapsed;
+                        HideDocument(document, null);                        
                     }
                 }
             }));
@@ -266,8 +272,48 @@ namespace Orchestra
                     continue;
                 }
                 
-                AvalonDockHelper.HideDocument(document, null);                                    
+                HideDocument(document, null);                                    
             }  
+        }
+
+        /// <summary>
+        /// Hides the document.
+        /// </summary>
+        /// <param name="documentView">The document view.</param>
+        /// <param name="tag">The tag.</param>
+        private void HideDocument(IDocumentView documentView, object tag)
+        {
+            var document = AvalonDockHelper.FindDocument(documentView.GetType(), tag);
+
+            if (document != null)
+            {
+                HiddenViews.Add(document);
+
+                if (document.Dispatcher.CheckAccess())
+                {
+                    document.Hide();
+                }
+                else
+                {
+                    document.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Action)(() => document.Hide()));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Shows the document.
+        /// </summary>
+        /// <param name="documentView">The document view.</param>
+        /// <param name="tag">The tag.</param>
+        private void ShowDocument(IDocumentView documentView, object tag)
+        {
+            var doc = (from document in HiddenViews where document != null && document.Content.GetType() == documentView.GetType() && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
+
+            if (doc != null)
+            {
+                doc.Show();
+                HiddenViews.Remove(doc);
+            }
         }
         #endregion
     }   

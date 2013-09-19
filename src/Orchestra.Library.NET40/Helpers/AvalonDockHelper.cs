@@ -69,11 +69,6 @@ namespace Orchestra
         /// The layout anchor group on the Top.
         /// </summary>
         private static readonly LayoutAnchorGroup TopPropertiesPane;
-
-        /// <summary>
-        /// Collection of context dependent views, that are currently hidden. 
-        /// </summary>
-        private static readonly Collection<LayoutAnchorable> HiddenViews = new Collection<LayoutAnchorable>();
         #endregion
 
         #region Constructors
@@ -219,46 +214,6 @@ namespace Orchestra
 
             return layoutDocument;            
         }        
-
-        /// <summary>
-        /// Hides the document.
-        /// </summary>
-        /// <param name="documentView">The document view.</param>
-        /// <param name="tag">The tag.</param>
-        public static void HideDocument(IDocumentView documentView, object tag)
-        {
-            var document = FindDocument(documentView.GetType(), tag);
-
-            if (document != null)
-            {
-                HiddenViews.Add(document);  
-              
-                if (document.Dispatcher.CheckAccess())
-                {
-                    document.Hide();
-                }
-                else
-                {
-                    document.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Action)(() => document.Hide()));
-                }            
-            }
-        }
-
-        /// <summary>
-        /// Shows the document.
-        /// </summary>
-        /// <param name="documentView">The document view.</param>
-        /// <param name="tag">The tag.</param>
-        public static void ShowDocument(IDocumentView documentView, object tag)
-        {            
-            var doc = (from document in HiddenViews where document != null && document.Content.GetType() == documentView.GetType() && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
-
-            if (doc != null)
-            {
-                doc.Show();
-                HiddenViews.Remove(doc);
-            }
-        }
 
         /// <summary>
         /// Wraps the view in a layout document.

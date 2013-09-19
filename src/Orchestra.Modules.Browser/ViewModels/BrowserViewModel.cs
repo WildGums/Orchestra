@@ -232,8 +232,8 @@ namespace Orchestra.Modules.Browser.ViewModels
         private void OnCloseBrowserExecute()
         {
             _orchestraService.CloseDocument(this);
-        }
-        #endregion
+            Url = null;
+        }        
 
         /// <summary>
         /// Method is called when the active view changes within the orchestra application
@@ -247,5 +247,6 @@ namespace Orchestra.Modules.Browser.ViewModels
                 propertiesViewModel.Url = this.Url;
             }
         }
+        #endregion
     }
 }
