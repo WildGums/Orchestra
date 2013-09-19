@@ -78,7 +78,7 @@ namespace Orchestra.Views
             serviceLocator.RegisterInstance(layoutDocumentPane);
 
             ribbon.AutomaticStateManagement = true;
-            ribbon.EnsureTabItem("Home");
+            ribbon.EnsureTabItem("Home");            
 
             Loaded += (sender, e) => { traceOutputAnchorable.Hide(); };
         }

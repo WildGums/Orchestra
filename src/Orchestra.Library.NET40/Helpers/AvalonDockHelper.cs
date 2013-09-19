@@ -8,14 +8,16 @@ namespace Orchestra
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Threading;
     using Catel;
     using Catel.IoC;
     using Catel.MVVM;
     using Catel.Windows.Controls;
     using Microsoft.Practices.Prism.Regions;
-    using Models;
+    using Models;    
     using Orchestra.Controls;
     using Orchestra.Views;
     using Xceed.Wpf.AvalonDock;
@@ -67,6 +69,11 @@ namespace Orchestra
         /// The layout anchor group on the Top.
         /// </summary>
         private static readonly LayoutAnchorGroup TopPropertiesPane;
+
+        /// <summary>
+        /// Collection of context dependent views, that are currently hidden. 
+        /// </summary>
+        private static readonly Collection<LayoutAnchorable> HiddenViews = new Collection<LayoutAnchorable>();
         #endregion
 
         #region Constructors
@@ -123,31 +130,20 @@ namespace Orchestra
 
             LayoutAnchorable doc = null;
 
-            doc = (from document in LayoutDocumentPane.Children where document is LayoutAnchorable && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).Cast<LayoutAnchorable>().FirstOrDefault();
+            var documents = DockingManager.Layout.Descendents().OfType<LayoutAnchorable>();
 
-            if (doc == null)
+            foreach (var layoutAnchorable in documents)
             {
-                doc = (from document in RightLayoutAnchorablePane.Children where document != null && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
+                if (layoutAnchorable.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)layoutAnchorable.Content).Tag))
+                {
+                    doc = layoutAnchorable;
+                    break;
+                }
             }
-
-            if (doc == null)
-            {
-                doc = (from document in LeftLayoutAnchorablePane.Children where document != null && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
-            }
-
-            if (doc == null)
-            {
-                doc = (from document in BottomPropertiesPane.Children where document != null && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
-            }
-
-            if (doc == null)
-            {
-                doc = (from document in TopPropertiesPane.Children where document != null && document.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
-            }
-
+            
             return doc;
         }
-
+       
         /// <summary>
         /// Activates the document in the docking manager, which makes it the active document.
         /// </summary>
@@ -167,6 +163,8 @@ namespace Orchestra
         /// <param name="dockLocation">The <see cref="DockLocation" />.</param>
         public static void DockView(LayoutAnchorable document, DockLocation dockLocation)
         {
+            Debug.WriteLine("DockView");
+
             switch (dockLocation)
             {
                 case DockLocation.Bottom:
@@ -183,24 +181,6 @@ namespace Orchestra
                     break;
             }
         }
-
-        ///// <summary>
-        ///// Sets the context for view model.
-        ///// </summary>
-        ///// <param name="documentView">The document view.</param>
-        ///// <param name="contextualParentViewModel">The contextual child view.</param>
-        //public static void SetContextForViewModel(DocumentView documentView, IViewModel contextualParentViewModel)
-        //{
-        //    Argument.IsNotNull("view", documentView);
-        //    Argument.IsNotNull("contextualParentViewModel", contextualParentViewModel);
-
-        //    ContextualViewModelManager.RegisterDocumentView(documentView);
-            
-        //    if (documentView.ViewModel != null && !ContextualViewModelManager.HasContextualRelationShip(documentView.ViewModel, contextualParentViewModel))
-        //    {
-        //        ContextualViewModelManager.RegisterContextViewModel(documentView.ViewModel, contextualParentViewModel);
-        //    }
-        //}
 
         /// <summary>
         /// Creates the document.
@@ -238,9 +218,7 @@ namespace Orchestra
            }            
 
             return layoutDocument;            
-        }
-
-        private static Collection<LayoutAnchorable> hiddenViews = new Collection<LayoutAnchorable>();
+        }        
 
         /// <summary>
         /// Hides the document.
@@ -253,8 +231,16 @@ namespace Orchestra
 
             if (document != null)
             {
-                hiddenViews.Add(document);
-                document.Hide();
+                HiddenViews.Add(document);  
+              
+                if (document.Dispatcher.CheckAccess())
+                {
+                    document.Hide();
+                }
+                else
+                {
+                    document.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Action)(() => document.Hide()));
+                }            
             }
         }
 
@@ -265,12 +251,12 @@ namespace Orchestra
         /// <param name="tag">The tag.</param>
         public static void ShowDocument(IDocumentView documentView, object tag)
         {            
-            var doc = (from document in hiddenViews where document != null && document.Content.GetType() == documentView.GetType() && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
+            var doc = (from document in HiddenViews where document != null && document.Content.GetType() == documentView.GetType() && TagHelper.AreTagsEqual(tag, ((IView)document.Content).Tag) select document).FirstOrDefault();
 
             if (doc != null)
             {
                 doc.Show();
-                hiddenViews.Remove(doc);
+                HiddenViews.Remove(doc);
             }
         }
 
@@ -298,14 +284,12 @@ namespace Orchestra
         {
             var containerView = e.Document;
             var view = containerView.Content as IDocumentView;
+
             if (view != null)
             {
                 view.CloseDocument();
                 ContextualViewModelManager.UnregisterDocumentView(view);
-            }            
-
-            // var region = RegionManager.Regions[(string)view.Tag];
-            // region.Remove(sender);
+            }                        
         }
 
         /// <summary>
@@ -329,6 +313,11 @@ namespace Orchestra
         {
             ActivatedView = ((DockingManager)sender).ActiveContent as DocumentView;                     
             SetVisibilityForContextualViews();
+
+            if (ActivatedView != null && ActivatedView.ViewModel is IContextualViewModel)
+            {
+                ((IContextualViewModel)ActivatedView.ViewModel).ViewModelActivated();
+            }
         }
 
         /// <summary>

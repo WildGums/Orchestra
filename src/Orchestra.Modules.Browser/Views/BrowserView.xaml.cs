@@ -25,16 +25,8 @@ namespace Orchestra.Modules.Browser.Views
             InitializeComponent();
 
             var messageMediator = ServiceLocator.Default.ResolveType<IMessageMediator>();
-            messageMediator.Register<string>(this, OnBrowse, BrowserModule.Name);
-
-            this.Loaded += BrowserView_Loaded;
-        }
-
-        void BrowserView_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var vm = ViewModel as BrowserViewModel;
-            vm.Activated();
-        }
+            messageMediator.Register<string>(this, OnBrowse, BrowserModule.Name);            
+        }        
         #endregion
 
         #region Methods

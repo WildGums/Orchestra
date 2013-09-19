@@ -12,12 +12,13 @@ namespace Orchestra.Modules.Browser.ViewModels
     using Catel.MVVM;
     using Catel.MVVM.Services;
     using Catel.Messaging;
+    using Models;
     using Orchestra.Services;
 
     /// <summary>
     /// UserControl view model.
     /// </summary>
-    public class BrowserViewModel : Orchestra.ViewModels.ViewModelBase
+    public class BrowserViewModel : Orchestra.ViewModels.ViewModelBase, IContextualViewModel
     {
         private readonly List<string> _previousPages = new List<string>();
         private readonly List<string> _nextPages = new List<string>();
@@ -171,7 +172,7 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// <summary>
         /// Gets the GoForward command.
         /// </summary>
-        public Command GoForward { get; private set; }
+        public Command GoForward { get; private set; }        
 
         /// <summary>
         /// Method to check whether the GoForward command can be executed.
@@ -219,20 +220,7 @@ namespace Orchestra.Modules.Browser.ViewModels
 
             Title = string.Format("Browser: {0}", url);
         }
-
-        /// <summary>
-        /// Activateds this instance.
-        /// </summary>
-        public void Activated()
-        {
-            PropertiesViewModel propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<PropertiesViewModel>() as PropertiesViewModel;
-            
-            if (propertiesViewModel != null)
-            {
-                propertiesViewModel.Url = this.Url;
-            }
-        }
-
+        
         /// <summary>
         /// Gets the CloseBrowser command.
         /// </summary>
@@ -246,5 +234,18 @@ namespace Orchestra.Modules.Browser.ViewModels
             _orchestraService.CloseDocument(this);
         }
         #endregion
+
+        /// <summary>
+        /// Method is called when the active view changes within the orchestra application
+        /// </summary>
+        public void ViewModelActivated()
+        {
+            PropertiesViewModel propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<PropertiesViewModel>() as PropertiesViewModel;
+
+            if (propertiesViewModel != null)
+            {
+                propertiesViewModel.Url = this.Url;
+            }
+        }
     }
 }

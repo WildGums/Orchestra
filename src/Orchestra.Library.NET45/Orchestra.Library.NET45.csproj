@@ -113,8 +113,14 @@
     <Compile Include="..\Orchestra.Library.NET40\Layout\LayoutInitializer.cs">
       <Link>Layout\LayoutInitializer.cs</Link>
     </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\Models\ContextSensitviveViewModelData.cs">
+      <Link>Models\ContextSensitviveViewModelData.cs</Link>
+    </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Models\DockLocation.cs">
       <Link>Models\DockLocation.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\Models\Interface\IContextualViewModel.cs">
+      <Link>Models\Interface\IContextualViewModel.cs</Link>
     </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Models\Interface\IRibbonButton.cs">
       <Link>Models\Interface\IRibbonButton.cs</Link>
@@ -209,7 +215,6 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Models\ContextSensitviveViewModelData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="..\Orchestra.Library.NET40\Resources\Images\ActionAccept.png">

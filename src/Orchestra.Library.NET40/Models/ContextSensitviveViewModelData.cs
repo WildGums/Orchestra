@@ -28,7 +28,7 @@ namespace Orchestra.Models
         /// <value>
         /// The context dependent view models.
         /// </value>
-        public ICollection<Type> ContextDependentViewModels { get; set; }
+        public ICollection<Type> ContextDependentViewModels { get; private set; }
 
         /// <summary>
         /// Gets or sets the title for the contextsensitive view.

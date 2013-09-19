@@ -22,7 +22,7 @@
         <orchestra:LayoutInitializer />
       </avalondock:DockingManager.LayoutUpdateStrategy>
 
-      <avalondock:LayoutRoot>
+      <avalondock:LayoutRoot x:Name="l">
         <avalondock:LayoutPanel Orientation="Vertical">
 
           <avalondock:LayoutDocumentPane x:Name="layoutDocumentPane">
