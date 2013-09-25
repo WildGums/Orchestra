@@ -19,7 +19,9 @@ namespace Orchestra
     using Catel.Modules;
     using Catel.MVVM;
     using Catel.MVVM.Services;
+    using Catel.MVVM.Tasks;
     using Catel.Reflection;
+    using Catel.Runtime.Serialization;
     using Catel.Windows.Threading;    
     using Microsoft.Practices.Prism.Modularity;
     using Models;
@@ -104,6 +106,27 @@ namespace Orchestra
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Initialize boot tasks.
+        /// </summary>
+        /// <param name="bootTasks">The additional boot tasks.</param>
+        /// <remarks>Override this method to add additional tasks that will be executed before shell initialization.</remarks>
+        protected override void InitializeBootTasks(IList<ITask> bootTasks)
+        {
+            base.InitializeBootTasks(bootTasks);
+
+            bootTasks.Add(new ActionTask("Warming up serializers", tracker =>
+            {
+                var xmlSerializer = (IModelBaseSerializer)SerializationFactory.GetXmlSerializer();
+                xmlSerializer.Warmup();
+
+                var binarySerializer = (IModelBaseSerializer)SerializationFactory.GetBinarySerializer();
+                binarySerializer.Warmup();
+            }));
+
+            base.InitializeBootTasks(bootTasks);
+        }
+
         /// <summary>
         /// Creates the <see cref="T:Microsoft.Practices.Prism.Modularity.IModuleCatalog"/> used by Prism.
         /// </summary>

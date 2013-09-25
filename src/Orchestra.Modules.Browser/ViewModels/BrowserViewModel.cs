@@ -86,6 +86,12 @@ namespace Orchestra.Modules.Browser.ViewModels
         public string Url { get; set; }
 
         /// <summary>
+        /// Gets the name of the URL changed message.
+        /// </summary>
+        /// <value>The name of the URL changed message.</value>
+        public string UrlChangedMessageTag { get { return string.Format("{0}_{1}", BrowserModule.Name, UniqueIdentifier); } }
+
+        /// <summary>
         /// Gets the recent sites.
         /// </summary>
         /// <value>
@@ -216,7 +222,7 @@ namespace Orchestra.Modules.Browser.ViewModels
                 url = "http://" + url;
             }
 
-            _messageMediator.SendMessage(url, BrowserModule.Name);
+            _messageMediator.SendMessage(url, UrlChangedMessageTag);
 
             Title = string.Format("Browser: {0}", url);
         }
@@ -240,11 +246,10 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// </summary>
         public void ViewModelActivated()
         {
-            PropertiesViewModel propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<PropertiesViewModel>() as PropertiesViewModel;
-
+            var propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<PropertiesViewModel>() as PropertiesViewModel;
             if (propertiesViewModel != null)
             {
-                propertiesViewModel.Url = this.Url;
+                propertiesViewModel.Url = Url;
             }
         }
         #endregion
