@@ -182,4 +182,5 @@
   -->
   <Import Project="$(ProjectDir)\..\..\Tools\Pepita\PepitaGet.targets" />
   <Import Project="Fody.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
 </Project>
