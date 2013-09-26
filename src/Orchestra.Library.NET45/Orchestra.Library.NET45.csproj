@@ -116,6 +116,9 @@
     <Compile Include="..\Orchestra.Library.NET40\Layout\LayoutInitializer.cs">
       <Link>Layout\LayoutInitializer.cs</Link>
     </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\Messages\ModuleInitializedMessage.cs">
+      <Link>Messages\ModuleInitializedMessage.cs</Link>
+    </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Models\ContextSensitviveViewModelData.cs">
       <Link>Models\ContextSensitviveViewModelData.cs</Link>
     </Compile>

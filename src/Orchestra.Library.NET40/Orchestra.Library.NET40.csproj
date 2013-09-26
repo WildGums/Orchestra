@@ -115,6 +115,7 @@
     </Compile>
     <Compile Include="Controls\BindableLayoutDocument.cs" />
     <Compile Include="Helpers\AvalonDockHelper.cs" />
+    <Compile Include="Messages\ModuleInitializedMessage.cs" />
     <Compile Include="Models\ContextSensitviveViewModelData.cs" />
     <Compile Include="Models\Interface\IContextualViewModel.cs" />
     <Compile Include="ViewModels\ContextualViewModelManager.cs" />
