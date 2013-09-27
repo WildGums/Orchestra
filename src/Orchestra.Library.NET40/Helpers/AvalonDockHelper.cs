@@ -271,5 +271,14 @@ namespace Orchestra
             ContextualViewModelManager.UpdateContextualViews(ActivatedView);
         }        
         #endregion
+
+        /// <summary>
+        /// Gets currently activated document in the docking manager.
+        /// </summary>
+        /// <returns>The active document.</returns>
+        public static LayoutDocument GetActiveDocument()
+        {
+            return LayoutDocumentPane.Children[LayoutDocumentPane.SelectedContentIndex] as LayoutDocument;
+        }
     }
 }
