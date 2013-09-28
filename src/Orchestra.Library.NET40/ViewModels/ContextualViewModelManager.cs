@@ -118,14 +118,16 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => documentView);
 
+            var documentViewViewModelType = documentView.ViewModel.GetType();
+
             // Does this viewtype have a contextsensitive view associated with it?
             if (HasContextSensitiveViewAssociated(documentView))
             {
                 // Yes, are it's contextsensitive's views already opened?
-                if (_openContextSensitiveViews.All(viewModel => viewModel.GetType() != documentView.ViewModel.GetType()))
+                if (_openContextSensitiveViews.All(viewModel => viewModel.GetType() != documentViewViewModelType))
                 {                    
                     // Open all, context sensitive vies related to the documentView
-                    foreach (var type in (_contextualViewModelCollection[documentView.ViewModel.GetType()]).ContextDependentViewModels)
+                    foreach (var type in (_contextualViewModelCollection[documentViewViewModelType]).ContextDependentViewModels)
                     {
                         IViewModel viewModel;
                         
@@ -136,7 +138,7 @@ namespace Orchestra
 
                         try
                         {
-                            viewModel = (ViewModelBase)Activator.CreateInstance(type, _contextualViewModelCollection[documentView.ViewModel.GetType()].Title);
+                            viewModel = (ViewModelBase)Activator.CreateInstance(type, _contextualViewModelCollection[documentViewViewModelType].Title);
                             //viewModel = (IViewModel)_viewModelFactory.CreateViewModel(type, null);
                             //viewModel.Title = _contextualViewModelCollection[documentView.ViewModel.GetType()].Title;
                         }
@@ -147,7 +149,7 @@ namespace Orchestra
                         
                         if (!_openContextSensitiveViews.Contains(viewModel))
                         {
-                            _orchestraService.ShowDocument(viewModel, null, _contextualViewModelCollection[documentView.ViewModel.GetType()].DockLocation);
+                            _orchestraService.ShowDocument(viewModel, null, _contextualViewModelCollection[documentViewViewModelType].DockLocation);
                             _openContextSensitiveViews.Add(viewModel);
                         }
                     }

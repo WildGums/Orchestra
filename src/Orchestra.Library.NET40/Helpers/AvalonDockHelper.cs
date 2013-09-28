@@ -158,6 +158,7 @@ namespace Orchestra
         /// <param name="dockLocation">The <see cref="DockLocation" />.</param>
         public static void DockView(LayoutAnchorable document, DockLocation dockLocation)
         {
+            Argument.IsNotNull(() => document);
             Debug.WriteLine("DockView");
 
             switch (dockLocation)
