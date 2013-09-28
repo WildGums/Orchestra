@@ -67,21 +67,23 @@ namespace Orchestra
         /// <summary>
         /// Registers 'contextual' view type, with the type of views that are context sensitive to this view.
         /// </summary>
-        /// <typeparam name="T">The type for the 'contextual' view, this is the view, other views are context sensitive with.</typeparam>
-        /// <typeparam name="TP">The type for the context sensitive view.</typeparam>
-        public void RegisterContextualView<T, TP>(string title, DockLocation dockLocation)
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>
+        /// <param name="title">The title.</param>
+        /// <param name="dockLocation">The dock location.</param>
+        public void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(string title, DockLocation dockLocation)
         {
-            Type type = typeof(T);
-            Type contextSensitiveType = typeof(TP);
+            Type viewModelType = typeof(TViewModel);
+            Type contextSensitiveViewModelType = typeof(TContextSensitiveViewModel);
 
-            if (!_contextualViewModelCollection.ContainsKey(type))
+            if (!_contextualViewModelCollection.ContainsKey(viewModelType))
             {
-                _contextualViewModelCollection.Add(type, new ContextSensitviveViewModelData(title, dockLocation));
+                _contextualViewModelCollection.Add(viewModelType, new ContextSensitviveViewModelData(title, dockLocation));
             }            
 
-            if (!_contextualViewModelCollection[type].ContextDependentViewModels.Contains(contextSensitiveType))
+            if (!_contextualViewModelCollection[viewModelType].ContextDependentViewModels.Contains(contextSensitiveViewModelType))
             {
-                _contextualViewModelCollection[type].ContextDependentViewModels.Add(contextSensitiveType);
+                _contextualViewModelCollection[viewModelType].ContextDependentViewModels.Add(contextSensitiveViewModelType);
             }            
         }
 
@@ -92,6 +94,8 @@ namespace Orchestra
         /// <param name="documentView">The document view.</param>
         public void RegisterOpenDocumentView(IDocumentView documentView)
         {
+            Argument.IsNotNull(() => documentView);
+
             if (!_openDocumentViewsCollection.Contains(documentView))
             {
                 _openDocumentViewsCollection.Add(documentView);
@@ -105,21 +109,15 @@ namespace Orchestra
         /// <param name="documentView">The document view.</param>
         public void UnregisterDocumentView(IDocumentView documentView)
         {
+            Argument.IsNotNull(() => documentView);
+
             _openDocumentViewsCollection.Remove(documentView);                        
         }
-
-        /// <summary>
-        /// Are there any open documents in orchestra, with this Type.
-        /// </summary>
-        /// <param name="documentType">Type of the document.</param>
-        /// <returns><c>True</c> when there are open documents with this Type, otherwise <c>false</c></returns>
-        private bool TypeHasOpenDocuments(Type documentType)
-        {
-            return _openDocumentViewsCollection.Any(document => document.GetType() == documentType);
-        }       
         
         private void ShowContextSensitiveViews(IDocumentView documentView)
         {
+            Argument.IsNotNull(() => documentView);
+
             // Does this viewtype have a contextsensitive view associated with it?
             if (HasContextSensitiveViewAssociated(documentView))
             {
@@ -165,7 +163,9 @@ namespace Orchestra
         ///   <c>true</c> if the view has context sensitive view(s) associated, otherwise, <c>false</c>.
         /// </returns>
         private bool HasContextSensitiveViewAssociated(IDocumentView documentView)
-        {            
+        {
+            Argument.IsNotNull(() => documentView);
+
             return _contextualViewModelCollection.ContainsKey(documentView.ViewModel.GetType());
         }
 
@@ -178,6 +178,8 @@ namespace Orchestra
         /// </returns>
         public bool IsContextDependentViewModel(IViewModel viewModel)
         {
+            Argument.IsNotNull(() => viewModel);
+
             return _contextualViewModelCollection.Any(item => item.Value.ContextDependentViewModels.Contains(viewModel.GetType()));
         }
 
@@ -191,6 +193,9 @@ namespace Orchestra
         /// </returns>
         public bool HasContextualRelationShip(IViewModel contextSensitiveviewModel, IViewModel contextualViewModel)
         {
+            Argument.IsNotNull(() => contextSensitiveviewModel);
+            Argument.IsNotNull(() => contextualViewModel);
+
             if (_contextualViewModelCollection.Count == 0)
             {
                 return false;
@@ -215,7 +220,7 @@ namespace Orchestra
         /// <returns></returns>
         public TViewModel GetViewModelForContextSensitiveView<TViewModel>()
         {
-            if (_openContextSensitiveViews == null || _openContextSensitiveViews.Count == 0)
+            if (_openContextSensitiveViews.Count == 0)
             {
                 // Retun null
                 return default(TViewModel);
