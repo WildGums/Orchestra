@@ -97,7 +97,7 @@ namespace Orchestra.Modules.Browser
             ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content") { ContentTemplate = template, Layout = new RibbonItemLayout {Width = 120}}, ModuleName);
 
             var contextualViewModelManager = GetService<IContextualViewModelManager>();
-            contextualViewModelManager.RegisterContextualView<BrowserViewModel, PropertiesViewModel>("Properties", DockLocation.Bottom);
+            contextualViewModelManager.RegisterContextualView<BrowserViewModel, PropertiesViewModel>("Browser properties", DockLocation.Right);
 
             // Demo: show two pages with different tags
             var orchestraViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Orchestra");

@@ -170,6 +170,7 @@ namespace Orchestra
                     break;
                 case DockLocation.Right:
                     RightLayoutAnchorablePane.Children.Add(document);
+                    document.CanFloat = true;                    
                     break;
                 case DockLocation.Top:
                     TopPropertiesPane.Children.Add(document);
@@ -183,19 +184,18 @@ namespace Orchestra
         /// <param name="view">The view.</param>
         /// <param name="tag">The tag.</param>
         /// <param name="dockLocation">The dock location.</param>
-        /// <param name="contextualParentViewModel">The contextual parent view model.</param>
         /// <returns>
         /// The created layout document.
         /// </returns>
         /// <exception cref="ArgumentNullException">The <paramref name="view" /> is <c>null</c>.</exception>
-        public static LayoutAnchorable CreateDocument(FrameworkElement view, object tag = null, DockLocation? dockLocation = null, IViewModel contextualParentViewModel = null)
+        public static LayoutAnchorable CreateDocument(FrameworkElement view, object tag = null, DockLocation? dockLocation = null)
         {            
             Argument.IsNotNull("view", view);
             
             var layoutDocument = WrapViewInLayoutDocument(view, tag, true );
             var documentView = view as DocumentView;            
 
-            ContextualViewModelManager.RegisterDocumentView(documentView);
+            ContextualViewModelManager.RegisterOpenDocumentView(documentView);
 
             if (dockLocation == null)
             {
@@ -205,12 +205,6 @@ namespace Orchestra
             {
                 DockView(layoutDocument, (DockLocation)dockLocation);
             }
-
-            // A new 'contextual' view has been added, now this must be set to visible or collapsed depending on the activated view.
-            if (contextualParentViewModel != null && ActivatedView != null)
-           {
-               SetVisibilityForContextualViews();
-           }            
 
             return layoutDocument;            
         }        
@@ -266,28 +260,15 @@ namespace Orchestra
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         static void DockingManagerActiveContentChanged(object sender, EventArgs e)
         {
-            ActivatedView = ((DockingManager)sender).ActiveContent as DocumentView;                     
-            SetVisibilityForContextualViews();
+            ActivatedView = ((DockingManager)sender).ActiveContent as DocumentView;                                 
 
             if (ActivatedView != null && ActivatedView.ViewModel is IContextualViewModel)
             {
                 ((IContextualViewModel)ActivatedView.ViewModel).ViewModelActivated();
             }
-        }
 
-        /// <summary>
-        /// Sets the visibility for contextual views.
-        /// </summary>        
-        private static void SetVisibilityForContextualViews()
-        {
-            if (ActivatedView == null || ActivatedView.ViewModel == null)
-            {
-                ContextualViewModelManager.HideAllContextSensitiveViews();
-                return;
-            }
-
-            ContextualViewModelManager.SetVisibilityForContextualViews(ActivatedView);
-        }
+            ContextualViewModelManager.UpdateContextualViews(ActivatedView);
+        }        
         #endregion
     }
 }

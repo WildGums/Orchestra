@@ -150,6 +150,9 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\DocumentView.cs" />
     <Compile Include="Views\Interfaces\IDocumentView.cs" />
+    <Compile Include="Views\NestedDockingManager.xaml.cs">
+      <DependentUpon>NestedDockingManager.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -169,6 +172,12 @@
     <Resource Include="Resources\Images\ValidationError.png" />
     <Resource Include="Resources\Images\ValidationInfo.png" />
     <Resource Include="Resources\Images\ValidationWarning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\NestedDockingManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

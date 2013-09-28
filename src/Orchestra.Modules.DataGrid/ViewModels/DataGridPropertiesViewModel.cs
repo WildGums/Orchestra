@@ -1,15 +1,15 @@
 ﻿namespace Orchestra.Modules.DataGrid.ViewModels
 {
     /// <summary>
-    /// Backing ViewModel for the PropertiesView
+    /// Backing ViewModel for the DataGridPropertiesView
     /// </summary>
-    public class PropertiesViewModel : Orchestra.ViewModels.ViewModelBase
+    public class DataGridPropertiesViewModel : Orchestra.ViewModels.ViewModelBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PropertiesViewModel"/> class.
+        /// Initializes a new instance of the <see cref="DataGridPropertiesViewModel"/> class.
         /// </summary>
         /// <param name="title">The title.</param>
-        public PropertiesViewModel(string title)
+        public DataGridPropertiesViewModel(string title)
         {
             if (!string.IsNullOrWhiteSpace(title))
             {

@@ -110,12 +110,12 @@
     <Compile Include="Models\Row.cs" />
     <Compile Include="Models\StringCell.cs" />
     <Compile Include="ViewModels\PlotViewModel.cs" />
-    <Compile Include="ViewModels\PropertiesViewModel.cs" />
+    <Compile Include="ViewModels\DataGridPropertiesViewModel.cs" />
     <Compile Include="Views\DataGridView.xaml.cs">
       <DependentUpon>DataGridView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PropertiesView.xaml.cs">
-      <DependentUpon>PropertiesView.xaml</DependentUpon>
+    <Compile Include="Views\DataGridPropertiesView.xaml.cs">
+      <DependentUpon>DataGridPropertiesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlotWindow.xaml.cs">
       <DependentUpon>PlotWindow.xaml</DependentUpon>
@@ -142,7 +142,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PropertiesView.xaml">
+    <Page Include="Views\DataGridPropertiesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

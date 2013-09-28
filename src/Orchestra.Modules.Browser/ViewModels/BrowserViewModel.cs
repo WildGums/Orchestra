@@ -240,7 +240,7 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// </summary>
         public void ViewModelActivated()
         {
-            PropertiesViewModel propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<PropertiesViewModel>() as PropertiesViewModel;
+            PropertiesViewModel propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<PropertiesViewModel>();
 
             if (propertiesViewModel != null)
             {

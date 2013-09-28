@@ -5,9 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Orchestra.ViewModels
 {
+    using System;
     using System.Reflection;
-
+    using Catel.MVVM;
     using Catel.Reflection;
+    using Services;
+    using Catel.IoC;
 
     /// <summary>
     /// MainWindow view model.
@@ -21,6 +24,18 @@ namespace Orchestra.ViewModels
         public MainWindowViewModel()
             : base()
         {
+            try
+            {
+                var x = Catel.IoC.ServiceLocator.Default.ResolveType<IOrchestraService>();
+                var y = Catel.IoC.ServiceLocator.Default.ResolveType<IViewModelFactory>();
+
+                Catel.IoC.ServiceLocator.Default.RegisterInstance<IContextualViewModelManager>(new ContextualViewModelManager(x, y));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }        
+
         }
         #endregion
 

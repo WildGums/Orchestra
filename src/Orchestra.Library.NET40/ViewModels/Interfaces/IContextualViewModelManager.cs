@@ -40,13 +40,7 @@ namespace Orchestra
         /// Now that it is known in the IContextualViewModelManager, the visibility can be made contextsensitive.
         /// </summary>
         /// <param name="documentView">The document view.</param>
-        void RegisterDocumentView(IDocumentView documentView);
-       
-        /// <summary>
-        /// Sets the visibility for contextual views.
-        /// </summary>
-        /// <param name="activatedView">The activated view.</param>
-        void SetVisibilityForContextualViews(IDocumentView activatedView);
+        void RegisterOpenDocumentView(IDocumentView documentView);
         #endregion
 
         /// <summary>
@@ -63,15 +57,16 @@ namespace Orchestra
         void UnregisterDocumentView(IDocumentView documentView);
 
         /// <summary>
-        /// Hides all context sensitive views.
-        /// </summary>
-        void HideAllContextSensitiveViews();
-
-        /// <summary>
         /// Gets the view model for context sensitive view.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <returns></returns>
-        IViewModel GetViewModelForContextSensitiveView<T>();
+        TViewModel GetViewModelForContextSensitiveView<TViewModel>();
+
+        /// <summary>
+        /// Updates the contextual views.
+        /// </summary>
+        /// <param name="documentView">The document view.</param>
+        void UpdateContextualViews(DocumentView documentView);
     }
 }

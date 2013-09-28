@@ -5,14 +5,14 @@
     using ViewModels;
 
     /// <summary>
-    /// Interaction logic for PropertiesView.xaml.
+    /// Interaction logic for DataGridPropertiesView.xaml.
     /// </summary>
-    public partial class PropertiesView
+    public partial class DataGridPropertiesView
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PropertiesView"/> class.
+        /// Initializes a new instance of the <see cref="DataGridPropertiesView"/> class.
         /// </summary>
-        public PropertiesView()
+        public DataGridPropertiesView()
         {
             InitializeComponent();
         }

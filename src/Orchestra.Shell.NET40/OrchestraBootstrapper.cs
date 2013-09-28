@@ -125,7 +125,10 @@ namespace Orchestra
             Container.RegisterType<IStatusBarService, StatusBarService>();
             Container.RegisterType<IRibbonService, RibbonService>();
             Container.RegisterInstance<IConfigurationService>(new ConfigurationService());
-            Container.RegisterInstance<IContextualViewModelManager>(new ContextualViewModelManager());
+
+            //Container.RegisterType<IContextualViewModelManager>(registrationType:RegistrationType.Singleton);
+
+           
         }
 
         /// <summary>

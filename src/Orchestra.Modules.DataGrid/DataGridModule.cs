@@ -97,7 +97,7 @@ namespace Orchestra.Modules.DataGrid
                 ModuleName);
 
             var contextualViewModelManager = GetService<IContextualViewModelManager>();
-            contextualViewModelManager.RegisterContextualView<DataGridViewModel, PropertiesViewModel>("Properties", DockLocation.Right);
+            contextualViewModelManager.RegisterContextualView<DataGridViewModel, DataGridPropertiesViewModel>("Properties", DockLocation.Right);
         }
         #endregion
     }
