@@ -60,8 +60,11 @@ namespace Orchestra.Modules.Browser
 
             // Module specific
             var typeFactory = TypeFactory.Default;
-            var browserViewModel = typeFactory.CreateInstance<BrowserViewModel>();
-            ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => orchestraService.ShowDocument(browserViewModel))) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
+            ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() =>
+            {
+                var browserViewModel = typeFactory.CreateInstance<BrowserViewModel>();
+                orchestraService.ShowDocument(browserViewModel);
+            })) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
             // View specific
             var backButton = new RibbonButton(Name, Name, "Back", "GoBack") {ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png"};

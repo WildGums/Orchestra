@@ -6,6 +6,7 @@
 
 namespace Orchestra.Modules.Browser.Views
 {
+    using Catel;
     using Catel.IoC;
     using Catel.Messaging;
     using Orchestra.Views;
@@ -23,9 +24,6 @@ namespace Orchestra.Modules.Browser.Views
         public BrowserView()
         {
             InitializeComponent();
-
-            var messageMediator = ServiceLocator.Default.ResolveType<IMessageMediator>();
-            messageMediator.Register<string>(this, OnBrowse, BrowserModule.Name);            
         }        
         #endregion
 
@@ -42,6 +40,9 @@ namespace Orchestra.Modules.Browser.Views
                 {
                     OnBrowse(vm.Url);
                 }
+
+                var messageMediator = ServiceLocator.Default.ResolveType<IMessageMediator>();
+                messageMediator.Register<string>(this, OnBrowse, vm.UrlChangedMessageTag);
             }
         }
 

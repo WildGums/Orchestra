@@ -86,6 +86,12 @@ namespace Orchestra.Modules.Browser.ViewModels
         public string Url { get; set; }
 
         /// <summary>
+        /// Gets the name of the URL changed message.
+        /// </summary>
+        /// <value>The name of the URL changed message.</value>
+        public string UrlChangedMessageTag { get { return string.Format("{0}_{1}", BrowserModule.Name, UniqueIdentifier); } }
+
+        /// <summary>
         /// Gets the recent sites.
         /// </summary>
         /// <value>
@@ -172,7 +178,7 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// <summary>
         /// Gets the GoForward command.
         /// </summary>
-        public Command GoForward { get; private set; }        
+        public Command GoForward { get; private set; }
 
         /// <summary>
         /// Method to check whether the GoForward command can be executed.
@@ -216,11 +222,11 @@ namespace Orchestra.Modules.Browser.ViewModels
                 url = "http://" + url;
             }
 
-            _messageMediator.SendMessage(url, BrowserModule.Name);
+            _messageMediator.SendMessage(url, UrlChangedMessageTag);
 
             Title = string.Format("Browser: {0}", url);
         }
-        
+
         /// <summary>
         /// Gets the CloseBrowser command.
         /// </summary>
@@ -233,18 +239,17 @@ namespace Orchestra.Modules.Browser.ViewModels
         {
             _orchestraService.CloseDocument(this);
             Url = null;
-        }        
+        }
 
         /// <summary>
         /// Method is called when the active view changes within the orchestra application
         /// </summary>
         public void ViewModelActivated()
         {
-            PropertiesViewModel propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<PropertiesViewModel>();
-
+            var propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<PropertiesViewModel>();
             if (propertiesViewModel != null)
             {
-                propertiesViewModel.Url = this.Url;
+                propertiesViewModel.Url = Url;
             }
         }
         #endregion
