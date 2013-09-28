@@ -5,8 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Orchestra.ViewModels
 {
-    using System.Collections.ObjectModel;
-
     /// <summary>
     /// Base class for all view models in Orchestra. Additional functionality might be introduced in the future.
     /// </summary>

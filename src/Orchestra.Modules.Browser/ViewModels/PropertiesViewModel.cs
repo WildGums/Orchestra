@@ -16,13 +16,9 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertiesViewModel"/> class.
         /// </summary>
-        /// <param name="title">The title.</param>
-        public PropertiesViewModel(string title)
+        public PropertiesViewModel()
         {
-            if (!string.IsNullOrWhiteSpace(title))
-            {
-                Title = title;
-            }
+            Title = "Properties";
         }
         #endregion
 

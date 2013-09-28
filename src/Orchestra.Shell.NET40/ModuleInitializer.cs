@@ -1,4 +1,13 @@
-﻿using Catel.IoC;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ModuleInitializer.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+
+using Catel.IoC;
+using Catel.Tasks;
+using Orchestra.CatelCustomization;
 using Orchestra.Services;
 
 /// <summary>
@@ -6,6 +15,7 @@ using Orchestra.Services;
 /// </summary>
 public static class ModuleInitializer
 {
+    #region Methods
     /// <summary>
     /// Initializes the module.
     /// </summary>
@@ -14,5 +24,7 @@ public static class ModuleInitializer
         var serviceLocator = ServiceLocator.Default;
 
         serviceLocator.RegisterType<IMissingAssemblyResolverService, MissingAssemblyResolverService>();
+        serviceLocator.RegisterType<IBootstrapperTaskFactory, OrchestraBootstrapperTaskFactory>();
     }
+    #endregion
 }

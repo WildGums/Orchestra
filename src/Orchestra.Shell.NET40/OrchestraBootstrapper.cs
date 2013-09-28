@@ -147,7 +147,8 @@ namespace Orchestra
             Container.RegisterType<IOrchestraService, OrchestraService>();
             Container.RegisterType<IStatusBarService, StatusBarService>();
             Container.RegisterType<IRibbonService, RibbonService>();
-            Container.RegisterInstance<IConfigurationService>(new ConfigurationService());                       
+            Container.RegisterInstance<IConfigurationService>(new ConfigurationService());
+            Container.RegisterType<IContextualViewModelManager, ContextualViewModelManager>();
         }
 
         /// <summary>

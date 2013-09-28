@@ -102,6 +102,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Orchestra.Shell.NET40\CatelCustomization\OrchestraBootstrapperTaskFactory.cs">
+      <Link>CatelCustomization\OrchestraBootstrapperTaskFactory.cs</Link>
+    </Compile>
     <Compile Include="..\Orchestra.Shell.NET40\Models\Configuration.cs">
       <Link>Models\Configuration.cs</Link>
     </Compile>

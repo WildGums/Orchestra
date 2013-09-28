@@ -113,6 +113,7 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="CatelCustomization\OrchestraBootstrapperTaskFactory.cs" />
     <Compile Include="Models\ModuleInfo.cs" />
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="ModuleInitializer.cs" />

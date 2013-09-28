@@ -138,8 +138,8 @@ namespace Orchestra
 
                         try
                         {
-                            viewModel = (ViewModelBase)Activator.CreateInstance(type, _contextualViewModelCollection[documentViewViewModelType].Title);
-                            //viewModel = (IViewModel)_viewModelFactory.CreateViewModel(type, null);
+                            //viewModel = (ViewModelBase)Activator.CreateInstance(type, _contextualViewModelCollection[documentViewViewModelType].Title);
+                            viewModel = _viewModelFactory.CreateViewModel(type, null);
                             //viewModel.Title = _contextualViewModelCollection[documentView.ViewModel.GetType()].Title;
                         }
                         catch (Exception)

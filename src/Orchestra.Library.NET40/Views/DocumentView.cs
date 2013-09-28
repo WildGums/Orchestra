@@ -15,7 +15,6 @@ namespace Orchestra.Views
     /// </summary>
     public class DocumentView : UserControl, IDocumentView
     {
-        // private List<IRibbonItem> _ribbonItems;
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentView"/> class. 

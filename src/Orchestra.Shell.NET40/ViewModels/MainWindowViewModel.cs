@@ -3,14 +3,12 @@
 //   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
+
 namespace Orchestra.ViewModels
 {
-    using System;
     using System.Reflection;
-    using Catel.MVVM;
     using Catel.Reflection;
-    using Services;
-    using Catel.IoC;
 
     /// <summary>
     /// MainWindow view model.
@@ -23,11 +21,7 @@ namespace Orchestra.ViewModels
         /// </summary>
         public MainWindowViewModel()
             : base()
-        {            
-            var orchestraService = Catel.IoC.ServiceLocator.Default.ResolveType<IOrchestraService>();
-            var viewModelFactory = Catel.IoC.ServiceLocator.Default.ResolveType<IViewModelFactory>();
-
-            Catel.IoC.ServiceLocator.Default.RegisterInstance<IContextualViewModelManager>(new ContextualViewModelManager(orchestraService, viewModelFactory));                  
+        {
         }
         #endregion
 
@@ -40,10 +34,7 @@ namespace Orchestra.ViewModels
         /// </value>
         public override string Title
         {
-            get
-            {
-                return Assembly.GetExecutingAssembly().Title();
-            }
+            get { return Assembly.GetExecutingAssembly().Title(); }
         }
         #endregion
     }
