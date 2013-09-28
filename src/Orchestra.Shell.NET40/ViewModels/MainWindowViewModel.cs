@@ -23,19 +23,11 @@ namespace Orchestra.ViewModels
         /// </summary>
         public MainWindowViewModel()
             : base()
-        {
-            try
-            {
-                var x = Catel.IoC.ServiceLocator.Default.ResolveType<IOrchestraService>();
-                var y = Catel.IoC.ServiceLocator.Default.ResolveType<IViewModelFactory>();
+        {            
+            var orchestraService = Catel.IoC.ServiceLocator.Default.ResolveType<IOrchestraService>();
+            var viewModelFactory = Catel.IoC.ServiceLocator.Default.ResolveType<IViewModelFactory>();
 
-                Catel.IoC.ServiceLocator.Default.RegisterInstance<IContextualViewModelManager>(new ContextualViewModelManager(x, y));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }        
-
+            Catel.IoC.ServiceLocator.Default.RegisterInstance<IContextualViewModelManager>(new ContextualViewModelManager(orchestraService, viewModelFactory));                  
         }
         #endregion
 
