@@ -11,6 +11,7 @@ namespace Orchestra.Services
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
+    using Catel.Windows.Controls;
     using Catel.Windows.Threading;
 
     using Orchestra.Models;
@@ -127,6 +128,42 @@ namespace Orchestra.Services
             AvalonDockHelper.ActivateDocument(document);
 
             Log.Debug("Showed document for view model '{0}'", viewModel.UniqueIdentifier);
+        }
+
+        /// <summary>
+        /// Check document activity by view model type and by tag.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <param name="tag">The tag.</param>
+        /// <returns>True if the document with given parameters is active, false in other case.</returns>
+        public bool IsDocumentActive<TViewModel>(object tag = null) where TViewModel : IViewModel
+        {
+            return IsDocumentActive(typeof(TViewModel), tag);
+        }
+
+        /// <summary>
+        /// Check document activity by view model type and by tag.
+        /// </summary>
+        /// <param name="viewModelType">The type of the view model.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns>True if the document with given parameters is active, false in other case.</returns>
+        /// <exception cref="ArgumentNullException">The <paramref name="viewModelType"/> is <c>null</c>.</exception>
+        public bool IsDocumentActive(Type viewModelType, object tag = null)
+        {
+            var viewLocator = GetService<IViewLocator>();
+            var viewType = viewLocator.ResolveView(viewModelType);
+
+            var activeDocument = AvalonDockHelper.GetActiveDocument();
+            var view = activeDocument.Content as IView;
+
+            if (view == null)
+            {
+                return false;
+            }
+
+            var contentType = view.GetType();
+
+            return (tag == null && viewType == contentType) || (viewType == contentType && Equals(view.Tag, tag));
         }
 
         /// <summary>

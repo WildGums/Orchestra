@@ -115,6 +115,7 @@
     </Compile>
     <Compile Include="Controls\BindableLayoutDocument.cs" />
     <Compile Include="Helpers\AvalonDockHelper.cs" />
+    <Compile Include="Messages\ModuleInitializedMessage.cs" />
     <Compile Include="Models\ContextSensitviveViewModelData.cs" />
     <Compile Include="Models\Interface\IContextualViewModel.cs" />
     <Compile Include="ViewModels\ContextualViewModelManager.cs" />
@@ -188,4 +189,5 @@
   </Target>
   <Import Project="$(ProjectDir)\..\..\Tools\Pepita\PepitaGet.targets" />
   <Import Project="Fody.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
 </Project>

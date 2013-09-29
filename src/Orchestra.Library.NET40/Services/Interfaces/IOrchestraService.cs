@@ -44,6 +44,23 @@ namespace Orchestra.Services
             where TViewModel : IViewModel;
 
         /// <summary>
+        /// Check document activity by view model type and by tag.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <param name="tag">The tag.</param>
+        /// <returns>True if the document with given parameters is active, false in other case.</returns>
+        bool IsDocumentActive<TViewModel>(object tag = null) where TViewModel : IViewModel;
+
+        /// <summary>
+        /// Check document activity by view model type and by tag.
+        /// </summary>
+        /// <param name="viewModelType">The type of the view model.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns>True if the document with given parameters is active, false in other case.</returns>
+        /// <exception cref="ArgumentNullException">The <paramref name="viewModelType"/> is <c>null</c>.</exception>
+        bool IsDocumentActive(Type viewModelType, object tag = null);
+
+        /// <summary>
         /// Closes the document in the main shell with the specified view model.
         /// </summary>
         /// <param name="viewModel">The view model.</param>

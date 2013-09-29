@@ -63,11 +63,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{250CAB0E-A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Test", "Orchestra.Test\Orchestra.Test.csproj", "{39052BD1-313D-4781-BFE3-B43511A4B5CB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DBBAC8AE-4FE5-4EDD-9453-998A0EFCF68E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Library.NET45", "Orchestra.Library.NET45\Orchestra.Library.NET45.csproj", "{4529B8AF-C5A4-429D-9DA4-798BBCA0FFD9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.NET45", "Orchestra.Shell.NET45\Orchestra.Shell.NET45.csproj", "{A51ADAC8-E38E-4B63-9F5A-933898793E05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{089130BB-02FE-4535-81B5-D34D3E6F28C6}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
