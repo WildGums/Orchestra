@@ -213,6 +213,10 @@
     <Compile Include="..\Orchestra.Library.NET40\Views\Interfaces\IDocumentView.cs">
       <Link>Views\Interfaces\IDocumentView.cs</Link>
     </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\Views\NestedDockingManager.xaml.cs">
+      <Link>Views\NestedDockingManager.xaml.cs</Link>
+      <DependentUpon>NestedDockingManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
@@ -265,6 +269,13 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\Orchestra.Library.NET40\Views\NestedDockingManager.xaml">
+      <Link>Views\NestedDockingManager.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
