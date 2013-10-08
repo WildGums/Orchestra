@@ -109,7 +109,7 @@ namespace Orchestra
         /// <value>
         /// The activated view.
         /// </value>
-        private static DocumentView ActivatedView { get; set; }
+        public static DocumentView ActivatedView { get; set; }
         #endregion
 
         #region Methods

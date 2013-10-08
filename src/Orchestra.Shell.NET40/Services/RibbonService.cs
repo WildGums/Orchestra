@@ -59,7 +59,7 @@ namespace Orchestra.Services
             _ribbon = ribbon;
 
             _layoutDocumentPane.PropertyChanged += OnLayoutDocumentPanePropertyChange;
-            _ribbon.Loaded += OnRibbonLoaded;
+            _ribbon.Loaded += OnRibbonLoaded;            
         }
 
         /// <summary>
@@ -218,20 +218,35 @@ namespace Orchestra.Services
 
         private void ActivateTabForCurrentlySelectedDocumentView()
         {
-            var selectedContent = _layoutDocumentPane.SelectedContent;
-            if (selectedContent == null)
-            {
-                Log.Debug("SelectedContent is null, cannot activate tab for no selection");
-                return;
-            }
+            IDocumentView documentView = null;
 
-            var documentView = selectedContent.Content as IDocumentView;
+            var selectedContent = _layoutDocumentPane.SelectedContent;
+
+            // TODO, now created a dependency with the AvalonDockHelper, do we really want this.
+            documentView = AvalonDockHelper.ActivatedView;
+
+            //if (selectedContent == null)
+            //{
+            //    documentView = AvalonDockHelper.ActivatedView;
+
+            //    if (documentView == null)
+            //    {
+            //        Log.Debug("SelectedContent is null, cannot activate tab for no selection");
+            //        return;
+            //    }
+            //}
+
             if (documentView == null)
             {
-                Log.Debug("SelectedContent is not a document view, selecting home ribbon tab");
+                documentView = selectedContent.Content as IDocumentView;
 
-                _ribbon.SelectTabItem(ModuleBase.HomeRibbonTabName);
-                return;
+                if (documentView == null)
+                {
+                    Log.Debug("SelectedContent is not a document view, selecting home ribbon tab");
+
+                    _ribbon.SelectTabItem(ModuleBase.HomeRibbonTabName);
+                    return;
+                }
             }
 
             var documentViewType = documentView.GetType();
