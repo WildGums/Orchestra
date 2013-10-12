@@ -26,6 +26,15 @@ namespace Orchestra
         bool IsContextDependentViewModel(IViewModel viewModel);
 
         /// <summary>
+        /// Determines whether type of the ViewModel belongs to a nested dock view.
+        /// </summary>
+        /// <param name="viewModel">The IViewModel.</param>
+        /// <returns>
+        ///   <c>true</c> if the type of the ViewModel belongs to a nested dock view; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsNestedDockview(IViewModel viewModel);
+
+        /// <summary>
         /// Determines whether this view model has a contextual relation ship with the specified view model.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
@@ -36,25 +45,38 @@ namespace Orchestra
         bool HasContextualRelationShip(IViewModel viewModel, IViewModel contextualViewModel);
 
         /// <summary>
+        /// Registers the nested dock view.
+        /// </summary>
+        void RegisterNestedDockView<TNestedDockViewModel>();
+
+        /// <summary>
         /// Registers the <see cref="DocumentView"/>.
         /// Now that it is known in the IContextualViewModelManager, the visibility can be made contextsensitive.
         /// </summary>
         /// <param name="documentView">The document view.</param>
         void RegisterOpenDocumentView(IDocumentView documentView);
-        #endregion
 
         /// <summary>
         /// Registers the context sensitive parent view.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TP"></typeparam>
-        void RegisterContextualView<T, TP>(string title, DockLocation dockLocation);
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>
+        /// <param name="title">The title.</param>
+        /// <param name="dockLocation">The dock location.</param>
+        void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(string title, DockLocation dockLocation);
 
         /// <summary>
         /// Unregisters the contextual document view.
         /// </summary>
         /// <param name="documentView">The document view.</param>
         void UnregisterDocumentView(IDocumentView documentView);
+
+        /// <summary>
+        /// Adds the context sensitive views to nested dock view.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <param name="nestedDockingManager">The nested docking manager.</param>
+        void AddContextSensitiveViewsToNestedDockView(IViewModel viewModel, NestedDockingManager nestedDockingManager);
 
         /// <summary>
         /// Gets the view model for context sensitive view.
@@ -68,5 +90,6 @@ namespace Orchestra
         /// </summary>
         /// <param name="documentView">The document view.</param>
         void UpdateContextualViews(DocumentView documentView);
+        #endregion        
     }
 }

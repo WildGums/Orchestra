@@ -113,7 +113,7 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// <summary>
         /// SelectedSite property data.
         /// </summary>
-        public static readonly PropertyData SelectedSiteProperty = RegisterProperty("SelectedSite", typeof(string), null, OnSelectedSiteChanged);
+        public static readonly PropertyData SelectedSiteProperty = RegisterProperty("SelectedSite", typeof(string), null, OnSelectedSiteChanged);        
 
         /// <summary>
         /// Called when the SelectedSite value changed.

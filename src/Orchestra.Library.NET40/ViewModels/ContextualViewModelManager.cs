@@ -28,11 +28,13 @@ namespace Orchestra
         /// A view (context) has one or more views related to this context 
         /// </summary>
         private readonly Dictionary<Type, ContextSensitviveViewModelData> _contextualViewModelCollection = new Dictionary<Type, ContextSensitviveViewModelData>();
-        
+
+        private readonly Collection<Type> _nestedDockViewModelTypes = new Collection<Type>();
+
         /// <summary>
         /// The collection of context sensitive views that are opened.
         /// </summary>
-        private readonly Collection<IViewModel> _openContextSensitiveViews = new Collection<IViewModel>(); 
+        private readonly Collection<IViewModel> _openContextSensitiveViews = new Collection<IViewModel>();
 
         /// <summary>
         /// The collection of documents that are opened in Orchestra, we need this collection to find relationships between views when the ActivatedView changes.
@@ -64,6 +66,27 @@ namespace Orchestra
         #endregion
 
         #region IContextualViewModelManager Members
+
+        /// <summary>
+        /// Registers the nested dock view.
+        /// </summary>
+        public void RegisterNestedDockView<TNestedDockViewModel>()
+        {
+            _nestedDockViewModelTypes.Add(typeof(TNestedDockViewModel));
+        }
+
+        /// <summary>
+        /// Determines whether type of the ViewModel belongs to a nested dock view.
+        /// </summary>
+        /// <param name="viewModel">The IViewModel.</param>
+        /// <returns>
+        ///   <c>true</c> if the type of the ViewModel belongs to a nested dock view; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsNestedDockview(IViewModel viewModel)
+        {
+            return _nestedDockViewModelTypes.Contains(viewModel.GetType());
+        }
+
         /// <summary>
         /// Registers 'contextual' view type, with the type of views that are context sensitive to this view.
         /// </summary>
@@ -79,12 +102,12 @@ namespace Orchestra
             if (!_contextualViewModelCollection.ContainsKey(viewModelType))
             {
                 _contextualViewModelCollection.Add(viewModelType, new ContextSensitviveViewModelData(title, dockLocation));
-            }            
+            }
 
             if (!_contextualViewModelCollection[viewModelType].ContextDependentViewModels.Contains(contextSensitiveViewModelType))
             {
                 _contextualViewModelCollection[viewModelType].ContextDependentViewModels.Add(contextSensitiveViewModelType);
-            }            
+            }
         }
 
         /// <summary>
@@ -102,7 +125,7 @@ namespace Orchestra
                 ShowContextSensitiveViews(documentView);
             }
         }
-        
+
         /// <summary>
         /// Unregisters the contextual document view.
         /// </summary>
@@ -111,26 +134,64 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => documentView);
 
-            _openDocumentViewsCollection.Remove(documentView);                        
+            _openDocumentViewsCollection.Remove(documentView);
         }
-        
+
+        /// <summary>
+        /// Adds the context sensitive views to nested dock view.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <param name="nestedDockingManager">The nested docking manager.</param>
+        public void AddContextSensitiveViewsToNestedDockView(IViewModel viewModel, NestedDockingManager nestedDockingManager)
+        {
+            // viewModel is the viewmodel related to the nestedDockingManager
+
+            // Open all, context sensitive vies related to the documentView
+            if (_contextualViewModelCollection.ContainsKey(viewModel.GetType()))
+            {
+                foreach (var type in (_contextualViewModelCollection[viewModel.GetType()]).ContextDependentViewModels)
+                {
+                    IViewModel contextualViewModel;
+
+                    try
+                    {
+                        contextualViewModel = _viewModelFactory.CreateViewModel(type, null);
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+
+                    if (contextualViewModel != null)
+                    {
+                        _orchestraService.ShowDocumentInNestedDockView(contextualViewModel, nestedDockingManager, null, _contextualViewModelCollection[viewModel.GetType()].DockLocation);
+                    }
+                }
+            }
+        }
+
         private void ShowContextSensitiveViews(IDocumentView documentView)
         {
             Argument.IsNotNull(() => documentView);
 
             var documentViewViewModelType = documentView.ViewModel.GetType();
 
+            if (IsNestedDockview(documentView.ViewModel))
+            {
+                return;
+            }
+
             // Does this viewtype have a contextsensitive view associated with it?
             if (HasContextSensitiveViewAssociated(documentView))
             {
                 // Yes, are it's contextsensitive's views already opened?
                 if (_openContextSensitiveViews.All(viewModel => viewModel.GetType() != documentViewViewModelType))
-                {                    
+                {
                     // Open all, context sensitive vies related to the documentView
                     foreach (var type in (_contextualViewModelCollection[documentViewViewModelType]).ContextDependentViewModels)
                     {
                         IViewModel viewModel;
-                        
+
                         if (_openContextSensitiveViews.Any(v => v.GetType() == type))
                         {
                             continue;
@@ -143,11 +204,11 @@ namespace Orchestra
                             //viewModel.Title = _contextualViewModelCollection[documentView.ViewModel.GetType()].Title;
                         }
                         catch (Exception)
-                        {                            
+                        {
                             continue;
                         }
-                        
-                        if (!_openContextSensitiveViews.Contains(viewModel))
+
+                        if (viewModel != null && !_openContextSensitiveViews.Contains(viewModel))
                         {
                             _orchestraService.ShowDocument(viewModel, null, _contextualViewModelCollection[documentViewViewModelType].DockLocation);
                             _openContextSensitiveViews.Add(viewModel);
@@ -228,7 +289,7 @@ namespace Orchestra
                 return default(TViewModel);
             }
 
-            return (TViewModel) _openContextSensitiveViews.FirstOrDefault(vm => vm.GetType() == typeof(TViewModel));            
+            return (TViewModel)_openContextSensitiveViews.FirstOrDefault(vm => vm.GetType() == typeof(TViewModel));
         }
 
         /// <summary>
@@ -236,7 +297,7 @@ namespace Orchestra
         /// </summary>
         /// <param name="activatedView">The activated view.</param>
         public void UpdateContextualViews(DocumentView activatedView)
-        {            
+        {
             Argument.IsNotNull("The activated view", activatedView);
 
             if (activatedView.ViewModel == null || IsContextDependentViewModel(activatedView.ViewModel))
@@ -263,5 +324,5 @@ namespace Orchestra
             }
         }
         #endregion
-    }   
+    }
 }

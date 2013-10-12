@@ -5,6 +5,12 @@
     /// </summary>
     public class DataGridPropertiesViewModel : Orchestra.ViewModels.ViewModelBase
     {
+        public DataGridPropertiesViewModel() 
+            : base()
+        {
+            
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridPropertiesViewModel"/> class.
         /// </summary>

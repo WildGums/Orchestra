@@ -9,6 +9,7 @@ namespace Orchestra.Services
     using System;
     using Catel.MVVM;
     using Orchestra.Models;
+    using Views;
 
     /// <summary>
     /// The orchestra service that allows communication with the shell.
@@ -42,6 +43,15 @@ namespace Orchestra.Services
         /// <exception cref="ArgumentNullException">The <paramref name="viewModel" /> is <c>null</c>.</exception>
         void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
             where TViewModel : IViewModel;
+
+        /// <summary>
+        /// Shows the document in nested dock view.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <param name="dockingManager">The docking manager.</param>
+        /// <param name="tag">The tag.</param>
+        /// <param name="dockLocation">The dock location.</param>
+        void ShowDocumentInNestedDockView(IViewModel viewModel, NestedDockingManager dockingManager, object tag = null, DockLocation? dockLocation = null);
 
         /// <summary>
         /// Closes the document in the main shell with the specified view model.

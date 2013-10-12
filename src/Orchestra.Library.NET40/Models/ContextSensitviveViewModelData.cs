@@ -30,6 +30,8 @@ namespace Orchestra.Models
         /// </value>
         public ICollection<Type> ContextDependentViewModels { get; private set; }
 
+        public bool IsNestedDockView { get; set; }
+
         /// <summary>
         /// Gets or sets the title for the contextsensitive view.
         /// </summary>

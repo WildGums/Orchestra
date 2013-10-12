@@ -11,6 +11,7 @@ namespace Orchestra
     using System.Diagnostics;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Threading;
     using Catel;
     using Catel.IoC;
@@ -108,7 +109,7 @@ namespace Orchestra
         /// <value>
         /// The activated view.
         /// </value>
-        private static DocumentView ActivatedView { get; set; }
+        public static DocumentView ActivatedView { get; set; }
         #endregion
 
         #region Methods
@@ -183,32 +184,49 @@ namespace Orchestra
         /// Creates the document.
         /// </summary>
         /// <param name="view">The view.</param>
-        /// <param name="tag">The tag.</param>
-        /// <param name="dockLocation">The dock location.</param>
+        /// <param name="tag">The tag.</param>        
         /// <returns>
         /// The created layout document.
         /// </returns>
         /// <exception cref="ArgumentNullException">The <paramref name="view" /> is <c>null</c>.</exception>
-        public static LayoutAnchorable CreateDocument(FrameworkElement view, object tag = null, DockLocation? dockLocation = null)
+        public static LayoutAnchorable CreateDocument(FrameworkElement view, object tag = null)
         {            
             Argument.IsNotNull("view", view);
-            
-            var layoutDocument = WrapViewInLayoutDocument(view, tag, true );
-            var documentView = view as DocumentView;            
+
+            LayoutAnchorable layoutDocument;
+            var documentView = view as DocumentView;
+
+            if (ContextualViewModelManager.IsNestedDockview(documentView.ViewModel))
+            {
+                layoutDocument = WrapViewInNestedDockManager(view, tag, true);
+                ContextualViewModelManager.AddContextSensitiveViewsToNestedDockView(documentView.ViewModel, (NestedDockingManager)layoutDocument.Content);
+            }
+            else
+            {
+                layoutDocument = WrapViewInLayoutDocument(view, tag, true);    
+            }
 
             ContextualViewModelManager.RegisterOpenDocumentView(documentView);
 
+            return layoutDocument;            
+        }
+
+        /// <summary>
+        /// Adds the new document to docking manager.
+        /// </summary>
+        /// <param name="dockLocation">The dock location.</param>
+        /// <param name="layoutDocument">The layout document.</param>
+        public static void AddNewDocumentToDockingManager(DockLocation? dockLocation, LayoutAnchorable layoutDocument)
+        {            
             if (dockLocation == null)
             {
                 LayoutDocumentPane.Children.Add(layoutDocument);
             }
             else
             {
-                DockView(layoutDocument, (DockLocation)dockLocation);
+                DockView(layoutDocument, (DockLocation) dockLocation);
             }
-
-            return layoutDocument;            
-        }        
+        }
 
         /// <summary>
         /// Wraps the view in a layout document.
@@ -223,6 +241,18 @@ namespace Orchestra
         private static LayoutAnchorable WrapViewInLayoutDocument(FrameworkElement view, object tag = null, bool canFloat = false)
         {
             return new BindableLayoutDocument(view, tag, canFloat);
+        }
+
+        private static LayoutAnchorable WrapViewInNestedDockManager(FrameworkElement view, object tag = null, bool canFloat = false)
+        {            
+            var nestedDockingManager = new NestedDockingManager();
+            var layoutDocument = new BindableLayoutDocument(view, null, true);
+            nestedDockingManager.AddDocument(layoutDocument);
+
+            var layoutAnchorable = new LayoutAnchorable();
+            layoutAnchorable.Content = nestedDockingManager;
+
+            return layoutAnchorable;
         }
 
         /// <summary>
@@ -261,14 +291,25 @@ namespace Orchestra
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         static void DockingManagerActiveContentChanged(object sender, EventArgs e)
         {
-            ActivatedView = ((DockingManager)sender).ActiveContent as DocumentView;                                 
+            if (((DockingManager)sender).ActiveContent is NestedDockingManager)
+            {
+                var n = ((DockingManager) sender).ActiveContent as NestedDockingManager;
+                ActivatedView = n.dockingManager.ActiveContent as DocumentView;
+            }
+            else
+            {
+                ActivatedView = ((DockingManager)sender).ActiveContent as DocumentView;
+            }                                 
 
             if (ActivatedView != null && ActivatedView.ViewModel is IContextualViewModel)
             {
                 ((IContextualViewModel)ActivatedView.ViewModel).ViewModelActivated();
             }
 
-            ContextualViewModelManager.UpdateContextualViews(ActivatedView);
+            if (ActivatedView != null)
+            {
+                ContextualViewModelManager.UpdateContextualViews(ActivatedView);
+            }
         }        
         #endregion
     }

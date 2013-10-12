@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="Orchestra.Views.NestedDockingManager"
+             xmlns:avalondock="http://schemas.xceed.com/wpf/xaml/avalondock"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,6 +7,42 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <avalondock:DockingManager x:Name="dockingManager">
+
+            <avalondock:LayoutRoot>
+
+                <avalondock:LayoutRoot.TopSide>
+                    <avalondock:LayoutAnchorSide>
+                        <avalondock:LayoutAnchorGroup x:Name="topPropertiesPane">
+                        </avalondock:LayoutAnchorGroup>
+                    </avalondock:LayoutAnchorSide>
+                </avalondock:LayoutRoot.TopSide>
+
+                <avalondock:LayoutPanel Orientation="Horizontal">
+
+                    <avalondock:LayoutAnchorablePaneGroup DockWidth="125">
+                        <avalondock:LayoutAnchorablePane x:Name="leftPropertiesPane">
+                        </avalondock:LayoutAnchorablePane>
+                    </avalondock:LayoutAnchorablePaneGroup>
+
+                    <avalondock:LayoutDocumentPane x:Name="layoutDocumentPane">
+                    </avalondock:LayoutDocumentPane>
+
+                    <avalondock:LayoutAnchorablePaneGroup DockWidth="125">
+                        <avalondock:LayoutAnchorablePane x:Name="rightPropertiesPane">
+                        </avalondock:LayoutAnchorablePane>
+                    </avalondock:LayoutAnchorablePaneGroup>
+                </avalondock:LayoutPanel>
+
+                <avalondock:LayoutRoot.BottomSide>
+                    <avalondock:LayoutAnchorSide>
+                        <avalondock:LayoutAnchorGroup x:Name="bottomPropertiesPane">                          
+                        </avalondock:LayoutAnchorGroup>
+                    </avalondock:LayoutAnchorSide>
+                </avalondock:LayoutRoot.BottomSide>
+            </avalondock:LayoutRoot>
+
+        </avalondock:DockingManager>
+                                   
     </Grid>
 </UserControl>
