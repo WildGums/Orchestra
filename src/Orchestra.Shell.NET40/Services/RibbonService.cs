@@ -238,7 +238,10 @@ namespace Orchestra.Services
 
             if (documentView == null)
             {
-                documentView = selectedContent.Content as IDocumentView;
+                if (selectedContent != null)
+                {
+                    documentView = selectedContent.Content as IDocumentView;
+                }
 
                 if (documentView == null)
                 {
