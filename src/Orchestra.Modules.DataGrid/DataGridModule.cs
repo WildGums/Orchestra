@@ -111,8 +111,8 @@ namespace Orchestra.Modules.DataGrid
                 new Command(() => orchestraService.ShowDocumentIfHidden<DataGridPropertiesViewModel>())) { ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/Table.png" });
 
             // Test showing a datagrid view at startup
-            var dataGridViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<DataGridViewModel>("Test 1");
-            orchestraService.ShowDocument(dataGridViewModel, "catel");            
+            //var dataGridViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<DataGridViewModel>("Test 1");
+            //orchestraService.ShowDocument(dataGridViewModel, "catel");            
         }
         #endregion
     }
