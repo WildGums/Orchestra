@@ -1,22 +1,47 @@
-﻿using System.Windows.Controls;
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
-    using Catel;
+    using Catel;    
     using Models;
-    using Xceed.Wpf.AvalonDock.Layout;
+    using Models.Interface;
+    using Xceed.Wpf.AvalonDock;
+    using Xceed.Wpf.AvalonDock.Layout;    
 
     /// <summary>
     /// Interaction logic for NestedDockingManager.xaml
     /// </summary>
-    public partial class NestedDockingManager : UserControl
-    {
+    public partial class NestedDockingManager : IDockingManagerContainer
+    {        
         /// <summary>
         /// Initializes a new instance of the <see cref="NestedDockingManager"/> class.
         /// </summary>
         public NestedDockingManager()
         {
-            InitializeComponent();
+            InitializeComponent();            
+        }
+
+        /// <summary>
+        /// Gets the <see cref="DockingManager" />.
+        /// </summary>
+        /// <value>
+        /// The <see cref="DockingManager" />.
+        /// </value>
+        public DockingManager DockingManager 
+        {
+            get { return this.dockingManager; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is active.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsActive
+        {
+            get
+            {
+                return IsVisible;
+            }
         }
 
         /// <summary>
@@ -50,7 +75,6 @@ namespace Orchestra.Views
             {
                 topPropertiesPane.Children.Add(documentView);
             }
-        }
-       
+        }        
     }
 }

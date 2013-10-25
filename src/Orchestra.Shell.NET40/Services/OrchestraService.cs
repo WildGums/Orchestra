@@ -84,13 +84,35 @@ namespace Orchestra.Services
                 }
             }
         }
+        
+        /// <summary>
+        /// Shows the helper window.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <param name="tag">The tag.</param>
+        public void ShowDocumentIfHidden<TViewModel>(object tag = null)
+            where TViewModel : IViewModel
+        {
+            var viewLocator = GetService<IViewLocator>();
+            var viewType = viewLocator.ResolveView(typeof (TViewModel));
+
+            var document = AvalonDockHelper.FindDocument(viewType, tag);
+
+            if (document != null)
+            {
+                document.Show();
+                Log.Debug("Show hidden document '{0}'", document.Title);
+            }
+
+            Log.Debug("Can not show hidden view because it can not be found for viewmodel type {0}", typeof(TViewModel));
+        }
 
         /// <summary>
         /// Shows the document in the main shell.
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="tag">The tag.</param>
-        public void ShowDocument<TViewModel>(object tag = null) 
+        public void ShowDocument<TViewModel>(object tag = null)
             where TViewModel : IViewModel
         {
             var typeFactory = TypeFactory.Default;

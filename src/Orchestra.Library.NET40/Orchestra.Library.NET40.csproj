@@ -117,6 +117,7 @@
     <Compile Include="Helpers\AvalonDockHelper.cs" />
     <Compile Include="Models\ContextSensitviveViewModelData.cs" />
     <Compile Include="Models\Interface\IContextualViewModel.cs" />
+    <Compile Include="Models\Interface\IDockingManagerContainer.cs" />
     <Compile Include="ViewModels\ContextualViewModelManager.cs" />
     <Compile Include="Helpers\FluentRibbonHelper.cs" />
     <Compile Include="Layout\LayoutInitializer.cs" />

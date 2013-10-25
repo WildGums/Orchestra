@@ -45,6 +45,14 @@ namespace Orchestra.Services
             where TViewModel : IViewModel;
 
         /// <summary>
+        /// Shows the document if it is hidden.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <param name="tag">The tag.</param>
+        void ShowDocumentIfHidden<TViewModel>(object tag = null)
+            where TViewModel : IViewModel;
+
+        /// <summary>
         /// Shows the document in nested dock view.
         /// </summary>
         /// <param name="viewModel">The view model.</param>

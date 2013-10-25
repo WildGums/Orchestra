@@ -22,6 +22,11 @@ namespace Orchestra.Modules
         public const string HomeRibbonTabName = "Home";
 
         /// <summary>
+        /// The name of the home ribbon tab.
+        /// </summary>
+        public const string ViewRibbonTabName = "View";
+
+        /// <summary>
         /// The modules directory name.
         /// </summary>
         public const string ModulesDirectory = "Modules";

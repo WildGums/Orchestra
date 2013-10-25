@@ -33,6 +33,30 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IMessageMediator _messageMediator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataGridViewModel"/> class.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="openFileService">The open file service.</param>
+        /// <param name="saveFileService">The save file service.</param>
+        /// <param name="uiVisualizerService">The UI visualizer service.</param>
+        /// <param name="messageMediator">The message mediator.</param>
+        public DataGridViewModel(string title, IOpenFileService openFileService, ISaveFileService saveFileService, IUIVisualizerService uiVisualizerService,
+            IMessageMediator messageMediator) : this(openFileService, saveFileService, uiVisualizerService,messageMediator)
+        {            
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                Title = title;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataGridViewModel"/> class.
+        /// </summary>
+        /// <param name="openFileService">The open file service.</param>
+        /// <param name="saveFileService">The save file service.</param>
+        /// <param name="uiVisualizerService">The UI visualizer service.</param>
+        /// <param name="messageMediator">The message mediator.</param>
         public DataGridViewModel(IOpenFileService openFileService, ISaveFileService saveFileService, IUIVisualizerService uiVisualizerService,
             IMessageMediator messageMediator)
         {
@@ -44,9 +68,8 @@ namespace Orchestra.Modules.DataGrid.ViewModels
             _openFileService = openFileService;
             _saveFileService = saveFileService;
             _uiVisualizerService = uiVisualizerService;
-            _messageMediator = messageMediator;
+            _messageMediator = messageMediator;            
         }
-
         /// <summary>
         /// Gets the title.
         /// </summary>

@@ -97,8 +97,14 @@ namespace Orchestra.Modules.Browser
             // Find the template to show as dynamic content. TODO: Refactor, make more elegant.
             var template = Application.Current.Resources["TestTemplate"] as DataTemplate;
 
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content") { ContentTemplate = template, Layout = new RibbonItemLayout {Width = 120}}, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content") { ContentTemplate = template, Layout = new RibbonItemLayout {Width = 120}}, ModuleName);            
+            
+            ribbonService.RegisterRibbonItem(new RibbonButton(ViewRibbonTabName, ModuleName, "Browser properties", new Command(() =>
+            {
+                orchestraService.ShowDocumentIfHidden<PropertiesViewModel>();
+            })) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
+            // Demo: register contextual view related to browserview
             var contextualViewModelManager = GetService<IContextualViewModelManager>();
             contextualViewModelManager.RegisterContextualView<BrowserViewModel, PropertiesViewModel>("Browser properties", DockLocation.Right);
 
@@ -115,6 +121,6 @@ namespace Orchestra.Modules.Browser
         private void LoadResourceDictionary()
         {
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("/Orchestra.Modules.Browser;component/ResourceDictionary.xaml", UriKind.RelativeOrAbsolute) });
-        }
+        }        
     }
 }

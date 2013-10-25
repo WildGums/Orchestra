@@ -123,6 +123,9 @@
     <Compile Include="..\Orchestra.Library.NET40\Models\Interface\IContextualViewModel.cs">
       <Link>Models\Interface\IContextualViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\Models\Interface\IDockingManagerContainer.cs">
+      <Link>Models\Interface\IDockingManagerContainer.cs</Link>
+    </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Models\Interface\IRibbonButton.cs">
       <Link>Models\Interface\IRibbonButton.cs</Link>
     </Compile>

@@ -70,6 +70,9 @@ namespace Orchestra.Modules.DataGrid
         /// <param name="ribbonService">The ribbon service.</param>
         protected override void InitializeRibbon(IRibbonService ribbonService)
         {
+            var orchestraService = GetService<IOrchestraService>();
+            var typeFactory = TypeFactory.Default;
+
             // Module specific
             ribbonService.RegisterRibbonItem(
                 new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => _orchestraService.ShowDocument<DataGridViewModel>()))
@@ -98,10 +101,18 @@ namespace Orchestra.Modules.DataGrid
 
             var contextualViewModelManager = GetService<IContextualViewModelManager>();
 
+            // Demo: Register the view as a Nested dockingmanager
             contextualViewModelManager.RegisterNestedDockView<DataGridViewModel>();
-            contextualViewModelManager.RegisterContextualView<DataGridViewModel, DataGridPropertiesViewModel>("Properties", DockLocation.Right);
+            // Demo: Register context sensitive view, within the Nested dockingmanager
+            contextualViewModelManager.RegisterContextualView<DataGridViewModel, DataGridPropertiesViewModel>("Properties", DockLocation.Right);            
 
-            
+            // Add the contextual view in the "View" menu
+            ribbonService.RegisterRibbonItem(new RibbonButton(ViewRibbonTabName, ModuleName, "Browser properties", 
+                new Command(() => orchestraService.ShowDocumentIfHidden<DataGridPropertiesViewModel>())) { ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/Table.png" });
+
+            // Test showing a datagrid view at startup
+            var dataGridViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<DataGridViewModel>("Test 1");
+            orchestraService.ShowDocument(dataGridViewModel, "catel");            
         }
         #endregion
     }

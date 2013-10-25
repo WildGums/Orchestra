@@ -18,7 +18,8 @@ namespace Orchestra
     using Catel.MVVM;
     using Catel.Windows.Controls;
     using Microsoft.Practices.Prism.Regions;
-    using Models;    
+    using Models;
+    using Models.Interface;
     using Orchestra.Controls;
     using Orchestra.Views;
     using Xceed.Wpf.AvalonDock;
@@ -122,24 +123,55 @@ namespace Orchestra
         /// <exception cref="ArgumentNullException">The <paramref name="viewType" /> is <c>null</c>.</exception>
         public static LayoutAnchorable FindDocument(Type viewType, object tag = null)
         {
+            Argument.IsNotNull("viewType", viewType);           
+
+            return FindDocument(DockingManager, viewType, tag);
+        }
+
+        /// <summary>
+        /// Gets the document.
+        /// </summary>
+        /// <param name="docingManager">The docing manager .</param>
+        /// <param name="viewType">Type of the view.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns>
+        /// The found document or <c>null</c> if no document was found.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">The <paramref name="docingManager" /> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="docingManager" /> is <c>null</c>.</exception>
+        public static LayoutAnchorable FindDocument(DockingManager docingManager,Type viewType, object tag = null)
+        {
+            Argument.IsNotNull("docingManager", docingManager);
             Argument.IsNotNull("viewType", viewType);
-
+            
             LayoutAnchorable doc = null;
-
-            var documents = DockingManager.Layout.Descendents().OfType<LayoutAnchorable>();
+            var documents = docingManager.Layout.Descendents().OfType<LayoutAnchorable>();
 
             foreach (var layoutAnchorable in documents)
             {
+                var content = layoutAnchorable.Content as IDockingManagerContainer;
+                
+                if (content != null)
+                {
+                    var nestedDockingManager = content;
+
+                    if (nestedDockingManager.IsActive)
+                    {
+                        doc = FindDocument(nestedDockingManager.DockingManager, viewType, tag);
+                    }
+                    break;
+                }
+                
                 if (layoutAnchorable.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)layoutAnchorable.Content).Tag))
                 {
                     doc = layoutAnchorable;
                     break;
                 }
             }
-            
+
             return doc;
         }
-       
+
         /// <summary>
         /// Activates the document in the docking manager, which makes it the active document.
         /// </summary>
