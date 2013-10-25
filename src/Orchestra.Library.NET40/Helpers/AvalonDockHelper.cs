@@ -158,8 +158,8 @@ namespace Orchestra
                     if (nestedDockingManager.IsActive)
                     {
                         doc = FindDocument(nestedDockingManager.DockingManager, viewType, tag);
-                    }
-                    break;
+                        break;
+                    }                    
                 }
                 
                 if (layoutAnchorable.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)layoutAnchorable.Content).Tag))
