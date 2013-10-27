@@ -51,7 +51,7 @@
         /// <param name="dockLocation">The dock location.</param>
         public void AddDocument(LayoutAnchorable documentView, DockLocation? dockLocation = null)
         {
-            Argument.IsNotNull( () => documentView);
+            Argument.IsNotNull( () => documentView);            
 
             if (dockLocation == null)
             {

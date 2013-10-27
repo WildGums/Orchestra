@@ -278,12 +278,17 @@ namespace Orchestra
         private static LayoutAnchorable WrapViewInNestedDockManager(FrameworkElement view, object tag = null, bool canFloat = false)
         {            
             var nestedDockingManager = new NestedDockingManager();
-            var layoutDocument = new BindableLayoutDocument(view, null, true);
+            var layoutDocument = new BindableLayoutDocument(view, null, true);           
+
             nestedDockingManager.AddDocument(layoutDocument);
 
-            var layoutAnchorable = new LayoutAnchorable();
-            layoutAnchorable.Content = nestedDockingManager;
+            var layoutAnchorable = new LayoutAnchorable {Title = ((IViewModel) view.DataContext).Title, Content = nestedDockingManager};
 
+            layoutDocument.CanAutoHide = false;
+            layoutDocument.CanClose = false;
+            layoutDocument.CanHide = false;            
+            layoutDocument.CanFloat = false;
+            
             return layoutAnchorable;
         }
 

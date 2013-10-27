@@ -9,10 +9,8 @@ namespace Orchestra
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Reflection;
     using System.Windows;
-    using System.Windows.Documents;
     using Catel;
     using Catel.IoC;
     using Catel.Logging;

@@ -103,6 +103,7 @@ namespace Orchestra.Modules.DataGrid
 
             // Demo: Register the view as a Nested dockingmanager
             contextualViewModelManager.RegisterNestedDockView<DataGridViewModel>();
+            
             // Demo: Register context sensitive view, within the Nested dockingmanager
             contextualViewModelManager.RegisterContextualView<DataGridViewModel, DataGridPropertiesViewModel>("Properties", DockLocation.Right);            
 
@@ -111,8 +112,8 @@ namespace Orchestra.Modules.DataGrid
                 new Command(() => orchestraService.ShowDocumentIfHidden<DataGridPropertiesViewModel>())) { ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/Table.png" });
 
             // Test showing a datagrid view at startup
-            //var dataGridViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<DataGridViewModel>("Test 1");
-            //orchestraService.ShowDocument(dataGridViewModel, "catel");            
+           var dataGridViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<DataGridViewModel>("Datagrid");
+           orchestraService.ShowDocument(dataGridViewModel, "Datagrid");            
         }
         #endregion
     }

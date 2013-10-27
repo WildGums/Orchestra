@@ -68,15 +68,11 @@ namespace Orchestra.Modules.DataGrid.ViewModels
             _openFileService = openFileService;
             _saveFileService = saveFileService;
             _uiVisualizerService = uiVisualizerService;
-            _messageMediator = messageMediator;            
+            _messageMediator = messageMediator;
+
+            Title = "Datagrid";
         }
-        /// <summary>
-        /// Gets the title.
-        /// </summary>
-        public override string Title
-        {
-            get { return "DataGrid"; }
-        }
+        
 
         #region Items property
         /// <summary>

@@ -25,8 +25,9 @@
                         </avalondock:LayoutAnchorablePane>
                     </avalondock:LayoutAnchorablePaneGroup>
 
-                    <avalondock:LayoutDocumentPane x:Name="layoutDocumentPane">
-                    </avalondock:LayoutDocumentPane>
+                    <avalondock:LayoutAnchorablePane x:Name="layoutDocumentPane" >     
+                        
+                    </avalondock:LayoutAnchorablePane>
 
                     <avalondock:LayoutAnchorablePaneGroup DockWidth="125">
                         <avalondock:LayoutAnchorablePane x:Name="rightPropertiesPane">
@@ -43,6 +44,6 @@
             </avalondock:LayoutRoot>
 
         </avalondock:DockingManager>
-                                   
+      
     </Grid>
 </UserControl>
