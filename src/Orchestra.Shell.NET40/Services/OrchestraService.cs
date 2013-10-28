@@ -112,14 +112,43 @@ namespace Orchestra.Services
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="tag">The tag.</param>
+        public void OpenDocument<TViewModel>(object tag = null)
+            where TViewModel : IViewModel
+        {
+            var viewModel = CreateViewModel<TViewModel>();
+
+            OpenDocument(viewModel, tag);
+        }        
+
+        /// <summary>
+        /// Opens a new document.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <param name="viewModel">The view model.</param>
+        /// <param name="tag">The tag.</param>
+        /// <param name="dockLocation">The dock location.</param>
+        public void OpenDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
+            where TViewModel : IViewModel
+        {
+            Argument.IsNotNull("viewModel", viewModel);
+            Log.Debug("Opening document for view model '{0}'", viewModel.UniqueIdentifier);
+
+            var document = CreateDocument(viewModel, tag);
+            AvalonDockHelper.AddNewDocumentToDockingManager(dockLocation, document);
+            AvalonDockHelper.ActivateDocument(document);
+        }        
+
+        /// <summary>
+        /// Shows the document in the main shell.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <param name="tag">The tag.</param>
         public void ShowDocument<TViewModel>(object tag = null)
             where TViewModel : IViewModel
         {
-            var typeFactory = TypeFactory.Default;
-            var viewModel = typeFactory.CreateInstance<TViewModel>();
-
+            var viewModel = CreateViewModel<TViewModel>();
             ShowDocument(viewModel, tag);
-        }
+        }        
 
         /// <summary>
         /// Shows the document in the main shell.
@@ -136,8 +165,7 @@ namespace Orchestra.Services
 
             Log.Debug("Showing document for view model '{0}'", viewModel.UniqueIdentifier);
 
-            var viewLocator = GetService<IViewLocator>();
-            var viewType = viewLocator.ResolveView(viewModel.GetType());
+            var viewType = GetViewType(viewModel);
 
             var document = AvalonDockHelper.FindDocument(viewType, tag);
             if (document == null)
@@ -150,7 +178,7 @@ namespace Orchestra.Services
             AvalonDockHelper.ActivateDocument(document);
 
             Log.Debug("Showed document for view model '{0}'", viewModel.UniqueIdentifier);
-        }
+        }        
 
         /// <summary>
         /// Shows the document in nested dock view.
@@ -161,11 +189,7 @@ namespace Orchestra.Services
         /// <param name="dockLocation">The dock location.</param>
         public void ShowDocumentInNestedDockView(IViewModel viewModel, NestedDockingManager dockingManager, DockLocation dockLocation, object tag = null)
         {
-            var viewLocator = GetService<IViewLocator>();
-            var viewType = viewLocator.ResolveView(viewModel.GetType());
-            var view = ViewHelper.ConstructViewWithViewModel(viewType, viewModel);
-            var document = AvalonDockHelper.CreateDocument(view, tag);
-            
+            var document = CreateDocument(viewModel, tag);            
             dockingManager.AddDockedWindow(document, dockLocation);
         }
 
@@ -180,10 +204,9 @@ namespace Orchestra.Services
 
             Log.Debug("Closing document for view model '{0}'", viewModel.UniqueIdentifier);
 
-            var viewLocator = GetService<IViewLocator>();
-            var viewType = viewLocator.ResolveView(viewModel.GetType());
-
+            var viewType = GetViewType(viewModel);
             var document = AvalonDockHelper.FindDocument(viewType, tag);
+            
             if (document == null)
             {
                 Log.Warning("Cannot find document belonging to view model '{0}' with id '{1}' thus cannot close the document",
@@ -220,6 +243,31 @@ namespace Orchestra.Services
         {
             // Marked obsolete on the interface
             throw new NotImplementedException();
+        }
+
+        private LayoutAnchorable CreateDocument<TViewModel>(TViewModel viewModel, object tag) where TViewModel : IViewModel
+        {
+            var viewLocator = GetService<IViewLocator>();
+            var viewType = viewLocator.ResolveView(viewModel.GetType());
+            var view = ViewHelper.ConstructViewWithViewModel(viewType, viewModel);
+            var document = AvalonDockHelper.CreateDocument(view, tag);
+            return document;
+        }
+
+        private static TViewModel CreateViewModel<TViewModel>() where TViewModel : IViewModel
+        {
+            var typeFactory = TypeFactory.Default;
+            var viewModel = typeFactory.CreateInstance<TViewModel>();
+            return viewModel;
+        }
+
+        private Type GetViewType<TViewModel>(TViewModel viewModel) where TViewModel : IViewModel
+        {
+            Argument.IsNotNull(() => viewModel);
+
+            var viewLocator = GetService<IViewLocator>();
+            var viewType = viewLocator.ResolveView(viewModel.GetType());
+            return viewType;
         }
         #endregion
     }

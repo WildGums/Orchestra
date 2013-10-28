@@ -18,14 +18,8 @@
         public NestedDockingManager()
         {
             InitializeComponent();
-            Loaded += NestedDockingManagerLoaded;
-            Unloaded += NestedDockingManager_Unloaded;
-        }
-
-        void NestedDockingManager_Unloaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-
-        }        
+            Loaded += NestedDockingManagerLoaded;            
+        }           
 
         /// <summary>
         /// Gets the <see cref="DockingManager" />.
@@ -35,7 +29,7 @@
         /// </value>
         public DockingManager DockingManager 
         {
-            get { return this.dockingManager; }
+            get { return dockingManager; }
         }
 
         /// <summary>

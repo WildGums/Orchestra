@@ -163,31 +163,44 @@ namespace Orchestra
             {
                 foreach (var type in (_contextualViewModelCollection[viewModeltype]).ContextDependentViewModels)
                 {
-                    IViewModel contextualViewModel;
+                    IViewModel contextDependenViewModel;
 
-                    try
+                    if (_openContextSensitiveViews.All(v => v.GetType() != type))
                     {
-                        var typeFactory = TypeFactory.Default;
-                        contextualViewModel = (IViewModel)typeFactory.CreateInstanceWithParametersAndAutoCompletion(type, _contextualViewModelCollection[viewModeltype].Title);                                                    
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.ErrorWithData(ex, "Error creating contextualViewModel.");
-                        continue;
-                    }
-
-                    if (contextualViewModel != null)
-                    {
-                        DockLocation dockLocation = _contextualViewModelCollection[viewModeltype].DockLocation;
-                        _orchestraService.ShowDocumentInNestedDockView(contextualViewModel, nestedDockingManager, dockLocation, null);
-
-                        if (!_openContextSensitiveViews.Contains(contextualViewModel))
+                        try
                         {
-                            _openContextSensitiveViews.Add(contextualViewModel);                            
+                            var typeFactory = TypeFactory.Default;
+                            contextDependenViewModel = (IViewModel) typeFactory.CreateInstanceWithParametersAndAutoCompletion(type, _contextualViewModelCollection[viewModeltype].Title);
                         }
+                        catch (Exception ex)
+                        {
+                            Log.ErrorWithData(ex, "Error creating contextualViewModel.");
+                            continue;
+                        }
+                    
+                        if (contextDependenViewModel != null)
+                        {
+                            DockLocation dockLocation = _contextualViewModelCollection[viewModeltype].DockLocation;
+                            _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockLocation, null);
 
-                        Log.Debug("ShowDocumentInNestedDockView: {0}, docklocation: {1}", contextualViewModel, dockLocation);
-                    }                    
+                            if(_openContextSensitiveViews.All(v => v.GetType() != contextDependenViewModel.GetType()))
+                            {                            
+                                _openContextSensitiveViews.Add(contextDependenViewModel);                            
+                            }
+
+                            Log.Debug("ShowDocumentInNestedDockView: {0}, docklocation: {1}", contextDependenViewModel, dockLocation);
+                        }
+                    }
+                    else
+                    {
+                        contextDependenViewModel = _openContextSensitiveViews.FirstOrDefault(v => v.GetType() == type);
+
+                        if (contextDependenViewModel != null)
+                        {
+                            DockLocation dockLocation = _contextualViewModelCollection[viewModeltype].DockLocation;
+                            _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockLocation, null);
+                        }
+                    }
                 }
             }
         }

@@ -25,6 +25,25 @@ namespace Orchestra.Services
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Shows the document in the main shell.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <param name="tag">The tag.</param>
+        void OpenDocument<TViewModel>(object tag = null)
+            where TViewModel : IViewModel;
+
+        /// <summary>
+        /// Opens a new document.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <param name="viewModel">The view model.</param>
+        /// <param name="tag">The tag.</param>
+        /// <param name="dockLocation">The dock location.</param>
+        void OpenDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
+            where TViewModel : IViewModel;
+
         /// <summary>
         /// Shows the document in the main shell.
         /// </summary>
