@@ -8,9 +8,12 @@ namespace Orchestra
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.Linq;
     using System.Windows;
     using Catel;
+    using Catel.IoC;
+    using Catel.Logging;
     using Catel.MVVM;
     using Models;
     using Orchestra.Views;
@@ -29,7 +32,15 @@ namespace Orchestra
         /// </summary>
         private readonly Dictionary<Type, ContextSensitviveViewModelData> _contextualViewModelCollection = new Dictionary<Type, ContextSensitviveViewModelData>();
 
+        /// <summary>
+        /// The _nested dock view model types
+        /// </summary>
         private readonly Collection<Type> _nestedDockViewModelTypes = new Collection<Type>();
+
+        /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The collection of context sensitive views that are opened.
@@ -138,34 +149,45 @@ namespace Orchestra
         }
 
         /// <summary>
-        /// Adds the context sensitive views to nested dock view.
+        /// Adds the context ensitive views to nested dock view.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
         /// <param name="nestedDockingManager">The nested docking manager.</param>
         public void AddContextSensitiveViewsToNestedDockView(IViewModel viewModel, NestedDockingManager nestedDockingManager)
         {
             // viewModel is the viewmodel related to the nestedDockingManager
+            var viewModeltype = viewModel.GetType();
 
             // Open all, context sensitive vies related to the documentView
-            if (_contextualViewModelCollection.ContainsKey(viewModel.GetType()))
+            if (_contextualViewModelCollection.ContainsKey(viewModeltype))
             {
-                foreach (var type in (_contextualViewModelCollection[viewModel.GetType()]).ContextDependentViewModels)
+                foreach (var type in (_contextualViewModelCollection[viewModeltype]).ContextDependentViewModels)
                 {
                     IViewModel contextualViewModel;
 
                     try
                     {
-                        contextualViewModel = _viewModelFactory.CreateViewModel(type, null);
+                        var typeFactory = TypeFactory.Default;
+                        contextualViewModel = (IViewModel)typeFactory.CreateInstanceWithParametersAndAutoCompletion(type, _contextualViewModelCollection[viewModeltype].Title);                                                    
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        Log.ErrorWithData(ex, "Error creating contextualViewModel.");
                         continue;
                     }
 
                     if (contextualViewModel != null)
                     {
-                        _orchestraService.ShowDocumentInNestedDockView(contextualViewModel, nestedDockingManager, null, _contextualViewModelCollection[viewModel.GetType()].DockLocation);
-                    }
+                        DockLocation dockLocation = _contextualViewModelCollection[viewModeltype].DockLocation;
+                        _orchestraService.ShowDocumentInNestedDockView(contextualViewModel, nestedDockingManager, dockLocation, null);
+
+                        if (!_openContextSensitiveViews.Contains(contextualViewModel))
+                        {
+                            _openContextSensitiveViews.Add(contextualViewModel);                            
+                        }
+
+                        Log.Debug("ShowDocumentInNestedDockView: {0}, docklocation: {1}", contextualViewModel, dockLocation);
+                    }                    
                 }
             }
         }
@@ -198,25 +220,28 @@ namespace Orchestra
                         }
 
                         try
-                        {
-                            //viewModel = (ViewModelBase)Activator.CreateInstance(type, _contextualViewModelCollection[documentViewViewModelType].Title);
-                            viewModel = _viewModelFactory.CreateViewModel(type, null);
-                            //viewModel.Title = _contextualViewModelCollection[documentView.ViewModel.GetType()].Title;
+                        {                            
+                            var typeFactory = TypeFactory.Default;
+                            viewModel = (IViewModel)typeFactory.CreateInstanceWithParametersAndAutoCompletion(type, _contextualViewModelCollection[documentViewViewModelType].Title);                            
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
+                            Log.ErrorWithData(ex, "Error creating contextual ViewModel.");
                             continue;
                         }
 
                         if (viewModel != null && !_openContextSensitiveViews.Contains(viewModel))
                         {
-                            _orchestraService.ShowDocument(viewModel, null, _contextualViewModelCollection[documentViewViewModelType].DockLocation);
-                            _openContextSensitiveViews.Add(viewModel);
+                            var dockLocation = _contextualViewModelCollection[documentViewViewModelType].DockLocation;
+                            _orchestraService.ShowDocument(viewModel, null, dockLocation);
+                            _openContextSensitiveViews.Add(viewModel);                            
+
+                            Log.Debug("Show context sensitive view: {0}, docklocation: {1}", viewModel, dockLocation);
                         }
                     }
                 }
             }
-        }
+        }        
 
         /// <summary>
         /// Determines whether this view has context sensitive views associated.

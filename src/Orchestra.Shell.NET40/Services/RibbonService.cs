@@ -221,28 +221,27 @@ namespace Orchestra.Services
             IDocumentView documentView = null;
 
             var selectedContent = _layoutDocumentPane.SelectedContent;
-
-            // TODO, now created a dependency with the AvalonDockHelper, do we really want this.
-            documentView = AvalonDockHelper.ActivatedView;
-
-            //if (selectedContent == null)
-            //{
-            //    documentView = AvalonDockHelper.ActivatedView;
-
-            //    if (documentView == null)
-            //    {
-            //        Log.Debug("SelectedContent is null, cannot activate tab for no selection");
-            //        return;
-            //    }
-            //}
+            
+            documentView = AvalonDockHelper.ActivatedView;            
 
             if (documentView == null)
             {
                 if (selectedContent != null)
                 {
                     documentView = selectedContent.Content as IDocumentView;
+
+                     if (documentView == null)
+                     {
+                         var nestedDockingManager = selectedContent.Content as NestedDockingManager;
+                         
+                         if (nestedDockingManager != null)
+                         {
+                             documentView = nestedDockingManager.ContentDocument.Content as IDocumentView;
+                         }
+                     }
                 }
 
+               
                 if (documentView == null)
                 {
                     Log.Debug("SelectedContent is not a document view, selecting home ribbon tab");

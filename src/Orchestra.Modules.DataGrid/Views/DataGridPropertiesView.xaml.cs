@@ -1,5 +1,6 @@
 ﻿namespace Orchestra.Modules.DataGrid.Views
 {
+    using System.Windows.Input;
     using Catel.Windows;
 
     using ViewModels;
@@ -14,7 +15,7 @@
         /// </summary>
         public DataGridPropertiesView()
         {
-            InitializeComponent();
-        }
+            InitializeComponent();                      
+        }        
     }
 }

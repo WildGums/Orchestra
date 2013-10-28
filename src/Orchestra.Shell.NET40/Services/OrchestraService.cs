@@ -159,16 +159,14 @@ namespace Orchestra.Services
         /// <param name="dockingManager">The docking manager.</param>
         /// <param name="tag">The tag.</param>
         /// <param name="dockLocation">The dock location.</param>
-        public void ShowDocumentInNestedDockView(IViewModel viewModel, NestedDockingManager dockingManager, object tag = null, DockLocation? dockLocation = null)
+        public void ShowDocumentInNestedDockView(IViewModel viewModel, NestedDockingManager dockingManager, DockLocation dockLocation, object tag = null)
         {
             var viewLocator = GetService<IViewLocator>();
             var viewType = viewLocator.ResolveView(viewModel.GetType());
             var view = ViewHelper.ConstructViewWithViewModel(viewType, viewModel);
             var document = AvalonDockHelper.CreateDocument(view, tag);
-            //AvalonDockHelper.AddNewDocumentToDockingManager(dockLocation, document);
-            // above does not work because createdocument does more then just create a document....
-            // need to split this in to two methods.....
-            dockingManager.AddDocument(document, dockLocation);
+            
+            dockingManager.AddDockedWindow(document, dockLocation);
         }
 
         /// <summary>

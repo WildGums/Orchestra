@@ -59,7 +59,7 @@ namespace Orchestra.Services
         /// <param name="dockingManager">The docking manager.</param>
         /// <param name="tag">The tag.</param>
         /// <param name="dockLocation">The dock location.</param>
-        void ShowDocumentInNestedDockView(IViewModel viewModel, NestedDockingManager dockingManager, object tag = null, DockLocation? dockLocation = null);
+        void ShowDocumentInNestedDockView(IViewModel viewModel, NestedDockingManager dockingManager, DockLocation dockLocation, object tag = null);
 
         /// <summary>
         /// Closes the document in the main shell with the specified view model.

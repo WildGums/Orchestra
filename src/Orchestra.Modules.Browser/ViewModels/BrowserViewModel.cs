@@ -6,6 +6,7 @@
 
 namespace Orchestra.Modules.Browser.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using Catel;
     using Catel.Data;
@@ -27,6 +28,8 @@ namespace Orchestra.Modules.Browser.ViewModels
         private readonly IOrchestraService _orchestraService;
         private readonly IMessageMediator _messageMediator;
         private readonly IContextualViewModelManager _contextualViewModelManager;
+
+        private PropertiesViewModel _propertiesViewModel;
 
         #region Constructors
         /// <summary>
@@ -79,11 +82,32 @@ namespace Orchestra.Modules.Browser.ViewModels
         #endregion
 
         #region Properties
+
+        #region Url property
         /// <summary>
         /// Gets or sets the URL.
         /// </summary>
-        /// <value>The URL.</value>
-        public string Url { get; set; }
+        /// <value>The URL.</value>        
+        public string Url
+        {
+            get { return GetValue<string>(UrlProperty); }
+            set { SetValue(UrlProperty, value); }
+        }
+
+        /// <summary>
+        /// Url property data.
+        /// </summary>
+        public static readonly PropertyData UrlProperty = RegisterProperty("Url", typeof(string), null, (s,e) => ((BrowserViewModel)(s)).OnUrlChanged(e));
+
+        /// <summary>
+        /// Called when the Url has changed.
+        /// </summary>
+        /// <param name="e">The <see cref="AdvancedPropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void OnUrlChanged(AdvancedPropertyChangedEventArgs e)
+        {
+            UpdateContextSensitiveData();
+        }
+        #endregion
 
         /// <summary>
         /// Gets the name of the URL changed message.
@@ -239,17 +263,29 @@ namespace Orchestra.Modules.Browser.ViewModels
         {
             _orchestraService.CloseDocument(this);
             Url = null;
-        }
+        }       
 
         /// <summary>
         /// Method is called when the active view changes within the orchestra application
         /// </summary>
         public void ViewModelActivated()
         {
-            var propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<PropertiesViewModel>();
-            if (propertiesViewModel != null)
+            UpdateContextSensitiveData();
+        }
+
+        /// <summary>
+        /// Update the context sensitive data, related to this view.
+        /// </summary>
+        private void UpdateContextSensitiveData()
+        {
+            if (_propertiesViewModel == null)
             {
-                propertiesViewModel.Url = Url;
+                _propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<PropertiesViewModel>();
+            }
+            
+            if (_propertiesViewModel != null)
+            {
+                _propertiesViewModel.Url = Url;
             }
         }
         #endregion

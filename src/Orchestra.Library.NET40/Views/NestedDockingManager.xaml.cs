@@ -1,5 +1,6 @@
 ﻿namespace Orchestra.Views
 {
+    using System;
     using Catel;    
     using Models;
     using Models.Interface;
@@ -16,8 +17,15 @@
         /// </summary>
         public NestedDockingManager()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            Loaded += NestedDockingManagerLoaded;
+            Unloaded += NestedDockingManager_Unloaded;
         }
+
+        void NestedDockingManager_Unloaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }        
 
         /// <summary>
         /// Gets the <see cref="DockingManager" />.
@@ -45,19 +53,50 @@
         }
 
         /// <summary>
+        /// Gets the content document.
+        /// </summary>
+        /// <value>
+        /// The content document.
+        /// </value>
+        public LayoutAnchorable ContentDocument
+        {
+            get
+            {
+                if (layoutDocumentPane.Children.Count > 0)
+                {
+                    return layoutDocumentPane.Children[0];
+                }
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Adds the main document for the NestedDockingManager.
+        /// </summary>
+        /// <param name="documentView">The document view.</param>
+        /// <exception cref="System.Exception">NestedDockingManager can only have one main document with the main content.</exception>
+        public void AddContentDocument(LayoutAnchorable documentView)
+        {
+            Argument.IsNotNull(() => documentView);
+
+            if (layoutDocumentPane.Children.Count > 0)
+            {
+                throw new Exception("NestedDockingManager can only have one main document.");
+            }
+
+            layoutDocumentPane.Children.Add(documentView);                        
+        }
+
+        /// <summary>
         /// Adds the document as a tab to the NestedDocking view.
         /// </summary>
         /// <param name="documentView">The document view.</param>
         /// <param name="dockLocation">The dock location.</param>
-        public void AddDocument(LayoutAnchorable documentView, DockLocation? dockLocation = null)
+        public void AddDockedWindow(LayoutAnchorable documentView, DockLocation dockLocation)
         {
-            Argument.IsNotNull( () => documentView);            
-
-            if (dockLocation == null)
-            {
-                layoutDocumentPane.Children.Add(documentView);
-                return;
-            }
+            Argument.IsNotNull( () => documentView);
+            Argument.IsNotNull(() => dockLocation);
 
             if (dockLocation == DockLocation.Right)
             {
@@ -75,6 +114,18 @@
             {
                 topPropertiesPane.Children.Add(documentView);
             }
-        }        
+        }
+
+        /// <summary>
+        /// Handles the Loaded event of the NestedDockingManager control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        private void NestedDockingManagerLoaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            // Forwared the 'focus' to the correct view.
+            DockingManager.ActiveContent = ContentDocument.Content;
+        }
     }
 }

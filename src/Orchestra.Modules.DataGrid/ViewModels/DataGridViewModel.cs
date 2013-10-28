@@ -18,7 +18,7 @@ namespace Orchestra.Modules.DataGrid.ViewModels
     using Catel.MVVM.Services;
     using Catel.Messaging;
     using CsvHelper;
-
+    using Orchestra.Models;
     using Orchestra.Modules.DataGrid.Models;
 
     using TableView;
@@ -26,12 +26,14 @@ namespace Orchestra.Modules.DataGrid.ViewModels
     /// <summary>
     /// The data grid view model.
     /// </summary>
-    public class DataGridViewModel : ViewModelBase
+    public class DataGridViewModel : ViewModelBase, IContextualViewModel
     {
         private readonly IOpenFileService _openFileService;
         private readonly ISaveFileService _saveFileService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IMessageMediator _messageMediator;
+        private readonly IContextualViewModelManager _contextualViewModelManager;
+        private DataGridPropertiesViewModel _propertiesViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridViewModel"/> class.
@@ -42,7 +44,8 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         /// <param name="uiVisualizerService">The UI visualizer service.</param>
         /// <param name="messageMediator">The message mediator.</param>
         public DataGridViewModel(string title, IOpenFileService openFileService, ISaveFileService saveFileService, IUIVisualizerService uiVisualizerService,
-            IMessageMediator messageMediator) : this(openFileService, saveFileService, uiVisualizerService,messageMediator)
+            IMessageMediator messageMediator, IContextualViewModelManager contextualViewModelManager)
+            : this(openFileService, saveFileService, uiVisualizerService, messageMediator, contextualViewModelManager)
         {            
             if (!string.IsNullOrWhiteSpace(title))
             {
@@ -58,22 +61,25 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         /// <param name="uiVisualizerService">The UI visualizer service.</param>
         /// <param name="messageMediator">The message mediator.</param>
         public DataGridViewModel(IOpenFileService openFileService, ISaveFileService saveFileService, IUIVisualizerService uiVisualizerService,
-            IMessageMediator messageMediator)
+            IMessageMediator messageMediator, IContextualViewModelManager contextualViewModelManager)
         {
             Argument.IsNotNull(() => openFileService);
             Argument.IsNotNull(() => saveFileService);
             Argument.IsNotNull(() => uiVisualizerService);
             Argument.IsNotNull(() => messageMediator);
+            Argument.IsNotNull(() => contextualViewModelManager);
 
             _openFileService = openFileService;
             _saveFileService = saveFileService;
             _uiVisualizerService = uiVisualizerService;
             _messageMediator = messageMediator;
+            _contextualViewModelManager = contextualViewModelManager;
+
+            Items.CollectionChanged += ItemsCollectionChanged;
 
             Title = "Datagrid";
         }
-        
-
+                
         #region Items property
         /// <summary>
         /// Items property data.
@@ -329,6 +335,15 @@ namespace Orchestra.Modules.DataGrid.ViewModels
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Method is called when the active view changes within the orchestra application
+        /// </summary>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public void ViewModelActivated()
+        {
+            UpdateContextSensitiveData();
+        }
+
         private TableViewColumn GetColumnByTitle(string title)
         {
             Argument.IsNotNullOrWhitespace("title", title);
@@ -337,6 +352,32 @@ namespace Orchestra.Modules.DataGrid.ViewModels
                     where ObjectHelper.AreEqual(column.Title, title)
                     select column).FirstOrDefault();
         }
-        #endregion
+
+        /// <summary>
+        /// Handles the CollectionChanged event of the <see cref="Items"/> collection.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Collections.Specialized.NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
+        private void ItemsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            UpdateContextSensitiveData();
+        }
+
+        /// <summary>
+        /// Update the context sensitive data, related to this view.
+        /// </summary>
+        private void UpdateContextSensitiveData()
+        {
+            if (_propertiesViewModel == null)
+            {
+                _propertiesViewModel = _contextualViewModelManager.GetViewModelForContextSensitiveView<DataGridPropertiesViewModel>();
+            }
+
+            if (_propertiesViewModel != null && Items != null)
+            {
+                _propertiesViewModel.NumberOfRows = Items == null ? 0 : Items.Count;
+            }            
+        }
+        #endregion        
     }
 }

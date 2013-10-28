@@ -16,6 +16,15 @@ namespace Orchestra.Modules.Browser.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertiesViewModel"/> class.
         /// </summary>
+        public PropertiesViewModel(string title) 
+            : this()
+        {
+            Title = title;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PropertiesViewModel"/> class.
+        /// </summary>
         public PropertiesViewModel()
         {
             Title = "Properties";

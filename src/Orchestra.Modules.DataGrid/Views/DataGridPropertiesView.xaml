@@ -4,11 +4,10 @@
                         xmlns:catel="http://catel.codeplex.com"
                         xmlns:orchestra="http://orchestra.codeplex.com">
     <!-- Content -->
-    <catel:StackGrid>
-        <catel:StackGrid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </catel:StackGrid.RowDefinitions>
-        <TextBlock Text="Here goes your real content" />
-    </catel:StackGrid>
+    <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+            <TextBlock Text="Number of records: "/>
+            <TextBlock Text="{Binding NumberOfRows}" />
+        </StackPanel>
+    </Grid>
 </orchestra:DocumentView>

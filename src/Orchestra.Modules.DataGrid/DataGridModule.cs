@@ -57,9 +57,7 @@ namespace Orchestra.Modules.DataGrid
         /// The on initialized.
         /// </summary>
         protected override void OnInitialized()
-        {
-            //var orchestraService = GetService<IOrchestraService>();
-            //orchestraService.ShowDocument<DataGridViewModel>();
+        {            
         }
 
         /// <summary>
@@ -105,7 +103,7 @@ namespace Orchestra.Modules.DataGrid
             contextualViewModelManager.RegisterNestedDockView<DataGridViewModel>();
             
             // Demo: Register context sensitive view, within the Nested dockingmanager
-            contextualViewModelManager.RegisterContextualView<DataGridViewModel, DataGridPropertiesViewModel>("Properties", DockLocation.Right);            
+            contextualViewModelManager.RegisterContextualView<DataGridViewModel, DataGridPropertiesViewModel>("Datagrid properties", DockLocation.Right);            
 
             // Add the contextual view in the "View" menu
             ribbonService.RegisterRibbonItem(new RibbonButton(ViewRibbonTabName, ModuleName, "Browser properties", 
