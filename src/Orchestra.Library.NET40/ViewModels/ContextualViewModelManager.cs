@@ -246,7 +246,7 @@ namespace Orchestra
                         if (viewModel != null && !_openContextSensitiveViews.Contains(viewModel))
                         {
                             var dockLocation = _contextualViewModelCollection[documentViewViewModelType].DockLocation;
-                            _orchestraService.ShowDocument(viewModel, null, dockLocation);
+                            _orchestraService.ShowContextSensitiveDocument(viewModel, null, dockLocation);
                             _openContextSensitiveViews.Add(viewModel);                            
 
                             Log.Debug("Show context sensitive view: {0}, docklocation: {1}", viewModel, dockLocation);

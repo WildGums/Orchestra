@@ -73,7 +73,7 @@ namespace Orchestra.Modules.DataGrid
 
             // Module specific
             ribbonService.RegisterRibbonItem(
-                new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => _orchestraService.OpenDocument<DataGridViewModel>()))
+                new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => _orchestraService.ShowDocument<DataGridViewModel>()))
                 {
                     ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/Table.png"
                 });

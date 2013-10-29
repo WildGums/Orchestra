@@ -63,7 +63,7 @@ namespace Orchestra.Modules.Browser
             ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() =>
             {
                 var browserViewModel = typeFactory.CreateInstance<BrowserViewModel>();
-                orchestraService.OpenDocument(browserViewModel);
+                orchestraService.ShowDocument(browserViewModel);
             })) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
             // View specific
@@ -111,11 +111,11 @@ namespace Orchestra.Modules.Browser
             // Demo: show two pages with different tags
             var orchestraViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Orchestra");
             orchestraViewModel.Url = "http://www.github.com/Orcomp/Orchestra";
-            orchestraService.OpenDocument(orchestraViewModel, "orchestra");
+            orchestraService.ShowDocument(orchestraViewModel, "orchestra");
 
             var catelViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Catel");
             catelViewModel.Url = "http://www.catelproject.com";
-            orchestraService.OpenDocument(catelViewModel, "catel");            
+            orchestraService.ShowDocument(catelViewModel, "catel");            
         }
 
         private void LoadResourceDictionary()

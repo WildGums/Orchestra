@@ -112,12 +112,12 @@ namespace Orchestra.Services
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="tag">The tag.</param>
-        public void OpenDocument<TViewModel>(object tag = null)
+        public void ShowDocument<TViewModel>(object tag = null)
             where TViewModel : IViewModel
         {
             var viewModel = CreateViewModel<TViewModel>();
 
-            OpenDocument(viewModel, tag);
+            ShowDocument(viewModel, tag);
         }        
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Orchestra.Services
         /// <param name="viewModel">The view model.</param>
         /// <param name="tag">The tag.</param>
         /// <param name="dockLocation">The dock location.</param>
-        public void OpenDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
+        public void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
             where TViewModel : IViewModel
         {
             Argument.IsNotNull("viewModel", viewModel);
@@ -143,11 +143,11 @@ namespace Orchestra.Services
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="tag">The tag.</param>
-        public void ShowDocument<TViewModel>(object tag = null)
+        public void ShowContextSensitiveDocument<TViewModel>(object tag = null)
             where TViewModel : IViewModel
         {
             var viewModel = CreateViewModel<TViewModel>();
-            ShowDocument(viewModel, tag);
+            ShowContextSensitiveDocument(viewModel, tag);
         }        
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace Orchestra.Services
         /// <param name="tag">The tag.</param>
         /// <param name="dockLocation">The dock location.</param>        
         /// <exception cref="ArgumentNullException">The <paramref name="viewModel" /> is <c>null</c>.</exception>
-        public void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null) 
+        public void ShowContextSensitiveDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null) 
             where TViewModel : IViewModel
         {
             Argument.IsNotNull("viewModel", viewModel);

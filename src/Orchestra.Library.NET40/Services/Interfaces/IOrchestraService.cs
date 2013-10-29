@@ -31,7 +31,7 @@ namespace Orchestra.Services
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="tag">The tag.</param>
-        void OpenDocument<TViewModel>(object tag = null)
+        void ShowDocument<TViewModel>(object tag = null)
             where TViewModel : IViewModel;
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Orchestra.Services
         /// <param name="viewModel">The view model.</param>
         /// <param name="tag">The tag.</param>
         /// <param name="dockLocation">The dock location.</param>
-        void OpenDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
+        void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
             where TViewModel : IViewModel;
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Orchestra.Services
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="tag">The tag.</param>
-        void ShowDocument<TViewModel>(object tag = null)
+        void ShowContextSensitiveDocument<TViewModel>(object tag = null)
             where TViewModel : IViewModel;
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Orchestra.Services
         /// <param name="tag">The tag.</param>
         /// <param name="dockLocation">The dock location.</param>        
         /// <exception cref="ArgumentNullException">The <paramref name="viewModel" /> is <c>null</c>.</exception>
-        void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
+        void ShowContextSensitiveDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
             where TViewModel : IViewModel;
 
         /// <summary>

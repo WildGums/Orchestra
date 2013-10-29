@@ -1,6 +1,6 @@
 ﻿namespace Orchestra.Views
 {
-    using System;
+    using System;    
     using Catel;    
     using Models;
     using Models.Interface;
@@ -119,7 +119,7 @@
         private void NestedDockingManagerLoaded(object sender, System.Windows.RoutedEventArgs e)
         {
             // Forwared the 'focus' to the correct view.
-            DockingManager.ActiveContent = ContentDocument.Content;
-        }
+            DockingManager.ActiveContent = ContentDocument.Content;            
+        }        
     }
 }

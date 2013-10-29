@@ -332,7 +332,7 @@ namespace Orchestra
             if (((DockingManager)sender).ActiveContent is NestedDockingManager)
             {
                 var nestedDokingManager = ((DockingManager) sender).ActiveContent as NestedDockingManager;
-                ActivatedView = nestedDokingManager.dockingManager.ActiveContent as DocumentView;
+                ActivatedView = nestedDokingManager.ContentDocument.Content as DocumentView;
             }
             else
             {
