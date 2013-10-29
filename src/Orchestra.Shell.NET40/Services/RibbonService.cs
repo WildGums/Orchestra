@@ -255,6 +255,8 @@ namespace Orchestra.Services
 
             if (!_viewSpecificRibbonItems.ContainsKey(documentViewType))
             {
+                Log.Debug("SelectedContent does not have a ribbon tab, selecting home ribbon tab");
+                _dispatcherService.BeginInvoke(() =>_ribbon.SelectTabItem(ModuleBase.HomeRibbonTabName));
                 return;
             }
 
