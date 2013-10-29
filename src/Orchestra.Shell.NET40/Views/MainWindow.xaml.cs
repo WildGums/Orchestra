@@ -34,7 +34,8 @@ namespace Orchestra.Views
         /// </summary>
         public const string TraceOutputAnchorable = "traceOutputAnchorable";
 
-        private const string ApplicationIconLocation = "Resources\\Images\\ApplicationIcon.png";
+        private const string ApplicationIconLocation = "Resources\\Images\\ApplicationIcon.png";        
+        private const string ApplicationIconFallbackLocation = "/Orchestra.Shell;component/Resources/Images/ApplicationIcon.png";
 
         /// <summary>
         /// The log.
@@ -255,12 +256,16 @@ namespace Orchestra.Views
                 if (File.Exists(firstAttemptFile))
                 {
                     Icon = BitmapFrame.Create(new Uri(firstAttemptFile, UriKind.Absolute));
-                }
+                    return;
+                }                
             }
-            catch
+            catch(Exception ex)
             {
                 // Don't change default Icon.            
-            }
+                Log.Error(ex);
+            }        
+
+            Icon = new BitmapImage(new Uri("pack://application:,,," + ApplicationIconFallbackLocation));
         }
         #endregion
     }
