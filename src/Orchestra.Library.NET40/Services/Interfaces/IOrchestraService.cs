@@ -87,24 +87,6 @@ namespace Orchestra.Services
         /// <param name="tag">The tag.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="viewModel"/> is <c>null</c>.</exception>
         void CloseDocument(IViewModel viewModel, object tag = null);
-
-        /// <summary>
-        /// Adds the specified ribbon item to the main ribbon.
-        /// </summary>
-        /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
-        [ObsoleteEx(Replacement = "IRibbonService", TreatAsErrorFromVersion = "0.1", RemoveInVersion = "1.0")]
-        void AddRibbonItem(IRibbonItem ribbonItem);
-
-        /// <summary>
-        /// Removes the specified ribbon item to the main ribbon.
-        /// <para />
-        /// This method will ignore calls when the item is not available in the ribbon.
-        /// </summary>
-        /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="ribbonItem"/> is <c>null</c>.</exception>
-        [ObsoleteEx(Replacement = "IRibbonService", TreatAsErrorFromVersion = "0.1", RemoveInVersion = "1.0")]
-        void RemoveRibbonItem(IRibbonItem ribbonItem);
         #endregion
     }
 }
