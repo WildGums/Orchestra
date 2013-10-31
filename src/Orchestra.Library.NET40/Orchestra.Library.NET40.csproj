@@ -117,7 +117,6 @@
     <Compile Include="Helpers\AvalonDockHelper.cs" />
     <Compile Include="Models\ContextSensitviveViewModelData.cs" />
     <Compile Include="Models\Interface\IContextualViewModel.cs" />
-    <Compile Include="Models\Interface\IDockingManagerContainer.cs" />
     <Compile Include="ViewModels\ContextualViewModelManager.cs" />
     <Compile Include="Helpers\FluentRibbonHelper.cs" />
     <Compile Include="Layout\LayoutInitializer.cs" />
@@ -150,6 +149,7 @@
     <Compile Include="ViewModels\Interfaces\IContextualViewModelManager.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\DocumentView.cs" />
+    <Compile Include="Views\Interfaces\IDockingManagerContainer.cs" />
     <Compile Include="Views\Interfaces\IDocumentView.cs" />
     <Compile Include="Views\NestedDockingManager.xaml.cs">
       <DependentUpon>NestedDockingManager.xaml</DependentUpon>
