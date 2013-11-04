@@ -88,10 +88,10 @@ namespace Orchestra
         private static void SetCurrentCulture()
         {
             //Example culture, for testing purposes.
-            var culture = new CultureInfo("de-DE");
+            //var culture = new CultureInfo("de-DE");
 
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
+            //Thread.CurrentThread.CurrentCulture = culture;
+            //Thread.CurrentThread.CurrentUICulture = culture;
 
             // Changes the Default WPF Culture (en-US), otherwise it will be used, instead of the system settings.
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
