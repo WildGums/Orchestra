@@ -21,6 +21,7 @@ namespace Orchestra.Views
     using Catel.Windows.Controls.MVVMProviders.Logic;
     using Fluent;
     using Orchestra.ViewModels;
+    using Properties;
     using Xceed.Wpf.AvalonDock.Layout;
 
     /// <summary>
@@ -83,7 +84,7 @@ namespace Orchestra.Views
             serviceLocator.RegisterInstance(typeof(LayoutAnchorGroup), topPropertiesPane, "topPropertiesPane");
             
             ribbon.AutomaticStateManagement = true;
-            ribbon.EnsureTabItem("Home");
+            ribbon.EnsureTabItem(OrchestraResources.HomeRibbonTabName);
 
             Loaded += (sender, e) => { traceOutputAnchorable.Hide(); };
         }

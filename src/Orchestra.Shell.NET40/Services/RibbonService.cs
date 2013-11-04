@@ -10,15 +10,13 @@ namespace Orchestra.Services
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
-    using System.Windows;
-    using System.Windows.Controls;
+    using System.Windows;    
     using System.Windows.Data;
     using Catel;
     using Catel.Logging;
     using Catel.MVVM.Services;
     using Fluent;
-    using Models;
-    using Modules;
+    using Models;    
     using Views;
 
     using Xceed.Wpf.AvalonDock.Layout;
@@ -246,7 +244,7 @@ namespace Orchestra.Services
                 {
                     Log.Debug("SelectedContent is not a document view, selecting home ribbon tab");
 
-                    _ribbon.SelectTabItem(ModuleBase.HomeRibbonTabName);
+                    _ribbon.SelectTabItem(Orchestra.Properties.OrchestraResources.HomeRibbonTabName);
                     return;
                 }
             }
@@ -256,7 +254,7 @@ namespace Orchestra.Services
             if (!_viewSpecificRibbonItems.ContainsKey(documentViewType))
             {
                 Log.Debug("SelectedContent does not have a ribbon tab, selecting home ribbon tab");
-                _dispatcherService.BeginInvoke(() =>_ribbon.SelectTabItem(ModuleBase.HomeRibbonTabName));
+                _dispatcherService.BeginInvoke(() => _ribbon.SelectTabItem(Orchestra.Properties.OrchestraResources.HomeRibbonTabName));
                 return;
             }
 

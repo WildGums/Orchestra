@@ -189,6 +189,9 @@
     <Compile Include="..\Orchestra.Library.NET40\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\Properties\OrchestraResources.Designer.cs">
+      <Link>Properties\OrchestraResources.Designer.cs</Link>
+    </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Services\Interfaces\IOrchestraService.cs">
       <Link>Services\Interfaces\IOrchestraService.cs</Link>
     </Compile>
@@ -279,6 +282,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Orchestra.Library.NET40\Properties\OrchestraResources.de-DE.resx">
+      <Link>Properties\OrchestraResources.de-DE.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Orchestra.Library.NET40\Properties\OrchestraResources.resx">
+      <Link>Properties\OrchestraResources.resx</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -153,6 +153,7 @@
     <ProjectReference Include="..\Orchestra.Library.NET40\Orchestra.Library.NET40.csproj">
       <Project>{433BCE8B-95AE-4628-ABED-86A224D5E8C9}</Project>
       <Name>Orchestra.Library</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\OxyPlot.Library\OxyPlot.Library.csproj">
       <Project>{375D8D80-3540-4CAA-A15C-CF580CDFC6D0}</Project>

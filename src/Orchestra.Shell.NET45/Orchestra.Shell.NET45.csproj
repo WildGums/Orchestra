@@ -120,6 +120,9 @@
     <Compile Include="..\Orchestra.Shell.NET40\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\Properties\OrchestraShellResources.Designer.cs">
+      <Link>Properties\OrchestraShellResources.Designer.cs</Link>
+    </Compile>
     <Compile Include="..\Orchestra.Shell.NET40\Services\ConfigurationService.cs">
       <Link>Services\ConfigurationService.cs</Link>
     </Compile>
@@ -199,6 +202,14 @@
       <Project>{4529b8af-c5a4-429d-9da4-798bbca0ffd9}</Project>
       <Name>Orchestra.Library.NET45</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Orchestra.Shell.NET40\Properties\OrchestraShellResources.de-DE.resx">
+      <Link>Properties\OrchestraShellResources.de-DE.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Orchestra.Shell.NET40\Properties\OrchestraShellResources.resx">
+      <Link>Properties\OrchestraShellResources.resx</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

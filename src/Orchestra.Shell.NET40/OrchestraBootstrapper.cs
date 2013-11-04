@@ -23,6 +23,7 @@ namespace Orchestra
     using Catel.Windows.Threading;    
     using Microsoft.Practices.Prism.Modularity;
     using Models;
+    using Properties;
     using Services;
     using ViewModels;
     using Views;
@@ -48,7 +49,7 @@ namespace Orchestra
         public OrchestraBootstrapper(bool createAboutRibbon = true)
         {
 #if DEBUG
-            LogManager.RegisterDebugListener();
+            LogManager.RegisterDebugListener(true);            
 #endif
 
             _createAboutRibbon = createAboutRibbon;
@@ -113,7 +114,7 @@ namespace Orchestra
         {
             base.InitializeBootTasks(bootTasks);
 
-            bootTasks.Add(new ActionTask("Warming up serializers", tracker =>
+            bootTasks.Add(new ActionTask(OrchestraShellResources.BootTaskWarmingUpSerializers, tracker =>
             {
                 var xmlSerializer = (IModelBaseSerializer)SerializationFactory.GetXmlSerializer();
                 xmlSerializer.Warmup();

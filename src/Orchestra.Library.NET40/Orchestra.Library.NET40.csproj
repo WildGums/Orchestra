@@ -118,6 +118,11 @@
     <Compile Include="Models\ContextSensitviveViewModelData.cs" />
     <Compile Include="Models\Interface\IContextualViewModel.cs" />
     <Compile Include="Models\Interface\IDockingManagerContainer.cs" />
+    <Compile Include="Properties\OrchestraResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrchestraResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ContextualViewModelManager.cs" />
     <Compile Include="Helpers\FluentRibbonHelper.cs" />
     <Compile Include="Layout\LayoutInitializer.cs" />
@@ -179,6 +184,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\OrchestraResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>OrchestraResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\OrchestraResources.de-DE.resx">
+      <CustomToolNamespace>Orchestra</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

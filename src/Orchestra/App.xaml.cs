@@ -6,6 +6,7 @@
 namespace Orchestra
 {
     using System.Globalization;
+    using System.Threading;
     using System.Windows;
     using System.Windows.Markup;
 
@@ -79,18 +80,18 @@ namespace Orchestra
         private static void ConfigureShell(IConfigurationService configurationService)
         {
             // Override the configarable items in the Shell by localized items.
-            configurationService.Configuration.HelpTabText = Orchestra.Resources.Resources.HelpRibbonTabText;
-            configurationService.Configuration.HelpGroupText = Orchestra.Resources.Resources.HelpGroupText;
-            configurationService.Configuration.HelpButtonText = Orchestra.Resources.Resources.HelpButtonText;
+            configurationService.Configuration.HelpTabText = Orchestra.Resources.ApplicationResources.HelpRibbonTabText;
+            configurationService.Configuration.HelpGroupText = Orchestra.Resources.ApplicationResources.HelpGroupText;
+            configurationService.Configuration.HelpButtonText = Orchestra.Resources.ApplicationResources.HelpButtonText;
         }
 
         private static void SetCurrentCulture()
         {
-            ////Example culture, for testing purposes.
-            // var culture = new CultureInfo("de-DE");
+            //Example culture, for testing purposes.
+            var culture = new CultureInfo("de-DE");
 
-            // Thread.CurrentThread.CurrentCulture = culture;
-            // Thread.CurrentThread.CurrentUICulture = culture;
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
 
             // Changes the Default WPF Culture (en-US), otherwise it will be used, instead of the system settings.
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));

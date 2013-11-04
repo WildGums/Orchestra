@@ -93,6 +93,11 @@
     </Compile>
     <Compile Include="BrowserModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\BrowserModuleResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BrowserModuleResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\BrowserViewModel.cs" />
     <Compile Include="ViewModels\PropertiesViewModel.cs" />
     <Compile Include="Views\BrowserView.xaml.cs">
@@ -106,6 +111,7 @@
     <ProjectReference Include="..\Orchestra.Library.NET40\Orchestra.Library.NET40.csproj">
       <Project>{433BCE8B-95AE-4628-ABED-86A224D5E8C9}</Project>
       <Name>Orchestra.Library</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +142,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\action_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\BrowserModuleResources.de-DE.resx" />
+    <EmbeddedResource Include="Properties\BrowserModuleResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BrowserModuleResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

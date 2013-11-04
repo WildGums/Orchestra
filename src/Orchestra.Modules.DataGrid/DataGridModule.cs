@@ -10,6 +10,7 @@ namespace Orchestra.Modules.DataGrid
     using Catel.IoC;
     using Catel.MVVM;
     using Orchestra.Models;
+    using Properties;
     using Services;
     using ViewModels;
     using Views;
@@ -73,7 +74,7 @@ namespace Orchestra.Modules.DataGrid
 
             // Module specific
             ribbonService.RegisterRibbonItem(
-                new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() => _orchestraService.ShowDocument<DataGridViewModel>()))
+                new RibbonButton(OrchestraResources.HomeRibbonTabName, ModuleName, "Open", new Command(() => _orchestraService.ShowDocument<DataGridViewModel>()))
                 {
                     ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/Table.png"
                 });
@@ -106,7 +107,7 @@ namespace Orchestra.Modules.DataGrid
             contextualViewModelManager.RegisterContextualView<DataGridViewModel, DataGridPropertiesViewModel>("Datagrid properties", DockLocation.Right);            
 
             // Add the contextual view in the "View" menu
-            ribbonService.RegisterRibbonItem(new RibbonButton(ViewRibbonTabName, ModuleName, "Browser properties", 
+            ribbonService.RegisterRibbonItem(new RibbonButton(OrchestraResources.ViewRibbonTabName, ModuleName, "Browser properties", 
                 new Command(() => orchestraService.ShowDocumentIfHidden<DataGridPropertiesViewModel>())) { ItemImage = "/Orchestra.Modules.DataGrid;component/Resources/Images/Table.png" });
 
             // Test showing a datagrid view at startup

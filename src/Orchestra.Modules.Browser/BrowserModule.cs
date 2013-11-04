@@ -15,6 +15,8 @@ namespace Orchestra.Modules.Browser
     using Catel.Linq;
     using Catel.MVVM;
     using Models;
+    using Orchestra.Properties;
+    using Properties;
     using Services;
     using ViewModels;
     using Views;
@@ -27,7 +29,7 @@ namespace Orchestra.Modules.Browser
         /// <summary>
         /// The module name.
         /// </summary>
-        public const string Name = "Browser";
+        public static readonly string Name = BrowserModuleResources.ModuleName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BrowserModule"/> class. 
@@ -60,22 +62,22 @@ namespace Orchestra.Modules.Browser
 
             // Module specific
             var typeFactory = TypeFactory.Default;
-            ribbonService.RegisterRibbonItem(new RibbonButton(HomeRibbonTabName, ModuleName, "Open", new Command(() =>
+            ribbonService.RegisterRibbonItem(new RibbonButton(OrchestraResources.HomeRibbonTabName, ModuleName, BrowserModuleResources.OpenNewBrowserModuleMenuItem, new Command(() =>
             {
                 var browserViewModel = typeFactory.CreateInstance<BrowserViewModel>();
                 orchestraService.ShowDocument(browserViewModel);
             })) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
             // View specific
-            var backButton = new RibbonButton(Name, Name, "Back", "GoBack") {ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png"};
-            var forwardButton = new RibbonButton(Name, Name, "Forward", "GoForward") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" };
+            var backButton = new RibbonButton(Name, Name, BrowserModuleResources.GoBackMenuItem, "GoBack") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_left.png" };
+            var forwardButton = new RibbonButton(Name, Name, BrowserModuleResources.GoForwardMenuItem, "GoForward") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_right.png" };
             ribbonService.RegisterContextualRibbonItem<BrowserView>(backButton, ModuleName);
             ribbonService.RegisterContextualRibbonItem<BrowserView>(forwardButton, ModuleName);
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, "Browse", "Browse") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" }, ModuleName);
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonSplitButton(Name, Name, "Close", "CloseBrowser")
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonButton(Name, Name, BrowserModuleResources.BrowseMenuItem, "Browse") { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" }, ModuleName);
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonSplitButton(Name, Name, BrowserModuleResources.CloseMenuItem, "CloseBrowser")
             {
                 ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_close.png",
-                ToolTip = new RibbonToolTip { Title = "Close (Ctrl+X)", Text = "Closes the browser page." },
+                ToolTip = new RibbonToolTip { Title = BrowserModuleResources.CloseRibbonToolTipTitle, Text = BrowserModuleResources.CloseRibbonToolTipText },
                 Items = new List<IRibbonItem> 
                 { 
                     new RibbonGallery
@@ -86,7 +88,7 @@ namespace Orchestra.Modules.Browser
                     } 
                 }
             }, ModuleName);
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonComboBox(Name, "Recent Sites")
+            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonComboBox(Name, BrowserModuleResources.RecentSitesMenuItem)
             {
                 ItemsSource = "RecentSites",
                 SelectedItem = "SelectedSite",
@@ -97,16 +99,16 @@ namespace Orchestra.Modules.Browser
             // Find the template to show as dynamic content. TODO: Refactor, make more elegant.
             var template = Application.Current.Resources["TestTemplate"] as DataTemplate;
 
-            ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content") { ContentTemplate = template, Layout = new RibbonItemLayout {Width = 120}}, ModuleName);            
+            //ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content") { ContentTemplate = template, Layout = new RibbonItemLayout {Width = 120}}, ModuleName);            
             
-            ribbonService.RegisterRibbonItem(new RibbonButton(ViewRibbonTabName, ModuleName, "Browser properties", new Command(() =>
+            ribbonService.RegisterRibbonItem(new RibbonButton(OrchestraResources.ViewRibbonTabName, ModuleName, BrowserModuleResources.BrowserPropertiesViewHeader, new Command(() =>
             {
                 orchestraService.ShowDocumentIfHidden<PropertiesViewModel>();
             })) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
             // Demo: register contextual view related to browserview
             var contextualViewModelManager = GetService<IContextualViewModelManager>();
-            contextualViewModelManager.RegisterContextualView<BrowserViewModel, PropertiesViewModel>("Browser properties", DockLocation.Right);
+            contextualViewModelManager.RegisterContextualView<BrowserViewModel, PropertiesViewModel>(BrowserModuleResources.BrowserPropertiesViewHeader, DockLocation.Right);
 
             // Demo: show two pages with different tags
             var orchestraViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Orchestra");
