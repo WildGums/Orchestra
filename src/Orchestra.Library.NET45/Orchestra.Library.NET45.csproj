@@ -123,9 +123,6 @@
     <Compile Include="..\Orchestra.Library.NET40\Models\Interface\IContextualViewModel.cs">
       <Link>Models\Interface\IContextualViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\Orchestra.Library.NET40\Models\Interface\IDockingManagerContainer.cs">
-      <Link>Models\Interface\IDockingManagerContainer.cs</Link>
-    </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Models\Interface\IRibbonButton.cs">
       <Link>Models\Interface\IRibbonButton.cs</Link>
     </Compile>
@@ -215,6 +212,9 @@
     </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Views\DocumentView.cs">
       <Link>Views\DocumentView.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\Views\Interfaces\IDockingManagerContainer.cs">
+      <Link>Views\Interfaces\IDockingManagerContainer.cs</Link>
     </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Views\Interfaces\IDocumentView.cs">
       <Link>Views\Interfaces\IDocumentView.cs</Link>

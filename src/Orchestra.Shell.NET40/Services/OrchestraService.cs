@@ -220,31 +220,6 @@ namespace Orchestra.Services
             Log.Debug("Closed document for view model '{0}'", viewModel.UniqueIdentifier);
         }
 
-        /// <summary>
-        /// Adds the specified ribbon item to the main ribbon.
-        /// </summary>
-        /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public void AddRibbonItem(IRibbonItem ribbonItem)
-        {
-            // Marked obsolete on the interface
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Removes the specified ribbon item to the main ribbon.
-        /// <para>
-        /// </para>
-        /// This method will ignore calls when the item is not available in the ribbon.
-        /// </summary>
-        /// <param name="ribbonItem">The ribbon item.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public void RemoveRibbonItem(IRibbonItem ribbonItem)
-        {
-            // Marked obsolete on the interface
-            throw new NotImplementedException();
-        }
-
         private LayoutAnchorable CreateDocument<TViewModel>(TViewModel viewModel, object tag) where TViewModel : IViewModel
         {
             var viewLocator = GetService<IViewLocator>();

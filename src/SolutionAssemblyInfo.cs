@@ -35,7 +35,7 @@ using System.Runtime.CompilerServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("0.1")]
+[assembly: AssemblyVersion("1.0")]
 [assembly: AssemblyInformationalVersion("0.50, Nightly, Released on 2013-09-01 13:32")]
 
 #if DEBUG

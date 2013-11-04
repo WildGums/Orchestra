@@ -19,7 +19,6 @@ namespace Orchestra
     using Catel.Windows.Controls;
     using Microsoft.Practices.Prism.Regions;
     using Models;
-    using Models.Interface;
     using Orchestra.Controls;
     using Orchestra.Views;
     using Xceed.Wpf.AvalonDock;

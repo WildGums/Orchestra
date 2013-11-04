@@ -155,6 +155,7 @@
     <Compile Include="ViewModels\Interfaces\IContextualViewModelManager.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\DocumentView.cs" />
+    <Compile Include="Views\Interfaces\IDockingManagerContainer.cs" />
     <Compile Include="Views\Interfaces\IDocumentView.cs" />
     <Compile Include="Views\NestedDockingManager.xaml.cs">
       <DependentUpon>NestedDockingManager.xaml</DependentUpon>

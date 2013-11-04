@@ -1,33 +1,42 @@
-﻿namespace Orchestra.Views
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NestedDockingManager.xaml.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+
+namespace Orchestra.Views
 {
-    using System;    
-    using Catel;    
-    using Models;
-    using Models.Interface;
+    using System;
+    using Catel;
+    using Orchestra.Models;
     using Xceed.Wpf.AvalonDock;
-    using Xceed.Wpf.AvalonDock.Layout;    
+    using Xceed.Wpf.AvalonDock.Layout;
 
     /// <summary>
     /// Interaction logic for NestedDockingManager.xaml
     /// </summary>
     public partial class NestedDockingManager : IDockingManagerContainer
-    {        
+    {
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="NestedDockingManager"/> class.
         /// </summary>
         public NestedDockingManager()
         {
             InitializeComponent();
-            Loaded += NestedDockingManagerLoaded;            
-        }           
+            Loaded += NestedDockingManagerLoaded;
+        }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Gets the <see cref="DockingManager" />.
         /// </summary>
         /// <value>
         /// The <see cref="DockingManager" />.
         /// </value>
-        public DockingManager DockingManager 
+        public DockingManager DockingManager
         {
             get { return dockingManager; }
         }
@@ -40,10 +49,7 @@
         /// </value>
         public bool IsActive
         {
-            get
-            {
-                return IsVisible;
-            }
+            get { return IsVisible; }
         }
 
         /// <summary>
@@ -64,7 +70,9 @@
                 return null;
             }
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Adds the main document for the NestedDockingManager.
         /// </summary>
@@ -79,7 +87,7 @@
                 throw new Exception("NestedDockingManager can only have one main document.");
             }
 
-            layoutDocumentPane.Children.Add(documentView);                        
+            layoutDocumentPane.Children.Add(documentView);
         }
 
         /// <summary>
@@ -89,7 +97,7 @@
         /// <param name="dockLocation">The dock location.</param>
         public void AddDockedWindow(LayoutAnchorable documentView, DockLocation dockLocation)
         {
-            Argument.IsNotNull( () => documentView);
+            Argument.IsNotNull(() => documentView);
             Argument.IsNotNull(() => dockLocation);
 
             if (dockLocation == DockLocation.Right)
@@ -119,7 +127,8 @@
         private void NestedDockingManagerLoaded(object sender, System.Windows.RoutedEventArgs e)
         {
             // Forwared the 'focus' to the correct view.
-            DockingManager.ActiveContent = ContentDocument.Content;            
-        }        
+            DockingManager.ActiveContent = ContentDocument.Content;
+        }
+        #endregion
     }
 }
