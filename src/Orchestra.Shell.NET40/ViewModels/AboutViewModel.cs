@@ -40,9 +40,11 @@ namespace Orchestra.ViewModels
             {
                 ModuleName = moduleInfo.ModuleName,
                 Enabled = moduleInfo.InitializationMode == InitializationMode.WhenAvailable,
-                State = moduleInfo.InitializationMode == InitializationMode.WhenAvailable ? "Active" : "OnDemand",
-                LicenseUrl = ((Modules.ModuleBase)ServiceLocator.ResolveType(TypeCache.GetType(moduleInfo.ModuleType))).GetLicenseUrl()
+                State = moduleInfo.InitializationMode == InitializationMode.WhenAvailable ? "Active" : "OnDemand"                
             }).ToList();
+
+            // Code creates a new instance of the Module -> this calls InitializeRibbon -> new instances of all modules are loaded.
+            //LicenseUrl = ((Modules.ModuleBase)ServiceLocator.ResolveType(TypeCache.GetType(moduleInfo.ModuleType))).GetLicenseUrl()
 
             var sorted = tempModules.OrderBy(module => module.ModuleName);
             Modules = new ObservableCollection<ModuleTemplate>(sorted);
