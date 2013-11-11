@@ -51,7 +51,7 @@ namespace Orchestra.Views
         /// Adds the document as a tab to the NestedDocking view.
         /// </summary>
         /// <param name="documentView">The document view.</param>
-        /// <param name="dockLocation">The dock location.</param>
-        void AddDockedWindow(LayoutAnchorable documentView, DockLocation dockLocation);
+        /// <param name="dockingSettings">The docking settings.</param>
+        void AddDockedWindow(LayoutAnchorable documentView, DockingSettings dockingSettings);
     }
 }

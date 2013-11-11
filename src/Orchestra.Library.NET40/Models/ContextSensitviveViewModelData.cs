@@ -14,12 +14,12 @@ namespace Orchestra.Models
         /// Initializes a new instance of the <see cref="ContextSensitviveViewModelData" /> class.
         /// </summary>
         /// <param name="title">The title.</param>
-        /// <param name="dockLocation">The dock location.</param>
-        public ContextSensitviveViewModelData(string title, DockLocation dockLocation)
+        /// <param name="dockingSettings">The docking settings.</param>
+        public ContextSensitviveViewModelData(string title, DockingSettings dockingSettings)
         {
             ContextDependentViewModels = new Collection<Type>();
             Title = title;
-            DockLocation = dockLocation;
+            DockingSettings = dockingSettings;
         }
 
         /// <summary>
@@ -40,12 +40,7 @@ namespace Orchestra.Models
         /// </value>
         public string Title { get; set; }
 
-        /// <summary>
-        /// Gets or sets the dock location.
-        /// </summary>
-        /// <value>
-        /// The dock location.
-        /// </value>
-        public DockLocation DockLocation { get; set; }
+
+        public DockingSettings DockingSettings { get; set; }
     }
 }

@@ -7,12 +7,9 @@
 namespace Orchestra
 {
     using System;
-    using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
     using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Threading;
     using Catel;
     using Catel.IoC;
     using Catel.MVVM;
@@ -23,7 +20,6 @@ namespace Orchestra
     using Orchestra.Views;
     using Xceed.Wpf.AvalonDock;
     using Xceed.Wpf.AvalonDock.Layout;
-    using ViewModelBase = ViewModels.ViewModelBase;
 
     /// <summary>
     /// Helper class for avalon dock.
@@ -187,23 +183,25 @@ namespace Orchestra
         /// Dock a view to the specified <see cref="DockLocation" />
         /// </summary>
         /// <param name="document">The document.</param>
-        /// <param name="dockLocation">The <see cref="DockLocation" />.</param>
-        public static void DockView(LayoutAnchorable document, DockLocation dockLocation)
+        /// <param name="dockingSettings">The docking settings.</param>
+        public static void DockView(LayoutAnchorable document, DockingSettings dockingSettings)
         {
             Argument.IsNotNull(() => document);
             Debug.WriteLine("DockView");
 
-            switch (dockLocation)
+            switch (dockingSettings.DockLocation)
             {
                 case DockLocation.Bottom:
                     BottomPropertiesPane.Children.Add(document);
                     break;
                 case DockLocation.Left:
                     LeftLayoutAnchorablePane.Children.Add(document);
+                    SetDockWidthForPane(RightLayoutAnchorablePane, dockingSettings);
                     break;
                 case DockLocation.Right:
                     RightLayoutAnchorablePane.Children.Add(document);
-                    document.CanFloat = true;                    
+                    document.CanFloat = true;
+                    SetDockWidthForPane(RightLayoutAnchorablePane, dockingSettings);                    
                     break;
                 case DockLocation.Top:
                     TopPropertiesPane.Children.Add(document);
@@ -245,17 +243,17 @@ namespace Orchestra
         /// <summary>
         /// Adds the new document to docking manager.
         /// </summary>
-        /// <param name="dockLocation">The dock location.</param>
+        /// <param name="dockingSettings">The docking settings.</param>
         /// <param name="layoutDocument">The layout document.</param>
-        public static void AddNewDocumentToDockingManager(DockLocation? dockLocation, LayoutAnchorable layoutDocument)
+        public static void AddNewDocumentToDockingManager(DockingSettings dockingSettings, LayoutAnchorable layoutDocument)
         {            
-            if (dockLocation == null)
+            if (dockingSettings == null)
             {
                 LayoutDocumentPane.Children.Add(layoutDocument);
             }
             else
-            {
-                DockView(layoutDocument, (DockLocation) dockLocation);
+            {                
+                DockView(layoutDocument, dockingSettings);
             }
         }
 
@@ -347,7 +345,20 @@ namespace Orchestra
             {
                 ContextualViewModelManager.UpdateContextualViews(ActivatedView);
             }
-        }        
+        }
+
+        private static void SetDockWidthForPane(LayoutAnchorablePane propertiesPane, DockingSettings dockingSettings)
+        {
+            Argument.IsNotNull(() => propertiesPane);
+            Argument.IsNotNull(() => dockingSettings);
+
+            var paneGroup = propertiesPane.Parent as LayoutAnchorablePaneGroup;
+
+            if (paneGroup != null && paneGroup.DockWidth.Value < dockingSettings.Width)
+            {
+                paneGroup.DockWidth = new GridLength(dockingSettings.Width);
+            }
+        }   
         #endregion
     }
 }

@@ -57,13 +57,22 @@ namespace Orchestra
         void RegisterOpenDocumentView(IDocumentView documentView);
 
         /// <summary>
-        /// Registers the context sensitive parent view.
+        /// Registers 'contextual' view type, with the type of views that are context sensitive to this view.
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>
         /// <param name="title">The title.</param>
         /// <param name="dockLocation">The dock location.</param>
         void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(string title, DockLocation dockLocation);
+
+        /// <summary>
+        /// Registers the context sensitive parent view.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>
+        /// <param name="title">The title.</param>
+        /// <param name="dockingSettings">The docking settings.</param>
+        void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(string title, DockingSettings dockingSettings);
 
         /// <summary>
         /// Unregisters the contextual document view.

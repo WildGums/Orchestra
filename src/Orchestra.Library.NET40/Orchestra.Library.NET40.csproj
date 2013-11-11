@@ -116,6 +116,7 @@
     <Compile Include="Controls\BindableLayoutDocument.cs" />
     <Compile Include="Helpers\AvalonDockHelper.cs" />
     <Compile Include="Models\ContextSensitviveViewModelData.cs" />
+    <Compile Include="Models\DockingSettings.cs" />
     <Compile Include="Models\Interface\IContextualViewModel.cs" />
     <Compile Include="Models\Interface\IDockingManagerContainer.cs" />
     <Compile Include="Properties\OrchestraResources.Designer.cs">

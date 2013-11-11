@@ -20,6 +20,10 @@
         /// <summary>
         /// The bottom
         /// </summary>
-        Bottom        
+        Bottom,
+        /// <summary>
+        /// Floating
+        /// </summary>
+        Floating
     }
 }

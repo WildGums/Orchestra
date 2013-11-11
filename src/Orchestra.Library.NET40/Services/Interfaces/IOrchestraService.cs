@@ -40,8 +40,8 @@ namespace Orchestra.Services
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="viewModel">The view model.</param>
         /// <param name="tag">The tag.</param>
-        /// <param name="dockLocation">The dock location.</param>
-        void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
+        /// <param name="dockingSettings">The docking settings.</param>
+        void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockingSettings dockingSettings = null)
             where TViewModel : IViewModel;
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace Orchestra.Services
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="viewModel">The view model to show which will automatically be resolved to a view.</param>
         /// <param name="tag">The tag.</param>
-        /// <param name="dockLocation">The dock location.</param>        
+        /// <param name="dockingSettings">The docking settings.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="viewModel" /> is <c>null</c>.</exception>
-        void ShowContextSensitiveDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
+        void ShowContextSensitiveDocument<TViewModel>(TViewModel viewModel, object tag = null, DockingSettings dockingSettings = null)
             where TViewModel : IViewModel;
 
         /// <summary>
@@ -76,9 +76,9 @@ namespace Orchestra.Services
         /// </summary>
         /// <param name="viewModel">The view model.</param>
         /// <param name="dockingManager">The docking manager.</param>
+        /// <param name="dockSettings">The dock settings.</param>
         /// <param name="tag">The tag.</param>
-        /// <param name="dockLocation">The dock location.</param>
-        void ShowDocumentInNestedDockView(IViewModel viewModel, NestedDockingManager dockingManager, DockLocation dockLocation, object tag = null);
+        void ShowDocumentInNestedDockView(IViewModel viewModel, NestedDockingManager dockingManager, DockingSettings dockSettings, object tag = null);
 
         /// <summary>
         /// Closes the document in the main shell with the specified view model.

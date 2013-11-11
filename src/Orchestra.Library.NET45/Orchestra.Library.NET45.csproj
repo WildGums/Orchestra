@@ -117,6 +117,9 @@
     <Compile Include="..\Orchestra.Library.NET40\Models\ContextSensitviveViewModelData.cs">
       <Link>Models\ContextSensitviveViewModelData.cs</Link>
     </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\Models\DockingSettings.cs">
+      <Link>Models\DockingSettings.cs</Link>
+    </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Models\DockLocation.cs">
       <Link>Models\DockLocation.cs</Link>
     </Compile>

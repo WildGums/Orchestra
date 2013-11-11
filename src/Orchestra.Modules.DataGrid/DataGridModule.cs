@@ -102,9 +102,16 @@ namespace Orchestra.Modules.DataGrid
 
             // Demo: Register the view as a Nested dockingmanager
             contextualViewModelManager.RegisterNestedDockView<DataGridViewModel>();
-            
+
+            DockingSettings dockingSettings = new DockingSettings();
+            dockingSettings.DockLocation = DockLocation.Floating;
+            dockingSettings.Top = 100;
+            dockingSettings.Left = 450;
+            dockingSettings.Width = 200;
+            dockingSettings.Height = 200;
+
             // Demo: Register context sensitive view, within the Nested dockingmanager
-            contextualViewModelManager.RegisterContextualView<DataGridViewModel, DataGridPropertiesViewModel>("Datagrid properties", DockLocation.Right);            
+            contextualViewModelManager.RegisterContextualView<DataGridViewModel, DataGridPropertiesViewModel>("Datagrid properties", dockingSettings);            
 
             // Add the contextual view in the "View" menu
             ribbonService.RegisterRibbonItem(new RibbonButton(OrchestraResources.ViewRibbonTabName, ModuleName, "Browser properties", 

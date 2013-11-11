@@ -3,12 +3,13 @@
 //   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
-
 namespace Orchestra.Views
 {
     using System;
+    using System.Collections.Generic;
+    using System.Windows;
     using Catel;
+    using Layout;
     using Orchestra.Models;
     using Xceed.Wpf.AvalonDock;
     using Xceed.Wpf.AvalonDock.Layout;
@@ -18,13 +19,15 @@ namespace Orchestra.Views
     /// </summary>
     public partial class NestedDockingManager : IDockingManagerContainer
     {
+        private Dictionary<LayoutAnchorable, DockingSettings> _floatingWindowsCollection = new Dictionary<LayoutAnchorable, DockingSettings>(); 
+
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="NestedDockingManager"/> class.
         /// </summary>
         public NestedDockingManager()
         {
-            InitializeComponent();
+            InitializeComponent();                     
             Loaded += NestedDockingManagerLoaded;
         }
         #endregion
@@ -94,28 +97,33 @@ namespace Orchestra.Views
         /// Adds the document as a tab to the NestedDocking view.
         /// </summary>
         /// <param name="documentView">The document view.</param>
-        /// <param name="dockLocation">The dock location.</param>
-        public void AddDockedWindow(LayoutAnchorable documentView, DockLocation dockLocation)
+        /// <param name="dockingSettings">The docking settings.</param>
+        public void AddDockedWindow(LayoutAnchorable documentView, DockingSettings dockingSettings)
         {
             Argument.IsNotNull(() => documentView);
-            Argument.IsNotNull(() => dockLocation);
+            Argument.IsNotNull(() => dockingSettings);            
 
-            if (dockLocation == DockLocation.Right)
+            switch (dockingSettings.DockLocation)
             {
-                rightPropertiesPane.Children.Add(documentView);
-            }
-            else if (dockLocation == DockLocation.Left)
-            {
-                leftPropertiesPane.Children.Add(documentView);
-            }
-            else if (dockLocation == DockLocation.Bottom)
-            {
-                bottomPropertiesPane.Children.Add(documentView);
-            }
-            else
-            {
-                topPropertiesPane.Children.Add(documentView);
-            }
+                case DockLocation.Right:
+                    rightPropertiesPane.Children.Add(documentView);
+                    SetDockWidthForPane(rightPropertiesPane, dockingSettings);
+                    break;
+                case DockLocation.Left:
+                    leftPropertiesPane.Children.Add(documentView);
+                    SetDockWidthForPane(leftPropertiesPane, dockingSettings);
+                    break;
+                case DockLocation.Bottom:
+                    bottomPropertiesPane.Children.Add(documentView);                    
+                    break;
+                case DockLocation.Top:
+                    topPropertiesPane.Children.Add(documentView);                    
+                    break;
+                case DockLocation.Floating:
+                    rightPropertiesPane.Children.Add(documentView);                    
+                    _floatingWindowsCollection.Add(documentView, dockingSettings);
+                    break;
+            }            
         }
 
         /// <summary>
@@ -128,7 +136,67 @@ namespace Orchestra.Views
         {
             // Forwared the 'focus' to the correct view.
             DockingManager.ActiveContent = ContentDocument.Content;
+            DelayedOpenFloatingWindows();
         }
+
+        /// <summary>
+        /// Opens the registered floating windows for this module, the opening of these windows is delayed to when this view is actually loaded.        
+        /// </summary>
+        private void DelayedOpenFloatingWindows()
+        {
+            if (_floatingWindowsCollection == null)
+            {
+                return;
+            }
+
+            foreach (var document in _floatingWindowsCollection.Keys)
+            {
+                document.Float();
+
+                SetWindowSize(document);
+            }
+
+            _floatingWindowsCollection = null;
+        }
+
+        /// <summary>
+        /// Sets the size of the window.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        private void SetWindowSize(LayoutAnchorable document)
+        {
+            foreach (var window in dockingManager.FloatingWindows)
+            {
+                var model = window.Model as LayoutAnchorableFloatingWindow;
+
+                if (model != null)
+                {
+                    foreach (var ch in model.SinglePane.Children)
+                    {
+                        if (ch == document)
+                        {
+                            window.Top = _floatingWindowsCollection[document].Top;
+                            window.Left = _floatingWindowsCollection[document].Left;
+                            window.Width = _floatingWindowsCollection[document].Width;
+                            window.Width = _floatingWindowsCollection[document].Height;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SetDockWidthForPane(LayoutAnchorablePane propertiesPane, DockingSettings dockingSettings)
+        {
+            Argument.IsNotNull(()=>propertiesPane);
+            Argument.IsNotNull(() => dockingSettings);
+
+            var paneGroup = propertiesPane.Parent as LayoutAnchorablePaneGroup;
+
+            if (paneGroup != null && paneGroup.DockWidth.Value < dockingSettings.Width)
+            {
+                paneGroup.DockWidth = new GridLength(dockingSettings.Width);
+            }
+        }       
         #endregion
     }
 }

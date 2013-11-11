@@ -106,9 +106,13 @@ namespace Orchestra.Modules.Browser
                 orchestraService.ShowDocumentIfHidden<PropertiesViewModel>();
             })) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
+            var dockingSettings = new DockingSettings();
+            dockingSettings.DockLocation = DockLocation.Right;
+            dockingSettings.Width = 225;
+
             // Demo: register contextual view related to browserview
             var contextualViewModelManager = GetService<IContextualViewModelManager>();
-            contextualViewModelManager.RegisterContextualView<BrowserViewModel, PropertiesViewModel>(BrowserModuleResources.BrowserPropertiesViewHeader, DockLocation.Right);
+            contextualViewModelManager.RegisterContextualView<BrowserViewModel, PropertiesViewModel>(BrowserModuleResources.BrowserPropertiesViewHeader, dockingSettings);
 
             // Demo: show two pages with different tags
             var orchestraViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Orchestra");

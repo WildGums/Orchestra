@@ -118,7 +118,7 @@ namespace Orchestra.Services
             var viewModel = CreateViewModel<TViewModel>();
 
             ShowDocument(viewModel, tag);
-        }        
+        }
 
         /// <summary>
         /// Opens a new document.
@@ -126,15 +126,15 @@ namespace Orchestra.Services
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="viewModel">The view model.</param>
         /// <param name="tag">The tag.</param>
-        /// <param name="dockLocation">The dock location.</param>
-        public void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null)
+        /// <param name="dockingSettings">The docking settings.</param>
+        public void ShowDocument<TViewModel>(TViewModel viewModel, object tag = null, DockingSettings dockingSettings = null)
             where TViewModel : IViewModel
         {
             Argument.IsNotNull("viewModel", viewModel);
             Log.Debug("Opening document for view model '{0}'", viewModel.UniqueIdentifier);
 
             var document = CreateDocument(viewModel, tag);
-            AvalonDockHelper.AddNewDocumentToDockingManager(dockLocation, document);
+            AvalonDockHelper.AddNewDocumentToDockingManager(dockingSettings, document);
             AvalonDockHelper.ActivateDocument(document);
         }        
 
@@ -148,7 +148,7 @@ namespace Orchestra.Services
         {
             var viewModel = CreateViewModel<TViewModel>();
             ShowContextSensitiveDocument(viewModel, tag);
-        }        
+        }
 
         /// <summary>
         /// Shows the document in the main shell.
@@ -156,9 +156,9 @@ namespace Orchestra.Services
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
         /// <param name="viewModel">The view model to show which will automatically be resolved to a view.</param>
         /// <param name="tag">The tag.</param>
-        /// <param name="dockLocation">The dock location.</param>        
+        /// <param name="dockingSettings">The docking settings.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="viewModel" /> is <c>null</c>.</exception>
-        public void ShowContextSensitiveDocument<TViewModel>(TViewModel viewModel, object tag = null, DockLocation? dockLocation = null) 
+        public void ShowContextSensitiveDocument<TViewModel>(TViewModel viewModel, object tag = null, DockingSettings dockingSettings = null) 
             where TViewModel : IViewModel
         {
             Argument.IsNotNull("viewModel", viewModel);
@@ -172,25 +172,28 @@ namespace Orchestra.Services
             {
                 var view = ViewHelper.ConstructViewWithViewModel(viewType, viewModel);
                 document = AvalonDockHelper.CreateDocument(view, tag);
-                AvalonDockHelper.AddNewDocumentToDockingManager(dockLocation, document);
+                if (dockingSettings != null)
+                {
+                    AvalonDockHelper.AddNewDocumentToDockingManager(dockingSettings, document);
+                }
             }            
 
             AvalonDockHelper.ActivateDocument(document);
 
             Log.Debug("Showed document for view model '{0}'", viewModel.UniqueIdentifier);
-        }        
+        }
 
         /// <summary>
         /// Shows the document in nested dock view.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
         /// <param name="dockingManager">The docking manager.</param>
+        /// <param name="dockingSettings">The docking settings.</param>
         /// <param name="tag">The tag.</param>
-        /// <param name="dockLocation">The dock location.</param>
-        public void ShowDocumentInNestedDockView(IViewModel viewModel, NestedDockingManager dockingManager, DockLocation dockLocation, object tag = null)
+        public void ShowDocumentInNestedDockView(IViewModel viewModel, NestedDockingManager dockingManager, DockingSettings dockingSettings, object tag = null)
         {
-            var document = CreateDocument(viewModel, tag);            
-            dockingManager.AddDockedWindow(document, dockLocation);
+            var document = CreateDocument(viewModel, tag);
+            dockingManager.AddDockedWindow(document, dockingSettings);
         }
 
         /// <summary>

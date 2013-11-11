@@ -107,12 +107,24 @@ namespace Orchestra
         /// <param name="dockLocation">The dock location.</param>
         public void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(string title, DockLocation dockLocation)
         {
+            RegisterContextualView<TViewModel, TContextSensitiveViewModel>(title, new DockingSettings{DockLocation = dockLocation});
+        }
+
+        /// <summary>
+        /// Registers 'contextual' view type, with the type of views that are context sensitive to this view.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>
+        /// <param name="title">The title.</param>
+        /// <param name="dockingSettings">The docking settings.</param>
+        public void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(string title, DockingSettings dockingSettings)
+        {
             Type viewModelType = typeof(TViewModel);
             Type contextSensitiveViewModelType = typeof(TContextSensitiveViewModel);
 
             if (!_contextualViewModelCollection.ContainsKey(viewModelType))
             {
-                _contextualViewModelCollection.Add(viewModelType, new ContextSensitviveViewModelData(title, dockLocation));
+                _contextualViewModelCollection.Add(viewModelType, new ContextSensitviveViewModelData(title, dockingSettings));
             }
 
             if (!_contextualViewModelCollection[viewModelType].ContextDependentViewModels.Contains(contextSensitiveViewModelType))
@@ -180,15 +192,15 @@ namespace Orchestra
                     
                         if (contextDependenViewModel != null)
                         {
-                            DockLocation dockLocation = _contextualViewModelCollection[viewModeltype].DockLocation;
-                            _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockLocation, null);
+                            DockingSettings dockingSettings = _contextualViewModelCollection[viewModeltype].DockingSettings;
+                            _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockingSettings, null);
 
                             if(_openContextSensitiveViews.All(v => v.GetType() != contextDependenViewModel.GetType()))
                             {                            
                                 _openContextSensitiveViews.Add(contextDependenViewModel);                            
                             }
 
-                            Log.Debug("ShowDocumentInNestedDockView: {0}, docklocation: {1}", contextDependenViewModel, dockLocation);
+                            Log.Debug("ShowDocumentInNestedDockView: {0}, docklocation: {1}", contextDependenViewModel, dockingSettings.DockLocation);
                         }
                     }
                     else
@@ -197,8 +209,8 @@ namespace Orchestra
 
                         if (contextDependenViewModel != null)
                         {
-                            DockLocation dockLocation = _contextualViewModelCollection[viewModeltype].DockLocation;
-                            _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockLocation, null);
+                            DockingSettings dockingSettings = _contextualViewModelCollection[viewModeltype].DockingSettings;
+                            _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockingSettings, null);
                         }
                     }
                 }
@@ -245,11 +257,11 @@ namespace Orchestra
 
                         if (viewModel != null && !_openContextSensitiveViews.Contains(viewModel))
                         {
-                            var dockLocation = _contextualViewModelCollection[documentViewViewModelType].DockLocation;
-                            _orchestraService.ShowContextSensitiveDocument(viewModel, null, dockLocation);
-                            _openContextSensitiveViews.Add(viewModel);                            
+                            var dockSettings = _contextualViewModelCollection[documentViewViewModelType].DockingSettings;
+                            _orchestraService.ShowContextSensitiveDocument(viewModel, null, dockSettings);
+                            _openContextSensitiveViews.Add(viewModel);
 
-                            Log.Debug("Show context sensitive view: {0}, docklocation: {1}", viewModel, dockLocation);
+                            Log.Debug("Show context sensitive view: {0}, docklocation: {1}", viewModel, dockSettings.DockLocation);
                         }
                     }
                 }
