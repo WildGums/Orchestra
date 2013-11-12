@@ -52,5 +52,6 @@ Everyone is encouraged to contribute, either by:
 
 - [Gemini](https://github.com/tgjones/gemini "Gemini")
 - [Wide](https://github.com/chandramouleswaran/Wide/ "Wide")
+- [Albatross Shell](https://albatrossshell.codeplex.com/ "Albatross Shell")
 
 
