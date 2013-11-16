@@ -36,12 +36,12 @@ namespace Orchestra.ViewModels
             _processService = processService;
 
             var knownModules = moduleInfoManager.KnownModules;
-            var tempModules = knownModules.Select(moduleInfo => new Models.ModuleInfo
-            {
-                ModuleName = moduleInfo.ModuleName,
-                Enabled = moduleInfo.InitializationMode == InitializationMode.WhenAvailable,
-                State = moduleInfo.InitializationMode == InitializationMode.WhenAvailable ? "Active" : "OnDemand"                
-            }).ToList();
+            var tempModules = knownModules.Select(moduleInfo => new Models.ModuleInfo(moduleInfo)).ToList();
+            //{
+            //    ModuleName = moduleInfo.ModuleName,
+            //    Enabled = moduleInfo.InitializationMode == InitializationMode.WhenAvailable,
+            //    State = moduleInfo.InitializationMode == InitializationMode.WhenAvailable ? "Active" : "OnDemand"                
+            //}).ToList();
 
             // Code creates a new instance of the Module -> this calls InitializeRibbon -> new instances of all modules are loaded.
             //LicenseUrl = ((Modules.ModuleBase)ServiceLocator.ResolveType(TypeCache.GetType(moduleInfo.ModuleType))).GetLicenseUrl()

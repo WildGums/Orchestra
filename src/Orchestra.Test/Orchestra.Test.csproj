@@ -39,17 +39,17 @@
     <None Include="app.config" />
     <None Include="Fody.targets" />
     <None Include="packages.config" />
-    <Reference Include="Catel.Core, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.Core, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Core.3.6.1310102241-beta\lib\net45\Catel.Core.dll</HintPath>
+      <HintPath>..\..\lib\Catel.Core.3.7.1311132056-beta\lib\net45\Catel.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Prism, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.Extensions.Prism, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Extensions.Prism.3.6.1310102241-beta\lib\net45\Catel.Extensions.Prism.dll</HintPath>
+      <HintPath>..\..\lib\Catel.Extensions.Prism.3.7.1311132056-beta\lib\net45\Catel.Extensions.Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.MVVM, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.MVVM, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.MVVM.3.6.1310102241-beta\lib\net45\Catel.MVVM.dll</HintPath>
+      <HintPath>..\..\lib\Catel.MVVM.3.7.1311132056-beta\lib\net45\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
@@ -68,7 +68,7 @@
     <Reference Include="System" />
     <None Include="FodyWeavers.xml" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.MVVM.3.6.1310102241-beta\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\lib\Catel.MVVM.3.7.1311132056-beta\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
