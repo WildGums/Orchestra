@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="Orchestra.ProjectTemplates.Shell..BB3CFCCD-F660-4F12-B471-DA89AA8BD911" Version="1.0" Language="en-US" Publisher="Geert van Horrik" />
+    <DisplayName>Shell for modular applications using Orchestra</DisplayName>
+    <Description xml:space="preserve">Project template to create an MVVM-based modularized application using Orchestra.</Description>
+    <MoreInfo>https://github.com/orcomp/orchestra</MoreInfo>
+    <GettingStartedGuide>https://github.com/orcomp/orchestra</GettingStartedGuide>
+    <Icon>__TemplateIcon.ico</Icon>
+    <PreviewImage>__Catel_logo_large.png</PreviewImage>
+    <Tags>orchestra;shell;modularity;prism;catel;mvvm;application;wpf</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[11.0,)" />
+    <InstallationTarget Version="[11.0,)" Id="Microsoft.VisualStudio.VSWinExpress" />
+    <InstallationTarget Version="[11.0,)" Id="Microsoft.VisualStudio.VSWinDesktopExpress" />
+  </Installation>
+  <Dependencies>
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\CSharp\Windows\Orchestra.Shell.zip" />
+  </Assets>
+</PackageManifest>

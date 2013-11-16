@@ -36,7 +36,7 @@ namespace Orchestra.ViewModels
             _processService = processService;
 
             var knownModules = moduleInfoManager.KnownModules;
-            var tempModules = knownModules.Select(moduleInfo => new Models.ModuleInfo()
+            var tempModules = knownModules.Select(moduleInfo => new Models.ModuleInfo
             {
                 ModuleName = moduleInfo.ModuleName,
                 Enabled = moduleInfo.InitializationMode == InitializationMode.WhenAvailable,
