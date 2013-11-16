@@ -50,7 +50,10 @@ namespace Orchestra
 
             var bootstrapper = new OrchestraBootstrapper();
 
-            StyleHelper.CreateStyleForwardersForDefaultStyles(Current.Resources.MergedDictionaries[1]);
+            if (Current.Resources.MergedDictionaries.Count >= 2)
+            {
+                StyleHelper.CreateStyleForwardersForDefaultStyles(Current.Resources.MergedDictionaries[1]);
+            }
 
             bootstrapper.CreatedShell += (sender, e2) =>
             {

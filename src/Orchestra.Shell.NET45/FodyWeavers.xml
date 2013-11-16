@@ -1,7 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Weavers>
   <Catel />
-  <Costura />
+  <Costura IncludeDebugSymbols="false">
+    <IncludeAssemblies>
+      Fluent
+      Xceed.Wpf.AvalonDock
+      Xceed.Wpf.AvalonDock.Themes.Aero
+      Xceed.Wpf.AvalonDock.Themes.Expression
+      Xceed.Wpf.AvalonDock.Themes.Metro
+      Xceed.Wpf.AvalonDock.Themes.VS2010
+    </IncludeAssemblies>
+  </Costura>
   <Obsolete />
   <ModuleInit />
 </Weavers>

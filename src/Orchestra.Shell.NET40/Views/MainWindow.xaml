@@ -6,7 +6,6 @@
                      xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
                      xmlns:CollectionViewSource="clr-namespace:Orchestra.Views"
                      xmlns:orchestra="http://orchestra.codeplex.com"
-                     xmlns:s="clr-namespace:System;assembly=mscorlib"
                      ShowInTaskbar="True"
                      ResizeMode="CanResize"
                      SizeToContent="Manual"
