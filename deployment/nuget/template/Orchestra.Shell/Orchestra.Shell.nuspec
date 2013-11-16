@@ -25,7 +25,7 @@
       <!--<dependency id="AvalonDock" version="[AVALONDOCKVERSION]" />-->
       <dependency id="Catel.Extensions.Controls" version="[CATELVERSION]" />
       <dependency id="Catel.Extensions.Prism" version="[CATELVERSION]" />
-	  <dependency id="Fluent.Ribbon" version="[FLUENTVERSION]" />
+      <dependency id="Fluent.Ribbon" version="[FLUENTVERSION]" />
       <dependency id="Orchestra.Library" version="[VERSION]" />
       <dependency id="Prism" version="4.1.0.0" />
     </dependencies>
