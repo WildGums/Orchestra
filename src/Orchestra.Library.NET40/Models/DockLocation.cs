@@ -21,9 +21,10 @@
         /// The bottom
         /// </summary>
         Bottom,
-        /// <summary>
-        /// Floating
-        /// </summary>
-        Floating
+        // Disabled for now.
+        ///// <summary>
+        ///// Floating
+        ///// </summary>
+        //Floating
     }
 }

@@ -100,11 +100,8 @@ namespace Orchestra.Services
 
             if (document != null)
             {
-                if (!document.IsFloating)
-                {
-                    document.Show();
-                    Log.Debug("Show hidden document '{0}'", document.Title);
-                }
+                document.Show();
+                Log.Debug("Show hidden document '{0}'", document.Title);
             }
 
             Log.Debug("Can not show hidden view because it can not be found for viewmodel type {0}", typeof(TViewModel));

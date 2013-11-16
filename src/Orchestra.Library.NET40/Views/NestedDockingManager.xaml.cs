@@ -119,10 +119,10 @@ namespace Orchestra.Views
                 case DockLocation.Top:
                     topPropertiesPane.Children.Add(documentView);                    
                     break;
-                case DockLocation.Floating:
-                    rightPropertiesPane.Children.Add(documentView);                    
-                    _floatingWindowsCollection.Add(documentView, dockingSettings);
-                    break;
+                //case DockLocation.Floating:
+                //    rightPropertiesPane.Children.Add(documentView);                    
+                //    _floatingWindowsCollection.Add(documentView, dockingSettings);
+                //    break;
             }            
         }
 

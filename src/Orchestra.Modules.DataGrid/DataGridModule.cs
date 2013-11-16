@@ -104,7 +104,7 @@ namespace Orchestra.Modules.DataGrid
             contextualViewModelManager.RegisterNestedDockView<DataGridViewModel>();
 
             DockingSettings dockingSettings = new DockingSettings();
-            dockingSettings.DockLocation = DockLocation.Floating;
+            dockingSettings.DockLocation = DockLocation.Right;
             dockingSettings.Top = 100;
             dockingSettings.Left = 450;
             dockingSettings.Width = 200;
