@@ -124,7 +124,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Orchestra.Library.NET40\Orchestra.Library.NET40.csproj">
       <Project>{433bce8b-95ae-4628-abed-86a224d5e8c9}</Project>
-      <Name>Orchestra.Library</Name>
+      <Name>Orchestra.Library.NET40</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\TableView\TableView.csproj">
