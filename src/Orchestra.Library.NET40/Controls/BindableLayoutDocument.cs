@@ -11,6 +11,7 @@ namespace Orchestra.Controls
     using System.Windows;
     using Catel;
     using Catel.MVVM;
+    using Orchestra.Views;
     using Xceed.Wpf.AvalonDock.Layout;
 
     /// <summary>
@@ -24,19 +25,21 @@ namespace Orchestra.Controls
         /// </summary>
         /// <param name="view">The view.</param>
         /// <param name="tag">The tag.</param>
-        /// <param name="canFloat">if set to <c>true</c> [can float].</param>
+        /// <param name="canFloat">if set to <c>true</c>, the document can float.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="view" /> is <c>null</c>.</exception>
         public BindableLayoutDocument(FrameworkElement view, object tag = null, bool canFloat = false)
         {
-            Argument.IsNotNull(() => view);
-            Argument.IsNotNull(() => view.DataContext);
-            Argument.IsOfType(() => view.DataContext, typeof(IViewModel));
+            Argument.IsNotNull("view", view);
+            Argument.IsNotNull("view.DataContext", view.DataContext);
+            Argument.IsOfType("view.DataContext", view.DataContext, typeof(IViewModel));
+
+            var vm = ((IViewModel) view.DataContext);
 
             CanFloat = canFloat;
-            Title = ((IViewModel)view.DataContext).Title;
+            Title = vm.Title;
             Content = view;
 
-            ((IViewModel)view.DataContext).PropertyChanged += OnLayoutDocumentViewModelPropertyChanged();
+            vm.PropertyChanged += OnLayoutDocumentViewModelPropertyChanged();
 
             view.Tag = tag;
         }
@@ -50,6 +53,24 @@ namespace Orchestra.Controls
                     Title = ((IViewModel)s).Title;
                 }
             };
+        }
+
+        /// <summary>
+        /// Raises the <c>Closing</c> event.
+        /// </summary>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            var view = Content as IDocumentView;
+            if (view != null)
+            {
+                if (!view.CloseDocument())
+                {
+                    e.Cancel = true;
+                }
+            }
+
+            base.OnClosing(e);
         }
 
         /// <summary>

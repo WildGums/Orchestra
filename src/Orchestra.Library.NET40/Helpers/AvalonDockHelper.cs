@@ -76,6 +76,7 @@ namespace Orchestra
         {
             ContextualViewModelManager = ServiceLocator.Default.ResolveType<IContextualViewModelManager>();
             DockingManager = ServiceLocator.Default.ResolveType<DockingManager>();
+            DockingManager.DocumentClosing += OnDockingManagerDocumentClosing;
             DockingManager.DocumentClosed += OnDockingManagerDocumentClosed;
 
             DockingManager.ActiveContentChanged += DockingManagerActiveContentChanged;
@@ -232,7 +233,7 @@ namespace Orchestra
             }
             else
             {
-                layoutDocument = WrapViewInLayoutDocument(view, tag, true);    
+                layoutDocument = WrapViewInLayoutDocument(view, tag, true);
             }
 
             ContextualViewModelManager.RegisterOpenDocumentView(documentView);
@@ -291,6 +292,25 @@ namespace Orchestra
         }
 
         /// <summary>
+        /// Called when the docking manager is about to close a document.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="DocumentClosingEventArgs" /> instance containing the event data.</param>
+        private static void OnDockingManagerDocumentClosing(object sender, DocumentClosingEventArgs e)
+        {
+            var containerView = e.Document;
+            var view = containerView.Content as IDocumentView;
+
+            if (view != null)
+            {
+                if (!view.CloseDocument())
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        /// <summary>
         /// Called when the docking manager has just closed a document.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -302,9 +322,8 @@ namespace Orchestra
 
             if (view != null)
             {
-                view.CloseDocument();
                 ContextualViewModelManager.UnregisterDocumentView(view);
-            }                        
+            }
         }
 
         /// <summary>

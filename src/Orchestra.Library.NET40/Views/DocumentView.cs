@@ -34,9 +34,16 @@ namespace Orchestra.Views
         /// <summary>
         /// Closes the document.
         /// </summary>
-        public void CloseDocument()
+        public bool CloseDocument()
         {
-            ViewModel.CloseViewModel(null);
+            if (!ViewModel.SaveViewModel())
+            {
+                return false;
+            }
+
+            ViewModel.CloseViewModel(true);
+
+            return true;
         }
         #endregion
     }

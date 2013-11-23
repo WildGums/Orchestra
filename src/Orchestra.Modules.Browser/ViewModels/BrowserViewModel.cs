@@ -289,5 +289,21 @@ namespace Orchestra.Modules.Browser.ViewModels
             }
         }
         #endregion
+
+        #region Methods
+        /// <summary>
+        /// Saves the data.
+        /// </summary>
+        /// <returns><c>true</c> if successful; otherwise <c>false</c>.</returns>
+        protected override bool Save()
+        {
+            if (_messageService.Show("Are you sure you want to close this browser window?", button: MessageButton.YesNo) == MessageResult.No)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        #endregion
     }
 }

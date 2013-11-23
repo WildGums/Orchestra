@@ -17,7 +17,8 @@ namespace Orchestra.Views
         /// <summary>
         /// Closes the document.
         /// </summary>
-        void CloseDocument();
+        /// <returns><c>true</c> if the document was closed, <c>false</c> otherwise.</returns>
+        bool CloseDocument();
         #endregion
     }
 }
