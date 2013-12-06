@@ -86,7 +86,7 @@
       <HintPath>..\..\lib\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Obsolete">
-      <HintPath>..\..\lib\Obsolete.Fody.2.5.0.0\Lib\NET35\Obsolete.dll</HintPath>
+      <HintPath>..\..\lib\Obsolete.Fody.3.0.0.0\Lib\NET35\Obsolete.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="OxyPlot, Version=2013.2.136.1, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
