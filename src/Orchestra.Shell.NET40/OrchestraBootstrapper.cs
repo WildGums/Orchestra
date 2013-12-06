@@ -49,7 +49,7 @@ namespace Orchestra
         public OrchestraBootstrapper(bool createAboutRibbon = true)
         {
 #if DEBUG
-            LogManager.RegisterDebugListener(true);            
+            LogManager.AddDebugListener(true);
 #endif
 
             _createAboutRibbon = createAboutRibbon;
