@@ -19,6 +19,7 @@ namespace Orchestra.Views
     using Catel.MVVM;
     using Catel.Windows.Controls;
     using Catel.Windows.Controls.MVVMProviders.Logic;
+    using Catel.Windows.Media.Imaging;
     using Fluent;
     using Orchestra.ViewModels;
     using Properties;
@@ -35,7 +36,7 @@ namespace Orchestra.Views
         /// </summary>
         public const string TraceOutputAnchorable = "traceOutputAnchorable";
 
-        private const string ApplicationIconLocation = "Resources\\Images\\ApplicationIcon.png";        
+        private const string ApplicationIconLocation = "Resources\\Images\\ApplicationIcon.png";
         private const string ApplicationIconFallbackLocation = "/Orchestra.Shell;component/Resources/Images/ApplicationIcon.png";
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace Orchestra.Views
         /// <summary>
         /// The status bar property.
         /// </summary>
-        public static readonly DependencyProperty StatusBarProperty = DependencyProperty.Register("StatusBar", typeof (string), typeof (MainWindow), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty StatusBarProperty = DependencyProperty.Register("StatusBar", typeof(string), typeof(MainWindow), new PropertyMetadata(string.Empty));
         #endregion
 
         #region Fields
@@ -63,7 +64,7 @@ namespace Orchestra.Views
 
             InitializeMainWindow();
 
-            _windowLogic = new WindowLogic(this, typeof (MainWindowViewModel));
+            _windowLogic = new WindowLogic(this, typeof(MainWindowViewModel));
             _windowLogic.ViewModelChanged += (s, e) =>
                 {
                     ViewModelChanged.SafeInvoke(this, e);
@@ -82,9 +83,11 @@ namespace Orchestra.Views
             serviceLocator.RegisterInstance(typeof(LayoutAnchorablePane), leftPropertiesPane, "leftPropertiesPane");
             serviceLocator.RegisterInstance(typeof(LayoutAnchorGroup), bottomPropertiesPane, "bottomPropertiesPane");
             serviceLocator.RegisterInstance(typeof(LayoutAnchorGroup), topPropertiesPane, "topPropertiesPane");
-            
+
             ribbon.AutomaticStateManagement = true;
             ribbon.EnsureTabItem(OrchestraResources.HomeRibbonTabName);
+
+            SetIcon();
 
             Loaded += (sender, e) => { traceOutputAnchorable.Hide(); };
         }
@@ -97,7 +100,7 @@ namespace Orchestra.Views
         /// <value>The status bar.</value>
         public string StatusBar
         {
-            get { return (string) GetValue(StatusBarProperty); }
+            get { return (string)GetValue(StatusBarProperty); }
             set { SetValue(StatusBarProperty, value); }
         }
         #endregion
@@ -135,6 +138,26 @@ namespace Orchestra.Views
         #endregion
 
         #region Methods
+        private void SetIcon()
+        {
+            try
+            {
+                var assemblyPath = Assembly.GetEntryAssembly().Location;
+                var icon = System.Drawing.Icon.ExtractAssociatedIcon(assemblyPath);
+                if (icon != null)
+                {
+                    var bitmap = icon.ToBitmap();
+                    var bitmapSource = bitmap.ConvertBitmapToBitmapSource();
+
+                    Icon = bitmapSource;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to retrieve the icon, cannot set the window icon");
+            }
+        }
+
         /// <summary>
         /// Determines whether the anchorable with the specified name is currently visible.
         /// </summary>
@@ -218,8 +241,8 @@ namespace Orchestra.Views
             Argument.IsNotNullOrWhitespace("name", name);
 
             var visibleAnchorable = (from child in dockingManager.Layout.Children
-                                     where child is LayoutAnchorable && TagHelper.AreTagsEqual(((LayoutAnchorable) child).ContentId, name)
-                                     select (LayoutAnchorable) child).FirstOrDefault();
+                                     where child is LayoutAnchorable && TagHelper.AreTagsEqual(((LayoutAnchorable)child).ContentId, name)
+                                     select (LayoutAnchorable)child).FirstOrDefault();
             if (visibleAnchorable != null)
             {
                 return visibleAnchorable;
@@ -258,13 +281,13 @@ namespace Orchestra.Views
                 {
                     Icon = BitmapFrame.Create(new Uri(firstAttemptFile, UriKind.Absolute));
                     return;
-                }                
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Don't change default Icon.            
                 Log.Error(ex);
-            }        
+            }
 
             Icon = new BitmapImage(new Uri("pack://application:,,," + ApplicationIconFallbackLocation));
         }

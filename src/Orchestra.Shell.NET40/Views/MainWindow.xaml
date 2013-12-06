@@ -13,15 +13,20 @@
                      WindowState="Maximized">
 
     <catel:StackGrid>
+        <catel:StackGrid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="22*"/>
+            <ColumnDefinition Width="729*"/>
+        </catel:StackGrid.ColumnDefinitions>
         <catel:StackGrid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="24" />
         </catel:StackGrid.RowDefinitions>
 
-        <Fluent:Ribbon x:Name="ribbon" />
+        <Fluent:Ribbon x:Name="ribbon" Grid.ColumnSpan="3" />
 
-        <avalondock:DockingManager x:Name="dockingManager">
+        <avalondock:DockingManager x:Name="dockingManager" Grid.ColumnSpan="3">
             <avalondock:DockingManager.LayoutUpdateStrategy>
                 <orchestra:LayoutInitializer />
             </avalondock:DockingManager.LayoutUpdateStrategy>
@@ -30,7 +35,7 @@
 
                 <avalondock:LayoutRoot.TopSide>
                     <avalondock:LayoutAnchorSide>
-                        <avalondock:LayoutAnchorGroup x:Name="topPropertiesPane">                                                        
+                        <avalondock:LayoutAnchorGroup x:Name="topPropertiesPane">
                         </avalondock:LayoutAnchorGroup>
                     </avalondock:LayoutAnchorSide>
                 </avalondock:LayoutRoot.TopSide>
@@ -42,15 +47,15 @@
                         </avalondock:LayoutAnchorablePane>
                     </avalondock:LayoutAnchorablePaneGroup>
 
-                    <avalondock:LayoutDocumentPane x:Name="layoutDocumentPane">                        
+                    <avalondock:LayoutDocumentPane x:Name="layoutDocumentPane">
                     </avalondock:LayoutDocumentPane>
 
                     <avalondock:LayoutAnchorablePaneGroup DockWidth="125">
-                        <avalondock:LayoutAnchorablePane x:Name="rightPropertiesPane">                            
+                        <avalondock:LayoutAnchorablePane x:Name="rightPropertiesPane">
                         </avalondock:LayoutAnchorablePane>
                     </avalondock:LayoutAnchorablePaneGroup>
-                </avalondock:LayoutPanel>                              
-                
+                </avalondock:LayoutPanel>
+
                 <avalondock:LayoutRoot.BottomSide>
                     <avalondock:LayoutAnchorSide>
                         <avalondock:LayoutAnchorGroup x:Name="bottomPropertiesPane">
@@ -65,7 +70,7 @@
             </avalondock:LayoutRoot>
         </avalondock:DockingManager>
 
-        <StatusBar>
+        <StatusBar Grid.ColumnSpan="3">
             <StatusBarItem Content="{Binding RelativeSource={RelativeSource AncestorType=CollectionViewSource:MainWindow}, Path=StatusBar}" />
         </StatusBar>
     </catel:StackGrid>
