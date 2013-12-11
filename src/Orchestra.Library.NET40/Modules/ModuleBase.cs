@@ -7,6 +7,7 @@
 namespace Orchestra.Modules
 {
     using System;
+    using Catel.IoC;
     using Microsoft.Practices.Prism.Modularity;
     using Services;
 
@@ -14,7 +15,7 @@ namespace Orchestra.Modules
     /// Base class for all modules used by Orchestra.
     /// </summary>
     [Module]
-    public abstract class ModuleBase : Catel.Modules.ModuleBase
+    public class ModuleBase : Catel.Modules.ModuleBase, INeedCustomInitialization
     {                
         /// <summary>
         /// The modules directory name.
@@ -40,8 +41,6 @@ namespace Orchestra.Modules
         protected ModuleBase(string moduleName) 
             : base(moduleName)
         {
-            var ribbonService = GetService<IRibbonService>();
-            InitializeRibbon(ribbonService);
         }
 
         /// <summary>
@@ -53,6 +52,17 @@ namespace Orchestra.Modules
         protected virtual void InitializeRibbon(IRibbonService ribbonService)
         {
             
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        void INeedCustomInitialization.Initialize()
+        {
+            var dependencyResolver = this.GetDependencyResolver();
+            var ribbonService = dependencyResolver.Resolve<IRibbonService>();
+
+            InitializeRibbon(ribbonService);
         }
     }
 }
