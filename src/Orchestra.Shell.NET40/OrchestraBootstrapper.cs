@@ -163,7 +163,7 @@ namespace Orchestra
                 var ribbonService = Container.ResolveType<IRibbonService>();
                 ribbonService.RegisterRibbonItem(new RibbonButton(configurationService.Configuration.HelpTabText, configurationService.Configuration.HelpGroupText, configurationService.Configuration.HelpButtonText, new Command(() =>
                 {
-                    var uiVisualizerService =   Container.ResolveType<IUIVisualizerService>();
+                    var uiVisualizerService = Container.ResolveType<IUIVisualizerService>();
                     var typeFactory = TypeFactory.Default;
                     var aboutViewModel = typeFactory.CreateInstance<AboutViewModel>();
 
