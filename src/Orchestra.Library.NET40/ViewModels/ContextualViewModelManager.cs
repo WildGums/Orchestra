@@ -182,14 +182,14 @@ namespace Orchestra.ViewModels
                         try
                         {
                             var typeFactory = TypeFactory.Default;
-                            contextDependenViewModel = (IViewModel) typeFactory.CreateInstanceWithParametersAndAutoCompletion(type, _contextualViewModelCollection[viewModeltype].Title);
+                            contextDependenViewModel = (IViewModel)typeFactory.CreateInstance(type);
                         }
                         catch (Exception ex)
                         {
                             Log.ErrorWithData(ex, "Error creating contextualViewModel.");
                             continue;
-                        }
-                    
+                        }                       
+
                         if (contextDependenViewModel != null)
                         {
                             DockingSettings dockingSettings = _contextualViewModelCollection[viewModeltype].DockingSettings;
@@ -247,13 +247,13 @@ namespace Orchestra.ViewModels
                         try
                         {                            
                             var typeFactory = TypeFactory.Default;
-                            viewModel = (IViewModel)typeFactory.CreateInstanceWithParametersAndAutoCompletion(type, _contextualViewModelCollection[documentViewViewModelType].Title);                            
+                            viewModel = (IViewModel)typeFactory.CreateInstance(type);
                         }
                         catch (Exception ex)
                         {
                             Log.ErrorWithData(ex, "Error creating contextual ViewModel.");
                             continue;
-                        }
+                        }                        
 
                         if (viewModel != null && !_openContextSensitiveViews.Contains(viewModel))
                         {

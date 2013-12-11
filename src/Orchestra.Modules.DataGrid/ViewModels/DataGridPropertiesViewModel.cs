@@ -13,15 +13,15 @@
             Title = "Properties";
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DataGridPropertiesViewModel"/> class.
-        /// </summary>
-        /// <param name="title">The title.</param>
-        public DataGridPropertiesViewModel(string title) 
-            : this()
-        {            
-            Title = title;            
-        }
+        ///// <summary>
+        ///// Initializes a new instance of the <see cref="DataGridPropertiesViewModel"/> class.
+        ///// </summary>
+        ///// <param name="title">The title.</param>
+        //public DataGridPropertiesViewModel(string title) 
+        //    : this()
+        //{            
+        //    Title = title;            
+        //}
 
         /// <summary>
         /// Gets or sets the number of rows in the datagrid.        
