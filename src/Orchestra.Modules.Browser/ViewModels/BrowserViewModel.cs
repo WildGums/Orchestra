@@ -13,8 +13,8 @@ namespace Orchestra.Modules.Browser.ViewModels
     using Catel.MVVM;
     using Catel.MVVM.Services;
     using Catel.Messaging;
-    using Models;
     using Orchestra.Services;
+    using Orchestra.ViewModels;
 
     /// <summary>
     /// UserControl view model.

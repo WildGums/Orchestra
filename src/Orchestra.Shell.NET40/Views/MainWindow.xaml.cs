@@ -22,7 +22,6 @@ namespace Orchestra.Views
     using Catel.Windows.Media.Imaging;
     using Fluent;
     using Orchestra.ViewModels;
-    using Properties;
     using Xceed.Wpf.AvalonDock.Layout;
 
     /// <summary>
@@ -85,7 +84,7 @@ namespace Orchestra.Views
             serviceLocator.RegisterInstance(typeof(LayoutAnchorGroup), topPropertiesPane, "topPropertiesPane");
 
             ribbon.AutomaticStateManagement = true;
-            ribbon.EnsureTabItem(OrchestraResources.HomeRibbonTabName);
+            ribbon.EnsureTabItem(Library.Properties.Resources.HomeRibbonTabName);
 
             SetIcon();
 

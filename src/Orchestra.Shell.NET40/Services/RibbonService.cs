@@ -244,7 +244,7 @@ namespace Orchestra.Services
                 {
                     Log.Debug("SelectedContent is not a document view, selecting home ribbon tab");
 
-                    _ribbon.SelectTabItem(Orchestra.Properties.OrchestraResources.HomeRibbonTabName);
+                    _ribbon.SelectTabItem(Library.Properties.Resources.HomeRibbonTabName);
                     return;
                 }
             }
@@ -254,7 +254,7 @@ namespace Orchestra.Services
             if (!_viewSpecificRibbonItems.ContainsKey(documentViewType))
             {
                 Log.Debug("SelectedContent does not have a ribbon tab, selecting home ribbon tab");
-                _dispatcherService.BeginInvoke(() => _ribbon.SelectTabItem(Orchestra.Properties.OrchestraResources.HomeRibbonTabName));
+                _dispatcherService.BeginInvoke(() => _ribbon.SelectTabItem(Library.Properties.Resources.HomeRibbonTabName));
                 return;
             }
 

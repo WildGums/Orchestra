@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Orchestra
+namespace Orchestra.ViewModels
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;

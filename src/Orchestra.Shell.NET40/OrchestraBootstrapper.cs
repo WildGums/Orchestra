@@ -23,7 +23,6 @@ namespace Orchestra
     using Catel.Windows.Threading;    
     using Microsoft.Practices.Prism.Modularity;
     using Models;
-    using Properties;
     using Services;
     using ViewModels;
     using Views;
@@ -114,7 +113,7 @@ namespace Orchestra
         {
             base.InitializeBootTasks(bootTasks);
 
-            bootTasks.Add(new ActionTask(OrchestraShellResources.BootTaskWarmingUpSerializers, tracker =>
+            bootTasks.Add(new ActionTask(Orchestra.Shell.Properties.Resources.BootTaskWarmingUpSerializers, tracker =>
             {
                 var xmlSerializer = (IModelBaseSerializer)SerializationFactory.GetXmlSerializer();
                 xmlSerializer.Warmup();

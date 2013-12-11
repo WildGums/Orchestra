@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace Orchestra
+namespace Orchestra.ViewModels
 {
     using Catel.MVVM;
     using Models;

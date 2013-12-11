@@ -15,7 +15,7 @@ namespace Orchestra.Modules.Browser
     using Catel.Linq;
     using Catel.MVVM;
     using Models;
-    using Orchestra.Properties;
+    using Orchestra.ViewModels;
     using Properties;
     using Services;
     using ViewModels;
@@ -62,7 +62,7 @@ namespace Orchestra.Modules.Browser
 
             // Module specific
             var typeFactory = TypeFactory.Default;
-            ribbonService.RegisterRibbonItem(new RibbonButton(OrchestraResources.HomeRibbonTabName, ModuleName, BrowserModuleResources.OpenNewBrowserModuleMenuItem, new Command(() =>
+            ribbonService.RegisterRibbonItem(new RibbonButton(Library.Properties.Resources.HomeRibbonTabName, ModuleName, BrowserModuleResources.OpenNewBrowserModuleMenuItem, new Command(() =>
             {
                 var browserViewModel = typeFactory.CreateInstance<BrowserViewModel>();
                 orchestraService.ShowDocument(browserViewModel);
@@ -100,8 +100,8 @@ namespace Orchestra.Modules.Browser
             var template = Application.Current.Resources["TestTemplate"] as DataTemplate;
 
             //ribbonService.RegisterContextualRibbonItem<BrowserView>(new RibbonContentControl(Name, "Dynamic content") { ContentTemplate = template, Layout = new RibbonItemLayout {Width = 120}}, ModuleName);            
-            
-            ribbonService.RegisterRibbonItem(new RibbonButton(OrchestraResources.ViewRibbonTabName, ModuleName, BrowserModuleResources.BrowserPropertiesViewHeader, new Command(() =>
+
+            ribbonService.RegisterRibbonItem(new RibbonButton(Library.Properties.Resources.ViewRibbonTabName, ModuleName, BrowserModuleResources.BrowserPropertiesViewHeader, new Command(() =>
             {
                 orchestraService.ShowDocumentIfHidden<PropertiesViewModel>();
             })) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });

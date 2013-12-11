@@ -121,8 +121,17 @@
     <Compile Include="..\Orchestra.Shell.NET40\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Orchestra.Shell.NET40\Properties\OrchestraShellResources.Designer.cs">
-      <Link>Properties\OrchestraShellResources.Designer.cs</Link>
+    <Compile Include="..\Orchestra.Shell.NET40\Properties\Resources.de.NET45.Designer.cs">
+      <Link>Properties\Resources.de.NET45.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\Orchestra.Shell.NET40\Properties\Resources.NET45.Designer.cs">
+      <Link>Properties\Resources.NET45.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="..\Orchestra.Shell.NET40\Services\ConfigurationService.cs">
       <Link>Services\ConfigurationService.cs</Link>
@@ -205,11 +214,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Orchestra.Shell.NET40\Properties\OrchestraShellResources.de-DE.resx">
-      <Link>Properties\OrchestraShellResources.de-DE.resx</Link>
+    <EmbeddedResource Include="..\Orchestra.Shell.NET40\Properties\Resources.de.resx">
+      <Link>Properties\Resources.de.resx</Link>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.de.NET45.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Orchestra.Shell.Properties</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Orchestra.Shell.NET40\Properties\OrchestraShellResources.resx">
-      <Link>Properties\OrchestraShellResources.resx</Link>
+    <EmbeddedResource Include="..\Orchestra.Shell.NET40\Properties\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.NET45.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Orchestra.Shell.Properties</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

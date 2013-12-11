@@ -8,7 +8,6 @@ namespace Orchestra.Modules.PlotDemo
 {
     using Catel.MVVM;
     using Models;
-    using Properties;
     using Services;
     using ViewModels;
 
@@ -50,7 +49,7 @@ namespace Orchestra.Modules.PlotDemo
             var orchestraService = GetService<IOrchestraService>();
 
             // Module specific
-            ribbonService.RegisterRibbonItem(new RibbonButton(OrchestraResources.HomeRibbonTabName, ModuleName, "Show", new Command(() => orchestraService.ShowDocument<PlotDemoViewModel>())) 
+            ribbonService.RegisterRibbonItem(new RibbonButton(Library.Properties.Resources.HomeRibbonTabName, ModuleName, "Show", new Command(() => orchestraService.ShowDocument<PlotDemoViewModel>())) 
             { ItemImage = "/Orchestra.Modules.PlotDemo;component/Resources/Images/Graph.png" });
 
             // View specific

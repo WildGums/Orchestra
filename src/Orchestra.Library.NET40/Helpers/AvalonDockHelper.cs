@@ -17,6 +17,7 @@ namespace Orchestra
     using Microsoft.Practices.Prism.Regions;
     using Models;
     using Orchestra.Controls;
+    using Orchestra.ViewModels;
     using Orchestra.Views;
     using Xceed.Wpf.AvalonDock;
     using Xceed.Wpf.AvalonDock.Layout;

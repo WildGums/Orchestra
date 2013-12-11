@@ -18,15 +18,14 @@ namespace Orchestra.Modules.DataGrid.ViewModels
     using Catel.MVVM.Services;
     using Catel.Messaging;
     using CsvHelper;
-    using Orchestra.Models;
     using Orchestra.Modules.DataGrid.Models;
-
+    using Orchestra.ViewModels;
     using TableView;
 
     /// <summary>
     /// The data grid view model.
     /// </summary>
-    public class DataGridViewModel : ViewModelBase, IContextualViewModel
+    public class DataGridViewModel : Orchestra.ViewModels.ViewModelBase, IContextualViewModel
     {
         private readonly IOpenFileService _openFileService;
         private readonly ISaveFileService _saveFileService;

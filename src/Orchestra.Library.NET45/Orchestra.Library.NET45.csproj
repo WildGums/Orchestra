@@ -123,9 +123,6 @@
     <Compile Include="..\Orchestra.Library.NET40\Models\DockLocation.cs">
       <Link>Models\DockLocation.cs</Link>
     </Compile>
-    <Compile Include="..\Orchestra.Library.NET40\Models\Interface\IContextualViewModel.cs">
-      <Link>Models\Interface\IContextualViewModel.cs</Link>
-    </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Models\Interface\IDockingManagerContainer.cs">
       <Link>Models\Interface\IDockingManagerContainer.cs</Link>
     </Compile>
@@ -192,8 +189,17 @@
     <Compile Include="..\Orchestra.Library.NET40\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Orchestra.Library.NET40\Properties\OrchestraResources.Designer.cs">
-      <Link>Properties\OrchestraResources.Designer.cs</Link>
+    <Compile Include="..\Orchestra.Library.NET40\Properties\Resources.de.NET45.Designer.cs">
+      <Link>Properties\Resources.de.NET45.Designer.cs</Link>
+      <DependentUpon>Resources.de.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\Properties\Resources.NET45.Designer.cs">
+      <Link>Properties\Resources.NET45.Designer.cs</Link>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="..\Orchestra.Library.NET40\Services\Interfaces\IOrchestraService.cs">
       <Link>Services\Interfaces\IOrchestraService.cs</Link>
@@ -209,6 +215,9 @@
     </Compile>
     <Compile Include="..\Orchestra.Library.NET40\ViewModels\ContextualViewModelManager.cs">
       <Link>ViewModels\ContextualViewModelManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Orchestra.Library.NET40\ViewModels\Interfaces\IContextualViewModel.cs">
+      <Link>ViewModels\Interfaces\IContextualViewModel.cs</Link>
     </Compile>
     <Compile Include="..\Orchestra.Library.NET40\ViewModels\Interfaces\IContextualViewModelManager.cs">
       <Link>ViewModels\Interfaces\IContextualViewModelManager.cs</Link>
@@ -290,11 +299,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Orchestra.Library.NET40\Properties\OrchestraResources.de-DE.resx">
-      <Link>Properties\OrchestraResources.de-DE.resx</Link>
+    <EmbeddedResource Include="..\Orchestra.Library.NET40\Properties\Resources.de.resx">
+      <Link>Properties\Resources.de.resx</Link>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.de.NET45.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Orchestra.Library.Properties</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Orchestra.Library.NET40\Properties\OrchestraResources.resx">
-      <Link>Properties\OrchestraResources.resx</Link>
+    <EmbeddedResource Include="..\Orchestra.Library.NET40\Properties\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.NET45.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Orchestra.Library.Properties</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

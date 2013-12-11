@@ -116,12 +116,16 @@
     <Compile Include="Helpers\AvalonDockHelper.cs" />
     <Compile Include="Models\ContextSensitviveViewModelData.cs" />
     <Compile Include="Models\DockingSettings.cs" />
-    <Compile Include="Models\Interface\IContextualViewModel.cs" />
     <Compile Include="Models\Interface\IDockingManagerContainer.cs" />
-    <Compile Include="Properties\OrchestraResources.Designer.cs">
+    <Compile Include="Properties\Resources.de.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrchestraResources.resx</DependentUpon>
+      <DependentUpon>Resources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ContextualViewModelManager.cs" />
     <Compile Include="Helpers\FluentRibbonHelper.cs" />
@@ -152,6 +156,7 @@
     <Compile Include="Services\Interfaces\IRibbonService.cs" />
     <Compile Include="Services\Interfaces\IStatusBarService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="ViewModels\Interfaces\IContextualViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IContextualViewModelManager.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\DocumentView.cs" />
@@ -187,12 +192,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\OrchestraResources.resx">
+    <EmbeddedResource Include="Properties\Resources.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>OrchestraResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.de.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Orchestra.Library.Properties</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\OrchestraResources.de-DE.resx">
-      <CustomToolNamespace>Orchestra</CustomToolNamespace>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Orchestra.Library.Properties</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
