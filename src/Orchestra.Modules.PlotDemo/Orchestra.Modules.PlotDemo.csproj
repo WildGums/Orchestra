@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <FodyPath>..\..\lib\Fody.1.18.0.0</FodyPath>
+    <FodyPath>..\..\lib\Fody.1.19.0.0</FodyPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,17 +70,17 @@
       <HintPath>..\..\lib\Obsolete.Fody.3.0.0.0\Lib\NET35\Obsolete.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="OxyPlot, Version=2013.2.136.1, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+    <Reference Include="OxyPlot, Version=2013.2.141.1, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\OxyPlot.Core.2013.2.136.1\lib\portable-net4+sl4+wp71+win8\OxyPlot.dll</HintPath>
+      <HintPath>..\..\lib\OxyPlot.Core.2013.2.141.1\lib\portable-net4+sl4+wp71+win8\OxyPlot.dll</HintPath>
     </Reference>
-    <Reference Include="OxyPlot.Wpf, Version=2013.2.136.1, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+    <Reference Include="OxyPlot.Wpf, Version=2013.2.141.1, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\OxyPlot.Wpf.2013.2.136.1\lib\NET40\OxyPlot.Wpf.dll</HintPath>
+      <HintPath>..\..\lib\OxyPlot.Wpf.2013.2.141.1\lib\NET40\OxyPlot.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="OxyPlot.Xps, Version=2013.2.136.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="OxyPlot.Xps, Version=2013.2.141.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\OxyPlot.Wpf.2013.2.136.1\lib\NET40\OxyPlot.Xps.dll</HintPath>
+      <HintPath>..\..\lib\OxyPlot.Wpf.2013.2.141.1\lib\NET40\OxyPlot.Xps.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
