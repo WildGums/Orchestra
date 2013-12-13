@@ -88,11 +88,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Orchestra.Library.NET40\Orchestra.Library.NET40.csproj">
+    <ProjectReference Include="..\Orchestra.Library\Orchestra.Library.NET40\Orchestra.Library.NET40.csproj">
       <Project>{433bce8b-95ae-4628-abed-86a224d5e8c9}</Project>
       <Name>Orchestra.Library.NET40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Orchestra.Shell.NET40\Orchestra.Shell.NET40.csproj">
+    <ProjectReference Include="..\Orchestra.Shell\Orchestra.Shell.NET40\Orchestra.Shell.NET40.csproj">
       <Project>{1718ed0d-7219-48b2-b9f5-6c91ee01eb0b}</Project>
       <Name>Orchestra.Shell.NET40</Name>
     </ProjectReference>
