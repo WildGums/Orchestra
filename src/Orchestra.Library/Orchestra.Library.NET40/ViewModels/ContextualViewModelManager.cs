@@ -105,9 +105,10 @@ namespace Orchestra.ViewModels
         /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>
         /// <param name="title">The title.</param>
         /// <param name="dockLocation">The dock location.</param>
+        [Obsolete("Title has to be set from the viewmodel. Use the RegisterContextualView without the title parameter.", true)]
         public void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(string title, DockLocation dockLocation)
         {
-            RegisterContextualView<TViewModel, TContextSensitiveViewModel>(title, new DockingSettings{DockLocation = dockLocation});
+            RegisterContextualView<TViewModel, TContextSensitiveViewModel>(new DockingSettings{DockLocation = dockLocation});
         }
 
         /// <summary>
@@ -117,14 +118,37 @@ namespace Orchestra.ViewModels
         /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>
         /// <param name="title">The title.</param>
         /// <param name="dockingSettings">The docking settings.</param>
+        [Obsolete("Title has to be set from the viewmodel. Use the RegisterContextualView without the title parameter.", true)]
         public void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(string title, DockingSettings dockingSettings)
+        {
+            RegisterContextualView<TViewModel, TContextSensitiveViewModel>(dockingSettings);
+        }
+
+        /// <summary>
+        /// Registers 'contextual' view type, with the type of views that are context sensitive to this view.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>        
+        /// <param name="dockLocation">The dock location.</param>
+        public void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(DockLocation dockLocation)
+        {
+            RegisterContextualView<TViewModel, TContextSensitiveViewModel>(new DockingSettings { DockLocation = dockLocation });
+        }
+
+        /// <summary>
+        /// Registers 'contextual' view type, with the type of views that are context sensitive to this view.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>        
+        /// <param name="dockingSettings">The docking settings.</param>
+        public void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(DockingSettings dockingSettings)
         {
             Type viewModelType = typeof(TViewModel);
             Type contextSensitiveViewModelType = typeof(TContextSensitiveViewModel);
 
             if (!_contextualViewModelCollection.ContainsKey(viewModelType))
             {
-                _contextualViewModelCollection.Add(viewModelType, new ContextSensitviveViewModelData(title, dockingSettings));
+                _contextualViewModelCollection.Add(viewModelType, new ContextSensitviveViewModelData(dockingSettings));
             }
 
             if (!_contextualViewModelCollection[viewModelType].ContextDependentViewModels.Contains(contextSensitiveViewModelType))
@@ -193,7 +217,7 @@ namespace Orchestra.ViewModels
                         if (contextDependenViewModel != null)
                         {
                             DockingSettings dockingSettings = _contextualViewModelCollection[viewModeltype].DockingSettings;
-                            _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockingSettings, null);
+                            _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockingSettings);
 
                             if(_openContextSensitiveViews.All(v => v.GetType() != contextDependenViewModel.GetType()))
                             {                            
@@ -210,7 +234,7 @@ namespace Orchestra.ViewModels
                         if (contextDependenViewModel != null)
                         {
                             DockingSettings dockingSettings = _contextualViewModelCollection[viewModeltype].DockingSettings;
-                            _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockingSettings, null);
+                            _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockingSettings);
                         }
                     }
                 }

@@ -7,6 +7,7 @@
 
 namespace Orchestra.ViewModels
 {
+    using System;
     using Catel.MVVM;
     using Models;
     using Orchestra.Views;
@@ -63,6 +64,7 @@ namespace Orchestra.ViewModels
         /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>
         /// <param name="title">The title.</param>
         /// <param name="dockLocation">The dock location.</param>
+        [Obsolete("Title has to be set from the viewmodel. Use the RegisterContextualView without the title parameter.", true)]
         void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(string title, DockLocation dockLocation);
 
         /// <summary>
@@ -72,7 +74,24 @@ namespace Orchestra.ViewModels
         /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>
         /// <param name="title">The title.</param>
         /// <param name="dockingSettings">The docking settings.</param>
+        [Obsolete("Title has to be set from the viewmodel. Use the RegisterContextualView without the title parameter.", true)]
         void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(string title, DockingSettings dockingSettings);
+
+        /// <summary>
+        /// Registers 'contextual' view type, with the type of views that are context sensitive to this view.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>        
+        /// <param name="dockLocation">The dock location.</param>      
+        void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(DockLocation dockLocation);
+
+        /// <summary>
+        /// Registers the context sensitive parent view.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <typeparam name="TContextSensitiveViewModel">The type of the context sensitive view model.</typeparam>        
+        /// <param name="dockingSettings">The docking settings.</param>        
+        void RegisterContextualView<TViewModel, TContextSensitiveViewModel>(DockingSettings dockingSettings);
 
         /// <summary>
         /// Unregisters the contextual document view.

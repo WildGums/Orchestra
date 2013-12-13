@@ -10,7 +10,7 @@
         /// </summary>
         public DataGridPropertiesViewModel()
         {
-            Title = "Properties";
+            Title = "Datagrid Properties";
         }
 
         ///// <summary>

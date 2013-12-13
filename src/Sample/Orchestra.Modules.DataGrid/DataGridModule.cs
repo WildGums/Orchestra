@@ -111,7 +111,7 @@ namespace Orchestra.Modules.DataGrid
             dockingSettings.Height = 200;
 
             // Demo: Register context sensitive view, within the Nested dockingmanager
-            contextualViewModelManager.RegisterContextualView<DataGridViewModel, DataGridPropertiesViewModel>("Datagrid properties", dockingSettings);            
+            contextualViewModelManager.RegisterContextualView<DataGridViewModel, DataGridPropertiesViewModel>(dockingSettings);            
 
             // Add the contextual view in the "View" menu
             ribbonService.RegisterRibbonItem(new RibbonButton(Library.Properties.Resources.ViewRibbonTabName, ModuleName, "Browser properties", 
