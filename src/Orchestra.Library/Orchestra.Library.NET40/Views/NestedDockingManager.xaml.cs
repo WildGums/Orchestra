@@ -9,8 +9,7 @@ namespace Orchestra.Views
     using System.Collections.Generic;
     using System.Windows;
     using Catel;
-    using Layout;
-    using Orchestra.Models;
+    using Models;
     using Xceed.Wpf.AvalonDock;
     using Xceed.Wpf.AvalonDock.Layout;
 
@@ -132,7 +131,7 @@ namespace Orchestra.Views
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         /// <exception cref="System.NotImplementedException"></exception>
-        private void NestedDockingManagerLoaded(object sender, System.Windows.RoutedEventArgs e)
+        private void NestedDockingManagerLoaded(object sender, RoutedEventArgs e)
         {
             // Forwared the 'focus' to the correct view.
             DockingManager.ActiveContent = ContentDocument.Content;
@@ -171,9 +170,9 @@ namespace Orchestra.Views
 
                 if (model != null)
                 {
-                    foreach (var ch in model.SinglePane.Children)
+                    foreach (var child in model.SinglePane.Children)
                     {
-                        if (ch == document)
+                        if (child == document)
                         {
                             window.Top = _floatingWindowsCollection[document].Top;
                             window.Left = _floatingWindowsCollection[document].Left;
@@ -186,17 +185,44 @@ namespace Orchestra.Views
         }
 
         private void SetDockWidthForPane(LayoutAnchorablePane propertiesPane, DockingSettings dockingSettings)
-        {
+        {            
             Argument.IsNotNull(()=>propertiesPane);
             Argument.IsNotNull(() => dockingSettings);
 
-            var paneGroup = propertiesPane.Parent as LayoutAnchorablePaneGroup;
+            var paneGroup = propertiesPane.Parent as LayoutAnchorablePaneGroup;            
 
             if (paneGroup != null && paneGroup.DockWidth.Value < dockingSettings.Width)
             {
+                // There is an issue in AvalonDock: https://avalondock.codeplex.com/workitem/16427
+                // When a Document is Opened in a NestedDockingManager from the menu, the set size for the width is reset by AvalonDock to Star size.
+                // This is a workaround to get arround this issue.
+                paneGroup.PropertyChanged += PaneGroupPropertyChanged;
+
                 paneGroup.DockWidth = new GridLength(dockingSettings.Width);
+                _dockWidth = dockingSettings.Width;
             }
-        }       
+        }
+        #region Workaround for star sizing issue
+        // We remeber the dockWidth that is set. So when the size is > 0, we know it has been set by this instance.
+        private int _dockWidth;
+
+        /// <summary>
+        /// Handles the PropertyChanged event of the paneGroup control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        void PaneGroupPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var paneGroup = sender as LayoutAnchorablePaneGroup;
+
+            if (e.PropertyName == "DockWidth" && paneGroup != null && paneGroup.DockWidth.IsStar && _dockWidth > 0)
+            {                
+                paneGroup.PropertyChanged -= PaneGroupPropertyChanged;
+                paneGroup.DockWidth = new GridLength(_dockWidth);                
+            }
+        }
+        #endregion
+
         #endregion
     }
 }
