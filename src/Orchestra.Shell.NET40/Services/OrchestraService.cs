@@ -192,7 +192,7 @@ namespace Orchestra.Services
         /// <param name="tag">The tag.</param>
         public void ShowDocumentInNestedDockView(IViewModel viewModel, NestedDockingManager dockingManager, DockingSettings dockingSettings, object tag = null)
         {
-            var document = CreateDocument(viewModel, tag);
+            var document = CreateDocument(viewModel, tag);            
             dockingManager.AddDockedWindow(document, dockingSettings);
         }
 

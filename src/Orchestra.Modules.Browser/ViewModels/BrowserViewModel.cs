@@ -15,6 +15,7 @@ namespace Orchestra.Modules.Browser.ViewModels
     using Catel.Messaging;
     using Orchestra.Services;
     using Orchestra.ViewModels;
+    using Properties;
 
     /// <summary>
     /// UserControl view model.
@@ -72,7 +73,7 @@ namespace Orchestra.Modules.Browser.ViewModels
             Browse = new Command(OnBrowseExecute, OnBrowseCanExecute);
             Test = new Command(OnTestExecute);
             CloseBrowser = new Command(OnCloseBrowserExecute);
-            this.Title = "Browser";
+            Title = BrowserModuleResources.BrowserPropertiesViewHeader;
         }
 
         private void OnTestExecute()

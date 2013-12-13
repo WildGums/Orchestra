@@ -112,7 +112,7 @@ namespace Orchestra.Modules.Browser
 
             // Demo: register contextual view related to browserview
             var contextualViewModelManager = GetService<IContextualViewModelManager>();
-            contextualViewModelManager.RegisterContextualView<BrowserViewModel, PropertiesViewModel>(BrowserModuleResources.BrowserPropertiesViewHeader, dockingSettings);
+            contextualViewModelManager.RegisterContextualView<BrowserViewModel, PropertiesViewModel>(dockingSettings);
 
             // Demo: show two pages with different tags
             var orchestraViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Orchestra");
