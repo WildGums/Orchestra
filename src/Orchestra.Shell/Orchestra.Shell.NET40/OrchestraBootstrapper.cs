@@ -67,6 +67,10 @@ namespace Orchestra
             var application = Application.Current;
             application.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
+                Source = new Uri("pack://application:,,,/Fluent;Component/Themes/Generic.xaml", UriKind.RelativeOrAbsolute)
+            });
+            application.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
                 Source = new Uri("pack://application:,,,/Fluent;Component/Themes/Office2010/Silver.xaml", UriKind.RelativeOrAbsolute)
             });
             application.Resources.MergedDictionaries.Add(new ResourceDictionary
