@@ -83,13 +83,13 @@ namespace Orchestra
             DockingManager.ActiveContentChanged += DockingManagerActiveContentChanged;
 
             LayoutDocumentPane = ServiceLocator.Default.ResolveType<LayoutDocumentPane>();
-            LayoutAnchorGroup = ServiceLocator.Default.ResolveType<LayoutAnchorGroup>();            
-            
+            LayoutAnchorGroup = ServiceLocator.Default.ResolveType<LayoutAnchorGroup>();
+
             RightLayoutAnchorablePane = (LayoutAnchorablePane)ServiceLocator.Default.ResolveType(typeof(LayoutAnchorablePane), "rightPropertiesPane");
             LeftLayoutAnchorablePane = (LayoutAnchorablePane)ServiceLocator.Default.ResolveType(typeof(LayoutAnchorablePane), "leftPropertiesPane");
             BottomPropertiesPane = (LayoutAnchorGroup)ServiceLocator.Default.ResolveType(typeof(LayoutAnchorGroup), "bottomPropertiesPane");
-            TopPropertiesPane = (LayoutAnchorGroup)ServiceLocator.Default.ResolveType(typeof(LayoutAnchorGroup), "topPropertiesPane");             
-        }        
+            TopPropertiesPane = (LayoutAnchorGroup)ServiceLocator.Default.ResolveType(typeof(LayoutAnchorGroup), "topPropertiesPane");
+        }
         #endregion
 
         #region Properties
@@ -120,7 +120,7 @@ namespace Orchestra
         /// <exception cref="ArgumentNullException">The <paramref name="viewType" /> is <c>null</c>.</exception>
         public static LayoutAnchorable FindDocument(Type viewType, object tag = null)
         {
-            Argument.IsNotNull("viewType", viewType);           
+            Argument.IsNotNull("viewType", viewType);
 
             return FindDocument(DockingManager, viewType, tag);
         }
@@ -136,18 +136,18 @@ namespace Orchestra
         /// </returns>
         /// <exception cref="ArgumentNullException">The <paramref name="docingManager" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="docingManager" /> is <c>null</c>.</exception>
-        public static LayoutAnchorable FindDocument(DockingManager docingManager,Type viewType, object tag = null)
+        public static LayoutAnchorable FindDocument(DockingManager docingManager, Type viewType, object tag = null)
         {
             Argument.IsNotNull("docingManager", docingManager);
             Argument.IsNotNull("viewType", viewType);
-            
+
             LayoutAnchorable doc = null;
             var documents = docingManager.Layout.Descendents().OfType<LayoutAnchorable>();
 
             foreach (var layoutAnchorable in documents)
             {
                 var content = layoutAnchorable.Content as IDockingManagerContainer;
-                
+
                 if (content != null)
                 {
                     var nestedDockingManager = content;
@@ -156,9 +156,9 @@ namespace Orchestra
                     {
                         doc = FindDocument(nestedDockingManager.DockingManager, viewType, tag);
                         break;
-                    }                    
+                    }
                 }
-                
+
                 if (layoutAnchorable.Content.GetType() == viewType && TagHelper.AreTagsEqual(tag, ((IView)layoutAnchorable.Content).Tag))
                 {
                     doc = layoutAnchorable;
@@ -203,7 +203,7 @@ namespace Orchestra
                 case DockLocation.Right:
                     RightLayoutAnchorablePane.Children.Add(document);
                     document.CanFloat = true;
-                    SetDockWidthForPane(RightLayoutAnchorablePane, dockingSettings);                    
+                    SetDockWidthForPane(RightLayoutAnchorablePane, dockingSettings);
                     break;
                 case DockLocation.Top:
                     TopPropertiesPane.Children.Add(document);
@@ -221,25 +221,28 @@ namespace Orchestra
         /// </returns>
         /// <exception cref="ArgumentNullException">The <paramref name="view" /> is <c>null</c>.</exception>
         public static LayoutAnchorable CreateDocument(FrameworkElement view, object tag = null)
-        {            
+        {
             Argument.IsNotNull("view", view);
 
             LayoutAnchorable layoutDocument;
-            var documentView = view as DocumentView;
-
-            if (ContextualViewModelManager.IsNestedDockview(documentView.ViewModel))
+            var documentView = (DocumentView)view;
+            var vm = documentView.GetViewModel();
+            if (vm != null && ContextualViewModelManager.IsNestedDockview(vm))
             {
                 layoutDocument = WrapViewInNestedDockManager(view, tag, true);
-                ContextualViewModelManager.AddContextSensitiveViewsToNestedDockView(documentView.ViewModel, (NestedDockingManager)layoutDocument.Content);
+                ContextualViewModelManager.AddContextSensitiveViewsToNestedDockView(vm, (NestedDockingManager)layoutDocument.Content);
             }
             else
             {
                 layoutDocument = WrapViewInLayoutDocument(view, tag, true);
             }
 
-            ContextualViewModelManager.RegisterOpenDocumentView(documentView);
+            if (vm != null)
+            {
+                ContextualViewModelManager.RegisterOpenDocumentView(documentView);
+            }
 
-            return layoutDocument;            
+            return layoutDocument;
         }
 
         /// <summary>
@@ -248,13 +251,13 @@ namespace Orchestra
         /// <param name="dockingSettings">The docking settings.</param>
         /// <param name="layoutDocument">The layout document.</param>
         public static void AddNewDocumentToDockingManager(DockingSettings dockingSettings, LayoutAnchorable layoutDocument)
-        {            
+        {
             if (dockingSettings == null)
             {
                 LayoutDocumentPane.Children.Add(layoutDocument);
             }
             else
-            {                
+            {
                 DockView(layoutDocument, dockingSettings);
             }
         }
@@ -275,7 +278,7 @@ namespace Orchestra
         }
 
         private static LayoutAnchorable WrapViewInNestedDockManager(FrameworkElement view, object tag = null, bool canFloat = false)
-        {            
+        {
             var nestedDockingManager = new NestedDockingManager();
             nestedDockingManager.DataContext = view.DataContext;
 
@@ -284,11 +287,11 @@ namespace Orchestra
             layoutDocument.CanAutoHide = false;
             layoutDocument.CanClose = false;
             layoutDocument.CanHide = false;
-            layoutDocument.CanFloat = false;  
+            layoutDocument.CanFloat = false;
 
             nestedDockingManager.AddContentDocument(layoutDocument);
 
-            var layoutAnchorable = new LayoutAnchorable {Title = ((IViewModel) view.DataContext).Title, Content = nestedDockingManager};                      
+            var layoutAnchorable = new LayoutAnchorable { Title = ((IViewModel)view.DataContext).Title, Content = nestedDockingManager };
             return layoutAnchorable;
         }
 
@@ -348,13 +351,13 @@ namespace Orchestra
         {
             if (((DockingManager)sender).ActiveContent is NestedDockingManager)
             {
-                var nestedDokingManager = ((DockingManager) sender).ActiveContent as NestedDockingManager;
+                var nestedDokingManager = ((DockingManager)sender).ActiveContent as NestedDockingManager;
                 ActivatedView = nestedDokingManager.ContentDocument.Content as DocumentView;
             }
             else
             {
                 ActivatedView = ((DockingManager)sender).ActiveContent as DocumentView;
-            }                                 
+            }
 
             if (ActivatedView != null && ActivatedView.ViewModel is IContextualViewModel)
             {
@@ -378,7 +381,7 @@ namespace Orchestra
             {
                 paneGroup.DockWidth = new GridLength(dockingSettings.Width);
             }
-        }   
+        }
         #endregion
     }
 }

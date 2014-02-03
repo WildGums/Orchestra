@@ -245,9 +245,10 @@ namespace Orchestra.ViewModels
         {
             Argument.IsNotNull(() => documentView);
 
-            var documentViewViewModelType = documentView.ViewModel.GetType();
+            var vm = documentView.GetViewModel();
+            var documentViewViewModelType = vm.GetType();
 
-            if (IsNestedDockview(documentView.ViewModel))
+            if (IsNestedDockview(vm))
             {
                 return;
             }
@@ -303,7 +304,8 @@ namespace Orchestra.ViewModels
         {
             Argument.IsNotNull(() => documentView);
 
-            return _contextualViewModelCollection.ContainsKey(documentView.ViewModel.GetType());
+            var vm = documentView.GetViewModel();
+            return _contextualViewModelCollection.ContainsKey(vm.GetType());
         }
 
         /// <summary>
@@ -374,7 +376,8 @@ namespace Orchestra.ViewModels
         {
             Argument.IsNotNull("The activated view", activatedView);
 
-            if (activatedView.ViewModel == null || IsContextDependentViewModel(activatedView.ViewModel))
+            var vm = activatedView.GetViewModel();
+            if (vm == null || IsContextDependentViewModel(vm))
             {
                 return;
             }
@@ -387,7 +390,8 @@ namespace Orchestra.ViewModels
                     continue;
                 }
 
-                if (!IsContextDependentViewModel(document.ViewModel) || HasContextualRelationShip(document.ViewModel, activatedView.ViewModel))
+                var documentVm = document.GetViewModel();
+                if (!IsContextDependentViewModel(documentVm) || HasContextualRelationShip(documentVm, vm))
                 {
                     ((DocumentView)document).Visibility = Visibility.Visible;
                 }

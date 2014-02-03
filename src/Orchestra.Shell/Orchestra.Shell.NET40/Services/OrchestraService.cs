@@ -97,7 +97,6 @@ namespace Orchestra.Services
             var viewType = viewLocator.ResolveView(typeof (TViewModel));
 
             var document = AvalonDockHelper.FindDocument(viewType, tag);
-
             if (document != null)
             {
                 document.Show();
@@ -134,6 +133,11 @@ namespace Orchestra.Services
             Log.Debug("Opening document for view model '{0}'", viewModel.UniqueIdentifier);
 
             var document = CreateDocument(viewModel, tag);
+            if (document == null)
+            {
+                return;
+            }
+
             AvalonDockHelper.AddNewDocumentToDockingManager(dockingSettings, document);
             AvalonDockHelper.ActivateDocument(document);
         }        

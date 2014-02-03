@@ -70,6 +70,11 @@ namespace Orchestra.Views
                     PropertyChanged.SafeInvoke(this, new PropertyChangedEventArgs("ViewModel"));
                 };
             _windowLogic.ViewModelPropertyChanged += (s, e) => ViewModelPropertyChanged.SafeInvoke(this, e);
+            _windowLogic.PropertyChanged += (sender, e) => PropertyChanged.SafeInvoke(this, e);
+            _windowLogic.ViewLoading += (sender, e) => ViewLoading.SafeInvoke(this);
+            _windowLogic.ViewLoaded += (sender, e) => ViewLoaded.SafeInvoke(this);
+            _windowLogic.ViewUnloading += (sender, e) => ViewUnloading.SafeInvoke(this);
+            _windowLogic.ViewUnloaded += (sender, e) => ViewUnloaded.SafeInvoke(this); 
 
             // _windowLogic.TargetControlPropertyChanged += (s, e) => PropertyChanged.SafeInvoke(this, new AdvancedPropertyChangedEventArgs(s, this, e.PropertyName, e.OldValue, e.NewValue));
             var serviceLocator = ServiceLocator.Default;
@@ -134,6 +139,26 @@ namespace Orchestra.Views
         /// (mostly the container of a view model) because the .NET Framework does not allows us to.
         /// </remarks>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Occurs when the view model container is loading.
+        /// </summary>
+        public event EventHandler<EventArgs> ViewLoading;
+
+        /// <summary>
+        /// Occurs when the view model container is loaded.
+        /// </summary>
+        public event EventHandler<EventArgs> ViewLoaded;
+
+        /// <summary>
+        /// Occurs when the view model container starts unloading.
+        /// </summary>
+        public event EventHandler<EventArgs> ViewUnloading;
+
+        /// <summary>
+        /// Occurs when the view model container is unloaded.
+        /// </summary>
+        public event EventHandler<EventArgs> ViewUnloaded;
         #endregion
 
         #region Methods
