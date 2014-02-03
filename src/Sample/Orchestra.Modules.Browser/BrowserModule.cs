@@ -26,6 +26,9 @@ namespace Orchestra.Modules.Browser
     /// </summary>
     public class BrowserModule : ModuleBase
     {
+        private readonly IViewModelFactory _viewModelFactory;
+        private readonly IOrchestraService _orchestraService;
+
         /// <summary>
         /// The module name.
         /// </summary>
@@ -34,9 +37,11 @@ namespace Orchestra.Modules.Browser
         /// <summary>
         /// Initializes a new instance of the <see cref="BrowserModule"/> class. 
         /// </summary>
-        public BrowserModule()
+        public BrowserModule(IViewModelFactory viewModelFactory, IOrchestraService orchestraService)
             : base(Name)
         {
+            _viewModelFactory = viewModelFactory;
+            _orchestraService = orchestraService;
         }
 
         /// <summary>
@@ -58,14 +63,11 @@ namespace Orchestra.Modules.Browser
         {
             LoadResourceDictionary();
 
-            var orchestraService = GetService<IOrchestraService>();
-
             // Module specific
-            var typeFactory = TypeFactory.Default;
             ribbonService.RegisterRibbonItem(new RibbonButton(Library.Properties.Resources.HomeRibbonTabName, ModuleName, BrowserModuleResources.OpenNewBrowserModuleMenuItem, new Command(() =>
             {
-                var browserViewModel = typeFactory.CreateInstance<BrowserViewModel>();
-                orchestraService.ShowDocument(browserViewModel);
+                var browserViewModel = _viewModelFactory.CreateViewModel<BrowserViewModel>(null);
+                _orchestraService.ShowDocument(browserViewModel);
             })) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
             // View specific
@@ -103,7 +105,7 @@ namespace Orchestra.Modules.Browser
 
             ribbonService.RegisterRibbonItem(new RibbonButton(Library.Properties.Resources.ViewRibbonTabName, ModuleName, BrowserModuleResources.BrowserPropertiesViewHeader, new Command(() =>
             {
-                orchestraService.ShowDocumentIfHidden<PropertiesViewModel>();
+                _orchestraService.ShowDocumentIfHidden<PropertiesViewModel>();
             })) { ItemImage = "/Orchestra.Modules.Browser;component/Resources/Images/action_browse.png" });
 
             var dockingSettings = new DockingSettings();
@@ -115,18 +117,18 @@ namespace Orchestra.Modules.Browser
             contextualViewModelManager.RegisterContextualView<BrowserViewModel, PropertiesViewModel>(dockingSettings);
 
             // Demo: show two pages with different tags
-            var orchestraViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Orchestra");
+            var orchestraViewModel = _viewModelFactory.CreateViewModel<BrowserViewModel>("Orchestra");
             orchestraViewModel.Url = "http://www.github.com/Orcomp/Orchestra";
-            orchestraService.ShowDocument(orchestraViewModel, "orchestra");
+            _orchestraService.ShowDocument(orchestraViewModel, "orchestra");
 
-            var catelViewModel = typeFactory.CreateInstanceWithParametersAndAutoCompletion<BrowserViewModel>("Catel");
+            var catelViewModel = _viewModelFactory.CreateViewModel<BrowserViewModel>("Catel");
             catelViewModel.Url = "http://www.catelproject.com";
-            orchestraService.ShowDocument(catelViewModel, "catel");            
+            _orchestraService.ShowDocument(catelViewModel, "catel");
         }
 
         private void LoadResourceDictionary()
         {
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("/Orchestra.Modules.Browser;component/ResourceDictionary.xaml", UriKind.RelativeOrAbsolute) });
-        }        
+        }
     }
 }

@@ -28,6 +28,7 @@ namespace Orchestra.Services
 
         #region Fields
         private readonly MainWindow _shell;
+        private readonly IViewModelFactory _viewModelFactory;
 
         private bool _showDebuggingWindow;
         #endregion
@@ -37,9 +38,11 @@ namespace Orchestra.Services
         /// Initializes a new instance of the <see cref="OrchestraService" /> class.
         /// </summary>
         /// <param name="shell">The shell.</param>
-        public OrchestraService(MainWindow shell)
+        /// <param name="viewModelFactory"></param>
+        public OrchestraService(MainWindow shell, IViewModelFactory viewModelFactory)
         {
             Argument.IsNotNull("shell", shell);
+            Argument.IsNotNull("viewModelFactory", viewModelFactory);
 
             _shell = shell;
             _shell.Loaded += (sender, e) =>
@@ -49,6 +52,8 @@ namespace Orchestra.Services
                     _shell.Dispatcher.BeginInvoke(() => _shell.ShowAnchorable(MainWindow.TraceOutputAnchorable));
                 }
             };
+
+            _viewModelFactory = viewModelFactory;
         }
         #endregion
 
@@ -236,10 +241,10 @@ namespace Orchestra.Services
             return document;
         }
 
-        private static TViewModel CreateViewModel<TViewModel>() where TViewModel : IViewModel
+        private TViewModel CreateViewModel<TViewModel>()
+            where TViewModel : IViewModel
         {
-            var typeFactory = TypeFactory.Default;
-            var viewModel = typeFactory.CreateInstance<TViewModel>();
+            var viewModel = _viewModelFactory.CreateViewModel<TViewModel>(null);
             return viewModel;
         }
 

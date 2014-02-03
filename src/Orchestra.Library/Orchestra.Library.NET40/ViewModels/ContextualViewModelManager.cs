@@ -63,7 +63,7 @@ namespace Orchestra.ViewModels
         private readonly IViewModelFactory _viewModelFactory;
         #endregion
 
-        #region constructor
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextualViewModelManager" /> class.
         /// </summary>
@@ -192,12 +192,12 @@ namespace Orchestra.ViewModels
         public void AddContextSensitiveViewsToNestedDockView(IViewModel viewModel, NestedDockingManager nestedDockingManager)
         {
             // viewModel is the viewmodel related to the nestedDockingManager
-            var viewModeltype = viewModel.GetType();
+            var viewModelType = viewModel.GetType();
 
             // Open all, context sensitive vies related to the documentView
-            if (_contextualViewModelCollection.ContainsKey(viewModeltype))
+            if (_contextualViewModelCollection.ContainsKey(viewModelType))
             {
-                foreach (var type in (_contextualViewModelCollection[viewModeltype]).ContextDependentViewModels)
+                foreach (var type in (_contextualViewModelCollection[viewModelType]).ContextDependentViewModels)
                 {
                     IViewModel contextDependenViewModel;
 
@@ -205,8 +205,7 @@ namespace Orchestra.ViewModels
                     {
                         try
                         {
-                            var typeFactory = TypeFactory.Default;
-                            contextDependenViewModel = (IViewModel)typeFactory.CreateInstance(type);
+                            contextDependenViewModel = _viewModelFactory.CreateViewModel(type, null);
                         }
                         catch (Exception ex)
                         {
@@ -216,7 +215,7 @@ namespace Orchestra.ViewModels
 
                         if (contextDependenViewModel != null)
                         {
-                            DockingSettings dockingSettings = _contextualViewModelCollection[viewModeltype].DockingSettings;
+                            DockingSettings dockingSettings = _contextualViewModelCollection[viewModelType].DockingSettings;
                             _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockingSettings);
 
                             if(_openContextSensitiveViews.All(v => v.GetType() != contextDependenViewModel.GetType()))
@@ -233,7 +232,7 @@ namespace Orchestra.ViewModels
 
                         if (contextDependenViewModel != null)
                         {
-                            DockingSettings dockingSettings = _contextualViewModelCollection[viewModeltype].DockingSettings;
+                            DockingSettings dockingSettings = _contextualViewModelCollection[viewModelType].DockingSettings;
                             _orchestraService.ShowDocumentInNestedDockView(contextDependenViewModel, nestedDockingManager, dockingSettings);
                         }
                     }
@@ -271,8 +270,7 @@ namespace Orchestra.ViewModels
 
                         try
                         {                            
-                            var typeFactory = TypeFactory.Default;
-                            viewModel = (IViewModel)typeFactory.CreateInstance(type);
+                            viewModel = _viewModelFactory.CreateViewModel(type, null);
                         }
                         catch (Exception ex)
                         {

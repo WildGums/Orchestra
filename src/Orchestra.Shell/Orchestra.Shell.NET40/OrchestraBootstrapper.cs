@@ -168,8 +168,8 @@ namespace Orchestra
                 ribbonService.RegisterRibbonItem(new RibbonButton(configurationService.Configuration.HelpTabText, configurationService.Configuration.HelpGroupText, configurationService.Configuration.HelpButtonText, new Command(() =>
                 {
                     var uiVisualizerService = Container.ResolveType<IUIVisualizerService>();
-                    var typeFactory = TypeFactory.Default;
-                    var aboutViewModel = typeFactory.CreateInstance<AboutViewModel>();
+                    var viewModelFactory = Container.ResolveType<IViewModelFactory>();
+                    var aboutViewModel = viewModelFactory.CreateViewModel<AboutViewModel>(null);
 
                     uiVisualizerService.ShowDialog(aboutViewModel);
                 })));
