@@ -66,25 +66,25 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.Core, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.Core.3.8.1402021445-beta\lib\net40\Catel.Core.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.Core.3.9.0.1402111521-beta\lib\net40\Catel.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Controls, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.Extensions.Controls, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.Extensions.Controls.3.8.1402021445-beta\lib\net40\Catel.Extensions.Controls.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.Extensions.Controls.3.9.0.1402111521-beta\lib\net40\Catel.Extensions.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Prism, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.Extensions.Prism, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.Extensions.Prism.3.8.1402021445-beta\lib\net40\Catel.Extensions.Prism.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.Extensions.Prism.3.9.0.1402111521-beta\lib\net40\Catel.Extensions.Prism.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Fody.Attributes">
       <HintPath>..\..\..\lib\Catel.Fody.1.7.0\lib\net40\Catel.Fody.Attributes.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Catel.MVVM, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Catel.MVVM, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.MVVM.3.8.1402021445-beta\lib\net40\Catel.MVVM.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.MVVM.3.9.0.1402111521-beta\lib\net40\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\lib\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
@@ -108,7 +108,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\lib\Catel.MVVM.3.8.1402021445-beta\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.MVVM.3.9.0.1402111521-beta\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
