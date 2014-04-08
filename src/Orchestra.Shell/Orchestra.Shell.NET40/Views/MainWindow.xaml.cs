@@ -17,8 +17,9 @@ namespace Orchestra.Views
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
-    using Catel.Windows.Controls;
-    using Catel.Windows.Controls.MVVMProviders.Logic;
+    using Catel.MVVM.Providers;
+    using Catel.MVVM.Views;
+    using Catel.Windows;
     using Catel.Windows.Media.Imaging;
     using Fluent;
     using Orchestra.ViewModels;
@@ -51,6 +52,10 @@ namespace Orchestra.Views
 
         #region Fields
         private readonly WindowLogic _windowLogic;
+
+        private event EventHandler<EventArgs> _viewLoaded;
+        private event EventHandler<EventArgs> _viewUnloaded;
+        private event EventHandler<EventArgs> _viewDataContextChanged;
         #endregion
 
         #region Constructors
@@ -74,7 +79,11 @@ namespace Orchestra.Views
             _windowLogic.ViewLoading += (sender, e) => ViewLoading.SafeInvoke(this);
             _windowLogic.ViewLoaded += (sender, e) => ViewLoaded.SafeInvoke(this);
             _windowLogic.ViewUnloading += (sender, e) => ViewUnloading.SafeInvoke(this);
-            _windowLogic.ViewUnloaded += (sender, e) => ViewUnloaded.SafeInvoke(this); 
+            _windowLogic.ViewUnloaded += (sender, e) => ViewUnloaded.SafeInvoke(this);
+
+            Loaded += (sender, e) => _viewLoaded.SafeInvoke(this);
+            Unloaded += (sender, e) => _viewUnloaded.SafeInvoke(this);
+            this.AddDataContextChangedHandler((sender, e) => _viewDataContextChanged.SafeInvoke(this));
 
             // _windowLogic.TargetControlPropertyChanged += (s, e) => PropertyChanged.SafeInvoke(this, new AdvancedPropertyChangedEventArgs(s, this, e.PropertyName, e.OldValue, e.NewValue));
             var serviceLocator = ServiceLocator.Default;
@@ -122,6 +131,18 @@ namespace Orchestra.Views
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the view model container should prevent the creation of a view model.
+        /// <para />
+        /// This property is very useful when using views in transitions where the view model is no longer required.
+        /// </summary>
+        /// <value><c>true</c> if the view model container should prevent view model creation; otherwise, <c>false</c>.</value>
+        public bool PreventViewModelCreation
+        {
+            get { return _windowLogic.PreventViewModelCreation; }
+            set { _windowLogic.PreventViewModelCreation = value; }
+        }
+
+        /// <summary>
         /// Occurs when the <see cref="ViewModel"/> property has changed.
         /// </summary>
         public event EventHandler<EventArgs> ViewModelChanged;
@@ -159,6 +180,40 @@ namespace Orchestra.Views
         /// Occurs when the view model container is unloaded.
         /// </summary>
         public event EventHandler<EventArgs> ViewUnloaded;
+
+        /// <summary>
+        /// Gets the logical parent  element of this element.
+        /// </summary>
+        /// <value>The parent.</value>
+        /// <returns>This element's logical parent.</returns>
+        object IView.Parent { get { return null; } }
+
+        /// <summary>
+        /// Occurs when the view is loaded.
+        /// </summary>
+        event EventHandler<EventArgs> IView.Loaded
+        {
+            add { _viewLoaded += value; }
+            remove { _viewLoaded -= value; }
+        }
+
+        /// <summary>
+        /// Occurs when the view is unloaded.
+        /// </summary>
+        event EventHandler<EventArgs> IView.Unloaded
+        {
+            add { _viewUnloaded += value; }
+            remove { _viewUnloaded -= value; }
+        }
+
+        /// <summary>
+        /// Occurs when the data context has changed.
+        /// </summary>
+        event EventHandler<EventArgs> IView.DataContextChanged
+        {
+            add { _viewDataContextChanged += value; }
+            remove { _viewDataContextChanged -= value; }
+        }
         #endregion
 
         #region Methods

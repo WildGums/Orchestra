@@ -6,7 +6,7 @@
 
 namespace Orchestra.Views
 {
-    using Catel.Windows.Controls;
+    using Catel.MVVM.Views;
 
     /// <summary>
     /// Interface defining a document view.

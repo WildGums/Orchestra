@@ -11,7 +11,7 @@
     <AssemblyName>Orchestra.Shell</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <FodyPath>..\..\..\lib\Fody.1.19.0.0</FodyPath>
+    <NuGetPackageImportStamp>7dd2dbe9</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,23 +37,23 @@
   <ItemGroup>
     <Reference Include="Catel.Core, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.Core.3.9.0.1402111521-beta\lib\net45\Catel.Core.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.Core.3.9.0.1404081024-beta\lib\net45\Catel.Core.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Extensions.Controls, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.Extensions.Controls.3.9.0.1402111521-beta\lib\net45\Catel.Extensions.Controls.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.Extensions.Controls.3.9.0.1404081024-beta\lib\net45\Catel.Extensions.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Extensions.Prism, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.Extensions.Prism.3.9.0.1402111521-beta\lib\net45\Catel.Extensions.Prism.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.Extensions.Prism.3.9.0.1404081024-beta\lib\net45\Catel.Extensions.Prism.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Fody.Attributes">
-      <HintPath>..\..\..\lib\Catel.Fody.1.7.0\lib\net45\Catel.Fody.Attributes.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.Fody.1.8.0\lib\portable-net4+sl4+wp7+win8+MonoAndroid16+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Catel.MVVM, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.MVVM.3.9.0.1402111521-beta\lib\net45\Catel.MVVM.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.MVVM.3.9.0.1404081024-beta\lib\net45\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="Fluent, Version=2.1.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -71,17 +71,13 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\..\lib\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Obsolete">
-      <HintPath>..\..\..\lib\Obsolete.Fody.3.0.0.0\Lib\NET35\Obsolete.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\lib\Catel.MVVM.3.9.0.1402111521-beta\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.MVVM.3.9.0.1404081024-beta\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -178,7 +174,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Fody.targets" />
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -240,5 +236,11 @@
   </Target>
   -->
   <Import Project="$(ProjectDir)\..\..\..\Tools\Pepita\PepitaGet.targets" />
-  <Import Project="Fody.targets" />
+  <Import Project="..\..\..\lib\Fody.1.22.1\build\Fody.targets" Condition="Exists('..\..\..\lib\Fody.1.22.1\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\lib\Fody.1.22.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\lib\Fody.1.22.1\build\Fody.targets'))" />
+  </Target>
 </Project>

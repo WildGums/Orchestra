@@ -16,7 +16,7 @@ namespace Orchestra
     using Catel.Logging;
     using Catel.Modules;
     using Catel.MVVM;
-    using Catel.MVVM.Services;
+    using Catel.Services;
     using Catel.MVVM.Tasks;
     using Catel.Reflection;
     using Catel.Runtime.Serialization;
@@ -65,17 +65,21 @@ namespace Orchestra
             Log.Debug("Loaded ribbon type '{0}'", ribbonType.Name);
 
             var application = Application.Current;
+
+            // Note: make sure that the Catel dictionary is the first
+            application.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("/Catel.Extensions.Controls;component/themes/generic.xaml", UriKind.RelativeOrAbsolute)
+            });
+
             application.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
                 Source = new Uri("pack://application:,,,/Fluent;Component/Themes/Generic.xaml", UriKind.RelativeOrAbsolute)
             });
+
             application.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
                 Source = new Uri("pack://application:,,,/Fluent;Component/Themes/Office2010/Silver.xaml", UriKind.RelativeOrAbsolute)
-            });
-            application.Resources.MergedDictionaries.Add(new ResourceDictionary
-            {
-                Source = new Uri("/Catel.Extensions.Controls;component/themes/generic.xaml", UriKind.RelativeOrAbsolute)
             });
 
             var appDomain = AppDomain.CurrentDomain;

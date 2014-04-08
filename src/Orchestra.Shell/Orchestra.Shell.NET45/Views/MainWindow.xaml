@@ -1,49 +1,77 @@
 ﻿<Fluent:RibbonWindow x:Class="Orchestra.Views.MainWindow"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				             xmlns:catel="http://catel.codeplex.com"
+                     xmlns:catel="http://catel.codeplex.com"
                      xmlns:avalondock="http://schemas.xceed.com/wpf/xaml/avalondock"
                      xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
-                     xmlns:orchestraviews="clr-namespace:Orchestra.Views"
+                     xmlns:CollectionViewSource="clr-namespace:Orchestra.Views"
                      xmlns:orchestra="http://orchestra.codeplex.com"
-                     ShowInTaskbar="True" ResizeMode="CanResize" SizeToContent="Manual" WindowStartupLocation="Manual" WindowState="Maximized">
+                     ShowInTaskbar="True"
+                     ResizeMode="CanResize"
+                     SizeToContent="Manual"
+                     WindowStartupLocation="Manual"
+                     WindowState="Maximized">
 
-  <catel:StackGrid>
-    <catel:StackGrid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="24" />
-    </catel:StackGrid.RowDefinitions>
+    <catel:StackGrid>
+        <catel:StackGrid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="22*"/>
+            <ColumnDefinition Width="729*"/>
+        </catel:StackGrid.ColumnDefinitions>
+        <catel:StackGrid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="24" />
+        </catel:StackGrid.RowDefinitions>
 
-    <Fluent:Ribbon x:Name="ribbon" />
+        <Fluent:Ribbon x:Name="ribbon" Grid.ColumnSpan="3" />
 
-    <avalondock:DockingManager x:Name="dockingManager">
-      <avalondock:DockingManager.LayoutUpdateStrategy>
-        <orchestra:LayoutInitializer />
-      </avalondock:DockingManager.LayoutUpdateStrategy>
+        <avalondock:DockingManager x:Name="dockingManager" Grid.ColumnSpan="3">
+            <avalondock:DockingManager.LayoutUpdateStrategy>
+                <orchestra:LayoutInitializer />
+            </avalondock:DockingManager.LayoutUpdateStrategy>
 
-      <avalondock:LayoutRoot x:Name="l">
-        <avalondock:LayoutPanel Orientation="Vertical">
+            <avalondock:LayoutRoot>
 
-          <avalondock:LayoutDocumentPane x:Name="layoutDocumentPane">
-          </avalondock:LayoutDocumentPane>
+                <avalondock:LayoutRoot.TopSide>
+                    <avalondock:LayoutAnchorSide>
+                        <avalondock:LayoutAnchorGroup x:Name="topPropertiesPane">
+                        </avalondock:LayoutAnchorGroup>
+                    </avalondock:LayoutAnchorSide>
+                </avalondock:LayoutRoot.TopSide>
 
-        </avalondock:LayoutPanel>
+                <avalondock:LayoutPanel Orientation="Horizontal">
 
-        <avalondock:LayoutRoot.BottomSide>
-          <avalondock:LayoutAnchorSide>
-            <avalondock:LayoutAnchorGroup>
-              <avalondock:LayoutAnchorable x:Name="traceOutputAnchorable" ContentId="traceOutputAnchorable" Title="Debugging window">
-                <catel:TraceOutputControl Height="225" />
-              </avalondock:LayoutAnchorable>
-            </avalondock:LayoutAnchorGroup>
-          </avalondock:LayoutAnchorSide>
-        </avalondock:LayoutRoot.BottomSide>
-      </avalondock:LayoutRoot>
-    </avalondock:DockingManager>
+                    <avalondock:LayoutAnchorablePaneGroup DockWidth="125">
+                        <avalondock:LayoutAnchorablePane x:Name="leftPropertiesPane">
+                        </avalondock:LayoutAnchorablePane>
+                    </avalondock:LayoutAnchorablePaneGroup>
 
-    <StatusBar>
-      <StatusBarItem Content="{Binding RelativeSource={RelativeSource AncestorType=orchestraviews:MainWindow}, Path=StatusBar}"/>
-    </StatusBar>
-  </catel:StackGrid>
+                    <avalondock:LayoutDocumentPane x:Name="layoutDocumentPane">
+                    </avalondock:LayoutDocumentPane>
+
+                    <avalondock:LayoutAnchorablePaneGroup DockWidth="125">
+                        <avalondock:LayoutAnchorablePane x:Name="rightPropertiesPane">
+                        </avalondock:LayoutAnchorablePane>
+                    </avalondock:LayoutAnchorablePaneGroup>
+                </avalondock:LayoutPanel>
+
+                <avalondock:LayoutRoot.BottomSide>
+                    <avalondock:LayoutAnchorSide>
+                        <avalondock:LayoutAnchorGroup x:Name="bottomPropertiesPane">
+                            <avalondock:LayoutAnchorable x:Name="traceOutputAnchorable"
+                                                         ContentId="traceOutputAnchorable"
+                                                         Title="Debugging window">
+                                <catel:TraceOutputControl Height="225" />
+                            </avalondock:LayoutAnchorable>
+                        </avalondock:LayoutAnchorGroup>
+                    </avalondock:LayoutAnchorSide>
+                </avalondock:LayoutRoot.BottomSide>
+            </avalondock:LayoutRoot>
+        </avalondock:DockingManager>
+
+        <StatusBar Grid.ColumnSpan="3">
+            <StatusBarItem Content="{Binding RelativeSource={RelativeSource AncestorType=CollectionViewSource:MainWindow}, Path=StatusBar}" />
+        </StatusBar>
+    </catel:StackGrid>
 </Fluent:RibbonWindow>

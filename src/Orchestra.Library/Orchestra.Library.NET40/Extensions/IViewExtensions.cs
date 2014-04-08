@@ -9,7 +9,7 @@ namespace Orchestra
 {
     using Catel;
     using Catel.MVVM;
-    using Catel.Windows.Controls;
+    using Catel.MVVM.Views;
 
     /// <summary>
     /// Extension methods for <see cref="IView"/>.

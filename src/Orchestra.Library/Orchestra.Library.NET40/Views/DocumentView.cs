@@ -6,6 +6,7 @@
 
 namespace Orchestra.Views
 {
+    using Catel;
     using Catel.Windows.Controls;
 
     /// <summary>
@@ -21,7 +22,7 @@ namespace Orchestra.Views
         /// </summary>
         public DocumentView()
         {
-            if (Catel.Environment.IsInDesignMode)
+            if (CatelEnvironment.IsInDesignMode)
             {
                 return;
             }

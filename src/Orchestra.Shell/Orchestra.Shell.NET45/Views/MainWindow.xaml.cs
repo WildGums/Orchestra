@@ -17,8 +17,10 @@ namespace Orchestra.Views
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
-    using Catel.Windows.Controls;
-    using Catel.Windows.Controls.MVVMProviders.Logic;
+    using Catel.MVVM.Providers;
+    using Catel.MVVM.Views;
+    using Catel.Windows;
+    using Catel.Windows.Media.Imaging;
     using Fluent;
     using Orchestra.ViewModels;
     using Xceed.Wpf.AvalonDock.Layout;
@@ -35,6 +37,7 @@ namespace Orchestra.Views
         public const string TraceOutputAnchorable = "traceOutputAnchorable";
 
         private const string ApplicationIconLocation = "Resources\\Images\\ApplicationIcon.png";
+        private const string ApplicationIconFallbackLocation = "/Orchestra.Shell;component/Resources/Images/ApplicationIcon.png";
 
         /// <summary>
         /// The log.
@@ -44,11 +47,15 @@ namespace Orchestra.Views
         /// <summary>
         /// The status bar property.
         /// </summary>
-        public static readonly DependencyProperty StatusBarProperty = DependencyProperty.Register("StatusBar", typeof (string), typeof (MainWindow), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty StatusBarProperty = DependencyProperty.Register("StatusBar", typeof(string), typeof(MainWindow), new PropertyMetadata(string.Empty));
         #endregion
 
         #region Fields
         private readonly WindowLogic _windowLogic;
+
+        private event EventHandler<EventArgs> _viewLoaded;
+        private event EventHandler<EventArgs> _viewUnloaded;
+        private event EventHandler<EventArgs> _viewDataContextChanged;
         #endregion
 
         #region Constructors
@@ -61,18 +68,22 @@ namespace Orchestra.Views
 
             InitializeMainWindow();
 
-            _windowLogic = new WindowLogic(this, typeof (MainWindowViewModel));
+            _windowLogic = new WindowLogic(this, typeof(MainWindowViewModel));
             _windowLogic.ViewModelChanged += (s, e) =>
-                {
-                    ViewModelChanged.SafeInvoke(this, e);
-                    PropertyChanged.SafeInvoke(this, new PropertyChangedEventArgs("ViewModel"));
-                };
+            {
+                ViewModelChanged.SafeInvoke(this, e);
+                PropertyChanged.SafeInvoke(this, new PropertyChangedEventArgs("ViewModel"));
+            };
             _windowLogic.ViewModelPropertyChanged += (s, e) => ViewModelPropertyChanged.SafeInvoke(this, e);
             _windowLogic.PropertyChanged += (sender, e) => PropertyChanged.SafeInvoke(this, e);
             _windowLogic.ViewLoading += (sender, e) => ViewLoading.SafeInvoke(this);
             _windowLogic.ViewLoaded += (sender, e) => ViewLoaded.SafeInvoke(this);
             _windowLogic.ViewUnloading += (sender, e) => ViewUnloading.SafeInvoke(this);
-            _windowLogic.ViewUnloaded += (sender, e) => ViewUnloaded.SafeInvoke(this); 
+            _windowLogic.ViewUnloaded += (sender, e) => ViewUnloaded.SafeInvoke(this);
+
+            Loaded += (sender, e) => _viewLoaded.SafeInvoke(this);
+            Unloaded += (sender, e) => _viewUnloaded.SafeInvoke(this);
+            this.AddDataContextChangedHandler((sender, e) => _viewDataContextChanged.SafeInvoke(this));
 
             // _windowLogic.TargetControlPropertyChanged += (s, e) => PropertyChanged.SafeInvoke(this, new AdvancedPropertyChangedEventArgs(s, this, e.PropertyName, e.OldValue, e.NewValue));
             var serviceLocator = ServiceLocator.Default;
@@ -81,9 +92,15 @@ namespace Orchestra.Views
             serviceLocator.RegisterInstance(ribbon);
             serviceLocator.RegisterInstance(dockingManager);
             serviceLocator.RegisterInstance(layoutDocumentPane);
+            serviceLocator.RegisterInstance(typeof(LayoutAnchorablePane), rightPropertiesPane, "rightPropertiesPane");
+            serviceLocator.RegisterInstance(typeof(LayoutAnchorablePane), leftPropertiesPane, "leftPropertiesPane");
+            serviceLocator.RegisterInstance(typeof(LayoutAnchorGroup), bottomPropertiesPane, "bottomPropertiesPane");
+            serviceLocator.RegisterInstance(typeof(LayoutAnchorGroup), topPropertiesPane, "topPropertiesPane");
 
             ribbon.AutomaticStateManagement = true;
-            ribbon.EnsureTabItem("Home");            
+            ribbon.EnsureTabItem(Library.Properties.Resources.HomeRibbonTabName);
+
+            SetIcon();
 
             Loaded += (sender, e) => { traceOutputAnchorable.Hide(); };
         }
@@ -96,7 +113,7 @@ namespace Orchestra.Views
         /// <value>The status bar.</value>
         public string StatusBar
         {
-            get { return (string) GetValue(StatusBarProperty); }
+            get { return (string)GetValue(StatusBarProperty); }
             set { SetValue(StatusBarProperty, value); }
         }
         #endregion
@@ -111,6 +128,18 @@ namespace Orchestra.Views
         public IViewModel ViewModel
         {
             get { return _windowLogic.ViewModel; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the view model container should prevent the creation of a view model.
+        /// <para />
+        /// This property is very useful when using views in transitions where the view model is no longer required.
+        /// </summary>
+        /// <value><c>true</c> if the view model container should prevent view model creation; otherwise, <c>false</c>.</value>
+        public bool PreventViewModelCreation
+        {
+            get { return _windowLogic.PreventViewModelCreation; }
+            set { _windowLogic.PreventViewModelCreation = value; }
         }
 
         /// <summary>
@@ -151,9 +180,63 @@ namespace Orchestra.Views
         /// Occurs when the view model container is unloaded.
         /// </summary>
         public event EventHandler<EventArgs> ViewUnloaded;
+
+        /// <summary>
+        /// Gets the logical parent  element of this element.
+        /// </summary>
+        /// <value>The parent.</value>
+        /// <returns>This element's logical parent.</returns>
+        object IView.Parent { get { return null; } }
+
+        /// <summary>
+        /// Occurs when the view is loaded.
+        /// </summary>
+        event EventHandler<EventArgs> IView.Loaded
+        {
+            add { _viewLoaded += value; }
+            remove { _viewLoaded -= value; }
+        }
+
+        /// <summary>
+        /// Occurs when the view is unloaded.
+        /// </summary>
+        event EventHandler<EventArgs> IView.Unloaded
+        {
+            add { _viewUnloaded += value; }
+            remove { _viewUnloaded -= value; }
+        }
+
+        /// <summary>
+        /// Occurs when the data context has changed.
+        /// </summary>
+        event EventHandler<EventArgs> IView.DataContextChanged
+        {
+            add { _viewDataContextChanged += value; }
+            remove { _viewDataContextChanged -= value; }
+        }
         #endregion
 
         #region Methods
+        private void SetIcon()
+        {
+            try
+            {
+                var assemblyPath = Assembly.GetEntryAssembly().Location;
+                var icon = System.Drawing.Icon.ExtractAssociatedIcon(assemblyPath);
+                if (icon != null)
+                {
+                    var bitmap = icon.ToBitmap();
+                    var bitmapSource = bitmap.ConvertBitmapToBitmapSource();
+
+                    Icon = bitmapSource;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to retrieve the icon, cannot set the window icon");
+            }
+        }
+
         /// <summary>
         /// Determines whether the anchorable with the specified name is currently visible.
         /// </summary>
@@ -237,8 +320,8 @@ namespace Orchestra.Views
             Argument.IsNotNullOrWhitespace("name", name);
 
             var visibleAnchorable = (from child in dockingManager.Layout.Children
-                                     where child is LayoutAnchorable && TagHelper.AreTagsEqual(((LayoutAnchorable) child).ContentId, name)
-                                     select (LayoutAnchorable) child).FirstOrDefault();
+                                     where child is LayoutAnchorable && TagHelper.AreTagsEqual(((LayoutAnchorable)child).ContentId, name)
+                                     select (LayoutAnchorable)child).FirstOrDefault();
             if (visibleAnchorable != null)
             {
                 return visibleAnchorable;
@@ -276,12 +359,16 @@ namespace Orchestra.Views
                 if (File.Exists(firstAttemptFile))
                 {
                     Icon = BitmapFrame.Create(new Uri(firstAttemptFile, UriKind.Absolute));
+                    return;
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 // Don't change default Icon.            
+                Log.Error(ex);
             }
+
+            Icon = new BitmapImage(new Uri("pack://application:,,," + ApplicationIconFallbackLocation));
         }
         #endregion
     }

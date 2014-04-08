@@ -14,7 +14,7 @@ namespace Orchestra.Services
     using System.Windows.Data;
     using Catel;
     using Catel.Logging;
-    using Catel.MVVM.Services;
+    using Catel.Services;
     using Fluent;
     using Models;    
     using Views;

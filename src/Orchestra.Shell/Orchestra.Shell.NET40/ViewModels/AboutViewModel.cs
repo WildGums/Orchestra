@@ -10,7 +10,7 @@ namespace Orchestra.ViewModels
     using System.Linq;
     using Catel;
     using Catel.MVVM;
-    using Catel.MVVM.Services;
+    using Catel.Services;
     using Catel.Modules.ModuleManager;
     using Catel.Modules.ModuleManager.Models;
     using Catel.Reflection;

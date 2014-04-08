@@ -11,7 +11,7 @@ namespace Orchestra.Modules.Browser.ViewModels
     using Catel;
     using Catel.Data;
     using Catel.MVVM;
-    using Catel.MVVM.Services;
+    using Catel.Services;
     using Catel.Messaging;
     using Orchestra.Services;
     using Orchestra.ViewModels;

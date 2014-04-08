@@ -13,7 +13,7 @@ namespace Orchestra
     using Catel;
     using Catel.IoC;
     using Catel.MVVM;
-    using Catel.Windows.Controls;
+    using Catel.MVVM.Views;
     using Microsoft.Practices.Prism.Regions;
     using Models;
     using Orchestra.Controls;

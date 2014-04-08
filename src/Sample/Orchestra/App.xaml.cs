@@ -9,7 +9,7 @@ namespace Orchestra
     using System.Threading;
     using System.Windows;
     using System.Windows.Markup;
-
+    using Catel;
     using Catel.IoC;
     using Catel.MVVM;
     using Catel.MVVM.ViewModels;
@@ -40,7 +40,7 @@ namespace Orchestra
             Catel.Data.ModelBase.SuspendValidationForAllModels = true;
 
             var serviceLocator = ServiceLocator.Default;
-            Catel.Environment.RegisterDefaultViewModelServices();
+            CatelEnvironment.RegisterDefaultViewModelServices();
 
             var viewLocator = serviceLocator.ResolveType<IViewLocator>();
             viewLocator.Register(typeof(SplashScreenViewModel), typeof(Views.SplashScreen));
@@ -52,7 +52,7 @@ namespace Orchestra
 
             if (Current.Resources.MergedDictionaries.Count >= 2)
             {
-                StyleHelper.CreateStyleForwardersForDefaultStyles(Current.Resources.MergedDictionaries[1]);
+                StyleHelper.CreateStyleForwardersForDefaultStyles(Current.Resources.MergedDictionaries[0]);
             }
 
             bootstrapper.CreatedShell += (sender, e2) =>

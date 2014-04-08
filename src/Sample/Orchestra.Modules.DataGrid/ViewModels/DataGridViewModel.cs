@@ -15,7 +15,7 @@ namespace Orchestra.Modules.DataGrid.ViewModels
     using Catel;
     using Catel.Data;
     using Catel.MVVM;
-    using Catel.MVVM.Services;
+    using Catel.Services;
     using Catel.Messaging;
     using CsvHelper;
     using Orchestra.Modules.DataGrid.Models;

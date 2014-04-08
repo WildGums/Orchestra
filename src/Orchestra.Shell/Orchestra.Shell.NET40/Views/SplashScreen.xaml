@@ -6,7 +6,7 @@
     
     <Grid>
         <Image x:Name="splashScreenImage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Source="/Orchestra.Shell;component/Resources/Images/SplashScreen.png" Stretch="None" />
-        <ProgressBar Value="{Binding Percentage}" Height="11" HorizontalAlignment="Left" Margin="200,141,0,0" VerticalAlignment="Top" Width="224" />
+        <ProgressBar Value="{Binding Percentage, Mode=OneWay}" Height="11" HorizontalAlignment="Left" Margin="200,141,0,0" VerticalAlignment="Top" Width="224" />
         <TextBlock Text="{Binding TaskName, FallbackValue=Some very long task name is running with text wrapped...}" Height="85" HorizontalAlignment="Left" Margin="200,171,0,0" VerticalAlignment="Top" Width="224" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black" FontFamily="Segoe UI Semibold" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" >
             <TextBlock.Effect>
                 <DropShadowEffect ShadowDepth="0" RenderingBias="Quality" Color="White"/>

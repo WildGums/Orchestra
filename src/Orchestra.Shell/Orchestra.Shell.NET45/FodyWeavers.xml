@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Weavers>
   <Catel />
   <Costura IncludeDebugSymbols="false">
@@ -11,6 +11,5 @@
       Xceed.Wpf.AvalonDock.Themes.VS2010
     </IncludeAssemblies>
   </Costura>
-  <Obsolete />
   <ModuleInit />
 </Weavers>
