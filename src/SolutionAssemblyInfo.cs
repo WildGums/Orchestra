@@ -20,7 +20,7 @@ using System.Runtime.CompilerServices;
 ////[assembly: AssemblyDescription("DEFINED IN ACTUAL ASSEMBLYINFO")]
 
 [assembly: AssemblyCompany("CatenaLogic")]
-[assembly: AssemblyCopyright("Copyright © Orchestra team 2010 - 2013")]
+[assembly: AssemblyCopyright("Copyright © Orchestra team 2010 - 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en-US")]
@@ -35,8 +35,8 @@ using System.Runtime.CompilerServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("1.0")]
-[assembly: AssemblyInformationalVersion("0.50, Nightly, Released on 2013-09-01 13:32")]
+[assembly: AssemblyVersion("2.0")]
+[assembly: AssemblyInformationalVersion("2.0, Nightly, Released on 2013-09-01 13:32")]
 
 #if DEBUG
 
@@ -47,7 +47,7 @@ using System.Runtime.CompilerServices;
 #elif NET45
 [assembly: AssemblyConfiguration("NET45, Debug")]
 #elif NET50
-[assembly: AssemblyConfiguration("NET45, Debug")]
+[assembly: AssemblyConfiguration("NET50, Debug")]
 #elif SL4
 [assembly: AssemblyConfiguration("Silverlight 4, Debug")]
 #elif SL5
@@ -69,7 +69,7 @@ using System.Runtime.CompilerServices;
 #elif NET45
 [assembly: AssemblyConfiguration("NET45, Release")]
 #elif NET50
-[assembly: AssemblyConfiguration("NET45, Release")]
+[assembly: AssemblyConfiguration("NET50, Release")]
 #elif SL4
 [assembly: AssemblyConfiguration("Silverlight 4, Release")]
 #elif SL5
