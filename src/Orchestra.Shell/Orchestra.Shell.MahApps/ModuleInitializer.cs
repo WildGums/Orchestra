@@ -13,15 +13,11 @@ using Orchestra.Services;
 /// </summary>
 public static class ModuleInitializer
 {
-    #region Methods
     /// <summary>
     /// Initializes the module.
     /// </summary>
     public static void Initialize()
     {
         var serviceLocator = ServiceLocator.Default;
-
-        serviceLocator.RegisterType<IShellService, ShellService>();
     }
-    #endregion
 }

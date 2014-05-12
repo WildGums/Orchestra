@@ -69,6 +69,7 @@
     <Compile Include="..\..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\AnimatingTextBlock.cs" />
     <Compile Include="Controls\BusyIndicator.xaml.cs">
       <DependentUpon>BusyIndicator.xaml</DependentUpon>
     </Compile>
@@ -81,12 +82,15 @@
     <Compile Include="Converters\CommandNameToStringConverter.cs" />
     <Compile Include="Converters\InputGestureToStringConverter.cs" />
     <Compile Include="Converters\PathToStringConverter.cs" />
+    <Compile Include="Exceptions\OrchestraException.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\AssemblyHelper.cs" />
     <Compile Include="Helpers\CamelCaseHelper.cs" />
     <Compile Include="Helpers\DotNetPatchHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Logging\RichTextBoxLogListener.cs" />
     <Compile Include="Logging\StatusLogListener.cs" />
+    <Compile Include="Logging\TextBoxLogListener.cs" />
     <Compile Include="Models\AboutInfo.cs" />
     <Compile Include="Models\KeyboardMapping.cs" />
     <Compile Include="Models\KeyboardMappings.cs" />
@@ -97,15 +101,21 @@
     <Compile Include="Services\Interfaces\IKeyboardMappingsService.cs" />
     <Compile Include="Services\Interfaces\IRecentlyUsedItemsService.cs" />
     <Compile Include="Services\Interfaces\IStatusService.cs" />
+    <Compile Include="Services\Interfaces\ISplashScreenService.cs" />
+    <Compile Include="Services\SplashScreenService.cs" />
     <Compile Include="Services\KeyboardMappingsService.cs" />
     <Compile Include="Services\RecentlyUsedItemsService.cs" />
     <Compile Include="Services\StatusService.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\DirectoryPickerViewModel.cs" />
     <Compile Include="ViewModels\KeyboardMappingsCustomizationViewModel.cs" />
     <Compile Include="ViewModels\KeyboardMappingsOverviewViewModel.cs" />
     <Compile Include="ViewModels\SplashScreenViewModel.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DirectoryPickerView.xaml.cs">
+      <DependentUpon>DirectoryPickerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KeyboardMappingsCustomizationView.xaml.cs">
       <DependentUpon>KeyboardMappingsCustomizationView.xaml</DependentUpon>
@@ -151,6 +161,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AboutWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DirectoryPickerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 // All other assembly info is defined in SharedAssembly.cs
+using System.Windows.Markup;
 
 [assembly: AssemblyTitle("Orchestra.Core")]
 [assembly: AssemblyProduct("Orchestra.Core")]
@@ -17,6 +18,8 @@ using System.Runtime.InteropServices;
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 
-#if !PCL
 [assembly: ComVisible(false)]
-#endif
+
+
+[assembly: XmlnsPrefix("https://github.com/orcomp/orchestra", "orchestra")]
+[assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Controls")]

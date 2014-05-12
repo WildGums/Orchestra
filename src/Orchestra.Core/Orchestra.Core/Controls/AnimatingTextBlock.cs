@@ -13,7 +13,7 @@ namespace Orchestra.Controls
     using System.Windows.Controls;
     using System.Windows.Media.Animation;
     using Catel.Windows.Threading;
-    using Orchestra.Services;
+    using Services;
 
     /// <summary>
     /// Animating text block.

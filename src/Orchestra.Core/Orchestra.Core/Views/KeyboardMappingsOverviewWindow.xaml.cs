@@ -1,8 +1,7 @@
 ﻿namespace Orchestra.Views
 {
     using Catel.Windows;
-
-    using ViewModels;
+    using Orchestra.ViewModels;
 
     /// <summary>
     /// Interaction logic for KeyboardMappingsOverviewWindow.xaml.

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MainWindow.xaml.cs" company="Orchestra development team">
+// <copyright file="MainView.xaml.cs" company="Orchestra development team">
 //   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -7,19 +7,10 @@
 
 namespace Orchestra.Example.Views
 {
-    using Catel.Windows;
-
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class MainView
     {
-        #region Constructors
-        public MainWindow()
-            : base(DataWindowMode.Custom, setOwnerAndFocus: false)
-        {
-            InitializeComponent();
-        }
-        #endregion
     }
 }

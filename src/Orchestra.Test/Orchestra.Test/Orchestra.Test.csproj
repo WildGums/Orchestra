@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Catel.Core, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Catel.Core.3.9.0.1405011658-beta\lib\net40\Catel.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -56,10 +60,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Orchestra.Controls\Orchestra.Controls\Orchestra.Controls.csproj">
-      <Project>{fbb5bb14-5999-47e6-bd21-960be0fbe954}</Project>
-      <Name>Orchestra.Controls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Orchestra.Core\Orchestra.Core\Orchestra.Core.csproj">
       <Project>{805e1f16-7a10-42a2-82ba-5012412144bb}</Project>
       <Name>Orchestra.Core</Name>
@@ -73,6 +73,9 @@
     <Folder Include="Converters\" />
     <Folder Include="Extensions\" />
     <Folder Include="Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
