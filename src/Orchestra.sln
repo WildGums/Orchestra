@@ -62,9 +62,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.Core", "Orc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Test", "Orchestra.Test\Orchestra.Test\Orchestra.Test.csproj", "{96F837EA-C848-4AA4-AF9D-6FA1B370506F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{DBEB5ED3-4622-408E-92D9-EC60F316A5C9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{DBEB5ED3-4622-408E-92D9-EC60F316A5C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Example", "Example\Orchestra.Example\Orchestra.Example.csproj", "{608C0720-4276-47B0-B131-7A2267735C58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.MahApps", "Examples\Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.csproj", "{608C0720-4276-47B0-B131-7A2267735C58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.MahApps", "Orchestra.Shell\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.csproj", "{E16A2BF1-3801-4615-A79E-52CEDF260A89}"
 EndProject

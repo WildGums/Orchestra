@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace Orchestra.Example.Views
+namespace Orchestra.Examples.MahApps.Views
 {
     /// <summary>
     /// Interaction logic for MainView.xaml

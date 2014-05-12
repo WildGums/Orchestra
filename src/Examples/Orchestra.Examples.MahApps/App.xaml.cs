@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace Orchestra.Example
+namespace Orchestra.Examples.MahApps
 {
     using System;
     using System.Diagnostics;

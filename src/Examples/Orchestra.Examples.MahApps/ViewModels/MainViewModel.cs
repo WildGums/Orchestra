@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace Orchestra.Example.ViewModels
+namespace Orchestra.Examples.MahApps.ViewModels
 {
     using Catel.MVVM;
     using Catel.Reflection;
