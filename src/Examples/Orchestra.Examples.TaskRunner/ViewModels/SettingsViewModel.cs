@@ -7,7 +7,9 @@
 
 namespace Orchestra.Examples.TaskRunner.ViewModels
 {
+    using System.Collections.Generic;
     using Catel;
+    using Catel.Data;
     using Catel.Fody;
     using Catel.Logging;
     using Catel.MVVM;
@@ -23,8 +25,6 @@ namespace Orchestra.Examples.TaskRunner.ViewModels
         public SettingsViewModel(Settings settings)
         {
             Argument.IsNotNull(() => settings);
-
-            SuspendValidation = true;
 
             Settings = settings;
         }

@@ -8,8 +8,10 @@
 namespace Orchestra.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using Catel;
+    using Catel.Data;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
@@ -72,7 +74,14 @@ namespace Orchestra.ViewModels
             if (HasErrors)
             {
                 Log.Warning("There are errors that need to be fixed, please do that before running.");
-                foreach (var error in ValidationContext.GetErrors())
+
+                var validationSummary = this.GetValidationSummary(true);
+                foreach (var error in validationSummary.FieldErrors)
+                {
+                    Log.Warning("  * {0}", error.Message);
+                }
+
+                foreach (var error in validationSummary.BusinessRuleErrors)
                 {
                     Log.Warning("  * {0}", error.Message);
                 }

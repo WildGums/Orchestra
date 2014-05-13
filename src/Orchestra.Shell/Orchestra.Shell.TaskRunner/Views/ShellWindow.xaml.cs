@@ -7,7 +7,6 @@
 
 namespace Orchestra.Views
 {
-    using System.Data;
     using System.Windows;
     using Catel.IoC;
     using Catel.Logging;
@@ -23,6 +22,8 @@ namespace Orchestra.Views
     {
         #region Fields
         private readonly RichTextBoxLogListener _logListener;
+
+        private bool _hasUpdatedViewModel;
         #endregion
 
         #region Constructors
@@ -45,7 +46,6 @@ namespace Orchestra.Views
             ConfigurationContext = taskRunnerService.GetViewDataContext();
 
             var view = taskRunnerService.GetView();
-            view.DataContext = ConfigurationContext;
 
             contentPresenter.Content = view;
 
@@ -70,6 +70,21 @@ namespace Orchestra.Views
         #endregion
 
         #region Methods
+        protected override void OnViewModelChanged()
+        {
+            base.OnViewModelChanged();
+
+            // Let the shell create its view model first. Then the view model of the dynamic view model will
+            // be created (which means the parent / child view models will work).
+            var view = contentPresenter.Content as FrameworkElement;
+            if (view != null && !_hasUpdatedViewModel)
+            {
+                _hasUpdatedViewModel = true;
+
+                view.DataContext = ConfigurationContext;
+            }
+        }
+
         private void ClearConsole()
         {
             _logListener.Clear();

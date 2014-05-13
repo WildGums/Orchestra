@@ -41,7 +41,6 @@
         </GroupBox>
 
         <GroupBox Grid.Row="2" Header="Results">
-            <!--<TextBox x:Name="outputTextBox" TextWrapping="Wrap" IsReadOnly="True" VerticalScrollBarVisibility="Visible" />-->
             <RichTextBox x:Name="outputTextBox" IsReadOnly="True" VerticalScrollBarVisibility="Visible" />
         </GroupBox>
     </Grid>
