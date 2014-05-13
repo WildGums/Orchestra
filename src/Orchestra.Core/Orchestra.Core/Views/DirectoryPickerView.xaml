@@ -19,7 +19,7 @@
         
         <Button Grid.Column="2" Width="24" Margin="0,6,2,6" ToolTip="Open folder"
                 Command="{Binding OpenDirectory}" Visibility="{Binding SelectedDirectory, Converter={catel:EmptyStringToCollapsingVisibilityConverter}}">
-            <Image Source="/Resources/Images/Folder.png" Width="16" Height="16" />
+            <Image Source="/Orchestra.Core;component/Resources/Images/Folder.png" Width="16" Height="16" />
         </Button>
 
         <Button Margin="2,6,0,6" Grid.Column="3" Width="24" Content="..." ToolTip="Browse for folder" Command="{Binding SelectDirectory}" />

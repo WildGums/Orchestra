@@ -13,11 +13,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Orchestra.Example")]
+[assembly: AssemblyTitle("Orchestra.Examples.TaskRunner")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("The Example Company")]
-[assembly: AssemblyProduct("Orchestra.Example")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Orchestra.Examples.TaskRunner")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

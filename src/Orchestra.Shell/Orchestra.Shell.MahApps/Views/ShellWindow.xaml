@@ -36,7 +36,7 @@
         </StatusBar>
 
         <Grid>
-            <!-- CONTENT HERE -->
+            <ContentPresenter x:Name="contentPresenter" />
         </Grid>
     </DockPanel>
 

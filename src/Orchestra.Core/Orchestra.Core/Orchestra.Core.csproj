@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
+    <Resource Include="Resources\Images\Folder.png" />
     <Content Include="Resources\Images\Pinned.png" />
     <Content Include="Resources\Images\Unpinned.png" />
   </ItemGroup>

@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace Orchestra.Views.ViewModels
+namespace Orchestra.ViewModels
 {
     using System.IO;
     using Catel;

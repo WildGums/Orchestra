@@ -10,9 +10,9 @@ using System.Runtime.InteropServices;
 
 // All other assembly info is defined in SharedAssembly.cs
 
-[assembly: AssemblyTitle("Orchestra.Shell.Ribbon.Microsoft")]
-[assembly: AssemblyProduct("Orchestra.Shell.Ribbon.Microsoft")]
-[assembly: AssemblyDescription("Orchestra.Shell Ribbon Microsoft library")]
+[assembly: AssemblyTitle("Orchestra.Shell.TaskRunner")]
+[assembly: AssemblyProduct("Orchestra.Shell.TaskRunner")]
+[assembly: AssemblyDescription("Orchestra.Shell TaskRunner library")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
