@@ -81,6 +81,8 @@ namespace Orchestra.Views
             {
                 _hasUpdatedViewModel = true;
 
+                ClearConsole();
+
                 view.DataContext = ConfigurationContext;
             }
         }
