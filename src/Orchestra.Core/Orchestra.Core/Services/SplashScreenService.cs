@@ -8,7 +8,6 @@
 namespace Orchestra.Services
 {
     using System.Windows;
-    using System.Windows.Media;
 
     public class SplashScreenService : ISplashScreenService
     {
@@ -18,8 +17,7 @@ namespace Orchestra.Services
         /// <returns>The window.</returns>
         public Window CreateSplashScreen()
         {
-            var splashScreen = new Orchestra.Views.SplashScreen();
-            splashScreen.Background = Brushes.Coral;
+            var splashScreen = new Views.SplashScreen();
 
             return splashScreen;
         }

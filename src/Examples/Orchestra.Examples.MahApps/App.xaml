@@ -8,6 +8,8 @@
                 <ResourceDictionary Source="/Orchestra.Core;component/themes/generic.xaml" />
                 <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="AccentColorBrush" Color="DarkRed" />
         </ResourceDictionary>
     </Application.Resources>
     

@@ -4,9 +4,7 @@
                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                          xmlns:catel="http://catel.codeplex.com"
-                         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                          xmlns:orchestra="https://github.com/orcomp/orchestra"
-                         xmlns:views="clr-namespace:Orchestra.Views"
                          xmlns:windows="clr-namespace:Orchestra.Windows"
                          SaveWindowPosition="False" WindowStartupLocation="CenterScreen" ShowWindowCommandsOnTop="False"
                          BorderThickness="1" BorderBrush="{DynamicResource AccentColorBrush}"
@@ -35,9 +33,7 @@
             </orchestra:AnimatingTextBlock>
         </StatusBar>
 
-        <Grid>
-            <ContentPresenter x:Name="contentPresenter" />
-        </Grid>
+        <ContentPresenter x:Name="contentPresenter" />
     </DockPanel>
 
 </windows:MetroDataWindow>

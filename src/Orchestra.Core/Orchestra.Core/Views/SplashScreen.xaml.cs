@@ -7,6 +7,7 @@
 
 namespace Orchestra.Views
 {
+    using System.Windows;
     using System.Windows.Media;
     using Catel.Windows;
 
@@ -25,6 +26,16 @@ namespace Orchestra.Views
             InitializeComponent();
 
             Background = Brushes.DodgerBlue;
+
+            var application = Application.Current;
+            if (application != null)
+            {
+                var backgroundBrush = application.TryFindResource("AccentColorBrush") as SolidColorBrush;
+                if (backgroundBrush != null)
+                {
+                    Background = backgroundBrush;
+                }
+            }
         }
         #endregion 
     }

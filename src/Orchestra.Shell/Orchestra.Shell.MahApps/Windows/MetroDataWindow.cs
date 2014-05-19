@@ -80,6 +80,8 @@ namespace Orchestra.Windows
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             SetBinding(TitleProperty, new Binding("Title"));
+
+            this.ApplyIconFromApplication();
         }
         #endregion
 
@@ -111,7 +113,6 @@ namespace Orchestra.Windows
         /// <value>The parent.</value>
         /// <returns>This element's logical parent.</returns>
         object IView.Parent
-
         {
             get { return null; }
         }

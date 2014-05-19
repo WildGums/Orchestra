@@ -58,8 +58,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Shell", "Orchestr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Core", "Orchestra.Core\Orchestra.Core\Orchestra.Core.csproj", "{805E1F16-7A10-42A2-82BA-5012412144BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.Core", "Orchestra.Shell\Orchestra.Shell.Core\Orchestra.Shell.Core.csproj", "{96B79544-3E05-4940-9087-4E80F2D2D50C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Test", "Orchestra.Test\Orchestra.Test\Orchestra.Test.csproj", "{96F837EA-C848-4AA4-AF9D-6FA1B370506F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{DBEB5ED3-4622-408E-92D9-EC60F316A5C9}"
@@ -78,7 +76,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.TaskRunner"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.TaskRunner", "Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.csproj", "{45857215-F067-4652-8C87-71E7D8F432A7}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Shared", "Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.shproj", "{BC10FCE0-C843-4592-802D-BB800A514CA0}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Ribbon.Shared", "Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.shproj", "{09D9C5AF-1D17-4C77-A5D4-CFDF278DF4A3}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{e16a2bf1-3801-4615-a79e-52cedf260a89}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{2909c5c6-b2c7-49a4-bf8f-2225433effdf}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{bc10fce0-c843-4592-802d-bb800a514ca0}*SharedItemsImports = 13
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{09d9c5af-1d17-4c77-a5d4-cfdf278df4a3}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -120,16 +130,6 @@ Global
 		{805E1F16-7A10-42A2-82BA-5012412144BB}.Release|ARM.ActiveCfg = Release|Any CPU
 		{805E1F16-7A10-42A2-82BA-5012412144BB}.Release|x64.ActiveCfg = Release|Any CPU
 		{805E1F16-7A10-42A2-82BA-5012412144BB}.Release|x86.ActiveCfg = Release|Any CPU
-		{96B79544-3E05-4940-9087-4E80F2D2D50C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96B79544-3E05-4940-9087-4E80F2D2D50C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96B79544-3E05-4940-9087-4E80F2D2D50C}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{96B79544-3E05-4940-9087-4E80F2D2D50C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{96B79544-3E05-4940-9087-4E80F2D2D50C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{96B79544-3E05-4940-9087-4E80F2D2D50C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96B79544-3E05-4940-9087-4E80F2D2D50C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{96B79544-3E05-4940-9087-4E80F2D2D50C}.Release|ARM.ActiveCfg = Release|Any CPU
-		{96B79544-3E05-4940-9087-4E80F2D2D50C}.Release|x64.ActiveCfg = Release|Any CPU
-		{96B79544-3E05-4940-9087-4E80F2D2D50C}.Release|x86.ActiveCfg = Release|Any CPU
 		{96F837EA-C848-4AA4-AF9D-6FA1B370506F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{96F837EA-C848-4AA4-AF9D-6FA1B370506F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96F837EA-C848-4AA4-AF9D-6FA1B370506F}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -216,7 +216,6 @@ Global
 		{11B3395E-A064-4250-A1CD-8CF165E7F21F} = {E502625D-7CC7-401B-ACDF-678B68F59005}
 		{3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC} = {E502625D-7CC7-401B-ACDF-678B68F59005}
 		{805E1F16-7A10-42A2-82BA-5012412144BB} = {11B3395E-A064-4250-A1CD-8CF165E7F21F}
-		{96B79544-3E05-4940-9087-4E80F2D2D50C} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
 		{96F837EA-C848-4AA4-AF9D-6FA1B370506F} = {250CAB0E-A7F8-495B-B090-DB0AF1D51514}
 		{DBEB5ED3-4622-408E-92D9-EC60F316A5C9} = {E502625D-7CC7-401B-ACDF-678B68F59005}
 		{608C0720-4276-47B0-B131-7A2267735C58} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
@@ -226,5 +225,7 @@ Global
 		{F092BDC9-B58A-4F43-A37B-BDCA9825FD03} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
 		{2909C5C6-B2C7-49A4-BF8F-2225433EFFDF} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
 		{45857215-F067-4652-8C87-71E7D8F432A7} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
+		{BC10FCE0-C843-4592-802D-BB800A514CA0} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
+		{09D9C5AF-1D17-4C77-A5D4-CFDF278DF4A3} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
 	EndGlobalSection
 EndGlobal

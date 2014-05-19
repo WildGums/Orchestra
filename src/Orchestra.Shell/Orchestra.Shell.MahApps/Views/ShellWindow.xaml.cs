@@ -29,6 +29,13 @@ namespace Orchestra.Views
             var serviceLocator = ServiceLocator.Default;
             var statusService = serviceLocator.ResolveType<IStatusService>();
             statusService.Initialize(statusTextBlock);
+
+            var dependencyResolver = this.GetDependencyResolver();
+            var mahAppsService = dependencyResolver.Resolve<IMahAppsService>();
+
+            Flyouts = mahAppsService.GetFlyouts();
+            RightWindowCommands = mahAppsService.GetRightWindowCommands();
+            contentPresenter.Content = mahAppsService.GetMainView();
         }
         #endregion
     }

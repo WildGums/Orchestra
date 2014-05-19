@@ -64,10 +64,6 @@
       <Project>{805e1f16-7a10-42a2-82ba-5012412144bb}</Project>
       <Name>Orchestra.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Orchestra.Shell\Orchestra.Shell.Core\Orchestra.Shell.Core.csproj">
-      <Project>{96b79544-3e05-4940-9087-4e80f2d2d50c}</Project>
-      <Name>Orchestra.Shell.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converters\" />

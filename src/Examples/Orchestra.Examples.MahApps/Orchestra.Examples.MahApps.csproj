@@ -85,6 +85,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\MahAppsService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -123,10 +124,6 @@
       <Project>{805e1f16-7a10-42a2-82ba-5012412144bb}</Project>
       <Name>Orchestra.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Orchestra.Shell\Orchestra.Shell.Core\Orchestra.Shell.Core.csproj">
-      <Project>{96b79544-3e05-4940-9087-4e80f2d2d50c}</Project>
-      <Name>Orchestra.Shell.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Orchestra.Shell\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.csproj">
       <Project>{e16a2bf1-3801-4615-a79e-52cedf260a89}</Project>
       <Name>Orchestra.Shell.MahApps</Name>
@@ -138,6 +135,7 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Resources\Images\" />
+    <Folder Include="Services\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\WindowsIcons-license.txt" />

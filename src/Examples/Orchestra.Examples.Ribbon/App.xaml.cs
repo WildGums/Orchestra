@@ -15,8 +15,8 @@ namespace Orchestra.Examples.Ribbon
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
-    using Services;
-    using Views;
+    using Orchestra.Services;
+    using Orchestra.Views;
     using InputGesture = Catel.Windows.Input.InputGesture;
 
     /// <summary>

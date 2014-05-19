@@ -88,6 +88,7 @@
     <Compile Include="Helpers\CamelCaseHelper.cs" />
     <Compile Include="Helpers\DotNetPatchHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Logging\RichTextBoxLogListener.cs" />
     <Compile Include="Logging\StatusLogListener.cs" />
     <Compile Include="Logging\TextBoxLogListener.cs" />

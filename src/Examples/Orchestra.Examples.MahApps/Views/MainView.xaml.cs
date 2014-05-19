@@ -12,5 +12,9 @@ namespace Orchestra.Examples.MahApps.Views
     /// </summary>
     public partial class MainView
     {
+        public MainView()
+        {
+            InitializeComponent();
+        }
     }
 }

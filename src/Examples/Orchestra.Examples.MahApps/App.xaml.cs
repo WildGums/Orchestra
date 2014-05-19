@@ -18,6 +18,7 @@ namespace Orchestra.Examples.MahApps
     using Orchestra.Views;
     using Services;
     using InputGesture = Catel.Windows.Input.InputGesture;
+    using Orchestra.Services;
 
     /// <summary>
     /// Interaction logic for App.xaml
