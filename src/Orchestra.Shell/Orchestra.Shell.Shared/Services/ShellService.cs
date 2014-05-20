@@ -112,6 +112,13 @@ namespace Orchestra.Services
                 preInitialize();
             }
 
+            if (initializeCommands != null)
+            {
+                Log.Info("Initializing commands");
+
+                initializeCommands(_commandManager);
+            }
+
             Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName());
 
             var shell = _typeFactory.CreateInstance<TShell>();
@@ -124,13 +131,6 @@ namespace Orchestra.Services
 
                 var currentApp = Application.Current;
                 currentApp.MainWindow = shellAsWindow;
-            }
-
-            if (initializeCommands != null)
-            {
-                Log.Info("Initializing commands");
-
-                initializeCommands(_commandManager);
             }
 
             Log.Info("Loading keyboard mappings");
