@@ -5,7 +5,6 @@
   <ModuleInit/>
   <Costura>
     <IncludeAssemblies>
-      Microsoft.Windows.Shell
     </IncludeAssemblies>
   </Costura>
 </Weavers>
