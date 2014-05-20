@@ -3,4 +3,9 @@
   <Catel/>
   <ModuleInit/>
   <LoadAssembliesOnStartup/>
+  <Costura>
+    <IncludeAssemblies>
+      
+    </IncludeAssemblies>
+  </Costura>
 </Weavers>

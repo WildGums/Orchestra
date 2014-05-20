@@ -19,23 +19,23 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\output\debug\Orchestra.Shell\</OutputPath>
+    <OutputPath>..\..\..\output\debug\Orchestra.Shell.MahApps\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\output\debug\Orchestra.Shell\Orchestra.Shell.MahApps.XML</DocumentationFile>
+    <DocumentationFile>..\..\..\output\debug\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\output\release\Orchestra.Shell\</OutputPath>
+    <OutputPath>..\..\..\output\release\Orchestra.Shell.MahApps\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\..\output\release\Orchestra.Shell\Orchestra.Shell.MahApps.XML</DocumentationFile>
+    <DocumentationFile>..\..\..\output\release\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.XML</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>

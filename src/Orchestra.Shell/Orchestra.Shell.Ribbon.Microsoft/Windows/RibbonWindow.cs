@@ -91,7 +91,7 @@ namespace Orchestra.Windows
             set { _logic.PreventViewModelCreation = value; }
         }
 
-        public object Parent
+        object IView.Parent
         {
             get { return null; }
         }

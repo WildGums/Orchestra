@@ -17,7 +17,7 @@ namespace Orchestra.Views
     public partial class ShellWindow : IShell
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ShellView"/> class.
+        /// Initializes a new instance of the <see cref="ShellWindow"/> class.
         /// </summary>
         public ShellWindow()
         {

@@ -4,11 +4,7 @@
                    xmlns:catel="http://catel.codeplex.com"
                    xmlns:ribbon="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
                    xmlns:converters="clr-namespace:Orchestra.Converters;assembly=Orchestra.Core">
-
-    <UserControl.Resources>
-        
-    </UserControl.Resources>
-
+    
     <ribbon:Ribbon x:Name="ribbon">
         <!-- Application Menu, located at the left-hand side (down arrow) -->
         <ribbon:Ribbon.ApplicationMenu>
