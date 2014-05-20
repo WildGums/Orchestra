@@ -71,6 +71,8 @@ namespace Orchestra.Windows
             SetBinding(TitleProperty, new Binding("Title"));
 
             ((Window)this).ApplyApplicationIcon();
+
+            FixMaximize.SetFixMaximize(this, true);
         }
 
         #region Properties
@@ -163,6 +165,7 @@ namespace Orchestra.Windows
         }
         #endregion
 
+        #region Methods
         protected virtual Type GetViewModelType()
         {
             return null;
@@ -180,5 +183,6 @@ namespace Orchestra.Windows
         {
             Close();
         }
+        #endregion
     }
 }
