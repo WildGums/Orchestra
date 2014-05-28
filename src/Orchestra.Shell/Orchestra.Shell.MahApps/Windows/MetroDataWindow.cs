@@ -84,11 +84,11 @@ namespace Orchestra.Windows
             this.ApplyIconFromApplication();
 
             // Since we customize behaviors, we need to add the default MahApps behaviors as well
-            this.ApplyBehavior<BorderlessWindowBehavior>();
+            var borderlessWindowBehavior = this.ApplyBehavior<BorderlessWindowBehavior>();
+            borderlessWindowBehavior.EnableDWMDropShadow = true;
             this.ApplyBehavior<WindowsSettingBehaviour>();
             this.ApplyBehavior<GlowWindowBehavior>();
 
-            AllowsTransparency = true;
             EnableDWMDropShadow = true;
         }
         #endregion

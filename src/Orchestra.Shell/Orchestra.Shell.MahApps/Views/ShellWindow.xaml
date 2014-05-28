@@ -6,9 +6,7 @@
                          xmlns:catel="http://catel.codeplex.com"
                          xmlns:orchestra="https://github.com/orcomp/orchestra"
                          xmlns:windows="clr-namespace:Orchestra.Windows"
-                         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                          SaveWindowPosition="False" ShowWindowCommandsOnTop="False"
-                         BorderThickness="1" BorderBrush="{DynamicResource AccentColorBrush}"
                          d:DesignHeight="696" d:DesignWidth="480" mc:Ignorable="d">
 
     <windows:MetroDataWindow.Resources>
@@ -17,26 +15,28 @@
         </ResourceDictionary>
     </windows:MetroDataWindow.Resources>
 
-    <AdornerDecorator x:Name="AdornerDecorator">
-        <DockPanel LastChildFill="True" Margin="15, 5, 15, 5">
+    <Border x:Name="border" BorderThickness="1">
+        <AdornerDecorator x:Name="AdornerDecorator">
+            <DockPanel LastChildFill="True" Margin="15, 5, 15, 5">
 
-            <StatusBar x:Name="statusBar" DockPanel.Dock="Bottom">
-                <orchestra:AnimatingTextBlock x:Name="statusTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <orchestra:AnimatingTextBlock.ShowStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2"/>
-                        </Storyboard>
-                    </orchestra:AnimatingTextBlock.ShowStoryboard>
-                    <orchestra:AnimatingTextBlock.HideStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.2"/>
-                        </Storyboard>
-                    </orchestra:AnimatingTextBlock.HideStoryboard>
-                </orchestra:AnimatingTextBlock>
-            </StatusBar>
+                <StatusBar x:Name="statusBar" DockPanel.Dock="Bottom">
+                    <orchestra:AnimatingTextBlock x:Name="statusTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <orchestra:AnimatingTextBlock.ShowStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </orchestra:AnimatingTextBlock.ShowStoryboard>
+                        <orchestra:AnimatingTextBlock.HideStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </orchestra:AnimatingTextBlock.HideStoryboard>
+                    </orchestra:AnimatingTextBlock>
+                </StatusBar>
 
-            <ContentPresenter x:Name="contentPresenter" />
-        </DockPanel>
-    </AdornerDecorator>
+                <ContentPresenter x:Name="contentPresenter" />
+            </DockPanel>
+        </AdornerDecorator>
+    </Border>
 
 </windows:MetroDataWindow>

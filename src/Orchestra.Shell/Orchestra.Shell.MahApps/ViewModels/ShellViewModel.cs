@@ -7,16 +7,9 @@
 
 namespace Orchestra.ViewModels
 {
-    using System.Reflection;
     using Catel.MVVM;
-    using Catel.Reflection;
 
     public class ShellViewModel : ViewModelBase
     {
-        public ShellViewModel()
-        {
-            var assembly = Assembly.GetEntryAssembly();
-            Title = assembly.Title();
-        }
     }
 }

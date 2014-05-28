@@ -7,6 +7,7 @@
 
 namespace Orchestra.Views
 {
+    using System.Windows;
     using System.Windows.Data;
     using Windows;
     using Catel.IoC;
@@ -29,7 +30,10 @@ namespace Orchestra.Views
 
             ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
 
-            MahAppsHelper.SetThemeColor(ThemeHelper.GetAccentColor());
+            var accentColorBrush = ThemeHelper.GetAccentColorBrush();
+            MahAppsHelper.SetThemeColor(accentColorBrush.Color);
+
+            border.BorderBrush = accentColorBrush;
 
             var serviceLocator = ServiceLocator.Default;
             var statusService = serviceLocator.ResolveType<IStatusService>();
