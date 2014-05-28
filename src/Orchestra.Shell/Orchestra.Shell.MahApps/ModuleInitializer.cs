@@ -5,9 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
+using System.Windows.Input;
 using Catel.IoC;
+using Catel.MVVM;
 using FallDownMatrixManager.Services;
 using Orchestra.Services;
+using InputGesture = Catel.Windows.Input.InputGesture;
 
 /// <summary>
 /// Used by the ModuleInit. All code inside the Initialize method is ran as soon as the assembly is loaded.
@@ -19,5 +22,8 @@ public static partial class ModuleInitializer
         var serviceLocator = ServiceLocator.Default;
 
         serviceLocator.RegisterType<IFlyoutService, FlyoutService>();
+
+        var commandManager = serviceLocator.ResolveType<ICommandManager>();
+        commandManager.CreateCommand("Close", new InputGesture(Key.Escape), throwExceptionWhenCommandIsAlreadyCreated: false);
     }
 }

@@ -14,6 +14,7 @@ namespace FallDownMatrixManager.Services
     using Catel;
     using Catel.IoC;
     using Catel.Logging;
+    using Catel.MVVM;
     using MahApps.Metro.Controls;
     using ThemeHelper = Orchestra.ThemeHelper;
 
@@ -22,13 +23,17 @@ namespace FallDownMatrixManager.Services
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly ITypeFactory _typeFactory;
+        private readonly ICommandManager _commandManager;
+
         private readonly Dictionary<string, Flyout> _flyouts = new Dictionary<string, Flyout>();
 
-        public FlyoutService(ITypeFactory typeFactory)
+        public FlyoutService(ITypeFactory typeFactory, ICommandManager commandManager)
         {
             Argument.IsNotNull(() => typeFactory);
+            Argument.IsNotNull(() => commandManager);
 
             _typeFactory = typeFactory;
+            _commandManager = commandManager;
         }
 
         public IEnumerable<Flyout> GetFlyouts()
@@ -49,6 +54,8 @@ namespace FallDownMatrixManager.Services
             flyout.BorderThickness = new Thickness(1);
             flyout.BorderBrush = ThemeHelper.GetAccentColorBrush();
             flyout.SetBinding(Flyout.HeaderProperty, new Binding("ViewModel.Title") { Source = flyout.Content });
+
+            ((ICompositeCommand)_commandManager.GetCommand("Close")).RegisterAction(() => { flyout.IsOpen = false; });
 
             _flyouts[name] = flyout;
         }
