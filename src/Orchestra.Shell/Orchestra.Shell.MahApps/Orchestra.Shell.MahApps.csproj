@@ -100,6 +100,9 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\FlyoutService.cs" />
+    <Compile Include="Services\Interfaces\Extensions\FlyoutServiceExtensions.cs" />
+    <Compile Include="Services\Interfaces\IFlyoutService.cs" />
     <Compile Include="Services\Interfaces\IMahAppsService.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\ShellWindow.xaml.cs">

@@ -6,6 +6,7 @@
 
 
 using Catel.IoC;
+using FallDownMatrixManager.Services;
 using Orchestra.Services;
 
 /// <summary>
@@ -16,5 +17,7 @@ public static partial class ModuleInitializer
     static partial void InitializeSpecific()
     {
         var serviceLocator = ServiceLocator.Default;
+
+        serviceLocator.RegisterType<IFlyoutService, FlyoutService>();
     }
 }

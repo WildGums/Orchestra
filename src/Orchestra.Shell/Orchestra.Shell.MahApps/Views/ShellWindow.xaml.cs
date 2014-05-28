@@ -7,11 +7,10 @@
 
 namespace Orchestra.Views
 {
-    using System.Windows;
-    using System.Windows.Media;
     using Windows;
     using Catel.IoC;
-    using MahApps.Metro;
+    using FallDownMatrixManager.Services;
+    using MahApps.Metro.Controls;
     using Services;
 
     /// <summary>
@@ -37,8 +36,14 @@ namespace Orchestra.Views
 
             var dependencyResolver = this.GetDependencyResolver();
             var mahAppsService = dependencyResolver.Resolve<IMahAppsService>();
+            var flyoutService = dependencyResolver.Resolve<IFlyoutService>();
 
-            Flyouts = mahAppsService.GetFlyouts();
+            Flyouts = new FlyoutsControl();
+            foreach (var flyout in flyoutService.GetFlyouts())
+            {
+                Flyouts.Items.Add(flyout);
+            }
+
             RightWindowCommands = mahAppsService.GetRightWindowCommands();
             contentPresenter.Content = mahAppsService.GetMainView();
         }

@@ -15,8 +15,11 @@ namespace Orchestra.Examples.MahApps
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
+    using FallDownMatrixManager.Services;
+    using global::MahApps.Metro.Controls;
     using Orchestra.Views;
     using Services;
+    using Views;
     using InputGesture = Catel.Windows.Input.InputGesture;
     using Orchestra.Services;
 
@@ -69,6 +72,12 @@ namespace Orchestra.Examples.MahApps
             Catel.Data.ModelBase.DefaultSuspendValidationValue = true;
             Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
             Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
+
+            Log.Debug("Creating flyouts");
+
+            var dependencyResolver = this.GetDependencyResolver();
+            var flyoutService = dependencyResolver.Resolve<IFlyoutService>();
+            flyoutService.AddFlyout<PersonView>(ExampleEnvironment.PersonFlyoutName, Position.Right);
         }
 
         private void InitializeCommands(ICommandManager commandManager)

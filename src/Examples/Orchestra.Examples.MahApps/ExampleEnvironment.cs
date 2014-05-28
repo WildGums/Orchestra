@@ -1,19 +1,16 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IMahAppsService.cs" company="Orchestra development team">
+// <copyright file="ExampleEnvironment.cs" company="Orchestra development team">
 //   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace Orchestra.Services
+namespace Orchestra.Examples.MahApps
 {
-    using System.Windows;
-    using MahApps.Metro.Controls;
-
-    public interface IMahAppsService
+    public static class ExampleEnvironment
     {
-        WindowCommands GetRightWindowCommands();
-
-        FrameworkElement GetMainView();
+        #region Constants
+        public const string PersonFlyoutName = "PersonFlyoutName";
+        #endregion
     }
 }
