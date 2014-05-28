@@ -11,8 +11,6 @@ namespace Orchestra.Windows
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Data;
-    using System.Windows.Interactivity;
-    using Behaviors;
     using Catel;
     using Catel.IoC;
     using Catel.MVVM;
@@ -82,7 +80,6 @@ namespace Orchestra.Windows
             OnViewModelChanged();
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            SetBinding(TitleProperty, new Binding("Title"));
 
             this.ApplyIconFromApplication();
 

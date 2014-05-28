@@ -7,6 +7,7 @@
 
 namespace Orchestra.Views
 {
+    using System.Windows.Data;
     using Windows;
     using Catel.IoC;
     using FallDownMatrixManager.Services;
@@ -45,7 +46,11 @@ namespace Orchestra.Views
             }
 
             RightWindowCommands = mahAppsService.GetRightWindowCommands();
-            contentPresenter.Content = mahAppsService.GetMainView();
+
+            var mainView = mahAppsService.GetMainView();
+            contentPresenter.Content = mainView;
+
+            SetBinding(TitleProperty, new Binding("ViewModel.Title") { Source = mainView });
         }
         #endregion
     }
