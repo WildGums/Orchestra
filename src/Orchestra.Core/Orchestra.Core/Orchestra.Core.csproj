@@ -74,6 +74,9 @@
     <Compile Include="..\..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Behaviors\HintsBehavior.cs" />
+    <Compile Include="Collections\AdorneredTooltipsCollection.cs" />
+    <Compile Include="Collections\Interfaces\IAdorneredTooltipsCollection.cs" />
     <Compile Include="Controls\AnimatingTextBlock.cs" />
     <Compile Include="Controls\BusyIndicator.xaml.cs">
       <DependentUpon>BusyIndicator.xaml</DependentUpon>
@@ -88,22 +91,34 @@
     <Compile Include="Converters\InputGestureToStringConverter.cs" />
     <Compile Include="Converters\PathToStringConverter.cs" />
     <Compile Include="Exceptions\OrchestraException.cs" />
+    <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\AssemblyHelper.cs" />
     <Compile Include="Helpers\CamelCaseHelper.cs" />
     <Compile Include="Helpers\DotNetPatchHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
+    <Compile Include="Layers\HintsAdornerLayer.cs" />
+    <Compile Include="Layers\Interfaces\IAdornerLayer.cs" />
     <Compile Include="Logging\RichTextBoxLogListener.cs" />
     <Compile Include="Logging\StatusLogListener.cs" />
     <Compile Include="Logging\TextBoxLogListener.cs" />
     <Compile Include="Models\AboutInfo.cs" />
+    <Compile Include="Models\Hint.cs" />
+    <Compile Include="Models\Interfaces\IHint.cs" />
     <Compile Include="Models\KeyboardMapping.cs" />
     <Compile Include="Models\KeyboardMappings.cs" />
     <Compile Include="Models\RecentlyUsedItem.cs" />
     <Compile Include="Models\RecentlyUsedItems.cs" />
     <Compile Include="ModuleInitializer.cs" />
+    <Compile Include="OrchestraEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AdorneredTooltipsManager.cs" />
+    <Compile Include="Services\AdorneredTooltipsManagerFactory.cs" />
+    <Compile Include="Services\HintsProvider.cs" />
+    <Compile Include="Services\Interfaces\IAdorneredTooltipsManager.cs" />
+    <Compile Include="Services\Interfaces\IAdorneredTooltipsManagerFactory.cs" />
+    <Compile Include="Services\Interfaces\IHintsProvider.cs" />
     <Compile Include="Services\Interfaces\IKeyboardMappingsService.cs" />
     <Compile Include="Services\Interfaces\IRecentlyUsedItemsService.cs" />
     <Compile Include="Services\Interfaces\IStatusService.cs" />
@@ -112,6 +127,13 @@
     <Compile Include="Services\KeyboardMappingsService.cs" />
     <Compile Include="Services\RecentlyUsedItemsService.cs" />
     <Compile Include="Services\StatusService.cs" />
+    <Compile Include="Tooltips\AdorneredTooltip.cs" />
+    <Compile Include="Tooltips\AdorneredTooltipFactory.cs" />
+    <Compile Include="Tooltips\AdornerHintGenerator.cs" />
+    <Compile Include="Tooltips\Interfaces\IAdorneredTooltip.cs" />
+    <Compile Include="Tooltips\Interfaces\IAdorneredTooltipFactory.cs" />
+    <Compile Include="Tooltips\Interfaces\IAdornerTooltipGenerator.cs" />
+    <Compile Include="Tooltips\TextBlockAdorner.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\DirectoryPickerViewModel.cs" />
     <Compile Include="ViewModels\KeyboardMappingsCustomizationViewModel.cs" />

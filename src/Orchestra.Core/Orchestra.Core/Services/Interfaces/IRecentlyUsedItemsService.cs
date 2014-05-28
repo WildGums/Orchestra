@@ -9,7 +9,7 @@ namespace Orchestra.Services
 {
     using System;
     using System.Collections.Generic;
-    using Orchestra.Models;
+    using Models;
 
     public interface IRecentlyUsedItemsService
     {

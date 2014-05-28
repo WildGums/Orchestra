@@ -7,8 +7,11 @@
 
 namespace Orchestra.Views
 {
+    using System.Windows;
+    using System.Windows.Media;
     using Windows;
     using Catel.IoC;
+    using MahApps.Metro;
     using Services;
 
     /// <summary>
@@ -25,6 +28,8 @@ namespace Orchestra.Views
             InitializeComponent();
 
             ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
+
+            MahAppsHelper.SetThemeColor(ThemeHelper.GetAccentColor());
 
             var serviceLocator = ServiceLocator.Default;
             var statusService = serviceLocator.ResolveType<IStatusService>();

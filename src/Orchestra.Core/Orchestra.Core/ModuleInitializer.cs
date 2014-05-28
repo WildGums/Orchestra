@@ -8,7 +8,10 @@ using Catel.IoC;
 using Catel.Services;
 using Catel.Services.Models;
 using Orchestra;
+using Orchestra.Collections;
+using Orchestra.Layers;
 using Orchestra.Services;
+using Orchestra.Tooltips;
 using Orchestra.ViewModels;
 using Orchestra.Views;
 
@@ -28,6 +31,16 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IKeyboardMappingsService, KeyboardMappingsService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusService, StatusService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<Orchestra.Services.ISplashScreenService, Orchestra.Services.SplashScreenService>();
+
+        // Hints system
+        serviceLocator.RegisterType<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>();
+        serviceLocator.RegisterType<IAdornerLayer, HintsAdornerLayer>();
+        serviceLocator.RegisterType<IAdorneredTooltipsManager, AdorneredTooltipsManager>();
+        serviceLocator.RegisterType<IHintsProvider, HintsProvider>();
+
+        serviceLocator.RegisterType<IAdornerLayer, HintsAdornerLayer>(RegistrationType.Transient);
+        serviceLocator.RegisterType<IAdorneredTooltipFactory, AdorneredTooltipFactory>(RegistrationType.Transient);
+        serviceLocator.RegisterType<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>(RegistrationType.Transient);
 
         var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
         uiVisualizerService.Register(typeof(KeyboardMappingsCustomizationViewModel), typeof(KeyboardMappingsCustomizationWindow));

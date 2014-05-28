@@ -30,11 +30,7 @@ namespace Orchestra.Views
             var application = Application.Current;
             if (application != null)
             {
-                var backgroundBrush = application.TryFindResource("AccentColorBrush") as SolidColorBrush;
-                if (backgroundBrush != null)
-                {
-                    Background = backgroundBrush;
-                }
+                Background = ThemeHelper.GetAccentColorBrush();
             }
         }
         #endregion 

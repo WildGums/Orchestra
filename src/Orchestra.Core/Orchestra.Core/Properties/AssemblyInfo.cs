@@ -20,4 +20,5 @@ using System.Windows.Markup;
 
 [assembly: ComVisible(false)]
 [assembly: XmlnsPrefix("https://github.com/orcomp/orchestra", "orchestra")]
+[assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Behaviors")]
 [assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Controls")]

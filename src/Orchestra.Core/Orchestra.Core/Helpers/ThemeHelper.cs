@@ -10,6 +10,7 @@ namespace Orchestra
     using System;
     using System.Reflection;
     using System.Windows;
+    using System.Windows.Media;
     using Catel;
     using Catel.Logging;
     using Catel.Windows;
@@ -22,6 +23,23 @@ namespace Orchestra
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private static bool _ensuredOrchestraThemes;
+        private static SolidColorBrush _cachedAccentColorBrush;
+
+        public static Color GetAccentColor()
+        {
+            return GetAccentColorBrush().Color;
+        }
+
+        public static SolidColorBrush GetAccentColorBrush()
+        {
+            if (_cachedAccentColorBrush != null)
+            {
+                return _cachedAccentColorBrush;
+            }
+
+            _cachedAccentColorBrush = Application.Current.TryFindResource("AccentColorBrush") as SolidColorBrush;
+            return _cachedAccentColorBrush ?? OrchestraEnvironment.DefaultAccentColorBrush;
+        }
 
         /// <summary>
         /// Ensures the application themes by using the assembly and the <c>/Themes/Generic.xaml</c>.

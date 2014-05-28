@@ -11,12 +11,15 @@ namespace Orchestra.Windows
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Data;
+    using System.Windows.Interactivity;
+    using Behaviors;
     using Catel;
     using Catel.IoC;
     using Catel.MVVM;
     using Catel.MVVM.Providers;
     using Catel.MVVM.Views;
     using Catel.Windows;
+    using MahApps.Metro.Behaviours;
     using MahApps.Metro.Controls;
 
     /// <summary>
@@ -82,6 +85,14 @@ namespace Orchestra.Windows
             SetBinding(TitleProperty, new Binding("Title"));
 
             this.ApplyIconFromApplication();
+
+            // Since we customize behaviors, we need to add the default MahApps behaviors as well
+            this.ApplyBehavior<BorderlessWindowBehavior>();
+            this.ApplyBehavior<WindowsSettingBehaviour>();
+            this.ApplyBehavior<GlowWindowBehavior>();
+
+            AllowsTransparency = true;
+            EnableDWMDropShadow = true;
         }
         #endregion
 
