@@ -5,7 +5,9 @@
   <LoadAssembliesOnStartup/>
   <Costura>
     <IncludeAssemblies>
-      
+      Microsoft.Threading.Tasks
+      Microsoft.Threading.Tasks.Extensions
+      Microsoft.Threading.Tasks.Extensions.Desktop
     </IncludeAssemblies>
   </Costura>
 </Weavers>

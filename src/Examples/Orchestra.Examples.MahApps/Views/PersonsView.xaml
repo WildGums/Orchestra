@@ -27,7 +27,7 @@
                 </Rectangle>
             </Button>
 
-            <Button Command="{Binding Remove}" ToolTip="Delete">
+            <Button Command="{Binding Remove}" ToolTip="Remove">
                 <Rectangle Width="14" Height="14" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
                     <Rectangle.OpacityMask>
                         <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />

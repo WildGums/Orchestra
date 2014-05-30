@@ -8,6 +8,7 @@
 using System.Windows.Input;
 using Catel.IoC;
 using Catel.MVVM;
+using Catel.Services;
 using FallDownMatrixManager.Services;
 using Orchestra.Services;
 using InputGesture = Catel.Windows.Input.InputGesture;
@@ -22,6 +23,7 @@ public static partial class ModuleInitializer
         var serviceLocator = ServiceLocator.Default;
 
         serviceLocator.RegisterType<IFlyoutService, FlyoutService>();
+        serviceLocator.RegisterType<IMessageService, MahAppsMessageService>();
 
         var commandManager = serviceLocator.ResolveType<ICommandManager>();
         commandManager.CreateCommand("Close", new InputGesture(Key.Escape), throwExceptionWhenCommandIsAlreadyCreated: false);
