@@ -12,19 +12,19 @@ We are currently working on the next version of Orchestra in the **feature/v2** 
 
 Some of the features which will come out of the box:
 
-[x] [MahApps](http://mahapps.com/) integration
-[ ] Module management
-[ ] License management
-[x] Command management
-[x] Shortcut manager (which will allow end users to remap shortcut keys)
-[x] Splash screen customization
-[x] About box window
-[ ] Automatic updates
+- [x] [MahApps](http://mahapps.com/) integration
+- [ ] Module management
+- [ ] License management
+- [x] Command management
+- [x] Shortcut manager (which will allow end users to remap shortcut keys)
+- [x] Splash screen customization
+- [x] About box window
+- [ ] Automatic updates
 
 Features already included in [Catel](https://catelproject.atlassian.net/wiki/display/CTL/Catel+documentation+Home):
-[x] Application wide logging
-[x] FluentValidation
-[x] Memento (undo/redo)
+- [x] Application wide logging
+- [x] FluentValidation
+- [x] Memento (undo/redo)
 
 ## License
 
