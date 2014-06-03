@@ -11,5 +11,9 @@ namespace Orchestra.Examples.MahApps.ViewModels
 
     public class ExampleDialogViewModel : ViewModelBase
     {
+        public override string Title
+        {
+            get { return "Bindable title"; }
+        }
     }
 }

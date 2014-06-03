@@ -37,7 +37,15 @@ namespace Orchestra.Windows
         /// Initializes a new instance of the <see cref="SimpleDataWindow"/> class.
         /// </summary>
         protected SimpleDataWindow()
-            : this(null, DataWindowMode.OkCancel)
+            : this(DataWindowMode.OkCancel)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleDataWindow"/> class.
+        /// </summary>
+        protected SimpleDataWindow(DataWindowMode dataWindowMode)
+            : this(null, dataWindowMode)
         {
         }
 
@@ -51,8 +59,6 @@ namespace Orchestra.Windows
         protected SimpleDataWindow(IViewModel viewModel, DataWindowMode mode, IEnumerable<DataWindowButton> additionalButtons = null)
         {
             _logic = new WindowLogic(this, null, viewModel);
-            _logic.ViewModelChanged += (sender, e) => ViewModelChanged.SafeInvoke(this, e);
-            _logic.ViewModelPropertyChanged += (sender, e) => ViewModelPropertyChanged.SafeInvoke(this, e);
             _logic.PropertyChanged += (sender, e) => PropertyChanged.SafeInvoke(this, e);
 
             Loaded += (sender, e) => _viewLoaded.SafeInvoke(this);
@@ -67,29 +73,27 @@ namespace Orchestra.Windows
                 }
             }
 
-            if (Enum<DataWindowMode>.Flags.IsFlagSet(mode, DataWindowMode.OkCancel) ||
-                Enum<DataWindowMode>.Flags.IsFlagSet(mode, DataWindowMode.OkCancelApply))
+            if (mode == DataWindowMode.OkCancel || mode == DataWindowMode.OkCancelApply)
             {
                 var button = new DataWindowButton("OK", OnOkExecute, OnOkCanExecute);
                 button.IsDefault = true;
                 _buttons.Add(button);
             }
 
-            if (Enum<DataWindowMode>.Flags.IsFlagSet(mode, DataWindowMode.OkCancel) ||
-                Enum<DataWindowMode>.Flags.IsFlagSet(mode, DataWindowMode.OkCancelApply))
+            if (mode == DataWindowMode.OkCancel || mode == DataWindowMode.OkCancelApply)
             {
                 var button = new DataWindowButton("Cancel", OnCancelExecute, OnCancelCanExecute);
                 button.IsCancel = true;
                 _buttons.Add(button);
             }
 
-            if (Enum<DataWindowMode>.Flags.IsFlagSet(mode, DataWindowMode.OkCancelApply))
+            if (mode == DataWindowMode.OkCancelApply)
             {
                 var button = new DataWindowButton("Apply", OnApplyExcute, OnApplyCanExecute);
                 _buttons.Add(button);
             }
 
-            if (Enum<DataWindowMode>.Flags.IsFlagSet(mode, DataWindowMode.Close))
+            if (mode == DataWindowMode.Close)
             {
                 var button = new DataWindowButton("Close", OnCloseExecute);
                 _buttons.Add(button);
@@ -214,6 +218,16 @@ namespace Orchestra.Windows
 
         #region Methods
         /// <summary>
+        /// Adds a custom button to the list of buttons.
+        /// </summary>
+        /// <param name="dataWindowButton">The data window button.</param>
+        /// <exception cref="InvalidOperationException">The <paramref name="dataWindowButton"/> is added when the window is already loaded.</exception>
+        protected void AddCustomButton(DataWindowButton dataWindowButton)
+        {
+            _buttons.Add(dataWindowButton);
+        }
+
+        /// <summary>
         /// Validates the data.
         /// </summary>
         /// <returns>True if successful, otherwise false.</returns>
@@ -248,18 +262,6 @@ namespace Orchestra.Windows
         public IViewModel ViewModel
         {
             get { return _logic.ViewModel; }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the view model container should prevent the creation of a view model.
-        /// <para />
-        /// This property is very useful when using views in transitions where the view model is no longer required.
-        /// </summary>
-        /// <value><c>true</c> if the view model container should prevent view model creation; otherwise, <c>false</c>.</value>
-        public bool PreventViewModelCreation
-        {
-            get { return _logic.PreventViewModelCreation; }
-            set { _logic.PreventViewModelCreation = value; }
         }
 
         /// <summary>
@@ -300,16 +302,6 @@ namespace Orchestra.Windows
         }
 
         /// <summary>
-        /// Occurs when the <see cref="ViewModel"/> property has changed.
-        /// </summary>
-        public event EventHandler<EventArgs> ViewModelChanged;
-
-        /// <summary>
-        /// Occurs when a property on the <see cref="ViewModel"/> has changed.
-        /// </summary>
-        public event EventHandler<PropertyChangedEventArgs> ViewModelPropertyChanged;
-
-        /// <summary>
         /// Occurs when a property on the container has changed.
         /// </summary>
         /// <remarks>
@@ -339,17 +331,19 @@ namespace Orchestra.Windows
 
             foreach (var button in _buttons)
             {
-                stackPanel.Children.Add(new Button
+                var finalButton = new Button
                 {
                     Content = button.Text,
                     Command = button.Command,
                     IsDefault = button.IsDefault,
                     IsCancel = button.IsCancel,
-                    Width = 125,
+                    MinWidth = 125,
                     Height = 34,
                     HorizontalAlignment = HorizontalAlignment.Right,
                     Margin = new Thickness(6, 12, 6, 12)
-                });
+                };
+
+                stackPanel.Children.Add(finalButton);
             }
 
             DialogBottom = stackPanel;

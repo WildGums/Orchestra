@@ -7,6 +7,8 @@
 
 namespace Orchestra.Examples.MahApps.Views
 {
+    using Catel.Windows;
+
     /// <summary>
     /// Interaction logic for ExampleDialogWindow.xaml.
     /// </summary>
@@ -17,7 +19,11 @@ namespace Orchestra.Examples.MahApps.Views
         /// Initializes a new instance of the <see cref="ExampleDialogWindow"/> class.
         /// </summary>
         public ExampleDialogWindow()
+            : base(DataWindowMode.Custom)
         {
+            AddCustomButton(new DataWindowButton("Save anyway", ExecuteOk, OnOkCanExecute));
+            AddCustomButton(new DataWindowButton("Cancel", ExecuteCancel, OnCancelCanExecute));
+
             InitializeComponent();
         }
         #endregion
