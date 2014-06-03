@@ -95,14 +95,15 @@ namespace Orchestra
             var application = Application.Current;
             var applicationResources = application.Resources;
 
+            var applicationTheme = ThemeManager.AppThemes.First(x => string.Equals(x.Name, "BaseLight"));
+
             // Insert to get the best MahApps performance (when looking up themes)
             applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
+            applicationResources.MergedDictionaries.Insert(1, applicationTheme.Resources);
 
             Log.Debug("Applying theme to MahApps");
 
-            ThemeManager.ChangeAppStyle(application,
-                new Accent { Name = "ApplicationAccent", Resources = resourceDictionary },
-                ThemeManager.AppThemes.First(x => string.Equals(x.Name, "BaseLight")));
+            ThemeManager.ChangeAppStyle(application, new Accent { Name = "ApplicationAccent", Resources = resourceDictionary }, applicationTheme);
         }
     }
 }
