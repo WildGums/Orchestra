@@ -48,6 +48,38 @@ namespace Orchestra
 
             return commandName.Split(new[] { '.' })[1];
         }
+
+        /// <summary>
+        /// Converts the value from a camel case string to a splitted string. For example, <c>ThisTest</c> will be
+        /// converted to <c>this test</c>.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>The splitted string.</returns>
+        public static string SplitCamelCaseString(this string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            string finalString = string.Empty;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (i != 0)
+                {
+                    if (char.IsUpper(input[i]))
+                    {
+                        finalString += " " + char.ToLower(input[i]);
+                        continue;
+                    }
+                }
+
+                finalString += input[i];
+            }
+
+            return finalString;
+        }
         #endregion
     }
 }

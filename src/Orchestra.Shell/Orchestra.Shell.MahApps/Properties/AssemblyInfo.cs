@@ -9,7 +9,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 // All other assembly info is defined in SharedAssembly.cs
-
 [assembly: AssemblyTitle("Orchestra.Shell.MahApps")]
 [assembly: AssemblyProduct("Orchestra.Shell.MahApps")]
 [assembly: AssemblyDescription("Orchestra.Shell MahApps library")]

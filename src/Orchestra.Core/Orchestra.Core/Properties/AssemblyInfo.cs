@@ -8,7 +8,6 @@
 // All other assembly info is defined in SharedAssembly.cs
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Windows.Markup;
 
 [assembly: AssemblyTitle("Orchestra.Core")]
 [assembly: AssemblyProduct("Orchestra.Core")]
@@ -19,6 +18,3 @@ using System.Windows.Markup;
 // COM, set the ComVisible attribute to true on that type.
 
 [assembly: ComVisible(false)]
-[assembly: XmlnsPrefix("https://github.com/orcomp/orchestra", "orchestra")]
-[assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Behaviors")]
-[assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Controls")]

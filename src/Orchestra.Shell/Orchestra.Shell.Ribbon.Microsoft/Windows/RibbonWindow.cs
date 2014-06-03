@@ -37,26 +37,10 @@ namespace Orchestra.Windows
         /// <param name="viewModel">The view model.</param>
         public RibbonWindow(IViewModel viewModel)
         {
-            var viewModelType = (viewModel != null) ? viewModel.GetType() : GetViewModelType();
-            if (viewModelType == null)
-            {
-                var viewModelLocator = ServiceLocator.Default.ResolveType<IViewModelLocator>();
-                viewModelType = viewModelLocator.ResolveViewModel(GetType());
-                if (viewModelType == null)
-                {
-                    const string error = "The view model of the view could not be resolved. Use either the GetViewModelType() method or IViewModelLocator";
-                    throw new NotSupportedException(error);
-                }
-            }
-
-            _logic = new WindowLogic(this, viewModelType, viewModel);
+            _logic = new WindowLogic(this, null, viewModel);
             _logic.ViewModelChanged += (sender, e) => ViewModelChanged.SafeInvoke(this, e);
             _logic.ViewModelPropertyChanged += (sender, e) => ViewModelPropertyChanged.SafeInvoke(this, e);
             _logic.PropertyChanged += (sender, e) => PropertyChanged.SafeInvoke(this, e);
-            _logic.ViewLoading += (sender, e) => ViewLoading.SafeInvoke(this);
-            _logic.ViewLoaded += (sender, e) => ViewLoaded.SafeInvoke(this);
-            _logic.ViewUnloading += (sender, e) => ViewUnloading.SafeInvoke(this);
-            _logic.ViewUnloaded += (sender, e) => ViewUnloaded.SafeInvoke(this);
 
             Loaded += (sender, e) => _viewLoaded.SafeInvoke(this);
             Unloaded += (sender, e) => _viewUnloaded.SafeInvoke(this);
@@ -118,26 +102,6 @@ namespace Orchestra.Windows
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Occurs when the view model container is loading.
-        /// </summary>
-        public event EventHandler<EventArgs> ViewLoading;
-
-        /// <summary>
-        /// Occurs when the view model container is loaded.
-        /// </summary>
-        public event EventHandler<EventArgs> ViewLoaded;
-
-        /// <summary>
-        /// Occurs when the view model container starts unloading.
-        /// </summary>
-        public event EventHandler<EventArgs> ViewUnloading;
-
-        /// <summary>
-        /// Occurs when the view model container is unloaded.
-        /// </summary>
-        public event EventHandler<EventArgs> ViewUnloaded;
-
-        /// <summary>
         /// Occurs when the view is loaded.
         /// </summary>
         event EventHandler<EventArgs> IView.Loaded
@@ -166,11 +130,6 @@ namespace Orchestra.Windows
         #endregion
 
         #region Methods
-        protected virtual Type GetViewModelType()
-        {
-            return null;
-        }
-
         private void OnViewModelChanged()
         {
             if (ViewModel != null && !ViewModel.IsClosed)

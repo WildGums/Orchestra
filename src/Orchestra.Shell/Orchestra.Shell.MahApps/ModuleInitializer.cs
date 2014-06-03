@@ -24,6 +24,7 @@ public static partial class ModuleInitializer
 
         serviceLocator.RegisterType<IFlyoutService, FlyoutService>();
         serviceLocator.RegisterType<IMessageService, MahAppsMessageService>();
+        serviceLocator.RegisterType<IUIVisualizerService, MahAppsUIVisualizerService>();
 
         var commandManager = serviceLocator.ResolveType<ICommandManager>();
         commandManager.CreateCommand("Close", new InputGesture(Key.Escape), throwExceptionWhenCommandIsAlreadyCreated: false);

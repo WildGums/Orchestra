@@ -13,6 +13,7 @@ namespace Orchestra.Examples.MahApps.Services
     using Catel.Services;
     using global::MahApps.Metro.Controls;
     using Orchestra.Services;
+    using ViewModels;
     using Views;
 
     public class MahAppsService : IMahAppsService
@@ -20,16 +21,19 @@ namespace Orchestra.Examples.MahApps.Services
         #region Fields
         private readonly ICommandManager _commandManager;
         private readonly IMessageService _messageService;
+        private readonly IUIVisualizerService _uiVisualizerService;
         #endregion
 
         #region Constructors
-        public MahAppsService(ICommandManager commandManager, IMessageService messageService)
+        public MahAppsService(ICommandManager commandManager, IMessageService messageService, IUIVisualizerService uiVisualizerService)
         {
             Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => messageService);
+            Argument.IsNotNull(() => uiVisualizerService);
 
             _commandManager = commandManager;
             _messageService = messageService;
+            _uiVisualizerService = uiVisualizerService;
         }
         #endregion
 
@@ -47,6 +51,10 @@ namespace Orchestra.Examples.MahApps.Services
             saveButton.Command = _commandManager.GetCommand("File.Save");
             _commandManager.RegisterAction("File.Save", () => _messageService.Show("Save"));
             windowCommands.Items.Add(saveButton);
+
+            var showWindowButton = WindowCommandHelper.CreateWindowCommandButton("appbar_new_window", "show window");
+            showWindowButton.Command = new Command(() => _uiVisualizerService.ShowDialog<ExampleDialogViewModel>());
+            windowCommands.Items.Add(showWindowButton);
 
             return windowCommands;
         }
