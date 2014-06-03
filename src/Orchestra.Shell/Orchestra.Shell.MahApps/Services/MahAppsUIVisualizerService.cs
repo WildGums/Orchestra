@@ -33,7 +33,7 @@ namespace Orchestra.Services
             var simpleDialog = window as SimpleDialog;
             if (simpleDialog != null)
             {
-                Task<bool?>.Factory.StartNew(() =>
+                return Task<bool?>.Factory.StartNew(() =>
                 {
                     simpleDialog.Dispatcher.Invoke(simpleDialog.Show);
                     return true;
