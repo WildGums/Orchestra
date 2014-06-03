@@ -60,6 +60,8 @@ namespace Orchestra.Windows
         {
             _logic = new WindowLogic(this, null, viewModel);
             _logic.PropertyChanged += (sender, e) => PropertyChanged.SafeInvoke(this, e);
+            _logic.ViewModelChanged += (sender, e) => ViewModelChanged.SafeInvoke(this, e);
+            _logic.ViewModelPropertyChanged += (sender, e) => ViewModelPropertyChanged.SafeInvoke(this, e);
 
             Loaded += (sender, e) => _viewLoaded.SafeInvoke(this);
             Unloaded += (sender, e) => _viewUnloaded.SafeInvoke(this);
@@ -300,6 +302,16 @@ namespace Orchestra.Windows
             add { _viewDataContextChanged += value; }
             remove { _viewDataContextChanged -= value; }
         }
+
+        /// <summary>
+        /// Occurs when the <see cref="ViewModel"/> property has changed.
+        /// </summary>
+        public event EventHandler<EventArgs> ViewModelChanged;
+
+        /// <summary>
+        /// Occurs when a property on the <see cref="P:Catel.MVVM.IViewModelContainer.ViewModel" /> has changed.
+        /// </summary>
+        public event EventHandler<PropertyChangedEventArgs> ViewModelPropertyChanged;
 
         /// <summary>
         /// Occurs when a property on the container has changed.

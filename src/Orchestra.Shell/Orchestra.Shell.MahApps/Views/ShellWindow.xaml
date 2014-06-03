@@ -16,27 +16,25 @@
     </windows:MetroDataWindow.Resources>
 
     <Border x:Name="border" BorderThickness="1">
-        <AdornerDecorator x:Name="AdornerDecorator">
-            <DockPanel LastChildFill="True" Margin="15, 5, 15, 5">
+        <DockPanel LastChildFill="True" Margin="15, 5, 15, 5">
 
-                <StatusBar x:Name="statusBar" DockPanel.Dock="Bottom">
-                    <orchestra:AnimatingTextBlock x:Name="statusTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <orchestra:AnimatingTextBlock.ShowStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2"/>
-                            </Storyboard>
-                        </orchestra:AnimatingTextBlock.ShowStoryboard>
-                        <orchestra:AnimatingTextBlock.HideStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.2"/>
-                            </Storyboard>
-                        </orchestra:AnimatingTextBlock.HideStoryboard>
-                    </orchestra:AnimatingTextBlock>
-                </StatusBar>
+            <StatusBar x:Name="statusBar" DockPanel.Dock="Bottom">
+                <orchestra:AnimatingTextBlock x:Name="statusTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <orchestra:AnimatingTextBlock.ShowStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </orchestra:AnimatingTextBlock.ShowStoryboard>
+                    <orchestra:AnimatingTextBlock.HideStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </orchestra:AnimatingTextBlock.HideStoryboard>
+                </orchestra:AnimatingTextBlock>
+            </StatusBar>
 
-                <ContentPresenter x:Name="contentPresenter" />
-            </DockPanel>
-        </AdornerDecorator>
+            <ContentPresenter x:Name="contentPresenter" />
+        </DockPanel>
     </Border>
 
 </windows:MetroDataWindow>

@@ -43,11 +43,13 @@ namespace Orchestra.Views
             var mahAppsService = dependencyResolver.Resolve<IMahAppsService>();
             var flyoutService = dependencyResolver.Resolve<IFlyoutService>();
 
-            Flyouts = new FlyoutsControl();
+            var flyouts = new FlyoutsControl();
             foreach (var flyout in flyoutService.GetFlyouts())
             {
-                Flyouts.Items.Add(flyout);
+                flyouts.Items.Add(flyout);
             }
+
+            Flyouts = flyouts;
 
             RightWindowCommands = mahAppsService.GetRightWindowCommands();
 

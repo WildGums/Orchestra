@@ -15,7 +15,6 @@ namespace Orchestra.Windows
     using Catel.MVVM.Providers;
     using Catel.MVVM.Views;
     using Catel.Windows;
-    using MahApps.Metro.Behaviours;
     using MahApps.Metro.Controls;
 
     /// <summary>
@@ -64,12 +63,6 @@ namespace Orchestra.Windows
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             this.ApplyIconFromApplication();
-
-            // Since we customize behaviors, we need to add the default MahApps behaviors as well
-            var borderlessWindowBehavior = this.ApplyBehavior<BorderlessWindowBehavior>();
-            borderlessWindowBehavior.EnableDWMDropShadow = true;
-            this.ApplyBehavior<WindowsSettingBehaviour>();
-            this.ApplyBehavior<GlowWindowBehavior>();
 
             EnableDWMDropShadow = true;
         }
