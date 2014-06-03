@@ -8,6 +8,7 @@
 namespace Orchestra
 {
     using System;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Media;
     using Catel.Logging;
@@ -92,19 +93,16 @@ namespace Orchestra
             resourceDictionary.Add("IdealForegroundColorBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
 
             var application = Application.Current;
+            var applicationResources = application.Resources;
 
             // Insert to get the best MahApps performance (when looking up themes)
-            application.Resources.MergedDictionaries.Insert(0, resourceDictionary);
-
-            // To fix a bug in MahApps, apply apptheme as well
-            var themeUri = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml", UriKind.RelativeOrAbsolute);
-            resourceDictionary.MergedDictionaries.Add(new ResourceDictionary { Source = themeUri });
+            applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
 
             Log.Debug("Applying theme to MahApps");
 
             ThemeManager.ChangeAppStyle(application,
                 new Accent { Name = "ApplicationAccent", Resources = resourceDictionary },
-                new AppTheme("BaseLight", themeUri));
+                ThemeManager.AppThemes.First(x => string.Equals(x.Name, "BaseLight")));
         }
     }
 }
