@@ -4754,6 +4754,16 @@
             <param name="resources"></param>
             <returns>The <see cref="T:MahApps.Metro.Accent"/> or <c>null</c>, if the accent wasn't found.</returns>
         </member>
+        <member name="M:MahApps.Metro.ThemeManager.IsAccentDictionary(System.Windows.ResourceDictionary)">
+            <summary>
+            Determines whether the specified resource dictionary represents an <see cref="T:MahApps.Metro.Accent"/>.
+            <para/>
+            This might include runtime accents which do not have a resource uri.
+            </summary>
+            <param name="resources">The resources.</param>
+            <returns><c>true</c> if the resource dictionary is an <see cref="T:MahApps.Metro.Accent"/>; otherwise, <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException">resources</exception>
+        </member>
         <member name="M:MahApps.Metro.ThemeManager.GetResourceFromAppStyle(System.Windows.Window,System.String)">
             <summary>
             Gets a resource from the detected AppStyle.
