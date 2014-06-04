@@ -267,16 +267,6 @@ namespace Orchestra.Windows
         }
 
         /// <summary>
-        /// Gets the logical parent  element of this element.
-        /// </summary>
-        /// <value>The parent.</value>
-        /// <returns>This element's logical parent.</returns>
-        object IView.Parent
-        {
-            get { return null; }
-        }
-
-        /// <summary>
         /// Occurs when the view is loaded.
         /// </summary>
         event EventHandler<EventArgs> IView.Loaded

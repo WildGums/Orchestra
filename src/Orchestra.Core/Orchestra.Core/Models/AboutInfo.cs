@@ -7,8 +7,6 @@
 
 namespace Orchestra.Models
 {
-    using System;
-    using Catel;
     using Catel.Data;
 
     public class AboutInfo : ModelBase
@@ -19,11 +17,8 @@ namespace Orchestra.Models
         /// </summary>
         /// <param name="logoImageSource">The logo image source.</param>
         /// <param name="url">The URL. Can be <c>null</c>.</param>
-        /// <exception cref="ArgumentException">The <paramref name="logoImageSource"/> is <c>null</c> or whitespace.</exception>
-        public AboutInfo(string logoImageSource, string url = null)
+        public AboutInfo(string logoImageSource = null, string url = null)
         {
-            //Argument.IsNotNull(() => logoImageSource);
-
             LogoImageSource = logoImageSource;
             Url = url;
         }

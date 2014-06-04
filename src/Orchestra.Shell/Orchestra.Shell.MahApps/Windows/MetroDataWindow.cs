@@ -91,16 +91,6 @@ namespace Orchestra.Windows
         }
 
         /// <summary>
-        /// Gets the logical parent  element of this element.
-        /// </summary>
-        /// <value>The parent.</value>
-        /// <returns>This element's logical parent.</returns>
-        object IView.Parent
-        {
-            get { return null; }
-        }
-
-        /// <summary>
         /// Occurs when the <see cref="ViewModel"/> property has changed.
         /// </summary>
         public event EventHandler<EventArgs> ViewModelChanged;

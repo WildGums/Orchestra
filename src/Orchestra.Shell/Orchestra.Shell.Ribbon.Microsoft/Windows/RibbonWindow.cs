@@ -39,7 +39,6 @@ namespace Orchestra.Windows
         {
             _logic = new WindowLogic(this, null, viewModel);
             _logic.ViewModelChanged += (sender, e) => ViewModelChanged.SafeInvoke(this, e);
-            _logic.ViewModelPropertyChanged += (sender, e) => ViewModelPropertyChanged.SafeInvoke(this, e);
             _logic.PropertyChanged += (sender, e) => PropertyChanged.SafeInvoke(this, e);
 
             Loaded += (sender, e) => _viewLoaded.SafeInvoke(this);
@@ -74,11 +73,6 @@ namespace Orchestra.Windows
             get { return _logic.PreventViewModelCreation; }
             set { _logic.PreventViewModelCreation = value; }
         }
-
-        object IView.Parent
-        {
-            get { return null; }
-        }
         #endregion
 
         #region Events
@@ -86,11 +80,6 @@ namespace Orchestra.Windows
         /// Occurs when the <see cref="ViewModel"/> property has changed.
         /// </summary>
         public event EventHandler<EventArgs> ViewModelChanged;
-
-        /// <summary>
-        /// Occurs when a property on the <see cref="ViewModel"/> has changed.
-        /// </summary>
-        public event EventHandler<PropertyChangedEventArgs> ViewModelPropertyChanged;
 
         /// <summary>
         /// Occurs when a property on the container has changed.
