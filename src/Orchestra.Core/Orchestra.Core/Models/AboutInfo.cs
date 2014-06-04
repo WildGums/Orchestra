@@ -22,7 +22,7 @@ namespace Orchestra.Models
         /// <exception cref="ArgumentException">The <paramref name="logoImageSource"/> is <c>null</c> or whitespace.</exception>
         public AboutInfo(string logoImageSource, string url = null)
         {
-            Argument.IsNotNull(() => logoImageSource);
+            //Argument.IsNotNull(() => logoImageSource);
 
             LogoImageSource = logoImageSource;
             Url = url;

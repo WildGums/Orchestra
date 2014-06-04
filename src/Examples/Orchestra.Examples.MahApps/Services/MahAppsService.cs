@@ -12,6 +12,7 @@ namespace Orchestra.Examples.MahApps.Services
     using Catel.MVVM;
     using Catel.Services;
     using global::MahApps.Metro.Controls;
+    using Orchestra.Models;
     using Orchestra.Services;
     using ViewModels;
     using Views;
@@ -67,6 +68,11 @@ namespace Orchestra.Examples.MahApps.Services
         public FrameworkElement GetMainView()
         {
             return new MainView();
+        }
+
+        public AboutInfo GetAboutInfo()
+        {
+            return new AboutInfo(null);
         }
         #endregion
     }

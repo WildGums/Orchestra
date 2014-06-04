@@ -23,10 +23,13 @@ public static partial class ModuleInitializer
         var serviceLocator = ServiceLocator.Default;
 
         serviceLocator.RegisterType<IFlyoutService, FlyoutService>();
+        serviceLocator.RegisterType<IAboutService, MahAppsAboutService>();
         serviceLocator.RegisterType<IMessageService, MahAppsMessageService>();
         serviceLocator.RegisterType<IUIVisualizerService, MahAppsUIVisualizerService>();
 
         var commandManager = serviceLocator.ResolveType<ICommandManager>();
+
+        commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
         commandManager.CreateCommand("Close", new InputGesture(Key.Escape), throwExceptionWhenCommandIsAlreadyCreated: false);
     }
 }

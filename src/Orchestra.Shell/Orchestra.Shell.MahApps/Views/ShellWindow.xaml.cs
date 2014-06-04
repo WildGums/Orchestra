@@ -11,6 +11,7 @@ namespace Orchestra.Views
     using System.Windows.Data;
     using Windows;
     using Catel.IoC;
+    using Catel.MVVM;
     using FallDownMatrixManager.Services;
     using MahApps.Metro.Controls;
     using Services;
@@ -40,8 +41,11 @@ namespace Orchestra.Views
             statusService.Initialize(statusTextBlock);
 
             var dependencyResolver = this.GetDependencyResolver();
-            var mahAppsService = dependencyResolver.Resolve<IMahAppsService>();
+            var commandManager = dependencyResolver.Resolve<ICommandManager>();
             var flyoutService = dependencyResolver.Resolve<IFlyoutService>();
+            var mahAppsService = dependencyResolver.Resolve<IMahAppsService>();
+
+            serviceLocator.RegisterInstance<IAboutInfoService>(mahAppsService);
 
             var flyouts = new FlyoutsControl();
             foreach (var flyout in flyoutService.GetFlyouts())
@@ -51,7 +55,20 @@ namespace Orchestra.Views
 
             Flyouts = flyouts;
 
-            RightWindowCommands = mahAppsService.GetRightWindowCommands();
+            var windowCommands = mahAppsService.GetRightWindowCommands();
+
+            if (mahAppsService.GetAboutInfo() != null)
+            {
+                var aboutWindowCommand = WindowCommandHelper.CreateWindowCommandButton("appbar_information", "about");
+
+                var aboutService = dependencyResolver.Resolve<IAboutService>();
+                commandManager.RegisterAction("Help.About", aboutService.ShowAbout);
+                aboutWindowCommand.Command = commandManager.GetCommand("Help.About");
+
+                windowCommands.Items.Add(aboutWindowCommand);
+            }
+
+            RightWindowCommands = windowCommands;
 
             var mainView = mahAppsService.GetMainView();
             contentPresenter.Content = mainView;

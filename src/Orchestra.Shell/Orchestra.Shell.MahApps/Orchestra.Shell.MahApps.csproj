@@ -108,6 +108,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\MahAppsAboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -129,9 +133,13 @@
     <Compile Include="Services\FlyoutService.cs" />
     <Compile Include="Services\Interfaces\IFlyoutService.cs" />
     <Compile Include="Services\Interfaces\IMahAppsService.cs" />
+    <Compile Include="Services\MahAppsAboutService.cs" />
     <Compile Include="Services\MahAppsMessageService.cs" />
     <Compile Include="Services\MahAppsUIVisualizerService.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\MahAppsAboutView.xaml.cs">
+      <DependentUpon>MahAppsAboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShellWindow.xaml.cs">
       <DependentUpon>ShellWindow.xaml</DependentUpon>
     </Compile>

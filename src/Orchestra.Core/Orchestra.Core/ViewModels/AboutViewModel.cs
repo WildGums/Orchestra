@@ -14,11 +14,10 @@ namespace Orchestra.ViewModels
     using Catel.Services;
     using Catel.Reflection;
     using Orchestra;
-    using Orchestra.Models;
+    using Models;
 
     public class AboutViewModel : ViewModelBase
     {
-        private readonly AboutInfo _aboutInfo;
         private readonly IProcessService _processService;
 
         public AboutViewModel(AboutInfo aboutInfo, IProcessService processService)
@@ -26,7 +25,6 @@ namespace Orchestra.ViewModels
             Argument.IsNotNull(() => aboutInfo);
             Argument.IsNotNull(() => processService);
 
-            _aboutInfo = aboutInfo;
             _processService = processService;
 
             var assembly = Orchestra.AssemblyHelper.GetEntryAssembly();

@@ -11,7 +11,6 @@ namespace FallDownMatrixManager.Services
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
-    using System.Windows.Controls;
     using System.Windows.Data;
     using Catel;
     using Catel.IoC;

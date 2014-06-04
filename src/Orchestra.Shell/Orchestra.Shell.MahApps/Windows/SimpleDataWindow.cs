@@ -56,7 +56,7 @@ namespace Orchestra.Windows
         /// <param name="mode">The data window mode.</param>
         /// <param name="additionalButtons">The additional buttons.</param>
         /// <exception cref="System.NotSupportedException"></exception>
-        protected SimpleDataWindow(IViewModel viewModel, DataWindowMode mode, IEnumerable<DataWindowButton> additionalButtons = null)
+        protected SimpleDataWindow(IViewModel viewModel, DataWindowMode mode = DataWindowMode.OkCancel, IEnumerable<DataWindowButton> additionalButtons = null)
         {
             _logic = new WindowLogic(this, null, viewModel);
             _logic.PropertyChanged += (sender, e) => PropertyChanged.SafeInvoke(this, e);
