@@ -28,25 +28,12 @@ namespace Orchestra
             Argument.IsNotNullOrWhitespace(() => style);
 
             var button = new Button();
-
-            var stackPanel = new StackPanel
-            {
-                Orientation = Orientation.Horizontal
-            };
-
-            stackPanel.Children.Add(CreateWindowCommandRectangle(button, style));
+            button.Content = CreateWindowCommandRectangle(button, style);
 
             if (!string.IsNullOrEmpty(label))
             {
-                stackPanel.Children.Add(new TextBlock
-                {
-                    Margin = new Thickness(4, 0, 0, 0),
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Text = label
-                });
+                button.ToolTip = label;
             }
-
-            button.Content = stackPanel;
 
             return button;
         }
@@ -64,8 +51,10 @@ namespace Orchestra
 
             var rectangle = new Rectangle
             {
-                Width = 20d,
-                Height = 20d,
+                Width = 16d,
+                Height = 16d,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
             };
 
             rectangle.SetBinding(Rectangle.FillProperty, new Binding("Foreground")
@@ -76,9 +65,9 @@ namespace Orchestra
             var application = Application.Current;
             if (application != null)
             {
-                rectangle.OpacityMask = new VisualBrush()
+                rectangle.OpacityMask = new VisualBrush
                 {
-                    Stretch = Stretch.Fill,
+                    //Stretch = Stretch.Fill,
                     Visual = application.FindResource(style) as Visual
                 };
             }
