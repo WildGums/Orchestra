@@ -54,7 +54,8 @@ namespace Orchestra
                 Width = 16d,
                 Height = 16d,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
+                Stretch = Stretch.UniformToFill
             };
 
             rectangle.SetBinding(Rectangle.FillProperty, new Binding("Foreground")
