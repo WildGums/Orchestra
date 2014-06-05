@@ -55,7 +55,7 @@ namespace Orchestra.Views
 
         // Using a DependencyProperty as the backing store for SelectedDirectory.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedDirectoryProperty = DependencyProperty.Register("SelectedDirectory", typeof(string),
-            typeof(DirectoryPickerView), new PropertyMetadata(string.Empty));
+            typeof(DirectoryPickerView), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         #endregion
     }
