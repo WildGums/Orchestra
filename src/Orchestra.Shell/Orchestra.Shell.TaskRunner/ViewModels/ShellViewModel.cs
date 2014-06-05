@@ -22,17 +22,22 @@ namespace Orchestra.ViewModels
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly ITaskRunnerService _taskRunnerService;
+        private readonly ICommandManager _commandManager;
 
         // Note: will be replaced by BackgroundWorkerService in Catel
         private Thread _handlerThread;
 
-        public ShellViewModel(ITaskRunnerService taskRunnerService)
+        public ShellViewModel(ITaskRunnerService taskRunnerService, ICommandManager commandManager)
         {
             Argument.IsNotNull("taskRunnerService", taskRunnerService);
+            Argument.IsNotNull("commandManager", commandManager);
 
             _taskRunnerService = taskRunnerService;
+            _commandManager = commandManager;
 
             Run = new Command(OnRunExecute, OnRunCanExecute);
+
+            _commandManager.RegisterCommand("Runner.Run", Run, this);
 
             SuspendValidation = true;
 

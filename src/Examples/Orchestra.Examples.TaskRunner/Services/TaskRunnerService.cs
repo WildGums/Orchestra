@@ -11,6 +11,7 @@ namespace Orchestra.Examples.TaskRunner.Services
     using System.Windows;
     using Catel.Logging;
     using Models;
+    using Orchestra.Models;
     using Orchestra.Services;
     using Views;
 
@@ -46,6 +47,11 @@ namespace Orchestra.Examples.TaskRunner.Services
             Thread.Sleep(2500);
 
             Log.Info("Action is complete!");
+        }
+
+        public AboutInfo GetAboutInfo()
+        {
+            return new AboutInfo();
         }
     }
 }

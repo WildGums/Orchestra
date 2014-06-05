@@ -9,7 +9,7 @@ namespace Orchestra.Services
 {
     using System.Windows;
 
-    public interface ITaskRunnerService
+    public interface ITaskRunnerService : IAboutInfoService
     {
         /// <summary>
         /// Gets the data context that will be set to the view.

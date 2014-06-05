@@ -72,7 +72,7 @@ namespace Orchestra.Examples.MahApps.Services
 
         public AboutInfo GetAboutInfo()
         {
-            return new AboutInfo(null);
+            return new AboutInfo();
         }
         #endregion
     }

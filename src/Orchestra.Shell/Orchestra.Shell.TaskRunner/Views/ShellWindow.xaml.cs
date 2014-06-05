@@ -7,9 +7,11 @@
 
 namespace Orchestra.Views
 {
+    using System;
     using System.Windows;
     using Catel.IoC;
     using Catel.Logging;
+    using Catel.MVVM;
     using Catel.MVVM.Views;
     using Catel.Windows;
     using Logging;
@@ -34,14 +36,25 @@ namespace Orchestra.Views
         public ShellWindow()
             : base(DataWindowMode.Custom, setOwnerAndFocus: false)
         {
-            AddCustomButton(new DataWindowButton("Clear Console", ClearConsole));
+            var serviceLocator = this.GetServiceLocator();
+            var taskRunnerService = serviceLocator.ResolveType<ITaskRunnerService>();
+            var commandManager = serviceLocator.ResolveType<ICommandManager>();
 
-            InitializeComponent();
+            serviceLocator.RegisterInstance<IAboutInfoService>(taskRunnerService);
+
+            if (taskRunnerService.GetAboutInfo() != null)
+            {
+                var aboutService = serviceLocator.ResolveType<IAboutService>();
+                commandManager.RegisterAction("Help.About", aboutService.ShowAbout);
+
+                AddCustomButton(new DataWindowButton("About", commandManager.GetCommand("Help.About")));
+            }
+
+            AddCustomButton(new DataWindowButton("Clear Console", ClearConsole));
 
             ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
 
-            var dependencyResolver = this.GetDependencyResolver();
-            var taskRunnerService = dependencyResolver.Resolve<ITaskRunnerService>();
+            InitializeComponent();
 
             ConfigurationContext = taskRunnerService.GetViewDataContext();
 

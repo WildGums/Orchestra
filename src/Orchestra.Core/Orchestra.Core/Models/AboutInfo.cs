@@ -7,20 +7,23 @@
 
 namespace Orchestra.Models
 {
+    using System.Reflection;
     using Catel.Data;
 
     public class AboutInfo : ModelBase
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="AboutInfo"/> class.
+        /// Initializes a new instance of the <see cref="AboutInfo" /> class.
         /// </summary>
         /// <param name="logoImageSource">The logo image source.</param>
         /// <param name="url">The URL. Can be <c>null</c>.</param>
-        public AboutInfo(string logoImageSource = null, string url = null)
+        /// <param name="assembly">The assembly to use for the information. If <c>null</c>, the assembly will be determined automatically.</param>
+        public AboutInfo(string logoImageSource = null, string url = null, Assembly assembly = null)
         {
             LogoImageSource = logoImageSource;
             Url = url;
+            Assembly = assembly ?? AssemblyHelper.GetEntryAssembly();
         }
         #endregion
 
@@ -36,6 +39,12 @@ namespace Orchestra.Models
         /// </summary>
         /// <value>The URL.</value>
         public string Url { get; private set; }
+
+        /// <summary>
+        /// Gets the assembly.
+        /// </summary>
+        /// <value>The assembly.</value>
+        public Assembly Assembly { get; private set; }
         #endregion
     }
 }

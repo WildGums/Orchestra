@@ -10,8 +10,8 @@ namespace Orchestra.Views
     using Catel.IoC;
     using Catel.Services;
     using Catel.Windows;
-    using Orchestra.ViewModels;
-    using Orchestra.Windows;
+    using ViewModels;
+    using Windows;
 
     /// <summary>
     /// Interaction logic for AboutWindow.xaml.
@@ -40,7 +40,7 @@ namespace Orchestra.Views
             var dependencyResolver = this.GetDependencyResolver();
             var languageService = dependencyResolver.Resolve<ILanguageService>();
 
-            AddCustomButton(new DataWindowButton(languageService.GetString("EnableLogging"), "EnableLogging"));
+            //AddCustomButton(new DataWindowButton(languageService.GetString("EnableLogging"), "EnableLogging"));
             AddCustomButton(new DataWindowButton(languageService.GetString("Close"), Close));
 
             InitializeComponent();

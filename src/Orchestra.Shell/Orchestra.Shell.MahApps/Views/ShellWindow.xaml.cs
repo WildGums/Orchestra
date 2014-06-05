@@ -40,10 +40,9 @@ namespace Orchestra.Views
             var statusService = serviceLocator.ResolveType<IStatusService>();
             statusService.Initialize(statusTextBlock);
 
-            var dependencyResolver = this.GetDependencyResolver();
-            var commandManager = dependencyResolver.Resolve<ICommandManager>();
-            var flyoutService = dependencyResolver.Resolve<IFlyoutService>();
-            var mahAppsService = dependencyResolver.Resolve<IMahAppsService>();
+            var commandManager = serviceLocator.ResolveType<ICommandManager>();
+            var flyoutService = serviceLocator.ResolveType<IFlyoutService>();
+            var mahAppsService = serviceLocator.ResolveType<IMahAppsService>();
 
             serviceLocator.RegisterInstance<IAboutInfoService>(mahAppsService);
 
@@ -61,7 +60,7 @@ namespace Orchestra.Views
             {
                 var aboutWindowCommand = WindowCommandHelper.CreateWindowCommandButton("appbar_information", "about");
 
-                var aboutService = dependencyResolver.Resolve<IAboutService>();
+                var aboutService = serviceLocator.ResolveType<IAboutService>();
                 commandManager.RegisterAction("Help.About", aboutService.ShowAbout);
                 aboutWindowCommand.Command = commandManager.GetCommand("Help.About");
 

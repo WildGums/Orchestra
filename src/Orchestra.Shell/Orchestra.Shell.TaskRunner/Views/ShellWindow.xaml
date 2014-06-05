@@ -12,17 +12,15 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Header="Configuration">
-            <ContentPresenter x:Name="contentPresenter" />
-        </GroupBox>
-        
+        <ContentPresenter Grid.Row="0" x:Name="contentPresenter" />
+
         <GroupBox Grid.Row="1" Header="Run">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                
+
                 <Label Grid.Column="0">
                     <TextBlock TextWrapping="Wrap">
                         Please make sure to provide the right configuration. When the configuration is set, the button at the right
@@ -31,12 +29,12 @@
                         Once the task is done, the results will be displayed below.
                     </TextBlock>
                 </Label>
-                
-                <Button Grid.Column="1" Width="64" Height="64" ToolTip="Run" Command="{Binding Run}">
+
+                <Button Grid.Column="1" Width="64" Height="64" ToolTip="Run" Command="{catel:CommandManagerBinding Runner.Run}">
                     <Image Source="/Orchestra.Shell.TaskRunner;component/Resources/Images/Run.png" 
                            HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" />
                 </Button>
-                
+
             </Grid>
         </GroupBox>
 

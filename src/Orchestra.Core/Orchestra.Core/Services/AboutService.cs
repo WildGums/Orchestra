@@ -33,7 +33,7 @@ namespace Orchestra.Services
             var aboutInfo = _aboutInfoService.GetAboutInfo();
             if (aboutInfo != null)
             {
-                Log.Warning("Showing about dialog");
+                Log.Info("Showing about dialog");
 
                 _uiVisualizerService.ShowDialog<AboutViewModel>(aboutInfo);
             }
