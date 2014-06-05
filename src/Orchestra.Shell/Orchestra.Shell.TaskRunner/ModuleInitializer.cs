@@ -15,6 +15,7 @@ public static partial class ModuleInitializer
         var commandManager = serviceLocator.ResolveType<ICommandManager>();
 
         commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
+        commandManager.CreateCommand("Groups.Run", new InputGesture(Key.R, ModifierKeys.Shift));
         commandManager.CreateCommand("Runner.Run", new InputGesture(Key.F5), throwExceptionWhenCommandIsAlreadyCreated: false);
     }
 }
