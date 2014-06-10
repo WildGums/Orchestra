@@ -58,6 +58,33 @@ namespace Orchestra.Views
 
             ConfigurationContext = taskRunnerService.GetViewDataContext();
 
+            var startupSize = taskRunnerService.GetDesiredStartupSize();
+            if (startupSize != null && !startupSize.IsEmpty)
+            {
+                bool setWidth = startupSize.Width > 0d;
+                bool setHeight = startupSize.Height > 0d;
+
+                if (setHeight && setWidth)
+                {
+                    SizeToContent = SizeToContent.Manual;
+                }
+                else if (setHeight)
+                {
+                    SizeToContent = SizeToContent.Width;
+                }
+                else if (setWidth)
+                {
+                    SizeToContent = SizeToContent.Height;
+                }
+                else
+                {
+                    SizeToContent = SizeToContent.WidthAndHeight;
+                }
+
+                Width = startupSize.Width;
+                Height = startupSize.Height;
+            }
+
             var view = taskRunnerService.GetView();
 
             contentPresenter.Content = view;

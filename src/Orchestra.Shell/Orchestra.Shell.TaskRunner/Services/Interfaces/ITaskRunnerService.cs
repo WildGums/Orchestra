@@ -28,5 +28,13 @@ namespace Orchestra.Services
         /// </summary>
         /// <param name="dataContext">The data context retrieved earlier using the <see cref="GetViewDataContext"/> method.</param>
         void Run(object dataContext);
+
+        /// <summary>
+        /// Gets the desired startup size.
+        /// <para />
+        /// If <see cref="Size.Empty"/>, this value will be ignored. If only the width or height is set, the other value will be ignored automatically.
+        /// </summary>
+        /// <returns>The desired startup size.</returns>
+        Size GetDesiredStartupSize();
     }
 }

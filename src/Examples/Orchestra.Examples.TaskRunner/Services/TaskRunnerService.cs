@@ -49,6 +49,11 @@ namespace Orchestra.Examples.TaskRunner.Services
             Log.Info("Action is complete!");
         }
 
+        public Size GetDesiredStartupSize()
+        {
+            return Size.Empty;
+        }
+
         public AboutInfo GetAboutInfo()
         {
             return new AboutInfo();
