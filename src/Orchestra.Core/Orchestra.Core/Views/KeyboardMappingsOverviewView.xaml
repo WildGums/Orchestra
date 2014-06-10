@@ -4,14 +4,6 @@
 				   xmlns:catel="http://catel.codeplex.com"
 				   xmlns:controls="clr-namespace:Orchestra.Controls">
 
-    <catel:UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Orchestra;component/themes/generic.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </catel:UserControl.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

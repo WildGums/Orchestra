@@ -86,7 +86,7 @@ namespace Orchestra.ViewModels
 
         protected override void Initialize()
         {
-            Title = string.Format(_languageService.GetString("ShortcutsForApplication"), Assembly.GetEntryAssembly().Title());
+            Title = string.Format(_languageService.GetString("ShortcutsForApplication"), AssemblyHelper.GetEntryAssembly().Title());
 
             var mappingsByGroup = new Dictionary<string, KeyboardMappings>();
             mappingsByGroup.Add(string.Empty, new KeyboardMappings { GroupName = string.Empty });

@@ -13,8 +13,12 @@ namespace Orchestra.Views
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.MVVM.Views;
+    using Catel.Services;
     using Catel.Windows;
     using Logging;
+
+    using Orchestra.ViewModels;
+
     using Services;
 
     /// <summary>
@@ -39,6 +43,9 @@ namespace Orchestra.Views
             var serviceLocator = this.GetServiceLocator();
             var taskRunnerService = serviceLocator.ResolveType<ITaskRunnerService>();
             var commandManager = serviceLocator.ResolveType<ICommandManager>();
+            var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
+
+            AddCustomButton(new DataWindowButton("Keyboard shortcuts", () => uiVisualizerService.ShowDialog<KeyboardMappingsOverviewViewModel>()));
 
             serviceLocator.RegisterInstance<IAboutInfoService>(taskRunnerService);
 
