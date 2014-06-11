@@ -27,8 +27,6 @@ namespace Orchestra.Views
     public partial class ShellWindow : IShell
     {
         #region Fields
-        private readonly RichTextBoxLogListener _logListener;
-
         private bool _hasUpdatedViewModel;
         #endregion
 
@@ -95,11 +93,6 @@ namespace Orchestra.Views
             var view = taskRunnerService.GetView();
 
             contentPresenter.Content = view;
-
-            _logListener = new RichTextBoxLogListener(outputTextBox);
-            _logListener.IgnoreCatelLogging = true;
-
-            LogManager.AddListener(_logListener);
         }
         #endregion
 
@@ -136,7 +129,7 @@ namespace Orchestra.Views
 
         private void ClearConsole()
         {
-            _logListener.Clear();
+            //_logListener.Clear();
         }
         #endregion
     }

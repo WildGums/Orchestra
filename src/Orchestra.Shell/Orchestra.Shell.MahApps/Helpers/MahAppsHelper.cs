@@ -8,6 +8,7 @@
 namespace Orchestra
 {
     using System;
+    using System.IO;
     using System.Linq;
     using System.Windows;
     using System.Windows.Media;
@@ -103,7 +104,23 @@ namespace Orchestra
 
             Log.Debug("Applying theme to MahApps");
 
-            ThemeManager.ChangeAppStyle(application, new Accent { Name = "ApplicationAccent", Resources = resourceDictionary }, applicationTheme);
+            var resDictName = string.Format("ApplicationAccent_{0}.xaml", color.ToString().Replace("#", string.Empty));
+            var fileName = Path.Combine(Path.GetTempPath(), resDictName);
+            using (var writer = System.Xml.XmlWriter.Create(fileName, new System.Xml.XmlWriterSettings { Indent = true }))
+            {
+                System.Windows.Markup.XamlWriter.Save(resourceDictionary, writer);
+                writer.Close();
+            }
+
+            resourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri(fileName, UriKind.Absolute)
+            };
+
+            var newAccent = new Accent { Name = resDictName, Resources = resourceDictionary };
+            ThemeManager.AddAccent(newAccent.Name, newAccent.Resources.Source);
+
+            ThemeManager.ChangeAppStyle(application, newAccent, applicationTheme);
         }
     }
 }

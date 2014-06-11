@@ -45,7 +45,7 @@
         </Expander>
 
         <GroupBox Grid.Row="2" Header="Results">
-            <RichTextBox x:Name="outputTextBox" IsReadOnly="True" VerticalScrollBarVisibility="Visible" />
+            <catel:TraceOutputControl />
         </GroupBox>
     </Grid>
 
