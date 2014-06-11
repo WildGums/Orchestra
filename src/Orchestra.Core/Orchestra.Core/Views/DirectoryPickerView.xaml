@@ -23,8 +23,6 @@
                 Command="{Binding OpenDirectory}" Visibility="{Binding SelectedDirectory, Converter={catel:EmptyStringToCollapsingVisibilityConverter}}">
             <Image Source="/Orchestra.Core;component/Resources/Images/Folder.png" Width="16" Height="16" />
         </Button>
-
-        
     </Grid>
     
 </catel:UserControl>

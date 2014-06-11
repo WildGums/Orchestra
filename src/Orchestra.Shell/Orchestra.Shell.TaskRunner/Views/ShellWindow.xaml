@@ -4,7 +4,7 @@
                   xmlns:catel="http://catel.codeplex.com"
                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                   xmlns:behaviors="clr-namespace:Orchestra.Behaviors"
-                  ShowInTaskbar="True" MinWidth="625" MinHeight="625" Width="600" Height="400"
+                  ShowInTaskbar="True" MinWidth="625" MinHeight="625" Width="625" Height="625"
                   SizeToContent="Manual" ResizeMode="CanResizeWithGrip" UseLayoutRounding="True">
 
     <Grid>
@@ -12,6 +12,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ContentPresenter Grid.Row="0" x:Name="contentPresenter" />

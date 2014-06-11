@@ -1,18 +1,28 @@
-﻿namespace Orchestra.Views
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="KeyboardMappingsOverviewWindow.xaml.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+
+namespace Orchestra.Views
 {
     using Catel.Windows;
-    using Orchestra.ViewModels;
+    using ViewModels;
 
     /// <summary>
     /// Interaction logic for KeyboardMappingsOverviewWindow.xaml.
     /// </summary>
     public partial class KeyboardMappingsOverviewWindow : DataWindow
     {
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyboardMappingsOverviewWindow"/> class.
         /// </summary>
         public KeyboardMappingsOverviewWindow()
-            : this(null) { }
+            : this(null)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyboardMappingsOverviewWindow"/> class.
@@ -24,10 +34,12 @@
         public KeyboardMappingsOverviewWindow(KeyboardMappingsOverviewViewModel viewModel)
             : base(viewModel, DataWindowMode.Custom)
         {
+            AddCustomButton(new DataWindowButton("Print", "Print"));
             AddCustomButton(new DataWindowButton("Customize", "Customize"));
             AddCustomButton(new DataWindowButton("Close", Close));
 
             InitializeComponent();
         }
+        #endregion
     }
 }

@@ -16,6 +16,8 @@ public static partial class ModuleInitializer
 
         commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
         commandManager.CreateCommand("Groups.Run", new InputGesture(Key.R, ModifierKeys.Shift));
+
         commandManager.CreateCommand("Runner.Run", new InputGesture(Key.F5), throwExceptionWhenCommandIsAlreadyCreated: false);
+        commandManager.CreateCommand("Runner.ClearConsole", throwExceptionWhenCommandIsAlreadyCreated: false);
     }
 }

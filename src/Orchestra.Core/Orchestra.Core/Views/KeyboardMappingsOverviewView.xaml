@@ -35,11 +35,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-
-        <WrapPanel Grid.Row="2" Style="{StaticResource RightAlignedButtonsWrapPanelStyle}">
-            <Button Content="{catel:LanguageBinding Print}" Command="{Binding Print}" Style="{StaticResource RightAlignedFixedSizeButtonStyle}" />
-            <Button Content="{catel:LanguageBinding Customize}" Command="{Binding Customize}" Style="{StaticResource RightAlignedFixedSizeButtonStyle}" />
-        </WrapPanel>
     </Grid>
 
 </catel:UserControl>

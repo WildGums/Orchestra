@@ -55,8 +55,6 @@ namespace Orchestra.Views
                 AddCustomButton(new DataWindowButton("About", commandManager.GetCommand("Help.About")));
             }
 
-            AddCustomButton(new DataWindowButton("Clear Console", ClearConsole));
-
             ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
 
             InitializeComponent();
@@ -86,8 +84,17 @@ namespace Orchestra.Views
                     SizeToContent = SizeToContent.WidthAndHeight;
                 }
 
-                Width = startupSize.Width;
-                Height = startupSize.Height;
+                if (setWidth)
+                {
+                    MinWidth = startupSize.Width;
+                    Width = startupSize.Width;
+                }
+
+                if (setHeight)
+                {
+                    MinHeight = startupSize.Height;
+                    Height = startupSize.Height;
+                }                
             }
 
             var view = taskRunnerService.GetView();
@@ -121,15 +128,8 @@ namespace Orchestra.Views
             {
                 _hasUpdatedViewModel = true;
 
-                ClearConsole();
-
                 view.DataContext = ConfigurationContext;
             }
-        }
-
-        private void ClearConsole()
-        {
-            //_logListener.Clear();
         }
         #endregion
     }

@@ -8,10 +8,8 @@
 namespace Orchestra.ViewModels
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading;
     using Catel;
-    using Catel.Data;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
