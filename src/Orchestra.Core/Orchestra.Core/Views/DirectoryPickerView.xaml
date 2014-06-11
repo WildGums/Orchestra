@@ -16,13 +16,15 @@
 
         <Label Grid.Column="0" Content="{Binding LabelText}" Width="{Binding LabelWidth}" />
         <TextBox Grid.Column="1" IsReadOnly="True" Text="{Binding SelectedDirectory}" />
-        
-        <Button Grid.Column="2" Width="24" Margin="0,6,2,6" ToolTip="Open folder"
+
+        <Button Grid.Column="2" Margin="0,6,2,6" Width="24" Content="..." ToolTip="Browse for folder" Command="{Binding SelectDirectory}" />
+
+        <Button Grid.Column="3" Margin="2,6,0,6" Width="24" ToolTip="Open folder"
                 Command="{Binding OpenDirectory}" Visibility="{Binding SelectedDirectory, Converter={catel:EmptyStringToCollapsingVisibilityConverter}}">
             <Image Source="/Orchestra.Core;component/Resources/Images/Folder.png" Width="16" Height="16" />
         </Button>
 
-        <Button Margin="2,6,0,6" Grid.Column="3" Width="24" Content="..." ToolTip="Browse for folder" Command="{Binding SelectDirectory}" />
+        
     </Grid>
     
 </catel:UserControl>
