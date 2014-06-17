@@ -14,8 +14,13 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
-        <ContentPresenter Grid.Row="0" x:Name="contentPresenter" />
+        <ContentPresenter Grid.Row="0" Grid.ColumnSpan="2" x:Name="contentPresenter" />
 
         <Expander Grid.Row="1" Header="Run" IsExpanded="True" Style="{StaticResource GroupBoxExpander}">
             <i:Interaction.Behaviors>
