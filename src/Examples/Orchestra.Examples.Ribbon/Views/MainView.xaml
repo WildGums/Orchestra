@@ -1,0 +1,12 @@
+﻿<catel:UserControl x:Class="Orchestra.Examples.Ribbon.MainView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:catel="http://catel.codeplex.com"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   xmlns:orchestra="https://github.com/orcomp/orchestra">
+
+    <Grid>
+        <TextBlock Text="IT WORKS!" />
+    </Grid>
+    
+</catel:UserControl>

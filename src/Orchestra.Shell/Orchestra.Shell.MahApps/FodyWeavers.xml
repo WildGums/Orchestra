@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Weavers>
+  <Catel/>
+  <ModuleInit/>
+  <LoadAssembliesOnStartup/>
+  <Costura>
+    <IncludeAssemblies>
+      Microsoft.Threading.Tasks
+      Microsoft.Threading.Tasks.Extensions
+      Microsoft.Threading.Tasks.Extensions.Desktop
+      System.Runtime
+      System.Threading.Tasks
+    </IncludeAssemblies>
+  </Costura>
+</Weavers>
