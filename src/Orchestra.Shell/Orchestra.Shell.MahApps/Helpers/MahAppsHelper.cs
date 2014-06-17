@@ -68,10 +68,10 @@ namespace Orchestra
             var resourceDictionary = new ResourceDictionary();
 
             resourceDictionary.Add("HighlightColor", color);
-            resourceDictionary.Add("AccentColor", Color.FromArgb((byte)(204), color.R, color.G, color.B));
-            resourceDictionary.Add("AccentColor2", Color.FromArgb((byte)(153), color.R, color.G, color.B));
-            resourceDictionary.Add("AccentColor3", Color.FromArgb((byte)(102), color.R, color.G, color.B));
-            resourceDictionary.Add("AccentColor4", Color.FromArgb((byte)(51), color.R, color.G, color.B));
+            resourceDictionary.Add("AccentColor", Color.FromArgb(204, color.R, color.G, color.B));
+            resourceDictionary.Add("AccentColor2", Color.FromArgb(153, color.R, color.G, color.B));
+            resourceDictionary.Add("AccentColor3", Color.FromArgb(102, color.R, color.G, color.B));
+            resourceDictionary.Add("AccentColor4", Color.FromArgb(51, color.R, color.G, color.B));
 
             resourceDictionary.Add("HighlightBrush", new SolidColorBrush((Color)resourceDictionary["HighlightColor"]));
             resourceDictionary.Add("AccentColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
@@ -104,22 +104,7 @@ namespace Orchestra
 
             Log.Debug("Applying theme to MahApps");
 
-            var resDictName = string.Format("ApplicationAccent_{0}.xaml", color.ToString().Replace("#", string.Empty));
-            var fileName = Path.Combine(Path.GetTempPath(), resDictName);
-            using (var writer = System.Xml.XmlWriter.Create(fileName, new System.Xml.XmlWriterSettings { Indent = true }))
-            {
-                System.Windows.Markup.XamlWriter.Save(resourceDictionary, writer);
-                writer.Close();
-            }
-
-            resourceDictionary = new ResourceDictionary
-            {
-                Source = new Uri(fileName, UriKind.Absolute)
-            };
-
-            var newAccent = new Accent { Name = resDictName, Resources = resourceDictionary };
-            ThemeManager.AddAccent(newAccent.Name, newAccent.Resources.Source);
-
+            var newAccent = new Accent { Resources = resourceDictionary };
             ThemeManager.ChangeAppStyle(application, newAccent, applicationTheme);
         }
     }
