@@ -7,17 +7,13 @@
 
 namespace Orchestra.Views
 {
-    using System;
     using System.Windows;
     using Catel.IoC;
-    using Catel.Logging;
     using Catel.MVVM;
     using Catel.MVVM.Views;
     using Catel.Services;
     using Catel.Windows;
-    using Logging;
-
-    using Orchestra.ViewModels;
+    using ViewModels;
 
     using Services;
 
@@ -61,7 +57,7 @@ namespace Orchestra.Views
 
             ConfigurationContext = taskRunnerService.GetViewDataContext();
 
-            var startupSize = taskRunnerService.GetDesiredStartupSize();
+            var startupSize = taskRunnerService.GetInitialWindowSize();
             if (startupSize != null && !startupSize.IsEmpty)
             {
                 bool setWidth = startupSize.Width > 0d;
