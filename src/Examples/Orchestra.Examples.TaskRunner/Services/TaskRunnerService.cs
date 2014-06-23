@@ -49,7 +49,7 @@ namespace Orchestra.Examples.TaskRunner.Services
             Log.Info("Action is complete!");
         }
 
-        public Size GetDesiredStartupSize()
+        public Size GetInitialWindowSize()
         {
             return Size.Empty;
         }

@@ -35,6 +35,6 @@ namespace Orchestra.Services
         /// If <see cref="Size.Empty"/>, this value will be ignored. If only the width or height is set, the other value will be ignored automatically.
         /// </summary>
         /// <returns>The desired startup size.</returns>
-        Size GetDesiredStartupSize();
+        Size GetInitialWindowSize();
     }
 }
