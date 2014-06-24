@@ -16,6 +16,11 @@ namespace Orchestra.Services
 
     public class MahAppsMessageService : Catel.Services.MessageService
     {
+        public MahAppsMessageService(IDispatcherService dispatcherService)
+            : base(dispatcherService)
+        {
+        }
+
         protected override async Task<MessageResult> ShowMessageBox(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
         {
             var window = (MetroWindow)Application.Current.MainWindow;
