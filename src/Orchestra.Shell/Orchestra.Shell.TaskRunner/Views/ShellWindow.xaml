@@ -51,7 +51,7 @@
         </Expander>
 
         <GroupBox Grid.Row="2" Header="Results">
-            <catel:TraceOutputControl />
+            <catel:TraceOutputControl x:Name="traceOutputControl" />
         </GroupBox>
     </Grid>
 

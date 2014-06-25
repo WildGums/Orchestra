@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Weavers>
-  <Catel/>
   <LoadAssembliesOnStartup/>
   <ModuleInit/>
   <Costura>
     <IncludeAssemblies>
     </IncludeAssemblies>
   </Costura>
+  <Catel/>
 </Weavers>

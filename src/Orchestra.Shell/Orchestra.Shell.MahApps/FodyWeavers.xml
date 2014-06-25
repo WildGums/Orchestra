@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Weavers>
-  <Catel/>
   <ModuleInit/>
   <LoadAssembliesOnStartup/>
   <Costura>
@@ -12,4 +11,5 @@
       System.Threading.Tasks
     </IncludeAssemblies>
   </Costura>
+  <Catel/>
 </Weavers>
