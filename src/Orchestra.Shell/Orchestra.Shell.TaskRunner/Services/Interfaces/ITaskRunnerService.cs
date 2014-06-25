@@ -12,6 +12,12 @@ namespace Orchestra.Services
     public interface ITaskRunnerService : IAboutInfoService
     {
         /// <summary>
+        /// Gets a value indicating whether to show the customize shortcuts button.
+        /// </summary>
+        /// <value><c>true</c> if the customize shortcuts button should be shown; otherwise, <c>false</c>.</value>
+        bool ShowCustomizeShortcutsButton { get; }
+
+        /// <summary>
         /// Gets the data context that will be set to the view.
         /// </summary>
         /// <returns>The data context or <c>null</c>.</returns>

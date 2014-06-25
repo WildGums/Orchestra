@@ -39,7 +39,10 @@ namespace Orchestra.Views
             var commandManager = serviceLocator.ResolveType<ICommandManager>();
             var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
 
-            AddCustomButton(new DataWindowButton("Keyboard shortcuts", () => uiVisualizerService.ShowDialog<KeyboardMappingsOverviewViewModel>()));
+            if (taskRunnerService.ShowCustomizeShortcutsButton)
+            {
+                AddCustomButton(new DataWindowButton("Keyboard shortcuts", () => uiVisualizerService.ShowDialog<KeyboardMappingsOverviewViewModel>()));
+            }
 
             serviceLocator.RegisterInstance<IAboutInfoService>(taskRunnerService);
 
