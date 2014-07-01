@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+<package>
   <metadata>
     <id>Orchestra.Shell.MahApps</id>
     <version>[VERSION]</version>
@@ -26,12 +26,12 @@
     <dependencies>
       <dependency id="Orchestra.Core" version="[VERSION]" />
     
-      <dependency id="Catel.Core" version="[CATELVERSION]" />
-      <dependency id="Catel.MVVM" version="[CATELVERSION]" />
-      <dependency id="Catel.Extensions.Controls" version="[CATELVERSION]" />
+      <dependency id="Catel.Core" version="[replaced]" />
+      <dependency id="Catel.MVVM" version="[replaced]" />
+      <dependency id="Catel.Extensions.Controls" version="[replaced]" />
 
-      <dependency id="MahApps.Metro" version="[MAHAPPSVERSION]" />
-      <dependency id="MahApps.Metro.Resources" version="0.2.1.0" />
+      <dependency id="MahApps.Metro" version="[replaced]" />
+      <dependency id="MahApps.Metro.Resources" version="[replaced]" />
     </dependencies>
   </metadata>
 </package>

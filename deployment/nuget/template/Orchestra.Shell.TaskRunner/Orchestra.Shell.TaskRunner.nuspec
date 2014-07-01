@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+<package>
   <metadata>
     <id>Orchestra.Shell.TaskRunner</id>
     <version>[VERSION]</version>
@@ -26,9 +26,9 @@
     <dependencies>
       <dependency id="Orchestra.Core" version="[VERSION]" />
     
-      <dependency id="Catel.Core" version="[CATELVERSION]" />
-      <dependency id="Catel.MVVM" version="[CATELVERSION]" />
-      <dependency id="Catel.Extensions.Controls" version="[CATELVERSION]" />
+      <dependency id="Catel.Core" version="[replaced]" />
+      <dependency id="Catel.MVVM" version="[replaced]" />
+      <dependency id="Catel.Extensions.Controls" version="[replaced]" />
     </dependencies>
   </metadata>
 </package>
