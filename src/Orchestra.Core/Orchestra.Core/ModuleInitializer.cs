@@ -51,12 +51,12 @@ public static class ModuleInitializer
 
         if (!uiVisualizerService.IsRegistered(typeof (KeyboardMappingsCustomizationViewModel)))
         {
-            uiVisualizerService.Register(typeof(KeyboardMappingsCustomizationViewModel), typeof(KeyboardMappingsCustomizationWindow), false);    
+            uiVisualizerService.Register(typeof(KeyboardMappingsCustomizationViewModel).FullName, typeof(KeyboardMappingsCustomizationWindow));    
         }
 
         if (!uiVisualizerService.IsRegistered(typeof(KeyboardMappingsOverviewViewModel)))
         {
-            uiVisualizerService.Register(typeof(KeyboardMappingsOverviewViewModel), typeof(KeyboardMappingsOverviewWindow), false);
+            uiVisualizerService.Register(typeof(KeyboardMappingsOverviewViewModel).FullName, typeof(KeyboardMappingsOverviewWindow));
         }
 
         var languageService = serviceLocator.ResolveType<ILanguageService>();
