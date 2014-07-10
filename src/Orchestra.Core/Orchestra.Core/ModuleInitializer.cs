@@ -44,8 +44,20 @@ public static class ModuleInitializer
         serviceLocator.RegisterType<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>(RegistrationType.Transient);
 
         var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
-        uiVisualizerService.Register(typeof(KeyboardMappingsCustomizationViewModel), typeof(KeyboardMappingsCustomizationWindow));
-        uiVisualizerService.Register(typeof(KeyboardMappingsOverviewViewModel), typeof(KeyboardMappingsOverviewWindow));
+
+        // Can be replaced by this in the future:
+        //uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
+        //uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
+
+        if (!uiVisualizerService.IsRegistered(typeof (KeyboardMappingsCustomizationViewModel)))
+        {
+            uiVisualizerService.Register(typeof(KeyboardMappingsCustomizationViewModel), typeof(KeyboardMappingsCustomizationWindow), false);    
+        }
+
+        if (!uiVisualizerService.IsRegistered(typeof(KeyboardMappingsOverviewViewModel)))
+        {
+            uiVisualizerService.Register(typeof(KeyboardMappingsOverviewViewModel), typeof(KeyboardMappingsOverviewWindow), false);
+        }
 
         var languageService = serviceLocator.ResolveType<ILanguageService>();
         languageService.RegisterLanguageSource(new LanguageResourceSource("Orchestra", "Orchestra.Properties", "Resources"));
