@@ -85,8 +85,8 @@ Global
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{e16a2bf1-3801-4615-a79e-52cedf260a89}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{2909c5c6-b2c7-49a4-bf8f-2225433effdf}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{bc10fce0-c843-4592-802d-bb800a514ca0}*SharedItemsImports = 13
-		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{09d9c5af-1d17-4c77-a5d4-cfdf278df4a3}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

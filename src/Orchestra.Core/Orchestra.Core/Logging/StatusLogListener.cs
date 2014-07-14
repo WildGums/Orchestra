@@ -7,6 +7,7 @@
 
 namespace Orchestra.Logging
 {
+    using System;
     using Catel.Logging;
     using Services;
 
@@ -34,7 +35,7 @@ namespace Orchestra.Logging
         #endregion
 
         #region Methods
-        protected override void Write(ILog log, string message, LogEvent logEvent, object extraData)
+        protected override void Write(ILog log, string message, LogEvent logEvent, object extraData, DateTime time)
         {
             _statusService.UpdateStatus(message);
         }

@@ -10,6 +10,7 @@ namespace Orchestra.ViewModels
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Collections;
     using Catel.MVVM;
@@ -142,9 +143,9 @@ namespace Orchestra.ViewModels
         #endregion
 
         #region Methods
-        protected override void Close()
+        protected override Task Close()
         {
-            _keyboardMappingsService.Save();
+            return Task.Factory.StartNew(() => _keyboardMappingsService.Save());
         }
 
         private void OnCommandFilterChanged()

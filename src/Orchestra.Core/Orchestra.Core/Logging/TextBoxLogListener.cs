@@ -33,11 +33,11 @@ namespace Orchestra.Logging
             _textBox.Dispatcher.Invoke(new Action(() => _textBox.Clear()));
         }
 
-        protected override void Write(ILog log, string message, LogEvent logEvent, object extraData)
+        protected override void Write(ILog log, string message, LogEvent logEvent, object extraData, DateTime time)
         {
             _textBox.Dispatcher.Invoke(new Action(() =>
             {
-                _textBox.AppendText(string.Format("{0} {1}", DateTime.Now.ToString("hh:mm:ss.fff"), message));
+                _textBox.AppendText(string.Format("{0} {1}", time.ToString("hh:mm:ss.fff"), message));
                 _textBox.AppendText(Environment.NewLine);
                 _textBox.ScrollToEnd();
             }));

@@ -11,6 +11,7 @@ namespace Orchestra.Windows
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using Catel;
@@ -130,9 +131,9 @@ namespace Orchestra.Windows
         /// <summary>
         /// Handled when the user invokes the OK command.
         /// </summary>
-        protected void OnOkExecute()
+        protected async void OnOkExecute()
         {
-            if (!ApplyChanges())
+            if (!await ApplyChanges())
             {
                 return;
             }
@@ -163,9 +164,9 @@ namespace Orchestra.Windows
         /// <summary>
         /// Handled when the user invokes the Cancel command.
         /// </summary>
-        protected void OnCancelExecute()
+        protected async void OnCancelExecute()
         {
-            if (!DiscardChanges())
+            if (!await DiscardChanges())
             {
                 return;
             }
@@ -196,9 +197,9 @@ namespace Orchestra.Windows
         /// <summary>
         /// Handled when the user invokes the Apply command.
         /// </summary>
-        protected void OnApplyExcute()
+        protected async void OnApplyExcute()
         {
-            ApplyChanges();
+            await ApplyChanges();
         }
 
         /// <summary>
@@ -242,17 +243,17 @@ namespace Orchestra.Windows
         /// Applies all changes made by this window.
         /// </summary>
         /// <returns>True if successful, otherwise false.</returns>
-        protected virtual bool ApplyChanges()
+        protected virtual async Task<bool> ApplyChanges()
         {
-            return _logic.SaveViewModel();
+            return await _logic.SaveViewModel();
         }
 
         /// <summary>
         /// Discards all changes made by this window.
         /// </summary>
-        protected virtual bool DiscardChanges()
+        protected virtual async Task<bool> DiscardChanges()
         {
-            return _logic.CancelViewModel();
+            return await _logic.CancelViewModel();
         }
         #endregion
 
