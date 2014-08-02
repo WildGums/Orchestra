@@ -2,10 +2,6 @@
 <Weavers>
   <ModuleInit/>
   <LoadAssembliesOnStartup/>
-  <Costura>
-    <IncludeAssemblies>
-      Microsoft.Windows.Shell
-    </IncludeAssemblies>
-  </Costura>
   <Catel/>
+  <Costura/>
 </Weavers>

@@ -71,19 +71,5 @@ namespace Orchestra.Behaviors
             // TODO: Only enable on ALT key
             _adorneredTooltipsManager.Enable();
         }
-
-        protected override void OnAssociatedObjectLoaded(object sender, EventArgs e)
-        {
-            base.OnAssociatedObjectLoaded(sender, e);
-
-
-
-            // TODO: Subscribe to ALT key
-        }
-
-        protected override void OnAssociatedObjectUnloaded(object sender, EventArgs e)
-        {
-            base.OnAssociatedObjectUnloaded(sender, e);
-        }
     }
 }

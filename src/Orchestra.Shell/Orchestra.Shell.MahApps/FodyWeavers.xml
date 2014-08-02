@@ -2,14 +2,6 @@
 <Weavers>
   <ModuleInit/>
   <LoadAssembliesOnStartup/>
-  <Costura>
-    <IncludeAssemblies>
-      Microsoft.Threading.Tasks
-      Microsoft.Threading.Tasks.Extensions
-      Microsoft.Threading.Tasks.Extensions.Desktop
-      System.Runtime
-      System.Threading.Tasks
-    </IncludeAssemblies>
-  </Costura>
   <Catel/>
+  <Costura/>
 </Weavers>
