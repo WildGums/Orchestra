@@ -205,8 +205,8 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
     <Resource Include="Resources\Images\Folder.png" />
-    <Content Include="Resources\Images\Pinned.png" />
-    <Content Include="Resources\Images\Unpinned.png" />
+    <Resource Include="Resources\Images\Pinned.png" />
+    <Resource Include="Resources\Images\Unpinned.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\BusyIndicator.xaml">
