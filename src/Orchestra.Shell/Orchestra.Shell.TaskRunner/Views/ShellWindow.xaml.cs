@@ -7,8 +7,10 @@
 
 namespace Orchestra.Views
 {
+    using System.IO;
     using System.Windows;
     using Catel.IoC;
+    using Catel.Logging;
     using Catel.MVVM;
     using Catel.MVVM.Views;
     using Catel.Services;
@@ -34,10 +36,32 @@ namespace Orchestra.Views
         public ShellWindow()
             : base(DataWindowMode.Custom, setOwnerAndFocus: false)
         {
+            var currentLogFileName = TaskRunnerEnvironment.CurrentLogFileName;
+            if (File.Exists(currentLogFileName))
+            {
+                File.Delete(currentLogFileName);
+            }
+
+            var fileLogListener = new FileLogListener(currentLogFileName, 25*1000)
+            {
+                IgnoreCatelLogging = true,
+                IsDebugEnabled = false
+            };
+            
+            LogManager.AddListener(fileLogListener);
+
             var serviceLocator = this.GetServiceLocator();
+            var processService = serviceLocator.ResolveType<IProcessService>();
             var taskRunnerService = serviceLocator.ResolveType<ITaskRunnerService>();
             var commandManager = serviceLocator.ResolveType<ICommandManager>();
             var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
+
+            AddCustomButton(new DataWindowButton("Open log...", () =>
+            {
+                LogManager.FlushAll();
+
+                processService.StartProcess(currentLogFileName);
+            }));
 
             if (taskRunnerService.ShowCustomizeShortcutsButton)
             {

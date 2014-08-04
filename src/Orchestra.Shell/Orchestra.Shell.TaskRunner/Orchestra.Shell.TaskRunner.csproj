@@ -113,6 +113,7 @@
     <Compile Include="Services\Interfaces\ILogControlService.cs" />
     <Compile Include="Services\Interfaces\ITaskRunnerService.cs" />
     <Compile Include="Services\LogControlService.cs" />
+    <Compile Include="TaskRunnerEnvironment.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\ShellWindow.xaml.cs">
       <DependentUpon>ShellWindow.xaml</DependentUpon>
