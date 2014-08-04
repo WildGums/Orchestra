@@ -33,14 +33,14 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0">
+                <!--<Label Grid.Column="0">
                     <TextBlock TextWrapping="Wrap">
                         Please make sure to provide the right configuration. When the configuration is set, the button at the right
                         can be used to run the task. 
                         <LineBreak /><LineBreak />
                         Once the task is done, the results will be displayed below.
                     </TextBlock>
-                </Label>
+                </Label>-->
 
                 <Button Grid.Column="1" Width="64" Height="64" ToolTip="Run" Command="{catel:CommandManagerBinding Runner.Run}">
                     <Image Source="/Orchestra.Shell.TaskRunner;component/Resources/Images/Run.png" 
