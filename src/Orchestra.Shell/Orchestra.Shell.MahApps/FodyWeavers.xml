@@ -2,6 +2,6 @@
 <Weavers>
   <ModuleInit/>
   <LoadAssembliesOnStartup/>
-  <Catel/>
   <Costura/>
+  <Catel/>
 </Weavers>
