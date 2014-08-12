@@ -31,13 +31,13 @@ namespace Orchestra
         /// Adds a file log listener for an unhandled exception.
         /// </summary>
         /// <param name="ex">The unhandled exception.</param>
-        public static void AddLogListenerForUnhandledException(Exception ex)
+        public static async void AddLogListenerForUnhandledException(Exception ex)
         {
             AddFileLogListener("Crashreport");
 
             Log.Error(ex, "Application crashed");
 
-            LogManager.FlushAll();
+            await LogManager.FlushAllAsync();
         }
 
         private static void AddFileLogListener(string prefix)

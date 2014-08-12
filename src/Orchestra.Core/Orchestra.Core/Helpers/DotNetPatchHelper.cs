@@ -10,6 +10,7 @@ namespace Orchestra
     using System;
     using System.Diagnostics;
     using System.IO;
+    using System.Threading.Tasks;
     using System.Windows;
     using Catel.Logging;
 
@@ -37,15 +38,15 @@ namespace Orchestra
             AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
         }
 
-        private static void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static async void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            if (!HandleException((Exception) e.ExceptionObject))
+            if (!await HandleException((Exception) e.ExceptionObject))
             {
                 Process.GetCurrentProcess().Kill();
             }
         }
 
-        private static bool HandleException(Exception ex)
+        private static async Task<bool> HandleException(Exception ex)
         {
             LogHelper.AddLogListenerForUnhandledException(ex);
 
@@ -66,7 +67,7 @@ namespace Orchestra
                 }
             }
 
-            LogManager.FlushAll();
+            await LogManager.FlushAllAsync();
 
             return true;
         }
