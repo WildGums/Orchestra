@@ -6,9 +6,7 @@ Orchestra consists of a main shell including an SDK with services that allows de
 
 These modules can communicate with the shell, but also with each other through the services that are offered out of the box.
 
-## Update 2014/06/02
-
-We are currently working on the next version of Orchestra in the **feature/v2** branch.
+## Update 2014/08/17
 
 Some of the features which will come out of the box:
 
@@ -44,7 +42,6 @@ Open source (MS-PL license), so you are free to use it in commercial application
 
 Orchestra uses a plugin architecture with some already well know open source libraries already implemented:
 
-- [AvalonDock](http://avalondock.codeplex.com/) (docking library)
 - [Catel](http://Catel.Codeplex.com) (MVVM framework plut a lot more)
 - [Fluent Ribbon](http://fluent.codeplex.com/)
 - [Prism](http://compositewpf.codeplex.com/)
