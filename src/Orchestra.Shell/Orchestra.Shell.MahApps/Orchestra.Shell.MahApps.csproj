@@ -25,7 +25,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\..\output\debug\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591;1998</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>..\..\..\output\release\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.XML</DocumentationFile>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591;1998</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">

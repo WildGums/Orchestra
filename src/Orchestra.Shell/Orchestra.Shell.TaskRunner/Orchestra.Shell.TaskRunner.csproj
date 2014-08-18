@@ -23,7 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591;1998</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>..\..\..\output\debug\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.XML</DocumentationFile>
   </PropertyGroup>
@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\..\output\release\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591;1998</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">

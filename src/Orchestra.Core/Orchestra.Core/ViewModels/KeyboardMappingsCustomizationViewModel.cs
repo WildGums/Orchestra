@@ -143,9 +143,9 @@ namespace Orchestra.ViewModels
         #endregion
 
         #region Methods
-        protected override Task Close()
+        protected override async Task Close()
         {
-            return Task.Factory.StartNew(() => _keyboardMappingsService.Save());
+            _keyboardMappingsService.Save();
         }
 
         private void OnCommandFilterChanged()

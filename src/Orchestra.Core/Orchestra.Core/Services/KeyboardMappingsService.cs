@@ -47,7 +47,7 @@ namespace Orchestra.Services
                     return;
                 }
 
-                using (var fileStream = File.Open(_fileName, FileMode.Open))
+                using (var fileStream = File.Open(_fileName, FileMode.Open, FileAccess.Read))
                 {
                     var keyboardMappings = _xmlSerializer.Deserialize(typeof (KeyboardMappings), fileStream) as KeyboardMappings;
                     if (keyboardMappings != null)
@@ -89,7 +89,7 @@ namespace Orchestra.Services
                     keyboardMappings.Mappings.Add(keyboardMapping);
                 }
 
-                using (var fileStream = File.Open(_fileName, FileMode.Create))
+                using (var fileStream = File.Open(_fileName, FileMode.Create, FileAccess.Write))
                 {
                     _xmlSerializer.Serialize(keyboardMappings, fileStream);
                 }

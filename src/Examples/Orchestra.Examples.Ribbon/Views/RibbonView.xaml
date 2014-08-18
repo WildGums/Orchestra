@@ -3,7 +3,8 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:catel="http://catel.codeplex.com"
                    xmlns:ribbon="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
-                   xmlns:converters="clr-namespace:Orchestra.Converters;assembly=Orchestra.Core">
+                   xmlns:converters="clr-namespace:Orchestra.Converters;assembly=Orchestra.Core"
+                   xmlns:views="clr-namespace:Orchestra.Views;assembly=Orchestra.Core">
     
     <ribbon:Ribbon x:Name="ribbon">
         <!-- Application Menu, located at the left-hand side (down arrow) -->
@@ -111,6 +112,31 @@
             <ribbon:RibbonGroup Header="Workspace">
                 <ribbon:RibbonButton Label="Refresh" LargeImageSource="/Resources/Images/refresh.png" 
                                      Command="{Binding RefreshWorkspace}" />
+            </ribbon:RibbonGroup>
+
+            <ribbon:RibbonGroup Header="Keyboard">
+                <ribbon:RibbonSplitButton Label="Shortcuts" LargeImageSource="/Resources/Images/keyboard.png"
+                                          Command="{Binding ShowKeyboardMappings}" IsCheckable="False">
+                    <ribbon:RibbonGallery ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ribbon:RibbonGallery.Resources>
+                            <Style TargetType="ribbon:RibbonGalleryItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ribbon:RibbonGalleryItem">
+                                            <Grid Background="Transparent">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ribbon:RibbonGallery.Resources>
+
+                        <ribbon:RibbonGalleryItem IsSelected="False" >
+                            <views:KeyboardMappingsOverviewView />
+                        </ribbon:RibbonGalleryItem>
+                    </ribbon:RibbonGallery>
+                </ribbon:RibbonSplitButton>
             </ribbon:RibbonGroup>
 
         </ribbon:RibbonTab>
