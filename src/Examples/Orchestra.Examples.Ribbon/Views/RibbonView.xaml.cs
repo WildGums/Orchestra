@@ -13,6 +13,9 @@
         public RibbonView()
         {
             InitializeComponent();
+
+            ribbon.AddMinimizeMaximizeButton();
+            ribbon.AddAboutButton();
         }
     }
 }

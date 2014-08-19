@@ -31,6 +31,8 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IKeyboardMappingsService, KeyboardMappingsService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusService, StatusService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<Orchestra.Services.ISplashScreenService, Orchestra.Services.SplashScreenService>();
+
+        serviceLocator.RegisterTypeIfNotYetRegistered<IAboutInfoService, AboutInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
 
         // Hints system

@@ -136,6 +136,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\AboutInfoService.cs" />
     <Compile Include="Services\AboutService.cs" />
     <Compile Include="Services\AdorneredTooltipsManager.cs" />
     <Compile Include="Services\AdorneredTooltipsManagerFactory.cs" />
