@@ -14,7 +14,7 @@
         {
             InitializeComponent();
 
-            ribbon.AddMinimizeMaximizeButton();
+            ribbon.AddMinimizeAndMaximizeButtons();
             ribbon.AddAboutButton();
         }
     }

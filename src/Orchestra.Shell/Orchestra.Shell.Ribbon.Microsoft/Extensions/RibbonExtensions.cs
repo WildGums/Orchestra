@@ -39,7 +39,13 @@ namespace Orchestra
             stackPanel.Children.Add(aboutButton);
         }
 
+        [Obsolete("Use AddMinimizeAndMaximizeButtons() instead", true)]
         public static void AddMinimizeMaximizeButton(this Ribbon ribbon)
+        {
+            AddMinimizeAndMaximizeButtons(ribbon);
+        }
+
+        public static void AddMinimizeAndMaximizeButtons(this Ribbon ribbon)
         {
             Argument.IsNotNull("ribbon", ribbon);
 
