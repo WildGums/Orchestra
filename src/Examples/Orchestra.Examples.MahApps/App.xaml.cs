@@ -10,6 +10,7 @@ namespace Orchestra.Examples.MahApps
     using System;
     using System.Diagnostics;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
     using Catel.IoC;
@@ -65,7 +66,7 @@ namespace Orchestra.Examples.MahApps
             Log.Info("Elapsed startup time: {0}", _end - _start);
         }
 
-        private void PreInitialize()
+        private async Task PreInitialize()
         {
             Log.Info("Improving performance");
 
@@ -80,7 +81,7 @@ namespace Orchestra.Examples.MahApps
             flyoutService.AddFlyout<PersonView>(ExampleEnvironment.PersonFlyoutName, Position.Right);
         }
 
-        private void InitializeCommands(ICommandManager commandManager)
+        private async Task InitializeCommands(ICommandManager commandManager)
         {
             commandManager.CreateCommand("File.Refresh", new InputGesture(Key.R, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.Save", new InputGesture(Key.S, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
@@ -89,7 +90,7 @@ namespace Orchestra.Examples.MahApps
             commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
         }
 
-        private void PostInitialize()
+        private async Task PostInitialize()
         {
             Log.Info("Delay to show the splash screen");
 

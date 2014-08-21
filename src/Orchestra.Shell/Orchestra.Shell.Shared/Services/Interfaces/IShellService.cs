@@ -8,6 +8,7 @@
 namespace Orchestra.Services
 {
     using System;
+    using System.Threading.Tasks;
     using Catel.MVVM;
     using Views;
 
@@ -28,7 +29,7 @@ namespace Orchestra.Services
         /// <param name="postInitialize">The post initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        TShell CreateWithSplash<TShell>(Action preInitialize = null, Action<ICommandManager> initializeCommands = null, Action postInitialize = null)
+        Task<TShell> CreateWithSplash<TShell>(Func<Task> preInitialize = null, Func<ICommandManager, Task> initializeCommands = null, Func<Task> postInitialize = null)
             where TShell : IShell;
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace Orchestra.Services
         /// <param name="postInitialize">The post initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        TShell Create<TShell>(Action preInitialize = null, Action<ICommandManager> initializeCommands = null, Action postInitialize = null)
+        Task<TShell> Create<TShell>(Func<Task> preInitialize = null, Func<ICommandManager, Task> initializeCommands = null, Func<Task> postInitialize = null)
             where TShell : IShell;
     }
 }

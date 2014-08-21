@@ -8,6 +8,7 @@
 namespace Orchestra.Services
 {
     using System;
+    using System.Threading.Tasks;
     using System.Windows;
     using Catel;
     using Catel.IoC;
@@ -75,13 +76,13 @@ namespace Orchestra.Services
         /// <param name="postInitialize">The post initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        public TShell CreateWithSplash<TShell>(Action preInitialize = null, Action<ICommandManager> initializeCommands = null, Action postInitialize = null)
+        public async Task<TShell> CreateWithSplash<TShell>(Func<Task> preInitialize = null, Func<ICommandManager, Task> initializeCommands = null, Func<Task> postInitialize = null)
             where TShell : IShell
         {
             var splashScreen = _splashScreenService.CreateSplashScreen();
             splashScreen.Show();
 
-            var shell = Create<TShell>(preInitialize, initializeCommands, postInitialize);
+            var shell = await Create<TShell>(preInitialize, initializeCommands, postInitialize);
 
             splashScreen.Close();
 
@@ -97,7 +98,7 @@ namespace Orchestra.Services
         /// <param name="postInitialize">The post initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        public TShell Create<TShell>(Action preInitialize = null, Action<ICommandManager> initializeCommands = null, Action postInitialize = null)
+        public async Task<TShell> Create<TShell>(Func<Task> preInitialize = null, Func<ICommandManager, Task> initializeCommands = null, Func<Task> postInitialize = null)
             where TShell : IShell
         {
             if (Shell != null)
@@ -109,14 +110,14 @@ namespace Orchestra.Services
             {
                 Log.Debug("Calling pre initialize");
 
-                preInitialize();
+                await preInitialize();
             }
 
             if (initializeCommands != null)
             {
                 Log.Info("Initializing commands");
 
-                initializeCommands(_commandManager);
+                await initializeCommands(_commandManager);
             }
 
             Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName());
@@ -144,7 +145,7 @@ namespace Orchestra.Services
             {
                 Log.Debug("Calling post initialize");
 
-                postInitialize();
+                await postInitialize();
             }
 
             shell.Show();

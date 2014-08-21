@@ -10,6 +10,7 @@ namespace Orchestra.Examples.Ribbon
     using System;
     using System.Diagnostics;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
     using Catel.IoC;
@@ -61,7 +62,7 @@ namespace Orchestra.Examples.Ribbon
             Log.Info("Elapsed startup time: {0}", _end - _start);
         }
 
-        private void PreInitialize()
+        private async Task PreInitialize()
         {
             Log.Info("Improving performance");
 
@@ -70,7 +71,7 @@ namespace Orchestra.Examples.Ribbon
             Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
         }
 
-        private void InitializeCommands(ICommandManager commandManager)
+        private async Task InitializeCommands(ICommandManager commandManager)
         {
             commandManager.CreateCommand("File.Open", new InputGesture(Key.O, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.SaveToImage", new InputGesture(Key.I, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
@@ -80,7 +81,7 @@ namespace Orchestra.Examples.Ribbon
             commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
         }
 
-        private void PostInitialize()
+        private async Task PostInitialize()
         {
             Log.Info("Delay to show the splash screen");
 
