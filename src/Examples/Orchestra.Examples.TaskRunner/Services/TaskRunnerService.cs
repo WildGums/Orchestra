@@ -19,6 +19,8 @@ namespace Orchestra.Examples.TaskRunner.Services
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
+        public string Title { get { return "Custom TaskRunner demo"; } }
+
         public bool ShowCustomizeShortcutsButton { get { return true; }}
 
         public object GetViewDataContext()

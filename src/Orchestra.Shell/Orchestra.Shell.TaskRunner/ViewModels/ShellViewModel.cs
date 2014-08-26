@@ -39,8 +39,7 @@ namespace Orchestra.ViewModels
 
             SuspendValidation = true;
 
-            var assembly = AssemblyHelper.GetEntryAssembly();
-            Title = assembly.Title();
+            Title = taskRunnerService.Title;
         }
 
         #region Properties

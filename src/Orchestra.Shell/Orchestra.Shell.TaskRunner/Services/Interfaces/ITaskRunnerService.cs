@@ -12,6 +12,12 @@ namespace Orchestra.Services
     public interface ITaskRunnerService : IAboutInfoService
     {
         /// <summary>
+        /// Gets the title of the runner which will be shown in the window header.
+        /// </summary>
+        /// <value>The title.</value>
+        string Title { get; }
+
+        /// <summary>
         /// Gets a value indicating whether to show the customize shortcuts button.
         /// </summary>
         /// <value><c>true</c> if the customize shortcuts button should be shown; otherwise, <c>false</c>.</value>
