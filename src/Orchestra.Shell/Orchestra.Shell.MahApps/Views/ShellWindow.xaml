@@ -6,8 +6,7 @@
                          xmlns:catel="http://catel.codeplex.com"
                          xmlns:orchestra="https://github.com/orcomp/orchestra"
                          xmlns:windows="clr-namespace:Orchestra.Windows"
-                         SaveWindowPosition="False" ShowWindowCommandsOnTop="False"
-                         d:DesignHeight="696" d:DesignWidth="480" mc:Ignorable="d">
+                         SaveWindowPosition="False" d:DesignHeight="696" d:DesignWidth="480" mc:Ignorable="d">
 
     <windows:MetroDataWindow.Resources>
         <ResourceDictionary>
