@@ -12,7 +12,6 @@ namespace Orchestra.ViewModels
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
-    using Catel.Reflection;
     using Services;
 
     public class ShellViewModel : ViewModelBase

@@ -14,6 +14,11 @@ namespace Orchestra.Views
     /// </summary>
     public partial class DirectoryPickerView
     {
+        static DirectoryPickerView()
+        {
+            typeof(DirectoryPickerView).AutoDetectViewPropertiesToSubscribe();
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DirectoryPickerView"/> class.
         /// </summary>
@@ -32,8 +37,7 @@ namespace Orchestra.Views
         }
 
         // Using a DependencyProperty as the backing store for LabelWidth.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LabelWidthProperty =
-            DependencyProperty.Register("LabelWidth", typeof(double), typeof(DirectoryPickerView), new PropertyMetadata(125d));
+        public static readonly DependencyProperty LabelWidthProperty = DependencyProperty.Register("LabelWidth", typeof(double), typeof(DirectoryPickerView), new PropertyMetadata(125d));
 
         [ViewToViewModel(MappingType = ViewToViewModelMappingType.TwoWayViewWins)]
         public string LabelText

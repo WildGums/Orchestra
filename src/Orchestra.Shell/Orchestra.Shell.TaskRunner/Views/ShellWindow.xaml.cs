@@ -29,6 +29,11 @@ namespace Orchestra.Views
         #endregion
 
         #region Constructors
+        static ShellWindow()
+        {
+            typeof(ShellWindow).AutoDetectViewPropertiesToSubscribe();
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ShellWindow"/> class.
         /// </summary>
