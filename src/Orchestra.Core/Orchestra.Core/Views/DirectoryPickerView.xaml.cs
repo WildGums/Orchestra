@@ -39,7 +39,7 @@ namespace Orchestra.Views
         // Using a DependencyProperty as the backing store for LabelWidth.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LabelWidthProperty = DependencyProperty.Register("LabelWidth", typeof(double), typeof(DirectoryPickerView), new PropertyMetadata(125d));
 
-        [ViewToViewModel(MappingType = ViewToViewModelMappingType.TwoWayViewWins)]
+        [ViewToViewModel(MappingType = ViewToViewModelMappingType.TwoWayViewWins)] 
         public string LabelText
         {
             get { return (string)GetValue(LabelTextProperty); }
