@@ -8,6 +8,7 @@
 namespace Orchestra.Examples.TaskRunner.Services
 {
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using Catel.Logging;
     using Models;
@@ -23,7 +24,7 @@ namespace Orchestra.Examples.TaskRunner.Services
 
         public bool ShowCustomizeShortcutsButton { get { return true; }}
 
-        public object GetViewDataContext()
+        public async Task<object> GetViewDataContext()
         {
             return new Settings();
         }
@@ -33,7 +34,7 @@ namespace Orchestra.Examples.TaskRunner.Services
             return new SettingsView();
         }
 
-        public void Run(object dataContext)
+        public async Task Run(object dataContext)
         {
             var settings = (Settings) dataContext;
 
