@@ -21,6 +21,8 @@ namespace Orchestra.Models
         /// <param name="assembly">The assembly to use for the information. If <c>null</c>, the assembly will be determined automatically.</param>
         public AboutInfo(string logoImageSource = null, string url = null, Assembly assembly = null)
         {
+            ShowLogButton = true;
+
             LogoImageSource = logoImageSource;
             Url = url;
             Assembly = assembly ?? AssemblyHelper.GetEntryAssembly();
@@ -45,6 +47,12 @@ namespace Orchestra.Models
         /// </summary>
         /// <value>The assembly.</value>
         public Assembly Assembly { get; private set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the about should show a log button.
+        /// </summary>
+        /// <value><c>true</c> if the log button should be shown; otherwise, <c>false</c>.</value>
+        public bool ShowLogButton { get; set; }
         #endregion
     }
 }

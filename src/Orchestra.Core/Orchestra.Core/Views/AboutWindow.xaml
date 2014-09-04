@@ -4,8 +4,13 @@
 				  xmlns:catel="http://catel.codeplex.com"
                   ResizeMode="NoResize">
 
+    <Window.Resources>
+        <catel:BooleanToCollapsingVisibilityConverter x:Key="BooleanToCollapsingVisibilityConverter" />
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -30,6 +35,9 @@
         <Image Grid.Row="3" Source="{Binding ImageSourceUrl}" HorizontalAlignment="Center" Stretch="Fill" StretchDirection="Both"/>
 
         <TextBlock Grid.Row="4" FontSize="18" HorizontalAlignment="Center" Text="{Binding Copyright}" />
+        
+        <Button Grid.Row="5" HorizontalAlignment="Right" Content="Show log..." Command="{Binding OpenLog}"
+                Visibility="{Binding ShowLogButton, Converter={StaticResource BooleanToCollapsingVisibilityConverter}}"/>
     </Grid>
 
 </catel:DataWindow>

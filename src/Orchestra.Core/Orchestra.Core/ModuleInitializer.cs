@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using Catel.IoC;
+using Catel.Logging;
 using Catel.Services;
 using Catel.Services.Models;
 using Orchestra;
@@ -25,6 +26,17 @@ public static class ModuleInitializer
     /// </summary>
     public static void Initialize()
     {
+        var fileLogListener = new FileLogListener()
+        {
+            IgnoreCatelLogging = true,
+            IsDebugEnabled = false,
+            IsInfoEnabled = true,
+            IsWarningEnabled = true,
+            IsErrorEnabled = true
+        };
+
+        LogManager.AddListener(fileLogListener);
+
         var serviceLocator = ServiceLocator.Default;
 
         serviceLocator.RegisterTypeIfNotYetRegistered<IRecentlyUsedItemsService, RecentlyUsedItemsesService>();

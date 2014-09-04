@@ -34,9 +34,10 @@ namespace Orchestra.ViewModels
             Url = aboutInfo.Url;
             Copyright = assembly.Copyright();
             ImageSourceUrl = aboutInfo.LogoImageSource;
+            ShowLogButton = aboutInfo.ShowLogButton;
 
             OpenUrl = new Command(OnOpenUrlExecute);
-            EnableLogging = new Command(OnEnableLoggingExecute, OnEnableLoggingCanExecute);
+            OpenLog = new Command(OnOpenLogExecute);
         }
 
         #region Properties
@@ -49,41 +50,31 @@ namespace Orchestra.ViewModels
         public string Copyright { get; private set; }
 
         public string ImageSourceUrl { get; private set; }
+
+        public bool ShowLogButton { get; private set; }
         #endregion
 
         #region Commands
-        /// <summary>
-        /// Gets the OpenUrl command.
-        /// </summary>
         public Command OpenUrl { get; private set; }
 
-        /// <summary>
-        /// Method to invoke when the OpenUrl command is executed.
-        /// </summary>
         private void OnOpenUrlExecute()
         {
             _processService.StartProcess(Url);
         }
 
-        /// <summary>
-        /// Gets the EnableLogging command.
-        /// </summary>
-        public Command EnableLogging { get; private set; }
+        public Command OpenLog { get; private set; }
 
-        /// <summary>
-        /// Method to check whether the EnableLogging command can be executed.
-        /// </summary>
-        private bool OnEnableLoggingCanExecute()
+        private void OnOpenLogExecute()
         {
-            return !LogManager.GetListeners().Any(x => x is FileLogListener);
-        }
+            var fileLogListener = (from logListener in LogManager.GetListeners()
+                                   where logListener is FileLogListener
+                                   select logListener).FirstOrDefault();
+            if (fileLogListener != null)
+            {
+                var filePath = ((FileLogListener) fileLogListener).FilePath;
 
-        /// <summary>
-        /// Method to invoke when the EnableLogging command is executed.
-        /// </summary>
-        private void OnEnableLoggingExecute()
-        {
-            LogHelper.AddFileLogListener();
+                _processService.StartProcess(filePath);
+            }
         }
         #endregion
     }
