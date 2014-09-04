@@ -28,7 +28,7 @@ namespace Orchestra.Windows
 
         private event EventHandler<EventArgs> _viewLoaded;
         private event EventHandler<EventArgs> _viewUnloaded;
-        private event EventHandler<EventArgs> _viewDataContextChanged;
+        private event EventHandler<DataContextChangedEventArgs> _viewDataContextChanged;
 
         private readonly Collection<DataWindowButton> _buttons = new Collection<DataWindowButton>();
         #endregion
@@ -66,7 +66,7 @@ namespace Orchestra.Windows
 
             Loaded += (sender, e) => _viewLoaded.SafeInvoke(this);
             Unloaded += (sender, e) => _viewUnloaded.SafeInvoke(this);
-            DataContextChanged += (sender, e) => _viewDataContextChanged.SafeInvoke(this);
+            DataContextChanged += (sender, e) => _viewDataContextChanged.SafeInvoke(this, new DataContextChangedEventArgs(e.OldValue, e.NewValue));
 
             if (additionalButtons != null)
             {
@@ -288,7 +288,7 @@ namespace Orchestra.Windows
         /// <summary>
         /// Occurs when the data context has changed.
         /// </summary>
-        event EventHandler<EventArgs> IView.DataContextChanged
+        event EventHandler<DataContextChangedEventArgs> IView.DataContextChanged
         {
             add { _viewDataContextChanged += value; }
             remove { _viewDataContextChanged -= value; }
