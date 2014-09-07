@@ -49,7 +49,7 @@ namespace Orchestra
         /// <exception cref="ArgumentNullException">The <paramref name="assembly" /> is <c>null</c>.</exception>
         public static void EnsureApplicationThemes(Assembly assembly, bool createStyleForwarders = false)
         {
-            Argument.IsNotNull("assembly", assembly);
+            Argument.IsNotNull(() => assembly);
 
             var uri = string.Format("/{0};component/themes/generic.xaml", assembly.GetName().Name);
             
@@ -64,7 +64,7 @@ namespace Orchestra
         /// <exception cref="ArgumentNullException">The <paramref name="resourceDictionaryUri" /> is <c>null</c> or whitespace.</exception>
         public static void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false)
         {
-            Argument.IsNotNullOrWhitespace("resourceDictionaryUri", resourceDictionaryUri);
+            Argument.IsNotNullOrWhitespace(() => resourceDictionaryUri);
 
             EnsureOrchestraTheme();
 

@@ -34,7 +34,7 @@ namespace Orchestra.Services
 
         public void AddHint<TControlType>(IHint hint)
         {
-            Argument.IsNotNull("hint", hint);
+            Argument.IsNotNull(() => hint);
 
             var type = typeof(TControlType);
             if (!_hints.ContainsKey(type))

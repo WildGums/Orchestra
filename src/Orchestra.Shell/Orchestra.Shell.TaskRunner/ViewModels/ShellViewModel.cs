@@ -26,8 +26,8 @@ namespace Orchestra.ViewModels
 
         public ShellViewModel(ITaskRunnerService taskRunnerService, ICommandManager commandManager)
         {
-            Argument.IsNotNull("taskRunnerService", taskRunnerService);
-            Argument.IsNotNull("commandManager", commandManager);
+            Argument.IsNotNull(() => taskRunnerService);
+            Argument.IsNotNull(() => commandManager);
 
             _taskRunnerService = taskRunnerService;
             _commandManager = commandManager;

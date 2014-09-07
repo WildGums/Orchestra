@@ -24,7 +24,7 @@ namespace Orchestra
 
         public static void AddAboutButton(this Ribbon ribbon)
         {
-            Argument.IsNotNull("ribbon", ribbon);
+            Argument.IsNotNull(() => ribbon);
 
             Log.Debug("Adding about button to ribbon");
 
@@ -47,7 +47,7 @@ namespace Orchestra
 
         public static void AddMinimizeAndMaximizeButtons(this Ribbon ribbon)
         {
-            Argument.IsNotNull("ribbon", ribbon);
+            Argument.IsNotNull(() => ribbon);
 
             Log.Debug("Adding minimize and maximize buttons to ribbon");
 

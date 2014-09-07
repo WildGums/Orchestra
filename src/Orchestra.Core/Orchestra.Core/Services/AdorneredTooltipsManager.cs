@@ -87,8 +87,8 @@ namespace Orchestra.Services
         #region Methods
         private UIElement FindElement(FrameworkElement element, IHint hint)
         {
-            Argument.IsNotNull("userControl", element);
-            Argument.IsNotNull("hint", hint);
+            Argument.IsNotNull(() => element);
+            Argument.IsNotNull(() => hint);
 
             var dependencyObject = (DependencyObject) element;
 

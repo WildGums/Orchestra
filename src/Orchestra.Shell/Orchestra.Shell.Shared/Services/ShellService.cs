@@ -46,10 +46,10 @@ namespace Orchestra.Services
         public ShellService(ITypeFactory typeFactory, ICommandManager commandManager, IKeyboardMappingsService keyboardMappingsService,
             ISplashScreenService splashScreenService)
         {
-            Argument.IsNotNull("typeFactory", typeFactory);
-            Argument.IsNotNull("commandManager", commandManager);
-            Argument.IsNotNull("keyboardMappingsService", keyboardMappingsService);
-            Argument.IsNotNull("splashScreenService", splashScreenService);
+            Argument.IsNotNull(() => typeFactory);
+            Argument.IsNotNull(() => commandManager);
+            Argument.IsNotNull(() => keyboardMappingsService);
+            Argument.IsNotNull(() => splashScreenService);
 
             _typeFactory = typeFactory;
             _commandManager = commandManager;

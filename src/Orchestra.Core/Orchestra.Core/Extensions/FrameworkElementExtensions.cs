@@ -17,7 +17,7 @@ namespace Orchestra
         public static TBehavior ApplyBehavior<TBehavior>(this DependencyObject dependencyObject)
             where TBehavior : Behavior
         {
-            Argument.IsNotNull("dependencyObject", dependencyObject);
+            Argument.IsNotNull(() => dependencyObject);
 
             var behaviors = Interaction.GetBehaviors(dependencyObject);
 

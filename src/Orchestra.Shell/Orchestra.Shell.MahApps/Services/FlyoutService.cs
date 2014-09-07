@@ -48,8 +48,8 @@ namespace FallDownMatrixManager.Services
 
         public void AddFlyout(string name, Type viewType, Position position, UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel)
         {
-            Argument.IsNotNullOrWhitespace("name", name);
-            Argument.IsNotNull("viewType", viewType);
+            Argument.IsNotNullOrWhitespace(() => name);
+            Argument.IsNotNull(() => viewType);
 
             Log.Info("Adding flyout '{0}' with view type '{1}'", name, viewType.FullName);
 
@@ -105,7 +105,7 @@ namespace FallDownMatrixManager.Services
 
         public void ShowFlyout(string name, object dataContext)
         {
-            Argument.IsNotNullOrWhitespace("name", name);
+            Argument.IsNotNullOrWhitespace(() => name);
 
             if (!_flyouts.ContainsKey(name))
             {
@@ -129,7 +129,7 @@ namespace FallDownMatrixManager.Services
 
         public void HideFlyout(string name)
         {
-            Argument.IsNotNullOrWhitespace("name", name);
+            Argument.IsNotNullOrWhitespace(() => name);
 
             if (!_flyouts.ContainsKey(name))
             {

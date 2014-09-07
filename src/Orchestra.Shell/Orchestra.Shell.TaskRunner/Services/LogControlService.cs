@@ -19,7 +19,7 @@ namespace Orchestra.Services
         #region Constructors
         public LogControlService(TraceOutputControl traceOutputControl)
         {
-            Argument.IsNotNull("traceOutputControl", traceOutputControl);
+            Argument.IsNotNull(() => traceOutputControl);
 
             _traceOutputControl = traceOutputControl;
             _traceOutputControl.Dispatcher.BeginInvoke(() =>
