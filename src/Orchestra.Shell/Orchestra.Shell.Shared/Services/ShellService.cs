@@ -82,9 +82,7 @@ namespace Orchestra.Services
             var splashScreen = _splashScreenService.CreateSplashScreen();
             splashScreen.Show();
 
-            var shell = await Create<TShell>(preInitialize, initializeCommands, postInitialize);
-
-            splashScreen.Close();
+            var shell = await CreateShellInternal<TShell>(preInitialize, initializeCommands, postInitialize, splashScreen.Close);
 
             return shell;
         }
@@ -99,6 +97,23 @@ namespace Orchestra.Services
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
         public async Task<TShell> Create<TShell>(Func<Task> preInitialize = null, Func<ICommandManager, Task> initializeCommands = null, Func<Task> postInitialize = null)
+            where TShell : IShell
+        {
+            return await CreateShellInternal<TShell>(preInitialize, initializeCommands, postInitialize, null);
+        }
+
+        /// <summary>
+        /// Creates a new shell.
+        /// </summary>
+        /// <typeparam name="TShell">The type of the shell.</typeparam>
+        /// <param name="preInitialize">The pre initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
+        /// <param name="initializeCommands">The initialize commands handler. If <c>null</c>, no commands will be initialized.</param>
+        /// <param name="postInitialize">The post initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
+        /// <param name="postShowShellCallback">The shell created callback.</param>
+        /// <returns>The created shell.</returns>
+        /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
+        private async Task<TShell> CreateShellInternal<TShell>(Func<Task> preInitialize = null, Func<ICommandManager, Task> initializeCommands = null,
+            Func<Task> postInitialize = null, Action postShowShellCallback = null)
             where TShell : IShell
         {
             if (Shell != null)
@@ -149,6 +164,11 @@ namespace Orchestra.Services
             }
 
             shell.Show();
+
+            if (postShowShellCallback != null)
+            {
+                postShowShellCallback();
+            }
 
             return shell;
         }
