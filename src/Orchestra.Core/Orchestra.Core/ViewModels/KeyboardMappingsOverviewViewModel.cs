@@ -10,6 +10,7 @@ namespace Orchestra.ViewModels
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Threading.Tasks;
     using Catel;
     using Catel.MVVM;
     using Catel.Reflection;
@@ -84,7 +85,7 @@ namespace Orchestra.ViewModels
         }
         #endregion
 
-        protected override void Initialize()
+        protected override async Task Initialize()
         {
             Title = string.Format(_languageService.GetString("ShortcutsForApplication"), AssemblyHelper.GetEntryAssembly().Title());
 
