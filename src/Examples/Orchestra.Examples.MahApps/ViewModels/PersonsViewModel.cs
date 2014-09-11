@@ -9,6 +9,7 @@ namespace Orchestra.Examples.MahApps.ViewModels
 {
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
@@ -115,9 +116,9 @@ namespace Orchestra.Examples.MahApps.ViewModels
         #endregion
 
         #region Methods
-        protected override void Initialize()
+        protected override async Task Initialize()
         {
-            base.Initialize();
+            await base.Initialize();
 
             SelectedPerson = Persons.FirstOrDefault();
         }
