@@ -17,7 +17,7 @@
         <ItemsControl Grid.Row="1" ItemsSource="{Binding KeyboardMappings}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
+                    <WrapPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 

@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="KeyboardMappingControl.xaml.cs" company="Orchestra development team">
+//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 
 namespace Orchestra.Controls
 {
+    using System.Windows.Controls;
+
     /// <summary>
     /// Interaction logic for KeyboardMappingControl.xaml
     /// </summary>
     public partial class KeyboardMappingControl : UserControl
     {
+        #region Constructors
         public KeyboardMappingControl()
         {
             InitializeComponent();
         }
+        #endregion
     }
 }
