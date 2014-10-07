@@ -4,6 +4,9 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+
+using System;
+using System.IO;
 using Catel.IoC;
 using Catel.Logging;
 using Catel.Services;
@@ -26,16 +29,7 @@ public static class ModuleInitializer
     /// </summary>
     public static void Initialize()
     {
-        var fileLogListener = new FileLogListener()
-        {
-            IgnoreCatelLogging = true,
-            IsDebugEnabled = false,
-            IsInfoEnabled = true,
-            IsWarningEnabled = true,
-            IsErrorEnabled = true
-        };
-
-        LogManager.AddListener(fileLogListener);
+        InitializeLogging();
 
         var serviceLocator = ServiceLocator.Default;
 
@@ -63,9 +57,9 @@ public static class ModuleInitializer
         //uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
         //uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
 
-        if (!uiVisualizerService.IsRegistered(typeof (KeyboardMappingsCustomizationViewModel)))
+        if (!uiVisualizerService.IsRegistered(typeof(KeyboardMappingsCustomizationViewModel)))
         {
-            uiVisualizerService.Register(typeof(KeyboardMappingsCustomizationViewModel).FullName, typeof(KeyboardMappingsCustomizationWindow));    
+            uiVisualizerService.Register(typeof(KeyboardMappingsCustomizationViewModel).FullName, typeof(KeyboardMappingsCustomizationWindow));
         }
 
         if (!uiVisualizerService.IsRegistered(typeof(KeyboardMappingsOverviewViewModel)))
@@ -78,5 +72,41 @@ public static class ModuleInitializer
         languageService.RegisterLanguageSource(new LanguageResourceSource("Orchestra.Core", "Orchestra.Properties", "Resources"));
 
         DotNetPatchHelper.Initialize();
+    }
+
+    private static void InitializeLogging()
+    {
+        // Delete all log files older than 1 week
+        try
+        {
+            var applicationDataDirectory = Catel.IO.Path.GetApplicationDataDirectory();
+            if (Directory.Exists(applicationDataDirectory))
+            {
+                var logFiles = Directory.GetFiles(applicationDataDirectory, "*.log");
+                foreach (var logFile in logFiles)
+                {
+                    var lastWriteTime = File.GetLastWriteTime(logFile);
+                    if (lastWriteTime < DateTime.Now.AddDays(-7))
+                    {
+                        File.Delete(logFile);
+                    }
+                }
+            }
+        }
+        catch (Exception)
+        {
+            // Ignore
+        }
+
+        var fileLogListener = new FileLogListener()
+        {
+            IgnoreCatelLogging = true,
+            IsDebugEnabled = false,
+            IsInfoEnabled = true,
+            IsWarningEnabled = true,
+            IsErrorEnabled = true
+        };
+
+        LogManager.AddListener(fileLogListener);
     }
 }
