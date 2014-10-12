@@ -12,7 +12,7 @@ namespace Orchestra.Services
     using Catel.MVVM;
     using Views;
 
-    public interface IShellService
+    public partial interface IShellService
     {
         /// <summary>
         /// Gets the shell.

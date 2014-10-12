@@ -22,5 +22,10 @@ namespace Orchestra.Examples.Ribbon.Services
         {
             return new MainView();
         }
+
+        public FrameworkElement GetStatusBar()
+        {
+            return new StatusBarView();
+        }
     }
 }

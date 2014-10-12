@@ -1,20 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IRibbonService.cs" company="Orchestra development team">
+// <copyright file="IShellService.cs" company="Orchestra development team">
 //   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace Orchestra.Shell.Services
+namespace Orchestra.Services
 {
-    using System.Windows;
-
-    public interface IRibbonService
+    public partial interface IShellService
     {
-        FrameworkElement GetRibbon();
-
-        FrameworkElement GetMainView();
-
-        FrameworkElement GetStatusBar();
     }
 }

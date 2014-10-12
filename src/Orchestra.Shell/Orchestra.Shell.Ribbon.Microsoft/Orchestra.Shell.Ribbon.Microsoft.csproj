@@ -123,6 +123,8 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\Interfaces\IShellService.cs" />
+    <Compile Include="Services\ShellService.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\ShellWindow.xaml.cs">
       <DependentUpon>ShellWindow.xaml</DependentUpon>
@@ -144,7 +146,6 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Models\" />
-    <Folder Include="Services\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\about.png" />

@@ -8,18 +8,22 @@
     <DockPanel LastChildFill="True">
 
         <StatusBar x:Name="statusBar" DockPanel.Dock="Bottom">
-            <orchestra:AnimatingTextBlock x:Name="statusTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center">
-                <orchestra:AnimatingTextBlock.ShowStoryboard>
-                    <Storyboard>
-                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2"/>
-                    </Storyboard>
-                </orchestra:AnimatingTextBlock.ShowStoryboard>
-                <orchestra:AnimatingTextBlock.HideStoryboard>
-                    <Storyboard>
-                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.2"/>
-                    </Storyboard>
-                </orchestra:AnimatingTextBlock.HideStoryboard>
-            </orchestra:AnimatingTextBlock>
+            <StatusBarItem>
+                <orchestra:AnimatingTextBlock x:Name="statusTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <orchestra:AnimatingTextBlock.ShowStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </orchestra:AnimatingTextBlock.ShowStoryboard>
+                    <orchestra:AnimatingTextBlock.HideStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </orchestra:AnimatingTextBlock.HideStoryboard>
+                </orchestra:AnimatingTextBlock>
+            </StatusBarItem>
+            
+            <StatusBarItem x:Name="customStatusBarItem" HorizontalAlignment="Right" />
         </StatusBar>
 
         <Grid>
@@ -36,5 +40,5 @@
             <ContentPresenter Grid.Row="1" x:Name="contentPresenter" />
         </Grid>
     </DockPanel>
-    
+
 </windows:RibbonWindow>

@@ -17,7 +17,7 @@ namespace Orchestra.Services
     using Catel.Reflection;
     using Views;
 
-    public class ShellService : IShellService
+    public partial class ShellService : IShellService
     {
         #region Fields
         /// <summary>

@@ -7,6 +7,7 @@
 
 namespace Orchestra.Views
 {
+    using System.Windows.Controls;
     using Catel.IoC;
     using Services;
     using Shell.Services;
@@ -36,6 +37,12 @@ namespace Orchestra.Views
             if (ribbonContent != null)
             {
                 ribbonContentPresenter.Content = ribbonContent;
+            }
+
+            var statusBarContent = ribbonService.GetStatusBar();
+            if (statusBarContent != null)
+            {
+                customStatusBarItem.Content = statusBarContent;
             }
 
             contentPresenter.Content = ribbonService.GetMainView();
