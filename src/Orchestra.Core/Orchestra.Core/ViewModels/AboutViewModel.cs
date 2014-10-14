@@ -29,8 +29,14 @@ namespace Orchestra.ViewModels
 
             var assembly = aboutInfo.Assembly;
 
+            var version = assembly.InformationalVersion();
+            if (string.IsNullOrWhiteSpace(version))
+            {
+                version = assembly.Version();
+            }
+
             Title = assembly.Title();
-            Version = string.Format("v {0}", assembly.Version());
+            Version = string.Format("v {0}", version);
             Url = aboutInfo.Url;
             Copyright = assembly.Copyright();
             ImageSourceUrl = aboutInfo.LogoImageSource;
