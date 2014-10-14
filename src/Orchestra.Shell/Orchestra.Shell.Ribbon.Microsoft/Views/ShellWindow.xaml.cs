@@ -7,7 +7,6 @@
 
 namespace Orchestra.Views
 {
-    using System.Windows.Controls;
     using Catel.IoC;
     using Services;
     using Shell.Services;

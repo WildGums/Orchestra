@@ -3,4 +3,9 @@
   <ModuleInit/>
   <LoadAssembliesOnStartup/>
   <Catel/>
+  <Costura>
+    <IncludeAssemblies>
+      Ionic.Zip
+    </IncludeAssemblies>
+  </Costura>
 </Weavers>

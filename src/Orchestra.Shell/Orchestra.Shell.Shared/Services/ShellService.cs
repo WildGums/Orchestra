@@ -29,6 +29,7 @@ namespace Orchestra.Services
         private readonly ICommandManager _commandManager;
         private readonly IKeyboardMappingsService _keyboardMappingsService;
         private readonly ISplashScreenService _splashScreenService;
+        private readonly IEnsureStartupService _ensureStartupService;
         #endregion
 
         #region Constructors
@@ -39,22 +40,25 @@ namespace Orchestra.Services
         /// <param name="commandManager">The command manager.</param>
         /// <param name="keyboardMappingsService">The keyboard mappings service.</param>
         /// <param name="splashScreenService"></param>
+        /// <param name="ensureStartupService"></param>
         /// <exception cref="ArgumentNullException">The <paramref name="typeFactory" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="commandManager" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="keyboardMappingsService" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="splashScreenService" /> is <c>null</c>.</exception>
         public ShellService(ITypeFactory typeFactory, ICommandManager commandManager, IKeyboardMappingsService keyboardMappingsService,
-            ISplashScreenService splashScreenService)
+            ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService)
         {
             Argument.IsNotNull(() => typeFactory);
             Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => keyboardMappingsService);
             Argument.IsNotNull(() => splashScreenService);
+            Argument.IsNotNull(() => ensureStartupService);
 
             _typeFactory = typeFactory;
             _commandManager = commandManager;
             _keyboardMappingsService = keyboardMappingsService;
             _splashScreenService = splashScreenService;
+            _ensureStartupService = ensureStartupService;
         }
         #endregion
 
@@ -121,6 +125,10 @@ namespace Orchestra.Services
                 Log.ErrorAndThrowException<OrchestraException>("The shell is already created and cannot be created again");
             }
 
+            Log.Info("Checking if software was correctly closed previously");
+
+            await _ensureStartupService.EnsureFailSafeStartup();
+
             if (preInitialize != null)
             {
                 Log.Debug("Calling pre initialize");
@@ -162,6 +170,10 @@ namespace Orchestra.Services
 
                 await postInitialize();
             }
+
+            Log.Info("Confirming that application was started successfully");
+
+            _ensureStartupService.ConfirmApplicationStartedSuccessfully();
 
             shell.Show();
 

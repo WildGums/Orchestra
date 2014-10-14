@@ -13,7 +13,6 @@ namespace Orchestra.ViewModels
     using Catel.MVVM;
     using Catel.Services;
     using Catel.Reflection;
-    using Orchestra;
     using Models;
 
     public class AboutViewModel : ViewModelBase
