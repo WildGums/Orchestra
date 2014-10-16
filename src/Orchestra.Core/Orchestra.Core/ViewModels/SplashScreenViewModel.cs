@@ -25,6 +25,7 @@ namespace Orchestra.ViewModels
             {
                 Title = assembly.Title();
                 Company = assembly.Company();
+                Version = VersionHelper.GetCurrentVersion(assembly);
             }
         }
 
@@ -33,5 +34,11 @@ namespace Orchestra.ViewModels
         /// </summary>
         /// <value>The company.</value>
         public string Company { get; private set; }
+
+        /// <summary>
+        /// Gets the version.
+        /// </summary>
+        /// <value>The version.</value>
+        public string Version { get; private set; }
     }
 }

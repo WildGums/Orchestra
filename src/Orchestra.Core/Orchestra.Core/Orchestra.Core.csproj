@@ -119,6 +119,7 @@
     <Compile Include="Helpers\DotNetPatchHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
+    <Compile Include="Helpers\VersionHelper.cs" />
     <Compile Include="Layers\HintsAdornerLayer.cs" />
     <Compile Include="Layers\Interfaces\IAdornerLayer.cs" />
     <Compile Include="Logging\RichTextBoxLogListener.cs" />

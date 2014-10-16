@@ -27,12 +27,7 @@ namespace Orchestra.ViewModels
             _processService = processService;
 
             var assembly = aboutInfo.Assembly;
-
-            var version = assembly.InformationalVersion();
-            if (string.IsNullOrWhiteSpace(version))
-            {
-                version = assembly.Version();
-            }
+            var version = VersionHelper.GetCurrentVersion(assembly);
 
             Title = assembly.Title();
             Version = string.Format("v {0}", version);
