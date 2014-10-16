@@ -27,7 +27,7 @@
         <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Version, StringFormat=Starting v{0}}" Foreground="White" Margin="6" HorizontalAlignment="Left" Style="{x:Null}" />
         <TextBlock Grid.Row="3" Grid.Column="1" Margin="6" HorizontalAlignment="Right" Style="{x:Null}">
             <Hyperlink Command="{Binding OpenUrl}" TextDecorations="None">
-                <TextBlock Text="{Binding Company, StringFormat=Powered by {0}}" Foreground="White" Style="{x:Null}" />
+                <TextBlock Text="{Binding Company, StringFormat=Produced by {0}}" Foreground="White" Style="{x:Null}" />
             </Hyperlink>
         </TextBlock>
     </Grid>
