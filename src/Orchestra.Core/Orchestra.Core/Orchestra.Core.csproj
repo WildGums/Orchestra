@@ -117,6 +117,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\AssemblyHelper.cs" />
     <Compile Include="Helpers\DotNetPatchHelper.cs" />
+    <Compile Include="Helpers\FilterHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\VersionHelper.cs" />
@@ -144,12 +145,14 @@
     <Compile Include="Services\AboutService.cs" />
     <Compile Include="Services\AdorneredTooltipsManager.cs" />
     <Compile Include="Services\AdorneredTooltipsManagerFactory.cs" />
+    <Compile Include="Services\AppDataService.cs" />
     <Compile Include="Services\EnsureStartupService.cs" />
     <Compile Include="Services\HintsProvider.cs" />
     <Compile Include="Services\Interfaces\IAboutInfoService.cs" />
     <Compile Include="Services\Interfaces\IAboutService.cs" />
     <Compile Include="Services\Interfaces\IAdorneredTooltipsManager.cs" />
     <Compile Include="Services\Interfaces\IAdorneredTooltipsManagerFactory.cs" />
+    <Compile Include="Services\Interfaces\IAppDataService.cs" />
     <Compile Include="Services\Interfaces\IEnsureStartupService.cs" />
     <Compile Include="Services\Interfaces\IHintsProvider.cs" />
     <Compile Include="Services\Interfaces\IKeyboardMappingsService.cs" />
