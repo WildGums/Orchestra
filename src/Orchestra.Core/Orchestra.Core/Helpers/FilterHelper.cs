@@ -20,7 +20,7 @@ namespace Orchestra
 
             foreach (var filter in filters)
             {
-                var mask = new Regex(filter.Replace(".", "[.]").Replace("*", ".*").Replace("?", "."));
+                var mask = new Regex(filter.Replace(".", "[.]").Replace("*", ".*").Replace("?", "."), RegexOptions.IgnoreCase);
                 if (mask.IsMatch(fileName))
                 {
                     return true;

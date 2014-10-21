@@ -17,6 +17,7 @@ namespace Orchestra.Test
             [TestCase("mytest.log", true)]
             [TestCase("subdirectory\\test.log", true)]
             [TestCase("licenseinfo.xml", true)]
+            [TestCase("LicenseInfo.xml", true)]
             [TestCase("license.xml", false)]
             [TestCase("license\\info.xml", false)]
             public void TheMatchesFilter(string file, bool expectedValue)
