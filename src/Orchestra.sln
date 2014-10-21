@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "csharp", "csharp", "{B6E7F6
 		..\templates\C#\Orchestra.Shell.zip = ..\templates\C#\Orchestra.Shell.zip
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Test", "Orchestra.Test", "{250CAB0E-A7F8-495B-B090-DB0AF1D51514}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Tests", "Orchestra.Tests", "{250CAB0E-A7F8-495B-B090-DB0AF1D51514}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{CE6EC57D-278D-425F-B5C8-8FE0C5DCA810}"
 EndProject
@@ -58,7 +58,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Shell", "Orchestr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Core", "Orchestra.Core\Orchestra.Core\Orchestra.Core.csproj", "{805E1F16-7A10-42A2-82BA-5012412144BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Test", "Orchestra.Test\Orchestra.Test\Orchestra.Test.csproj", "{96F837EA-C848-4AA4-AF9D-6FA1B370506F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Tests", "Orchestra.Tests\Orchestra.Tests\Orchestra.Tests.csproj", "{96F837EA-C848-4AA4-AF9D-6FA1B370506F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{DBEB5ED3-4622-408E-92D9-EC60F316A5C9}"
 EndProject

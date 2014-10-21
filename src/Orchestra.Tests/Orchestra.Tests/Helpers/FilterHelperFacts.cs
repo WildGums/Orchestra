@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace Orchestra.Test
+namespace Orchestra.Tests
 {
     using NUnit.Framework;
 
