@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fluent="urn:fluent-ribbon">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Office2013/generic.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <SolidColorBrush x:Key="AccentColorBrush" Color="#FFFF6A00" />
+
+    <!--  This "override" is needed to change the ribbon theme color, do not remove!  -->
+    <Color x:Key="{x:Static fluent:MetroColors.ThemeColorKey}">#FFFF6A00</Color>
+
+</ResourceDictionary>

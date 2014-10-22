@@ -49,6 +49,9 @@
     <Reference Include="Catel.MVVM">
       <HintPath>..\..\..\lib\Catel.MVVM.4.0.0-unstable0525\lib\net40\Catel.MVVM.dll</HintPath>
     </Reference>
+    <Reference Include="Fluent">
+      <HintPath>..\..\..\lib\Fluent.Ribbon.3.0.0\lib\net40\Fluent.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\..\..\lib\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
@@ -57,6 +60,10 @@
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
       <HintPath>..\..\..\lib\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.0.1.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Fluent.Ribbon.3.0.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -73,7 +80,7 @@
       <HintPath>..\..\..\lib\Microsoft.Bcl.1.1.9\lib\net40\System.Threading.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\lib\Catel.MVVM.4.0.0-unstable0525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\lib\Fluent.Ribbon.3.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -89,6 +96,13 @@
     </Compile>
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\IShellService.cs" />
+    <Compile Include="Services\ShellService.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\ShellWindow.xaml.cs">
+      <DependentUpon>ShellWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RibbonWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -96,12 +110,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
+    <Resource Include="Resources\Images\minimize.png" />
+    <Resource Include="Resources\Images\maximize.png" />
+    <Resource Include="Resources\Images\about.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Orchestra.Core\Orchestra.Core\Orchestra.Core.csproj">
       <Project>{805e1f16-7a10-42a2-82ba-5012412144bb}</Project>
       <Name>Orchestra.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ShellWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="..\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems')" />
   <Import Project="..\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems')" />
