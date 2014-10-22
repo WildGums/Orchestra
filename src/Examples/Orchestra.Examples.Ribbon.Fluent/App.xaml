@@ -1,8 +1,15 @@
-﻿<Application x:Class="Orchestra.Examples.Ribbon.Fluent.App"
+﻿<Application x:Class="Orchestra.Examples.Ribbon.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Orchestra.Core;component/themes/generic.xaml" />
+                <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic.xaml" />
+                <ResourceDictionary Source="/Orchestra.Shell.Ribbon.Fluent;component/themes/generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="AccentColorBrush" Color="DarkRed" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

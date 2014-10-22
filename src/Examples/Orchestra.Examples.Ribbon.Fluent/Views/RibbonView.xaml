@@ -1,0 +1,36 @@
+﻿<catel:UserControl x:Class="Orchestra.Examples.Ribbon.Views.RibbonView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:catel="http://catel.codeplex.com"
+                   xmlns:views="clr-namespace:Orchestra.Views;assembly=Orchestra.Core"
+                   xmlns:fluent="urn:fluent-ribbon">
+
+    <fluent:Ribbon x:Name="ribbon" Title="{Binding Title}">
+
+        <fluent:Ribbon.Menu>
+            <fluent:Backstage Header="File">
+                <fluent:BackstageTabControl>
+                    <fluent:Button Header="Exit" Command="{catel:CommandManagerBinding File.Exit}"/>
+                </fluent:BackstageTabControl>
+            </fluent:Backstage>
+        </fluent:Ribbon.Menu>
+
+        <fluent:Ribbon.Tabs>
+            <fluent:RibbonTabItem Header="View">
+
+                <fluent:RibbonGroupBox Header="Workspace">
+                    <fluent:Button Header="Refresh" LargeIcon="/Resources/Images/refresh.png" 
+                                   Command="{Binding RefreshWorkspace}" />
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox Header="Keyboard">
+                    <fluent:SplitButton Header="Shortcuts" LargeIcon="/Resources/Images/keyboard.png"
+                                        Command="{Binding ShowKeyboardMappings}" IsCheckable="False">
+                        <views:KeyboardMappingsOverviewView />
+                    </fluent:SplitButton>
+                </fluent:RibbonGroupBox>
+
+            </fluent:RibbonTabItem>
+        </fluent:Ribbon.Tabs>
+    </fluent:Ribbon>
+</catel:UserControl>
