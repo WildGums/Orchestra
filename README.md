@@ -12,12 +12,12 @@ Some of the features which will come out of the box:
 
 - [x] [MahApps](http://mahapps.com/) integration
 - [ ] Module management
-- [ ] License management
+- [x] License management => Orc.LicenseManager
 - [x] Command management
 - [x] Shortcut manager (which will allow end users to remap shortcut keys)
 - [x] Splash screen customization
 - [x] About box window
-- [ ] Automatic updates
+- [x] Automatic updates => Orc.Squirrel
 
 Features already included in [Catel](https://catelproject.atlassian.net/wiki/display/CTL/Catel+documentation+Home):
 - [x] Application wide logging
@@ -42,7 +42,7 @@ Open source (MS-PL license), so you are free to use it in commercial application
 
 Orchestra uses a plugin architecture with some already well know open source libraries already implemented:
 
-- [Catel](http://Catel.Codeplex.com) (MVVM framework plut a lot more)
+- [Catel](http://Catel.Codeplex.com) (MVVM framework plus a lot more)
 - [Fluent Ribbon](http://fluent.codeplex.com/)
 - [Prism](http://compositewpf.codeplex.com/)
 - [Nancy](http://www.nancyfx.org) (Lightweight Web Framework for .NET)
