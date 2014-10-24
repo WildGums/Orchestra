@@ -9,6 +9,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
 {
     using Catel;
     using Catel.MVVM;
+    using Catel.Reflection;
     using Catel.Services;
     using Models;
     using Orchestra.ViewModels;
@@ -34,6 +35,9 @@ namespace Orchestra.Examples.Ribbon.ViewModels
 
             commandManager.RegisterCommand("Help.About", Help, this);
             commandManager.RegisterCommand("File.Exit", Exit, this);
+
+            var assembly = AssemblyHelper.GetEntryAssembly();
+            Title = assembly.Title();
         }
 
         #region Commands

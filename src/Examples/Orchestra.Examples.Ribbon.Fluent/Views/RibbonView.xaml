@@ -9,7 +9,7 @@
 
         <fluent:Ribbon.Menu>
             <fluent:Backstage Header="File">
-                <fluent:BackstageTabControl>
+                <fluent:BackstageTabControl >
                     <fluent:Button Header="Exit" Command="{catel:CommandManagerBinding File.Exit}"/>
                 </fluent:BackstageTabControl>
             </fluent:Backstage>

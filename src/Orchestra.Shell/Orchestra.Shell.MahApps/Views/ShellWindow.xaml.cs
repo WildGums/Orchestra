@@ -31,9 +31,9 @@ namespace Orchestra.Views
 
             ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
 
-            var accentColorBrush = ThemeHelper.GetAccentColorBrush();
-            MahAppsHelper.SetThemeColor(accentColorBrush.Color);
+            MahAppsHelper.ApplyTheme();
 
+            var accentColorBrush = ThemeHelper.GetAccentColorBrush();
             border.BorderBrush = accentColorBrush;
 
             var serviceLocator = ServiceLocator.Default;

@@ -7,7 +7,11 @@
 
 namespace Orchestra.Views
 {
+    using System.Net.Mime;
+    using System.Windows;
+    using System.Windows.Media;
     using Catel.IoC;
+    using Fluent;
     using Services;
     using Shell.Services;
 
@@ -24,6 +28,11 @@ namespace Orchestra.Views
             InitializeComponent();
 
             ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
+
+            // Required for Fluent accent color
+            var accentColor = ThemeHelper.GetAccentColor();
+            var applicationResources = Application.Current.Resources;
+            applicationResources.Add(MetroColors.ThemeColorKey, accentColor);
 
             var serviceLocator = ServiceLocator.Default;
             var statusService = serviceLocator.ResolveType<IStatusService>();

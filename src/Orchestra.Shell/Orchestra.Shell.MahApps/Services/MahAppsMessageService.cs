@@ -23,7 +23,11 @@ namespace Orchestra.Services
 
         protected override async Task<MessageResult> ShowMessageBox(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
         {
-            var window = (MetroWindow)Application.Current.MainWindow;
+            var window = Application.Current.MainWindow as MetroWindow;
+            if (window == null)
+            {
+                return MessageResult.Cancel;
+            }
 
             var style = MessageDialogStyle.Affirmative;
             var affirmativeResult = MessageResult.OK;

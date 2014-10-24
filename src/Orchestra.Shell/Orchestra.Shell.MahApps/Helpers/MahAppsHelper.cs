@@ -9,7 +9,6 @@ namespace Orchestra
 {
     using System.Linq;
     using System.Windows;
-    using System.Windows.Media;
     using Catel.Logging;
     using MahApps.Metro;
 
@@ -21,11 +20,8 @@ namespace Orchestra
         /// Sets the theme color of the application. This method dynamically creates an in-memory resource
         /// dictionary containing the accent colors used by MahApps.
         /// </summary>
-        /// <param name="color">The color.</param>
-        public static void SetThemeColor(Color color)
+        public static void ApplyTheme()
         {
-            Log.Info("Setting theme to '{0}'", color.ToString());
-
             //<Color x:Key="HighlightColor">
             //    #800080
             //</Color>
@@ -61,43 +57,14 @@ namespace Orchestra
             //</Color>
             //<SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{StaticResource IdealForegroundColor}" />
 
-            Log.Debug("Creating runtime accent resource dictionary");
-
-            var resourceDictionary = new ResourceDictionary();
-
-            resourceDictionary.Add("HighlightColor", color);
-            resourceDictionary.Add("AccentColor", Color.FromArgb(204, color.R, color.G, color.B));
-            resourceDictionary.Add("AccentColor2", Color.FromArgb(153, color.R, color.G, color.B));
-            resourceDictionary.Add("AccentColor3", Color.FromArgb(102, color.R, color.G, color.B));
-            resourceDictionary.Add("AccentColor4", Color.FromArgb(51, color.R, color.G, color.B));
-
-            resourceDictionary.Add("HighlightBrush", new SolidColorBrush((Color)resourceDictionary["HighlightColor"]));
-            resourceDictionary.Add("AccentColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
-            resourceDictionary.Add("AccentColorBrush2", new SolidColorBrush((Color)resourceDictionary["AccentColor2"]));
-            resourceDictionary.Add("AccentColorBrush3", new SolidColorBrush((Color)resourceDictionary["AccentColor3"]));
-            resourceDictionary.Add("AccentColorBrush4", new SolidColorBrush((Color)resourceDictionary["AccentColor4"]));
-            resourceDictionary.Add("WindowTitleColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
-            resourceDictionary.Add("AccentSelectedColorBrush", new SolidColorBrush(Colors.White));
-
-            resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
-                {
-                    new GradientStop((Color)resourceDictionary["HighlightColor"], 0),
-                    new GradientStop((Color)resourceDictionary["AccentColor3"], 1)
-                }), new Point(0.001, 0.5), new Point(1.002, 0.5)));
-
-            resourceDictionary.Add("CheckmarkFill", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
-            resourceDictionary.Add("RightArrowFill", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
-
-            resourceDictionary.Add("IdealForegroundColor", Colors.Black);
-            resourceDictionary.Add("IdealForegroundColorBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
-
+            // Theme is always the 0-index of the resources
             var application = Application.Current;
             var applicationResources = application.Resources;
+            var resourceDictionary = applicationResources.MergedDictionaries[0];
 
             var applicationTheme = ThemeManager.AppThemes.First(x => string.Equals(x.Name, "BaseLight"));
 
             // Insert to get the best MahApps performance (when looking up themes)
-            applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
             applicationResources.MergedDictionaries.Insert(1, applicationTheme.Resources);
 
             Log.Debug("Applying theme to MahApps");

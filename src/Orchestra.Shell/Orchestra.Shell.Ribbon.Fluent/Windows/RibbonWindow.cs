@@ -51,11 +51,7 @@ namespace Orchestra.Windows
             // Call manually the first time (for injected view models)
             OnViewModelChanged();
 
-            SetBinding(TitleProperty, new Binding("Title"));
-
             ((Window)this).ApplyApplicationIcon();
-
-            FixMaximize.SetFixMaximize(this, true);
         }
 
         #region Properties

@@ -22,6 +22,8 @@ namespace Orchestra
         /// </summary>
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
+        private static ResourceDictionary _accentColorResourceDictionary;
+
         private static bool _ensuredOrchestraThemes;
         private static SolidColorBrush _cachedAccentColorBrush;
 
@@ -39,6 +41,59 @@ namespace Orchestra
 
             _cachedAccentColorBrush = Application.Current.TryFindResource("AccentColorBrush") as SolidColorBrush;
             return _cachedAccentColorBrush ?? OrchestraEnvironment.DefaultAccentColorBrush;
+        }
+
+        /// <summary>
+        /// Creates the accent color resource dictionary and automatically adds it to the application resources.
+        /// </summary>
+        /// <returns>ResourceDictionary.</returns>
+        public static ResourceDictionary CreateAccentColorResourceDictionary(Color color)
+        {
+            if (_accentColorResourceDictionary != null)
+            {
+                return _accentColorResourceDictionary;
+            }
+
+            Log.Info("Setting theme to '{0}'", color.ToString());
+        
+            Log.Debug("Creating runtime accent resource dictionary");
+
+            var resourceDictionary = new ResourceDictionary();
+
+            resourceDictionary.Add("HighlightColor", color);
+            resourceDictionary.Add("AccentColor", Color.FromArgb(204, color.R, color.G, color.B));
+            resourceDictionary.Add("AccentColor2", Color.FromArgb(153, color.R, color.G, color.B));
+            resourceDictionary.Add("AccentColor3", Color.FromArgb(102, color.R, color.G, color.B));
+            resourceDictionary.Add("AccentColor4", Color.FromArgb(51, color.R, color.G, color.B));
+
+            resourceDictionary.Add("HighlightBrush", new SolidColorBrush((Color)resourceDictionary["HighlightColor"]));
+            resourceDictionary.Add("AccentColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+            resourceDictionary.Add("AccentColorBrush2", new SolidColorBrush((Color)resourceDictionary["AccentColor2"]));
+            resourceDictionary.Add("AccentColorBrush3", new SolidColorBrush((Color)resourceDictionary["AccentColor3"]));
+            resourceDictionary.Add("AccentColorBrush4", new SolidColorBrush((Color)resourceDictionary["AccentColor4"]));
+            resourceDictionary.Add("WindowTitleColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+            resourceDictionary.Add("AccentSelectedColorBrush", new SolidColorBrush(Colors.White));
+
+            resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
+                {
+                    new GradientStop((Color)resourceDictionary["HighlightColor"], 0),
+                    new GradientStop((Color)resourceDictionary["AccentColor3"], 1)
+                }), new Point(0.001, 0.5), new Point(1.002, 0.5)));
+
+            resourceDictionary.Add("CheckmarkFill", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+            resourceDictionary.Add("RightArrowFill", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+
+            resourceDictionary.Add("IdealForegroundColor", Colors.Black);
+            resourceDictionary.Add("IdealForegroundColorBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
+
+            var application = Application.Current;
+            var applicationResources = application.Resources;
+
+            applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
+
+            _accentColorResourceDictionary = resourceDictionary;
+
+            return applicationResources;
         }
 
         /// <summary>
@@ -65,6 +120,12 @@ namespace Orchestra
         public static void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false)
         {
             Argument.IsNotNullOrWhitespace(() => resourceDictionaryUri);
+
+            if (_accentColorResourceDictionary == null)
+            {
+                var accentColor = GetAccentColor();
+                CreateAccentColorResourceDictionary(accentColor);
+            }
 
             EnsureOrchestraTheme();
 

@@ -3,7 +3,8 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:orchestra="https://github.com/orcomp/orchestra"
                       xmlns:windows="clr-namespace:Orchestra.Windows"
-                      ShowInTaskbar="True" ResizeMode="CanResizeWithGrip" WindowState="Maximized">
+                      ShowInTaskbar="True" ResizeMode="CanResizeWithGrip" WindowState="Maximized"
+                      Title="{Binding ElementName=ribbonContentPresenter, Path=Content.ViewModel.Title}">
 
     <DockPanel LastChildFill="True">
 
