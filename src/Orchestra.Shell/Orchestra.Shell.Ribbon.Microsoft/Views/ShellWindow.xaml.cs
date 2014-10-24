@@ -20,10 +20,10 @@ namespace Orchestra.Views
         /// Initializes a new instance of the <see cref="ShellWindow"/> class.
         /// </summary>
         public ShellWindow()
-        {
-            InitializeComponent();
-
+        {            
             ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
+
+            InitializeComponent();
 
             var serviceLocator = ServiceLocator.Default;
             var statusService = serviceLocator.ResolveType<IStatusService>();

@@ -52,6 +52,8 @@ namespace Orchestra.Windows
             OnViewModelChanged();
 
             ((Window)this).ApplyApplicationIcon();
+
+            DontUseDwm = false;
         }
 
         #region Properties

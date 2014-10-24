@@ -27,11 +27,11 @@ namespace Orchestra.Views
         /// </summary>
         public ShellWindow()
         {
-            InitializeComponent();
-
             ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
 
             MahAppsHelper.ApplyTheme();
+
+            InitializeComponent();
 
             var accentColorBrush = ThemeHelper.GetAccentColorBrush();
             border.BorderBrush = accentColorBrush;

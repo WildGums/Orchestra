@@ -3,12 +3,24 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:orchestra="https://github.com/orcomp/orchestra"
                       xmlns:windows="clr-namespace:Orchestra.Windows"
-                      ShowInTaskbar="True" ResizeMode="CanResizeWithGrip" WindowState="Maximized"
+                      ShowInTaskbar="True" ResizeMode="CanResize" WindowState="Maximized"
                       Title="{Binding ElementName=ribbonContentPresenter, Path=Content.ViewModel.Title}">
 
-    <DockPanel LastChildFill="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <StatusBar x:Name="statusBar" DockPanel.Dock="Bottom">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ContentPresenter Grid.Row="0" x:Name="ribbonContentPresenter" />
+        <ContentPresenter Grid.Row="1" x:Name="contentPresenter" />
+
+        <StatusBar Grid.Row="2" x:Name="statusBar">
             <StatusBarItem>
                 <orchestra:AnimatingTextBlock x:Name="statusTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <orchestra:AnimatingTextBlock.ShowStoryboard>
@@ -23,23 +35,9 @@
                     </orchestra:AnimatingTextBlock.HideStoryboard>
                 </orchestra:AnimatingTextBlock>
             </StatusBarItem>
-            
+
             <StatusBarItem x:Name="customStatusBarItem" HorizontalAlignment="Right" />
         </StatusBar>
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" MinHeight="25"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <ContentPresenter Grid.Row="0" x:Name="ribbonContentPresenter" />
-            <ContentPresenter Grid.Row="1" x:Name="contentPresenter" />
-        </Grid>
-    </DockPanel>
+    </Grid>
 
 </windows:RibbonWindow>

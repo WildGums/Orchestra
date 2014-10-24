@@ -10,6 +10,23 @@
         <fluent:Ribbon.Menu>
             <fluent:Backstage Header="File">
                 <fluent:BackstageTabControl >
+                    <fluent:Button Header="Save"
+                                           KeyTip="S" />
+                    <fluent:Button Header="Save As"
+                                           KeyTip="A"/>
+                    <fluent:BackstageTabItem Header="TEST"
+                                                     Content="Hello">
+                        <fluent:BackstageTabItem.ContentTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding Mode=OneWay}" />
+                                </Grid>
+                            </DataTemplate>
+                        </fluent:BackstageTabItem.ContentTemplate>
+                    </fluent:BackstageTabItem>
+
+                    <fluent:SeparatorTabItem Header="Separator" />
+
                     <fluent:Button Header="Exit" Command="{catel:CommandManagerBinding File.Exit}"/>
                 </fluent:BackstageTabControl>
             </fluent:Backstage>
