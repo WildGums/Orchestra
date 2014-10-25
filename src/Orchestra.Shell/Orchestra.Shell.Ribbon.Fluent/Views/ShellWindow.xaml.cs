@@ -44,7 +44,7 @@ namespace Orchestra.Views
             var ribbonContent = ribbonService.GetRibbon();
             if (ribbonContent != null)
             {
-                ribbonContentPresenter.Content = ribbonContent;
+                ribbonContentControl.Content = ribbonContent;
             }
 
             var statusBarContent = ribbonService.GetStatusBar();
@@ -53,7 +53,7 @@ namespace Orchestra.Views
                 customStatusBarItem.Content = statusBarContent;
             }
 
-            contentPresenter.Content = ribbonService.GetMainView();
+            contentControl.Content = ribbonService.GetMainView();
         }
     }
 }

@@ -131,7 +131,7 @@ namespace Orchestra.Views
 
             var view = taskRunnerService.GetView();
 
-            contentPresenter.Content = view;
+            contentControl.Content = view;
         }
         #endregion
 
@@ -155,7 +155,7 @@ namespace Orchestra.Views
 
             // Let the shell create its view model first. Then the view model of the dynamic view model will
             // be created (which means the parent / child view models will work).
-            var view = contentPresenter.Content as FrameworkElement;
+            var view = contentControl.Content as FrameworkElement;
             if (view != null && !_hasUpdatedViewModel)
             {
                 _hasUpdatedViewModel = true;

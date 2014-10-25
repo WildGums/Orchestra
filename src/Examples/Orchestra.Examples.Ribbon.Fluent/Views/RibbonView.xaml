@@ -5,7 +5,7 @@
                    xmlns:views="clr-namespace:Orchestra.Views;assembly=Orchestra.Core"
                    xmlns:fluent="urn:fluent-ribbon">
 
-    <fluent:Ribbon x:Name="ribbon" Title="{Binding Title}">
+    <fluent:Ribbon x:Name="ribbon">
 
         <fluent:Ribbon.Menu>
             <fluent:Backstage Header="File">

@@ -4,7 +4,7 @@
                       xmlns:orchestra="https://github.com/orcomp/orchestra"
                       xmlns:windows="clr-namespace:Orchestra.Windows"
                       ShowInTaskbar="True" ResizeMode="CanResize" WindowState="Maximized"
-                      Title="{Binding ElementName=ribbonContentPresenter, Path=Content.ViewModel.Title}">
+                      Title="{Binding ElementName=ribbonContentControl, Path=Content.ViewModel.Title}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -17,8 +17,8 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ContentPresenter Grid.Row="0" x:Name="ribbonContentPresenter" />
-        <ContentPresenter Grid.Row="1" x:Name="contentPresenter" />
+        <ContentControl Grid.Row="0" x:Name="ribbonContentControl" />
+        <ContentControl Grid.Row="1" x:Name="contentControl" />
 
         <StatusBar Grid.Row="2" x:Name="statusBar">
             <StatusBarItem>

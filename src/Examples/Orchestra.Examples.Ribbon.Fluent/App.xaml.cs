@@ -85,7 +85,7 @@ namespace Orchestra.Examples.Ribbon
         {
             Log.Info("Delay to show the splash screen");
 
-            Thread.Sleep(2500);
+            //Thread.Sleep(2500);
         }
         #endregion
     }

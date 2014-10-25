@@ -7,12 +7,10 @@
 
 namespace Orchestra.Examples.Ribbon.Views
 {
-    using Catel.Windows.Controls;
-
     /// <summary>
     /// Interaction logic for RibbonView.xaml.
     /// </summary>
-    public partial class RibbonView : UserControl
+    public partial class RibbonView 
     {
         #region Constructors
         /// <summary>
@@ -22,8 +20,8 @@ namespace Orchestra.Examples.Ribbon.Views
         {
             InitializeComponent();
 
-            ribbon.AddMinimizeAndMaximizeButtons();
-            ribbon.AddAboutButton();
+            //ribbon.AddMinimizeAndMaximizeButtons();
+            //ribbon.AddAboutButton();
         }
         #endregion
     }

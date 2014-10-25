@@ -32,7 +32,7 @@
                 </orchestra:AnimatingTextBlock>
             </StatusBar>
 
-            <ContentPresenter x:Name="contentPresenter" />
+            <ContentControl x:Name="contentControl" />
         </DockPanel>
     </Border>
 

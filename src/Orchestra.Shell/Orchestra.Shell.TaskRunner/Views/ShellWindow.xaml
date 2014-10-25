@@ -20,7 +20,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <ContentPresenter Grid.Row="0" Grid.ColumnSpan="2" x:Name="contentPresenter" />
+        <ContentControl Grid.Row="0" Grid.ColumnSpan="2" x:Name="contentControl" />
 
         <Expander Grid.Row="1" Header="Run" IsExpanded="True" Style="{StaticResource GroupBoxExpander}">
             <i:Interaction.Behaviors>

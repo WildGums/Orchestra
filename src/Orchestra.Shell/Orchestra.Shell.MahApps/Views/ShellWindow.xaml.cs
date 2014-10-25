@@ -70,7 +70,7 @@ namespace Orchestra.Views
             RightWindowCommands = windowCommands;
 
             var mainView = mahAppsService.GetMainView();
-            contentPresenter.Content = mainView;
+            contentControl.Content = mainView;
 
             SetBinding(TitleProperty, new Binding("ViewModel.Title") { Source = mainView });
         }
