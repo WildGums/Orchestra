@@ -2,26 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Office2013/generic.xaml" />
+        <ResourceDictionary Source="/Orchestra.Shell.Ribbon.Fluent;Component/Themes/Office2013/Generic.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
-    <!-- Override of Fluent themes -->
-    <Style x:Key="{x:Type StatusBar}" TargetType="{x:Type StatusBar}">
-        <Setter Property="Margin" Value="0,0,8,0" />
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type StatusBar}">
-                    <Border BorderThickness="0,1">
-                        <Border Height="Auto" BorderThickness="0,1" Background="{StaticResource ControlBackgroundBrush}">
-                            <ItemsPresenter Height="Auto" />
-                        </Border>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 
 </ResourceDictionary>

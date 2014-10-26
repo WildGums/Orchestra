@@ -47,6 +47,13 @@
                     </fluent:SplitButton>
                 </fluent:RibbonGroupBox>
 
+                <fluent:RibbonGroupBox Header="Custom controls">
+                    <StackPanel>
+                        <ComboBox />
+                        <CheckBox />
+                    </StackPanel>
+                </fluent:RibbonGroupBox>
+                
             </fluent:RibbonTabItem>
         </fluent:Ribbon.Tabs>
     </fluent:Ribbon>
