@@ -5,8 +5,7 @@
                    xmlns:views="clr-namespace:Orchestra.Views;assembly=Orchestra.Core"
                    xmlns:fluent="urn:fluent-ribbon">
 
-    <fluent:Ribbon x:Name="ribbon" AutomaticStateManagement="False">
-
+    <fluent:Ribbon x:Name="ribbon" IsQuickAccessToolBarVisible="False" CanCustomizeRibbon="False" AutomaticStateManagement="False">
         <fluent:Ribbon.Menu>
             <fluent:Backstage Header="File">
                 <fluent:BackstageTabControl >
