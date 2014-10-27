@@ -17,7 +17,15 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ContentControl Grid.Row="0" x:Name="ribbonContentControl" />
+        <ContentControl Grid.Row="0" x:Name="ribbonContentControl">
+            <!-- Drop down arrow fix -->
+            <ContentControl.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Margin" Value="0" />
+                </Style>
+            </ContentControl.Resources>
+        </ContentControl>
+        
         <ContentControl Grid.Row="1" x:Name="contentControl" />
 
         <StatusBar Grid.Row="2" x:Name="statusBar">
