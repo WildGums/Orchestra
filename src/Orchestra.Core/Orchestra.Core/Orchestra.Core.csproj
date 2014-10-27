@@ -113,6 +113,7 @@
     <Compile Include="Converters\InputGestureToStringConverter.cs" />
     <Compile Include="Converters\PathToStringConverter.cs" />
     <Compile Include="Exceptions\OrchestraException.cs" />
+    <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\AssemblyHelper.cs" />

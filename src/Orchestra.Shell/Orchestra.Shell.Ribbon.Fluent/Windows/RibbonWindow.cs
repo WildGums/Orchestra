@@ -10,9 +10,7 @@ namespace Orchestra.Windows
     using System;
     using System.ComponentModel;
     using System.Windows;
-    using System.Windows.Data;
     using Catel;
-    using Catel.IoC;
     using Catel.MVVM;
     using Catel.MVVM.Providers;
     using Catel.MVVM.Views;
@@ -50,8 +48,6 @@ namespace Orchestra.Windows
 
             // Call manually the first time (for injected view models)
             OnViewModelChanged();
-
-            ((Window)this).ApplyApplicationIcon();
         }
 
         #region Properties
@@ -62,12 +58,6 @@ namespace Orchestra.Windows
         public IViewModel ViewModel
         {
             get { return _logic.ViewModel; }
-        }
-
-        public bool PreventViewModelCreation
-        {
-            get { return _logic.PreventViewModelCreation; }
-            set { _logic.PreventViewModelCreation = value; }
         }
         #endregion
 

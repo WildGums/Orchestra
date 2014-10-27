@@ -10,6 +10,7 @@ namespace Orchestra.Views
     using System.Net.Mime;
     using System.Windows;
     using System.Windows.Media;
+    using Windows;
     using Catel.IoC;
     using Fluent;
     using Services;
