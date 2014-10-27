@@ -6,18 +6,18 @@ Orchestra consists of a main shell including an SDK with services that allows de
 
 These modules can communicate with the shell, but also with each other through the services that are offered out of the box.
 
-## Update 2014/08/17
+## Update 2014/10/28
 
 Some of the features which will come out of the box:
 
 - [x] [MahApps](http://mahapps.com/) integration
 - [ ] Module management
-- [x] License management => Orc.LicenseManager
+- [x] License management => [Orc.LicenseManager](https://github.com/Orcomp/Orc.LicenseManager)
 - [x] Command management
 - [x] Shortcut manager (which will allow end users to remap shortcut keys)
 - [x] Splash screen customization
 - [x] About box window
-- [x] Automatic updates => Orc.Squirrel
+- [x] Automatic updates => [Orc.Squirrel](https://github.com/Orcomp/Orc.Squirrel)
 
 Features already included in [Catel](https://catelproject.atlassian.net/wiki/display/CTL/Catel+documentation+Home):
 - [x] Application wide logging
@@ -58,7 +58,7 @@ It is easy to add extra modules by following the examples.
 
 ## Support
 
-You can ask for support on our mailing list: https://groups.google.com/forum/#!forum/orchestradev
+Please create an issue.
 
 ## Contribute
 
