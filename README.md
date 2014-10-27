@@ -25,7 +25,7 @@ Features already included in [Catel](https://catelproject.atlassian.net/wiki/dis
 - [x] Memento (undo/redo)
 
 Other Project(s) that might be of interest:
-[Orc.FilterBuilder](https://github.com/Orcomp/Orc.FilterBuilder)
+- [Orc.FilterBuilder](https://github.com/Orcomp/Orc.FilterBuilder)
 
 ## License
 
