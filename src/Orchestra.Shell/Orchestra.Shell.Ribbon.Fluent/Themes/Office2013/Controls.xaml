@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
+    
     <Style TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
@@ -31,7 +31,15 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <!-- Styles from https://github.com/Catel/Catel/blob/develop/src/Catel.MVVM/Catel.MVVM.NET40/Themes/DataWindow.generic.xaml -->
+    <Style x:Key="DataWindowButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Margin" Value="6, 6, 0, 0" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="MinHeight" Value="23" />
+    </Style>
+
     <Style TargetType="{x:Type ComboBox}">
         <Setter Property="Template">
             <Setter.Value>
