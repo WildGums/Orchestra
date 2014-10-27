@@ -24,6 +24,9 @@ Features already included in [Catel](https://catelproject.atlassian.net/wiki/dis
 - [x] FluentValidation
 - [x] Memento (undo/redo)
 
+Other Project(s) that might be of interest:
+[Orc.FilterBuilder](https://github.com/Orcomp/Orc.FilterBuilder)
+
 ## License
 
 Open source (MS-PL license), so you are free to use it in commercial applications
