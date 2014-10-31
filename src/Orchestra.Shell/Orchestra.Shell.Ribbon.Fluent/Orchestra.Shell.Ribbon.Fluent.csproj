@@ -111,8 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <Resource Include="Resources\Images\minimize.png" />
-    <Resource Include="Resources\Images\maximize.png" />
     <Resource Include="Resources\Images\about.png" />
   </ItemGroup>
   <ItemGroup>

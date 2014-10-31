@@ -20,8 +20,7 @@ namespace Orchestra.Examples.Ribbon.Views
         {
             InitializeComponent();
 
-            //ribbon.AddMinimizeAndMaximizeButtons();
-            //ribbon.AddAboutButton();
+            ribbon.AddAboutButton();
         }
         #endregion
     }
