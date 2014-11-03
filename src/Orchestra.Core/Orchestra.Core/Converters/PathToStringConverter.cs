@@ -31,10 +31,20 @@ namespace Orchestra.Converters
                 return stringValue;
             }
 
-            int maxCharacters = 25;
+            var maxCharacters = 25;
+
             if (parameter is int)
             {
                 maxCharacters = (int) parameter;
+            }
+
+            if (parameter is string)
+            {
+                int newMaxCharacters;
+                if (int.TryParse((string)parameter, out newMaxCharacters))
+                {
+                    maxCharacters = newMaxCharacters;
+                }
             }
 
             if (stringValue.Length > maxCharacters)

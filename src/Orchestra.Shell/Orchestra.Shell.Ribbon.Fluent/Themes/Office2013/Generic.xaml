@@ -5,6 +5,7 @@
         <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Office2013/generic.xaml" />
         <ResourceDictionary Source="/Orchestra.Shell.Ribbon.Fluent;Component/Themes/Office2013/Controls.xaml" />
+        <ResourceDictionary Source="/Orchestra.Shell.Ribbon.Fluent;Component/Themes/Office2013/FluentControls.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Override of Fluent themes -->

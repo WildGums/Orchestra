@@ -22,6 +22,13 @@ namespace Orchestra.Examples.Ribbon.Views
 
             ribbon.AddAboutButton();
         }
+
+        protected override void OnViewModelChanged()
+        {
+            base.OnViewModelChanged();
+
+            backstageTabControl.DataContext = ViewModel;
+        }
         #endregion
     }
 }

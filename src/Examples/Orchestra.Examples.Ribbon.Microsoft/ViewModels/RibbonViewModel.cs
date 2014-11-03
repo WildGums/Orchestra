@@ -47,7 +47,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// </summary>
         private async void OnHelpExecute()
         {
-            var aboutInfo = new AboutInfo("/StockLevels;component/Resources/Images/SMSLogo.png", "http://www.simulationmodelling.com.au");
+            var aboutInfo = new AboutInfo("/Orchestra.Examples.Ribbon.Microsoft;component/Resources/Images/CompanyLogo.png", "http://www.somecompany.com");
             await _uiVisualizerService.ShowDialog<AboutViewModel>(aboutInfo);
         }
 

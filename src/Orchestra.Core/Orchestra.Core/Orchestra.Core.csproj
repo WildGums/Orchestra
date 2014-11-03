@@ -109,6 +109,7 @@
     <Compile Include="Controls\KeyboardMappingControl.xaml.cs">
       <DependentUpon>KeyboardMappingControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BooleanToThicknessConverter.cs" />
     <Compile Include="Converters\CommandNameToStringConverter.cs" />
     <Compile Include="Converters\InputGestureToStringConverter.cs" />
     <Compile Include="Converters\PathToStringConverter.cs" />

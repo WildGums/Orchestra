@@ -94,6 +94,10 @@
     <Compile Include="..\..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\RibbonBackstageButton.cs" />
+    <Compile Include="Controls\RibbonBackstageTabControl.cs" />
+    <Compile Include="Controls\RibbonBackstageTabItem.cs" />
+    <Compile Include="Controls\RibbonBackstageTabItemHeader.cs" />
     <Compile Include="Extensions\RibbonExtensions.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,6 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2013\FluentControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
