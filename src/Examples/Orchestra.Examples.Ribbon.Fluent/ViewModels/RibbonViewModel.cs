@@ -45,6 +45,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             _processService = processService;
             _messageService = messageService;
 
+            OpenRecentlyUsedItem = new Command<string>(OnOpenRecentlyUsedItemExecute);
             UnpinItem = new Command<string>(OnUnpinItemExecute);
             PinItem = new Command<string>(OnPinItemExecute);
             OpenInExplorer = new Command<string>(OnOpenInExplorerExecute);
@@ -66,6 +67,19 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         #endregion
 
         #region Commands
+        /// <summary>
+        /// Gets the OpenRecentlyUsedItem command.
+        /// </summary>
+        public Command<string> OpenRecentlyUsedItem { get; private set; }
+
+        /// <summary>
+        /// Method to invoke when the OpenRecentlyUsedItem command is executed.
+        /// </summary>
+        private async void OnOpenRecentlyUsedItemExecute(string parameter)
+        {
+            await _messageService.Show(string.Format("Just opened a recently used item: {0}", parameter));
+        }
+
         /// <summary>
         /// Gets the Unpin command.
         /// </summary>

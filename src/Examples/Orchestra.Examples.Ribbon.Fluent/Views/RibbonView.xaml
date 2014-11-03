@@ -4,8 +4,7 @@
                    xmlns:catel="http://catel.codeplex.com"
                    xmlns:views="clr-namespace:Orchestra.Views;assembly=Orchestra.Core"
                    xmlns:fluent="urn:fluent-ribbon"
-                   xmlns:orchestra="https://github.com/orcomp/orchestra"
-                   xmlns:converters="clr-namespace:Orchestra.Converters;assembly=Orchestra.Core">
+                   xmlns:orchestra="https://github.com/orcomp/orchestra">
 
     <fluent:Ribbon x:Name="ribbon" IsQuickAccessToolBarVisible="False" CanCustomizeRibbon="False" AutomaticStateManagement="False">
         <fluent:Ribbon.Menu>
@@ -53,7 +52,7 @@
                                                                 <Image Source="pack://application:,,,/Orchestra.Core;component/Resources/Images/Pinned.png" />
                                                             </orchestra:RibbonBackstageButton>
 
-                                                            <Label Grid.Column="1" Content="{Binding Name, Converter={converters:PathToStringConverter}, ConverterParameter=100}" />
+                                                            <Label Grid.Column="1" Content="{Binding Name, Converter={orchestra:PathToStringConverter}, ConverterParameter=100}" />
 
                                                             <orchestra:RibbonBackstageButton Grid.Column="2" Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenInExplorer}"
                                                                                              CommandParameter="{Binding Name}" Width="24" Height="24" ToolTip="Open in explorer" ShowBorder="False">
@@ -72,7 +71,6 @@
                                                 <DataTemplate>
                                                     <orchestra:RibbonBackstageButton Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenRecentlyUsedItem}" 
                                                                                      CommandParameter="{Binding Name}" ToolTip="{Binding Name}" ShowBorder="False">
-
                                                         <Grid>
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="Auto" />
@@ -86,7 +84,7 @@
                                                                 <Image Source="pack://application:,,,/Orchestra.Core;component/Resources/Images/Unpinned.png" />
                                                             </orchestra:RibbonBackstageButton>
 
-                                                            <Label Grid.Column="1" Content="{Binding Name, Converter={converters:PathToStringConverter}, ConverterParameter=100}" />
+                                                            <Label Grid.Column="1" Content="{Binding Name, Converter={orchestra:PathToStringConverter}, ConverterParameter=100}" />
 
                                                             <orchestra:RibbonBackstageButton Grid.Column="2" Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenInExplorer}"
                                                                                               CommandParameter="{Binding Name}" Width="24" Height="24" ToolTip="Open in explorer" ShowBorder="False">
