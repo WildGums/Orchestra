@@ -108,7 +108,7 @@
                                         <orchestra:RibbonBackstageTabItemHeader Grid.Row="0" HeaderText="Computer" 
                                                                                  HeaderTextStyleKey="RibbonBackstageSubHeaderLabelStyle" />
 
-                                        <fluent:Button Grid.Row="1" Header="Open..." Icon="/Resources/Images/open.png" 
+                                        <fluent:Button Grid.Row="1" Header="Open..." LargeIcon="pack://application:,,,/Orchestra.Examples.Ribbon;component/Resources/Images/open.png" 
                                                Command="{catel:CommandManagerBinding File.Open}" Style="{DynamicResource ButtonBackstageStyle}" 
                                                HorizontalAlignment="Left" />
                                     </Grid>

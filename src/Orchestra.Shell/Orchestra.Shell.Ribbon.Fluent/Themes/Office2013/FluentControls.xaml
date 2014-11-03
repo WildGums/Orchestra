@@ -48,11 +48,11 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style TargetType="{x:Type fluent:Button}" x:Key="ButtonBackstageStyle">
+    <!--<Style TargetType="{x:Type fluent:Button}" x:Key="ButtonBackstageStyle">
 
         <Setter Property="Height" Value="81"/>
         <Setter Property="Width" Value="85"/>
-    </Style>
+    </Style>-->
 
     <ControlTemplate x:Key="RibbonBackstageButtonControlTemplate" TargetType="{x:Type orchestra:RibbonBackstageButton}">
         <Grid x:Name="grid">
