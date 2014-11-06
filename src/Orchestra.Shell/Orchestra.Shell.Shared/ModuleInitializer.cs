@@ -22,6 +22,7 @@ public static partial class ModuleInitializer
         var serviceLocator = ServiceLocator.Default;
 
         serviceLocator.RegisterType<IShellService, ShellService>();
+        serviceLocator.RegisterType<IApplicationInitializationService, ApplicationInitializationServiceBase>();
 
         InitializeSpecific();
     }

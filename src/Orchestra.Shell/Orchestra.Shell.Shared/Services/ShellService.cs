@@ -15,6 +15,7 @@ namespace Orchestra.Services
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
+    using Properties;
     using Views;
 
     public partial class ShellService : IShellService
@@ -30,6 +31,7 @@ namespace Orchestra.Services
         private readonly IKeyboardMappingsService _keyboardMappingsService;
         private readonly ISplashScreenService _splashScreenService;
         private readonly IEnsureStartupService _ensureStartupService;
+        private readonly IApplicationInitializationService _applicationInitializationService;
         #endregion
 
         #region Constructors
@@ -39,26 +41,30 @@ namespace Orchestra.Services
         /// <param name="typeFactory">The type factory.</param>
         /// <param name="commandManager">The command manager.</param>
         /// <param name="keyboardMappingsService">The keyboard mappings service.</param>
-        /// <param name="splashScreenService"></param>
-        /// <param name="ensureStartupService"></param>
+        /// <param name="splashScreenService">The splash screen service.</param>
+        /// <param name="ensureStartupService">The ensure startup service.</param>
+        /// <param name="applicationInitializationService">The application initialization service.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="typeFactory" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="commandManager" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="keyboardMappingsService" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="splashScreenService" /> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="applicationInitializationService" /> is <c>null</c>.</exception>
         public ShellService(ITypeFactory typeFactory, ICommandManager commandManager, IKeyboardMappingsService keyboardMappingsService,
-            ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService)
+            ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService, IApplicationInitializationService applicationInitializationService)
         {
             Argument.IsNotNull(() => typeFactory);
             Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => keyboardMappingsService);
             Argument.IsNotNull(() => splashScreenService);
             Argument.IsNotNull(() => ensureStartupService);
+            Argument.IsNotNull(() => applicationInitializationService);
 
             _typeFactory = typeFactory;
             _commandManager = commandManager;
             _keyboardMappingsService = keyboardMappingsService;
             _splashScreenService = splashScreenService;
             _ensureStartupService = ensureStartupService;
+            _applicationInitializationService = applicationInitializationService;
         }
         #endregion
 
@@ -75,24 +81,21 @@ namespace Orchestra.Services
         /// Creates a new shell and shows a splash during the initialization.
         /// </summary>
         /// <typeparam name="TShell">The type of the shell.</typeparam>
-        /// <param name="preInitialize">The pre initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
-        /// <param name="initializeCommands">The initialize commands handler. If <c>null</c>, no commands will be initialized.</param>
-        /// <param name="postInitialize">The post initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        public async Task<TShell> CreateWithSplash<TShell>(Func<Task> preInitialize = null, Func<ICommandManager, Task> initializeCommands = null, Func<Task> postInitialize = null)
+        public async Task<TShell> CreateWithSplash<TShell>()
             where TShell : IShell
         {
             var splashScreen = _splashScreenService.CreateSplashScreen();
             splashScreen.Show();
 
-            var shell = await CreateShellInternal<TShell>(preInitialize, initializeCommands, postInitialize, splashScreen.Close);
+            var shell = await CreateShellInternal<TShell>(splashScreen.Close);
 
             return shell;
         }
 
         /// <summary>
-        /// Creates a new shell.
+        /// Creates a new shell and shows a splash during the initialization.
         /// </summary>
         /// <typeparam name="TShell">The type of the shell.</typeparam>
         /// <param name="preInitialize">The pre initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
@@ -100,10 +103,23 @@ namespace Orchestra.Services
         /// <param name="postInitialize">The post initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        public async Task<TShell> Create<TShell>(Func<Task> preInitialize = null, Func<ICommandManager, Task> initializeCommands = null, Func<Task> postInitialize = null)
+        [ObsoleteEx(Replacement = "CreateWithSplash<TShell>() in combination with IApplicationInitializationService", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
+        public async Task<TShell> CreateWithSplash<TShell>(Func<Task> preInitialize, Func<ICommandManager, Task> initializeCommands = null, Func<Task> postInitialize = null)
             where TShell : IShell
         {
-            return await CreateShellInternal<TShell>(preInitialize, initializeCommands, postInitialize, null);
+            throw new NotSupportedException();
+        }
+
+        /// <summary>
+        /// Creates a new shell.
+        /// </summary>
+        /// <typeparam name="TShell">The type of the shell.</typeparam>
+        /// <returns>The created shell.</returns>
+        /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
+        public async Task<TShell> Create<TShell>()
+            where TShell : IShell
+        {
+            return await CreateShellInternal<TShell>(null);
         }
 
         /// <summary>
@@ -113,11 +129,23 @@ namespace Orchestra.Services
         /// <param name="preInitialize">The pre initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
         /// <param name="initializeCommands">The initialize commands handler. If <c>null</c>, no commands will be initialized.</param>
         /// <param name="postInitialize">The post initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
+        /// <returns>The created shell.</returns>
+        /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
+        [ObsoleteEx( Replacement = "Create<TShell>() in combination with IApplicationInitializationService", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
+        public async Task<TShell> Create<TShell>(Func<Task> preInitialize, Func<ICommandManager, Task> initializeCommands = null, Func<Task> postInitialize = null)
+            where TShell : IShell
+        {
+            throw new NotSupportedException();
+        }
+
+        /// <summary>
+        /// Creates a new shell.
+        /// </summary>
+        /// <typeparam name="TShell">The type of the shell.</typeparam>
         /// <param name="postShowShellCallback">The shell created callback.</param>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        private async Task<TShell> CreateShellInternal<TShell>(Func<Task> preInitialize = null, Func<ICommandManager, Task> initializeCommands = null,
-            Func<Task> postInitialize = null, Action postShowShellCallback = null)
+        private async Task<TShell> CreateShellInternal<TShell>(Action postShowShellCallback = null)
             where TShell : IShell
         {
             if (Shell != null)
@@ -129,19 +157,13 @@ namespace Orchestra.Services
 
             await _ensureStartupService.EnsureFailSafeStartup();
 
-            if (preInitialize != null)
-            {
-                Log.Debug("Calling pre initialize");
+            Log.Debug("Calling IApplicationInitializationService.InitializeBeforeCreatingShell");
 
-                await preInitialize();
-            }
+            await _applicationInitializationService.InitializeBeforeCreatingShell();
 
-            if (initializeCommands != null)
-            {
-                Log.Info("Initializing commands");
+            Log.Debug("Calling IApplicationInitializationService.InitializeCommands");
 
-                await initializeCommands(_commandManager);
-            }
+            await _applicationInitializationService.InitializeCommands(_commandManager);
 
             Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName());
 
@@ -164,16 +186,17 @@ namespace Orchestra.Services
             // Now we have a new window, resubscribe the command manager
             _commandManager.SubscribeToKeyboardEvents();
 
-            if (postInitialize != null)
-            {
-                Log.Debug("Calling post initialize");
+            Log.Debug("Calling IApplicationInitializationService.InitializeAfterCreatingShell");
 
-                await postInitialize();
-            }
+            await _applicationInitializationService.InitializeAfterCreatingShell();
 
             Log.Info("Confirming that application was started successfully");
 
             _ensureStartupService.ConfirmApplicationStartedSuccessfully();
+
+            Log.Debug("Calling IApplicationInitializationService.InitializeBeforeShowingShell");
+
+            await _applicationInitializationService.InitializeBeforeShowingShell();
 
             shell.Show();
 
@@ -181,6 +204,10 @@ namespace Orchestra.Services
             {
                 postShowShellCallback();
             }
+
+            Log.Debug("Calling IApplicationInitializationService.InitializeAfterShowingShell");
+
+            await _applicationInitializationService.InitializeAfterShowingShell();
 
             return shell;
         }

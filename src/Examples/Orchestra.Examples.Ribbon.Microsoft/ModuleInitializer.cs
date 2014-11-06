@@ -1,5 +1,6 @@
 ﻿using Catel.IoC;
 using Orchestra.Examples.Ribbon.Services;
+using Orchestra.Services;
 using Orchestra.Shell.Services;
 
 /// <summary>
@@ -15,5 +16,6 @@ public static class ModuleInitializer
         var serviceLocator = ServiceLocator.Default;
 
         serviceLocator.RegisterType<IRibbonService, RibbonService>();
+        serviceLocator.RegisterType<IApplicationInitializationService, ApplicationInitializationService>();
     }
 }

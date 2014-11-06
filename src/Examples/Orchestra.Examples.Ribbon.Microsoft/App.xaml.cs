@@ -9,16 +9,11 @@ namespace Orchestra.Examples.Ribbon
 {
     using System;
     using System.Diagnostics;
-    using System.Threading;
-    using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Input;
     using Catel.IoC;
     using Catel.Logging;
-    using Catel.MVVM;
     using Orchestra.Services;
     using Orchestra.Views;
-    using InputGesture = Catel.Windows.Input.InputGesture;
 
     /// <summary>
     /// Interaction logic for App.xaml
@@ -53,39 +48,13 @@ namespace Orchestra.Examples.Ribbon
 
             var serviceLocator = ServiceLocator.Default;
             var shellService = serviceLocator.ResolveType<IShellService>();
-            shellService.CreateWithSplash<ShellWindow>(PreInitialize, InitializeCommands, PostInitialize);
+            shellService.CreateWithSplash<ShellWindow>();
 
             _end = DateTime.Now;
             _stopwatch.Stop();
 
             Log.Info("Elapsed startup stopwatch time: {0}", _stopwatch.Elapsed);
             Log.Info("Elapsed startup time: {0}", _end - _start);
-        }
-
-        private async Task PreInitialize()
-        {
-            Log.Info("Improving performance");
-
-            Catel.Data.ModelBase.DefaultSuspendValidationValue = true;
-            Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
-            Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
-        }
-
-        private async Task InitializeCommands(ICommandManager commandManager)
-        {
-            commandManager.CreateCommand("File.Open", new InputGesture(Key.O, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
-            commandManager.CreateCommand("File.SaveToImage", new InputGesture(Key.I, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
-            commandManager.CreateCommand("File.Print", new InputGesture(Key.P, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
-            commandManager.CreateCommand("File.Exit", throwExceptionWhenCommandIsAlreadyCreated: false);
-
-            commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
-        }
-
-        private async Task PostInitialize()
-        {
-            Log.Info("Delay to show the splash screen");
-
-            Thread.Sleep(2500);
         }
         #endregion
     }
