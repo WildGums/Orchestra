@@ -4,7 +4,15 @@
                    xmlns:catel="http://catel.codeplex.com">
 
     <Grid>
-        <TextBlock Text="IT WORKS!" />
+        <TabControl>
+            <TabItem Header="Plots" >
+                <TextBlock Text="IT WORKS!" />
+            </TabItem>
+            <TabItem Header="Aggregate"/>
+            <TabItem Header="Overlay">
+                <TextBlock Text="IT WORKS!" />
+            </TabItem>
+        </TabControl>
     </Grid>
     
 </catel:UserControl>

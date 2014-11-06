@@ -147,6 +147,10 @@
                         <ComboBox />
                         <CheckBox />
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Slider Height="66" Orientation="Vertical" Margin="5,0,0,0" Minimum="150" Maximum="800" 
+                                SmallChange="1" LargeChange="5" AutoToolTipPrecision="0" AutoToolTipPlacement="BottomRight"/>
+                    </StackPanel>
                 </fluent:RibbonGroupBox>
                 
             </fluent:RibbonTabItem>
