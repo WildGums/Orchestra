@@ -15,6 +15,7 @@ namespace Orchestra.Services
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
+    using MethodTimer;
     using Properties;
     using Views;
 
@@ -83,6 +84,7 @@ namespace Orchestra.Services
         /// <typeparam name="TShell">The type of the shell.</typeparam>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
+        [Time]
         public async Task<TShell> CreateWithSplash<TShell>()
             where TShell : IShell
         {
@@ -116,10 +118,11 @@ namespace Orchestra.Services
         /// <typeparam name="TShell">The type of the shell.</typeparam>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
+        [Time]
         public async Task<TShell> Create<TShell>()
             where TShell : IShell
         {
-            return await CreateShellInternal<TShell>(null);
+            return await CreateShellInternal<TShell>();
         }
 
         /// <summary>
@@ -157,14 +160,67 @@ namespace Orchestra.Services
 
             await _ensureStartupService.EnsureFailSafeStartup();
 
+            await InitializeBeforeCreatingShell();
+
+            await InitializeCommands();
+
+            var shell = await CreateShell<TShell>();
+
+            Log.Info("Loading keyboard mappings");
+
+            _keyboardMappingsService.Load();
+
+            // Now we have a new window, resubscribe the command manager
+            _commandManager.SubscribeToKeyboardEvents();
+
+            await InitializeAfterCreatingShell();
+
+            Log.Info("Confirming that application was started successfully");
+
+            _ensureStartupService.ConfirmApplicationStartedSuccessfully();
+
+            await InitializeBeforeShowingShell();
+
+            shell.Show();
+
+            if (postShowShellCallback != null)
+            {
+                postShowShellCallback();
+            }
+
+            await InitializeAfterShowingShell();
+
+            return shell;
+        }
+
+        [Time]
+        private async Task InitializeBeforeCreatingShell()
+        {
             Log.Debug("Calling IApplicationInitializationService.InitializeBeforeCreatingShell");
 
             await _applicationInitializationService.InitializeBeforeCreatingShell();
+        }
 
+        [Time]
+        private async Task InitializeCommands()
+        {
             Log.Debug("Calling IApplicationInitializationService.InitializeCommands");
 
             await _applicationInitializationService.InitializeCommands(_commandManager);
+        }
 
+        [Time]
+        private async Task InitializeAfterCreatingShell()
+        {
+            Log.Debug("Calling IApplicationInitializationService.InitializeAfterCreatingShell");
+
+            await _applicationInitializationService.InitializeAfterCreatingShell();
+        }
+
+        [Time]
+        private async Task<TShell> CreateShell<TShell>()
+            where TShell : IShell
+        {
             Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName());
 
             var shell = _typeFactory.CreateInstance<TShell>();
@@ -179,37 +235,23 @@ namespace Orchestra.Services
                 currentApp.MainWindow = shellAsWindow;
             }
 
-            Log.Info("Loading keyboard mappings");
+            return shell;
+        }
 
-            _keyboardMappingsService.Load();
-
-            // Now we have a new window, resubscribe the command manager
-            _commandManager.SubscribeToKeyboardEvents();
-
-            Log.Debug("Calling IApplicationInitializationService.InitializeAfterCreatingShell");
-
-            await _applicationInitializationService.InitializeAfterCreatingShell();
-
-            Log.Info("Confirming that application was started successfully");
-
-            _ensureStartupService.ConfirmApplicationStartedSuccessfully();
-
+        [Time]
+        private async Task InitializeBeforeShowingShell()
+        {
             Log.Debug("Calling IApplicationInitializationService.InitializeBeforeShowingShell");
 
             await _applicationInitializationService.InitializeBeforeShowingShell();
+        }
 
-            shell.Show();
-
-            if (postShowShellCallback != null)
-            {
-                postShowShellCallback();
-            }
-
+        [Time]
+        private async Task InitializeAfterShowingShell()
+        {
             Log.Debug("Calling IApplicationInitializationService.InitializeAfterShowingShell");
 
             await _applicationInitializationService.InitializeAfterShowingShell();
-
-            return shell;
         }
         #endregion
     }

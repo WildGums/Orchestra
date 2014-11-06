@@ -4,6 +4,7 @@
   <LoadAssembliesOnStartup>
     <ExcludeAssemblies>
       Catel.Fody.Attributes
+      MethodTimer
       Obsolete
     </ExcludeAssemblies>
   </LoadAssembliesOnStartup>
@@ -14,4 +15,5 @@
     </IncludeAssemblies>
   </Costura>
   <Obsolete />
+  <MethodTimer />
 </Weavers>

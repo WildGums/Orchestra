@@ -7,6 +7,7 @@
 
 namespace Orchestra.Examples.Ribbon.Services
 {
+    using System;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Catel.Logging;
@@ -22,7 +23,10 @@ namespace Orchestra.Examples.Ribbon.Services
 
         public override async Task InitializeBeforeCreatingShell()
         {
-            await RunAndWaitAsync(InitializePerformance);
+            await RunAndWaitAsync(new Func<Task>[]
+            {
+                InitializePerformance
+            });
         }
 
         public override async Task InitializeCommands(ICommandManager commandManager)
@@ -42,7 +46,7 @@ namespace Orchestra.Examples.Ribbon.Services
             //Thread.Sleep(2500);
         }
 
-        private void InitializePerformance()
+        private async Task InitializePerformance()
         {
             Log.Info("Improving performance");
 

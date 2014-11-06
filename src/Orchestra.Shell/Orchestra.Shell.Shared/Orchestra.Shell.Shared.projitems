@@ -17,6 +17,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)MethodTimeLogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ApplicationInitializationServiceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IApplicationInitializationService.cs" />

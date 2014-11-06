@@ -27,7 +27,10 @@ namespace Orchestra.Examples.MahApps.Services
 
         public override async Task InitializeBeforeCreatingShell()
         {
-            await RunAndWaitAsync(InitializePerformance);
+            await RunAndWaitAsync(new Func<Task>[]
+            {
+                InitializePerformance
+            });
 
             Log.Debug("Creating flyouts");
 
@@ -52,7 +55,7 @@ namespace Orchestra.Examples.MahApps.Services
             //Thread.Sleep(2500);
         }
 
-        private void InitializePerformance()
+        private async Task InitializePerformance()
         {
             Log.Info("Improving performance");
 
