@@ -15,6 +15,15 @@ namespace Orchestra
     using Catel.Logging;
     using Catel.Windows;
 
+    public enum AccentColorStyle
+    {
+        AccentColor,
+        AccentColor1,
+        AccentColor2,
+        AccentColor3,
+        AccentColor4,
+    }
+
     public static class ThemeHelper
     {
         /// <summary>
@@ -27,9 +36,30 @@ namespace Orchestra
         private static bool _ensuredOrchestraThemes;
         private static SolidColorBrush _cachedAccentColorBrush;
 
-        public static Color GetAccentColor()
+        public static Color GetAccentColor(AccentColorStyle colorStyle = AccentColorStyle.AccentColor)
         {
-            return GetAccentColorBrush().Color;
+            var color = GetAccentColorBrush().Color;
+
+            switch (colorStyle)
+            {
+                case AccentColorStyle.AccentColor:
+                    return Color.FromArgb(255, color.R, color.G, color.B);
+
+                case AccentColorStyle.AccentColor1:
+                    return Color.FromArgb(204, color.R, color.G, color.B);
+
+                case AccentColorStyle.AccentColor2:
+                    return Color.FromArgb(153, color.R, color.G, color.B);
+
+                case AccentColorStyle.AccentColor3:
+                    return Color.FromArgb(102, color.R, color.G, color.B);
+
+                case AccentColorStyle.AccentColor4:
+                    return Color.FromArgb(51, color.R, color.G, color.B);
+
+                default:
+                    throw new ArgumentOutOfRangeException("colorStyle");
+            }
         }
 
         public static SolidColorBrush GetAccentColorBrush()
@@ -61,10 +91,10 @@ namespace Orchestra
             var resourceDictionary = new ResourceDictionary();
 
             resourceDictionary.Add("HighlightColor", color);
-            resourceDictionary.Add("AccentColor", Color.FromArgb(204, color.R, color.G, color.B));
-            resourceDictionary.Add("AccentColor2", Color.FromArgb(153, color.R, color.G, color.B));
-            resourceDictionary.Add("AccentColor3", Color.FromArgb(102, color.R, color.G, color.B));
-            resourceDictionary.Add("AccentColor4", Color.FromArgb(51, color.R, color.G, color.B));
+            resourceDictionary.Add("AccentColor", GetAccentColor(AccentColorStyle.AccentColor1));
+            resourceDictionary.Add("AccentColor2", GetAccentColor(AccentColorStyle.AccentColor2));
+            resourceDictionary.Add("AccentColor3", GetAccentColor(AccentColorStyle.AccentColor3));
+            resourceDictionary.Add("AccentColor4", GetAccentColor(AccentColorStyle.AccentColor4));
 
             resourceDictionary.Add("HighlightBrush", new SolidColorBrush((Color)resourceDictionary["HighlightColor"]));
             resourceDictionary.Add("AccentColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
