@@ -37,20 +37,9 @@ namespace Orchestra.Services
         {
         }
 
-        //[ObsoleteEx(Replacement = "Catel.Thread.TaskHelper.RunAndWaitAsync()", TreatAsErrorFromVersion = "3.0", RemoveInVersion = "3.0")]
         protected static async Task RunAndWaitAsync(params Func<Task>[] actions)
         {
-            Argument.IsNotNull(() => actions);
-
-            var finalActions = new List<Action>();
-
-            foreach (var action in actions)
-            {
-                var innerAction = action;
-                finalActions.Add(() => innerAction().Wait());
-            }
-
-            await Task.Factory.StartNew(() => TaskHelper.RunAndWait(finalActions.ToArray()));
+            await TaskHelper.RunAndWaitAsync(actions);
         }
     }
 }
