@@ -181,7 +181,7 @@ namespace Orchestra.Services
 
             await InitializeBeforeShowingShell();
 
-            shell.Show();
+            await ShowShell(shell);
 
             if (postShowShellCallback != null)
             {
@@ -236,6 +236,12 @@ namespace Orchestra.Services
             }
 
             return shell;
+        }
+
+        [Time]
+        private async Task ShowShell(IShell shell)
+        {
+            shell.Show();
         }
 
         [Time]
