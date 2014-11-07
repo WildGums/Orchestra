@@ -10,8 +10,10 @@ namespace Orchestra.Examples.Ribbon
     using System;
     using System.Diagnostics;
     using System.Windows;
+    using System.Windows.Media;
     using Catel.IoC;
     using Catel.Logging;
+    using Markup;
     using Orchestra.Services;
     using Orchestra.Views;
 
@@ -45,6 +47,8 @@ namespace Orchestra.Examples.Ribbon
 #if DEBUG
             LogManager.AddDebugListener(true);
 #endif
+
+            FontImage.DefaultFontFamily = new FontFamily(new Uri("pack://application:,,,/Orchestra.Examples.Ribbon;component/Resources/Fonts/", UriKind.RelativeOrAbsolute), "./#FontAwesome");
 
             var serviceLocator = ServiceLocator.Default;
             var shellService = serviceLocator.ResolveType<IShellService>();

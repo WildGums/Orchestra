@@ -131,7 +131,7 @@
             <fluent:RibbonTabItem Header="View">
 
                 <fluent:RibbonGroupBox Header="Workspace">
-                    <fluent:Button Header="Refresh" LargeIcon="/Resources/Images/refresh.png" 
+                    <fluent:Button Header="Refresh" LargeIcon="{orchestra:FontImage &#xf036;}" 
                                    Command="{Binding RefreshWorkspace}" />
                 </fluent:RibbonGroupBox>
 

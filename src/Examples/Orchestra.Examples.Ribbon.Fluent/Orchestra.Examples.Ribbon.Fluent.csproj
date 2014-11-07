@@ -139,6 +139,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Fonts\fontawesome-webfont.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Orchestra.Core\Orchestra.Core\Orchestra.Core.csproj">

@@ -38,5 +38,6 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Behaviors")]
 [assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Converters")]
 [assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Controls")]
+[assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Markup")]
 [assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Views")]
 [assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Windows")]
