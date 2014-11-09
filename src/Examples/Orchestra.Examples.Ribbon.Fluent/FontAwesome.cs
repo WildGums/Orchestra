@@ -24,7 +24,7 @@ namespace Orchestra.Examples.Ribbon
             unicode = unicode.TrimEnd(';');
 
             var code = int.Parse(unicode, NumberStyles.AllowHexSpecifier);
-            return ((char) code).ToString();
+            return ((char)code).ToString();
         }
     }
 }

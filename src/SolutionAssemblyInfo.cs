@@ -32,12 +32,3 @@ using System.Windows.Markup;
 
 [assembly: AssemblyVersion("2.0")]
 [assembly: AssemblyInformationalVersion("2.0, Nightly, Released on 2013-09-01 13:32")]
-
-
-[assembly: XmlnsPrefix("https://github.com/orcomp/orchestra", "orchestra")]
-[assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Behaviors")]
-[assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Converters")]
-[assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Controls")]
-[assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Markup")]
-[assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Views")]
-[assembly: XmlnsDefinition("https://github.com/orcomp/orchestra", "Orchestra.Windows")]
