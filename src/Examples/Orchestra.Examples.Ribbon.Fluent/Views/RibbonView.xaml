@@ -4,7 +4,8 @@
                    xmlns:catel="http://catel.codeplex.com"
                    xmlns:views="clr-namespace:Orchestra.Views;assembly=Orchestra.Core"
                    xmlns:fluent="urn:fluent-ribbon"
-                   xmlns:orchestra="https://github.com/orcomp/orchestra">
+                   xmlns:orchestra="https://github.com/orcomp/orchestra"
+                   xmlns:ribbon="clr-namespace:Orchestra.Examples.Ribbon">
 
     <fluent:Ribbon x:Name="ribbon" IsQuickAccessToolBarVisible="False" CanCustomizeRibbon="False" AutomaticStateManagement="False">
         <fluent:Ribbon.Menu>
@@ -131,8 +132,12 @@
             <fluent:RibbonTabItem Header="View">
 
                 <fluent:RibbonGroupBox Header="Workspace">
-                    <fluent:Button Header="Refresh" LargeIcon="{orchestra:FontImage &#xf036;}" 
+                    <fluent:Button Header="Refresh" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Refresh}}" 
                                    Command="{Binding RefreshWorkspace}" />
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox Header="Demo group">
+                    <fluent:Button Header="Windows" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Windows}}" />
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox Header="Keyboard">
