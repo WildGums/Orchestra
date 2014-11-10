@@ -98,6 +98,11 @@ namespace Orchestra.Markup
         /// <returns>The object value to set on the property where the extension is applied.</returns>
         protected override object ProvideDynamicValue()
         {
+            return GetImageSource();
+        }
+
+        public ImageSource GetImageSource()
+        {
             var fontFamily = FontFamily;
             if (fontFamily == null)
             {
@@ -118,17 +123,9 @@ namespace Orchestra.Markup
             return glyph;
         }
 
-        public static void RegisterFont(string name, FontFamily fontFamily)
-        {
-            Argument.IsNotNullOrWhitespace(() => name);
-            Argument.IsNotNull(() => fontFamily);
-
-            RegisteredFontFamilies[name] = fontFamily;
-        }
-
         private static ImageSource CreateGlyph(string text, FontFamily fontFamily, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch, Brush foreBrush)
         {
-            if (fontFamily != null && !String.IsNullOrEmpty(text))
+            if (fontFamily != null && !string.IsNullOrEmpty(text))
             {
                 var typeface = new Typeface(fontFamily, fontStyle, fontWeight, fontStretch);
 
@@ -173,6 +170,26 @@ namespace Orchestra.Markup
             }
 
             return null;
+        }
+
+        public static void RegisterFont(string name, FontFamily fontFamily)
+        {
+            Argument.IsNotNullOrWhitespace(() => name);
+            Argument.IsNotNull(() => fontFamily);
+
+            RegisteredFontFamilies[name] = fontFamily;
+        }
+
+        public static IEnumerable<string> GetRegisteredFonts()
+        {
+            return RegisteredFontFamilies.Keys.ToList();
+        }
+
+        public static FontFamily GetRegisteredFont(string name)
+        {
+            Argument.IsNotNullOrWhitespace(() => name);
+
+            return RegisteredFontFamilies.ContainsKey(name) ? RegisteredFontFamilies[name] : null;
         }
     }
 }
