@@ -7,9 +7,12 @@
 namespace Orchestra.Markup
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Markup;
     using System.Windows.Media;
+    using Catel;
     using Catel.Logging;
     using Catel.Windows.Markup;
     using Brush = System.Windows.Media.Brush;
@@ -27,10 +30,13 @@ namespace Orchestra.Markup
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
+        private static readonly Dictionary<string, FontFamily> RegisteredFontFamilies = new Dictionary<string, FontFamily>(); 
+
         #region Constructors
         static FontImage()
         {
-            DefaultFontFamily = new FontFamily("Segoe UI Symbol");
+            DefaultFontFamily = "Segoe UI Symbol";
+            DefaultBrush = Brushes.Black;
         }
 
         /// <summary>
@@ -39,6 +45,7 @@ namespace Orchestra.Markup
         public FontImage()
         {
             FontFamily = DefaultFontFamily;
+            Brush = DefaultBrush;
         }
 
         /// <summary>
@@ -57,13 +64,25 @@ namespace Orchestra.Markup
         /// Gets or sets the default name of the font.
         /// </summary>
         /// <value>The default name of the font.</value>
-        public static FontFamily DefaultFontFamily { get; set; }
+        public static string DefaultFontFamily { get; set; }
 
         /// <summary>
-        /// Gets or sets the font family.
+        /// Gets or sets the default brush.
+        /// </summary>
+        /// <value>The default brush.</value>
+        public static Brush DefaultBrush { get; set; }
+
+        /// <summary>
+        /// Gets the font family.
         /// </summary>
         /// <value>The font family.</value>
-        public FontFamily FontFamily { get; set; }
+        public string FontFamily { get; set; }
+
+        /// <summary>
+        /// Gets or sets the brush.
+        /// </summary>
+        /// <value>The brush.</value>
+        public Brush Brush { get; set; }
 
         /// <summary>
         /// Gets or sets the font item name.
@@ -82,13 +101,29 @@ namespace Orchestra.Markup
             var fontFamily = FontFamily;
             if (fontFamily == null)
             {
-                Log.Error("No font is available, make sure to set both FontUri and FontFamily");
+                Log.ErrorAndThrowException<InvalidOperationException>("FontFamily cannot be null, make sure to set it or use the DefaultFontFamily");
                 return null;
             }
 
+            if (!RegisteredFontFamilies.ContainsKey(fontFamily))
+            {
+                Log.ErrorAndThrowException<InvalidOperationException>("FontFamily '{0}' is not yet registered, register it first using the RegisterFont method", fontFamily);
+                return null;
+            }
+
+            var family = RegisteredFontFamilies[fontFamily];
+
             // TODO: Consider caching
-            var glyph = CreateGlyph(ItemName, fontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal, Brushes.Black);
+            var glyph = CreateGlyph(ItemName, family, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal, Brush);
             return glyph;
+        }
+
+        public static void RegisterFont(string name, FontFamily fontFamily)
+        {
+            Argument.IsNotNullOrWhitespace(() => name);
+            Argument.IsNotNull(() => fontFamily);
+
+            RegisteredFontFamilies[name] = fontFamily;
         }
 
         private static ImageSource CreateGlyph(string text, FontFamily fontFamily, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch, Brush foreBrush)
