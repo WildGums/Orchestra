@@ -147,6 +147,18 @@
                     </fluent:SplitButton>
                 </fluent:RibbonGroupBox>
 
+                <fluent:RibbonGroupBox>
+                    <fluent:SplitButton Header="Grid" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Mobile}}"
+                                    IsCheckable="True" IsChecked="{Binding Settings.IsShowAllGridLines}" HorizontalContentAlignment="Stretch">
+                        <StackPanel HorizontalAlignment="Stretch">
+                            <fluent:ToggleButton Header="Vertical Grid" Size="Middle" Icon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Windows}}"
+                                     IsChecked="{Binding Settings.IsShowVerticalGridLines}" />
+                            <fluent:ToggleButton Header="Horizontal Grid" Size="Middle" Icon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Apple}}" 
+                                     IsChecked="{Binding Settings.IsShowHorizontalGridLines}" />
+                        </StackPanel>
+                    </fluent:SplitButton>
+                </fluent:RibbonGroupBox>
+                
                 <fluent:RibbonGroupBox Header="Custom controls">
                     <StackPanel>
                         <ComboBox />
