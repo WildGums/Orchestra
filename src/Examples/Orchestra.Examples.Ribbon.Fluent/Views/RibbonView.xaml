@@ -135,13 +135,13 @@
                     <fluent:Button Header="Refresh" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Refresh}}" 
                                    Command="{Binding RefreshWorkspace}" />
                 </fluent:RibbonGroupBox>
-
+                
                 <fluent:RibbonGroupBox Header="Demo group">
                     <fluent:Button Header="Windows" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Windows}}" />
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox Header="Keyboard">
-                    <fluent:SplitButton Header="Shortcuts" LargeIcon="/Resources/Images/keyboard.png"
+                    <fluent:SplitButton Header="Shortcuts" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.KeyboardO}}"
                                         Command="{Binding ShowKeyboardMappings}" IsCheckable="False">
                         <views:KeyboardMappingsOverviewView />
                     </fluent:SplitButton>
@@ -151,9 +151,9 @@
                     <fluent:SplitButton Header="Grid" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Mobile}}"
                                     IsCheckable="True" IsChecked="{Binding Settings.IsShowAllGridLines}" HorizontalContentAlignment="Stretch">
                         <StackPanel HorizontalAlignment="Stretch">
-                            <fluent:ToggleButton Header="Vertical Grid" Size="Middle" Icon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Windows}}"
+                            <fluent:ToggleButton Header="Windows" Size="Middle" Icon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Windows}}"
                                      IsChecked="{Binding Settings.IsShowVerticalGridLines}" />
-                            <fluent:ToggleButton Header="Horizontal Grid" Size="Middle" Icon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Apple}}" 
+                            <fluent:ToggleButton Header="Apple" Size="Middle" Icon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Apple}}" 
                                      IsChecked="{Binding Settings.IsShowHorizontalGridLines}" />
                         </StackPanel>
                     </fluent:SplitButton>
