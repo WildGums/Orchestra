@@ -184,12 +184,16 @@
     <Compile Include="Tooltips\Interfaces\IAdornerTooltipGenerator.cs" />
     <Compile Include="Tooltips\TextBlockAdorner.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\FilePickerViewModel.cs" />
     <Compile Include="ViewModels\DirectoryPickerViewModel.cs" />
     <Compile Include="ViewModels\KeyboardMappingsCustomizationViewModel.cs" />
     <Compile Include="ViewModels\KeyboardMappingsOverviewViewModel.cs" />
     <Compile Include="ViewModels\SplashScreenViewModel.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FilePickerView.xaml.cs">
+      <DependentUpon>FilePickerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DirectoryPickerView.xaml.cs">
       <DependentUpon>DirectoryPickerView.xaml</DependentUpon>
@@ -248,6 +252,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AboutWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FilePickerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
