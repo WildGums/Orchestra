@@ -8,11 +8,13 @@
 namespace Orchestra.ViewModels
 {
     using System.Linq;
+    using System.Windows.Media;
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Services;
     using Catel.Reflection;
+    using Helpers;
     using Models;
 
     public class AboutViewModel : ViewModelBase
@@ -35,7 +37,7 @@ namespace Orchestra.ViewModels
             Copyright = assembly.Copyright();
             ImageSourceUrl = aboutInfo.LogoImageSource;
             ShowLogButton = aboutInfo.ShowLogButton;
-
+            AppIcon = IconHelper.GetApplicationIcon(assembly.Location, 256);
             OpenUrl = new Command(OnOpenUrlExecute);
             OpenLog = new Command(OnOpenLogExecute);
         }
@@ -52,6 +54,8 @@ namespace Orchestra.ViewModels
         public string ImageSourceUrl { get; private set; }
 
         public bool ShowLogButton { get; private set; }
+
+        public ImageSource AppIcon { get; private set; }
         #endregion
 
         #region Commands

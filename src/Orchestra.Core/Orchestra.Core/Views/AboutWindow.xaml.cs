@@ -7,6 +7,7 @@
 
 namespace Orchestra.Views
 {
+    using System.Windows;
     using Catel.IoC;
     using Catel.Services;
     using Catel.Windows;
@@ -41,12 +42,16 @@ namespace Orchestra.Views
             var languageService = dependencyResolver.Resolve<ILanguageService>();
 
             //AddCustomButton(new DataWindowButton(languageService.GetString("EnableLogging"), "EnableLogging"));
-            AddCustomButton(new DataWindowButton(languageService.GetString("Close"), Close));
 
             InitializeComponent();
 
             this.ApplyApplicationIcon();
         }
         #endregion
+
+        private void Close_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
