@@ -6,6 +6,22 @@ Orchestra consists of a main shell including an SDK with services that allows de
 
 These modules can communicate with the shell, but also with each other through the services that are offered out of the box.
 
+# Shells
+
+Orchestra provides support for a lot of different shells.
+
+## Fluent Ribbon shell
+
+![Fluent Ribbon 01](doc/images/shell_fluentribbon_01.png)
+
+![Fluent Ribbon 02](doc/images/shell_fluentribbon_02.png) 
+
+## MahApps shell
+
+![MahApps 01](doc/images/shell_mahapps_01.png)
+
+# More information
+
 ## Update 2014/10/28
 
 Some of the features which will come out of the box:
