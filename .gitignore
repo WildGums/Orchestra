@@ -7,8 +7,15 @@
 *.sln.docstates
 
 # Build results
+[Bb]in/
+[Cc]lientbin/
 [Dd]ebug/
 [Rr]elease/
+[Oo]utput*/
+[Pp]ackages*/
+bin
+obj
+[Ll]ib/
 *_i.c
 *_p.c
 *.ilk
@@ -25,6 +32,7 @@
 *.tlh
 *.tmp
 *.vspscc
+*.xap
 .builds
 
 # Visual C++ cache files
@@ -40,6 +48,26 @@ ipch/
 
 # ReSharper is a .NET coding add-in
 _ReSharper*
+*.resharper.user
+
+# Dotcover
+*.dotCover
+*.dotsettings.user
+
+# Finalbuilder
+*.fbl7
+*.fb7lck
+*.fbpInf
+
+# Ghostdoc
+*.GhostDoc.xml
+
+# Deployments
+deployment/FinalBuilder/backup
+deployment/InnoSetup/template/templates
+deployment/InnoSetup/template/snippets
+deployment/InnoSetup/template/libraries
+deployment/InnoSetup/template/doc
 
 # Installshield output folder 
 [Ee]xpress

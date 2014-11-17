@@ -1,0 +1,33 @@
+﻿<catel:UserControl x:Class="Orchestra.Examples.MahApps.Views.PersonView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:catel="http://catel.codeplex.com"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
+
+    <catel:StackGrid x:Name="layoutRoot">
+        <catel:StackGrid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </catel:StackGrid.RowDefinitions>
+
+        <catel:StackGrid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="200" />
+        </catel:StackGrid.ColumnDefinitions>
+
+        <Label Content="First name" />
+        <TextBox Text="{Binding FirstName}">
+            <i:Interaction.Behaviors>
+                <catel:Focus FocusMoment="Event" Source="{Binding ElementName=layoutRoot}" EventName="DataContextChanged" FocusDelay="500" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+
+        <Label Content="Middle name" />
+        <TextBox Text="{Binding MiddleName}" />
+
+        <Label Content="Last name" />
+        <TextBox Text="{Binding LastName}" />
+    </catel:StackGrid>
+
+</catel:UserControl>

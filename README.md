@@ -6,6 +6,31 @@ Orchestra consists of a main shell including an SDK with services that allows de
 
 These modules can communicate with the shell, but also with each other through the services that are offered out of the box.
 
+## Update 2014/10/28
+
+Some of the features which will come out of the box:
+
+- [x] [MahApps](http://mahapps.com/) integration
+- [ ] Module management
+- [x] License management => [Orc.LicenseManager](https://github.com/Orcomp/Orc.LicenseManager)
+- [x] Command management
+- [x] Shortcut manager (which will allow end users to remap shortcut keys)
+- [x] Splash screen customization
+- [x] About box window
+- [x] Automatic updates => [Orc.Squirrel](https://github.com/Orcomp/Orc.Squirrel)
+
+Features already included in [Catel](https://catelproject.atlassian.net/wiki/display/CTL/Catel+documentation+Home):
+- [x] Application wide logging
+- [x] FluentValidation
+- [x] Memento (undo/redo)
+
+Other Project(s) that might be of interest:
+- [Orc.FilterBuilder](https://github.com/Orcomp/Orc.FilterBuilder)
+
+## License
+
+Open source (MS-PL license), so you are free to use it in commercial applications
+
 ## Benefits to users:
 
 - Framework developed with best practices in mind which will allow you to deploy robust applications
@@ -15,14 +40,12 @@ These modules can communicate with the shell, but also with each other through t
     - [Orchestra.Library](http://nuget.org/packages/Orchestra.Library)
     - [Orchestra.Shell](http://nuget.org/packages/Orchestra.Shell)
 - Visual Studio templates to get started quickly
-- Open source (MS-PL license), so you are free to use it in commercial applications
 
 ## Plugin architecture
 
 Orchestra uses a plugin architecture with some already well know open source libraries already implemented:
 
-- [AvalonDock](http://avalondock.codeplex.com/) (docking library)
-- [Catel](http://Catel.Codeplex.com) (MVVM framework plut a lot more)
+- [Catel](http://Catel.Codeplex.com) (MVVM framework plus a lot more)
 - [Fluent Ribbon](http://fluent.codeplex.com/)
 - [Prism](http://compositewpf.codeplex.com/)
 - [Nancy](http://www.nancyfx.org) (Lightweight Web Framework for .NET)
@@ -38,7 +61,7 @@ It is easy to add extra modules by following the examples.
 
 ## Support
 
-You can ask for support on our mailing list: https://groups.google.com/forum/#!forum/orchestradev
+Please create an issue.
 
 ## Contribute
 
@@ -52,5 +75,6 @@ Everyone is encouraged to contribute, either by:
 
 - [Gemini](https://github.com/tgjones/gemini "Gemini")
 - [Wide](https://github.com/chandramouleswaran/Wide/ "Wide")
+- [Albatross Shell](https://albatrossshell.codeplex.com/ "Albatross Shell")
 
 

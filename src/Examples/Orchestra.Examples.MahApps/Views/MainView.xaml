@@ -1,0 +1,23 @@
+﻿<catel:UserControl x:Class="Orchestra.Examples.MahApps.Views.MainView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:catel="http://catel.codeplex.com"
+                   xmlns:views="clr-namespace:Orchestra.Examples.MahApps.Views"
+                   xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="catel:TabControl" BasedOn="{StaticResource {x:Type TabControl}}" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <catel:TabControl>
+            <TabItem IsSelected="True" Header="Persons" controls:ControlsHelper.HeaderFontSize="32" 
+                     VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <views:PersonsView />
+            </TabItem>
+        </catel:TabControl>
+    </Grid>
+    
+</catel:UserControl>

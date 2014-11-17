@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Weavers>
+  <Catel />
+  <LoadAssembliesOnStartup>
+    <ExcludeAssemblies>
+      Catel.Fody.Attributes
+      MethodTimer
+      Obsolete
+    </ExcludeAssemblies>
+  </LoadAssembliesOnStartup>
+  <ModuleInit />
+  <Obsolete />
+  <MethodTimer />
+</Weavers>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Orchestra.Shell.TaskRunner</id>
+    <version>[VERSION]</version>
+    <title>Orchestra.Shell.TaskRunner</title>
+    <authors>GeertvanHorrik,OrchestraDevs</authors>
+    <owners>GeertvanHorrik,OrchestraDevs</owners>
+
+	<description>
+	  The TaskRunner shell for Orchestra based applications.
+	</description>
+	<summary>
+	</summary>	
+
+	<tags>mvvm orchestra shell prism framework wpf task runner taskrunner</tags>
+
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Copyright Orchestra team 2010 - 2014</copyright>
+
+	<language>en-US</language>
+	<projectUrl>https://github.com/Orcomp/Orchestra</projectUrl>
+	<!--<licenseUrl>http://catel.codeplex.com/license</licenseUrl>-->
+	<!--<iconUrl>http://www.catenalogic.com/catel.png</iconUrl>-->
+
+    <dependencies>
+      <dependency id="Orchestra.Core" version="[VERSION]" />
+    
+      <dependency id="Catel.Core" version="[replaced]" />
+      <dependency id="Catel.MVVM" version="[replaced]" />
+      <dependency id="Catel.Extensions.Controls" version="[replaced]" />
+    </dependencies>
+  </metadata>
+</package>

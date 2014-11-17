@@ -1,0 +1,35 @@
+﻿<windows:SimpleDataWindow x:Class="Orchestra.Views.MahAppsAboutView"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:catel="http://catel.codeplex.com"
+                          xmlns:windows="clr-namespace:Orchestra.Windows">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" FontSize="24" HorizontalAlignment="Center" Text="{Binding Title}" />
+        <TextBlock Grid.Row="1" FontSize="24" HorizontalAlignment="Center"
+                   Visibility="{Binding Url, Converter={catel:EmptyStringToCollapsingVisibilityConverter}}">
+            <Hyperlink NavigateUri="{Binding Url}"  Command="{Binding OpenUrl}">
+                <TextBlock Text="{Binding Url}" />
+            </Hyperlink>
+        </TextBlock>
+
+        <TextBlock Grid.Row="2" FontSize="24" HorizontalAlignment="Center" Text="{Binding Version}" />
+
+        <Image Grid.Row="3" Source="{Binding ImageSourceUrl}" HorizontalAlignment="Center" Stretch="Fill" StretchDirection="Both"/>
+
+        <TextBlock Grid.Row="4" FontSize="18" HorizontalAlignment="Center" Text="{Binding Copyright}" />
+    </Grid>
+
+</windows:SimpleDataWindow>

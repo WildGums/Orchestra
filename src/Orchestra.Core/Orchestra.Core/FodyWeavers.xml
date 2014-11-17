@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Weavers>
+  <ModuleInit />
+  <LoadAssembliesOnStartup>
+    <ExcludeAssemblies>
+      Catel.Fody.Attributes
+      MethodTimer
+      Obsolete
+    </ExcludeAssemblies>
+  </LoadAssembliesOnStartup>
+  <Catel />
+  <Costura>
+    <IncludeAssemblies>
+      Ionic.Zip
+    </IncludeAssemblies>
+  </Costura>
+  <Obsolete />
+  <MethodTimer />
+</Weavers>
