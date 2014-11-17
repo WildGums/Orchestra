@@ -21,7 +21,7 @@ namespace Orchestra.Windows
     using Catel.Windows;
     using MahApps.Metro.Controls.Dialogs;
 
-    public class SimpleDataWindow : SimpleDialog, IDataWindow
+    public class SimpleDataWindow : MahApps.Metro.Controls.Dialogs.CustomDialog, IDataWindow
     {
         #region Fields
         private readonly WindowLogic _logic;

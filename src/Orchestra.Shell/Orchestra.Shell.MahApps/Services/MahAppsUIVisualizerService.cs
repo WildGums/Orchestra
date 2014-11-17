@@ -30,7 +30,7 @@ namespace Orchestra.Services
 
         protected override Task<bool?> ShowWindow(FrameworkElement window, bool showModal)
         {
-            var simpleDialog = window as SimpleDialog;
+            var simpleDialog = window as CustomDialog;
             if (simpleDialog != null)
             {
                 return Task<bool?>.Factory.StartNew(() =>
