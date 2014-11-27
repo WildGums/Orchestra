@@ -130,6 +130,7 @@
     <Compile Include="Helpers\FilterHelper.cs" />
     <Compile Include="Helpers\IconHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Helpers\ScreenHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\VersionHelper.cs" />
     <Compile Include="Layers\HintsAdornerLayer.cs" />
