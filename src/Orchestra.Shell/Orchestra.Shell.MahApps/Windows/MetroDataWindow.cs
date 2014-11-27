@@ -62,6 +62,7 @@ namespace Orchestra.Windows
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
+            this.FixBlurriness();
             this.ApplyIconFromApplication();
 
             EnableDWMDropShadow = true;

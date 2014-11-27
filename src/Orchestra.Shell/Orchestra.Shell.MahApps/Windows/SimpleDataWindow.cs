@@ -104,6 +104,8 @@ namespace Orchestra.Windows
 
             // Call manually the first time (for injected view models)
             OnViewModelChanged();
+
+            this.FixBlurriness();
         }
         #endregion
 

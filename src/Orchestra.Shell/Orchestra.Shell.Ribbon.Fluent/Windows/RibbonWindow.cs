@@ -14,6 +14,7 @@ namespace Orchestra.Windows
     using Catel.MVVM;
     using Catel.MVVM.Providers;
     using Catel.MVVM.Views;
+    using Catel.Windows;
 
     public class RibbonWindow : Fluent.RibbonWindow, IDataWindow
     {
@@ -48,6 +49,8 @@ namespace Orchestra.Windows
 
             // Call manually the first time (for injected view models)
             OnViewModelChanged();
+
+            this.FixBlurriness();
         }
 
         #region Properties
