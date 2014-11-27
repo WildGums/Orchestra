@@ -166,6 +166,10 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type fluent:SplitButton}">
+        <Setter Property="ClosePopupOnMouseDown" Value="True" />
+    </Style>
+
     <Style TargetType="{x:Type fluent:ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
