@@ -17,7 +17,7 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => assembly);
 
-            return Icon.ExtractAssociatedIcon(assembly.Location);
+            return IconHelper.ExtractIconFromFile(assembly.Location);
         }
     }
 }

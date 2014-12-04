@@ -14,7 +14,6 @@ namespace Orchestra.ViewModels
     using Catel.MVVM;
     using Catel.Services;
     using Catel.Reflection;
-    using Helpers;
     using Models;
 
     public class AboutViewModel : ViewModelBase
@@ -37,7 +36,7 @@ namespace Orchestra.ViewModels
             Copyright = assembly.Copyright();
             ImageSourceUrl = aboutInfo.LogoImageSource;
             ShowLogButton = aboutInfo.ShowLogButton;
-            AppIcon = IconHelper.GetApplicationIcon(assembly.Location, 256);
+            AppIcon = IconHelper.ExtractIconFromFile(assembly.Location).ToImageSource(256);
             OpenUrl = new Command(OnOpenUrlExecute);
             OpenLog = new Command(OnOpenLogExecute);
         }

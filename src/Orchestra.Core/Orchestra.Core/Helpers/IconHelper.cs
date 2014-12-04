@@ -5,27 +5,20 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace Orchestra.Helpers
+namespace Orchestra
 {
     using System.Drawing;
-    using System.Windows;
-    using System.Windows.Interop;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
     using Catel;
 
     internal static class IconHelper
     {
         #region Methods
-        public static ImageSource GetApplicationIcon(string executablePath, int requiredSize = 64)
+        public static Icon ExtractIconFromFile(string executablePath)
         {
             Argument.IsNotNull(() => executablePath);
 
             var icon = Icon.ExtractAssociatedIcon(executablePath);
-
-            var imageSource = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty,
-                BitmapSizeOptions.FromWidthAndHeight(requiredSize, requiredSize));
-            return imageSource;
+            return icon;
         }
         #endregion
     }
