@@ -16,8 +16,11 @@ namespace Orchestra
     using System.Runtime.InteropServices;
     using System.Security;
     using System.Text;
+    using System.Windows;
+    using System.Windows.Interop;
     using System.Windows.Media.Imaging;
     using Catel;
+    using Point = System.Drawing.Point;
 
     internal static class IconHelper
     {
@@ -37,6 +40,11 @@ namespace Orchestra
             var icon = ExtractIconFromFile(filePath);
 
             var vistaIcon = ExtractVistaIcon(icon);
+            if (vistaIcon == null)
+            {
+                var bitmap = ExtractIcon(icon);
+                return ToBitmapImageWithTransparency(bitmap);
+            }
             return ToBitmapImageWithTransparency(vistaIcon);
         }
 
@@ -85,6 +93,21 @@ namespace Orchestra
             }
 
             return extractedIcon;
+        }
+
+        private static Bitmap ExtractIcon(Icon icon)
+        {
+            var bitmapSource = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            return ToBitmap(bitmapSource);
+        }
+
+        private static Bitmap ToBitmap(BitmapSource source)
+        {
+            var bitmap = new Bitmap(source.PixelWidth, source.PixelHeight, PixelFormat.Format32bppPArgb);
+            var data = bitmap.LockBits(new Rectangle(Point.Empty, bitmap.Size), ImageLockMode.WriteOnly, PixelFormat.Format32bppPArgb);
+            source.CopyPixels(Int32Rect.Empty, data.Scan0, data.Height * data.Stride, data.Stride);
+            bitmap.UnlockBits(data);
+            return bitmap;
         }
 
         private static BitmapImage ToBitmapImageWithTransparency(Bitmap bitmap)
