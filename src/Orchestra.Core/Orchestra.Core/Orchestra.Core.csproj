@@ -69,6 +69,12 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
       <HintPath>..\..\..\lib\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack">
+      <HintPath>..\..\..\lib\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell">
+      <HintPath>..\..\..\lib\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="Obsolete">
       <HintPath>..\..\..\lib\Obsolete.Fody.3.1.0.0\Lib\NET35\Obsolete.dll</HintPath>
       <Private>False</Private>
@@ -174,6 +180,7 @@
     <Compile Include="Services\Interfaces\IRecentlyUsedItemsService.cs" />
     <Compile Include="Services\Interfaces\IStatusService.cs" />
     <Compile Include="Services\Interfaces\ISplashScreenService.cs" />
+    <Compile Include="Services\SelectDirectoryService.cs" />
     <Compile Include="Services\SplashScreenService.cs" />
     <Compile Include="Services\KeyboardMappingsService.cs" />
     <Compile Include="Services\RecentlyUsedItemsService.cs" />
