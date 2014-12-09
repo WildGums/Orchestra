@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SelectDirectoryService.cs" company="Orchestra development team">
+// <copyright file="MicrosoftApiSelectDirectoryService.cs" company="Orchestra development team">
 //   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -9,7 +9,7 @@ namespace Orchestra.Services
     using Catel.Services;
     using Microsoft.WindowsAPICodePack.Dialogs;
 
-    public class SelectDirectoryService : ISelectDirectoryService
+    public class MicrosoftApiSelectDirectoryService : ISelectDirectoryService
     {
         public bool DetermineDirectory()
         {
@@ -23,6 +23,7 @@ namespace Orchestra.Services
                 DirectoryName = browserDialog.FileName;
                 return true;
             }
+
             DirectoryName = string.Empty;
             return false;
         }

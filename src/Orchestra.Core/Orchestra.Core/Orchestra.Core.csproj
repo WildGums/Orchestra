@@ -180,7 +180,7 @@
     <Compile Include="Services\Interfaces\IRecentlyUsedItemsService.cs" />
     <Compile Include="Services\Interfaces\IStatusService.cs" />
     <Compile Include="Services\Interfaces\ISplashScreenService.cs" />
-    <Compile Include="Services\SelectDirectoryService.cs" />
+    <Compile Include="Services\MicrosoftApiSelectDirectoryService.cs" />
     <Compile Include="Services\SplashScreenService.cs" />
     <Compile Include="Services\KeyboardMappingsService.cs" />
     <Compile Include="Services\RecentlyUsedItemsService.cs" />
