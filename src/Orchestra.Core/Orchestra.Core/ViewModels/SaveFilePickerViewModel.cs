@@ -91,7 +91,8 @@ namespace Orchestra.ViewModels
         {
             if (!string.IsNullOrEmpty(SelectedFile))
             {
-                _saveFileService.InitialDirectory = Path.GetFullPath(SelectedFile);
+                _saveFileService.InitialDirectory = Directory.GetParent(SelectedFile).FullName;
+                _saveFileService.FileName = SelectedFile;
             }
 
             if (!string.IsNullOrEmpty(Filter))
