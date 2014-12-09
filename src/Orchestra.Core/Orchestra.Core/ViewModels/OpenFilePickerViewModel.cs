@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="FilePickerViewModel.cs" company="Orchestra development team">
+// <copyright file="OpenFilePickerViewModel.cs" company="Orchestra development team">
 //   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace Orchestra.ViewModels
     using Catel.MVVM;
     using Catel.Services;
 
-    public class FilePickerViewModel : ViewModelBase
+    public class OpenFilePickerViewModel : ViewModelBase
     {
         #region Fields
         private readonly IProcessService _processService;
@@ -20,7 +20,7 @@ namespace Orchestra.ViewModels
         #endregion
 
         #region Constructors
-        public FilePickerViewModel(IOpenFileService selectFileService, IProcessService processService)
+        public OpenFilePickerViewModel(IOpenFileService selectFileService, IProcessService processService)
         {
             Argument.IsNotNull(() => selectFileService);
             Argument.IsNotNull(() => processService);
