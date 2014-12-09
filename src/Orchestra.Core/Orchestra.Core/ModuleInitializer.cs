@@ -43,6 +43,9 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutInfoService, AboutInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
 
+        // Override Catel.SelectDirectoryService with Orchestra.Services.SelectDirectoryService
+        serviceLocator.RegisterType<ISelectDirectoryService, MicrosoftApiSelectDirectoryService>();
+
         // Hints system
         serviceLocator.RegisterType<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>();
         serviceLocator.RegisterType<IAdornerLayer, HintsAdornerLayer>();

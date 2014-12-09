@@ -27,10 +27,11 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         private readonly IRecentlyUsedItemsService _recentlyUsedItemsService;
         private readonly IProcessService _processService;
         private readonly IMessageService _messageService;
+        private readonly ISelectDirectoryService _selectDirectoryService;
 
         public RibbonViewModel(INavigationService navigationService, IUIVisualizerService uiVisualizerService,
             ICommandManager commandManager, IRecentlyUsedItemsService recentlyUsedItemsService, IProcessService processService,
-            IMessageService messageService)
+            IMessageService messageService, ISelectDirectoryService selectDirectoryService)
         {
             Argument.IsNotNull(() => navigationService);
             Argument.IsNotNull(() => uiVisualizerService);
@@ -38,21 +39,26 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             Argument.IsNotNull(() => recentlyUsedItemsService);
             Argument.IsNotNull(() => processService);
             Argument.IsNotNull(() => messageService);
+            Argument.IsNotNull(() => selectDirectoryService);
 
             _navigationService = navigationService;
             _uiVisualizerService = uiVisualizerService;
             _recentlyUsedItemsService = recentlyUsedItemsService;
             _processService = processService;
             _messageService = messageService;
+            _selectDirectoryService = selectDirectoryService;
 
+            OpenProject = new Command(OnOpenProjectExecute);
             OpenRecentlyUsedItem = new Command<string>(OnOpenRecentlyUsedItemExecute);
+            OpenInExplorer = new Command<string>(OnOpenInExplorerExecute);
             UnpinItem = new Command<string>(OnUnpinItemExecute);
             PinItem = new Command<string>(OnPinItemExecute);
-            OpenInExplorer = new Command<string>(OnOpenInExplorerExecute);
+
             Help = new Command(OnHelpExecute);
             Exit = new Command(OnExitExecute);
             ShowKeyboardMappings = new Command(OnShowKeyboardMappingsExecute);
 
+            commandManager.RegisterCommand("File.Open", OpenProject, this);
             commandManager.RegisterCommand("Help.About", Help, this);
             commandManager.RegisterCommand("File.Exit", Exit, this);
 
@@ -68,6 +74,22 @@ namespace Orchestra.Examples.Ribbon.ViewModels
 
         #region Commands
         /// <summary>
+        /// Gets the OpenProject command.
+        /// </summary>
+        public Command OpenProject { get; private set; }
+
+        /// <summary>
+        /// Method to invoke when the OpenProject command is executed.
+        /// </summary>
+        private async void OnOpenProjectExecute()
+        {
+            if (_selectDirectoryService.DetermineDirectory())
+            {
+                await _messageService.Show("You have chosen " + _selectDirectoryService.DirectoryName);
+            }
+        }
+
+        /// <summary>
         /// Gets the OpenRecentlyUsedItem command.
         /// </summary>
         public Command<string> OpenRecentlyUsedItem { get; private set; }
@@ -78,6 +100,25 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         private async void OnOpenRecentlyUsedItemExecute(string parameter)
         {
             await _messageService.Show(string.Format("Just opened a recently used item: {0}", parameter));
+        }
+
+        /// <summary>
+        /// Gets the OpenInExplorer command.
+        /// </summary>
+        public Command<string> OpenInExplorer { get; private set; }
+
+        /// <summary>
+        /// Method to invoke when the OpenInExplorer command is executed.
+        /// </summary>
+        private async void OnOpenInExplorerExecute(string parameter)
+        {
+            if (!Directory.Exists(parameter))
+            {
+                await _messageService.ShowWarning("The directory doesn't seem to exist. Cannot open the project in explorer.");
+                return;
+            }
+
+            _processService.StartProcess(parameter);
         }
 
         /// <summary>
@@ -104,25 +145,6 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         private void OnPinItemExecute(string parameter)
         {
             _recentlyUsedItemsService.PinItem(parameter);
-        }
-
-        /// <summary>
-        /// Gets the OpenInExplorer command.
-        /// </summary>
-        public Command<string> OpenInExplorer { get; private set; }
-
-        /// <summary>
-        /// Method to invoke when the OpenInExplorer command is executed.
-        /// </summary>
-        private async void OnOpenInExplorerExecute(string parameter)
-        {
-            if (!Directory.Exists(parameter))
-            {
-                await _messageService.ShowWarning("The directory doesn't seem to exist. Cannot open the project in explorer.");
-                return;
-            }
-
-            _processService.StartProcess(parameter);
         }
 
         /// <summary>

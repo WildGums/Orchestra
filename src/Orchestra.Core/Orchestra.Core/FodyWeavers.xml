@@ -12,6 +12,8 @@
   <Costura>
     <IncludeAssemblies>
       Ionic.Zip
+      Microsoft.WindowsAPICodePack
+      Microsoft.WindowsAPICodePack.Shell
     </IncludeAssemblies>
   </Costura>
   <Obsolete />
