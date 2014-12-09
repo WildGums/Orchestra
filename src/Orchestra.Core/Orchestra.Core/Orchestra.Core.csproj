@@ -194,7 +194,7 @@
     <Compile Include="Tooltips\TextBlockAdorner.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\SaveFilePickerViewModel.cs" />
-    <Compile Include="ViewModels\FilePickerViewModel.cs" />
+    <Compile Include="ViewModels\OpenFilePickerViewModel.cs" />
     <Compile Include="ViewModels\DirectoryPickerViewModel.cs" />
     <Compile Include="ViewModels\KeyboardMappingsCustomizationViewModel.cs" />
     <Compile Include="ViewModels\KeyboardMappingsOverviewViewModel.cs" />
@@ -205,8 +205,8 @@
     <Compile Include="Views\SaveFilePickerView.xaml.cs">
       <DependentUpon>SaveFilePickerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FilePickerView.xaml.cs">
-      <DependentUpon>FilePickerView.xaml</DependentUpon>
+    <Compile Include="Views\OpenFilePickerView.xaml.cs">
+      <DependentUpon>OpenFilePickerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DirectoryPickerView.xaml.cs">
       <DependentUpon>DirectoryPickerView.xaml</DependentUpon>
@@ -272,7 +272,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\FilePickerView.xaml">
+    <Page Include="Views\OpenFilePickerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
