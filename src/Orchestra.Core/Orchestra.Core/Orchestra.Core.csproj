@@ -69,6 +69,12 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
       <HintPath>..\..\..\lib\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack">
+      <HintPath>..\..\..\lib\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell">
+      <HintPath>..\..\..\lib\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="Obsolete">
       <HintPath>..\..\..\lib\Obsolete.Fody.3.1.0.0\Lib\NET35\Obsolete.dll</HintPath>
       <Private>False</Private>
@@ -174,6 +180,7 @@
     <Compile Include="Services\Interfaces\IRecentlyUsedItemsService.cs" />
     <Compile Include="Services\Interfaces\IStatusService.cs" />
     <Compile Include="Services\Interfaces\ISplashScreenService.cs" />
+    <Compile Include="Services\MicrosoftApiSelectDirectoryService.cs" />
     <Compile Include="Services\SplashScreenService.cs" />
     <Compile Include="Services\KeyboardMappingsService.cs" />
     <Compile Include="Services\RecentlyUsedItemsService.cs" />
@@ -186,7 +193,8 @@
     <Compile Include="Tooltips\Interfaces\IAdornerTooltipGenerator.cs" />
     <Compile Include="Tooltips\TextBlockAdorner.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
-    <Compile Include="ViewModels\FilePickerViewModel.cs" />
+    <Compile Include="ViewModels\SaveFilePickerViewModel.cs" />
+    <Compile Include="ViewModels\OpenFilePickerViewModel.cs" />
     <Compile Include="ViewModels\DirectoryPickerViewModel.cs" />
     <Compile Include="ViewModels\KeyboardMappingsCustomizationViewModel.cs" />
     <Compile Include="ViewModels\KeyboardMappingsOverviewViewModel.cs" />
@@ -194,8 +202,11 @@
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FilePickerView.xaml.cs">
-      <DependentUpon>FilePickerView.xaml</DependentUpon>
+    <Compile Include="Views\SaveFilePickerView.xaml.cs">
+      <DependentUpon>SaveFilePickerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OpenFilePickerView.xaml.cs">
+      <DependentUpon>OpenFilePickerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DirectoryPickerView.xaml.cs">
       <DependentUpon>DirectoryPickerView.xaml</DependentUpon>
@@ -257,7 +268,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\FilePickerView.xaml">
+    <Page Include="Views\SaveFilePickerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OpenFilePickerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
