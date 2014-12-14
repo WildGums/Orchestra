@@ -65,6 +65,12 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             RecentlyUsedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.Items);
             PinnedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.PinnedItems);
 
+            _recentlyUsedItemsService.Updated += (sender, args) =>
+            {
+                RecentlyUsedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.Items);
+                PinnedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.PinnedItems);
+            };
+
             commandManager.RegisterCommand("Help.About", Help, this);
             commandManager.RegisterCommand("File.Open", Open, this);
             commandManager.RegisterCommand("File.Exit", Exit, this);
