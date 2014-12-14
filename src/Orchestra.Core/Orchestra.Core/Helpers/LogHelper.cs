@@ -44,9 +44,8 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => prefix);
 
-            var fileName = Path.Combine(Path.GetApplicationDataDirectory(), string.Format("{0}_{1}.txt", prefix, DateTime.Now.ToString("yyyyMMdd_HHmm")));
+            var fileName = Path.Combine(Path.GetApplicationDataDirectory(), prefix + "_{Date}_{Time}_{ProcessId}");
             var fileLogListener = new FileLogListener(fileName, 10 * 1024);
-            //fileLogger.IgnoreCatelLogging = true;
 
             LogManager.AddListener(fileLogListener);
 

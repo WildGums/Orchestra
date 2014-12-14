@@ -24,5 +24,12 @@ namespace Orchestra.Examples.Ribbon.Views
             ribbon.AddAboutButton();
         }
         #endregion
+
+        protected override void OnViewModelChanged()
+        {
+            base.OnViewModelChanged();
+
+            recentlyUsedItemsRibbonGallery.DataContext = ViewModel;
+        }
     }
 }
