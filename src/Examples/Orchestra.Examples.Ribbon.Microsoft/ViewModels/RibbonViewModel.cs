@@ -43,7 +43,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             Argument.IsNotNull(() => recentlyUsedItemsService);
             Argument.IsNotNull(() => openFileService);
             Argument.IsNotNull(() => messageService);
-            Argument.IsNotNull(() => messageService);
+            Argument.IsNotNull(() => processService);
 
             _navigationService = navigationService;
             _uiVisualizerService = uiVisualizerService;
