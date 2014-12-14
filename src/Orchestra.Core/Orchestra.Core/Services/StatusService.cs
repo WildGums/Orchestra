@@ -70,6 +70,15 @@ namespace Orchestra.Services
 
         private void SetStatus(string status)
         {
+            if (!string.IsNullOrWhiteSpace(status))
+            {
+                var statusLines = status.Split(new [] { "\n", "\r\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                if (statusLines.Length > 0)
+                {
+                    status = statusLines[0];
+                }
+            }
+
             _statusRepresenter.UpdateStatus(status);
         }
         #endregion
