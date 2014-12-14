@@ -151,7 +151,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
 
             if (failed)
             {
-                if (await _messageService.Show("The directory does not exist or has been removed. Would you like to remove it from the recently used list?", "Remove from recently used items?", MessageButton.YesNo) == MessageResult.Yes)
+                if (await _messageService.Show("The file does not exist or has been removed. Would you like to remove it from the recently used list?", "Remove from recently used items?", MessageButton.YesNo) == MessageResult.Yes)
                 {
                     var recentlyUsedItem = _recentlyUsedItemsService.Items.FirstOrDefault(x => string.Equals(x.Name, parameter));
                     if (recentlyUsedItem != null)
