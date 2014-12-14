@@ -11,6 +11,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Catel;
     using Catel.MVVM;
@@ -62,18 +63,23 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             PinItem = new Command<string>(OnPinItemExecute);
             OpenInExplorer = new Command<string>(OnOpenInExplorerExecute);
 
-            RecentlyUsedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.Items);
-            PinnedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.PinnedItems);
-
-            _recentlyUsedItemsService.Updated += (sender, args) =>
-            {
-                RecentlyUsedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.Items);
-                PinnedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.PinnedItems);
-            };
+            OnRecentlyUsedItemsServiceUpdated(null, null);
 
             commandManager.RegisterCommand("Help.About", Help, this);
             commandManager.RegisterCommand("File.Open", Open, this);
             commandManager.RegisterCommand("File.Exit", Exit, this);
+        }
+
+        protected override Task Initialize()
+        {
+            _recentlyUsedItemsService.Updated += this.OnRecentlyUsedItemsServiceUpdated;
+            return base.Initialize();
+        }
+
+        protected override Task Close()
+        {
+            _recentlyUsedItemsService.Updated -= this.OnRecentlyUsedItemsServiceUpdated;
+            return base.Close();
         }
 
         #region Commands
@@ -213,5 +219,11 @@ namespace Orchestra.Examples.Ribbon.ViewModels
 
         public List<RecentlyUsedItem> PinnedItems { get; private set; }
         #endregion
+
+        private void OnRecentlyUsedItemsServiceUpdated(object sender, EventArgs e)
+        {
+            RecentlyUsedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.Items);
+            PinnedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.PinnedItems);
+        }
     }
 }
