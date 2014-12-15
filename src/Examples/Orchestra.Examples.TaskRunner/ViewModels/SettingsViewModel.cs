@@ -8,25 +8,35 @@
 namespace Orchestra.Examples.TaskRunner.ViewModels
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Data;
     using Catel.Fody;
     using Catel.Logging;
     using Catel.MVVM;
+    using Catel.Services;
     using Models;
+    using Orchestra.Services;
 
     public class SettingsViewModel : ViewModelBase
     {
         #region Fields
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        private readonly ILogControlService _logControlService;
+        private readonly IDispatcherService _dispatcherService;
         #endregion
 
         #region Constructors
-        public SettingsViewModel(Settings settings)
+        public SettingsViewModel(Settings settings, ILogControlService logControlService, IDispatcherService dispatcherService)
         {
             Argument.IsNotNull(() => settings);
+            Argument.IsNotNull(() => logControlService);
+            Argument.IsNotNull(() => dispatcherService);
 
             Settings = settings;
+            _logControlService = logControlService;
+            _dispatcherService = dispatcherService;
         }
         #endregion
 
@@ -39,5 +49,12 @@ namespace Orchestra.Examples.TaskRunner.ViewModels
         [Expose("HorizonEnd")]
         public Settings Settings { get; private set; }
         #endregion
+
+        protected override async Task Initialize()
+        {
+            await base.Initialize();
+
+            _dispatcherService.BeginInvoke(() => _logControlService.SelectedLevel = LogEvent.Info);
+        }
     }
 }
