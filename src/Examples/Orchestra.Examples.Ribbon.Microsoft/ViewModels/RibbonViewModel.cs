@@ -70,16 +70,18 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             commandManager.RegisterCommand("File.Exit", Exit, this);
         }
 
-        protected override Task Initialize()
+        protected override async Task Initialize()
         {
-            _recentlyUsedItemsService.Updated += this.OnRecentlyUsedItemsServiceUpdated;
-            return base.Initialize();
+            await base.Initialize();
+
+            _recentlyUsedItemsService.Updated += OnRecentlyUsedItemsServiceUpdated;
         }
 
-        protected override Task Close()
+        protected override async Task Close()
         {
-            _recentlyUsedItemsService.Updated -= this.OnRecentlyUsedItemsServiceUpdated;
-            return base.Close();
+            _recentlyUsedItemsService.Updated -= OnRecentlyUsedItemsServiceUpdated;
+
+            await base.Close();
         }
 
         #region Commands
