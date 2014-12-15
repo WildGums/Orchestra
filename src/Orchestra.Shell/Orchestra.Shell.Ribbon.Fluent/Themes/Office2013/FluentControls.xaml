@@ -2,9 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:orchestra="clr-namespace:Orchestra.Controls"
                     xmlns:fluent="urn:fluent-ribbon"
-                    xmlns:catel="http://catel.codeplex.com"
-                    xmlns:converters="clr-namespace:Orchestra.Converters;assembly=Orchestra.Core">
-
+                    xmlns:converters="clr-namespace:Orchestra.Converters;assembly=Orchestra.Core"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
 
     <Style x:Key="RibbonBorderStyle" TargetType="Border">
         <Setter Property="Margin" Value="6" />
@@ -54,6 +55,48 @@
         <Setter Property="Width" Value="85"/>
     </Style>-->
 
+    <Style x:Key="NeutralGalleryItemStyle" TargetType="{x:Type fluent:GalleryItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type fluent:GalleryItem}">
+                    <Grid Background="{DynamicResource TransparentBrush}">
+                        <Border x:Name="hoverBorder" d:LayoutOverrides="Width, Height" Visibility="Collapsed">
+                            <Border.Background>
+                                <SolidColorBrush Color="{DynamicResource {x:Static fluent:MetroColors.ThemeColorKey}}" Opacity="0.12" />
+                            </Border.Background>
+                        </Border>
+                        <Border x:Name="selectedBorder" d:LayoutOverrides="Width, Height" Visibility="Collapsed">
+                            <Border.Background>
+                                <SolidColorBrush Color="{DynamicResource {x:Static fluent:MetroColors.ThemeColorKey}}" Opacity="0.2" />
+                            </Border.Background>
+                        </Border>
+                        <ContentPresenter x:Name="contentPresenter" Margin="1" Opacity="1" />
+                        <Border x:Name="pressedBorder" d:LayoutOverrides="Width, Height" Visibility="Collapsed">
+                            <Border.Background>
+                                <SolidColorBrush Color="{DynamicResource {x:Static fluent:MetroColors.ThemeColorKey}}" Opacity="0.3" />
+                            </Border.Background>
+                        </Border>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="contentPresenter" Value="0.5" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Visibility" TargetName="selectedBorder" Value="Visible" />
+                        </Trigger>
+                        <!--<Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Visibility" TargetName="selectedBorder" Value="Visible" />
+                        </Trigger>-->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Visibility" TargetName="pressedBorder" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>    
+    
     <ControlTemplate x:Key="RibbonBackstageButtonControlTemplate" TargetType="{x:Type orchestra:RibbonBackstageButton}">
         <Grid x:Name="grid">
             <Border x:Name="border" BorderThickness="{TemplateBinding ShowBorder, Converter={converters:BooleanToThicknessConverter}}" Margin="0" Background="Transparent" BorderBrush="LightGray">
