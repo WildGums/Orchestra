@@ -33,6 +33,9 @@ public static class ModuleInitializer
 
         var serviceLocator = ServiceLocator.Default;
 
+        // Overide style of Catel please wait service
+        serviceLocator.RegisterType<IPleaseWaitService, Orchestra.Services.PleaseWaitService>();
+
         serviceLocator.RegisterTypeIfNotYetRegistered<IRecentlyUsedItemsService, RecentlyUsedItemsesService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IKeyboardMappingsService, KeyboardMappingsService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusService, StatusService>();
