@@ -27,7 +27,10 @@ namespace Orchestra.Views
         /// </summary>
         public ShellWindow()
         {
-            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
+            var serviceLocator = ServiceLocator.Default;
+
+            var themeService = serviceLocator.ResolveType<IThemeService>();
+            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, themeService.ShouldCreateStyleForwarders());
 
             MahAppsHelper.ApplyTheme();
 
@@ -36,7 +39,6 @@ namespace Orchestra.Views
             var accentColorBrush = ThemeHelper.GetAccentColorBrush();
             border.BorderBrush = accentColorBrush;
 
-            var serviceLocator = ServiceLocator.Default;
             var statusService = serviceLocator.ResolveType<IStatusService>();
             statusService.Initialize(statusTextBlock);
 

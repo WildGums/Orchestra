@@ -26,7 +26,10 @@ namespace Orchestra.Views
         /// </summary>
         public ShellWindow()
         {
-            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
+            var serviceLocator = ServiceLocator.Default;
+
+            var themeService = serviceLocator.ResolveType<IThemeService>();
+            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, themeService.ShouldCreateStyleForwarders());
 
             // Required for Fluent accent color
             var accentColor = ThemeHelper.GetAccentColor();
@@ -35,7 +38,6 @@ namespace Orchestra.Views
 
             InitializeComponent();
 
-            var serviceLocator = ServiceLocator.Default;
             var statusService = serviceLocator.ResolveType<IStatusService>();
             statusService.Initialize(statusTextBlock);
 
