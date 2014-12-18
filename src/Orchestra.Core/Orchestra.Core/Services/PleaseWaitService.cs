@@ -9,6 +9,7 @@ namespace Orchestra.Services
 {
     using System;
     using System.Windows.Input;
+    using Catel;
     using Catel.Logging;
     using Catel.Services;
 
@@ -19,13 +20,18 @@ namespace Orchestra.Services
         #endregion
 
         #region Fields
+        private readonly IDispatcherService _dispatcherService;
+
         private int _counter;
         private Cursor _previousCursor;
         #endregion
 
         #region Constructors
-        public PleaseWaitService()
+        public PleaseWaitService(IDispatcherService dispatcherService)
         {
+            Argument.IsNotNull(() => dispatcherService);
+
+            _dispatcherService = dispatcherService;
         }
         #endregion
 
@@ -34,12 +40,15 @@ namespace Orchestra.Services
         {
             UpdateStatus(status);
 
-            if (_previousCursor == null)
+            _dispatcherService.BeginInvokeIfRequired(() =>
             {
-                _previousCursor = Mouse.OverrideCursor;
-            }
+                if (_previousCursor == null)
+                {
+                    _previousCursor = Mouse.OverrideCursor;
+                }
 
-            Mouse.OverrideCursor = Cursors.Wait;
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
         }
 
         public void Show(PleaseWaitWorkDelegate workDelegate, string status = "")
@@ -66,15 +75,18 @@ namespace Orchestra.Services
 
         public void UpdateStatus(int currentItem, int totalItems, string statusFormat = "")
         {
-            throw new NotImplementedException();
+            // not required
         }
 
         public void Hide()
         {
-            Mouse.OverrideCursor = _previousCursor;
+            _dispatcherService.BeginInvokeIfRequired(() =>
+            {
+                Mouse.OverrideCursor = _previousCursor;
 
-            _previousCursor = null;
-            _counter = 0;
+                _previousCursor = null;
+                _counter = 0;
+            });
         }
 
         public void Push(string status = "")
