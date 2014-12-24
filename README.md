@@ -22,7 +22,7 @@ Orchestra provides support for a lot of different shells.
 
 # More information
 
-## Update 2014/10/28
+## Update 2014/12/24
 
 Some of the features which will come out of the box:
 
@@ -40,8 +40,13 @@ Features already included in [Catel](https://catelproject.atlassian.net/wiki/dis
 - [x] FluentValidation
 - [x] Memento (undo/redo)
 
-Other Project(s) that might be of interest:
+Other Project(s) that might be of interest (And integrate easily with Orchestra):
+- [Orc.ProjectManagement](https://github.com/Orcomp/Orc.ProjectManagement)
+- [Orc.WorkspaceManagement](https://github.com/Orcomp/Orc.WorkspaceManagement)
+- [Orc.LicenseManager](https://github.com/Orcomp/Orc.LicenseManager)
+- [Orc.Squirrel](https://github.com/Orcomp/Orc.Squirrel) (Automatic Updates)
 - [Orc.FilterBuilder](https://github.com/Orcomp/Orc.FilterBuilder)
+- [Orc.Controls](https://github.com/Orcomp/Orc.Controls)
 
 ## License
 
