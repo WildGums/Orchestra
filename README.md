@@ -40,7 +40,8 @@ Features already included in [Catel](https://catelproject.atlassian.net/wiki/dis
 - [x] FluentValidation
 - [x] Memento (undo/redo)
 
-Other Project(s) that might be of interest (And integrate easily with Orchestra):
+Other Projects that might be of interest (And integrate easily with Orchestra):
+
 - [Orc.ProjectManagement](https://github.com/Orcomp/Orc.ProjectManagement)
 - [Orc.WorkspaceManagement](https://github.com/Orcomp/Orc.WorkspaceManagement)
 - [Orc.LicenseManager](https://github.com/Orcomp/Orc.LicenseManager)
