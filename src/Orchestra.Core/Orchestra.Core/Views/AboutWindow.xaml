@@ -14,7 +14,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="15" />
-            <RowDefinition Height="150" />
+            <RowDefinition Height="120" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -24,12 +25,12 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="360" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0" Grid.RowSpan="8" BorderThickness="1" BorderBrush="#D3D3D3" />
+        <Border Grid.Row="0" Grid.RowSpan="9" BorderThickness="1" BorderBrush="#D3D3D3" />
 
-        <Image Grid.Row="1" Source="{Binding AppIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0 0 0 10" />
+        <Image Grid.Row="1" Source="{Binding AppIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0 0 0 5" />
 
         <TextBlock Grid.Row="2" FontSize="18" FontWeight="Medium" HorizontalAlignment="Center" Text="{Binding Title}" />
         <TextBlock Grid.Row="3" FontSize="14" HorizontalAlignment="Center"
@@ -41,12 +42,14 @@
 
         <TextBlock Grid.Row="4" FontSize="14" HorizontalAlignment="Center" Text="{Binding Version}" />
 
-        <TextBlock Grid.Row="6" FontSize="14" HorizontalAlignment="Center" Text="{Binding Copyright}" />
+        <TextBlock Grid.Row="5" FontSize="14" HorizontalAlignment="Center" Text="{Binding BuildDateTime}" />
         
-        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Show log..." Width="75" Margin="20 25 15 22" Command="{Binding OpenLog}"
+        <TextBlock Grid.Row="7" FontSize="14" HorizontalAlignment="Center" Text="{Binding Copyright}" />
+        
+        <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Show log..." Width="75" Margin="20 18 15 18" Command="{Binding OpenLog}"
                     Visibility="{Binding ShowLogButton, Converter={StaticResource BooleanToCollapsingVisibilityConverter}}" />
-            <Button Content="Close" Width="75" Margin="0 25 20 22" Click="Close_OnClick" />
+            <Button Content="Close" Width="75" Margin="0 18 20 18" Click="Close_OnClick" />
         </StackPanel>
     </Grid>
 
