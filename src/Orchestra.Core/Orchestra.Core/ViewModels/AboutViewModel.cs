@@ -32,11 +32,11 @@ namespace Orchestra.ViewModels
 
             var assembly = aboutInfo.Assembly;
             var version = VersionHelper.GetCurrentVersion(assembly);
-            var buildDateTime = AssemblyExtensions.GetBuildDateTime(assembly);
+            var buildDateTime = assembly.GetBuildDateTime();
 
             Title = assembly.Title();
             Version = string.Format("v {0}", version);
-            BuildDateTime = string.Format("Built on: {0}", buildDateTime);
+            BuildDateTime = string.Format("Built on {0}", buildDateTime);
             Url = aboutInfo.Url;
             Copyright = assembly.Copyright();
             ImageSourceUrl = aboutInfo.LogoImageSource;
