@@ -7,28 +7,33 @@
 
 namespace Orchestra.ViewModels
 {
-    using System.Drawing;
     using System.Linq;
-    using System.Windows.Media;
+    using System.Threading.Tasks;
     using System.Windows.Media.Imaging;
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Services;
     using Catel.Reflection;
-    using Catel.Windows.Media.Imaging;
     using Models;
 
     public class AboutViewModel : ViewModelBase
     {
         private readonly IProcessService _processService;
+        private readonly IUIVisualizerService _uiVisualizerService;
+        private readonly IMessageService _messageService;
 
-        public AboutViewModel(AboutInfo aboutInfo, IProcessService processService)
+        public AboutViewModel(AboutInfo aboutInfo, IProcessService processService, IUIVisualizerService uiVisualizerService,
+            IMessageService messageService)
         {
             Argument.IsNotNull(() => aboutInfo);
             Argument.IsNotNull(() => processService);
-
+            Argument.IsNotNull(() => uiVisualizerService);
+            Argument.IsNotNull(() => messageService);
+            
             _processService = processService;
+            _uiVisualizerService = uiVisualizerService;
+            _messageService = messageService;
 
             var assembly = aboutInfo.Assembly;
             var version = VersionHelper.GetCurrentVersion(assembly);
@@ -44,6 +49,8 @@ namespace Orchestra.ViewModels
             AppIcon = assembly.ExtractLargestIcon();
             OpenUrl = new Command(OnOpenUrlExecute);
             OpenLog = new Command(OnOpenLogExecute);
+            ShowSystemInfo = new Command(OnShowSystemInfoExecute);
+            EnableDetailedLogging = new Command(OnEnableDetailedLoggingExecute);
         }
 
         #region Properties
@@ -60,6 +67,8 @@ namespace Orchestra.ViewModels
         public string ImageSourceUrl { get; private set; }
 
         public bool ShowLogButton { get; private set; }
+
+        public bool IsDebugLoggingEnabled { get; private set; }
 
         public BitmapSource AppIcon { get; private set; }
         #endregion
@@ -85,6 +94,56 @@ namespace Orchestra.ViewModels
 
                 _processService.StartProcess(filePath);
             }
+            else
+            {
+                _messageService.ShowError("No log listener available that can be opened. Please contact support.");
+            }
+        }
+
+        public Command ShowSystemInfo { get; private set; }
+
+        private async void OnShowSystemInfoExecute()
+        {
+            await _uiVisualizerService.ShowDialog<SystemInfoViewModel>();
+        }
+
+        public Command EnableDetailedLogging { get; private set; }
+
+        private void OnEnableDetailedLoggingExecute()
+        {
+            LogManager.IsDebugEnabled = true;
+
+            foreach (var logListener in LogManager.GetListeners())
+            {
+                logListener.IsDebugEnabled = true;
+            }
+
+            UpdateLoggingInfo();
+        }
+        #endregion
+
+        #region Methods
+        protected override async Task Initialize()
+        {
+            await base.Initialize();
+
+            UpdateLoggingInfo();
+        }
+
+        private void UpdateLoggingInfo()
+        {
+            var isDebugLoggingEnabled = true;
+
+            foreach (var logListener in LogManager.GetListeners())
+            {
+                if (!logListener.IsDebugEnabled)
+                {
+                    isDebugLoggingEnabled = false;
+                    break;
+                }
+            }
+
+            IsDebugLoggingEnabled = isDebugLoggingEnabled;
         }
         #endregion
     }
