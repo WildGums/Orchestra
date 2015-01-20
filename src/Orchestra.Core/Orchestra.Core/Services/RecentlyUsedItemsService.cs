@@ -16,7 +16,7 @@ namespace Orchestra.Services
     using Orchestra.Models;
     using Path = Catel.IO.Path;
 
-    public class RecentlyUsedItemsesService : IRecentlyUsedItemsService
+    public class RecentlyUsedItemsService : IRecentlyUsedItemsService
     {
         private readonly IXmlSerializer _xmlSerializer;
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
@@ -24,7 +24,7 @@ namespace Orchestra.Services
         private readonly string _fileName;
         private readonly RecentlyUsedItems _items;
 
-        public RecentlyUsedItemsesService(IXmlSerializer xmlSerializer)
+        public RecentlyUsedItemsService(IXmlSerializer xmlSerializer)
         {
             Argument.IsNotNull(() => xmlSerializer);
 
@@ -114,7 +114,7 @@ namespace Orchestra.Services
 
         private void RemoveItemFromCollection(List<RecentlyUsedItem> collection, string name)
         {
-            for (int i = 0; i < collection.Count; i++)
+            for (var i = 0; i < collection.Count; i++)
             {
                 if (string.Equals(collection[i].Name, name, StringComparison.OrdinalIgnoreCase))
                 {
@@ -136,7 +136,7 @@ namespace Orchestra.Services
 
             Log.Debug("Pinning item '{0}'", name);
 
-            for (int i = 0; i < _items.Items.Count; i++)
+            for (var i = 0; i < _items.Items.Count; i++)
             {
                 if (string.Equals(_items.Items[i].Name, name, StringComparison.OrdinalIgnoreCase))
                 {
@@ -162,7 +162,7 @@ namespace Orchestra.Services
 
             Log.Debug("Unpinning item '{0}'", name);
 
-            for (int i = 0; i < _items.PinnedItems.Count; i++)
+            for (var i = 0; i < _items.PinnedItems.Count; i++)
             {
                 if (string.Equals(_items.PinnedItems[i].Name, name, StringComparison.OrdinalIgnoreCase))
                 {
@@ -179,7 +179,7 @@ namespace Orchestra.Services
 
         private bool IsAvailableInCollection(List<RecentlyUsedItem> collection, string name)
         {
-            for (int i = 0; i < collection.Count; i++)
+            for (var i = 0; i < collection.Count; i++)
             {
                 if (string.Equals(collection[i].Name, name, StringComparison.OrdinalIgnoreCase))
                 {
@@ -192,7 +192,7 @@ namespace Orchestra.Services
 
         private void AddSorted(List<RecentlyUsedItem> collection, RecentlyUsedItem item)
         {
-            for (int i = 0; i < collection.Count; i++)
+            for (var i = 0; i < collection.Count; i++)
             {
                 if (string.Equals(collection[i].Name, item.Name, StringComparison.OrdinalIgnoreCase))
                 {
@@ -203,9 +203,9 @@ namespace Orchestra.Services
                 }
             }
 
-            bool added = false;
+            var added = false;
 
-            for (int i = 0; i < collection.Count; i++)
+            for (var i = 0; i < collection.Count; i++)
             {
                 var collectionItem = collection[i];
                 if (collectionItem.DateTime < item.DateTime)
@@ -238,6 +238,12 @@ namespace Orchestra.Services
 
             try
             {
+                if (!File.Exists(_fileName))
+                {
+                    Log.Info("No recently used items found");
+                    return;
+                }
+
                 using (var fileStream = File.Open(_fileName, FileMode.Open))
                 {
                     _xmlSerializer.Deserialize(_items, fileStream);
