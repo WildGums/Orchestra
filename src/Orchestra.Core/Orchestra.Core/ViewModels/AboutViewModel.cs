@@ -8,6 +8,7 @@
 namespace Orchestra.ViewModels
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Windows.Media.Imaging;
     using Catel;
     using Catel.Logging;
@@ -67,6 +68,8 @@ namespace Orchestra.ViewModels
 
         public bool ShowLogButton { get; private set; }
 
+        public bool IsDebugLoggingEnabled { get; private set; }
+
         public BitmapSource AppIcon { get; private set; }
         #endregion
 
@@ -108,10 +111,39 @@ namespace Orchestra.ViewModels
 
         private void OnEnableDetailedLoggingExecute()
         {
+            LogManager.IsDebugEnabled = true;
+
             foreach (var logListener in LogManager.GetListeners())
             {
                 logListener.IsDebugEnabled = true;
             }
+
+            UpdateLoggingInfo();
+        }
+        #endregion
+
+        #region Methods
+        protected override async Task Initialize()
+        {
+            await base.Initialize();
+
+            UpdateLoggingInfo();
+        }
+
+        private void UpdateLoggingInfo()
+        {
+            var isDebugLoggingEnabled = true;
+
+            foreach (var logListener in LogManager.GetListeners())
+            {
+                if (!logListener.IsDebugEnabled)
+                {
+                    isDebugLoggingEnabled = false;
+                    break;
+                }
+            }
+
+            IsDebugLoggingEnabled = isDebugLoggingEnabled;
         }
         #endregion
     }
