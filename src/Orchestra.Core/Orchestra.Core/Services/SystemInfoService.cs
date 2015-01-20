@@ -12,7 +12,7 @@ namespace Orchestra.Services
     using System.Linq;
     using System.Management;
 
-    internal class SystemInfoService : ISystemInformationService
+    internal class SystemInfoService : ISystemInfoService
     {
         #region ISystemInformationService Members
         public IEnumerable<string> GetSystemInfo()

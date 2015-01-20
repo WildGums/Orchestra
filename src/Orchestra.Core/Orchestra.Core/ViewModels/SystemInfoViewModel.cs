@@ -15,12 +15,12 @@ namespace Orchestra.ViewModels
     public class SystemInfoViewModel : ViewModelBase
     {
         #region Constructors
-        public SystemInfoViewModel(ISystemInformationService systemInformationService)
+        public SystemInfoViewModel(ISystemInfoService systemInfoService)
         {
-            Argument.IsNotNull(() => systemInformationService);
+            Argument.IsNotNull(() => systemInfoService);
 
             var sb = new StringBuilder();
-            foreach (var line in systemInformationService.GetSystemInfo())
+            foreach (var line in systemInfoService.GetSystemInfo())
             {
                 sb.AppendLine(line);
             }

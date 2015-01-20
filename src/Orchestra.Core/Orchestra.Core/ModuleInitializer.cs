@@ -45,8 +45,7 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IEnsureStartupService, EnsureStartupService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutInfoService, AboutInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<ISystemInfoService, SystemInfoWindowService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<ISystemInformationService, SystemInfoService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<ISystemInfoService, SystemInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IThemeService, ThemeService>();
 
         // Override Catel.SelectDirectoryService with Orchestra.Services.SelectDirectoryService
