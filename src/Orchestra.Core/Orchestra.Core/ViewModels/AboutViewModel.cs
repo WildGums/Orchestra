@@ -20,15 +20,19 @@ namespace Orchestra.ViewModels
     {
         private readonly IProcessService _processService;
         private readonly IUIVisualizerService _uiVisualizerService;
+        private readonly IMessageService _messageService;
 
-        public AboutViewModel(AboutInfo aboutInfo, IProcessService processService, IUIVisualizerService uiVisualizerService)
+        public AboutViewModel(AboutInfo aboutInfo, IProcessService processService, IUIVisualizerService uiVisualizerService,
+            IMessageService messageService)
         {
             Argument.IsNotNull(() => aboutInfo);
             Argument.IsNotNull(() => processService);
             Argument.IsNotNull(() => uiVisualizerService);
+            Argument.IsNotNull(() => messageService);
             
             _processService = processService;
             _uiVisualizerService = uiVisualizerService;
+            _messageService = messageService;
 
             var assembly = aboutInfo.Assembly;
             var version = VersionHelper.GetCurrentVersion(assembly);
@@ -86,6 +90,10 @@ namespace Orchestra.ViewModels
                 var filePath = ((FileLogListener) fileLogListener).FilePath;
 
                 _processService.StartProcess(filePath);
+            }
+            else
+            {
+                _messageService.ShowError("No log listener available that can be opened. Please contact support.");
             }
         }
 

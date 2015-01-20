@@ -54,18 +54,24 @@ namespace Orchestra.Services
         #region Methods
         private string GetObjectValue(ManagementObject obj, string key)
         {
+            var finalValue = "n/a";
+
             try
             {
-                return obj[key].ToString();
+                var value = obj[key];
+                if (value != null)
+                {
+                    finalValue = value.ToString();
+                }
             }
             catch (ManagementException)
             {
-                return "n/a";
             }
             catch (Exception)
             {
-                return "n/a";
             }
+
+            return finalValue;
         }
         #endregion
     }

@@ -14,7 +14,7 @@ namespace Orchestra.Views
     /// <summary>
     /// Interaction logic for SystemInfoWindow.xaml.
     /// </summary>
-    public partial class SystemInfoWindow : DataWindow
+    public partial class SystemInfoWindow
     {
         #region Constructors
         /// <summary>
