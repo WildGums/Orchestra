@@ -33,7 +33,8 @@
         <Image Grid.Row="1" Source="{Binding AppIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0 0 0 5">
             <Image.ContextMenu>
                 <ContextMenu>
-                    <MenuItem  Header="Show system info" Command="{Binding ShowSystemInfo}"/>
+                    <MenuItem  Header="Enable detailed logging" Command="{Binding EnableDetailedLogging}"/>
+                    <MenuItem  Header="Show system info" Command="{Binding ShowSystemInfo}" />
                 </ContextMenu>
             </Image.ContextMenu>
         </Image>

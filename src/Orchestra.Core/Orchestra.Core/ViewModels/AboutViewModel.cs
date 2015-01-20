@@ -7,18 +7,14 @@
 
 namespace Orchestra.ViewModels
 {
-    using System.Drawing;
     using System.Linq;
-    using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Services;
     using Catel.Reflection;
-    using Catel.Windows.Media.Imaging;
     using Models;
-    using Services;
 
     public class AboutViewModel : ViewModelBase
     {
@@ -30,7 +26,7 @@ namespace Orchestra.ViewModels
             Argument.IsNotNull(() => aboutInfo);
             Argument.IsNotNull(() => processService);
             Argument.IsNotNull(() => uiVisualizerService);
-
+            
             _processService = processService;
             _uiVisualizerService = uiVisualizerService;
 
@@ -49,6 +45,7 @@ namespace Orchestra.ViewModels
             OpenUrl = new Command(OnOpenUrlExecute);
             OpenLog = new Command(OnOpenLogExecute);
             ShowSystemInfo = new Command(OnShowSystemInfoExecute);
+            EnableDetailedLogging = new Command(OnEnableDetailedLoggingExecute);
         }
 
         #region Properties
@@ -97,6 +94,16 @@ namespace Orchestra.ViewModels
         private async void OnShowSystemInfoExecute()
         {
             await _uiVisualizerService.ShowDialog<SystemInfoViewModel>();
+        }
+
+        public Command EnableDetailedLogging { get; private set; }
+
+        private void OnEnableDetailedLoggingExecute()
+        {
+            foreach (var logListener in LogManager.GetListeners())
+            {
+                logListener.IsDebugEnabled = true;
+            }
         }
         #endregion
     }
