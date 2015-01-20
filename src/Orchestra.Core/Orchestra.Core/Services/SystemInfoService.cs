@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SystemInfoService.cs" company="Orchestra development team">
+// <copyright file="SystemInformationService.cs" company="Orchestra development team">
 //   Copyright (c) 2008 - 2015 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -7,46 +7,64 @@
 
 namespace Orchestra.Services
 {
-    using Catel;
-    using Catel.Logging;
-    using Catel.Services;
-    using ViewModels;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Management;
 
-    public class SystemInfoService : ISystemInfoService
+    internal class SystemInfoService : ISystemInformationService
     {
-        #region Constants
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        #endregion
-
-        #region Fields
-        private readonly ISystemInformationService _systemInformationService;
-        private readonly IUIVisualizerService _uiVisualizerService;
-        #endregion
-
-        #region Constructors
-        public SystemInfoService(IUIVisualizerService uiVisualizerService, ISystemInformationService systemInformationService)
+        #region ISystemInformationService Members
+        public IEnumerable<string> GetSystemInfo()
         {
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => systemInformationService);
+            var wmi = new ManagementObjectSearcher("select * from Win32_OperatingSystem")
+                .Get()
+                .Cast<ManagementObject>()
+                .First();
 
-            _uiVisualizerService = uiVisualizerService;
-            _systemInformationService = systemInformationService;
+            var cpu = new ManagementObjectSearcher("select * from Win32_Processor")
+                .Get()
+                .Cast<ManagementObject>()
+                .First();
+
+            yield return string.Format("User name: {0}", Environment.UserName);
+            yield return string.Format("User domain name: {0}", Environment.UserDomainName);
+            yield return string.Format("Machine name: {0}", Environment.MachineName);
+            yield return string.Format("OS version: {0}", Environment.OSVersion);
+            yield return string.Format("Version: {0}", Environment.Version);
+
+            yield return string.Format("OS name: {0}", GetObjectValue(wmi, "Caption"));
+            yield return string.Format("MaxProcessRAM: {0}", GetObjectValue(wmi, "MaxProcessMemorySize"));
+            yield return string.Format("Architecture: {0}", GetObjectValue(wmi, "OSArchitecture"));
+            yield return string.Format("ProcessorId: {0}", GetObjectValue(wmi, "ProcessorId"));
+            yield return string.Format("Build: {0}", GetObjectValue(wmi, "BuildNumber"));
+            yield return string.Format(string.Empty);
+
+            yield return string.Format("CPU name: {0}", GetObjectValue(cpu, "Name"));
+            yield return string.Format("Description: {0}", GetObjectValue(cpu, "Caption"));
+            yield return string.Format("Address width: {0}", GetObjectValue(cpu, "AddressWidth"));
+            yield return string.Format("Data width: {0}", GetObjectValue(cpu, "DataWidth"));
+            yield return string.Format("SpeedMHz: {0}", GetObjectValue(cpu, "MaxClockSpeed"));
+            yield return string.Format("BusSpeedMHz: {0}", GetObjectValue(cpu, "ExtClock"));
+            yield return string.Format("Number of cores: {0}", GetObjectValue(cpu, "NumberOfCores"));
+            yield return string.Format("Number of logical processors: {0}", GetObjectValue(cpu, "NumberOfLogicalProcessors"));
         }
         #endregion
 
-        #region ISystemInfoService Members
-        public virtual void ShowSystemInfo()
+        #region Methods
+        private string GetObjectValue(ManagementObject obj, string key)
         {
-            var systemInfo = _systemInformationService.GetSystemInfo();
-            if (systemInfo != null)
+            try
             {
-                Log.Info("Showing system info dialog");
-
-                _uiVisualizerService.ShowDialog<SystemInfoViewModel>(systemInfo);
+                return obj[key].ToString();
             }
-            else
+            catch (ManagementException)
             {
-                Log.Warning("ISystemInformationService.GetSystemInfo() returned null, cannot show about window");
+                return "n/a";
+            }
+            catch (Exception)
+            {
+                return "n/a";
             }
         }
         #endregion
