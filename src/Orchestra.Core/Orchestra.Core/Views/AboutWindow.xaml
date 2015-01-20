@@ -30,7 +30,13 @@
 
         <Border Grid.Row="0" Grid.RowSpan="9" BorderThickness="1" BorderBrush="#D3D3D3" />
 
-        <Image Grid.Row="1" Source="{Binding AppIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0 0 0 5" />
+        <Image Grid.Row="1" Source="{Binding AppIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0 0 0 5">
+            <Image.ContextMenu>
+                <ContextMenu>
+                    <MenuItem  Header="Show system info" Command="{Binding ShowSystemInfo}"/>
+                </ContextMenu>
+            </Image.ContextMenu>
+        </Image>
 
         <TextBlock Grid.Row="2" FontSize="18" FontWeight="Medium" HorizontalAlignment="Center" Text="{Binding Title}" />
         <TextBlock Grid.Row="3" FontSize="14" HorizontalAlignment="Center"

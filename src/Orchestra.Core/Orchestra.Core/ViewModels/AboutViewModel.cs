@@ -18,17 +18,21 @@ namespace Orchestra.ViewModels
     using Catel.Reflection;
     using Catel.Windows.Media.Imaging;
     using Models;
+    using Services;
 
     public class AboutViewModel : ViewModelBase
     {
         private readonly IProcessService _processService;
+        private readonly IUIVisualizerService _uiVisualizerService;
 
-        public AboutViewModel(AboutInfo aboutInfo, IProcessService processService)
+        public AboutViewModel(AboutInfo aboutInfo, IProcessService processService, IUIVisualizerService uiVisualizerService)
         {
             Argument.IsNotNull(() => aboutInfo);
             Argument.IsNotNull(() => processService);
+            Argument.IsNotNull(() => uiVisualizerService);
 
             _processService = processService;
+            _uiVisualizerService = uiVisualizerService;
 
             var assembly = aboutInfo.Assembly;
             var version = VersionHelper.GetCurrentVersion(assembly);
@@ -44,6 +48,7 @@ namespace Orchestra.ViewModels
             AppIcon = assembly.ExtractLargestIcon();
             OpenUrl = new Command(OnOpenUrlExecute);
             OpenLog = new Command(OnOpenLogExecute);
+            ShowSystemInfo = new Command(OnShowSystemInfoExecute);
         }
 
         #region Properties
@@ -85,6 +90,13 @@ namespace Orchestra.ViewModels
 
                 _processService.StartProcess(filePath);
             }
+        }
+
+        public Command ShowSystemInfo { get; private set; }
+
+        private async void OnShowSystemInfoExecute()
+        {
+            await _uiVisualizerService.ShowDialog<SystemInfoViewModel>();
         }
         #endregion
     }
