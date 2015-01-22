@@ -168,8 +168,10 @@
     <Compile Include="Services\AdorneredTooltipsManager.cs" />
     <Compile Include="Services\AdorneredTooltipsManagerFactory.cs" />
     <Compile Include="Services\AppDataService.cs" />
+    <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\EnsureStartupService.cs" />
     <Compile Include="Services\HintsProvider.cs" />
+    <Compile Include="Services\Interfaces\IClipboardService.cs" />
     <Compile Include="Services\Interfaces\IAboutInfoService.cs" />
     <Compile Include="Services\Interfaces\IAboutService.cs" />
     <Compile Include="Services\Interfaces\IAdorneredTooltipsManager.cs" />
