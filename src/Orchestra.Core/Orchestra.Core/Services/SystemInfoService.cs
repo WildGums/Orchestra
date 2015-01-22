@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SystemInformationService.cs" company="Orchestra development team">
+// <copyright file="SystemInfoService.cs" company="Orchestra development team">
 //   Copyright (c) 2008 - 2015 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -9,13 +9,15 @@ namespace Orchestra.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Management;
+    using Microsoft.Win32;
 
     internal class SystemInfoService : ISystemInfoService
     {
-        #region ISystemInformationService Members
-        public IEnumerable<string> GetSystemInfo()
+        #region ISystemInfoService Members
+        public IEnumerable<KeyValuePair<string, string>> GetSystemInfo()
         {
             var wmi = new ManagementObjectSearcher("select * from Win32_OperatingSystem")
                 .Get()
@@ -27,27 +29,36 @@ namespace Orchestra.Services
                 .Cast<ManagementObject>()
                 .First();
 
-            yield return string.Format("User name: {0}", Environment.UserName);
-            yield return string.Format("User domain name: {0}", Environment.UserDomainName);
-            yield return string.Format("Machine name: {0}", Environment.MachineName);
-            yield return string.Format("OS version: {0}", Environment.OSVersion);
-            yield return string.Format("Version: {0}", Environment.Version);
+            yield return new KeyValuePair<string, string>("User name:", Environment.UserName);
+            yield return new KeyValuePair<string, string>("User domain name:", Environment.UserDomainName);
+            yield return new KeyValuePair<string, string>("Machine name:", Environment.MachineName);
+            yield return new KeyValuePair<string, string>("OS version:", Environment.OSVersion.ToString());
+            yield return new KeyValuePair<string, string>("Version:", Environment.Version.ToString());
 
-            yield return string.Format("OS name: {0}", GetObjectValue(wmi, "Caption"));
-            yield return string.Format("MaxProcessRAM: {0}", GetObjectValue(wmi, "MaxProcessMemorySize"));
-            yield return string.Format("Architecture: {0}", GetObjectValue(wmi, "OSArchitecture"));
-            yield return string.Format("ProcessorId: {0}", GetObjectValue(wmi, "ProcessorId"));
-            yield return string.Format("Build: {0}", GetObjectValue(wmi, "BuildNumber"));
-            yield return string.Format(string.Empty);
+            yield return new KeyValuePair<string, string>("OS name:", GetObjectValue(wmi, "Caption"));
+            yield return new KeyValuePair<string, string>("MaxProcessRAM:", GetObjectValue(wmi, "MaxProcessMemorySize"));
+            yield return new KeyValuePair<string, string>("Architecture:", GetObjectValue(wmi, "OSArchitecture"));
+            yield return new KeyValuePair<string, string>("ProcessorId:", GetObjectValue(wmi, "ProcessorId"));
+            yield return new KeyValuePair<string, string>("Build:", GetObjectValue(wmi, "BuildNumber"));
 
-            yield return string.Format("CPU name: {0}", GetObjectValue(cpu, "Name"));
-            yield return string.Format("Description: {0}", GetObjectValue(cpu, "Caption"));
-            yield return string.Format("Address width: {0}", GetObjectValue(cpu, "AddressWidth"));
-            yield return string.Format("Data width: {0}", GetObjectValue(cpu, "DataWidth"));
-            yield return string.Format("SpeedMHz: {0}", GetObjectValue(cpu, "MaxClockSpeed"));
-            yield return string.Format("BusSpeedMHz: {0}", GetObjectValue(cpu, "ExtClock"));
-            yield return string.Format("Number of cores: {0}", GetObjectValue(cpu, "NumberOfCores"));
-            yield return string.Format("Number of logical processors: {0}", GetObjectValue(cpu, "NumberOfLogicalProcessors"));
+            yield return new KeyValuePair<string, string>("CPU name:", GetObjectValue(cpu, "Name"));
+            yield return new KeyValuePair<string, string>("Description:", GetObjectValue(cpu, "Caption"));
+            yield return new KeyValuePair<string, string>("Address width:", GetObjectValue(cpu, "AddressWidth"));
+            yield return new KeyValuePair<string, string>("Data width:", GetObjectValue(cpu, "DataWidth"));
+            yield return new KeyValuePair<string, string>("SpeedMHz:", GetObjectValue(cpu, "MaxClockSpeed"));
+            yield return new KeyValuePair<string, string>("BusSpeedMHz:", GetObjectValue(cpu, "ExtClock"));
+            yield return new KeyValuePair<string, string>("Number of cores:", GetObjectValue(cpu, "NumberOfCores"));
+            yield return new KeyValuePair<string, string>("Number of logical processors:", GetObjectValue(cpu, "NumberOfLogicalProcessors"));
+
+            yield return new KeyValuePair<string, string>("Current culture:", CultureInfo.CurrentCulture.ToString());
+
+            yield return new KeyValuePair<string, string>("Installed .Net versions:", string.Empty);
+
+            var versions = GetVersionFromRegistry();
+            foreach (var version in versions)
+            {
+                yield return new KeyValuePair<string, string>(string.Empty, version);
+            }
         }
         #endregion
 
@@ -72,6 +83,63 @@ namespace Orchestra.Services
             }
 
             return finalValue;
+        }
+
+        private static IEnumerable<string> GetVersionFromRegistry()
+        {
+            // Opens the registry key for the .NET Framework entry. 
+            using (RegistryKey ndpKey =
+                RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, "").
+                    OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\"))
+            {
+                // As an alternative, if you know the computers you will query are running .NET Framework 4.5  
+                // or later, you can use: 
+                // using (RegistryKey ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine,  
+                // RegistryView.Registry32).OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\"))
+                foreach (string versionKeyName in ndpKey.GetSubKeyNames())
+                {
+                    if (versionKeyName.StartsWith("v"))
+                    {
+                        var versionKey = ndpKey.OpenSubKey(versionKeyName);
+                        var name = (string) versionKey.GetValue("Version", "");
+                        var sp = versionKey.GetValue("SP", "").ToString();
+                        var install = versionKey.GetValue("Install", "").ToString();
+                        if (sp != "" && install == "1")
+                        {
+                            yield return (versionKeyName + "  " + name + "  SP" + sp);
+                        }
+                        if (name != "")
+                        {
+                            continue;
+                        }
+                        foreach (string subKeyName in versionKey.GetSubKeyNames())
+                        {
+                            var subKey = versionKey.OpenSubKey(subKeyName);
+                            name = (string) subKey.GetValue("Version", "");
+                            if (name != "")
+                            {
+                                sp = subKey.GetValue("SP", "").ToString();
+                            }
+                            install = subKey.GetValue("Install", "").ToString();
+                            if (install == "") //no install info, must be later.
+                            {
+                                yield return (versionKeyName + "  " + name);
+                            }
+                            else
+                            {
+                                if (sp != "" && install == "1")
+                                {
+                                    yield return (versionKeyName + "  " + subKeyName + "  " + name + "  SP" + sp);
+                                }
+                                else if (install == "1")
+                                {
+                                    yield return (versionKeyName + "  " + subKeyName + "  " + name);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         #endregion
     }

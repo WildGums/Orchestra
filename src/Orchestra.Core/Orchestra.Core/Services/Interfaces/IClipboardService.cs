@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ISystemInformationService.cs" company="Orchestra development team">
+// <copyright file="IClipboardService.cs" company="Orchestra development team">
 //   Copyright (c) 2008 - 2015 Orchestra development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -7,10 +7,8 @@
 
 namespace Orchestra.Services
 {
-    using System.Collections.Generic;
-
-    public interface ISystemInfoService
+    public interface IClipboardService
     {
-        IEnumerable<KeyValuePair<string, string>> GetSystemInfo();
+        void CopyToClipboard(string text);
     }
 }
