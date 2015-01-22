@@ -20,12 +20,22 @@
         <Border Grid.Row="0" Grid.RowSpan="4" BorderThickness="1" BorderBrush="#D3D3D3" />
         <TextBlock Grid.Row="1" FontSize="16" FontWeight="Medium" HorizontalAlignment="Left" Text="System information" Margin="20 20 20 0"/>
         
-        <TextBox Grid.Row="2" AcceptsReturn="True" Margin="20" 
-                 IsReadOnly="True" TextWrapping="Wrap"
-                 ScrollViewer.HorizontalScrollBarVisibility ="Disabled"
-                 VerticalScrollBarVisibility="Auto"
-                 Text="{Binding SystemInfo, Mode=OneWay}"/>
-        
+        <ListBox Grid.Row="2" ItemsSource="{Binding SystemInfo}" ScrollViewer.HorizontalScrollBarVisibility ="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="165"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Key}" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Value}" TextWrapping="Wrap"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
         <Button Grid.Row="3" Content="Close" Width="75" Margin="0 0 20 20"
                 HorizontalAlignment="Right" Click="Close_OnClick" />
     </Grid>

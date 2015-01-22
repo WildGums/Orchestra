@@ -9,13 +9,14 @@ namespace Orchestra.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Management;
 
     internal class SystemInfoService : ISystemInfoService
     {
         #region ISystemInformationService Members
-        public IEnumerable<string> GetSystemInfo()
+        public IEnumerable<KeyValuePair<string, string>> GetSystemInfo()
         {
             var wmi = new ManagementObjectSearcher("select * from Win32_OperatingSystem")
                 .Get()
@@ -27,27 +28,27 @@ namespace Orchestra.Services
                 .Cast<ManagementObject>()
                 .First();
 
-            yield return string.Format("User name: {0}", Environment.UserName);
-            yield return string.Format("User domain name: {0}", Environment.UserDomainName);
-            yield return string.Format("Machine name: {0}", Environment.MachineName);
-            yield return string.Format("OS version: {0}", Environment.OSVersion);
-            yield return string.Format("Version: {0}", Environment.Version);
 
-            yield return string.Format("OS name: {0}", GetObjectValue(wmi, "Caption"));
-            yield return string.Format("MaxProcessRAM: {0}", GetObjectValue(wmi, "MaxProcessMemorySize"));
-            yield return string.Format("Architecture: {0}", GetObjectValue(wmi, "OSArchitecture"));
-            yield return string.Format("ProcessorId: {0}", GetObjectValue(wmi, "ProcessorId"));
-            yield return string.Format("Build: {0}", GetObjectValue(wmi, "BuildNumber"));
-            yield return string.Format(string.Empty);
+            yield return new KeyValuePair<string, string>("User name:", Environment.UserName);
+            yield return new KeyValuePair<string, string>("User domain name:", Environment.UserDomainName);
+            yield return new KeyValuePair<string, string>("Machine name:", Environment.MachineName);
+            yield return new KeyValuePair<string, string>("OS version:", Environment.OSVersion.ToString());
+            yield return new KeyValuePair<string, string>("Version:", Environment.Version.ToString());
 
-            yield return string.Format("CPU name: {0}", GetObjectValue(cpu, "Name"));
-            yield return string.Format("Description: {0}", GetObjectValue(cpu, "Caption"));
-            yield return string.Format("Address width: {0}", GetObjectValue(cpu, "AddressWidth"));
-            yield return string.Format("Data width: {0}", GetObjectValue(cpu, "DataWidth"));
-            yield return string.Format("SpeedMHz: {0}", GetObjectValue(cpu, "MaxClockSpeed"));
-            yield return string.Format("BusSpeedMHz: {0}", GetObjectValue(cpu, "ExtClock"));
-            yield return string.Format("Number of cores: {0}", GetObjectValue(cpu, "NumberOfCores"));
-            yield return string.Format("Number of logical processors: {0}", GetObjectValue(cpu, "NumberOfLogicalProcessors"));
+            yield return new KeyValuePair<string, string>("OS name:", GetObjectValue(wmi, "Caption"));
+            yield return new KeyValuePair<string, string>("MaxProcessRAM:", GetObjectValue(wmi, "MaxProcessMemorySize"));
+            yield return new KeyValuePair<string, string>("Architecture:", GetObjectValue(wmi, "OSArchitecture"));
+            yield return new KeyValuePair<string, string>("ProcessorId:", GetObjectValue(wmi, "ProcessorId"));
+            yield return new KeyValuePair<string, string>("Build:", GetObjectValue(wmi, "BuildNumber"));
+
+            yield return new KeyValuePair<string, string>("CPU name:", GetObjectValue(cpu, "Name"));
+            yield return new KeyValuePair<string, string>("Description:", GetObjectValue(cpu, "Caption"));
+            yield return new KeyValuePair<string, string>("Address width:", GetObjectValue(cpu, "AddressWidth"));
+            yield return new KeyValuePair<string, string>("Data width:", GetObjectValue(cpu, "DataWidth"));
+            yield return new KeyValuePair<string, string>("SpeedMHz:", GetObjectValue(cpu, "MaxClockSpeed"));
+            yield return new KeyValuePair<string, string>("BusSpeedMHz:", GetObjectValue(cpu, "ExtClock"));
+            yield return new KeyValuePair<string, string>("Number of cores:", GetObjectValue(cpu, "NumberOfCores"));
+            yield return new KeyValuePair<string, string>("Number of logical processors:", GetObjectValue(cpu, "NumberOfLogicalProcessors"));
         }
         #endregion
 

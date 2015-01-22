@@ -11,6 +11,6 @@ namespace Orchestra.Services
 
     public interface ISystemInfoService
     {
-        IEnumerable<string> GetSystemInfo();
+        IEnumerable<KeyValuePair<string, string>> GetSystemInfo();
     }
 }

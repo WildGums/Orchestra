@@ -7,7 +7,7 @@
 
 namespace Orchestra.ViewModels
 {
-    using System.Text;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Catel;
     using Catel.MVVM;
@@ -28,12 +28,12 @@ namespace Orchestra.ViewModels
             _systemInfoService = systemInfoService;
             _dispatcherService = dispatcherService;
 
-            SystemInfo = "Retrieving system info...";
+            SystemInfo = new List<KeyValuePair<string, string>> {new KeyValuePair<string, string>("Retrieving system info...", string.Empty)};
         }
         #endregion
 
         #region Properties
-        public string SystemInfo { get; private set; }
+        public List<KeyValuePair<string, string>> SystemInfo { get; private set; }
         #endregion
 
         #region Methods
@@ -41,17 +41,17 @@ namespace Orchestra.ViewModels
         {
             await base.Initialize();
 
-            var sb = new StringBuilder();
+            var container = new List<KeyValuePair<string, string>>();
 
             await Task.Factory.StartNew(() =>
             {
                 foreach (var line in _systemInfoService.GetSystemInfo())
                 {
-                    sb.AppendLine(line);
+                    container.Add(line);
                 }
             });
 
-            SystemInfo = sb.ToString();
+            SystemInfo = container;
         }
         #endregion
     }
