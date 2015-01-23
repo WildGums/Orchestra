@@ -7,6 +7,7 @@
 
 namespace Orchestra.ViewModels
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Media.Imaging;
@@ -44,6 +45,7 @@ namespace Orchestra.ViewModels
             BuildDateTime = string.Format("Built on {0}", buildDateTime);
             Url = aboutInfo.Url;
             Copyright = assembly.Copyright();
+            CompanyLogoUri = aboutInfo.CompanyLogoUri;
             ImageSourceUrl = aboutInfo.LogoImageSource;
             ShowLogButton = aboutInfo.ShowLogButton;
             AppIcon = assembly.ExtractLargestIcon();
@@ -63,6 +65,8 @@ namespace Orchestra.ViewModels
         public string Url { get; private set; }
 
         public string Copyright { get; private set; }
+
+        public Uri CompanyLogoUri { get; private set; }
 
         public string ImageSourceUrl { get; private set; }
 

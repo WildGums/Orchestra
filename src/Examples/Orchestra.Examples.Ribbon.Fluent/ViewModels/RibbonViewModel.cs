@@ -157,7 +157,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// </summary>
         private async void OnHelpExecute()
         {
-            var aboutInfo = new AboutInfo("/Orchestra.Examples.Ribbon.Microsoft;component/Resources/Images/CompanyLogo.png", "http://www.somecompany.com");
+            var aboutInfo = new AboutInfo(new Uri("pack://application:,,,/Resources/Images/CompanyLogo.png", UriKind.RelativeOrAbsolute), null, "http://www.somecompany.com");
             await _uiVisualizerService.ShowDialog<AboutViewModel>(aboutInfo);
         }
 
