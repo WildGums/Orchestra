@@ -56,7 +56,7 @@ namespace Orchestra.ViewModels
 
             foreach (var item in await _systemInfoService.GetSystemInfo())
             {
-                items.Add(new KeyValuePair<string, string>(item.Value1, item.Value2));
+                items.Add(new KeyValuePair<string, string>(item.Name, item.Value));
             }
 
             SystemInfo = items;
