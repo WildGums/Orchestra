@@ -15,6 +15,7 @@ namespace Orchestra.ViewModels
     using Catel;
     using Catel.MVVM;
     using Catel.Services;
+    using Orc.SystemInfo;
     using Services;
 
     public class SystemInfoViewModel : ViewModelBase
@@ -34,7 +35,7 @@ namespace Orchestra.ViewModels
             _dispatcherService = dispatcherService;
             _clipboardService = clipboardService;
 
-            SystemInfo = new List<KeyValuePair<string, string>> {new KeyValuePair<string, string>("Retrieving system info...", string.Empty)};
+            SystemInfo = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("Retrieving system info...", string.Empty) };
 
             CopyToClipboard = new Command(OnCopyToClipboardExecute);
         }
@@ -42,6 +43,7 @@ namespace Orchestra.ViewModels
 
         #region Properties
         public List<KeyValuePair<string, string>> SystemInfo { get; private set; }
+
         public bool IsSystemInformationLoaded { get; private set; }
         #endregion
 
@@ -52,28 +54,28 @@ namespace Orchestra.ViewModels
 
             var items = new List<KeyValuePair<string, string>>();
 
-            await Task.Factory.StartNew(() =>
+            foreach (var item in await _systemInfoService.GetSystemInfo())
             {
-                foreach (var item in _systemInfoService.GetSystemInfo())
-                {
-                    items.Add(item);
-                }
-            });
+                items.Add(new KeyValuePair<string, string>(item.Value1, item.Value2));
+            }
 
             SystemInfo = items;
             IsSystemInformationLoaded = true;
         }
         #endregion
+
         #region Commands
         public Command CopyToClipboard { get; private set; }
 
         private void OnCopyToClipboardExecute()
         {
             var sb = new StringBuilder();
+
             foreach (var item in SystemInfo)
             {
-                sb.AppendFormat("{0} {1} {2}",item.Key, item.Value, Environment.NewLine);
+                sb.AppendFormat("{0} {1} {2}", item.Key, item.Value, Environment.NewLine);
             }
+
             _clipboardService.CopyToClipboard(sb.ToString());
         }
         #endregion

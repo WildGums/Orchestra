@@ -79,6 +79,9 @@
       <HintPath>..\..\..\lib\Obsolete.Fody.3.1.0.0\Lib\NET35\Obsolete.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Orc.SystemInfo">
+      <HintPath>..\..\..\lib\Orc.SystemInfo.0.2.0-unstable0016\lib\net40\Orc.SystemInfo.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -183,11 +186,9 @@
     <Compile Include="Services\Interfaces\IRecentlyUsedItemsService.cs" />
     <Compile Include="Services\Interfaces\IStatusService.cs" />
     <Compile Include="Services\Interfaces\ISplashScreenService.cs" />
-    <Compile Include="Services\Interfaces\ISystemInfoService.cs" />
     <Compile Include="Services\Interfaces\IThemeService.cs" />
     <Compile Include="Services\MicrosoftApiSelectDirectoryService.cs" />
     <Compile Include="Services\PleaseWaitService.cs" />
-    <Compile Include="Services\SystemInfoService.cs" />
     <Compile Include="Services\SplashScreenService.cs" />
     <Compile Include="Services\KeyboardMappingsService.cs" />
     <Compile Include="Services\RecentlyUsedItemsService.cs" />
