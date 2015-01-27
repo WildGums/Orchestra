@@ -10,7 +10,6 @@
   </Costura>
   <Obsolete/>
   <MethodTimer/>
-  <Catel/>
   <LoadAssembliesOnStartup>
     <ExcludeAssemblies>
       Catel.Fody.Attributes
@@ -18,4 +17,5 @@
       Obsolete
     </ExcludeAssemblies>
   </LoadAssembliesOnStartup>
+  <Catel/>
 </Weavers>

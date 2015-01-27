@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Weavers>
   <ModuleInit/>
-  <Catel/>
   <LoadAssembliesOnStartup>
     <ExcludeAssemblies>
       Catel.Fody.Attributes
@@ -9,4 +8,5 @@
       Obsolete
     </ExcludeAssemblies>
   </LoadAssembliesOnStartup>
+  <Catel/>
 </Weavers>
