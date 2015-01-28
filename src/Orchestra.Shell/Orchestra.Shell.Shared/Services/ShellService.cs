@@ -8,6 +8,7 @@
 namespace Orchestra.Services
 {
     using System;
+    using System.Runtime.Remoting.Messaging;
     using System.Threading.Tasks;
     using System.Windows;
     using Catel;
@@ -15,6 +16,7 @@ namespace Orchestra.Services
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
+    using Catel.Services;
     using MethodTimer;
     using Properties;
     using Views;
@@ -33,6 +35,7 @@ namespace Orchestra.Services
         private readonly ISplashScreenService _splashScreenService;
         private readonly IEnsureStartupService _ensureStartupService;
         private readonly IApplicationInitializationService _applicationInitializationService;
+        private readonly IDependencyResolver _dependencyResolver;
         #endregion
 
         #region Constructors
@@ -45,13 +48,15 @@ namespace Orchestra.Services
         /// <param name="splashScreenService">The splash screen service.</param>
         /// <param name="ensureStartupService">The ensure startup service.</param>
         /// <param name="applicationInitializationService">The application initialization service.</param>
+        /// <param name="dependencyResolver">The dependency resolver.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="typeFactory" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="commandManager" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="keyboardMappingsService" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="splashScreenService" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="applicationInitializationService" /> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="dependencyResolver" /> is <c>null</c>.</exception>
         public ShellService(ITypeFactory typeFactory, ICommandManager commandManager, IKeyboardMappingsService keyboardMappingsService,
-            ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService, IApplicationInitializationService applicationInitializationService)
+            ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService, IApplicationInitializationService applicationInitializationService, IDependencyResolver dependencyResolver)
         {
             Argument.IsNotNull(() => typeFactory);
             Argument.IsNotNull(() => commandManager);
@@ -59,6 +64,7 @@ namespace Orchestra.Services
             Argument.IsNotNull(() => splashScreenService);
             Argument.IsNotNull(() => ensureStartupService);
             Argument.IsNotNull(() => applicationInitializationService);
+            Argument.IsNotNull(() => dependencyResolver);
 
             _typeFactory = typeFactory;
             _commandManager = commandManager;
@@ -66,6 +72,7 @@ namespace Orchestra.Services
             _splashScreenService = splashScreenService;
             _ensureStartupService = ensureStartupService;
             _applicationInitializationService = applicationInitializationService;
+            _dependencyResolver = dependencyResolver;
         }
         #endregion
 
@@ -160,35 +167,59 @@ namespace Orchestra.Services
 
             await _ensureStartupService.EnsureFailSafeStartup();
 
-            await InitializeBeforeCreatingShell();
+            var shell = default(TShell);
+            var successfullyStarted = true;
 
-            await InitializeCommands();
-
-            var shell = await CreateShell<TShell>();
-
-            Log.Info("Loading keyboard mappings");
-
-            _keyboardMappingsService.Load();
-
-            // Now we have a new window, resubscribe the command manager
-            _commandManager.SubscribeToKeyboardEvents();
-
-            await InitializeAfterCreatingShell();
-
-            Log.Info("Confirming that application was started successfully");
-
-            _ensureStartupService.ConfirmApplicationStartedSuccessfully();
-
-            await InitializeBeforeShowingShell();
-
-            await ShowShell(shell);
-
-            if (postShowShellCallback != null)
+            try
             {
-                postShowShellCallback();
+                await InitializeBeforeCreatingShell();
+
+                await InitializeCommands();
+
+                shell = await CreateShell<TShell>();
+
+                Log.Info("Loading keyboard mappings");
+
+                _keyboardMappingsService.Load();
+
+                // Now we have a new window, resubscribe the command manager
+                _commandManager.SubscribeToKeyboardEvents();
+
+                await InitializeAfterCreatingShell();
+
+                Log.Info("Confirming that application was started successfully");
+
+                _ensureStartupService.ConfirmApplicationStartedSuccessfully();
+
+                await InitializeBeforeShowingShell();
+
+                await ShowShell(shell);
+
+                if (postShowShellCallback != null)
+                {
+                    postShowShellCallback();
+                }
+
+                await InitializeAfterShowingShell();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "An unexpected error occurred, shutting down the application");
+
+                successfullyStarted = false;
             }
 
-            await InitializeAfterShowingShell();
+            if (!successfullyStarted)
+            {
+                var entryAssembly = AssemblyHelper.GetEntryAssembly();
+                var assemblyTitle = entryAssembly.Title();
+
+                // Late resolve so user might change the message service
+                var messageService = _dependencyResolver.Resolve<IMessageService>();
+                await messageService.ShowError(string.Format("An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.\n\nPlease try restarting the application. If this error keeps coming up while starting the application, please contact support.", assemblyTitle), string.Format("Failed to start {0}", assemblyTitle));
+
+                Application.Current.Shutdown(-1);
+            }
 
             return shell;
         }

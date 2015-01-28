@@ -10,6 +10,8 @@ namespace Orchestra.Examples.Ribbon.Services
     using System;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Catel;
+    using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
     using Orchestra.Services;
@@ -17,12 +19,24 @@ namespace Orchestra.Examples.Ribbon.Services
 
     public class ApplicationInitializationService : ApplicationInitializationServiceBase
     {
+        private readonly IServiceLocator _serviceLocator;
+
         #region Constants
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
         #endregion
 
+        public ApplicationInitializationService(IServiceLocator serviceLocator)
+        {
+            Argument.IsNotNull(() => serviceLocator);
+
+            _serviceLocator = serviceLocator;
+        }
+
         public override async Task InitializeBeforeCreatingShell()
         {
+            // Non-async first
+            await RegisterTypes();
+
             await RunAndWaitAsync(new Func<Task>[]
             {
                 InitializePerformance
@@ -53,6 +67,13 @@ namespace Orchestra.Examples.Ribbon.Services
             Catel.Data.ModelBase.DefaultSuspendValidationValue = true;
             Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
             Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
+        }
+
+        private async Task RegisterTypes()
+        {
+            var serviceLocator = _serviceLocator;
+
+            //throw new Exception("this is a test exception");
         }
     }
 }
