@@ -1,12 +1,12 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SharedAssemblyInfo.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2013 Orchestra development team. All rights reserved.
+// <copyright file="SolutionAssemblyInfo.cs" company="Wild Gums">
+//   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+
 using System.Reflection;
 using System.Resources;
-using System.Windows.Markup;
 
 // Shared assembly info that is common for all assemblies of this project
 
@@ -14,8 +14,8 @@ using System.Windows.Markup;
 ////[assembly: AssemblyProduct("DEFINED IN ACTUAL ASSEMBLYINFO")]
 ////[assembly: AssemblyDescription("DEFINED IN ACTUAL ASSEMBLYINFO")]
 
-[assembly: AssemblyCompany("CatenaLogic")]
-[assembly: AssemblyCopyright("Copyright © Orchestra team 2010 - 2014")]
+[assembly: AssemblyCompany("Wild Gums")]
+[assembly: AssemblyCopyright("Copyright © Wild Gums 2010 - 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en-US")]
