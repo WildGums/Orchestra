@@ -61,6 +61,13 @@ namespace Orchestra.Examples.Ribbon
 
             Log.Info("Elapsed startup stopwatch time: {0}", _stopwatch.Elapsed);
             Log.Info("Elapsed startup time: {0}", _end - _start);
+
+            var aboutInfoService = serviceLocator.ResolveType<IAboutInfoService>();
+            var aboutInfo = aboutInfoService.GetAboutInfo();
+            var assembly = aboutInfo.Assembly;
+            var version = VersionHelper.GetCurrentVersion(assembly);
+
+            Log.Info("Version: {0}", version);
         }
         #endregion
     }
