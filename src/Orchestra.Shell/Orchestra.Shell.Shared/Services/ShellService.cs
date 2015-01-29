@@ -73,6 +73,13 @@ namespace Orchestra.Services
             _ensureStartupService = ensureStartupService;
             _applicationInitializationService = applicationInitializationService;
             _dependencyResolver = dependencyResolver;
+
+            var serviceLocator = ServiceLocator.Default; 
+            var aboutInfoService = serviceLocator.ResolveType<IAboutInfoService>();
+            var aboutInfo = aboutInfoService.GetAboutInfo();
+            var assembly = aboutInfo.Assembly;
+
+            Log.Info("Starting {0} v{1} ({2})", assembly.Title(), assembly.Version(), assembly.InformationalVersion());
         }
         #endregion
 
