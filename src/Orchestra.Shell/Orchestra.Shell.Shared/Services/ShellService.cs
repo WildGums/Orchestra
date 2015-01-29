@@ -20,6 +20,7 @@ namespace Orchestra.Services
     using MethodTimer;
     using Properties;
     using Views;
+    using AssemblyHelper = Orchestra.AssemblyHelper;
 
     public partial class ShellService : IShellService
     {
@@ -74,12 +75,9 @@ namespace Orchestra.Services
             _applicationInitializationService = applicationInitializationService;
             _dependencyResolver = dependencyResolver;
 
-            var serviceLocator = ServiceLocator.Default; 
-            var aboutInfoService = serviceLocator.ResolveType<IAboutInfoService>();
-            var aboutInfo = aboutInfoService.GetAboutInfo();
-            var assembly = aboutInfo.Assembly;
+            var entryAssembly = AssemblyHelper.GetEntryAssembly();
 
-            Log.Info("Starting {0} v{1} ({2})", assembly.Title(), assembly.Version(), assembly.InformationalVersion());
+            Log.Info("Starting {0} v{1} ({2})", entryAssembly.Title(), entryAssembly.Version(), entryAssembly.InformationalVersion());
         }
         #endregion
 
