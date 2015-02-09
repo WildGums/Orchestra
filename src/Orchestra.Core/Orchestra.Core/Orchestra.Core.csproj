@@ -81,7 +81,7 @@
     </Reference>
     <Reference Include="Orc.SystemInfo, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Orc.SystemInfo.0.2.0-unstable0019\lib\net40\Orc.SystemInfo.dll</HintPath>
+      <HintPath>..\..\..\lib\Orc.SystemInfo.0.2.0-unstable0020\lib\net40\Orc.SystemInfo.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

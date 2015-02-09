@@ -39,12 +39,10 @@
     <NoWarn>1591;1998</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.Core.4.1.0-unstable0060\lib\net40\Catel.Core.dll</HintPath>
+    <Reference Include="Catel.Core">
+      <HintPath>..\..\..\lib\Catel.Core.4.1.0-unstable0080\lib\net40\Catel.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Controls, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Catel.Extensions.Controls">
       <HintPath>..\..\..\lib\Catel.Extensions.Controls.4.1.0-unstable0080\lib\net40\Catel.Extensions.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Fody.Attributes, Version=2.5.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
@@ -53,7 +51,6 @@
     </Reference>
     <Reference Include="Catel.MVVM">
       <HintPath>..\..\..\lib\Catel.MVVM.4.1.0-unstable0080\lib\net40\Catel.MVVM.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MethodTimer">
       <HintPath>..\..\..\lib\MethodTimer.Fody.1.15.2.0\Lib\portable-net4+sl5+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\MethodTimer.dll</HintPath>

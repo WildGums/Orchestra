@@ -24,8 +24,6 @@
 	<!--<iconUrl>http://www.catenalogic.com/catel.png</iconUrl>-->
 
     <dependencies>
-      <dependency id="Catel.Core" version="[replaced]" />
-      <dependency id="Catel.MVVM" version="[replaced]" />
       <dependency id="Catel.Extensions.Controls" version="[replaced]" />
     </dependencies>
   </metadata>
