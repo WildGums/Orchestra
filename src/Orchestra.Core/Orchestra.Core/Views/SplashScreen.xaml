@@ -3,8 +3,8 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://catel.codeplex.com"
                   xmlns:controls="clr-namespace:Orchestra.Controls"
-                  WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="true" SnapsToDevicePixels="True"
-                  SizeToContent="WidthAndHeight" Background="{x:Null}" ResizeMode="NoResize" AllowsTransparency="True"
+                  WindowStartupLocation="CenterScreen" WindowStyle="None" SnapsToDevicePixels="True"
+                  SizeToContent="WidthAndHeight" Background="{x:Null}" ResizeMode="NoResize" AllowsTransparency="True" 
                   Margin="0">
 
     <Window.Resources>
