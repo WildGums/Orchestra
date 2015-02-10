@@ -22,7 +22,7 @@ Orchestra provides support for a lot of different shells.
 
 # More information
 
-## Update 2014/12/24
+## Update 2015/02/10
 
 Some of the features which will come out of the box:
 
@@ -48,6 +48,10 @@ Other Projects that might be of interest (And integrate easily with Orchestra):
 - [Orc.Squirrel](https://github.com/Orcomp/Orc.Squirrel) (Automatic Updates)
 - [Orc.FilterBuilder](https://github.com/Orcomp/Orc.FilterBuilder)
 - [Orc.Controls](https://github.com/Orcomp/Orc.Controls)
+- [Orc.Search](https://github.com/WildGums/Orc.Search)
+- [Orc.Feedback](https://github.com/WildGums/Orc.Feedback)
+- [Orc.SystemInfo](https://github.com/WildGums/Orc.SystemInfo)
+- [Orc.CrashReporting](https://github.com/WildGums/Orc.CrashReporting)
 
 ## License
 
