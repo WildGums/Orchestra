@@ -7,6 +7,7 @@
 
 namespace Orchestra.ViewModels
 {
+    using System.Threading.Tasks;
     using Catel.MVVM;
     using Catel.Reflection;
 
@@ -15,20 +16,7 @@ namespace Orchestra.ViewModels
     /// </summary>
     public class SplashScreenViewModel : ViewModelBase
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SplashScreenViewModel"/> class.
-        /// </summary>
-        public SplashScreenViewModel()
-        {
-            var assembly = Orchestra.AssemblyHelper.GetEntryAssembly();
-            if (assembly != null)
-            {
-                Title = assembly.Title();
-                Company = assembly.Company();
-                Version = VersionHelper.GetCurrentVersion(assembly);
-            }
-        }
-
+        #region Properties
         /// <summary>
         /// Gets the company.
         /// </summary>
@@ -40,5 +28,21 @@ namespace Orchestra.ViewModels
         /// </summary>
         /// <value>The version.</value>
         public string Version { get; private set; }
+        #endregion
+
+        #region Methods
+        protected override async Task Initialize()
+        {
+            await base.Initialize();
+
+            var assembly = Orchestra.AssemblyHelper.GetEntryAssembly();
+            if (assembly != null)
+            {
+                Title = assembly.Title();
+                Company = assembly.Company();
+                Version = VersionHelper.GetCurrentVersion(assembly);
+            }
+        }
+        #endregion
     }
 }

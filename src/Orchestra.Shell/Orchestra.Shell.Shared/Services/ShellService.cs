@@ -185,7 +185,7 @@ namespace Orchestra.Services
 
                 Log.Info("Loading keyboard mappings");
 
-                _keyboardMappingsService.Load();
+                await _keyboardMappingsService.LoadAsync();
 
                 // Now we have a new window, resubscribe the command manager
                 _commandManager.SubscribeToKeyboardEvents();

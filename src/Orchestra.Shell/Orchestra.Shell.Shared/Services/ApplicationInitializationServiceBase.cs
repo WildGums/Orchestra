@@ -14,25 +14,31 @@ namespace Orchestra.Services
     using Catel;
     using Catel.MVVM;
     using Catel.Threading;
+    using MethodTimer;
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService
     {
+        [Time]
         public virtual async Task InitializeBeforeCreatingShell()
         {
         }
 
+        [Time]
         public virtual async Task InitializeAfterCreatingShell()
         {
         }
 
+        [Time]
         public virtual async Task InitializeBeforeShowingShell()
         {
         }
 
+        [Time]
         public virtual async Task InitializeAfterShowingShell()
         {
         }
 
+        [Time]
         public virtual async Task InitializeCommands(ICommandManager commandManager)
         {
         }
