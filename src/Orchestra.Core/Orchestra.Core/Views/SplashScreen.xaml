@@ -39,7 +39,7 @@
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Title}" HorizontalAlignment="Center" VerticalAlignment="Center" 
                    TextAlignment="Center" FontSize="48" TextWrapping="Wrap" Style="{StaticResource SplashTextBlockStyle}" />
 
-        <controls:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="0" />
+        <controls:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="0" IgnoreUnloadedEventCount="1" />
 
         <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Version, StringFormat=Starting v{0}}" HorizontalAlignment="Left" Style="{StaticResource SplashTextBlockStyle}" />
         <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Company, StringFormat=Produced by {0}}" HorizontalAlignment="Right" Style="{StaticResource SplashTextBlockStyle}" />
