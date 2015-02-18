@@ -3,6 +3,6 @@
   <ModuleInit/>
   <Obsolete/>
   <MethodTimer/>
-  <LoadAssembliesOnStartup />
+  <LoadAssembliesOnStartup/>
   <Catel/>
 </Weavers>
