@@ -35,12 +35,5 @@ namespace Orchestra.Services
         /// </summary>
         /// <returns>Task.</returns>
         Task InitializeAfterShowingShell();
-
-        /// <summary>
-        /// Initializes the commands.
-        /// </summary>
-        /// <param name="commandManager">The command manager.</param>
-        /// <returns>Task.</returns>
-        Task InitializeCommands(ICommandManager commandManager);
     }
 }

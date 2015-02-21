@@ -29,6 +29,7 @@ namespace Orchestra.Examples.MahApps.Services
         {
             await RunAndWaitAsync(new Func<Task>[]
             {
+                InitializeCommands,
                 InitializePerformance
             });
 
@@ -39,8 +40,10 @@ namespace Orchestra.Examples.MahApps.Services
             flyoutService.AddFlyout<PersonView>(ExampleEnvironment.PersonFlyoutName, Position.Right);
         }
 
-        public override async Task InitializeCommands(ICommandManager commandManager)
+        private async Task InitializeCommands()
         {
+            var commandManager = ServiceLocator.Default.ResolveType<ICommandManager>();
+
             commandManager.CreateCommand("File.Refresh", new InputGesture(Key.R, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.Save", new InputGesture(Key.S, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.Exit", throwExceptionWhenCommandIsAlreadyCreated: false);

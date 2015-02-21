@@ -39,12 +39,15 @@ namespace Orchestra.Examples.Ribbon.Services
 
             await RunAndWaitAsync(new Func<Task>[]
             {
+                InitializeCommands,
                 InitializePerformance
             });
         }
 
-        public override async Task InitializeCommands(ICommandManager commandManager)
+        private async Task InitializeCommands()
         {
+            var commandManager = ServiceLocator.Default.ResolveType<ICommandManager>();
+
             commandManager.CreateCommand("File.Open", new InputGesture(Key.O, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.SaveToImage", new InputGesture(Key.I, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.Print", new InputGesture(Key.P, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);

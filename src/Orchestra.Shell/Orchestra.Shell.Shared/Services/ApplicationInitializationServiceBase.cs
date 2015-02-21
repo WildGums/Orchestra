@@ -38,11 +38,6 @@ namespace Orchestra.Services
         {
         }
 
-        [Time]
-        public virtual async Task InitializeCommands(ICommandManager commandManager)
-        {
-        }
-
         protected static async Task RunAndWaitAsync(params Func<Task>[] actions)
         {
             await TaskHelper.RunAndWaitAsync(actions);
