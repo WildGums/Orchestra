@@ -18,6 +18,7 @@ namespace Orchestra.ViewModels
     using Catel.Services;
     using Catel.Text;
     using Catel.Windows.Input;
+    using Models;
     using Orchestra.Services;
 
     public class KeyboardMappingsCustomizationViewModel : ViewModelBase
@@ -40,7 +41,7 @@ namespace Orchestra.ViewModels
             _languageService = languageService;
             _messageService = messageService;
 
-            Commands = new ObservableCollection<string>();
+            Commands = new FastObservableCollection<CommandInfo>();
             CommandFilter = string.Empty;
             SelectedCommand = string.Empty;
 
@@ -57,7 +58,7 @@ namespace Orchestra.ViewModels
 
         public string CommandFilter { get; set; }
 
-        public ObservableCollection<string> Commands { get; private set; }
+        public FastObservableCollection<CommandInfo> Commands { get; private set; }
 
         public string SelectedCommand { get; set; }
 
@@ -179,6 +180,8 @@ namespace Orchestra.ViewModels
             }
 
             _commandManager.UpdateInputGesture(selectedCommand, selectedInputGesture);
+
+            UpdateCommands();
         }
         #endregion
 
@@ -188,22 +191,23 @@ namespace Orchestra.ViewModels
             _keyboardMappingsService.Save();
         }
 
-        private void OnCommandFilterChanged()
+        private void UpdateCommands()
         {
             var allCommands = _commandManager.GetCommands().OrderBy(x => x).ToList();
             if (!string.IsNullOrWhiteSpace(CommandFilter))
             {
-                allCommands = allCommands.Where(x =>  x.IndexOf(CommandFilter, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+                allCommands = allCommands.Where(x => x.IndexOf(CommandFilter, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
             }
 
-            if (Commands == null)
+            using (Commands.SuspendChangeNotifications())
             {
-                Commands = new ObservableCollection<string>(allCommands);
+                Commands.ReplaceRange(allCommands.Select(x => new CommandInfo(x, _commandManager.GetInputGesture(x))));
             }
-            else
-            {
-                Commands.ReplaceRange(allCommands);
-            }
+        }
+
+        private void OnCommandFilterChanged()
+        {
+            UpdateCommands();
         }
 
         private void OnSelectedCommandChanged()

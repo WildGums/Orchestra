@@ -155,6 +155,7 @@
     <Compile Include="Markup\FontImage.cs" />
     <Compile Include="MethodTimeLogger.cs" />
     <Compile Include="Models\AboutInfo.cs" />
+    <Compile Include="Models\CommandInfo.cs" />
     <Compile Include="Models\Hint.cs" />
     <Compile Include="Models\Interfaces\IHint.cs" />
     <Compile Include="Models\KeyboardMapping.cs" />
