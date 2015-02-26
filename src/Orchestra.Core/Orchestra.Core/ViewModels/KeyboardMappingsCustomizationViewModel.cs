@@ -10,11 +10,13 @@ namespace Orchestra.ViewModels
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
     using Catel;
     using Catel.Collections;
     using Catel.MVVM;
     using Catel.Services;
+    using Catel.Text;
     using Catel.Windows.Input;
     using Orchestra.Services;
 
@@ -23,17 +25,20 @@ namespace Orchestra.ViewModels
         private readonly IKeyboardMappingsService _keyboardMappingsService;
         private readonly ICommandManager _commandManager;
         private readonly ILanguageService _languageService;
+        private readonly IMessageService _messageService;
 
         public KeyboardMappingsCustomizationViewModel(IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
-            ILanguageService languageService)
+            ILanguageService languageService, IMessageService messageService)
         {
             Argument.IsNotNull(() => keyboardMappingsService);
             Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => languageService);
+            Argument.IsNotNull(() => messageService);
 
             _keyboardMappingsService = keyboardMappingsService;
             _commandManager = commandManager;
             _languageService = languageService;
+            _messageService = messageService;
 
             Commands = new ObservableCollection<string>();
             CommandFilter = string.Empty;
@@ -135,10 +140,45 @@ namespace Orchestra.ViewModels
         /// <summary>
         /// Method to invoke when the Assign command is executed.
         /// </summary>
-        private void OnAssignExecute()
+        private async void OnAssignExecute()
         {
             SelectedCommandInputGesture = SelectedCommandNewInputGesture;
-            _commandManager.UpdateInputGesture(SelectedCommand, SelectedCommandNewInputGesture);
+
+            var selectedCommand = SelectedCommand;
+            var selectedInputGesture = SelectedCommandInputGesture;
+
+            if (!selectedInputGesture.IsEmpty())
+            {
+                var existingCommands = _commandManager.FindCommandsByGesture(selectedInputGesture);
+                if (existingCommands.Any())
+                {
+                    var messageBuilder = new StringBuilder();
+
+                    messageBuilder.AppendLine("The input gesture '{0}' is currently being used by the following commands:", selectedInputGesture);
+                    messageBuilder.AppendLine();
+
+                    foreach (var existingCommand in existingCommands)
+                    {
+                        messageBuilder.AppendLine("- {0}", existingCommand.Key);
+                    }
+
+                    messageBuilder.AppendLine();
+                    messageBuilder.AppendLine("Are you sure you want to assign the input gesture to '{0}'. It will be removed from the other commands.",
+                        selectedCommand);
+
+                    if (await _messageService.Show(messageBuilder.ToString(), "Replace input gesture?", MessageButton.YesNo) == MessageResult.No)
+                    {
+                        return;
+                    }
+
+                    foreach (var existingCommand in existingCommands)
+                    {
+                        _commandManager.UpdateInputGesture(existingCommand.Key, null);
+                    }
+                }
+            }
+
+            _commandManager.UpdateInputGesture(selectedCommand, selectedInputGesture);
         }
         #endregion
 
