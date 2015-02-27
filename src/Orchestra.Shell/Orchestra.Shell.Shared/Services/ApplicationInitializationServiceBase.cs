@@ -14,7 +14,7 @@ namespace Orchestra.Services
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService
     {
-        [Time]
+        [Time] 
         public virtual async Task InitializeBeforeShowingSplashScreen()
         {
         }
