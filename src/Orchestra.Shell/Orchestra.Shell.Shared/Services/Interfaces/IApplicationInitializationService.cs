@@ -8,10 +8,15 @@
 namespace Orchestra.Services
 {
     using System.Threading.Tasks;
-    using Catel.MVVM;
 
     public interface IApplicationInitializationService
     {
+        /// <summary>
+        /// Initialization code before showing the splash screen.
+        /// </summary>
+        /// <returns>Task.</returns>
+        Task InitializeBeforeShowingSplashScreen();
+
         /// <summary>
         /// Initialization code before creating the shell.
         /// </summary>

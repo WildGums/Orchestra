@@ -99,6 +99,8 @@ namespace Orchestra.Services
         public async Task<TShell> CreateWithSplash<TShell>()
             where TShell : IShell
         {
+            await _applicationInitializationService.InitializeBeforeShowingSplashScreen();
+
             var splashScreen = _splashScreenService.CreateSplashScreen();
             splashScreen.Show();
 
