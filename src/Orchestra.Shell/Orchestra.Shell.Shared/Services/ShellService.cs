@@ -77,6 +77,9 @@ namespace Orchestra.Services
             var entryAssembly = AssemblyHelper.GetEntryAssembly();
 
             Log.Info("Starting {0} v{1} ({2})", entryAssembly.Title(), entryAssembly.Version(), entryAssembly.InformationalVersion());
+
+            // Initialize (now we have an application)
+            DotNetPatchHelper.Initialize();
         }
         #endregion
 
