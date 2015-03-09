@@ -151,6 +151,7 @@
     <Compile Include="Logging\StatusLogListener.cs" />
     <Compile Include="Logging\TextBoxLogListener.cs" />
     <Compile Include="Markup\FontImage.cs" />
+    <Compile Include="Markup\CanvasViewbox.cs" />
     <Compile Include="MethodTimeLogger.cs" />
     <Compile Include="Models\AboutInfo.cs" />
     <Compile Include="Models\Hint.cs" />
