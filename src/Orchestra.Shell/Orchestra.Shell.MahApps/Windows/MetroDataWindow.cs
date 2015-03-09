@@ -64,8 +64,6 @@ namespace Orchestra.Windows
 
             this.FixBlurriness();
             this.ApplyIconFromApplication();
-
-            EnableDWMDropShadow = true;
         }
         #endregion
 

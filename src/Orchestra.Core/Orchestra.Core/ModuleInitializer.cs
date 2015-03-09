@@ -38,6 +38,7 @@ public static class ModuleInitializer
 
         serviceLocator.RegisterTypeIfNotYetRegistered<IRecentlyUsedItemsService, RecentlyUsedItemsService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IKeyboardMappingsService, KeyboardMappingsService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IStatusFilterService, StatusFilterService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusService, StatusService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<Orchestra.Services.ISplashScreenService, Orchestra.Services.SplashScreenService>();
 
@@ -108,14 +109,13 @@ public static class ModuleInitializer
             // Ignore
         }
 
-        var fileLogListener = new FileLogListener()
-        {
-            IgnoreCatelLogging = true,
-            IsDebugEnabled = false,
-            IsInfoEnabled = true,
-            IsWarningEnabled = true,
-            IsErrorEnabled = true
-        };
+        var fileLogListener = LogHelper.CreateFileLogListener(AssemblyHelper.GetEntryAssembly().GetName().Name);
+
+        fileLogListener.IgnoreCatelLogging = true;
+        fileLogListener.IsDebugEnabled = false;
+        fileLogListener.IsInfoEnabled = true;
+        fileLogListener.IsWarningEnabled = true;
+        fileLogListener.IsErrorEnabled = true;
 
         LogManager.AddListener(fileLogListener);
     }

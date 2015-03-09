@@ -107,6 +107,11 @@ namespace Orchestra.Markup
 
         public ImageSource GetImageSource()
         {
+            if (CatelEnvironment.IsInDesignMode)
+            {
+                return null;
+            }
+
             var fontFamily = FontFamily;
             if (fontFamily == null)
             {

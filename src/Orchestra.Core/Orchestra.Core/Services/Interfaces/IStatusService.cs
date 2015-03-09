@@ -16,7 +16,7 @@ namespace Orchestra.Services
     {
         #region Methods
         void Initialize(IStatusRepresenter statusRepresenter);
-        void UpdateStatus(string statusFormat, params object[] parameters);
+        void UpdateStatus(string status);
         #endregion
     }
 }

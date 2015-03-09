@@ -8,7 +8,6 @@
 namespace Orchestra.Services
 {
     using System;
-    using System.Runtime.Remoting.Messaging;
     using System.Threading.Tasks;
     using System.Windows;
     using Catel;
@@ -44,32 +43,32 @@ namespace Orchestra.Services
         /// Initializes a new instance of the <see cref="ShellService" /> class.
         /// </summary>
         /// <param name="typeFactory">The type factory.</param>
-        /// <param name="commandManager">The command manager.</param>
         /// <param name="keyboardMappingsService">The keyboard mappings service.</param>
+        /// <param name="commandManager">The command manager.</param>
         /// <param name="splashScreenService">The splash screen service.</param>
         /// <param name="ensureStartupService">The ensure startup service.</param>
         /// <param name="applicationInitializationService">The application initialization service.</param>
         /// <param name="dependencyResolver">The dependency resolver.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="typeFactory" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="commandManager" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="keyboardMappingsService" /> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="commandManager" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="splashScreenService" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="applicationInitializationService" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="dependencyResolver" /> is <c>null</c>.</exception>
-        public ShellService(ITypeFactory typeFactory, ICommandManager commandManager, IKeyboardMappingsService keyboardMappingsService,
+        public ShellService(ITypeFactory typeFactory, IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
             ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService, IApplicationInitializationService applicationInitializationService, IDependencyResolver dependencyResolver)
         {
             Argument.IsNotNull(() => typeFactory);
-            Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => keyboardMappingsService);
+            Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => splashScreenService);
             Argument.IsNotNull(() => ensureStartupService);
             Argument.IsNotNull(() => applicationInitializationService);
             Argument.IsNotNull(() => dependencyResolver);
 
             _typeFactory = typeFactory;
-            _commandManager = commandManager;
             _keyboardMappingsService = keyboardMappingsService;
+            _commandManager = commandManager;
             _splashScreenService = splashScreenService;
             _ensureStartupService = ensureStartupService;
             _applicationInitializationService = applicationInitializationService;
@@ -78,6 +77,9 @@ namespace Orchestra.Services
             var entryAssembly = AssemblyHelper.GetEntryAssembly();
 
             Log.Info("Starting {0} v{1} ({2})", entryAssembly.Title(), entryAssembly.Version(), entryAssembly.InformationalVersion());
+
+            // Initialize (now we have an application)
+            DotNetPatchHelper.Initialize();
         }
         #endregion
 
@@ -100,28 +102,14 @@ namespace Orchestra.Services
         public async Task<TShell> CreateWithSplash<TShell>()
             where TShell : IShell
         {
+            await _applicationInitializationService.InitializeBeforeShowingSplashScreen();
+
             var splashScreen = _splashScreenService.CreateSplashScreen();
             splashScreen.Show();
 
             var shell = await CreateShellInternal<TShell>(splashScreen.Close);
 
             return shell;
-        }
-
-        /// <summary>
-        /// Creates a new shell and shows a splash during the initialization.
-        /// </summary>
-        /// <typeparam name="TShell">The type of the shell.</typeparam>
-        /// <param name="preInitialize">The pre initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
-        /// <param name="initializeCommands">The initialize commands handler. If <c>null</c>, no commands will be initialized.</param>
-        /// <param name="postInitialize">The post initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
-        /// <returns>The created shell.</returns>
-        /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        [ObsoleteEx(Replacement = "CreateWithSplash<TShell>() in combination with IApplicationInitializationService", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
-        public async Task<TShell> CreateWithSplash<TShell>(Func<Task> preInitialize, Func<ICommandManager, Task> initializeCommands = null, Func<Task> postInitialize = null)
-            where TShell : IShell
-        {
-            throw new NotSupportedException();
         }
 
         /// <summary>
@@ -135,22 +123,6 @@ namespace Orchestra.Services
             where TShell : IShell
         {
             return await CreateShellInternal<TShell>();
-        }
-
-        /// <summary>
-        /// Creates a new shell.
-        /// </summary>
-        /// <typeparam name="TShell">The type of the shell.</typeparam>
-        /// <param name="preInitialize">The pre initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
-        /// <param name="initializeCommands">The initialize commands handler. If <c>null</c>, no commands will be initialized.</param>
-        /// <param name="postInitialize">The post initialize handler to initialize custom logic. If <c>null</c>, this value will be ignored.</param>
-        /// <returns>The created shell.</returns>
-        /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        [ObsoleteEx( Replacement = "Create<TShell>() in combination with IApplicationInitializationService", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
-        public async Task<TShell> Create<TShell>(Func<Task> preInitialize, Func<ICommandManager, Task> initializeCommands = null, Func<Task> postInitialize = null)
-            where TShell : IShell
-        {
-            throw new NotSupportedException();
         }
 
         /// <summary>
@@ -178,8 +150,6 @@ namespace Orchestra.Services
             try
             {
                 await InitializeBeforeCreatingShell();
-
-                await InitializeCommands();
 
                 shell = await CreateShell<TShell>();
 
@@ -235,14 +205,6 @@ namespace Orchestra.Services
             Log.Debug("Calling IApplicationInitializationService.InitializeBeforeCreatingShell");
 
             await _applicationInitializationService.InitializeBeforeCreatingShell();
-        }
-
-        [Time]
-        private async Task InitializeCommands()
-        {
-            Log.Debug("Calling IApplicationInitializationService.InitializeCommands");
-
-            await _applicationInitializationService.InitializeCommands(_commandManager);
         }
 
         [Time]
