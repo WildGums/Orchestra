@@ -29,10 +29,16 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => filePath);
 
-            var extractor = new IconExtractor(filePath);
-            var icon = extractor.GetIcon(0);
-
-            return icon;
+            try
+            {
+                var extractor = new IconExtractor(filePath);
+                var icon = extractor.GetIcon(0);
+                return icon;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public static BitmapImage ExtractLargestIconFromFile(string filePath)
@@ -45,6 +51,7 @@ namespace Orchestra
                 var bitmap = ExtractIcon(icon);
                 return ToBitmapImageWithTransparency(bitmap);
             }
+
             return ToBitmapImageWithTransparency(vistaIcon);
         }
 

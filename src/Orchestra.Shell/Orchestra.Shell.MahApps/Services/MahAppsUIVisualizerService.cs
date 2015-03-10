@@ -28,7 +28,19 @@ namespace Orchestra.Services
             get { return typeof (Control); }
         }
 
-        protected override Task<bool?> ShowWindow(FrameworkElement window, bool showModal)
+        protected override bool? ShowWindow(FrameworkElement window, bool showModal)
+        {
+            var simpleDialog = window as CustomDialog;
+            if (simpleDialog != null)
+            {
+                simpleDialog.Show();
+                return true;
+            }
+
+            return base.ShowWindow(window, showModal);
+        }
+
+        protected override Task<bool?> ShowWindowAsync(FrameworkElement window, bool showModal)
         {
             var simpleDialog = window as CustomDialog;
             if (simpleDialog != null)
@@ -51,7 +63,7 @@ namespace Orchestra.Services
                 });
             }
 
-            return base.ShowWindow(window, showModal);
+            return base.ShowWindowAsync(window, showModal);
         }
     }
 }

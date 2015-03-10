@@ -155,10 +155,10 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// <summary>
         /// Method to invoke when the Help command is executed.
         /// </summary>
-        private async void OnHelpExecute()
+        private void OnHelpExecute()
         {
             var aboutInfo = new AboutInfo(new Uri("pack://application:,,,/Resources/Images/CompanyLogo.png", UriKind.RelativeOrAbsolute), null, "http://www.somecompany.com");
-            await _uiVisualizerService.ShowDialog<AboutViewModel>(aboutInfo);
+            _uiVisualizerService.ShowDialog<AboutViewModel>(aboutInfo);
         }
 
         /// <summary>
@@ -182,9 +182,9 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// <summary>
         /// Method to invoke when the ShowKeyboardMappings command is executed.
         /// </summary>
-        private async void OnShowKeyboardMappingsExecute()
+        private void OnShowKeyboardMappingsExecute()
         {
-            await _uiVisualizerService.ShowDialog<KeyboardMappingsCustomizationViewModel>();
+            _uiVisualizerService.ShowDialog<KeyboardMappingsCustomizationViewModel>();
         }
         #endregion
 

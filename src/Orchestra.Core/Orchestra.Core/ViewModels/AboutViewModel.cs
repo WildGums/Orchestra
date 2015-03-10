@@ -106,9 +106,9 @@ namespace Orchestra.ViewModels
 
         public Command ShowSystemInfo { get; private set; }
 
-        private async void OnShowSystemInfoExecute()
+        private void OnShowSystemInfoExecute()
         {
-            await _uiVisualizerService.ShowDialog<SystemInfoViewModel>();
+            _uiVisualizerService.ShowDialog<SystemInfoViewModel>();
         }
 
         public Command EnableDetailedLogging { get; private set; }
