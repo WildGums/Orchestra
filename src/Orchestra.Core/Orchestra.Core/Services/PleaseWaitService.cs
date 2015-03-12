@@ -39,12 +39,12 @@ namespace Orchestra.Services
         #region IPleaseWaitService Members
         public void Show(string status = "")
         {
+            ShowCounter = 1;
+
             UpdateStatus(status);
 
             _dispatcherService.BeginInvokeIfRequired(() =>
             {
-                ShowCounter++;
-
                 if (_previousCursor == null)
                 {
                     _previousCursor = Mouse.OverrideCursor;
@@ -83,12 +83,13 @@ namespace Orchestra.Services
 
         public void Hide()
         {
+            ShowCounter = 0;
+
             _dispatcherService.BeginInvokeIfRequired(() =>
             {
                 Mouse.OverrideCursor = _previousCursor;
 
                 _previousCursor = null;
-                ShowCounter = 0;
             });
         }
 
