@@ -22,7 +22,6 @@ namespace Orchestra.Services
         #region Fields
         private readonly IDispatcherService _dispatcherService;
 
-        private int _counter;
         private Cursor _previousCursor;
         #endregion
 
@@ -35,6 +34,8 @@ namespace Orchestra.Services
         }
         #endregion
 
+        public int ShowCounter { get; private set; }
+
         #region IPleaseWaitService Members
         public void Show(string status = "")
         {
@@ -42,6 +43,8 @@ namespace Orchestra.Services
 
             _dispatcherService.BeginInvokeIfRequired(() =>
             {
+                ShowCounter++;
+
                 if (_previousCursor == null)
                 {
                     _previousCursor = Mouse.OverrideCursor;
@@ -85,25 +88,25 @@ namespace Orchestra.Services
                 Mouse.OverrideCursor = _previousCursor;
 
                 _previousCursor = null;
-                _counter = 0;
+                ShowCounter = 0;
             });
         }
 
         public void Push(string status = "")
         {
-            if (_counter == 0)
+            if (ShowCounter == 0)
             {
                 Show(status);
             }
 
-            _counter++;
+            ShowCounter++;
         }
 
         public void Pop()
         {
-            _counter--;
+            ShowCounter--;
 
-            if (_counter <= 0)
+            if (ShowCounter <= 0)
             {
                 Hide();
             }
