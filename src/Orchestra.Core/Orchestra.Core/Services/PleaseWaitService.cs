@@ -39,7 +39,10 @@ namespace Orchestra.Services
         #region IPleaseWaitService Members
         public void Show(string status = "")
         {
-            ShowCounter = 1;
+            if (ShowCounter <= 0)
+            {
+                ShowCounter = 1;
+            }
 
             UpdateStatus(status);
 
@@ -99,8 +102,10 @@ namespace Orchestra.Services
             {
                 Show(status);
             }
-
-            ShowCounter++;
+            else
+            {
+                ShowCounter++;
+            }
         }
 
         public void Pop()
