@@ -8,6 +8,8 @@
 namespace Orchestra.Services
 {
     using System;
+    using System.Timers;
+    using System.Windows.Threading;
     using Catel;
     using Catel.Logging;
     using Orchestra.Logging;
@@ -15,13 +17,19 @@ namespace Orchestra.Services
     public class StatusService : IStatusService
     {
         #region Fields
+        private readonly IStatusFilterService _statusFilterService;
+
         private IStatusRepresenter _statusRepresenter;
         private string _lastStatus;
         #endregion
 
         #region Constructors
-        public StatusService()
+        public StatusService(IStatusFilterService statusFilterService)
         {
+            Argument.IsNotNull(() => statusFilterService);
+
+            _statusFilterService = statusFilterService;
+
             var statusLogListener = new StatusLogListener(this);
 
             LogManager.AddListener(statusLogListener);
@@ -29,33 +37,22 @@ namespace Orchestra.Services
         #endregion
 
         #region IStatusService Members
-        public void UpdateStatus(string statusFormat, params object[] parameters)
+        public void UpdateStatus(string status)
         {
-            if (string.IsNullOrWhiteSpace(statusFormat))
+            var finalStatus = _statusFilterService.GetStatus(status);
+            if (string.IsNullOrWhiteSpace(finalStatus))
             {
-                statusFormat = string.Empty;
+                return;
             }
 
-            if (parameters.Length > 0)
-            {
-                statusFormat = string.Format(statusFormat, parameters);
-            }
+            SetStatus(status);
 
-            SetStatus(statusFormat);
+            _lastStatus = finalStatus;
 
-            _lastStatus = statusFormat;
-
-            var duration = TimeSpan.FromSeconds(8);
-            var resetTimer = new System.Timers.Timer(duration.TotalMilliseconds);
-            resetTimer.Elapsed += (sender, e) =>
-            {
-                resetTimer.Stop();
-
-                if (string.Equals(_lastStatus, statusFormat))
-                {
-                    SetStatus("Ready");
-                }
-            };
+            var resetTimer = new DispatcherTimer();
+            resetTimer.Interval = TimeSpan.FromSeconds(8);;
+            resetTimer.Tick += OnResetTimerTick;
+            resetTimer.Tag = finalStatus;
             resetTimer.Start();
         }
         #endregion
@@ -68,8 +65,32 @@ namespace Orchestra.Services
             _statusRepresenter = statusRepresenter;
         }
 
+        private void OnResetTimerTick(object sender, EventArgs e)
+        {
+            var timer = (DispatcherTimer)sender;
+
+            string finalStatus = (string)timer.Tag;
+
+            timer.Stop();
+            timer.Tick -= OnResetTimerTick;
+
+            if (string.Equals(_lastStatus, finalStatus))
+            {
+                SetStatus("Ready");
+            }
+        }
+
         private void SetStatus(string status)
         {
+            if (!string.IsNullOrWhiteSpace(status))
+            {
+                var statusLines = status.Split(new[] { "\n", "\r\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                if (statusLines.Length > 0)
+                {
+                    status = statusLines[0];
+                }
+            }
+
             _statusRepresenter.UpdateStatus(status);
         }
         #endregion

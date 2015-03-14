@@ -9,6 +9,7 @@ namespace Orchestra
 {
     using System.Drawing;
     using System.Reflection;
+    using System.Windows.Media.Imaging;
     using Catel;
 
     public static class AssemblyExtensions
@@ -17,7 +18,14 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => assembly);
 
-            return Icon.ExtractAssociatedIcon(assembly.Location);
+            return IconHelper.ExtractIconFromFile(assembly.Location);
+        }
+
+        public static BitmapImage ExtractLargestIcon(this Assembly assembly)
+        {
+            Argument.IsNotNull(() => assembly);
+
+            return IconHelper.ExtractLargestIconFromFile(assembly.Location);
         }
     }
 }

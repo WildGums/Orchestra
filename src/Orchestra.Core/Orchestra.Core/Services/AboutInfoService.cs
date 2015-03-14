@@ -15,7 +15,7 @@ namespace Orchestra.Services
         #region IAboutInfoService Members
         public AboutInfo GetAboutInfo()
         {
-            var aboutInfo = new AboutInfo();
+            var aboutInfo = new AboutInfo(new Uri("pack://application:,,,/Resources/Images/CompanyLogo.png", UriKind.RelativeOrAbsolute));
             return aboutInfo;
         }
         #endregion

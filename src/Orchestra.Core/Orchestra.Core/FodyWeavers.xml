@@ -1,19 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Weavers>
-  <ModuleInit />
-  <LoadAssembliesOnStartup>
-    <ExcludeAssemblies>
-      Catel.Fody.Attributes
-      MethodTimer
-      Obsolete
-    </ExcludeAssemblies>
-  </LoadAssembliesOnStartup>
-  <Catel />
+<?xml version="1.0" encoding="utf-8"?>
+<Weavers VerifyAssembly="true">
+  <ModuleInit/>
   <Costura>
     <IncludeAssemblies>
       Ionic.Zip
+      Microsoft.WindowsAPICodePack
+      Microsoft.WindowsAPICodePack.Shell
+      Orc.SystemInfo
     </IncludeAssemblies>
   </Costura>
-  <Obsolete />
-  <MethodTimer />
+  <Obsolete/>
+  <MethodTimer/>
+  <LoadAssembliesOnStartup/>
+  <Catel/>
 </Weavers>

@@ -27,9 +27,7 @@ namespace Orchestra.Examples.Ribbon
         #endregion
 
         #region Fields
-        private readonly DateTime _start;
         private readonly Stopwatch _stopwatch;
-        private DateTime _end;
         #endregion
 
         #region Constructors
@@ -37,7 +35,6 @@ namespace Orchestra.Examples.Ribbon
         {
             _stopwatch = new Stopwatch();
             _stopwatch.Start();
-            _start = DateTime.Now;
         }
         #endregion
 
@@ -56,11 +53,10 @@ namespace Orchestra.Examples.Ribbon
             var shellService = serviceLocator.ResolveType<IShellService>();
             shellService.CreateWithSplash<ShellWindow>();
 
-            _end = DateTime.Now;
             _stopwatch.Stop();
 
             Log.Info("Elapsed startup stopwatch time: {0}", _stopwatch.Elapsed);
-            Log.Info("Elapsed startup time: {0}", _end - _start);
+            
         }
         #endregion
     }

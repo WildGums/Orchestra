@@ -8,6 +8,7 @@
 namespace Orchestra
 {
     using System;
+    using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Catel;
     using Catel.IoC;
@@ -24,33 +25,57 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => ribbon);
 
-            Log.Debug("Adding about button to ribbon");
-
-            var aboutButton = CreateRibbonButton(GetImageUri("/Resources/Images/about.png"));
-            aboutButton.Click += (sender, e) =>
+            ribbon.AddRibbonButton(GetImageUri("/Resources/Images/about.png"), () =>
             {
                 var aboutService = ServiceLocator.Default.ResolveType<IAboutService>();
                 aboutService.ShowAbout();
-            };
+            });
+        }
 
-            var toolbarItems = ribbon.ToolBarItems;
-            toolbarItems.Add(aboutButton);
+        public static Button AddRibbonButton(this Ribbon ribbon, ImageSource imageSource, Action action)
+        {
+            Argument.IsNotNull(() => ribbon);
+
+            var button = AddRibbonButton(ribbon, action);
+
+            if (imageSource != null)
+            {
+                button.Icon = imageSource;
+            }
+
+            return button;
+        }
+
+        public static Button AddRibbonButton(this Ribbon ribbon, Uri imageUri, Action action)
+        {
+            Argument.IsNotNull(() => ribbon);
+
+            return AddRibbonButton(ribbon, new BitmapImage(imageUri), action);
+        }
+
+        private static Button AddRibbonButton(this Ribbon ribbon, Action action)
+        {
+            Argument.IsNotNull(() => ribbon);
+
+            Log.Debug("Adding button to ribbon");
+
+            var ribbonButton = new Button();
+            ribbonButton.Size = RibbonControlSize.Small;
+
+            if (action != null)
+            {
+                ribbonButton.Click += (sender, e) => action();
+            }
+
+            ribbon.ToolBarItems.Add(ribbonButton);
+
+            return ribbonButton;
         }
 
         private static Uri GetImageUri(string uri)
         {
             var finalUri = string.Format("pack://application:,,,/{0};component{1}", typeof(RibbonExtensions).Assembly.GetName().Name, uri);
             return new Uri(finalUri, UriKind.RelativeOrAbsolute);
-        }
-
-        private static FluentButton CreateRibbonButton(Uri smallImageSource)
-        {
-            var ribbonButton = new FluentButton();
-
-            ribbonButton.Size = RibbonControlSize.Small;
-            ribbonButton.Icon = new BitmapImage(smallImageSource);
-
-            return ribbonButton;
         }
     }
 }

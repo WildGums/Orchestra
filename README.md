@@ -1,12 +1,30 @@
 # Orchestra
 
+[![Join the chat at https://gitter.im/WildGums/Orchestra](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/WildGums/Orchestra?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Orchestra is a composable shell built on top of [Catel](http://Catel.Codeplex.com).
 
 Orchestra consists of a main shell including an SDK with services that allows developers to communicate with the shell. Developers can write their own modules which implement the actual functionality of their application.
 
 These modules can communicate with the shell, but also with each other through the services that are offered out of the box.
 
-## Update 2014/10/28
+# Shells
+
+Orchestra provides support for a lot of different shells.
+
+## Fluent Ribbon shell
+
+![Fluent Ribbon 01](doc/images/shell_fluentribbon_01.png)
+
+![Fluent Ribbon 02](doc/images/shell_fluentribbon_02.png) 
+
+## MahApps shell
+
+![MahApps 01](doc/images/shell_mahapps_01.png)
+
+# More information
+
+## Update 2015/02/10
 
 Some of the features which will come out of the box:
 
@@ -24,8 +42,18 @@ Features already included in [Catel](https://catelproject.atlassian.net/wiki/dis
 - [x] FluentValidation
 - [x] Memento (undo/redo)
 
-Other Project(s) that might be of interest:
+Other Projects that might be of interest (And integrate easily with Orchestra):
+
+- [Orc.ProjectManagement](https://github.com/Orcomp/Orc.ProjectManagement)
+- [Orc.WorkspaceManagement](https://github.com/Orcomp/Orc.WorkspaceManagement)
+- [Orc.LicenseManager](https://github.com/Orcomp/Orc.LicenseManager)
+- [Orc.Squirrel](https://github.com/Orcomp/Orc.Squirrel) (Automatic Updates)
 - [Orc.FilterBuilder](https://github.com/Orcomp/Orc.FilterBuilder)
+- [Orc.Controls](https://github.com/Orcomp/Orc.Controls)
+- [Orc.Search](https://github.com/WildGums/Orc.Search)
+- [Orc.Feedback](https://github.com/WildGums/Orc.Feedback)
+- [Orc.SystemInfo](https://github.com/WildGums/Orc.SystemInfo)
+- [Orc.CrashReporting](https://github.com/WildGums/Orc.CrashReporting)
 
 ## License
 

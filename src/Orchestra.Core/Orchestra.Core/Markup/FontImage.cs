@@ -30,13 +30,17 @@ namespace Orchestra.Markup
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        private static readonly Dictionary<string, FontFamily> RegisteredFontFamilies = new Dictionary<string, FontFamily>(); 
+        private static readonly Dictionary<string, FontFamily> RegisteredFontFamilies = new Dictionary<string, FontFamily>();
+        private static readonly Double RenderingEmSize;
 
         #region Constructors
         static FontImage()
         {
             DefaultFontFamily = "Segoe UI Symbol";
             DefaultBrush = Brushes.Black;
+
+            var dpi = ScreenHelper.GetDpi().Width;
+            RenderingEmSize = dpi / 96d;
         }
 
         /// <summary>
@@ -103,6 +107,11 @@ namespace Orchestra.Markup
 
         public ImageSource GetImageSource()
         {
+            if (CatelEnvironment.IsInDesignMode)
+            {
+                return null;
+            }
+
             var fontFamily = FontFamily;
             if (fontFamily == null)
             {
@@ -137,6 +146,7 @@ namespace Orchestra.Markup
 
                 var glyphIndexes = new ushort[text.Length];
                 var advanceWidths = new double[text.Length];
+
                 for (var i = 0; i < text.Length; i++)
                 {
                     ushort glyphIndex;
@@ -158,10 +168,16 @@ namespace Orchestra.Markup
 
                 try
                 {
-                    var gr = new GlyphRun(glyphTypeface, 0, false, 1.0, glyphIndexes, new Point(0, 0), advanceWidths, null, null, null, null, null, null);
-                    var glyphRunDrawing = new GlyphRunDrawing(foreBrush, gr);
+                    var glyphRun = new GlyphRun(glyphTypeface, 0, false, RenderingEmSize, glyphIndexes, new Point(0, 0), advanceWidths, null, null, null, null, null, null);
+                    var glyphRunDrawing = new GlyphRunDrawing(foreBrush, glyphRun);
 
-                    return new DrawingImage(glyphRunDrawing);
+                    //TextOptions.SetTextRenderingMode(glyphRunDrawing, TextRenderingMode.Aliased);
+
+                    var drawingImage = new DrawingImage(glyphRunDrawing);
+
+                    //TextOptions.SetTextRenderingMode(drawingImage, TextRenderingMode.Aliased);
+
+                    return drawingImage;
                 }
                 catch (Exception ex)
                 {

@@ -12,6 +12,7 @@ namespace Orchestra
     using System.IO;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Threading;
     using Catel.Logging;
 
     /// <summary>
@@ -21,32 +22,66 @@ namespace Orchestra
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        private static bool _isInitialized;
+        private static bool _isAppDomainInitialized;
+        private static bool _isApplicationInitialized;
 
         /// <summary>
         /// Initializes the patch helper.
         /// </summary>
         public static void Initialize()
         {
-            if (_isInitialized)
+            InitializeAppDomain();
+            InitializeApplication();
+        }
+
+        private static void InitializeAppDomain()
+        {
+            if (_isAppDomainInitialized)
             {
                 return;
             }
 
-            _isInitialized = true;
+            _isAppDomainInitialized = true;
 
             AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
         }
 
-        private static async void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static void InitializeApplication()
         {
-            if (!await HandleException((Exception) e.ExceptionObject))
+            if (_isApplicationInitialized)
+            {
+                return;
+            }
+
+            var application = Application.Current;
+            if (application != null)
+            {
+                application.DispatcherUnhandledException += OnDispatcherUnhandledException;
+                _isApplicationInitialized = true;
+            }
+        }
+
+        private static void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Log.Debug("AppDomain unhandled exception");
+
+            if (!HandleException((Exception)e.ExceptionObject))
             {
                 Process.GetCurrentProcess().Kill();
             }
         }
 
-        private static async Task<bool> HandleException(Exception ex)
+        private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            Log.Debug("Dispatcher unhandled exception");
+
+            if (!HandleException(e.Exception))
+            {
+                Process.GetCurrentProcess().Kill();
+            }
+        }
+
+        private static bool HandleException(Exception ex)
         {
             LogHelper.AddLogListenerForUnhandledException(ex);
 
@@ -67,7 +102,7 @@ namespace Orchestra
                 }
             }
 
-            await LogManager.FlushAllAsync();
+            LogManager.FlushAll();
 
             return true;
         }

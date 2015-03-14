@@ -8,9 +8,10 @@
 namespace Orchestra
 {
     using System;
+    using System.IO;
     using Catel;
-    using Catel.IO;
     using Catel.Logging;
+    using Path = Catel.IO.Path;
 
     /// <summary>
     /// Helper class for logging.
@@ -40,13 +41,25 @@ namespace Orchestra
             await LogManager.FlushAllAsync();
         }
 
-        private static void AddFileLogListener(string prefix)
+        public static ILogListener CreateFileLogListener(string prefix)
         {
             Argument.IsNotNull(() => prefix);
 
-            var fileName = Path.Combine(Path.GetApplicationDataDirectory(), string.Format("{0}_{1}.txt", prefix, DateTime.Now.ToString("yyyyMMdd_HHmm")));
+            var directory = Path.Combine(Path.GetApplicationDataDirectory(), "log");
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            var fileName = Path.Combine(directory, prefix + "_{Date}_{Time}_{ProcessId}");
             var fileLogListener = new FileLogListener(fileName, 10 * 1024);
-            //fileLogger.IgnoreCatelLogging = true;
+
+            return fileLogListener;
+        }
+
+        private static void AddFileLogListener(string prefix)
+        {
+            var fileLogListener = CreateFileLogListener(prefix);
 
             LogManager.AddListener(fileLogListener);
 

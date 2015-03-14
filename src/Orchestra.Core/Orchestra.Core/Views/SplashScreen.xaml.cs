@@ -14,7 +14,7 @@ namespace Orchestra.Views
     /// <summary>
     /// Interaction logic for SplashScreen.xaml
     /// </summary>
-    public partial class SplashScreen : DataWindow
+    public partial class SplashScreen
     {
         #region Constructors
         /// <summary>
@@ -25,13 +25,9 @@ namespace Orchestra.Views
         {
             InitializeComponent();
 
-            Background = Brushes.DodgerBlue;
-
             var application = Application.Current;
-            if (application != null)
-            {
-                Background = ThemeHelper.GetAccentColorBrush();
-            }
+
+            Background = (application != null) ? ThemeHelper.GetAccentColorBrush() : Brushes.DodgerBlue;
         }
         #endregion 
     }

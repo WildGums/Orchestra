@@ -16,6 +16,7 @@ namespace Orchestra.Windows
     using Catel.MVVM;
     using Catel.MVVM.Providers;
     using Catel.MVVM.Views;
+    using Catel.Windows;
 
     public class RibbonWindow : Microsoft.Windows.Controls.Ribbon.RibbonWindow, IDataWindow
     {
@@ -53,7 +54,8 @@ namespace Orchestra.Windows
 
             SetBinding(TitleProperty, new Binding("Title"));
 
-            ((Window)this).ApplyApplicationIcon();
+            this.FixBlurriness();
+            this.ApplyApplicationIcon();
 
             FixMaximize.SetFixMaximize(this, true);
         }

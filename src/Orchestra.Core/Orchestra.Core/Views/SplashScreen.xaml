@@ -3,8 +3,8 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://catel.codeplex.com"
                   xmlns:controls="clr-namespace:Orchestra.Controls"
-                  WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="true" SnapsToDevicePixels="True"
-                  SizeToContent="WidthAndHeight" Background="{x:Null}" ResizeMode="NoResize" AllowsTransparency="True"
+                  WindowStartupLocation="CenterScreen" WindowStyle="None" SnapsToDevicePixels="True"
+                  SizeToContent="WidthAndHeight" Background="{x:Null}" ResizeMode="NoResize" AllowsTransparency="True" 
                   Margin="0">
 
     <Window.Resources>
@@ -16,7 +16,7 @@
             <Setter Property="Margin" Value="6" />
         </Style>
 
-        <Style x:Key="SplashTextBlockStyle"  TargetType="TextBlock">
+        <Style x:Key="SplashTextBlockStyle" TargetType="TextBlock">
             <Setter Property="Margin" Value="6" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="Foreground" Value="White" />
@@ -39,7 +39,7 @@
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Title}" HorizontalAlignment="Center" VerticalAlignment="Center" 
                    TextAlignment="Center" FontSize="48" TextWrapping="Wrap" Style="{StaticResource SplashTextBlockStyle}" />
 
-        <controls:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="0" />
+        <controls:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="0" IgnoreUnloadedEventCount="1" />
 
         <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Version, StringFormat=Starting v{0}}" HorizontalAlignment="Left" Style="{StaticResource SplashTextBlockStyle}" />
         <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Company, StringFormat=Produced by {0}}" HorizontalAlignment="Right" Style="{StaticResource SplashTextBlockStyle}" />

@@ -41,7 +41,7 @@ namespace Orchestra.Services
         void AddItem(RecentlyUsedItem item);
 
         /// <summary>
-        /// Occurs when the <see cref="RecentlyUsedItemsesService.Items"/> property has been updated.
+        /// Occurs when the <see cref="RecentlyUsedItemsService.Items"/> property has been updated.
         /// </summary>
         event EventHandler<EventArgs> Updated;
 

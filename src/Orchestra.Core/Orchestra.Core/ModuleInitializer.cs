@@ -33,8 +33,12 @@ public static class ModuleInitializer
 
         var serviceLocator = ServiceLocator.Default;
 
-        serviceLocator.RegisterTypeIfNotYetRegistered<IRecentlyUsedItemsService, RecentlyUsedItemsesService>();
+        // Overide style of Catel please wait service
+        serviceLocator.RegisterType<IPleaseWaitService, Orchestra.Services.PleaseWaitService>();
+
+        serviceLocator.RegisterTypeIfNotYetRegistered<IRecentlyUsedItemsService, RecentlyUsedItemsService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IKeyboardMappingsService, KeyboardMappingsService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IStatusFilterService, StatusFilterService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusService, StatusService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<Orchestra.Services.ISplashScreenService, Orchestra.Services.SplashScreenService>();
 
@@ -42,6 +46,11 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IEnsureStartupService, EnsureStartupService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutInfoService, AboutInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IClipboardService, ClipboardService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IThemeService, ThemeService>();
+
+        // Override Catel.SelectDirectoryService with Orchestra.Services.SelectDirectoryService
+        serviceLocator.RegisterType<ISelectDirectoryService, MicrosoftApiSelectDirectoryService>();
 
         // Hints system
         serviceLocator.RegisterType<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>();
@@ -100,14 +109,13 @@ public static class ModuleInitializer
             // Ignore
         }
 
-        var fileLogListener = new FileLogListener()
-        {
-            IgnoreCatelLogging = true,
-            IsDebugEnabled = false,
-            IsInfoEnabled = true,
-            IsWarningEnabled = true,
-            IsErrorEnabled = true
-        };
+        var fileLogListener = LogHelper.CreateFileLogListener(AssemblyHelper.GetEntryAssembly().GetName().Name);
+
+        fileLogListener.IgnoreCatelLogging = true;
+        fileLogListener.IsDebugEnabled = false;
+        fileLogListener.IsInfoEnabled = true;
+        fileLogListener.IsWarningEnabled = true;
+        fileLogListener.IsErrorEnabled = true;
 
         LogManager.AddListener(fileLogListener);
     }
