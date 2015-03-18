@@ -7,6 +7,7 @@
 
 namespace Orchestra
 {
+    using System;
     using Catel;
 
     /// <summary>
@@ -79,6 +80,17 @@ namespace Orchestra
             }
 
             return finalString;
+        }
+
+        /// <summary>
+        /// Executes a string comparison that is case insensitive.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <param name="valueToCheck">The value to check.</param>
+        /// <returns><c>true</c> if the strings are equal, <c>false</c> otherwise.</returns>
+        public static bool EqualsIgnoreCase(this string str, string valueToCheck)
+        {
+            return string.Equals(str, valueToCheck, StringComparison.OrdinalIgnoreCase);
         }
         #endregion
     }

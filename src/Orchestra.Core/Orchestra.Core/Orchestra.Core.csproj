@@ -86,6 +86,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO">
@@ -118,6 +119,10 @@
     <Compile Include="Behaviors\HintsBehavior.cs" />
     <Compile Include="Collections\AdorneredTooltipsCollection.cs" />
     <Compile Include="Collections\Interfaces\IAdorneredTooltipsCollection.cs" />
+    <Compile Include="Commands\CommandContainerBase.cs" />
+    <Compile Include="Commands\ToggleConfigurationCommandContainerBase.cs" />
+    <Compile Include="Configuration\ConfigurationSynchronizerBase.cs" />
+    <Compile Include="Configuration\Extensions\ConfigurationExtensions.cs" />
     <Compile Include="Controls\AnimatingTextBlock.cs" />
     <Compile Include="Controls\BusyIndicator.xaml.cs">
       <DependentUpon>BusyIndicator.xaml</DependentUpon>
