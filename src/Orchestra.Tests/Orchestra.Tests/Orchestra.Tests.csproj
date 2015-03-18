@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Extensions\CommandManagerExtensionsFacts.cs" />
     <Compile Include="Extensions\InputGestureExtensionsFacts.cs" />
+    <Compile Include="Extensions\StringExtensionsFacts.cs" />
     <Compile Include="Helpers\FilterHelperFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
