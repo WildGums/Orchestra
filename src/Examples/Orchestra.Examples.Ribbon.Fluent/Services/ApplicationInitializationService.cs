@@ -48,12 +48,12 @@ namespace Orchestra.Examples.Ribbon.Services
         {
             var commandManager = ServiceLocator.Default.ResolveType<ICommandManager>();
 
+            commandManager.CreateCommandWithGesture(typeof(Commands.Application), "Exit");
+            commandManager.CreateCommandWithGesture(typeof(Commands.Application), "About");
+
             commandManager.CreateCommand("File.Open", new InputGesture(Key.O, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.SaveToImage", new InputGesture(Key.I, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.Print", new InputGesture(Key.P, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
-            commandManager.CreateCommand("File.Exit", throwExceptionWhenCommandIsAlreadyCreated: false);
-
-            commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
         }
 
         public override async Task InitializeAfterCreatingShell()

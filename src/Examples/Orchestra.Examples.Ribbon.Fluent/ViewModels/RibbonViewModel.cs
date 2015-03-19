@@ -54,13 +54,9 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             UnpinItem = new Command<string>(OnUnpinItemExecute);
             PinItem = new Command<string>(OnPinItemExecute);
 
-            Help = new Command(OnHelpExecute);
-            Exit = new Command(OnExitExecute);
             ShowKeyboardMappings = new Command(OnShowKeyboardMappingsExecute);
 
             commandManager.RegisterCommand("File.Open", OpenProject, this);
-            commandManager.RegisterCommand("Help.About", Help, this);
-            commandManager.RegisterCommand("File.Exit", Exit, this);
 
             var assembly = AssemblyHelper.GetEntryAssembly();
             Title = assembly.Title();
@@ -145,33 +141,6 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         private void OnPinItemExecute(string parameter)
         {
             _recentlyUsedItemsService.PinItem(parameter);
-        }
-
-        /// <summary>
-        /// Gets the Help command.
-        /// </summary>
-        public Command Help { get; private set; }
-
-        /// <summary>
-        /// Method to invoke when the Help command is executed.
-        /// </summary>
-        private void OnHelpExecute()
-        {
-            var aboutInfo = new AboutInfo(new Uri("pack://application:,,,/Resources/Images/CompanyLogo.png", UriKind.RelativeOrAbsolute), null, "http://www.somecompany.com");
-            _uiVisualizerService.ShowDialog<AboutViewModel>(aboutInfo);
-        }
-
-        /// <summary>
-        /// Gets the Exit command.
-        /// </summary>
-        public Command Exit { get; private set; }
-
-        /// <summary>
-        /// Method to invoke when the Exit command is executed.
-        /// </summary>
-        private void OnExitExecute()
-        {
-            _navigationService.CloseApplication();
         }
 
         /// <summary>

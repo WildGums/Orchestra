@@ -102,6 +102,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\ApplicationAboutCommandContainer.cs" />
+    <Compile Include="Commands\ApplicationExitCommandContainer.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="FontAwesome.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

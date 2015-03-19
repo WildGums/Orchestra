@@ -123,7 +123,7 @@
                     <fluent:Button Header="Save to image..." Icon="/Resources/Images/save.png" Command="{catel:CommandManagerBinding File.SaveToImage}" />
                     <fluent:Button Header="Print..." Icon="/Resources/Images/print.png" Command="{catel:CommandManagerBinding File.Print}" />
                     <fluent:SeparatorTabItem />
-                    <fluent:Button Header="Exit" Icon="/Resources/Images/exit.png" Command="{catel:CommandManagerBinding File.Exit}" />
+                    <fluent:Button Header="Exit" Icon="/Resources/Images/exit.png" Command="{catel:CommandManagerBinding Application.Exit}" />
                 </fluent:BackstageTabControl>
             </fluent:Backstage>
         </fluent:Ribbon.Menu>
