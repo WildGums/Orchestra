@@ -35,7 +35,7 @@ namespace Orchestra.Logging
         #endregion
 
         #region Methods
-        protected override void Write(ILog log, string message, LogEvent logEvent, object extraData, DateTime time)
+        protected override void Write(ILog log, string message, LogEvent logEvent, object extraData, LogData logData, DateTime time)
         {
             _statusService.UpdateStatus(message);
         }

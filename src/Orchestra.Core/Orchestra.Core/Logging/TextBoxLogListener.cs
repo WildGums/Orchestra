@@ -33,7 +33,7 @@ namespace Orchestra.Logging
             _textBox.Dispatcher.Invoke(new Action(() => _textBox.Clear()));
         }
 
-        protected override void Write(ILog log, string message, LogEvent logEvent, object extraData, DateTime time)
+        protected override void Write(ILog log, string message, LogEvent logEvent, object extraData, LogData logData, DateTime time)
         {
             _textBox.Dispatcher.Invoke(new Action(() =>
             {
