@@ -5,25 +5,17 @@
 				   xmlns:controls="clr-namespace:Orchestra.Controls">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <Label Grid.Row="0" Content="{Binding Title}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" 
-               FontSize="15" FontWeight="Bold" />
-
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding KeyboardMappings}">
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding KeyboardMappings}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" />
+                    <WrapPanel Orientation="Vertical" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <GroupBox Header="{Binding GroupName}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <GroupBox Header="{Binding GroupName}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            Style="{StaticResource GroupBoxWithoutLine}">
                         <ItemsControl ItemsSource="{Binding Mappings}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
@@ -36,5 +28,4 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </Grid>
-
 </catel:UserControl>

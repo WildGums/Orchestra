@@ -13,9 +13,9 @@
         </Grid.ColumnDefinitions>
         
         <Label Grid.Column="0" Content="{Binding CommandName, Converter={converters:CommandNameToStringConverter}}" 
-               FontWeight="Normal" />
+               FontWeight="Normal" Margin="4 4 4 2"/>
         <Label Grid.Column="1" Content="{Binding InputGesture, Converter={converters:InputGestureToStringConverter}}"
-               HorizontalAlignment="Right" FontWeight="Bold"/>
+               HorizontalAlignment="Right" FontWeight="Bold" Margin="4 4 4 2"/>
     </Grid>
     
 </UserControl>

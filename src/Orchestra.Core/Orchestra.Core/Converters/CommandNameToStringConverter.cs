@@ -34,7 +34,7 @@ namespace Orchestra.Converters
             var splittedStrings = (from x in stringValue.Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries)
                                    select x.SplitCamelCaseString());
 
-            return string.Join(" => ", splittedStrings);
+            return string.Join(" ➝ ", splittedStrings);
         }
     }
 }
