@@ -26,7 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Windows\RibbonWindow.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Resources\Images\about.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\about.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">

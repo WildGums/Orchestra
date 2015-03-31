@@ -7,8 +7,8 @@
     <ProjectGuid>{9A59D96C-3D7B-414E-B097-BD6F4B01C457}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Orchestra.Examples.Ribbon.Fluent</RootNamespace>
-    <AssemblyName>Orchestra.Examples.Ribbon.Fluent</AssemblyName>
+    <RootNamespace>Orchestra.Examples.Ribbon</RootNamespace>
+    <AssemblyName>Orchestra.Examples.Ribbon</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

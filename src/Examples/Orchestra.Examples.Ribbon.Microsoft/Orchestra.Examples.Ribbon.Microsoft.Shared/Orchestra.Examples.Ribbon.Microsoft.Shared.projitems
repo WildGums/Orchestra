@@ -46,14 +46,14 @@
     <None Include="$(MSBuildThisFileDirectory)Properties\Settings.settings">
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)Resources\Icons\Logo.ico" />
-    <None Include="$(MSBuildThisFileDirectory)Resources\Images\exit.png" />
-    <None Include="$(MSBuildThisFileDirectory)Resources\Images\explorer.png" />
-    <None Include="$(MSBuildThisFileDirectory)Resources\Images\file_menu.png" />
-    <None Include="$(MSBuildThisFileDirectory)Resources\Images\keyboard.png" />
-    <None Include="$(MSBuildThisFileDirectory)Resources\Images\open.png" />
-    <None Include="$(MSBuildThisFileDirectory)Resources\Images\print.png" />
-    <None Include="$(MSBuildThisFileDirectory)Resources\Images\refresh.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Icons\Logo.ico" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\exit.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\explorer.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\file_menu.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\keyboard.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\open.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\print.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\refresh.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
