@@ -95,14 +95,33 @@
   <ItemGroup>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\Orchestra.Core.Shared\Resources\Images\Folder.png">
+      <Link>Resources\Images\Folder.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Core.Shared\Resources\Images\Pinned.png">
+      <Link>Resources\Images\Pinned.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Core.Shared\Resources\Images\Unpinned.png">
+      <Link>Resources\Images\Unpinned.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Orchestra.Core.Shared\Properties\Resources.Designer.cs">
+      <Link>Properties\Resources.Designer.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Orchestra.Core.Shared\Properties\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="..\Orchestra.Core.Shared\Orchestra.Core.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Core.Shared\Orchestra.Core.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

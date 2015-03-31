@@ -131,6 +131,32 @@
       <DependentUpon>RibbonView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Microsoft.Shared\Resources\Icons\Logo.ico">
+      <Link>Resources\Icons\Logo.ico</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Microsoft.Shared\Resources\Images\exit.png">
+      <Link>Resources\Images\exit.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Microsoft.Shared\Resources\Images\explorer.png">
+      <Link>Resources\Images\explorer.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Microsoft.Shared\Resources\Images\file_menu.png">
+      <Link>Resources\Images\file_menu.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Microsoft.Shared\Resources\Images\keyboard.png">
+      <Link>Resources\Images\keyboard.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Microsoft.Shared\Resources\Images\open.png">
+      <Link>Resources\Images\open.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Microsoft.Shared\Resources\Images\print.png">
+      <Link>Resources\Images\print.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Microsoft.Shared\Resources\Images\refresh.png">
+      <Link>Resources\Images\refresh.png</Link>
+    </Resource>
+  </ItemGroup>
   <Import Project="..\Orchestra.Examples.Ribbon.Microsoft.Shared\Orchestra.Examples.Ribbon.Microsoft.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Examples.Ribbon.Microsoft.Shared\Orchestra.Examples.Ribbon.Microsoft.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

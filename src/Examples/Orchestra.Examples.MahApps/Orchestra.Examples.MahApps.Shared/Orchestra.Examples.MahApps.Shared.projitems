@@ -20,15 +20,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Properties\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Properties\Settings.Designer.cs">
-      <DependentUpon>Settings.settings</DependentUpon>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\ApplicationInitializationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\MahAppsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ExampleDialogViewModel.cs" />
@@ -52,9 +43,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Services\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Properties\Settings.settings">
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="$(MSBuildThisFileDirectory)Resources\Entypo-license.txt" />
     <None Include="$(MSBuildThisFileDirectory)Resources\Entypo.ttf" />
     <None Include="$(MSBuildThisFileDirectory)Resources\WindowsIcons-license.txt" />
@@ -90,11 +78,5 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.resx">
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 </Project>

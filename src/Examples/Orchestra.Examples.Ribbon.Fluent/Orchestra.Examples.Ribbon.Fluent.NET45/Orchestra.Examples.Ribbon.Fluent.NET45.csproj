@@ -75,6 +75,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Fluent.Shared\Resources\Fonts\fontawesome-webfont.ttf">
+      <Link>Resources\Fonts\fontawesome-webfont.ttf</Link>
+    </Resource>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -93,6 +96,32 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Fluent.Shared\Resources\Icons\Logo.ico">
+      <Link>Resources\Icons\Logo.ico</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Fluent.Shared\Resources\Images\exit.png">
+      <Link>Resources\Images\exit.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Fluent.Shared\Resources\Images\explorer.png">
+      <Link>Resources\Images\explorer.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Fluent.Shared\Resources\Images\file_menu.png">
+      <Link>Resources\Images\file_menu.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Fluent.Shared\Resources\Images\keyboard.png">
+      <Link>Resources\Images\keyboard.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Fluent.Shared\Resources\Images\open.png">
+      <Link>Resources\Images\open.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Fluent.Shared\Resources\Images\print.png">
+      <Link>Resources\Images\print.png</Link>
+    </Resource>
+    <Resource Include="..\Orchestra.Examples.Ribbon.Fluent.Shared\Resources\Images\refresh.png">
+      <Link>Resources\Images\refresh.png</Link>
+    </Resource>
   </ItemGroup>
   <Import Project="..\Orchestra.Examples.Ribbon.Fluent.Shared\Orchestra.Examples.Ribbon.Fluent.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Examples.Ribbon.Fluent.Shared\Orchestra.Examples.Ribbon.Fluent.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

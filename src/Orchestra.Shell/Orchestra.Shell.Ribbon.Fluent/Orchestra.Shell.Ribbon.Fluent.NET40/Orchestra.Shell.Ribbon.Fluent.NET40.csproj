@@ -107,6 +107,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="..\Orchestra.Shell.Ribbon.Fluent.Shared\Resources\Images\about.png">
+      <Link>Resources\Images\about.png</Link>
+    </Resource>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>

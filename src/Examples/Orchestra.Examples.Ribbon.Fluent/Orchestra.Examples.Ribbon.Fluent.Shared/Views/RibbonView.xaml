@@ -22,7 +22,7 @@
                             <Label Grid.Row="0" Content="Open" Style="{DynamicResource RibbonBackstageHeaderLabelStyle}" />
 
                             <orchestra:RibbonBackstageTabControl  Grid.Row="1">
-                                <orchestra:RibbonBackstageTabItem HeaderText="Recent documents" Icon="pack://application:,,,/Orchestra.Examples.Ribbon;component/Resources/Images/open.png">
+                                <orchestra:RibbonBackstageTabItem HeaderText="Recent documents" Icon="pack://application:,,,/Orchestra.Examples.Ribbon;component/open.png">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -33,7 +33,7 @@
 
                                         <orchestra:RibbonBackstageTabItemHeader Grid.Row="0" HeaderText="Recent documents" 
                                                                                  HeaderTextStyleKey="RibbonBackstageSubHeaderLabelStyle"
-                                                                                 Icon="pack://application:,,,/Orchestra.Examples.Ribbon;component/Resources/Images/open.png" />
+                                                                                 Icon="pack://application:,,,/Orchestra.Examples.Ribbon;component/open.png" />
 
                                         <ItemsControl Grid.Row="1" ItemsSource="{Binding PinnedItems}" Visibility="{Binding PinnedItems, Converter={catel:CountCollapsedConverter}}">
                                             <ItemsControl.ItemTemplate>

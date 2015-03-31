@@ -28,11 +28,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\about.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\maximize.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\minimize.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

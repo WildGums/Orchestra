@@ -18,15 +18,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Properties\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Properties\Settings.Designer.cs">
-      <DependentUpon>Settings.settings</DependentUpon>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\ApplicationInitializationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\RibbonService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
@@ -41,19 +32,6 @@
     </Compile>
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\Interfaces\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Properties\Settings.settings">
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Icons\Logo.ico" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\exit.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\explorer.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\file_menu.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\keyboard.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\open.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\print.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\refresh.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
@@ -74,11 +52,5 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.resx">
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 </Project>
