@@ -19,21 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{E79574E3-17C
 		..\doc\release steps.txt = ..\doc\release steps.txt
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{81EB4E1A-06AF-4C1B-A4E4-74015061D64A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "csharp", "csharp", "{B6E7F67D-60DF-4CF6-865B-D6AB7AA3AB2A}"
-	ProjectSection(SolutionItems) = preProject
-		..\templates\C#\Orchestra.Module.zip = ..\templates\C#\Orchestra.Module.zip
-		..\templates\C#\Orchestra.Shell.zip = ..\templates\C#\Orchestra.Shell.zip
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Tests", "Orchestra.Tests", "{250CAB0E-A7F8-495B-B090-DB0AF1D51514}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{CE6EC57D-278D-425F-B5C8-8FE0C5DCA810}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.ProjectTemplates.Module", "Templates\Orchestra.ProjectTemplates.Module\Orchestra.ProjectTemplates.Module.csproj", "{A354CA4C-F74A-4A33-83D4-57614D47B2D0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.ProjectTemplates.Shell", "Templates\Orchestra.ProjectTemplates.Shell\Orchestra.ProjectTemplates.Shell.csproj", "{39EC0E86-862D-431D-BED7-0BBD9D16D0B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{D3FFE658-EB31-43F9-8404-DFD6216D3D20}"
 EndProject
@@ -56,44 +42,100 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Core", "Orchestra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Shell", "Orchestra.Shell", "{3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Core", "Orchestra.Core\Orchestra.Core\Orchestra.Core.csproj", "{805E1F16-7A10-42A2-82BA-5012412144BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Core.NET40", "Orchestra.Core\Orchestra.Core\Orchestra.Core.NET40\Orchestra.Core.NET40.csproj", "{805E1F16-7A10-42A2-82BA-5012412144BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Tests", "Orchestra.Tests\Orchestra.Tests\Orchestra.Tests.csproj", "{96F837EA-C848-4AA4-AF9D-6FA1B370506F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Tests.NET40", "Orchestra.Tests\Orchestra.Tests\Orchestra.Tests.NET40\Orchestra.Tests.NET40.csproj", "{96F837EA-C848-4AA4-AF9D-6FA1B370506F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{DBEB5ED3-4622-408E-92D9-EC60F316A5C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.MahApps", "Examples\Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.csproj", "{608C0720-4276-47B0-B131-7A2267735C58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.MahApps.NET40", "Examples\Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.NET40\Orchestra.Examples.MahApps.NET40.csproj", "{608C0720-4276-47B0-B131-7A2267735C58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.MahApps", "Orchestra.Shell\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.csproj", "{E16A2BF1-3801-4615-A79E-52CEDF260A89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.MahApps.NET40", "Orchestra.Shell\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.NET40\Orchestra.Shell.MahApps.NET40.csproj", "{E16A2BF1-3801-4615-A79E-52CEDF260A89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.Ribbon.Microsoft", "Orchestra.Shell\Orchestra.Shell.Ribbon.Microsoft\Orchestra.Shell.Ribbon.Microsoft.csproj", "{F77A6406-6745-4EB1-BEE4-42E5AC4EB0F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.Ribbon.Microsoft.NET40", "Orchestra.Shell\Orchestra.Shell.Ribbon.Microsoft\Orchestra.Shell.Ribbon.Microsoft.NET40\Orchestra.Shell.Ribbon.Microsoft.NET40.csproj", "{F77A6406-6745-4EB1-BEE4-42E5AC4EB0F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Docking", "Orchestra.Docking", "{D22473C6-3A99-4FDB-8A92-97BD07DCFD6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.Ribbon.Microsoft", "Examples\Orchestra.Examples.Ribbon.Microsoft\Orchestra.Examples.Ribbon.Microsoft.csproj", "{F092BDC9-B58A-4F43-A37B-BDCA9825FD03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.Ribbon.Microsoft.NET40", "Examples\Orchestra.Examples.Ribbon.Microsoft\Orchestra.Examples.Ribbon.Microsoft.NET40\Orchestra.Examples.Ribbon.Microsoft.NET40.csproj", "{F092BDC9-B58A-4F43-A37B-BDCA9825FD03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.TaskRunner", "Orchestra.Shell\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.csproj", "{2909C5C6-B2C7-49A4-BF8F-2225433EFFDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.TaskRunner.NET40", "Orchestra.Shell\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.NET40\Orchestra.Shell.TaskRunner.NET40.csproj", "{2909C5C6-B2C7-49A4-BF8F-2225433EFFDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.TaskRunner", "Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.csproj", "{45857215-F067-4652-8C87-71E7D8F432A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.TaskRunner.NET40", "Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.NET40\Orchestra.Examples.TaskRunner.NET40.csproj", "{45857215-F067-4652-8C87-71E7D8F432A7}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Shared", "Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.shproj", "{BC10FCE0-C843-4592-802D-BB800A514CA0}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Ribbon.Shared", "Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.shproj", "{09D9C5AF-1D17-4C77-A5D4-CFDF278DF4A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.Ribbon.Fluent", "Orchestra.Shell\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.csproj", "{24614A48-3155-4428-BDC4-7C79AE8CEDC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.Ribbon.Fluent.NET40", "Orchestra.Shell\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.NET40\Orchestra.Shell.Ribbon.Fluent.NET40.csproj", "{24614A48-3155-4428-BDC4-7C79AE8CEDC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.Ribbon.Fluent", "Examples\Orchestra.Examples.Ribbon.Fluent\Orchestra.Examples.Ribbon.Fluent.csproj", "{850DDB5D-1694-4D89-AF95-A8E31305A53C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.Ribbon.Fluent.NET40", "Examples\Orchestra.Examples.Ribbon.Fluent\Orchestra.Examples.Ribbon.Fluent.NET40\Orchestra.Examples.Ribbon.Fluent.NET40.csproj", "{850DDB5D-1694-4D89-AF95-A8E31305A53C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MahApps", "MahApps", "{6F7CA0E0-A61D-4AFF-BEA4-413D67116693}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ribbon.Fluent", "Ribbon.Fluent", "{C417BB89-7588-4FAB-B234-A35EF8C240E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ribbon.Microsoft", "Ribbon.Microsoft", "{ECF44968-9A75-43A8-9610-6FA289B0A37D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskRunner", "TaskRunner", "{3C66C6EC-07DE-4DC8-8C6B-36972310325B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MahApps", "MahApps", "{C2F44359-4C7B-47FF-97F6-614F1810A1EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ribbon.Fluent", "Ribbon.Fluent", "{559582ED-9C37-4CB0-B59E-CD90E133859B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ribbon.Microsoft", "Ribbon.Microsoft", "{F02B8774-A726-4B04-BE60-D1BD78412E5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskRunner", "TaskRunner", "{D713B2DB-837F-4445-950B-0DC29C82469C}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Examples.MahApps.Shared", "Examples\Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.Shared\Orchestra.Examples.MahApps.Shared.shproj", "{1B9B5A92-56D2-4250-A3CC-993EEFFB2E86}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Examples.Ribbon.Fluent.Shared", "Examples\Orchestra.Examples.Ribbon.Fluent\Orchestra.Examples.Ribbon.Fluent.Shared\Orchestra.Examples.Ribbon.Fluent.Shared.shproj", "{0280E6B2-58E3-4379-9502-DE186CED9577}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Examples.Ribbon.Microsoft.Shared", "Examples\Orchestra.Examples.Ribbon.Microsoft\Orchestra.Examples.Ribbon.Microsoft.Shared\Orchestra.Examples.Ribbon.Microsoft.Shared.shproj", "{84D8F34F-57D6-45AD-9449-FB461698A3CF}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Examples.TaskRunner.Shared", "Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.Shared\Orchestra.Examples.TaskRunner.Shared.shproj", "{4F1A8F2D-73BA-415D-B741-9AB66F2735DC}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Core.Shared", "Orchestra.Core\Orchestra.Core\Orchestra.Core.Shared\Orchestra.Core.Shared.shproj", "{BF3ABC91-F3F1-4C8A-A418-1B845724CC7F}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.MahApps.Shared", "Orchestra.Shell\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.Shared\Orchestra.Shell.MahApps.Shared.shproj", "{7EFD7F52-35C2-4800-927D-55AD1EA843AD}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Ribbon.Fluent.Shared", "Orchestra.Shell\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.Shared\Orchestra.Shell.Ribbon.Fluent.Shared.shproj", "{378728E2-1764-42E3-8952-9E2C2AB8D57A}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Ribbon.Microsoft.Shared", "Orchestra.Shell\Orchestra.Shell.Ribbon.Microsoft\Orchestra.Shell.Ribbon.Microsoft.Shared\Orchestra.Shell.Ribbon.Microsoft.Shared.shproj", "{D2D05B12-63AB-4004-94A0-707F976A3F2B}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.TaskRunner.Shared", "Orchestra.Shell\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.Shared\Orchestra.Shell.TaskRunner.Shared.shproj", "{21FB6308-232E-48B2-BF53-CFF8BA03F828}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Tests.Shared", "Orchestra.Tests\Orchestra.Tests\Orchestra.Tests.Shared\Orchestra.Tests.Shared.shproj", "{9D628894-BDD8-470B-8DC9-7BF2F7073EE5}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Examples\Orchestra.Examples.Ribbon.Fluent\Orchestra.Examples.Ribbon.Fluent.Shared\Orchestra.Examples.Ribbon.Fluent.Shared.projitems*{0280e6b2-58e3-4379-9502-de186ced9577}*SharedItemsImports = 13
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{e16a2bf1-3801-4615-a79e-52cedf260a89}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.Shared\Orchestra.Shell.MahApps.Shared.projitems*{e16a2bf1-3801-4615-a79e-52cedf260a89}*SharedItemsImports = 4
+		Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.Shared\Orchestra.Examples.TaskRunner.Shared.projitems*{4f1a8f2d-73ba-415d-b741-9ab66f2735dc}*SharedItemsImports = 13
+		Orchestra.Core\Orchestra.Core\Orchestra.Core.Shared\Orchestra.Core.Shared.projitems*{805e1f16-7a10-42a2-82ba-5012412144bb}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{2909c5c6-b2c7-49a4-bf8f-2225433effdf}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.Shared\Orchestra.Shell.TaskRunner.Shared.projitems*{2909c5c6-b2c7-49a4-bf8f-2225433effdf}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.Shared\Orchestra.Shell.Ribbon.Fluent.Shared.projitems*{378728e2-1764-42e3-8952-9e2c2ab8d57a}*SharedItemsImports = 13
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Microsoft\Orchestra.Shell.Ribbon.Microsoft.Shared\Orchestra.Shell.Ribbon.Microsoft.Shared.projitems*{d2d05b12-63ab-4004-94a0-707f976a3f2b}*SharedItemsImports = 13
+		Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.Shared\Orchestra.Examples.TaskRunner.Shared.projitems*{45857215-f067-4652-8c87-71e7d8f432a7}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.Shared\Orchestra.Shell.TaskRunner.Shared.projitems*{21fb6308-232e-48b2-bf53-cff8ba03f828}*SharedItemsImports = 13
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{bc10fce0-c843-4592-802d-bb800a514ca0}*SharedItemsImports = 13
-		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Microsoft\Orchestra.Shell.Ribbon.Microsoft.Shared\Orchestra.Shell.Ribbon.Microsoft.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
+		Examples\Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.Shared\Orchestra.Examples.MahApps.Shared.projitems*{1b9b5a92-56d2-4250-a3cc-993eeffb2e86}*SharedItemsImports = 13
 		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{09d9c5af-1d17-4c77-a5d4-cfdf278df4a3}*SharedItemsImports = 13
-		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{24614a48-3155-4428-bdc4-7c79ae8cedc3}*SharedItemsImports = 4
+		Examples\Orchestra.Examples.Ribbon.Microsoft\Orchestra.Examples.Ribbon.Microsoft.Shared\Orchestra.Examples.Ribbon.Microsoft.Shared.projitems*{f092bdc9-b58a-4f43-a37b-bdca9825fd03}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.Shared\Orchestra.Shell.MahApps.Shared.projitems*{7efd7f52-35c2-4800-927d-55ad1ea843ad}*SharedItemsImports = 13
+		Examples\Orchestra.Examples.Ribbon.Microsoft\Orchestra.Examples.Ribbon.Microsoft.Shared\Orchestra.Examples.Ribbon.Microsoft.Shared.projitems*{84d8f34f-57d6-45ad-9449-fb461698a3cf}*SharedItemsImports = 13
+		Orchestra.Tests\Orchestra.Tests\Orchestra.Tests.Shared\Orchestra.Tests.Shared.projitems*{96f837ea-c848-4aa4-af9d-6fa1b370506f}*SharedItemsImports = 4
+		Examples\Orchestra.Examples.Ribbon.Fluent\Orchestra.Examples.Ribbon.Fluent.Shared\Orchestra.Examples.Ribbon.Fluent.Shared.projitems*{850ddb5d-1694-4d89-af95-a8e31305a53c}*SharedItemsImports = 4
+		Orchestra.Core\Orchestra.Core\Orchestra.Core.Shared\Orchestra.Core.Shared.projitems*{bf3abc91-f3f1-4c8a-a418-1b845724cc7f}*SharedItemsImports = 13
+		Examples\Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.Shared\Orchestra.Examples.MahApps.Shared.projitems*{608c0720-4276-47b0-b131-7a2267735c58}*SharedItemsImports = 4
+		Orchestra.Tests\Orchestra.Tests\Orchestra.Tests.Shared\Orchestra.Tests.Shared.projitems*{9d628894-bdd8-470b-8dc9-7bf2f7073ee5}*SharedItemsImports = 13
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{24614a48-3155-4428-bdc4-7c79ae8cedc3}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{24614a48-3155-4428-bdc4-7c79ae8cedc3}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.Shared\Orchestra.Shell.Ribbon.Fluent.Shared.projitems*{24614a48-3155-4428-bdc4-7c79ae8cedc3}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,26 +148,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A354CA4C-F74A-4A33-83D4-57614D47B2D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A354CA4C-F74A-4A33-83D4-57614D47B2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A354CA4C-F74A-4A33-83D4-57614D47B2D0}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{A354CA4C-F74A-4A33-83D4-57614D47B2D0}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A354CA4C-F74A-4A33-83D4-57614D47B2D0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A354CA4C-F74A-4A33-83D4-57614D47B2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A354CA4C-F74A-4A33-83D4-57614D47B2D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A354CA4C-F74A-4A33-83D4-57614D47B2D0}.Release|ARM.ActiveCfg = Release|Any CPU
-		{A354CA4C-F74A-4A33-83D4-57614D47B2D0}.Release|x64.ActiveCfg = Release|Any CPU
-		{A354CA4C-F74A-4A33-83D4-57614D47B2D0}.Release|x86.ActiveCfg = Release|Any CPU
-		{39EC0E86-862D-431D-BED7-0BBD9D16D0B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39EC0E86-862D-431D-BED7-0BBD9D16D0B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39EC0E86-862D-431D-BED7-0BBD9D16D0B0}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{39EC0E86-862D-431D-BED7-0BBD9D16D0B0}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{39EC0E86-862D-431D-BED7-0BBD9D16D0B0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{39EC0E86-862D-431D-BED7-0BBD9D16D0B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39EC0E86-862D-431D-BED7-0BBD9D16D0B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39EC0E86-862D-431D-BED7-0BBD9D16D0B0}.Release|ARM.ActiveCfg = Release|Any CPU
-		{39EC0E86-862D-431D-BED7-0BBD9D16D0B0}.Release|x64.ActiveCfg = Release|Any CPU
-		{39EC0E86-862D-431D-BED7-0BBD9D16D0B0}.Release|x86.ActiveCfg = Release|Any CPU
 		{805E1F16-7A10-42A2-82BA-5012412144BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{805E1F16-7A10-42A2-82BA-5012412144BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{805E1F16-7A10-42A2-82BA-5012412144BB}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -231,11 +253,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B6E7F67D-60DF-4CF6-865B-D6AB7AA3AB2A} = {81EB4E1A-06AF-4C1B-A4E4-74015061D64A}
 		{250CAB0E-A7F8-495B-B090-DB0AF1D51514} = {E502625D-7CC7-401B-ACDF-678B68F59005}
-		{CE6EC57D-278D-425F-B5C8-8FE0C5DCA810} = {E502625D-7CC7-401B-ACDF-678B68F59005}
-		{A354CA4C-F74A-4A33-83D4-57614D47B2D0} = {CE6EC57D-278D-425F-B5C8-8FE0C5DCA810}
-		{39EC0E86-862D-431D-BED7-0BBD9D16D0B0} = {CE6EC57D-278D-425F-B5C8-8FE0C5DCA810}
 		{5CD5D569-4CF8-48AE-A7DB-702FBA641A9C} = {D3FFE658-EB31-43F9-8404-DFD6216D3D20}
 		{E27A5FB0-A799-4D91-995B-759AC6D4ABFB} = {D3FFE658-EB31-43F9-8404-DFD6216D3D20}
 		{81958808-C44E-4956-BCAC-6C51FC7EF8A7} = {D3FFE658-EB31-43F9-8404-DFD6216D3D20}
@@ -244,16 +262,34 @@ Global
 		{805E1F16-7A10-42A2-82BA-5012412144BB} = {11B3395E-A064-4250-A1CD-8CF165E7F21F}
 		{96F837EA-C848-4AA4-AF9D-6FA1B370506F} = {250CAB0E-A7F8-495B-B090-DB0AF1D51514}
 		{DBEB5ED3-4622-408E-92D9-EC60F316A5C9} = {E502625D-7CC7-401B-ACDF-678B68F59005}
-		{608C0720-4276-47B0-B131-7A2267735C58} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
-		{E16A2BF1-3801-4615-A79E-52CEDF260A89} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
-		{F77A6406-6745-4EB1-BEE4-42E5AC4EB0F6} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
+		{608C0720-4276-47B0-B131-7A2267735C58} = {6F7CA0E0-A61D-4AFF-BEA4-413D67116693}
+		{E16A2BF1-3801-4615-A79E-52CEDF260A89} = {C2F44359-4C7B-47FF-97F6-614F1810A1EC}
+		{F77A6406-6745-4EB1-BEE4-42E5AC4EB0F6} = {F02B8774-A726-4B04-BE60-D1BD78412E5D}
 		{D22473C6-3A99-4FDB-8A92-97BD07DCFD6B} = {E502625D-7CC7-401B-ACDF-678B68F59005}
-		{F092BDC9-B58A-4F43-A37B-BDCA9825FD03} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
-		{2909C5C6-B2C7-49A4-BF8F-2225433EFFDF} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
-		{45857215-F067-4652-8C87-71E7D8F432A7} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
+		{F092BDC9-B58A-4F43-A37B-BDCA9825FD03} = {ECF44968-9A75-43A8-9610-6FA289B0A37D}
+		{2909C5C6-B2C7-49A4-BF8F-2225433EFFDF} = {D713B2DB-837F-4445-950B-0DC29C82469C}
+		{45857215-F067-4652-8C87-71E7D8F432A7} = {3C66C6EC-07DE-4DC8-8C6B-36972310325B}
 		{BC10FCE0-C843-4592-802D-BB800A514CA0} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
 		{09D9C5AF-1D17-4C77-A5D4-CFDF278DF4A3} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
-		{24614A48-3155-4428-BDC4-7C79AE8CEDC3} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
-		{850DDB5D-1694-4D89-AF95-A8E31305A53C} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
+		{24614A48-3155-4428-BDC4-7C79AE8CEDC3} = {559582ED-9C37-4CB0-B59E-CD90E133859B}
+		{850DDB5D-1694-4D89-AF95-A8E31305A53C} = {C417BB89-7588-4FAB-B234-A35EF8C240E6}
+		{6F7CA0E0-A61D-4AFF-BEA4-413D67116693} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
+		{C417BB89-7588-4FAB-B234-A35EF8C240E6} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
+		{ECF44968-9A75-43A8-9610-6FA289B0A37D} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
+		{3C66C6EC-07DE-4DC8-8C6B-36972310325B} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
+		{C2F44359-4C7B-47FF-97F6-614F1810A1EC} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
+		{559582ED-9C37-4CB0-B59E-CD90E133859B} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
+		{F02B8774-A726-4B04-BE60-D1BD78412E5D} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
+		{D713B2DB-837F-4445-950B-0DC29C82469C} = {3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}
+		{1B9B5A92-56D2-4250-A3CC-993EEFFB2E86} = {6F7CA0E0-A61D-4AFF-BEA4-413D67116693}
+		{0280E6B2-58E3-4379-9502-DE186CED9577} = {C417BB89-7588-4FAB-B234-A35EF8C240E6}
+		{84D8F34F-57D6-45AD-9449-FB461698A3CF} = {ECF44968-9A75-43A8-9610-6FA289B0A37D}
+		{4F1A8F2D-73BA-415D-B741-9AB66F2735DC} = {3C66C6EC-07DE-4DC8-8C6B-36972310325B}
+		{BF3ABC91-F3F1-4C8A-A418-1B845724CC7F} = {11B3395E-A064-4250-A1CD-8CF165E7F21F}
+		{7EFD7F52-35C2-4800-927D-55AD1EA843AD} = {C2F44359-4C7B-47FF-97F6-614F1810A1EC}
+		{378728E2-1764-42E3-8952-9E2C2AB8D57A} = {559582ED-9C37-4CB0-B59E-CD90E133859B}
+		{D2D05B12-63AB-4004-94A0-707F976A3F2B} = {F02B8774-A726-4B04-BE60-D1BD78412E5D}
+		{21FB6308-232E-48B2-BF53-CFF8BA03F828} = {D713B2DB-837F-4445-950B-0DC29C82469C}
+		{9D628894-BDD8-470B-8DC9-7BF2F7073EE5} = {250CAB0E-A7F8-495B-B090-DB0AF1D51514}
 	EndGlobalSection
 EndGlobal
