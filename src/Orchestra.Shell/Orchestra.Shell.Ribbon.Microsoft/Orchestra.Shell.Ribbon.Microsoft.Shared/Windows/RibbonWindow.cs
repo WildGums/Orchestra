@@ -18,7 +18,14 @@ namespace Orchestra.Windows
     using Catel.MVVM.Views;
     using Catel.Windows;
 
-    public class RibbonWindow : Microsoft.Windows.Controls.Ribbon.RibbonWindow, IDataWindow
+#if NET40
+    using MsRibbonWindow = Microsoft.Windows.Controls.Ribbon.RibbonWindow;
+#else
+    using MsRibbonWindow = System.Windows.Controls.Ribbon.RibbonWindow;
+#endif
+
+
+    public class RibbonWindow : MsRibbonWindow, IDataWindow
     {
         private readonly WindowLogic _logic;
 

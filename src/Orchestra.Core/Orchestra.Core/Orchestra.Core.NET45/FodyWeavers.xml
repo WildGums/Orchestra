@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Weavers VerifyAssembly="true">
+  <ModuleInit/>
+  <Costura>
+    <IncludeAssemblies>
+      Ionic.Zip
+      Microsoft.WindowsAPICodePack
+      Microsoft.WindowsAPICodePack.Shell
+      Orc.SystemInfo
+    </IncludeAssemblies>
+  </Costura>
+  <Obsolete/>
+  <MethodTimer/>
+  <Catel/>
+  <LoadAssembliesOnStartup/>
+</Weavers>

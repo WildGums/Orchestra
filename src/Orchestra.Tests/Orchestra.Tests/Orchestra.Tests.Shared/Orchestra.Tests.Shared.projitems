@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\InputGestureExtensionsFacts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensionsFacts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\FilterHelperFacts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

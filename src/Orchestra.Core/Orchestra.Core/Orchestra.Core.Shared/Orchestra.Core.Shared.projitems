@@ -211,9 +211,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Resources\Images\Folder.png" />
-    <None Include="$(MSBuildThisFileDirectory)Resources\Images\Pinned.png" />
-    <None Include="$(MSBuildThisFileDirectory)Resources\Images\Unpinned.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\Folder.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\Pinned.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\Unpinned.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Properties\Resources.resx">

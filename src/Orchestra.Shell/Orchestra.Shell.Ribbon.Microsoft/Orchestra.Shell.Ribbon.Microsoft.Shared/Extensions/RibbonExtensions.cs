@@ -15,8 +15,13 @@ namespace Orchestra
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM.Converters;
-    using Microsoft.Windows.Controls.Ribbon;
     using Services;
+
+#if NET40
+    using Microsoft.Windows.Controls.Ribbon;
+#else
+    using System.Windows.Controls.Ribbon;
+#endif
 
     public static class RibbonExtensions
     {

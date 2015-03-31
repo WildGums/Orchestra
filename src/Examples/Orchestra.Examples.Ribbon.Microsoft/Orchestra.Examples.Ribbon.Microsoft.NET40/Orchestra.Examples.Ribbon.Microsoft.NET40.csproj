@@ -120,6 +120,17 @@
       <Name>Orchestra.Shell.Ribbon.Microsoft.NET40</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\RibbonView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Views\RibbonView.xaml.cs">
+      <DependentUpon>RibbonView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
   <Import Project="..\Orchestra.Examples.Ribbon.Microsoft.Shared\Orchestra.Examples.Ribbon.Microsoft.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Examples.Ribbon.Microsoft.Shared\Orchestra.Examples.Ribbon.Microsoft.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
