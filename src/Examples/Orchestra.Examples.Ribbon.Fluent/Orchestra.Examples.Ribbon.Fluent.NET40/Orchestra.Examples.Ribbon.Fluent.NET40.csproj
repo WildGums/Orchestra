@@ -39,8 +39,7 @@
     <NoWarn>1591;1998</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>..\Orchestra.Examples.Ribbon.Fluent.Shared\Resources\Icons\Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
