@@ -7,16 +7,30 @@
 
 namespace Orchestra.ViewModels
 {
+    using System;
     using System.Threading.Tasks;
+    using Catel;
     using Catel.MVVM;
     using Catel.Reflection;
+    using Models;
+    using Services;
 
     /// <summary>
     /// The splash screen view model.
     /// </summary>
     public class SplashScreenViewModel : ViewModelBase
     {
+        private readonly IAboutInfoService _aboutInfoService;
+
+        public SplashScreenViewModel(IAboutInfoService aboutInfoService)
+        {
+            Argument.IsNotNull(() => aboutInfoService);
+            _aboutInfoService = aboutInfoService;
+            var aboutInfo = _aboutInfoService.GetAboutInfo();
+            CompanyLogoForSplashScreenUri = aboutInfo.CompanyLogoForSplashScreenUri;
+        }
         #region Properties
+        public Uri CompanyLogoForSplashScreenUri { get; private set; }
         /// <summary>
         /// Gets the company.
         /// </summary>

@@ -17,14 +17,16 @@ namespace Orchestra.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AboutInfo" /> class.
         /// </summary>
+        /// <param name="companyLogoForSplashScreenUri"></param>
         /// <param name="companyLogoUri">The company logo image Uri.</param>
         /// <param name="logoImageSource">The logo image source.</param>
         /// <param name="url">The URL. Can be <c>null</c>.</param>
         /// <param name="assembly">The assembly to use for the information. If <c>null</c>, the assembly will be determined automatically.</param>
-        public AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, string url = null, Assembly assembly = null)
+        public AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, string url = null, Assembly assembly = null, Uri companyLogoForSplashScreenUri = null)
         {
             ShowLogButton = true;
 
+            CompanyLogoForSplashScreenUri = companyLogoForSplashScreenUri;
             CompanyLogoUri = companyLogoUri;
             LogoImageSource = logoImageSource;
             Url = url;
@@ -33,6 +35,12 @@ namespace Orchestra.Models
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the logo image source.
+        /// </summary>
+        /// <value>The company logo image Uri.</value>
+        public Uri CompanyLogoForSplashScreenUri { get; set; }
+
         /// <summary>
         /// Gets the logo image source.
         /// </summary>

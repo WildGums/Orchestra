@@ -22,13 +22,13 @@
             <Setter Property="Foreground" Value="White" />
         </Style>
     </Window.Resources>
-    
+
     <Grid Width="450" Height="250" Margin="-3">
         <Grid.RowDefinitions>
-            <RowDefinition Height="25" />
+            <RowDefinition Height="35" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -36,13 +36,24 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <Border Grid.RowSpan="4" Grid.ColumnSpan="2" BorderThickness="5" Margin="-3">
+            <Border.BorderBrush>
+                <SolidColorBrush Color="#FFFFFF" Opacity="0.1"/>
+            </Border.BorderBrush>
+        </Border>
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Title}" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                   TextAlignment="Center" FontSize="48" TextWrapping="Wrap" Style="{StaticResource SplashTextBlockStyle}" />
+                   TextAlignment="Center" FontSize="38" TextWrapping="Wrap" Margin="70 0 70 0"
+                   Style="{StaticResource SplashTextBlockStyle}" />
 
         <controls:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="0" IgnoreUnloadedEventCount="1" />
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Version, StringFormat=Starting v{0}}" HorizontalAlignment="Left" Style="{StaticResource SplashTextBlockStyle}" />
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Company, StringFormat=Produced by {0}}" HorizontalAlignment="Right" Style="{StaticResource SplashTextBlockStyle}" />
+        <Image Grid.Row="3" Source="{Binding CompanyLogoForSplashScreenUri}" HorizontalAlignment="Left" 
+               MaxHeight="60" Margin="10" VerticalAlignment="Center" Stretch="Uniform"
+               Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Version, StringFormat= v{0}}"
+                   HorizontalAlignment="Right" Style="{StaticResource SplashTextBlockStyle}" />
+
     </Grid>
 
 </catel:DataWindow>
