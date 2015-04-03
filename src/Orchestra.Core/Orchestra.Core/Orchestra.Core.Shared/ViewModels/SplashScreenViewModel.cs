@@ -20,13 +20,10 @@ namespace Orchestra.ViewModels
     /// </summary>
     public class SplashScreenViewModel : ViewModelBase
     {
-        private readonly IAboutInfoService _aboutInfoService;
-
         public SplashScreenViewModel(IAboutInfoService aboutInfoService)
         {
             Argument.IsNotNull(() => aboutInfoService);
-            _aboutInfoService = aboutInfoService;
-            var aboutInfo = _aboutInfoService.GetAboutInfo();
+            var aboutInfo = aboutInfoService.GetAboutInfo();
             CompanyLogoForSplashScreenUri = aboutInfo.CompanyLogoForSplashScreenUri;
         }
         #region Properties
