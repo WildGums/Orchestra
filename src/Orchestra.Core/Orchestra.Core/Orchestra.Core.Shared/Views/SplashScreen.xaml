@@ -21,14 +21,20 @@
             <Setter Property="Padding" Value="0" />
             <Setter Property="Foreground" Value="White" />
         </Style>
+
+        <RadialGradientBrush x:Key="EllipseOpacityMask" GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="1" RadiusY="1">
+            <GradientStop Offset="-1.5" Color="White" />
+            <GradientStop Offset="0.5" Color="Transparent" />
+        </RadialGradientBrush>
+
     </Window.Resources>
 
-    <Grid Width="450" Height="250" Margin="-3">
+    <Grid Width="390" Height="230" Margin="-3">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="46" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -36,22 +42,28 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.RowSpan="4" Grid.ColumnSpan="2" BorderThickness="5" Margin="-3">
+        <Border Grid.RowSpan="4" Grid.ColumnSpan="2" BorderThickness="4" Margin="-3" >
             <Border.BorderBrush>
-                <SolidColorBrush Color="#FFFFFF" Opacity="0.1"/>
+                <SolidColorBrush Color="#FFFFFF" Opacity="0.2"/>
             </Border.BorderBrush>
         </Border>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Title}" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                   TextAlignment="Center" FontSize="38" TextWrapping="Wrap" Margin="70 0 70 0"
-                   Style="{StaticResource SplashTextBlockStyle}" />
 
-        <controls:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="0" IgnoreUnloadedEventCount="1" />
+        <Ellipse Grid.Row="0" Grid.RowSpan="4" Height="200" Width="360" Grid.Column="0" Grid.ColumnSpan="2" Fill="White"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 20"
+                 OpacityMask="{StaticResource EllipseOpacityMask}" Opacity="0.5"/>
+        
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Title}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                   TextAlignment="Center" FontSize="36" TextWrapping="Wrap" Margin="70 0 70 0"
+                   Style="{StaticResource SplashTextBlockStyle}" />
+            
+        <controls:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="8" IgnoreUnloadedEventCount="1" />
 
         <Image Grid.Row="3" Source="{Binding CompanyLogoForSplashScreenUri}" HorizontalAlignment="Left" 
-               MaxHeight="60" Margin="10" VerticalAlignment="Center" Stretch="Uniform"
+               Margin="10" VerticalAlignment="Bottom" Stretch="Uniform" Opacity="0.7"
                Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Version, StringFormat= v{0}}"
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Version, StringFormat= v{0}}" Opacity="0.8"
+                   Margin="8" FontWeight="Light" VerticalAlignment="Bottom"
                    HorizontalAlignment="Right" Style="{StaticResource SplashTextBlockStyle}" />
 
     </Grid>
