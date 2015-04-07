@@ -20,7 +20,7 @@ namespace Orchestra
         }
     }
 
-    public abstract class CommandContainerBase<TParameter> : CommandContainerBase<TParameter, TParameter>
+    public abstract class CommandContainerBase<TParameter> : CommandContainerBase<TParameter, TParameter, ITaskProgressReport>
     {
         protected CommandContainerBase(string commandName, ICommandManager commandManager)
             : base(commandName, commandManager)
@@ -28,7 +28,15 @@ namespace Orchestra
         }
     }
 
-    public abstract class CommandContainerBase<TExecuteParameter, TCanExecuteParameter>
+    public abstract class CommandContainerBase<TExecuteParameter, TCanExecuteParameter> : CommandContainerBase<TExecuteParameter, TCanExecuteParameter, ITaskProgressReport>
+    {
+        protected CommandContainerBase(string commandName, ICommandManager commandManager)
+            : base(commandName, commandManager)
+        {
+        }
+    }
+
+    public abstract class CommandContainerBase<TExecuteParameter, TCanExecuteParameter, TPogress> where TPogress : ITaskProgressReport
     {
         #region Fields
         private readonly ICommandManager _commandManager;
@@ -47,7 +55,7 @@ namespace Orchestra
             _commandManager = commandManager;
 
             _compositeCommand = (ICompositeCommand)_commandManager.GetCommand(commandName);
-            _command = new Command<TExecuteParameter, TCanExecuteParameter>(Execute, CanExecute);
+            _command = new TaskCommand<TExecuteParameter, TCanExecuteParameter, TPogress>(Execute, CanExecute);
 
             _commandManager.RegisterCommand(commandName, _command);
         }
@@ -68,14 +76,7 @@ namespace Orchestra
             return true;
         }
 
-        protected virtual async void Execute(TExecuteParameter parameter)
-        {
-#pragma warning disable 4014
-             ExecuteAsync(parameter);
-#pragma warning restore 4014
-        }
-
-        protected virtual async Task ExecuteAsync(TExecuteParameter parameter)
+        protected virtual async Task Execute(TExecuteParameter parameter)
         {
         }
         #endregion
