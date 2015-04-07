@@ -14,35 +14,40 @@ namespace Orchestra
 
     public abstract class CommandContainerBase : CommandContainerBase<object>
     {
+        #region Constructors
         protected CommandContainerBase(string commandName, ICommandManager commandManager)
             : base(commandName, commandManager)
         {
         }
+        #endregion
     }
 
     public abstract class CommandContainerBase<TParameter> : CommandContainerBase<TParameter, TParameter, ITaskProgressReport>
     {
+        #region Constructors
         protected CommandContainerBase(string commandName, ICommandManager commandManager)
             : base(commandName, commandManager)
         {
         }
+        #endregion
     }
 
     public abstract class CommandContainerBase<TExecuteParameter, TCanExecuteParameter> : CommandContainerBase<TExecuteParameter, TCanExecuteParameter, ITaskProgressReport>
     {
+        #region Constructors
         protected CommandContainerBase(string commandName, ICommandManager commandManager)
             : base(commandName, commandManager)
         {
         }
+        #endregion
     }
 
     public abstract class CommandContainerBase<TExecuteParameter, TCanExecuteParameter, TPogress> where TPogress : ITaskProgressReport
     {
         #region Fields
-        private readonly ICommandManager _commandManager;
-
-        private readonly ICompositeCommand _compositeCommand;
         private readonly ICommand _command;
+        private readonly ICommandManager _commandManager;
+        private readonly ICompositeCommand _compositeCommand;
         #endregion
 
         #region Constructors
@@ -54,8 +59,8 @@ namespace Orchestra
             CommandName = commandName;
             _commandManager = commandManager;
 
-            _compositeCommand = (ICompositeCommand)_commandManager.GetCommand(commandName);
-            _command = new TaskCommand<TExecuteParameter, TCanExecuteParameter, TPogress>(Execute, CanExecute);
+            _compositeCommand = (ICompositeCommand) _commandManager.GetCommand(commandName);
+            _command = new TaskCommand<TExecuteParameter, TCanExecuteParameter, TPogress>(ExecuteAsync, CanExecute);
 
             _commandManager.RegisterCommand(commandName, _command);
         }
@@ -76,8 +81,15 @@ namespace Orchestra
             return true;
         }
 
-        protected virtual async Task Execute(TExecuteParameter parameter)
+        protected virtual async Task ExecuteAsync(TExecuteParameter parameter)
         {
+            Execute(parameter);
+        }
+
+        [ObsoleteEx(ReplacementTypeOrMember = "ExecuteAsync")]
+        protected virtual async void Execute(TExecuteParameter parameter)
+        {
+
         }
         #endregion
     }
