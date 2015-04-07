@@ -46,7 +46,7 @@ namespace Orchestra
 
         protected IConfigurationService ConfigurationService { get; private set; }
 
-        protected override async Task ExecuteAsync(TExecuteParameter parameter)
+        protected override async Task Execute(TExecuteParameter parameter)
         {
             var oldVersion = ConfigurationService.GetValue(_configurationKey, _defaultValue);
             ConfigurationService.SetValue(_configurationKey, !oldVersion);

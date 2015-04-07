@@ -7,6 +7,7 @@
 
 namespace Orchestra.Examples.Ribbon
 {
+    using System.Threading.Tasks;
     using Catel;
     using Catel.MVVM;
     using Orchestra;
@@ -29,7 +30,7 @@ namespace Orchestra.Examples.Ribbon
         #endregion
 
         #region Methods
-        protected override void Execute(object parameter)
+        protected override async Task Execute(object parameter)
         {
             _aboutService.ShowAbout();
         }
