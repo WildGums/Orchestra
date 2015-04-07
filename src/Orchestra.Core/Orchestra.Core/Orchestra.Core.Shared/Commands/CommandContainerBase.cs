@@ -60,7 +60,7 @@ namespace Orchestra
             _commandManager = commandManager;
 
             _compositeCommand = (ICompositeCommand) _commandManager.GetCommand(commandName);
-            _command = new TaskCommand<TExecuteParameter, TCanExecuteParameter, TPogress>(ExecuteAsync, CanExecute);
+            _command = new TaskCommand<TExecuteParameter, TCanExecuteParameter, TPogress>(Execute, CanExecute);
 
             _commandManager.RegisterCommand(commandName, _command);
         }
@@ -81,16 +81,17 @@ namespace Orchestra
             return true;
         }
 
+        [ObsoleteEx(ReplacementTypeOrMember = "Execute")]
         protected virtual async Task ExecuteAsync(TExecuteParameter parameter)
         {
-            Execute(parameter);
+            
         }
 
-        [ObsoleteEx(ReplacementTypeOrMember = "ExecuteAsync")]
-        protected virtual async void Execute(TExecuteParameter parameter)
+        protected virtual async Task Execute(TExecuteParameter parameter)
         {
-
+            await ExecuteAsync(parameter);
         }
+        
         #endregion
     }
 }

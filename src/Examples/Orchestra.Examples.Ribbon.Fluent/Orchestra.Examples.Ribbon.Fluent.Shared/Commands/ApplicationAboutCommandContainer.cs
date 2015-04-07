@@ -30,10 +30,9 @@ namespace Orchestra.Examples.Ribbon
         #endregion
 
         #region Methods
-        protected override async Task ExecuteAsync(object parameter)
+        protected override async Task Execute(object parameter)
         {
             _aboutService.ShowAbout();
-            await base.ExecuteAsync(parameter);
         }
         #endregion
     }
