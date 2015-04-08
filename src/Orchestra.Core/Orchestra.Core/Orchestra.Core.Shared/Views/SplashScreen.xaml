@@ -21,12 +21,6 @@
             <Setter Property="Padding" Value="0" />
             <Setter Property="Foreground" Value="White" />
         </Style>
-
-        <RadialGradientBrush x:Key="EllipseOpacityMask" GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="1" RadiusY="1">
-            <GradientStop Offset="-1.5" Color="White" />
-            <GradientStop Offset="0.5" Color="Transparent" />
-        </RadialGradientBrush>
-
     </Window.Resources>
 
     <Grid Width="390" Height="230" Margin="-3">
@@ -48,12 +42,8 @@
             </Border.BorderBrush>
         </Border>
 
-        <Ellipse Grid.Row="0" Grid.RowSpan="4" Height="200" Width="360" Grid.Column="0" Grid.ColumnSpan="2" Fill="White"
-                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 20"
-                 OpacityMask="{StaticResource EllipseOpacityMask}" Opacity="0.5"/>
-        
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Title}" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                   TextAlignment="Center" FontSize="36" TextWrapping="Wrap" Margin="70 0 70 0"
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Title}" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" TextAlignment="Center" FontSize="36" TextWrapping="Wrap" Margin="70 0 70 0"
                    Style="{StaticResource SplashTextBlockStyle}" />
             
         <controls:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="8" IgnoreUnloadedEventCount="1" />
