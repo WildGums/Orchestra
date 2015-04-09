@@ -42,7 +42,8 @@ namespace Orchestra
         #endregion
     }
 
-    public abstract class CommandContainerBase<TExecuteParameter, TCanExecuteParameter, TPogress> where TPogress : ITaskProgressReport
+    public abstract class CommandContainerBase<TExecuteParameter, TCanExecuteParameter, TPogress> 
+        where TPogress : ITaskProgressReport
     {
         #region Fields
         private readonly ICommand _command;
@@ -81,7 +82,7 @@ namespace Orchestra
             return true;
         }
 
-        [ObsoleteEx(ReplacementTypeOrMember = "Execute")]
+        [ObsoleteEx(ReplacementTypeOrMember = "Execute", TreatAsErrorFromVersion = "3.0.0", RemoveInVersion = "4.0.0")]
         protected virtual async Task ExecuteAsync(TExecuteParameter parameter)
         {
             
