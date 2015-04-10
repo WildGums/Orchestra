@@ -5,7 +5,7 @@
                   xmlns:controls="clr-namespace:Orchestra.Controls"
                   WindowStartupLocation="CenterScreen" WindowStyle="None" SnapsToDevicePixels="True"
                   SizeToContent="WidthAndHeight" Background="{x:Null}" ResizeMode="NoResize" AllowsTransparency="True" 
-                  Margin="0">
+                  Margin="0" UseLayoutRounding="True">
 
     <Window.Resources>
         <!-- 
@@ -28,7 +28,7 @@
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="46" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
