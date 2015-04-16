@@ -24,12 +24,12 @@ Orchestra provides support for a lot of different shells.
 
 # More information
 
-## Update 2015/02/10
+## Update 2015/04/16
 
 Some of the features which will come out of the box:
 
 - [x] [MahApps](http://mahapps.com/) integration
-- [ ] Module management
+- [ ] Module management (Nearly there with [Orc.NuGetExplorer](https://github.com/WildGums/Orc.NuGetExplorer))
 - [x] License management => [Orc.LicenseManager](https://github.com/Orcomp/Orc.LicenseManager)
 - [x] Command management
 - [x] Shortcut manager (which will allow end users to remap shortcut keys)
@@ -54,10 +54,14 @@ Other Projects that might be of interest (And integrate easily with Orchestra):
 - [Orc.Feedback](https://github.com/WildGums/Orc.Feedback)
 - [Orc.SystemInfo](https://github.com/WildGums/Orc.SystemInfo)
 - [Orc.CrashReporting](https://github.com/WildGums/Orc.CrashReporting)
+- [Orc.Notifications](https://github.com/WildGums/Orc.Notifications)
+- [Orc.NuGetExplorer](https://github.com/WildGums/Orc.NuGetExplorer)
+
+Please check [LogViewer](https://github.com/WildGums/LogViewer), for an example on how to build an application with Orchestra.
 
 ## License
 
-Open source (MS-PL license), so you are free to use it in commercial applications
+MIT License
 
 ## Benefits to users:
 
