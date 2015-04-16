@@ -24,6 +24,8 @@ Orchestra provides support for a lot of different shells.
 
 # More information
 
+Please check [LogViewer](https://github.com/WildGums/LogViewer), for an example on how to build an application with Orchestra.
+
 ## Update 2015/04/16
 
 Some of the features which will come out of the box:
@@ -57,8 +59,6 @@ Other Projects that might be of interest (And integrate easily with Orchestra):
 - [Orc.Notifications](https://github.com/WildGums/Orc.Notifications)
 - [Orc.NuGetExplorer](https://github.com/WildGums/Orc.NuGetExplorer)
 
-Please check [LogViewer](https://github.com/WildGums/LogViewer), for an example on how to build an application with Orchestra.
-
 ## License
 
 MIT License
@@ -88,8 +88,6 @@ It is easy to add extra modules by following the examples.
 ## Roadmap
 
 - Automatic plugin update infrastructure
-- Text editor module
-- Csv editor module
 
 ## Support
 
