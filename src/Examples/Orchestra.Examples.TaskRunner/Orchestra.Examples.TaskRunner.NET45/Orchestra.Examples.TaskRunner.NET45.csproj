@@ -51,7 +51,7 @@
       <HintPath>..\..\..\..\lib\Catel.Fody.2.5.0\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="Catel.MVVM">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0009\lib\net45\Catel.MVVM.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0041\lib\net45\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
