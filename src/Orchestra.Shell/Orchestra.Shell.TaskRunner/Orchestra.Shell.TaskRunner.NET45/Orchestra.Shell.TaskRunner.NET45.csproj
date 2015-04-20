@@ -40,7 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core">
-      <HintPath>..\..\..\..\lib\Catel.Core.4.2.0-unstable0009\lib\net45\Catel.Core.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.Core.4.2.0-unstable0041\lib\net45\Catel.Core.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Extensions.Controls, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.2.0-unstable0041\lib\net45\Catel.Extensions.Controls.dll</HintPath>
