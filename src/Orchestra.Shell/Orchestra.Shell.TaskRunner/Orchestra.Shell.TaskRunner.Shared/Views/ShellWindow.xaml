@@ -4,6 +4,7 @@
                   xmlns:catel="http://catel.codeplex.com"
                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                   xmlns:behaviors="clr-namespace:Orchestra.Behaviors"
+                  xmlns:orc="http://www.wildgums.net.au/orc"
                   ShowInTaskbar="True" MinWidth="625" MinHeight="625" Width="625" Height="625"
                   SizeToContent="Manual" ResizeMode="CanResizeWithGrip" UseLayoutRounding="True">
 
@@ -51,7 +52,7 @@
         </Expander>
 
         <GroupBox Grid.Row="2" Header="Results">
-            <catel:TraceOutputControl x:Name="traceOutputControl" />
+            <orc:LogViewerControl x:Name="traceOutputControl" />
         </GroupBox>
     </Grid>
 
