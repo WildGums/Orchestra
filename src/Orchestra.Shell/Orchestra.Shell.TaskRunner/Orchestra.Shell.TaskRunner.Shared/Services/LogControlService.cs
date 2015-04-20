@@ -25,10 +25,7 @@ namespace Orchestra.Services
             _traceOutputControl = traceOutputControl;
             _traceOutputControl.Dispatcher.BeginInvoke(() =>
             {
-                _traceOutputControl.ShowInfo = true;
-                _traceOutputControl.ShowError = false;
-                _traceOutputControl.ShowDebug = false;
-                _traceOutputControl.ShowWarning = false;
+                _traceOutputControl.SetLogEvent(LogEvent.Info);
             });
         }
         #endregion
@@ -37,36 +34,11 @@ namespace Orchestra.Services
         {
             get
             {
-                LogEvent logEvent = 0;
-
-                if (_traceOutputControl.ShowDebug)
-                {
-                    logEvent |= LogEvent.Debug;
-                }
-
-                if (_traceOutputControl.ShowError)
-                {
-                    logEvent |= LogEvent.Error;
-                }
-
-                if (_traceOutputControl.ShowInfo)
-                {
-                    logEvent |= LogEvent.Info;
-                }
-
-                if (_traceOutputControl.ShowWarning)
-                {
-                    logEvent |= LogEvent.Warning;
-                }
-
-                return logEvent;
+                return _traceOutputControl.GetLogEvent();
             }
             set
             {
-                _traceOutputControl.ShowDebug = value.HasFlag(LogEvent.Debug);
-                _traceOutputControl.ShowError = value.HasFlag(LogEvent.Error);
-                _traceOutputControl.ShowInfo = value.HasFlag(LogEvent.Info);
-                _traceOutputControl.ShowWarning = value.HasFlag(LogEvent.Warning);
+                _traceOutputControl.SetLogEvent(value);
             }
         }
 

@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\CommandToExpanderBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\LogViewerControlExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -25,7 +26,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
   </ItemGroup>
