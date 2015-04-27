@@ -112,6 +112,8 @@ namespace Orchestra.ViewModels
         {
             SelectedCommandInputGesture = null;
             _commandManager.UpdateInputGesture(SelectedCommand, null);
+            
+            UpdateCommands();
         }
 
         /// <summary>
@@ -193,6 +195,8 @@ namespace Orchestra.ViewModels
 
         private void UpdateCommands()
         {
+            var selectedCommand = SelectedCommand;
+
             var allCommands = _commandManager.GetCommands().OrderBy(x => x).ToList();
             if (!string.IsNullOrWhiteSpace(CommandFilter))
             {
@@ -202,6 +206,12 @@ namespace Orchestra.ViewModels
             using (Commands.SuspendChangeNotifications())
             {
                 Commands.ReplaceRange(allCommands.Select(x => new CommandInfo(x, _commandManager.GetInputGesture(x))));
+            }
+
+            // restore selection
+            if (selectedCommand != null && Commands.FirstOrDefault(x => string.Equals(x.CommandName, selectedCommand)) != null)
+            {
+                SelectedCommand = selectedCommand;
             }
         }
 
