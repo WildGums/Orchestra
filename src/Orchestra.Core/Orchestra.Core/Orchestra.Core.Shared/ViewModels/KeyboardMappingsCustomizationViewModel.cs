@@ -84,6 +84,8 @@ namespace Orchestra.ViewModels
             {
                 SelectedCommandInputGesture = _commandManager.GetInputGesture(SelectedCommand);
             }
+
+            UpdateCommands();
         }
 
         /// <summary>
