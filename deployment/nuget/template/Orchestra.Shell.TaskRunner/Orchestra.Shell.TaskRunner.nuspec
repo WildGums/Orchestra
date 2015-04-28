@@ -27,6 +27,7 @@
       <dependency id="Orchestra.Core" version="[VERSION]" />
 
       <dependency id="Catel.Extensions.Controls" version="[replaced]" />
+      <dependency id="Orc.Controls" version="[replaced]" />
     </dependencies>
   </metadata>
 </package>
