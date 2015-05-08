@@ -6,7 +6,7 @@
     <SharedGUID>bf3abc91-f3f1-4c8a-a418-1b845724cc7f</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Orchestra.Core.Shared</Import_RootNamespace>
+    <Import_RootNamespace>Orchestra</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\AdorneredTooltipsManagerFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AppDataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ClipboardService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\CloseApplicationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\EnsureStartupService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IKeyboardMappingsServiceExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IStatusServiceExtensions.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IAdorneredTooltipsManagerFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IAppDataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IClipboardService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\ICloseApplicationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IEnsureStartupService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IHintsProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IKeyboardMappingsService.cs" />

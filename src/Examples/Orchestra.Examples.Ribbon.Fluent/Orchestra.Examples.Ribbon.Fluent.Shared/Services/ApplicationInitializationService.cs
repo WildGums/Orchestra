@@ -8,6 +8,7 @@
 namespace Orchestra.Examples.Ribbon.Services
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Catel;
@@ -60,7 +61,7 @@ namespace Orchestra.Examples.Ribbon.Services
         {
             Log.Info("Delay to show the splash screen");
 
-            //Thread.Sleep(2500);
+            Thread.Sleep(2500);
         }
 
         private async Task InitializePerformance()
