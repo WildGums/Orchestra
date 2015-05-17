@@ -10,6 +10,7 @@ namespace Orchestra.Tests
     using System.Linq;
     using System.Security.Cryptography.X509Certificates;
     using System.Windows.Input;
+    using Catel;
     using NUnit.Framework;
     using CommandManager = Catel.MVVM.CommandManager;
     using InputGesture = Catel.Windows.Input.InputGesture;

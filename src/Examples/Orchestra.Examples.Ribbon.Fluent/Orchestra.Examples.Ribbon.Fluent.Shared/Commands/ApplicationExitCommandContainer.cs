@@ -13,7 +13,7 @@ namespace Orchestra.Examples.Ribbon
     using Catel.Services;
     using Orchestra;
 
-    public class ApplicationExitCommandContainer : CommandContainerBase
+    public class ApplicationExitCommandContainer : Catel.MVVM.CommandContainerBase
     {
         #region Fields
         private readonly INavigationService _navigationService;
@@ -30,7 +30,7 @@ namespace Orchestra.Examples.Ribbon
         #endregion
 
         #region Methods
-        protected override async Task Execute(object parameter)
+        protected override void Execute(object parameter)
         {
             _navigationService.CloseApplication();
         }

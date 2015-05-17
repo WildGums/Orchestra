@@ -12,6 +12,7 @@ namespace Orchestra
     using Catel;
     using Catel.MVVM;
 
+    [ObsoleteEx(ReplacementTypeOrMember = "Catel.MVVM.CommandContainerBase", TreatAsErrorFromVersion = "2.2.0", RemoveInVersion = "3.0.0")]
     public abstract class CommandContainerBase : CommandContainerBase<object>
     {
         #region Constructors
@@ -22,6 +23,7 @@ namespace Orchestra
         #endregion
     }
 
+    [ObsoleteEx(ReplacementTypeOrMember = "Catel.MVVM.CommandContainerBase", TreatAsErrorFromVersion = "2.2.0", RemoveInVersion = "3.0.0")]
     public abstract class CommandContainerBase<TParameter> : CommandContainerBase<TParameter, TParameter, ITaskProgressReport>
     {
         #region Constructors
@@ -32,6 +34,7 @@ namespace Orchestra
         #endregion
     }
 
+    [ObsoleteEx(ReplacementTypeOrMember = "Catel.MVVM.CommandContainerBase", TreatAsErrorFromVersion = "2.2.0", RemoveInVersion = "3.0.0")]
     public abstract class CommandContainerBase<TExecuteParameter, TCanExecuteParameter> : CommandContainerBase<TExecuteParameter, TCanExecuteParameter, ITaskProgressReport>
     {
         #region Constructors
@@ -42,6 +45,7 @@ namespace Orchestra
         #endregion
     }
 
+    [ObsoleteEx(ReplacementTypeOrMember = "Catel.MVVM.CommandContainerBase", TreatAsErrorFromVersion = "2.2.0", RemoveInVersion = "3.0.0")]
     public abstract class CommandContainerBase<TExecuteParameter, TCanExecuteParameter, TPogress> 
         where TPogress : ITaskProgressReport
     {

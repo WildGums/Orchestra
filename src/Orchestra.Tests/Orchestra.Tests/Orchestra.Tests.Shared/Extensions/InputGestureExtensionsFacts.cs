@@ -8,6 +8,7 @@
 namespace Orchestra.Tests
 {
     using System.Windows.Input;
+    using Catel.Windows.Input;
     using NUnit.Framework;
     using InputGesture = Catel.Windows.Input.InputGesture;
 

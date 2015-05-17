@@ -13,7 +13,7 @@ namespace Orchestra.Examples.Ribbon
     using Orchestra;
     using Orchestra.Services;
 
-    public class ApplicationAboutCommandContainer : CommandContainerBase
+    public class ApplicationAboutCommandContainer : Catel.MVVM.CommandContainerBase
     {
         #region Fields
         private readonly IAboutService _aboutService;
@@ -30,7 +30,7 @@ namespace Orchestra.Examples.Ribbon
         #endregion
 
         #region Methods
-        protected override async Task Execute(object parameter)
+        protected override void Execute(object parameter)
         {
             _aboutService.ShowAbout();
         }
