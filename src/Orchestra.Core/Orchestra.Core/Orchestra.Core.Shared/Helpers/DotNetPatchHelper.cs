@@ -98,6 +98,8 @@ namespace Orchestra
 
                     ShowMessage(message);
 
+                    LogManager.FlushAll();
+
                     return false;
                 }
             }
@@ -111,7 +113,7 @@ namespace Orchestra
         {
             Log.Error(content);
 
-            string finalMessage = string.Format("{0}\n\nNote: you can use CTRL + C to copy this message into the clipboard", content);
+            var finalMessage = string.Format("{0}\n\nNote: you can use CTRL + C to copy this message into the clipboard", content);
 
             MessageBox.Show(finalMessage);
         }
