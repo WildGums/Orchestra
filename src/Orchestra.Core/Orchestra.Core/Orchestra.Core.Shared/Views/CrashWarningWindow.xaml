@@ -3,17 +3,48 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:catel="http://catel.codeplex.com"
               xmlns:orc="http://www.wildgums.net.au/orc"
-              SizeToContent="Manual" Width="500" Height="200" ResizeMode="NoResize">
+              SizeToContent="Manual" Width="455" Height="175" ResizeMode="NoResize"
+              WindowStartupLocation="CenterOwner">
 
+    <catel:Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="Chrome" BorderBrush="LightGray" BorderThickness="1" Background="#FFF4F4F4" SnapsToDevicePixels="True">
+                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"
+                                                  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  RecognizesAccessKey="True"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource AccentColorBrush4}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource AccentColorBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" TargetName="Chrome" Value="{DynamicResource AccentColorBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#FFADADAD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </catel:Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="25 25 25 0">
+        <StackPanel Grid.Row="0" Margin="20 20 20 0">
             <TextBlock TextWrapping="Wrap">
                 It seems that the application failed to start correctly the last time it was started. 
             </TextBlock>
@@ -22,10 +53,9 @@
             </TextBlock>
         </StackPanel>
 
-        <DockPanel Grid.Column="1" Grid.Row="2" Margin="25 30 25 0" LastChildFill="False">
+        <DockPanel Grid.Column="1" Grid.Row="2" Margin="20 20 20 0" LastChildFill="False" VerticalAlignment="Top">
             <orc:DropDownButton Header="Reset user settings" DockPanel.Dock="Left" Height="25" Width="130"
-                                AccentColorBrush="{StaticResource AccentColorBrush}"
-                                Command="{Binding DefaultAction}" >
+                                AccentColorBrush="{StaticResource AccentColorBrush}" ShowDefaultButton="False" >
                 <orc:DropDownButton.DropDown>
                     <ContextMenu>
                         <MenuItem Header="Reset" Command="{Binding ResetUserSettings}"/>
@@ -33,7 +63,7 @@
                     </ContextMenu>
                 </orc:DropDownButton.DropDown>
             </orc:DropDownButton>
-            <Button Content="Ok" DockPanel.Dock="Right" Width="60" Height="25" Command="{Binding Ok}"/>
+            <Button Content="Ok" DockPanel.Dock="Right" Width="70" Height="25" Command="{Binding Ok}"/>
         </DockPanel>
     </Grid>
 </catel:Window>

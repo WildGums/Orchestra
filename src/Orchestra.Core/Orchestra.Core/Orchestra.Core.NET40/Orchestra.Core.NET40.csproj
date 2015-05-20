@@ -79,8 +79,9 @@
       <HintPath>..\..\..\..\lib\Obsolete.Fody.4.0.0\Lib\portable-net4+sl5+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\Obsolete.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Orc.Controls">
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.0.0-unstable0241\lib\net40\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.0.0-unstable0242\lib\net40\Orc.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Orc.SystemInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -129,9 +130,6 @@
     <Resource Include="..\Orchestra.Core.Shared\Resources\Images\Unpinned.png">
       <Link>Resources\Images\Unpinned.png</Link>
     </Resource>
-    <Content Include="..\Orchestra.Core.Shared\Resources\Images\error.png">
-      <Link>Resources\Images\error.png</Link>
-    </Content>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup />

@@ -72,8 +72,9 @@
       <HintPath>..\..\..\..\lib\Obsolete.Fody.4.0.0\Lib\portable-net4+sl5+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\Obsolete.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Orc.Controls">
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.0.0-unstable0241\lib\net45\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.0.0-unstable0242\lib\net45\Orc.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Orc.SystemInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -128,11 +129,6 @@
     <EmbeddedResource Include="..\Orchestra.Core.Shared\Properties\Resources.resx">
       <Link>Properties\Resources.resx</Link>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="..\Orchestra.Core.Shared\Resources\Images\error.png">
-      <Link>Resources\Images\error.png</Link>
-    </Resource>
   </ItemGroup>
   <Import Project="..\Orchestra.Core.Shared\Orchestra.Core.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Core.Shared\Orchestra.Core.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
