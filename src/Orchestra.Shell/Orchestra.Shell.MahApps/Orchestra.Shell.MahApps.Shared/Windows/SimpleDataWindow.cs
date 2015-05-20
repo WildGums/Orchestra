@@ -78,7 +78,7 @@ namespace Orchestra.Windows
 
             if (mode == DataWindowMode.OkCancel || mode == DataWindowMode.OkCancelApply)
             {
-                var button = new DataWindowButton("OK", OnOkExecute, OnOkCanExecute);
+                var button = new DataWindowButton("Ok", OnOkExecute, OnOkCanExecute);
                 button.IsDefault = true;
                 _buttons.Add(button);
             }
@@ -111,7 +111,7 @@ namespace Orchestra.Windows
 
         #region Commands
         /// <summary>
-        /// Executes the OK command.
+        /// Executes the Ok command.
         /// </summary>
         protected void ExecuteOk()
         {
@@ -122,7 +122,7 @@ namespace Orchestra.Windows
         }
 
         /// <summary>
-        /// Determines whether the user can execute the OK command.
+        /// Determines whether the user can execute the Ok command.
         /// </summary>
         /// <returns><c>true</c> if the command can be executed; otherwise <c>false</c>.</returns>
         protected bool OnOkCanExecute()
@@ -131,7 +131,7 @@ namespace Orchestra.Windows
         }
 
         /// <summary>
-        /// Handled when the user invokes the OK command.
+        /// Handled when the user invokes the Ok command.
         /// </summary>
         protected async void OnOkExecute()
         {

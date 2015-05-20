@@ -1,0 +1,39 @@
+﻿<catel:Window x:Class="Orchestra.Views.CrashWarningWindow"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:catel="http://catel.codeplex.com"
+              xmlns:orc="http://www.wildgums.net.au/orc"
+              SizeToContent="Manual" Width="500" Height="200" ResizeMode="NoResize">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="25 25 25 0">
+            <TextBlock TextWrapping="Wrap">
+                It seems that the application failed to start correctly the last time it was started. 
+            </TextBlock>
+            <TextBlock TextWrapping="Wrap" >
+                If this happens again, try to reset the user data settings.
+            </TextBlock>
+        </StackPanel>
+
+        <DockPanel Grid.Column="1" Grid.Row="2" Margin="25 30 25 0" LastChildFill="False">
+            <orc:DropDownButton Header="Reset user settings" DockPanel.Dock="Left" Height="25" Width="130"
+                                AccentColorBrush="{StaticResource AccentColorBrush}"
+                                Command="{Binding DefaultAction}" >
+                <orc:DropDownButton.DropDown>
+                    <ContextMenu>
+                        <MenuItem Header="Reset" Command="{Binding ResetUserSettings}"/>
+                        <MenuItem Header="Backup and Reset" Command="{Binding BackupAndReset}"/>
+                    </ContextMenu>
+                </orc:DropDownButton.DropDown>
+            </orc:DropDownButton>
+            <Button Content="Ok" DockPanel.Dock="Right" Width="60" Height="25" Command="{Binding Ok}"/>
+        </DockPanel>
+    </Grid>
+</catel:Window>

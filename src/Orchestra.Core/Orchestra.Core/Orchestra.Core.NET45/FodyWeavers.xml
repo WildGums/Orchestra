@@ -11,6 +11,6 @@
   </Costura>
   <Obsolete/>
   <MethodTimer/>
-  <Catel/>
   <LoadAssembliesOnStartup/>
+  <Catel/>
 </Weavers>
