@@ -52,7 +52,7 @@
         </Expander>
 
         <GroupBox Grid.Row="2" Header="Results">
-            <orc:LogViewerControl x:Name="traceOutputControl" />
+            <orc:AdvancedLogViewerControl/>
         </GroupBox>
     </Grid>
 
