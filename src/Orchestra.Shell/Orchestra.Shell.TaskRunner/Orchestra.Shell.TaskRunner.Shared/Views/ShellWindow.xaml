@@ -7,7 +7,9 @@
                   xmlns:orc="http://www.wildgums.net.au/orc"
                   ShowInTaskbar="True" MinWidth="625" MinHeight="625" Width="625" Height="625"
                   SizeToContent="Manual" ResizeMode="CanResizeWithGrip" UseLayoutRounding="True">
-
+    <catel:DataWindow.Resources>
+        <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic.xaml" />
+    </catel:DataWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -52,7 +54,7 @@
         </Expander>
 
         <GroupBox Grid.Row="2" Header="Results">
-            <orc:AdvancedLogViewerControl/>
+            <orc:AdvancedLogViewerControl AccentColorBrush="{StaticResource AccentColorBrush}"/>
         </GroupBox>
     </Grid>
 
