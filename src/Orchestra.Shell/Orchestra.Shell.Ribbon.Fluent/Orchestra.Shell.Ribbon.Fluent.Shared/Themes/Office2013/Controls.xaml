@@ -7,13 +7,16 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">
                     <Border x:Name="Chrome" BorderBrush="LightGray" BorderThickness="1" Background="#FFF4F4F4" SnapsToDevicePixels="True">
-                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"
-                                                  ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                  Margin="{TemplateBinding Padding}"
-                                                  RecognizesAccessKey="True"
-                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Grid>
+                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"
+                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}"
+                                              RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <Grid x:Name="Filter" Background="Transparent" Opacity="0.7"/>
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -25,7 +28,7 @@
                             <Setter Property="BorderBrush" TargetName="Chrome" Value="{StaticResource AccentColorBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="#FFADADAD"/>
+                            <Setter Property="Background" TargetName="Filter" Value="WhiteSmoke"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -621,6 +624,67 @@
                             <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="True" />
                         </Border>
                     </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RadioFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="14,0,0,0" 
+									SnapsToDevicePixels="true" 
+									Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" 
+									StrokeThickness="1" 
+									StrokeDashArray="1 2"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type RadioButton}">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <BulletDecorator Background="Transparent">
+                        <BulletDecorator.Bullet>
+                            <Border x:Name="RadioButtonBorder"
+                                        Width="12"
+										Height="12"
+										CornerRadius="6" 
+										BorderThickness="{TemplateBinding BorderThickness}"
+										BorderBrush="LightGray" 
+										Background="White">
+                                <Border x:Name="RadioMark"
+                                        Width="6" 
+                                        Height="6"
+                                        CornerRadius="6"
+                                        BorderBrush="Transparent"
+                                        Background="Black"/>
+                            </Border>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}" 
+                                          RecognizesAccessKey="True" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </BulletDecorator>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource RadioFocusVisual}"/>
+                            <Setter Property="Padding" Value="4,0,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="#FFADADAD"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="RadioButtonBorder" Value="{StaticResource AccentColorBrush4}"/>
+                            <Setter Property="BorderBrush" TargetName="RadioButtonBorder" Value="{StaticResource AccentColorBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="false">
+                            <Setter TargetName="RadioMark" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

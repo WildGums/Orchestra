@@ -16,9 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\ILogControlService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\ITaskRunnerService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\LogControlService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TaskRunnerEnvironment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ShellViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ShellWindow.xaml.cs">

@@ -162,7 +162,11 @@
                 <fluent:RibbonGroupBox Header="Custom controls">
                     <StackPanel>
                         <ComboBox />
-                        <CheckBox />
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox />
+                            <RadioButton />
+                            <RadioButton />    
+                        </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Slider Height="66" Orientation="Vertical" Margin="5,0,0,0" Minimum="150" Maximum="800" 
