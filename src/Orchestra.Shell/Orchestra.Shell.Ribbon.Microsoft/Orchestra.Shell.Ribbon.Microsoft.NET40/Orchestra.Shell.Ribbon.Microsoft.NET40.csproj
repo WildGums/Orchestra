@@ -47,10 +47,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.2.0-unstable0124\lib\net40\Catel.Extensions.Controls.dll</HintPath>
       <HintPath>..\..\..\..\lib\Catel.Core.4.2.0-unstable0127\lib\net40\Catel.Core.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.Core.4.2.0-unstable0130\lib\net40\Catel.Core.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Extensions.Controls, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.2.0-unstable0127\lib\net40\Catel.Extensions.Controls.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.2.0-unstable0130\lib\net40\Catel.Extensions.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Fody.Attributes, Version=2.6.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -60,6 +61,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0124\lib\net40\Catel.MVVM.dll</HintPath>
       <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0127\lib\net40\Catel.MVVM.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0130\lib\net40\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="MethodTimer">
       <HintPath>..\..\..\..\lib\MethodTimer.Fody.1.15.2.0\Lib\portable-net4+sl5+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\MethodTimer.dll</HintPath>
@@ -109,6 +111,7 @@
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0124\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0127\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0130\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />

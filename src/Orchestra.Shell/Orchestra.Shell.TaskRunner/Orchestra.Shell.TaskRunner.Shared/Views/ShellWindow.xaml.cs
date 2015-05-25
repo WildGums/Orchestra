@@ -56,17 +56,9 @@ namespace Orchestra.Views
             LogManager.AddListener(fileLogListener);
 
             var serviceLocator = this.GetServiceLocator();
-            var processService = serviceLocator.ResolveType<IProcessService>();
             var taskRunnerService = serviceLocator.ResolveType<ITaskRunnerService>();
             var commandManager = serviceLocator.ResolveType<ICommandManager>();
             var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
-
-            AddCustomButton(new DataWindowButton("Open log...", () =>
-            {
-                LogManager.FlushAll();
-
-                processService.StartProcess(currentLogFileName);
-            }));
 
             if (taskRunnerService.ShowCustomizeShortcutsButton)
             {
@@ -86,6 +78,7 @@ namespace Orchestra.Views
             ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
 
             InitializeComponent();
+            serviceLocator.RegisterInstance<ILogControlService>(new LogControlService(traceOutputControl));
 
             var task = taskRunnerService.GetViewDataContext();
             task.Wait();

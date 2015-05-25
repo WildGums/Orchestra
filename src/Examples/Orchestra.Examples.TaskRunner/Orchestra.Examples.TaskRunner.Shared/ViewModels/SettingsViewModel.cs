@@ -23,16 +23,19 @@ namespace Orchestra.Examples.TaskRunner.ViewModels
         #region Fields
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
+        private readonly ILogControlService _logControlService;
         private readonly IDispatcherService _dispatcherService;
         #endregion
 
         #region Constructors
-        public SettingsViewModel(Settings settings, IDispatcherService dispatcherService)
+        public SettingsViewModel(Settings settings, ILogControlService logControlService, IDispatcherService dispatcherService)
         {
             Argument.IsNotNull(() => settings);
+            Argument.IsNotNull(() => logControlService);
             Argument.IsNotNull(() => dispatcherService);
 
             Settings = settings;
+            _logControlService = logControlService;
             _dispatcherService = dispatcherService;
         }
         #endregion
@@ -50,6 +53,8 @@ namespace Orchestra.Examples.TaskRunner.ViewModels
         protected override async Task Initialize()
         {
             await base.Initialize();
+
+            _dispatcherService.BeginInvoke(() => _logControlService.SelectedLevel = LogEvent.Debug | LogEvent.Info);
         }
     }
 }
