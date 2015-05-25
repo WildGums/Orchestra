@@ -44,7 +44,7 @@ namespace Orchestra.Views
 
             _assembly = AssemblyHelper.GetEntryAssembly();
 
-            Ok = new Command(OnOkExecute);
+            Continue = new Command(OnContinueExecute);
             ResetUserSettings = new Command(OnResetUserSettingsExecute);
             BackupAndReset = new Command(OnResetAndBackupExecute);
         }
@@ -77,7 +77,9 @@ namespace Orchestra.Views
 
             _appDataService.DeleteUserData();
 
-            await Close();
+            await _messageService.ShowInformation("Backup has been succesfully created.", _assembly.Title());
+
+            await CloseViewModel(false);
         }
 
         public Command ResetUserSettings { get; set; }
@@ -88,16 +90,18 @@ namespace Orchestra.Views
 
             _appDataService.DeleteUserData();
 
-            await Close();
+            await _messageService.ShowInformation("User data settings have been successfully deleted.", _assembly.Title());
+
+            await CloseViewModel(false);
         }
 
-        public Command Ok { get; set; }
+        public Command Continue { get; set; }
 
-        private async void OnOkExecute()
+        private async void OnContinueExecute()
         {
             Log.Info("User choose NOT to delete any data and continue (living on the edge)");
 
-            await Close();
+            await CloseViewModel(false);
         }
         #endregion
     }
