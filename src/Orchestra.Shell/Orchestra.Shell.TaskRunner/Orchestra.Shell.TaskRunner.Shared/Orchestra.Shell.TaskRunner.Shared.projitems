@@ -11,12 +11,13 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\CommandToExpanderBehavior.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\LogViewerControlExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\ILogControlService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\ITaskRunnerService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\LogControlService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TaskRunnerEnvironment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ShellViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ShellWindow.xaml.cs">
@@ -24,6 +25,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
   </ItemGroup>

@@ -54,7 +54,7 @@
         </Expander>
 
         <GroupBox Grid.Row="2" Header="Results">
-            <orc:AdvancedLogViewerControl AccentColorBrush="{StaticResource AccentColorBrush}"/>
+            <orc:AdvancedLogViewerControl x:Name="traceOutputControl" AccentColorBrush="{StaticResource AccentColorBrush}"/>
         </GroupBox>
     </Grid>
 

@@ -78,6 +78,7 @@ namespace Orchestra.Views
             ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
 
             InitializeComponent();
+            serviceLocator.RegisterInstance<ILogControlService>(new LogControlService(traceOutputControl));
 
             var task = taskRunnerService.GetViewDataContext();
             task.Wait();
