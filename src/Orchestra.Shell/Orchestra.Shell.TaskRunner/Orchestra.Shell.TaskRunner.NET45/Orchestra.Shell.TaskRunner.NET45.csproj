@@ -69,7 +69,7 @@
     </Reference>
     <Reference Include="Orc.LogViewer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Orc.LogViewer.1.0.0-unstable0039\lib\net45\Orc.LogViewer.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Orc.LogViewer.1.0.0-unstable0040\lib\net45\Orc.LogViewer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

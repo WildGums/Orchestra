@@ -54,7 +54,7 @@ namespace Orchestra.Examples.TaskRunner.ViewModels
         {
             await base.Initialize();
 
-            _dispatcherService.BeginInvoke(() => _logControlService.SelectedLevel = LogEvent.Info);
+            _dispatcherService.BeginInvoke(() => _logControlService.SelectedLevel = LogEvent.Debug | LogEvent.Info);
         }
     }
 }

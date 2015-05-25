@@ -9,7 +9,6 @@ namespace Orchestra.Services
 {
     using Catel;
     using Catel.Logging;
-    using Catel.Windows.Threading;
     using Orc.LogViewer;
 
     public class LogControlService : ILogControlService
@@ -22,10 +21,6 @@ namespace Orchestra.Services
             Argument.IsNotNull(() => traceOutputControl);
 
             _traceOutputControl = traceOutputControl;
-            _traceOutputControl.Dispatcher.BeginInvoke(() =>
-            {
-                _traceOutputControl.Level = LogEvent.Info;
-            });
         }
         #endregion
 
