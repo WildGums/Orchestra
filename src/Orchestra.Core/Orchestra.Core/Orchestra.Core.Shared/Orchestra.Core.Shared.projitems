@@ -108,7 +108,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\KeyboardMappingsCustomizationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\KeyboardMappingsOverviewViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\OpenFilePickerViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SaveFilePickerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SplashScreenViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SystemInfoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutWindow.xaml.cs">
@@ -128,9 +127,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\OpenFilePickerView.xaml.cs">
       <DependentUpon>OpenFilePickerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\SaveFilePickerView.xaml.cs">
-      <DependentUpon>SaveFilePickerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
@@ -181,10 +177,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\OpenFilePickerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\SaveFilePickerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
