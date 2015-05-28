@@ -90,7 +90,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IStatusService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IThemeService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\KeyboardMappingsService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\MicrosoftApiSelectDirectoryService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\PleaseWaitService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\RecentlyUsedItemsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SplashScreenService.cs" />

@@ -50,8 +50,6 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IClipboardService, ClipboardService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IThemeService, ThemeService>();
 
-        // Override Catel.SelectDirectoryService with Orchestra.Services.SelectDirectoryService
-        serviceLocator.RegisterType<ISelectDirectoryService, MicrosoftApiSelectDirectoryService>();
 
         // Hints system
         serviceLocator.RegisterType<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>();
