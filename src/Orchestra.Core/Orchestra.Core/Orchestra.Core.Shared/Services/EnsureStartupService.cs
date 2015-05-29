@@ -76,7 +76,7 @@ namespace Orchestra.Services
 
             Log.Debug("Showing CrashWarningWindow dialog");
 
-            _uiVisualizerService.ShowDialog<CrashWarningWindowViewModel>();
+            _uiVisualizerService.ShowDialog<CrashWarningViewModel>();
         }
         #endregion
 

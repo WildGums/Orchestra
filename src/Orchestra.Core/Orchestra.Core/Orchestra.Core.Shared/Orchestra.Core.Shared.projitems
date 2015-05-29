@@ -105,7 +105,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tooltips\Interfaces\IAdornerTooltipGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tooltips\TextBlockAdorner.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CrashWarningWindowViewModel.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CrashWarningViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DirectoryPickerViewModel.cs" />

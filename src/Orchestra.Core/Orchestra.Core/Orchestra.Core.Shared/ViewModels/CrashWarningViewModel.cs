@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CrashWarningWindowViewModel.cs" company="Wild Gums">
+// <copyright file="CrashWarningViewModel.cs" company="Wild Gums">
 //   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -16,7 +16,7 @@ namespace Orchestra.Views
     using Services;
     using AssemblyHelper = Orchestra.AssemblyHelper;
 
-    public class CrashWarningWindowViewModel : ViewModelBase
+    public class CrashWarningViewModel : ViewModelBase
     {
         #region Fields
 
@@ -31,7 +31,7 @@ namespace Orchestra.Views
         #endregion
 
         #region Constructors
-        public CrashWarningWindowViewModel(IAppDataService appDataService, IMessageService messageService, INavigationService navigationService)
+        public CrashWarningViewModel(IAppDataService appDataService, IMessageService messageService, INavigationService navigationService)
         {
             Argument.IsNotNull(() => messageService);
             Argument.IsNotNull(() => navigationService);

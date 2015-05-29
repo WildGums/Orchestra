@@ -3,7 +3,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:catel="http://catel.codeplex.com"
               xmlns:orc="http://www.wildgums.net.au/orc"
-              SizeToContent="Manual" Width="485" Height="190" ResizeMode="NoResize"
+              SizeToContent="WidthAndHeight" ResizeMode="NoResize"
               WindowStartupLocation="CenterOwner">
 
     <catel:Window.Resources>
@@ -20,6 +20,7 @@
                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
+                        
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource AccentColorBrush4}"/>
@@ -38,11 +39,16 @@
             </Setter>
         </Style>
     </catel:Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500" />
+        </Grid.ColumnDefinitions>        
 
         <StackPanel Grid.Row="0" Margin="20 20 20 0">
             <TextBlock TextWrapping="Wrap" Margin="0 0 0 10">
@@ -53,8 +59,8 @@
             </TextBlock>
         </StackPanel>
 
-        <DockPanel Grid.Column="1" Grid.Row="2" Margin="20 20 20 0" LastChildFill="False" VerticalAlignment="Top">
-            <orc:DropDownButton Header="User data settings" DockPanel.Dock="Left" Height="25" Width="140"
+        <DockPanel Grid.Row="1" Margin="20 20 20 0" LastChildFill="False" VerticalAlignment="Top">
+            <orc:DropDownButton Header="User data settings" DockPanel.Dock="Left" Height="26" Width="140"
                                 AccentColorBrush="{StaticResource AccentColorBrush}" ShowDefaultButton="False" >
                 <orc:DropDownButton.DropDown>
                     <ContextMenu>
@@ -63,7 +69,8 @@
                     </ContextMenu>
                 </orc:DropDownButton.DropDown>
             </orc:DropDownButton>
-            <Button Content="Continue" DockPanel.Dock="Right" Width="70" Height="25"
+            
+            <Button Content="Continue" DockPanel.Dock="Right" Width="70" Height="26"
                     IsDefault="true" Command="{Binding Continue}"/>
         </DockPanel>
     </Grid>
