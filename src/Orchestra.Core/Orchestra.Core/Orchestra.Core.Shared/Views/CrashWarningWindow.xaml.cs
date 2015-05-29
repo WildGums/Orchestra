@@ -7,19 +7,11 @@
 
 namespace Orchestra.Views
 {
-    using Catel.IoC;
-    using System.Windows;
-    using Services;
-
     public partial class CrashWarningWindow
     {
         #region Constructors
         public CrashWarningWindow()
         {
-            var serviceLocator = ServiceLocator.Default;
-            var themeService = serviceLocator.ResolveType<IThemeService>();
-            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, themeService.ShouldCreateStyleForwarders());
-
             InitializeComponent();
         }
         #endregion

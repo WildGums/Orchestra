@@ -42,7 +42,7 @@
                         
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource AccentColorBrush4}"/>
+                                <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource ControlsHighlightBrush}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource AccentColorBrush}"/>
@@ -81,7 +81,7 @@
 
                 <DockPanel Margin="0 20 0 20" LastChildFill="False" VerticalAlignment="Top">
                     <orc:DropDownButton Header="User data settings" DockPanel.Dock="Left" Height="26" Width="140"
-                                AccentColorBrush="{StaticResource AccentColorBrush}" ShowDefaultButton="False" >
+                                AccentColorBrush="{DynamicResource AccentColorBrush}" ShowDefaultButton="False" >
                         <orc:DropDownButton.DropDown>
                             <ContextMenu>
                                 <MenuItem Header="Reset" Command="{Binding ResetUserSettings}"/>
