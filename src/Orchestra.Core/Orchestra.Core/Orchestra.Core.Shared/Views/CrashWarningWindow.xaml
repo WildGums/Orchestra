@@ -69,17 +69,19 @@
             <ColumnDefinition Width="500" />
         </Grid.ColumnDefinitions>
 
-        <DockPanel Grid.Row="0" Margin="20 20 20 0">
-            <Label Style="{StaticResource CrashWarningWindowLabelStyle}" Margin="0 10 30 10"/>
+        <DockPanel Grid.Row="0" Margin="10">
+            <Label Style="{StaticResource CrashWarningWindowLabelStyle}" Margin="0 0 30 10"/>
+            
             <StackPanel>
                 <TextBlock TextWrapping="Wrap" Margin="0 0 0 10">
-                It seems that the application failed to start correctly the last time it was started.
-                </TextBlock>
-                <TextBlock TextWrapping="Wrap" Margin="0">
-                If this happens again, try to reset the user data settings. The left button will allow you to reset (and optionally backup) your settings.
+                    It seems that the application failed to start correctly the last time it was started.
+                    <LineBreak /><LineBreak />
+                    If this happens again, try to reset the user data settings. The left button will allow you to reset (and optionally backup) your settings.
+                    <LineBreak /><LineBreak />
+                    When ready, click continue to start the application.
                 </TextBlock>
 
-                <DockPanel Margin="0 20 0 20" LastChildFill="False" VerticalAlignment="Top">
+                <DockPanel Margin="0 20 0 0" LastChildFill="False" VerticalAlignment="Top">
                     <orc:DropDownButton Header="User data settings" DockPanel.Dock="Left" Height="26" Width="140"
                                         AccentColorBrush="{DynamicResource AccentColorBrush}" ShowDefaultButton="False" >
                         <orc:DropDownButton.DropDown>
