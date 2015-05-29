@@ -7,7 +7,7 @@
               WindowStartupLocation="CenterOwner">
 
     <catel:Window.Resources>
-        <Style TargetType="{x:Type Button}">
+        <Style x:Key="CrashWarningWindowButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ButtonBase}">
@@ -59,7 +59,7 @@
             </TextBlock>
         </StackPanel>
 
-        <DockPanel Grid.Row="1" Margin="20 20 20 0" LastChildFill="False" VerticalAlignment="Top">
+        <DockPanel Grid.Row="1" Margin="20" LastChildFill="False" VerticalAlignment="Top">
             <orc:DropDownButton Header="User data settings" DockPanel.Dock="Left" Height="26" Width="140"
                                 AccentColorBrush="{StaticResource AccentColorBrush}" ShowDefaultButton="False" >
                 <orc:DropDownButton.DropDown>
@@ -70,8 +70,8 @@
                 </orc:DropDownButton.DropDown>
             </orc:DropDownButton>
             
-            <Button Content="Continue" DockPanel.Dock="Right" Width="70" Height="26"
-                    IsDefault="true" Command="{Binding Continue}"/>
+            <Button Content="Continue" DockPanel.Dock="Right" Width="70" Height="26" 
+                    IsDefault="true" Command="{Binding Continue}" Style="{StaticResource CrashWarningWindowButtonStyle}"/>
         </DockPanel>
     </Grid>
 </catel:Window>
