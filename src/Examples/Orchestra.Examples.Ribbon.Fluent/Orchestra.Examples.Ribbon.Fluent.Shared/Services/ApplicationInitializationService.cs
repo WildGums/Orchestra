@@ -37,10 +37,10 @@ namespace Orchestra.Examples.Ribbon.Services
         {
             // Non-async first
             await RegisterTypes();
+            await InitializeCommands();
 
             await RunAndWaitAsync(new Func<Task>[]
             {
-                InitializeCommands,
                 InitializePerformance
             });
         }

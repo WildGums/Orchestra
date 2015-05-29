@@ -27,9 +27,11 @@ namespace Orchestra.Examples.MahApps.Services
 
         public override async Task InitializeBeforeCreatingShell()
         {
+            // Non-async first
+            await InitializeCommands();
+
             await RunAndWaitAsync(new Func<Task>[]
             {
-                InitializeCommands,
                 InitializePerformance
             });
 

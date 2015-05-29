@@ -104,12 +104,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tooltips\Interfaces\IAdornerTooltipGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tooltips\TextBlockAdorner.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CrashWarningViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\KeyboardMappingsCustomizationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\KeyboardMappingsOverviewViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SplashScreenViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SystemInfoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CrashWarningWindow.xaml.cs">
+      <DependentUpon>CrashWarningWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsCustomizationView.xaml.cs">
       <DependentUpon>KeyboardMappingsCustomizationView.xaml</DependentUpon>
@@ -155,6 +162,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\CrashWarningWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsCustomizationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,5 +190,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Resources\Images\" />
   </ItemGroup>
 </Project>
