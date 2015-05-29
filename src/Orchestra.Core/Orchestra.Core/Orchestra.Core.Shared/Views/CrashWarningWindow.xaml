@@ -76,12 +76,12 @@
                 It seems that the application failed to start correctly the last time it was started.
                 </TextBlock>
                 <TextBlock TextWrapping="Wrap" Margin="0">
-                If this happens again, try to reset the user data settings. The left button will allow you to choose to reset (and optionally backup) your settings.
+                If this happens again, try to reset the user data settings. The left button will allow you to reset (and optionally backup) your settings.
                 </TextBlock>
 
                 <DockPanel Margin="0 20 0 20" LastChildFill="False" VerticalAlignment="Top">
                     <orc:DropDownButton Header="User data settings" DockPanel.Dock="Left" Height="26" Width="140"
-                                AccentColorBrush="{DynamicResource AccentColorBrush}" ShowDefaultButton="False" >
+                                        AccentColorBrush="{DynamicResource AccentColorBrush}" ShowDefaultButton="False" >
                         <orc:DropDownButton.DropDown>
                             <ContextMenu>
                                 <MenuItem Header="Reset" Command="{Binding ResetUserSettings}"/>
