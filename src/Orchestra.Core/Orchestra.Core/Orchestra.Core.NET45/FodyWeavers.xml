@@ -4,8 +4,6 @@
   <Costura>
     <IncludeAssemblies>
       Ionic.Zip
-      Microsoft.WindowsAPICodePack
-      Microsoft.WindowsAPICodePack.Shell
       Orc.SystemInfo
     </IncludeAssemblies>
   </Costura>
