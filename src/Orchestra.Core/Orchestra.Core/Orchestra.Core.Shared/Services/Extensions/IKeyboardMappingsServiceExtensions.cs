@@ -10,21 +10,22 @@ namespace Orchestra.Services
     using System.Threading.Tasks;
 
     using Catel;
+    using Catel.Threading;
 
     public static class IKeyboardMappingsServiceExtensions
     {
-        public static async Task LoadAsync(this IKeyboardMappingsService keyboardMappingsService)
+        public static Task LoadAsync(this IKeyboardMappingsService keyboardMappingsService)
         {
             Argument.IsNotNull(() => keyboardMappingsService);
 
-            await Task.Factory.StartNew(() => keyboardMappingsService.Load());
+            return TaskHelper.Run(() => keyboardMappingsService.Load());
         }
 
-        public static async Task SaveAsync(this IKeyboardMappingsService keyboardMappingsService)
+        public static Task SaveAsync(this IKeyboardMappingsService keyboardMappingsService)
         {
             Argument.IsNotNull(() => keyboardMappingsService);
 
-            await Task.Factory.StartNew(() => keyboardMappingsService.Save());
+            return TaskHelper.Run(() => keyboardMappingsService.Save());
         }
     }
 }
