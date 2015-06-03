@@ -7,8 +7,8 @@
     <ProjectGuid>{0E099AB6-235D-4AE1-96C8-3E2D85FF6AF1}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Orchestra.Shell.MahApps.NET45</RootNamespace>
-    <AssemblyName>Orchestra.Shell.MahApps.NET45</AssemblyName>
+    <RootNamespace>Orchestra</RootNamespace>
+    <AssemblyName>Orchestra.Shell.MahApps</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
