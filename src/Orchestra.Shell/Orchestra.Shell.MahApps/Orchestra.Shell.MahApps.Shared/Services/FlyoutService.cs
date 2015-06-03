@@ -1,11 +1,11 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="FlyoutService.cs" company="Simulation Modelling Services">
-//   Copyright (c) 2008 - 2014 Simulation Modelling Services. All rights reserved.
+// <copyright file="FlyoutService.cs" company="Wild Gums">
+//   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace FallDownMatrixManager.Services
+namespace Orchestra.Services
 {
     using System;
     using System.Collections.Generic;
@@ -19,18 +19,20 @@ namespace FallDownMatrixManager.Services
     using Catel.MVVM.Providers;
     using Catel.Windows.Threading;
     using MahApps.Metro.Controls;
-    using Orchestra.Models;
+    using Models;
     using ThemeHelper = Orchestra.ThemeHelper;
 
     public class FlyoutService : IFlyoutService
     {
+        #region Fields
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        private readonly ITypeFactory _typeFactory;
         private readonly ICommandManager _commandManager;
-
         private readonly Dictionary<string, FlyoutInfo> _flyouts = new Dictionary<string, FlyoutInfo>();
+        private readonly ITypeFactory _typeFactory;
+        #endregion
 
+        #region Constructors
         public FlyoutService(ITypeFactory typeFactory, ICommandManager commandManager)
         {
             Argument.IsNotNull(() => typeFactory);
@@ -39,11 +41,13 @@ namespace FallDownMatrixManager.Services
             _typeFactory = typeFactory;
             _commandManager = commandManager;
         }
+        #endregion
 
+        #region Methods
         public IEnumerable<Flyout> GetFlyouts()
         {
             return (from flyout in _flyouts.Values
-                    select flyout.Flyout);
+                select flyout.Flyout);
         }
 
         public void AddFlyout(string name, Type viewType, Position position, UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel)
@@ -53,7 +57,7 @@ namespace FallDownMatrixManager.Services
 
             Log.Info("Adding flyout '{0}' with view type '{1}'", name, viewType.FullName);
 
-            var content = (UIElement)_typeFactory.CreateInstance(viewType);
+            var content = (UIElement) _typeFactory.CreateInstance(viewType);
 
             var flyout = new Flyout();
             flyout.Theme = FlyoutTheme.Adapt;
@@ -61,9 +65,9 @@ namespace FallDownMatrixManager.Services
 
             var flyoutInfo = new FlyoutInfo(flyout, content);
 
-            flyout.SetBinding(Flyout.HeaderProperty, new Binding("ViewModel.Title") { Source = content });
+            flyout.SetBinding(Flyout.HeaderProperty, new Binding("ViewModel.Title") {Source = content});
 
-            ((ICompositeCommand)_commandManager.GetCommand("Close")).RegisterAction(() => { flyout.IsOpen = false; });
+            ((ICompositeCommand) _commandManager.GetCommand("Close")).RegisterAction(() => { flyout.IsOpen = false; });
 
             flyout.IsOpenChanged += (sender, e) =>
             {
@@ -141,5 +145,6 @@ namespace FallDownMatrixManager.Services
 
             flyout.IsOpen = false;
         }
+        #endregion
     }
 }

@@ -1,11 +1,11 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="FlyoutServiceExtensions.cs" company="Simulation Modelling Services">
-//   Copyright (c) 2008 - 2014 Simulation Modelling Services. All rights reserved.
+// <copyright file="FlyoutServiceExtensions.cs" company="Wild Gums">
+//   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace FallDownMatrixManager.Services
+namespace Orchestra.Services
 {
     using Catel;
     using Catel.MVVM.Providers;
@@ -17,7 +17,7 @@ namespace FallDownMatrixManager.Services
         {
             Argument.IsNotNull(() => flyoutService);
 
-            flyoutService.AddFlyout(name, typeof(TView), position, unloadBehavior);
+            flyoutService.AddFlyout(name, typeof (TView), position, unloadBehavior);
         }
     }
 }

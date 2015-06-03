@@ -12,7 +12,6 @@ namespace Orchestra.Views
     using Windows;
     using Catel.IoC;
     using Catel.MVVM;
-    using FallDownMatrixManager.Services;
     using MahApps.Metro.Controls;
     using Services;
 

@@ -16,7 +16,6 @@ namespace Orchestra.Examples.MahApps
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
-    using FallDownMatrixManager.Services;
     using global::MahApps.Metro.Controls;
     using Orchestra.Views;
     using Services;

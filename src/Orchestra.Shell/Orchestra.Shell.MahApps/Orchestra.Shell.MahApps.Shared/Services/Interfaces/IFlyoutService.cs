@@ -1,11 +1,11 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IFlyoutService.cs" company="Simulation Modelling Services">
-//   Copyright (c) 2008 - 2014 Simulation Modelling Services. All rights reserved.
+// <copyright file="IFlyoutService.cs" company="Wild Gums">
+//   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace FallDownMatrixManager.Services
+namespace Orchestra.Services
 {
     using System;
     using System.Collections.Generic;

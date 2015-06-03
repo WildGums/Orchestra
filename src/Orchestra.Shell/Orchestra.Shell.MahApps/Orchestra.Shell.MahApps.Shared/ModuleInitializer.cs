@@ -9,7 +9,6 @@ using System.Windows.Input;
 using Catel.IoC;
 using Catel.MVVM;
 using Catel.Services;
-using FallDownMatrixManager.Services;
 using Orchestra.Services;
 using InputGesture = Catel.Windows.Input.InputGesture;
 

@@ -14,8 +14,8 @@ namespace Orchestra.Examples.MahApps.ViewModels
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Services;
-    using FallDownMatrixManager.Services;
     using Models;
+    using Orchestra.Services;
 
     public class PersonsViewModel : ViewModelBase
     {
