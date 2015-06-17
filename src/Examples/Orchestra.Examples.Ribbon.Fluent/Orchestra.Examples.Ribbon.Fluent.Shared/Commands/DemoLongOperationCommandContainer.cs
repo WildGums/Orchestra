@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DemoLongOperation.cs" company="Wild Gums">
+// <copyright file="DemoLongOperationCommandContainer.cs" company="Wild Gums">
 //   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -13,16 +13,20 @@ namespace Orchestra.Examples.Ribbon
     using Catel.MVVM;
     using Catel.Services;
 
-    internal class DemoLongOperationCommandContainer : Catel.MVVM.CommandContainerBase
+    internal class DemoLongOperationCommandContainer : CommandContainerBase
     {
+        #region Fields
         private readonly IPleaseWaitService _pleaseWaitService;
+        #endregion
 
-        public DemoLongOperationCommandContainer(ICommandManager commandManager, 
+        #region Constructors
+        public DemoLongOperationCommandContainer(ICommandManager commandManager,
             IPleaseWaitService pleaseWaitService)
             : base(Commands.Demo.LongOperation, commandManager)
         {
             _pleaseWaitService = pleaseWaitService;
         }
+        #endregion
 
         protected override async Task ExecuteAsync(object parameter)
         {
@@ -36,7 +40,7 @@ namespace Orchestra.Examples.Ribbon
                 {
                     _pleaseWaitService.UpdateStatus(i + 1, TotalItems);
 
-                    ThreadHelper.Sleep(random.Next(20, 40));
+                    ThreadHelper.Sleep(random.Next(5, 30));
                 }
             });
         }
