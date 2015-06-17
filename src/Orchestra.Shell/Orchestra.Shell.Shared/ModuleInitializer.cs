@@ -6,6 +6,7 @@
 
 
 using Catel.IoC;
+using Catel.Services;
 using Orchestra.Services;
 
 /// <summary>
@@ -23,6 +24,7 @@ public static partial class ModuleInitializer
 
         serviceLocator.RegisterType<IShellService, ShellService>();
         serviceLocator.RegisterType<IApplicationInitializationService, ApplicationInitializationServiceBase>();
+        serviceLocator.RegisterType<IPleaseWaitService, ProgressPleaseWaitService>();
 
         InitializeSpecific();
     }

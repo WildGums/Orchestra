@@ -2,7 +2,9 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:orchestra="https://github.com/orcomp/orchestra"
+                      xmlns:catel="http://catel.codeplex.com"
                       xmlns:windows="clr-namespace:Orchestra.Windows"
+                      xmlns:converters="clr-namespace:Orchestra.Shell.Converters"
                       ShowInTaskbar="True" ResizeMode="CanResize" WindowState="Maximized"
                       Title="{Binding ElementName=ribbonContentControl, Path=Content.ViewModel.Title}">
 
@@ -10,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -28,7 +31,9 @@
         
         <ContentControl Grid.Row="1" x:Name="contentControl" />
 
-        <StatusBar Grid.Row="2" x:Name="statusBar">
+        <ProgressBar x:Name="pleaseWaitProgressBar" Grid.Row="2" Visibility="Collapsed" />
+        
+        <StatusBar Grid.Row="3" x:Name="statusBar">
             <StatusBarItem>
                 <orchestra:AnimatingTextBlock x:Name="statusTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <orchestra:AnimatingTextBlock.ShowStoryboard>

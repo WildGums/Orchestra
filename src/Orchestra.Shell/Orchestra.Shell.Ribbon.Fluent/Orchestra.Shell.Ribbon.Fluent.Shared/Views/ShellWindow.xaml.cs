@@ -38,6 +38,8 @@ namespace Orchestra.Views
 
             InitializeComponent();
 
+            serviceLocator.RegisterInstance(pleaseWaitProgressBar, "pleaseWaitService");
+
             var statusService = serviceLocator.ResolveType<IStatusService>();
             statusService.Initialize(statusTextBlock);
 

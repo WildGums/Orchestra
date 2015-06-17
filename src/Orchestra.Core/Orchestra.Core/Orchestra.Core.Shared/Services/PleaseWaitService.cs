@@ -16,11 +16,11 @@ namespace Orchestra.Services
     public class PleaseWaitService : IPleaseWaitService
     {
         #region Constants
-        public static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
         #endregion
 
         #region Fields
-        private readonly IDispatcherService _dispatcherService;
+        protected readonly IDispatcherService _dispatcherService;
 
         private Cursor _previousCursor;
         #endregion
@@ -37,7 +37,7 @@ namespace Orchestra.Services
         public int ShowCounter { get; private set; }
 
         #region IPleaseWaitService Members
-        public void Show(string status = "")
+        public virtual void Show(string status = "")
         {
             if (ShowCounter <= 0)
             {
@@ -57,7 +57,7 @@ namespace Orchestra.Services
             });
         }
 
-        public void Show(PleaseWaitWorkDelegate workDelegate, string status = "")
+        public virtual void Show(PleaseWaitWorkDelegate workDelegate, string status = "")
         {
             Show(status);
 
@@ -71,7 +71,7 @@ namespace Orchestra.Services
             }
         }
 
-        public void UpdateStatus(string status)
+        public virtual void UpdateStatus(string status)
         {
             if (!string.IsNullOrWhiteSpace(status))
             {
@@ -79,12 +79,12 @@ namespace Orchestra.Services
             }
         }
 
-        public void UpdateStatus(int currentItem, int totalItems, string statusFormat = "")
+        public virtual void UpdateStatus(int currentItem, int totalItems, string statusFormat = "")
         {
             // not required
         }
 
-        public void Hide()
+        public virtual void Hide()
         {
             ShowCounter = 0;
 
@@ -96,7 +96,7 @@ namespace Orchestra.Services
             });
         }
 
-        public void Push(string status = "")
+        public virtual void Push(string status = "")
         {
             if (ShowCounter == 0)
             {
@@ -108,7 +108,7 @@ namespace Orchestra.Services
             }
         }
 
-        public void Pop()
+        public virtual void Pop()
         {
             ShowCounter--;
 

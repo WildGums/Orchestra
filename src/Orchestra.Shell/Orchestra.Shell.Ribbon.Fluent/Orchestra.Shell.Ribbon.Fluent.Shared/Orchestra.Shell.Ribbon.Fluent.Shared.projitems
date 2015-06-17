@@ -6,7 +6,7 @@
     <SharedGUID>378728e2-1764-42e3-8952-9e2c2ab8d57a</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Orchestra.Shell.Ribbon.Fluent.Shared</Import_RootNamespace>
+    <Import_RootNamespace>Orchestra</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />

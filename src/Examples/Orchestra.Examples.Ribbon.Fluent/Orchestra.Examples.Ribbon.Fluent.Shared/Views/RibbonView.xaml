@@ -138,6 +138,9 @@
                 
                 <fluent:RibbonGroupBox Header="Demo group">
                     <fluent:Button Header="Windows" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Windows}}" />
+
+                    <fluent:Button Header="Progress demo" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Play}}" 
+                                   Command="{catel:CommandManagerBinding Demo.LongOperation}" />
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox Header="Keyboard">

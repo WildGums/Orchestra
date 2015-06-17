@@ -10,6 +10,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -19,7 +20,9 @@
         <ContentControl Grid.Row="0" x:Name="ribbonContentControl" />
         <ContentControl Grid.Row="1" x:Name="contentControl" />
 
-        <StatusBar Grid.Row="2" x:Name="statusBar">
+        <ProgressBar x:Name="pleaseWaitProgressBar" Grid.Row="2" Visibility="Collapsed" />
+        
+        <StatusBar Grid.Row="3" x:Name="statusBar">
             <StatusBarItem>
                 <orchestra:AnimatingTextBlock x:Name="statusTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <orchestra:AnimatingTextBlock.ShowStoryboard>

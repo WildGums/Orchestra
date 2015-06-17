@@ -5,4 +5,5 @@
         <ResourceDictionary Source="/Orchestra.Shell.Ribbon.Fluent;Component/Themes/Office2013/Generic.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <Style x:Key="ProgressBarStyle"></Style>
 </ResourceDictionary>
