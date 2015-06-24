@@ -73,6 +73,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\EnsureStartupService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IKeyboardMappingsServiceExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IStatusServiceExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IViewActivationServiceExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\HintsProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IAboutInfoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IAboutService.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IStatusFilterService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IStatusService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IThemeService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IViewActivationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\KeyboardMappingsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\PleaseWaitService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\RecentlyUsedItemsService.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\StatusFilterService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\StatusService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ThemeService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ViewActivationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tooltips\AdorneredTooltip.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tooltips\AdorneredTooltipFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tooltips\AdornerHintGenerator.cs" />
