@@ -26,6 +26,7 @@ namespace Orchestra.ViewModels
         public string Message { get; set; }
         public MessageResult Result { get; set; }
         public MessageButton Button { get; set; }
+        public MessageImage Icon { get; set; }
         #endregion
 
         public void SetTitle(string title)

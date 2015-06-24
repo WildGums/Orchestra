@@ -50,7 +50,8 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IClipboardService, ClipboardService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IThemeService, ThemeService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<IMessageBoxService, MessageBoxService>();
+
+        serviceLocator.RegisterType<IMessageService, MessageBoxService>();
 
 
         // Hints system

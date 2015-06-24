@@ -6,29 +6,29 @@
                   SizeToContent="WidthAndHeight" ResizeMode="NoResize"
                   WindowStartupLocation="CenterOwner">
 
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="500" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <DockPanel Grid.Row="0" Margin="10">
-            <Label Margin="0 0 30 10"/>
-
+        <DockPanel Grid.Row="0">
+            <Label Style="{StaticResource LabelInfoStyle}" VerticalAlignment="Top"
+                   Tag="{Binding Icon, Converter={converters:MessageImageToTextConverter}}" />
             <StackPanel>
                 <TextBlock TextWrapping="Wrap" Margin="0 0 0 10" Text="{Binding Message}"/>
                 <StackPanel Orientation="Horizontal" Margin="0 20 0 0" HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <Button Content="OK" Command="{Binding OkCommand}"
+                    <Button Content="OK" Command="{Binding OkCommand}" Width="60" Margin="6 2 0 2"
                             Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=OK}" />
-                    <Button Content="YesCommand" Command="{Binding YesCommand}"
+                    <Button Content="Yes" Command="{Binding YesCommand}" Width="60" Margin="6 2 0 2"
                             Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=Yes}"/>
-                    <Button Content="No" Command="{Binding NoCommand}"
+                    <Button Content="No" Command="{Binding NoCommand}" Width="60" Margin="6 2 0 2"
                             Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=No}"/>
-                    <Button Content="Cancel" Command="{Binding CancelCommand}"
+                    <Button Content="Cancel" Command="{Binding CancelCommand}" Width="60" Margin="6 2 0 2"
                             Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=Cancel}"/>
                 </StackPanel>
             </StackPanel>

@@ -10,4 +10,46 @@
         <Setter Property="Margin" Value="4" />
     </Style>
 
+    <Geometry x:Key="TriangleGeometry">M2,21.9997L12,2.00026L20.6247,19.2199L20.6291,19.2199L22,21.9997L22,21.9997L22,21.9997L2,21.9997ZM5.0287,19.9997L18.9638,19.9997L12,6.11526L5.0287,19.9997ZM12.9376,16.5456L11.2947,16.5456L11.2947,18.2081L12.9376,18.2081L12.9376,16.5456ZM12.9376,11.5581L11.2947,11.5581L11.2947,14.8831L12.9376,14.8831L12.9376,11.5581Z</Geometry>
+    <Geometry x:Key="EllipseGeometry">M11,9L13,9L13,7L11,7M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.51416,2 2,6.51416 2,12C2,17.4858 6.51416,22 12,22C17.4858,22 22,17.4858 22,12C22,6.51416 17.4858,2 12,2M11,17L13,17L13,11L11,11L11,17Z</Geometry>
+
+    <SolidColorBrush x:Key="WarningBrush" Color="DarkOrange" Opacity="0.1"/>
+    <SolidColorBrush x:Key="ErrorBrush" Color="Red" Opacity="0.1"/>
+    <SolidColorBrush x:Key="InfoBrush" Color="RoyalBlue" Opacity="0.1"/>
+
+    <Style x:Key="LabelInfoStyle" TargetType="{x:Type Label}">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="Margin" Value="0 10 10 10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Label}">
+                    <Grid Margin="{TemplateBinding Margin}" VerticalAlignment="Top">
+                        <Viewbox x:Name="Viewbox" Height="18" Width="18">
+                            <Path Data="{TemplateBinding Path.Data}" HorizontalAlignment="Center" Margin="0"
+                                  SnapsToDevicePixels="True" Stretch="Fill" UseLayoutRounding="True"
+                                  Fill="{TemplateBinding BorderBrush}" VerticalAlignment="Center"/>
+                        </Viewbox>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="Information">
+                            <Setter Property="BorderBrush" Value="RoyalBlue" />
+                            <Setter Property="Path.Data" Value="{StaticResource EllipseGeometry}" />
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="Error">
+                            <Setter Property="BorderBrush" Value="Red" />
+                            <Setter Property="Path.Data" Value="{StaticResource EllipseGeometry}" />
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="Warning">
+                            <Setter Property="BorderBrush" Value="DarkOrange" />
+                            <Setter Property="Path.Data" Value="{StaticResource TriangleGeometry}" />
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

@@ -14,12 +14,13 @@ namespace Orchestra.Services
     using Catel.Windows;
     using ViewModels;
 
-    public class MessageBoxService : IMessageBoxService
+    public class MessageBoxService : MessageService
     {
         private readonly IDispatcherService _dispatcherService;
         private readonly IUIVisualizerService _uiVisualizerService;
 
         public MessageBoxService(IDispatcherService dispatcherService, IUIVisualizerService uiVisualizerService)
+            : base(dispatcherService)
         {
             Argument.IsNotNull(() => dispatcherService);
             Argument.IsNotNull(() => uiVisualizerService);
@@ -28,8 +29,9 @@ namespace Orchestra.Services
             _uiVisualizerService = uiVisualizerService;
         }
 
-        public Task<MessageResult> Show(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
+        public override Task<MessageResult> Show(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
         {
+
             Argument.IsNotNullOrWhitespace("message", message);
 
             var tcs = new TaskCompletionSource<MessageResult>();
@@ -39,7 +41,8 @@ namespace Orchestra.Services
                 var viewModel = new MessageBoxViewModel
                 {
                     Message = message,
-                    Button = button
+                    Button = button,
+                    Icon = icon
                 };
 
                 viewModel.SetTitle(caption);
@@ -50,6 +53,7 @@ namespace Orchestra.Services
             });
 
             return tcs.Task;
+
         }
     }
 }
