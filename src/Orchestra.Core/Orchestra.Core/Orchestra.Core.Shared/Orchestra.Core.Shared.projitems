@@ -30,6 +30,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToThicknessConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\CommandNameToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InputGestureToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\MessageButtonToCollapsingVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\PathToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\OrchestraException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\AssemblyExtensions.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IEnsureStartupService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IHintsProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IKeyboardMappingsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IMessageBoxService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IRecentlyUsedItemsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\ISplashScreenService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IStatusFilterService.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IThemeService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IViewActivationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\KeyboardMappingsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MessageBoxService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\PleaseWaitService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\RecentlyUsedItemsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SplashScreenService.cs" />
@@ -112,6 +115,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\KeyboardMappingsCustomizationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\KeyboardMappingsOverviewViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MessageBoxViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SplashScreenViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SystemInfoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutWindow.xaml.cs">
@@ -132,6 +138,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsOverviewWindow.xaml.cs">
       <DependentUpon>KeyboardMappingsOverviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MessageBox.xaml.cs">
+      <DependentUpon>MessageBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
@@ -182,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsOverviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\MessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

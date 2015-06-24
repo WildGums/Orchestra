@@ -141,6 +141,9 @@
 
                     <fluent:Button Header="Progress demo" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Play}}" 
                                    Command="{catel:CommandManagerBinding Demo.LongOperation}" />
+                    
+                    <fluent:Button Header="Message box demo" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
+                                   Command="{catel:CommandManagerBinding Demo.ShowMessageBox}" />
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox Header="Keyboard">
