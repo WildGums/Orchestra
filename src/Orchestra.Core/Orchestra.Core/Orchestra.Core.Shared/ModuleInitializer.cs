@@ -51,6 +51,7 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IThemeService, ThemeService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();
 
+        serviceLocator.RegisterType<IMessageService, Orchestra.Services.MessageService>();
 
         // Hints system
         serviceLocator.RegisterType<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>();

@@ -109,7 +109,7 @@ namespace Orchestra.Examples.MahApps.ViewModels
                     {
                         Persons.Remove(selectedPerson);
                         SelectedPerson = Persons.FirstOrDefault();
-                    });
+                    }, true);
                 }
             });
         }

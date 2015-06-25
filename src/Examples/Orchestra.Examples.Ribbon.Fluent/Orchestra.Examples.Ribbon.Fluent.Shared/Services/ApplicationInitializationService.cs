@@ -53,6 +53,7 @@ namespace Orchestra.Examples.Ribbon.Services
             commandManager.CreateCommandWithGesture(typeof(Commands.Application), "About");
 
             commandManager.CreateCommandWithGesture(typeof(Commands.Demo), "LongOperation");
+            commandManager.CreateCommandWithGesture(typeof(Commands.Demo), "ShowMessageBox");
 
             commandManager.CreateCommand("File.Open", new InputGesture(Key.O, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.SaveToImage", new InputGesture(Key.I, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);

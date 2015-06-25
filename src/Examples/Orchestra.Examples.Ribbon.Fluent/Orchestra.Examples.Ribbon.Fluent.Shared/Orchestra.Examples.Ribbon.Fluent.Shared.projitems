@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Commands\ApplicationAboutCommandContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\ApplicationExitCommandContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\DemoLongOperationCommandContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\DemoShowMessageBoxCommandContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FontAwesome.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />

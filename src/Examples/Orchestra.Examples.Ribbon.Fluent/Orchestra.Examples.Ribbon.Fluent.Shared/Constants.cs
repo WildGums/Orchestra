@@ -25,6 +25,9 @@ namespace Orchestra.Examples.Ribbon
 	    {
             public const string LongOperation = "Demo.LongOperation";
             public static readonly InputGesture LongOperationInputGesture = null;
+
+            public const string ShowMessageBox = "Demo.ShowMessageBox";
+            public static readonly InputGesture ShowMessageBoxInputGesture = null;
 	    }
 	}
 
