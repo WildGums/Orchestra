@@ -1,10 +1,9 @@
 ﻿namespace Orchestra.Views
 {
-    using System.Linq;
     using Catel.Windows;
     using ViewModels;
 
-    public sealed partial class MessageBox
+    public partial class MessageBox
     {
         public MessageBox()
             : this(null)

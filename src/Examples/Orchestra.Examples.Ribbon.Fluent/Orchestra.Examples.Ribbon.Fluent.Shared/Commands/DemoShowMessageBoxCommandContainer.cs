@@ -7,29 +7,29 @@
 
 namespace Orchestra.Examples.Ribbon
 {
-    using System.Threading.Tasks;
-    using System.Windows;
     using Catel;
     using Catel.MVVM;
     using Catel.Services;
-    using Orchestra.Services;
-    using Orchestra.ViewModels;
 
     internal class DemoShowMessageBoxCommandContainer : CommandContainerBase
     {
-        private readonly IMessageBoxService _messageBoxService;
+        #region Fields
+        private readonly IMessageService _messageService;
+        #endregion
 
-        public DemoShowMessageBoxCommandContainer(ICommandManager commandManager, IMessageBoxService messageBoxService)
+        #region Constructors
+        public DemoShowMessageBoxCommandContainer(ICommandManager commandManager, IMessageService messageService)
             : base(Commands.Demo.ShowMessageBox, commandManager)
         {
-            Argument.IsNotNull(() => messageBoxService);
+            Argument.IsNotNull(() => messageService);
 
-            _messageBoxService = messageBoxService;
+            _messageService = messageService;
         }
+        #endregion
 
         protected override void Execute(object parameter)
         {
-            _messageBoxService.Show("This is a custom message box", "Message box", MessageButton.OKCancel);
+            _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "Message box", MessageButton.OKCancel, MessageImage.Error);
         }
     }
 }
