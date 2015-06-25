@@ -10,18 +10,19 @@ namespace Orchestra.Views
     using Catel.Windows;
     using ViewModels;
 
-    public partial class MessageBox : DataWindow
+    public partial class MessageBoxWindow
     {
         #region Constructors
-        public MessageBox()
+        public MessageBoxWindow()
             : this(null)
         {
         }
 
-        public MessageBox(MessageBoxViewModel viewModel)
+        public MessageBoxWindow(MessageBoxViewModel viewModel)
             : base(viewModel, DataWindowMode.Custom)
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
             this.DisableCloseButton();
         }
         #endregion

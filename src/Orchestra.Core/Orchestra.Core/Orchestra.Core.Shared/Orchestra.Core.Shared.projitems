@@ -95,7 +95,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IThemeService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IViewActivationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\KeyboardMappingsService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\MessageBoxService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MessageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\PleaseWaitService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\RecentlyUsedItemsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SplashScreenService.cs" />
@@ -140,8 +140,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsOverviewWindow.xaml.cs">
       <DependentUpon>KeyboardMappingsOverviewWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\MessageBox.xaml.cs">
-      <DependentUpon>MessageBox.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MessageBoxWindow.xaml.cs">
+      <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SplashScreen.xaml.cs">
@@ -196,7 +196,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\MessageBox.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\MessageBoxWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

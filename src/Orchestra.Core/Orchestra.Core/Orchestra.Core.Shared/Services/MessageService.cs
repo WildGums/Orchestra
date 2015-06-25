@@ -14,12 +14,12 @@ namespace Orchestra.Services
     using Catel.Windows;
     using ViewModels;
 
-    public class MessageBoxService : MessageService
+    public class MessageService : Catel.Services.MessageService
     {
         private readonly IDispatcherService _dispatcherService;
         private readonly IUIVisualizerService _uiVisualizerService;
 
-        public MessageBoxService(IDispatcherService dispatcherService, IUIVisualizerService uiVisualizerService)
+        public MessageService(IDispatcherService dispatcherService, IUIVisualizerService uiVisualizerService)
             : base(dispatcherService)
         {
             Argument.IsNotNull(() => dispatcherService);
