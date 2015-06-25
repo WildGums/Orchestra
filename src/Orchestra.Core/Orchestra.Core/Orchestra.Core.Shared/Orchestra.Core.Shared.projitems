@@ -38,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IconExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\WindowExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AssemblyHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\DotNetPatchHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\FilterHelper.cs" />
