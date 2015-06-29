@@ -31,7 +31,6 @@ namespace Orchestra.Services
 
         public override Task<MessageResult> Show(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
         {
-
             Argument.IsNotNullOrWhitespace("message", message);
 
             var tcs = new TaskCompletionSource<MessageResult>();
@@ -47,13 +46,12 @@ namespace Orchestra.Services
 
                 viewModel.SetTitle(caption);
 
-                _dispatcherService.Invoke(() => _uiVisualizerService.ShowDialog(viewModel), true);
+                _uiVisualizerService.ShowDialog(viewModel);
 
                 tcs.SetResult(viewModel.Result);
             });
 
             return tcs.Task;
-
         }
     }
 }
