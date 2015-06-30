@@ -8,6 +8,7 @@
 namespace Orchestra.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using Catel;
     using Catel.Logging;
@@ -33,7 +34,11 @@ namespace Orchestra.Services
             _commandManager = commandManager;
             _xmlSerializer = xmlSerializer;
             _fileName = Path.Combine(Path.GetApplicationDataDirectory(), "keyboardmappings.xml");
+
+            AdditionalKeyboardMappings = new List<KeyboardMapping>();
         }
+
+        public List<KeyboardMapping> AdditionalKeyboardMappings { get; private set; } 
 
         public void Load()
         {

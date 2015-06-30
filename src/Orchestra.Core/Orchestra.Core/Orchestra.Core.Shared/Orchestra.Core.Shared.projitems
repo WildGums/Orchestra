@@ -29,6 +29,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToThicknessConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\CommandNameToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\KeyboardMappingToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InputGestureToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\MessageButtonToCollapsingVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\MessageImageToTextConverter.cs" />

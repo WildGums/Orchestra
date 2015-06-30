@@ -16,6 +16,7 @@ namespace Orchestra.ViewModels
     using Catel.Reflection;
     using Catel.Services;
     using Models;
+    using Services;
 
     /// <summary>
     /// View model for keyboard mappings overview.
@@ -26,26 +27,30 @@ namespace Orchestra.ViewModels
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly ILanguageService _languageService;
         private readonly IViewExportService _viewExportService;
+        private readonly IKeyboardMappingsService _keyboardMappingsService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardMappingsOverviewViewModel"/> class.
+        /// Initializes a new instance of the <see cref="KeyboardMappingsOverviewViewModel" /> class.
         /// </summary>
         /// <param name="commandManager">The command manager.</param>
         /// <param name="uiVisualizerService">The UI visualizer service.</param>
         /// <param name="languageService">The language service.</param>
         /// <param name="viewExportService">The view export service.</param>
+        /// <param name="keyboardMappingsService">The keyboard mappings service.</param>
         public KeyboardMappingsOverviewViewModel(ICommandManager commandManager, IUIVisualizerService uiVisualizerService,
-            ILanguageService languageService, IViewExportService viewExportService)
+            ILanguageService languageService, IViewExportService viewExportService, IKeyboardMappingsService keyboardMappingsService)
         {
             Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => uiVisualizerService);
             Argument.IsNotNull(() => languageService);
             Argument.IsNotNull(() => viewExportService);
+            Argument.IsNotNull(() => keyboardMappingsService);
 
             _commandManager = commandManager;
             _uiVisualizerService = uiVisualizerService;
             _languageService = languageService;
             _viewExportService = viewExportService;
+            _keyboardMappingsService = keyboardMappingsService;
 
             Print = new Command(OnPrintExecute);
             Customize = new Command(OnCustomizeExecute);
@@ -103,7 +108,7 @@ namespace Orchestra.ViewModels
 
             foreach (var command in commands.OrderBy(x => x.GetCommandName()))
             {
-                string groupName = command.GetCommandGroup();
+                var groupName = command.GetCommandGroup();
                 var inputGesture = _commandManager.GetInputGesture(command);
                 mappingsByGroup[groupName].Mappings.Add(new KeyboardMapping
                 {
@@ -112,12 +117,39 @@ namespace Orchestra.ViewModels
                 });
             }
 
+            var additionalKeyboardMappings = _keyboardMappingsService.AdditionalKeyboardMappings;
+            foreach (var additionalKeyboardMapping in additionalKeyboardMappings)
+            {
+                var groupName = additionalKeyboardMapping.CommandName.GetCommandGroup();
+
+                if (!mappingsByGroup.ContainsKey(groupName))
+                {
+                    mappingsByGroup[groupName] = new KeyboardMappings { GroupName = groupName };
+                }
+
+                mappingsByGroup[groupName].Mappings.Add(additionalKeyboardMapping);
+            }
+
             if (mappingsByGroup[string.Empty].Mappings.Count == 0)
             {
                 mappingsByGroup.Remove(string.Empty);
             }
 
-            KeyboardMappings = new List<KeyboardMappings>(mappingsByGroup.Values);
+            var finalMappings = new Dictionary<string, KeyboardMappings>();
+
+            foreach (var mappingGroup in mappingsByGroup)
+            {
+                var keyboardMappings = new KeyboardMappings
+                {
+                    GroupName = mappingGroup.Key
+                };
+
+                keyboardMappings.Mappings.AddRange(mappingGroup.Value.Mappings.OrderBy(x => x.CommandName));
+
+                finalMappings[mappingGroup.Key] = keyboardMappings;
+            }
+
+            KeyboardMappings = new List<KeyboardMappings>(finalMappings.Values.OrderBy(x => x.GroupName));
         }
     }
 }

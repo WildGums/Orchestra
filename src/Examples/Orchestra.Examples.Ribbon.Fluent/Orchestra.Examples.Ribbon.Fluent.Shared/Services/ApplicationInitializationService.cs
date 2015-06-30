@@ -15,6 +15,7 @@ namespace Orchestra.Examples.Ribbon.Services
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
+    using Models;
     using Orchestra.Services;
     using InputGesture = Catel.Windows.Input.InputGesture;
 
@@ -58,6 +59,9 @@ namespace Orchestra.Examples.Ribbon.Services
             commandManager.CreateCommand("File.Open", new InputGesture(Key.O, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.SaveToImage", new InputGesture(Key.I, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.Print", new InputGesture(Key.P, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
+
+            var keyboardMappingsService = _serviceLocator.ResolveType<IKeyboardMappingsService>();
+            keyboardMappingsService.AdditionalKeyboardMappings.Add(new KeyboardMapping("MyGroup.Zoom", "Mousewheel", ModifierKeys.Control));
         }
 
         public override async Task InitializeAfterCreatingShell()

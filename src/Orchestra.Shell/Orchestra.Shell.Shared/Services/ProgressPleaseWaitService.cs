@@ -7,9 +7,11 @@
 
 namespace Orchestra.Services
 {
+    using System;
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Media.Animation;
     using Catel;
     using Catel.IoC;
     using Catel.Logging;
@@ -21,6 +23,7 @@ namespace Orchestra.Services
 
         private readonly IDependencyResolver _dependencyResolver;
         private ProgressBar _progressBar;
+        private ResourceDictionary _resourceDictionary;
 
         public ProgressPleaseWaitService(IDispatcherService dispatcherService, IDependencyResolver dependencyResolver) 
             : base(dispatcherService)
@@ -63,7 +66,13 @@ namespace Orchestra.Services
                     {
                         Log.Debug("Hiding progress bar");
 
-                        progressBar.Visibility = Visibility.Collapsed;
+                        var storyboard = GetHideProgressBarStoryboard();
+                        storyboard.Completed += (sender, e) =>
+                        {
+                            progressBar.Visibility = Visibility.Collapsed;
+                        };
+
+                        storyboard.Begin(progressBar);
                     }
                     else if (progressBar.Visibility != Visibility.Visible)
                     {
@@ -88,6 +97,20 @@ namespace Orchestra.Services
             }
 
             return _progressBar;
+        }
+
+        private Storyboard GetHideProgressBarStoryboard()
+        {
+            if (_resourceDictionary == null)
+            {
+                _resourceDictionary = new ResourceDictionary
+                {
+                    Source = new Uri("/Orchestra.Core;Component/Themes/Generic.xaml", UriKind.RelativeOrAbsolute)
+                };
+            }
+
+            var storyBoard = (Storyboard)_resourceDictionary["FadeOutStoryboard"];
+            return storyBoard;
         }
     }
 }
