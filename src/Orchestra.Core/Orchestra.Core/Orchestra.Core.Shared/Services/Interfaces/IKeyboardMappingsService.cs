@@ -7,10 +7,14 @@
 
 namespace Orchestra.Services
 {
+    using System.Collections.Generic;
+    using Models;
+
     public interface IKeyboardMappingsService
     {
         void Load();
         void Save();
         void Reset();
+        List<KeyboardMapping> AdditionalKeyboardMappings { get; }
     }
 }

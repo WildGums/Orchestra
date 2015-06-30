@@ -14,7 +14,7 @@
         
         <Label Grid.Column="0" Content="{Binding CommandName, Converter={converters:CommandNameToStringConverter}}" 
                FontWeight="Normal" Margin="4 4 4 2"/>
-        <Label Grid.Column="1" Content="{Binding InputGesture, Converter={converters:InputGestureToStringConverter}}"
+        <Label Grid.Column="1" Content="{Binding Converter={converters:KeyboardMappingToStringConverter}}"
                HorizontalAlignment="Right" FontWeight="Bold" Margin="4 4 4 2"/>
     </Grid>
     
