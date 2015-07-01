@@ -11,6 +11,7 @@ namespace Orchestra
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Interop;
+    using Catel;
 
     public static class WindowExtensions
     {
@@ -41,6 +42,28 @@ namespace Orchestra
             window.SourceInitialized -= OnWindowInitializedForDisableCloseButton;
 
             DisableCloseButton(window);
+        }
+
+        public static void SetMaximumWidthAndHeight(this Window window)
+        {
+            Argument.IsNotNull(() => window);
+
+            window.SetMaximumWidth();
+            window.SetMaximumHeight();
+        }
+
+        public static void SetMaximumWidth(this Window window)
+        {
+            Argument.IsNotNull(() => window);
+
+            window.MaxWidth = SystemParameters.WorkArea.Width - 40;
+        }
+
+        public static void SetMaximumHeight(this Window window)
+        {
+            Argument.IsNotNull(() => window);
+
+            window.MaxHeight = SystemParameters.WorkArea.Height - 40;
         }
 
         [DllImport("user32.dll")]
