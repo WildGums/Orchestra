@@ -42,21 +42,21 @@
         </Image>
 
         <TextBlock Grid.Row="2" FontSize="19" FontWeight="Medium" HorizontalAlignment="Center" Margin="0 0 0 10" Text="{Binding Title}" />
-        <TextBlock Grid.Row="3" FontSize="13" HorizontalAlignment="Center"
+        <TextBlock Grid.Row="3" FontSize="13" HorizontalAlignment="Center" Text="Released on" Visibility="Collapsed" />
+        <TextBlock Grid.Row="4" FontSize="13" HorizontalAlignment="Center" Text="{Binding Version}" />
+        <TextBlock Grid.Row="5" FontSize="13" HorizontalAlignment="Center" Text="{Binding BuildDateTime}" />
+
+        <Image Grid.Row="6" Source="{Binding CompanyLogoUri}" HorizontalAlignment="Center" 
+               MaxHeight="60" Margin="0 5 0 0" VerticalAlignment="Center" Stretch="Uniform"
+               Visibility="{Binding CompanyLogoUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
+
+        <TextBlock Grid.Row="7" FontSize="13" HorizontalAlignment="Center"
                    Visibility="{Binding Url, Converter={catel:EmptyStringToCollapsingVisibilityConverter}}">
             <Hyperlink NavigateUri="{Binding Url}" Command="{Binding OpenUrl}">
                 <TextBlock Text="{Binding Url}" />
             </Hyperlink>
         </TextBlock>
-
-        <TextBlock Grid.Row="4" FontSize="13" HorizontalAlignment="Center" Text="Released on" Visibility="Collapsed" />
-        <TextBlock Grid.Row="5" FontSize="13" HorizontalAlignment="Center" Text="{Binding Version}" />
-        <TextBlock Grid.Row="6" FontSize="13" HorizontalAlignment="Center" Text="{Binding BuildDateTime}" />
-
-        <Image Grid.Row="7" Source="{Binding CompanyLogoUri}" HorizontalAlignment="Center" 
-               MaxHeight="60" Margin="0 5 0 0" VerticalAlignment="Center" Stretch="Uniform"
-               Visibility="{Binding CompanyLogoUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
-
+        
         <TextBlock Grid.Row="8" FontSize="13" HorizontalAlignment="Center" Text="{Binding Copyright}" />
         <TextBlock Grid.Row="9" FontSize="13" HorizontalAlignment="Center" Text="All rights reserved" />
 
