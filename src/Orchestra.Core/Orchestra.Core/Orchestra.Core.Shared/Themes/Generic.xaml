@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:catel="http://catel.codeplex.com">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Catel.MVVM;component/themes/generic.xaml" />
@@ -59,4 +60,105 @@
         <DoubleAnimation BeginTime="0:0:1.0" Storyboard.TargetProperty="Height" From="2" To="0" Duration="0:0:0.5"
                          FillBehavior="Stop" />
     </Storyboard>
+
+    <Style x:Key="LinkLabelWithAccentColorStyle" TargetType="{x:Type catel:LinkLabel}" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="Foreground" Value="#575757"/>
+        <Setter Property="HoverForeground" Value="{StaticResource AccentColorBrush}"/>
+
+        <Setter Property="HyperlinkStyle">
+            <Setter.Value>
+                <Style TargetType="Hyperlink">
+                    <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HoverForeground}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type catel:LinkLabel}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+                        <TextBlock x:Name="PART_TextBlock" Background="{TemplateBinding Background}"
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                   TextDecorations="{TemplateBinding TextBlock.TextDecorations}">
+                            <Hyperlink x:Name="PART_InnerHyperlink" TextDecorations="None"
+                                        NavigateUri="{Binding RelativeSource= {RelativeSource TemplatedParent}, Path=Url}"
+                                        Style= "{Binding RelativeSource= {RelativeSource TemplatedParent}, Path=HyperlinkStyle}"
+                                        Command="{Binding RelativeSource= {RelativeSource TemplatedParent}, Path=Command}"
+                                        CommandParameter="{Binding RelativeSource= {RelativeSource TemplatedParent}, Path=CommandParameter}"
+                                        CommandTarget="{Binding RelativeSource= {RelativeSource TemplatedParent}, Path=CommandTarget}">
+                                <catel:BindableRun BoundText="{Binding RelativeSource= {RelativeSource TemplatedParent}, Path=Content}"/>
+                            </Hyperlink>
+                        </TextBlock>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="LinkLabelBehavior" Value="NeverUnderline">
+                            <Setter TargetName="PART_InnerHyperlink" Property="TextDecorations"  Value="None"/>
+                        </Trigger>
+                        <Trigger Property="LinkLabelBehavior" Value="AlwaysUnderline">
+                            <Setter TargetName="PART_InnerHyperlink" Property="TextDecorations" Value="Underline"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                                <Condition Property="LinkLabelBehavior" Value="HoverUnderline"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_InnerHyperlink" Property="TextDecorations" Value="Underline"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="false"/>
+                                <Condition Property="LinkLabelBehavior" Value="HoverUnderline"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_InnerHyperlink" Property="TextDecorations" Value="None"/>
+                        </MultiTrigger>
+                        <Trigger SourceName="PART_InnerHyperlink" Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LogoButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <Border x:Name="Chrome" BorderBrush="Transparent" BorderThickness="0"
+                            Background="Transparent" SnapsToDevicePixels="True">
+                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"
+                                          ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"
+                                          RecognizesAccessKey="True"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

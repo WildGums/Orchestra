@@ -49,7 +49,7 @@ namespace Orchestra.ViewModels
             ImageSourceUrl = aboutInfo.LogoImageSource;
             ShowLogButton = aboutInfo.ShowLogButton;
             AppIcon = assembly.ExtractLargestIcon();
-            OpenUrl = new Command(OnOpenUrlExecute);
+            OpenUrl = new Command(OnOpenUrlExecute, OnOpenUrlCanExecute);
             OpenLog = new Command(OnOpenLogExecute);
             ShowSystemInfo = new Command(OnShowSystemInfoExecute);
             EnableDetailedLogging = new Command(OnEnableDetailedLoggingExecute);
@@ -79,6 +79,11 @@ namespace Orchestra.ViewModels
 
         #region Commands
         public Command OpenUrl { get; private set; }
+
+        private bool OnOpenUrlCanExecute()
+        {
+            return !string.IsNullOrEmpty(Url);
+        }
 
         private void OnOpenUrlExecute()
         {
