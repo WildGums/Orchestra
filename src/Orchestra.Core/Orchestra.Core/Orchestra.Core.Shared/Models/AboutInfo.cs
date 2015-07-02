@@ -20,16 +20,16 @@ namespace Orchestra.Models
         /// <param name="companyLogoForSplashScreenUri"></param>
         /// <param name="companyLogoUri">The company logo image Uri.</param>
         /// <param name="logoImageSource">The logo image source.</param>
-        /// <param name="url">The URL. Can be <c>null</c>.</param>
+        /// <param name="uriInfo">The uri info. Can be <c>null</c>.</param>
         /// <param name="assembly">The assembly to use for the information. If <c>null</c>, the assembly will be determined automatically.</param>
-        public AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, string url = null, Assembly assembly = null, Uri companyLogoForSplashScreenUri = null)
+        public AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, UriInfo uriInfo = null, Assembly assembly = null, Uri companyLogoForSplashScreenUri = null)
         {
             ShowLogButton = true;
 
             CompanyLogoForSplashScreenUri = companyLogoForSplashScreenUri;
             CompanyLogoUri = companyLogoUri;
             LogoImageSource = logoImageSource;
-            Url = url;
+            UriInfo = uriInfo;
             Assembly = assembly ?? AssemblyHelper.GetEntryAssembly();
         }
         #endregion
@@ -54,10 +54,10 @@ namespace Orchestra.Models
         public string LogoImageSource { get; private set; }
 
         /// <summary>
-        /// Gets the URL.
+        /// Gets the uri info.
         /// </summary>
-        /// <value>The URL.</value>
-        public string Url { get; private set; }
+        /// <value>The uri info.</value>
+        public UriInfo UriInfo { get; private set; }
 
         /// <summary>
         /// Gets the assembly.

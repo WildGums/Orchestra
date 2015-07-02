@@ -46,15 +46,15 @@
         <TextBlock Grid.Row="5" FontSize="13" HorizontalAlignment="Center" Text="{Binding BuildDateTime}" />
 
         <Grid Grid.Row="6">
-            <Button x:Name="LogoImage" Command="{Binding OpenUrl}" Style="{StaticResource LogoButtonStyle}"
+            <Button Command="{Binding OpenUrl}" Style="{StaticResource LogoButtonStyle}"
                     Visibility="{Binding CompanyLogoUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}">
                 <Image Source="{Binding CompanyLogoUri}" HorizontalAlignment="Center" 
                        MaxHeight="60" Margin="0 5 0 0" VerticalAlignment="Center" Stretch="Uniform"/>
             </Button>
-            <Grid Visibility="{Binding ElementName=LogoImage, Path=IsVisible, Converter={catel:BooleanToCollapsingVisibilityConverter}, ConverterParameter=False}">
+            
+            <Grid Visibility="{Binding UriInfo, Converter={catel:ReferenceToCollapsingVisibilityConverter}}">
                 <catel:LinkLabel FontSize="13" HorizontalAlignment="Center" LinkLabelBehavior="AlwaysUnderline"
-                                 Visibility="{Binding Url, Converter={catel:EmptyStringToCollapsingVisibilityConverter}}"
-                                 Url="{Binding Url}" Content="{Binding Url}" Command="{Binding OpenUrl}"
+                                 Url="{Binding UriInfo.Uri}" Content="{Binding UriInfo.DisplayText}" Command="{Binding OpenUrl}"
                                  Style="{StaticResource LinkLabelWithAccentColorStyle}"/>
             </Grid>
         </Grid>

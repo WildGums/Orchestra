@@ -84,6 +84,8 @@ namespace Orchestra.Examples.Ribbon.Services
         {
             var serviceLocator = _serviceLocator;
 
+            serviceLocator.RegisterType<IAboutInfoService, AboutInfoService>();
+
             //throw new Exception("this is a test exception");
         }
     }

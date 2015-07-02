@@ -64,6 +64,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\KeyboardMappings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\RecentlyUsedItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\RecentlyUsedItems.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UriInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OrchestraEnvironment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />

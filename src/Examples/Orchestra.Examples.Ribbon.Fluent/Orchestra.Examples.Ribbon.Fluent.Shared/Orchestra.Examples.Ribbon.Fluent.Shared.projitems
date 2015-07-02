@@ -23,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AboutInfoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ApplicationInitializationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\RibbonService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />

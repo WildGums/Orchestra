@@ -43,7 +43,7 @@ namespace Orchestra.ViewModels
             Title = assembly.Title();
             Version = string.Format("v {0}", version);
             BuildDateTime = string.Format("Built on {0}", buildDateTime);
-            Url = aboutInfo.Url;
+            UriInfo = aboutInfo.UriInfo;
             Copyright = assembly.Copyright();
             CompanyLogoUri = aboutInfo.CompanyLogoUri;
             ImageSourceUrl = aboutInfo.LogoImageSource;
@@ -62,7 +62,7 @@ namespace Orchestra.ViewModels
 
         public string BuildDateTime { get; private set; }
 
-        public string Url { get; private set; }
+        public UriInfo UriInfo { get; private set; }
 
         public string Copyright { get; private set; }
 
@@ -82,12 +82,18 @@ namespace Orchestra.ViewModels
 
         private bool OnOpenUrlCanExecute()
         {
-            return !string.IsNullOrEmpty(Url);
+            var uriInfo = UriInfo;
+            if (uriInfo == null)
+            {
+                return false;
+            }
+
+            return !string.IsNullOrEmpty(uriInfo.Uri);
         }
 
         private void OnOpenUrlExecute()
         {
-            _processService.StartProcess(Url);
+            _processService.StartProcess(UriInfo.Uri);
         }
 
         public Command OpenLog { get; private set; }
