@@ -2,7 +2,12 @@
 
 [![Join the chat at https://gitter.im/WildGums/Orchestra](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/WildGums/Orchestra?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Orchestra is a composable shell built on top of [Catel](http://Catel.Codeplex.com).
+![License](https://img.shields.io/github/license/wildgums/orchestra.svg)
+![NuGet downloads](https://img.shields.io/nuget/dt/orchestra.core.svg)
+![Version](https://img.shields.io/nuget/v/orchestra.core.svg)
+![Pre-release version](https://img.shields.io/nuget/vpre/orchestra.core.svg)
+
+Orchestra is a composable shell built on top of [Catel](http://www.catelproject.com).
 
 Orchestra consists of a main shell including an SDK with services that allows developers to communicate with the shell. Developers can write their own modules which implement the actual functionality of their application.
 
