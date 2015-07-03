@@ -23,6 +23,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -45,28 +46,24 @@
         <TextBlock Grid.Row="4" FontSize="13" HorizontalAlignment="Center" Text="{Binding Version}" />
         <TextBlock Grid.Row="5" FontSize="13" HorizontalAlignment="Center" Text="{Binding BuildDateTime}" />
 
-        <Grid Grid.Row="6">
-            <Button Command="{Binding OpenUrl}" Style="{StaticResource LogoButtonStyle}"
-                    Visibility="{Binding CompanyLogoUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}">
-                <Image Source="{Binding CompanyLogoUri}" HorizontalAlignment="Center" 
-                       MaxHeight="60" Margin="0 5 0 0" VerticalAlignment="Center" Stretch="Uniform"/>
-            </Button>
-            
-            <Grid Visibility="{Binding UriInfo, Converter={catel:ReferenceToCollapsingVisibilityConverter}}">
-                <catel:LinkLabel FontSize="13" HorizontalAlignment="Center" LinkLabelBehavior="AlwaysUnderline"
-                                 Url="{Binding UriInfo.Uri}" Content="{Binding UriInfo.DisplayText}" Command="{Binding OpenUrl}"
-                                 Style="{StaticResource LinkLabelWithAccentColorStyle}"/>
-            </Grid>
-        </Grid>
-        <TextBlock Grid.Row="7" FontSize="13" HorizontalAlignment="Center" Text="{Binding Copyright}" />
-        <TextBlock Grid.Row="8" FontSize="13" HorizontalAlignment="Center" Text="All rights reserved" />
+        <Image Grid.Row="6" Source="{Binding CompanyLogoUri}" HorizontalAlignment="Center" 
+               MaxHeight="60" Margin="0 5 0 0" VerticalAlignment="Center" Stretch="Uniform"
+               Visibility="{Binding CompanyLogoUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
 
-        <TextBlock Grid.Row="9" FontSize="13" HorizontalAlignment="Center" Margin="0 15 0 0" 
+        <catel:LinkLabel Grid.Row="7" FontSize="13" HorizontalAlignment="Center" LinkLabelBehavior="AlwaysUnderline"
+                         Url="{Binding UriInfo.Uri}" Content="{Binding UriInfo.DisplayText}" Command="{Binding OpenUrl}"
+                         Style="{StaticResource LinkLabelWithAccentColorStyle}" Margin="0"
+                         Visibility="{Binding UriInfo, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
+        
+        <TextBlock Grid.Row="8" FontSize="13" HorizontalAlignment="Center" Text="{Binding Copyright}" />
+        <TextBlock Grid.Row="9" FontSize="13" HorizontalAlignment="Center" Text="All rights reserved" />
+
+        <TextBlock Grid.Row="10" FontSize="13" HorizontalAlignment="Center" Margin="0 15 0 0" 
                    Text="Debug logging is enabled for this application instance" 
                    Foreground="Gray" FontStyle="Italic"
                    Visibility="{Binding IsDebugLoggingEnabled, Converter={catel:BooleanToCollapsingVisibilityConverter}}" />
 
-        <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Show log..." Width="75" Margin="20 20 15 30" Command="{Binding OpenLog}"
                     Visibility="{Binding ShowLogButton, Converter={StaticResource BooleanToCollapsingVisibilityConverter}}" />
             <Button Content="Close" Width="75" Margin="0 20 20 30" Click="Close_OnClick" />
