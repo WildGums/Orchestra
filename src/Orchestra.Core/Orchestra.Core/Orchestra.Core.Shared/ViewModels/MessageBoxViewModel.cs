@@ -7,6 +7,7 @@
 
 namespace Orchestra.ViewModels
 {
+    using System.Threading.Tasks;
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
@@ -44,12 +45,39 @@ namespace Orchestra.ViewModels
             Title = assembly.Title();
         }
 
+        protected override Task Close()
+        {
+            SetResult();
+            return base.Close();
+        }
+
+        private void SetResult()
+        {
+            switch (Button)
+            {
+                case MessageButton.OK:
+                    Result= MessageResult.OK;
+                    break;
+
+                case MessageButton.OKCancel:
+                    Result = MessageResult.Cancel;
+                    break;
+
+                case MessageButton.YesNoCancel:
+                    Result = MessageResult.Cancel;
+                    break;
+
+                default:
+                    return;
+            }
+        }
+
         #region Commands
         public Command OkCommand { get; private set; }
 
         private async void OnOkCommandExecute()
         {
-            Result= MessageResult.OK;
+            Result = MessageResult.OK;
             await CloseViewModel(null);
         }
 
@@ -77,7 +105,7 @@ namespace Orchestra.ViewModels
             await CloseViewModel(null);
         }
 
-        public Command EscapeCommand { get; set; }
+        public Command EscapeCommand { get; private set; }
 
         private void OnEscapeCommandExecute()
         {
@@ -86,15 +114,18 @@ namespace Orchestra.ViewModels
                 case MessageButton.OK:
                     OnOkCommandExecute();
                     break;
+
                 case MessageButton.OKCancel:
                     OnCancelCommandExecute();
                     break;
+
                 case MessageButton.YesNo:
-                    OnNoCommandExecute();
                     break;
+
                 case MessageButton.YesNoCancel:
                     OnCancelCommandExecute();
                     break;
+
                 default:
                     return;
             }

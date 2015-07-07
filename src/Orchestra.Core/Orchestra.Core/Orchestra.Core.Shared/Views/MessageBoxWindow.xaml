@@ -5,7 +5,7 @@
                   xmlns:converters="clr-namespace:Orchestra.Converters"
                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                   SizeToContent="WidthAndHeight" ResizeMode="NoResize"
-                  WindowStartupLocation="CenterOwner">
+                  WindowStartupLocation="CenterOwner" CanCloseUsingEscape="False">
     
     <i:Interaction.Behaviors>
         <catel:KeyPressToCommand Command="{Binding EscapeCommand}" Key="Escape" />

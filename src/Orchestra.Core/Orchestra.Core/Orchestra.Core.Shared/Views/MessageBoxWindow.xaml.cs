@@ -7,6 +7,7 @@
 
 namespace Orchestra.Views
 {
+    using Catel.Services;
     using Catel.Windows;
     using ViewModels;
 
@@ -23,7 +24,10 @@ namespace Orchestra.Views
         {
             InitializeComponent();
 
-            this.DisableCloseButton();
+            if (viewModel.Button == MessageButton.YesNo)
+            {
+                this.DisableCloseButton();
+            }
         }
         #endregion
     }

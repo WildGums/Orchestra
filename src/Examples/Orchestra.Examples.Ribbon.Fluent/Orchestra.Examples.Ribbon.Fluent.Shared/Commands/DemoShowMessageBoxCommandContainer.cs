@@ -7,6 +7,7 @@
 
 namespace Orchestra.Examples.Ribbon
 {
+    using System.Threading.Tasks;
     using Catel;
     using Catel.MVVM;
     using Catel.Services;
@@ -27,24 +28,28 @@ namespace Orchestra.Examples.Ribbon
         }
         #endregion
 
-        protected override void Execute(object parameter)
+        protected override async Task ExecuteAsync(object parameter)
         {
-            var button = (MessageButton) parameter;
+            var button = (MessageButton)parameter;
 
             switch (button)
             {
                 case MessageButton.OK:
-                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", null, button, MessageImage.Error);
+                    await _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", null, button, MessageImage.Error);
                     break;
+
                 case MessageButton.OKCancel:
-                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", null, button, MessageImage.Information);
+                    await _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", null, button, MessageImage.Information);
                     break;
+
                 case MessageButton.YesNo:
-                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "", button, MessageImage.Warning);
+                    await _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "", button, MessageImage.Warning);
                     break;
+
                 case MessageButton.YesNoCancel:
-                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "", button);
+                    await _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "", button);
                     break;
+
                 default:
                     return;
             }
