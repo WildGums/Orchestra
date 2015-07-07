@@ -5,7 +5,8 @@
                    xmlns:views="clr-namespace:Orchestra.Views;assembly=Orchestra.Core"
                    xmlns:fluent="urn:fluent-ribbon"
                    xmlns:orchestra="https://github.com/orcomp/orchestra"
-                   xmlns:ribbon="clr-namespace:Orchestra.Examples.Ribbon">
+                   xmlns:ribbon="clr-namespace:Orchestra.Examples.Ribbon"
+                   xmlns:services="clr-namespace:Catel.Services;assembly=Catel.MVVM">
 
     <fluent:Ribbon x:Name="ribbon" IsQuickAccessToolBarVisible="False" CanCustomizeRibbon="False" AutomaticStateManagement="False">
         <fluent:Ribbon.Menu>
@@ -141,9 +142,27 @@
 
                     <fluent:Button Header="Progress demo" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Play}}" 
                                    Command="{catel:CommandManagerBinding Demo.LongOperation}" />
-                    
-                    <fluent:Button Header="Message box demo" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
-                                   Command="{catel:CommandManagerBinding Demo.ShowMessageBox}" />
+
+                    <fluent:SplitButton Header="Message box demo" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}"
+                                        HorizontalContentAlignment="Stretch">
+                        <StackPanel HorizontalAlignment="Stretch">
+                            <fluent:Button Header="Ok" Size="Middle" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}"
+                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}" 
+                                           CommandParameter="{x:Static services:MessageButton.OK}" />
+                        
+                            <fluent:Button Header="Ok/Cancel" Size="Middle" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
+                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                           CommandParameter="{x:Static services:MessageButton.OKCancel}" />
+                        
+                            <fluent:Button Header="Yes/No" Size="Middle" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
+                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                           CommandParameter="{x:Static services:MessageButton.YesNo}" />
+                        
+                            <fluent:Button Header="Yes/No/Cancel" Size="Middle" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
+                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                           CommandParameter="{x:Static services:MessageButton.YesNoCancel}" />
+                        </StackPanel>
+                    </fluent:SplitButton>
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox Header="Keyboard">

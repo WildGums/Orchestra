@@ -29,7 +29,25 @@ namespace Orchestra.Examples.Ribbon
 
         protected override void Execute(object parameter)
         {
-            _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "Message box", MessageButton.OKCancel, MessageImage.Error);
+            var button = (MessageButton) parameter;
+
+            switch (button)
+            {
+                case MessageButton.OK:
+                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "Message box", button, MessageImage.Error);
+                    break;
+                case MessageButton.OKCancel:
+                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "Message box", button, MessageImage.Information);
+                    break;
+                case MessageButton.YesNo:
+                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "Message box", button, MessageImage.Warning);
+                    break;
+                case MessageButton.YesNoCancel:
+                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "Message box", button, MessageImage.Warning);
+                    break;
+                default:
+                    return;
+            }
         }
     }
 }
