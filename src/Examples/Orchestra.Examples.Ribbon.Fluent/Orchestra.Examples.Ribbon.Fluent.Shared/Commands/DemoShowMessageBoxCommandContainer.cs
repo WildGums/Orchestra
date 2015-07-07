@@ -34,16 +34,16 @@ namespace Orchestra.Examples.Ribbon
             switch (button)
             {
                 case MessageButton.OK:
-                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "Message box", button, MessageImage.Error);
+                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", null, button, MessageImage.Error);
                     break;
                 case MessageButton.OKCancel:
-                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "Message box", button, MessageImage.Information);
+                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", null, button, MessageImage.Information);
                     break;
                 case MessageButton.YesNo:
-                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "Message box", button, MessageImage.Warning);
+                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "", button, MessageImage.Warning);
                     break;
                 case MessageButton.YesNoCancel:
-                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "Message box", button, MessageImage.Warning);
+                    _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "", button);
                     break;
                 default:
                     return;

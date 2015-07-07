@@ -8,6 +8,7 @@
 namespace Orchestra.ViewModels
 {
     using Catel.MVVM;
+    using Catel.Reflection;
     using Catel.Services;
 
     public class MessageBoxViewModel : ViewModelBase
@@ -33,7 +34,14 @@ namespace Orchestra.ViewModels
 
         public void SetTitle(string title)
         {
-            Title = title;
+            if (!string.IsNullOrEmpty(title))
+            {
+                Title = title;
+                return;
+            }
+
+            var assembly = AssemblyHelper.GetEntryAssembly();
+            Title = assembly.Title();
         }
 
         #region Commands
