@@ -3,9 +3,14 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://catel.codeplex.com"
                   xmlns:converters="clr-namespace:Orchestra.Converters"
+                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                   SizeToContent="WidthAndHeight" ResizeMode="NoResize"
                   WindowStartupLocation="CenterOwner">
-
+    
+    <i:Interaction.Behaviors>
+        <catel:KeyPressToCommand Command="{Binding EscapeCommand}" Key="Escape" />
+    </i:Interaction.Behaviors>
+    
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="90" />

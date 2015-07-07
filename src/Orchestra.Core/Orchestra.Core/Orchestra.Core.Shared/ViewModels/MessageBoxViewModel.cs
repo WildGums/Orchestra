@@ -19,7 +19,9 @@ namespace Orchestra.ViewModels
             YesCommand = new Command(OnYesCommandExecute);
             NoCommand = new Command(OnNoCommandExecute);
             CancelCommand = new Command(OnCancelCommandExecute);
+            EscapeCommand = new Command(OnEscapeCommandExecute);
         }
+
         #endregion
 
         #region Properties
@@ -65,6 +67,29 @@ namespace Orchestra.ViewModels
         {
             Result = MessageResult.Cancel;
             await CloseViewModel(null);
+        }
+
+        public Command EscapeCommand { get; set; }
+
+        private void OnEscapeCommandExecute()
+        {
+            switch (Button)
+            {
+                case MessageButton.OK:
+                    OnOkCommandExecute();
+                    break;
+                case MessageButton.OKCancel:
+                    OnCancelCommandExecute();
+                    break;
+                case MessageButton.YesNo:
+                    OnNoCommandExecute();
+                    break;
+                case MessageButton.YesNoCancel:
+                    OnCancelCommandExecute();
+                    break;
+                default:
+                    return;
+            }
         }
         #endregion
     }
