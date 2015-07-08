@@ -17,15 +17,17 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="300" />
+            <ColumnDefinition Width="Auto" MinWidth="360" />
         </Grid.ColumnDefinitions>
 
         <DockPanel Grid.Row="0">
             <Label Style="{StaticResource MessageBoxLabelStyle}" VerticalAlignment="Top"
                    Tag="{Binding Icon, Converter={converters:MessageImageToTextConverter}}" />
             <DockPanel>
-                <TextBlock TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Left" Margin="0 0 0 10" 
-                           Text="{Binding Message}" DockPanel.Dock="Top"/>
+                <ScrollViewer DockPanel.Dock="Top" MaxHeight="400" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" >
+                    <TextBlock TextWrapping="Wrap" MaxWidth="360" HorizontalAlignment="Stretch" Margin="0 0 0 10"
+                               Text="{Binding Message}"/>
+                </ScrollViewer>
                 <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                     <Button Content="OK" Command="{Binding OkCommand}" Width="80" Margin="6 2 0 2"
                             Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=OK}" />

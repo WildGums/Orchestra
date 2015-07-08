@@ -35,7 +35,7 @@ namespace Orchestra.Examples.Ribbon
             switch (button)
             {
                 case MessageButton.OK:
-                    await _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", null, button, MessageImage.Error);
+                    await _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text.", null, button, MessageImage.Error);
                     break;
 
                 case MessageButton.OKCancel:
