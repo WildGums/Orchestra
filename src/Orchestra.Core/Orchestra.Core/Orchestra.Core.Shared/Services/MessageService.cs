@@ -8,6 +8,7 @@
 namespace Orchestra.Services
 {
     using System.Threading.Tasks;
+    using System.Windows.Input;
     using Catel;
     using Catel.Services;
     using ViewModels;
@@ -39,6 +40,9 @@ namespace Orchestra.Services
 
             _dispatcherService.BeginInvoke(async () =>
             {
+                var previousCursor = Mouse.OverrideCursor;
+                Mouse.OverrideCursor = null;
+
                 var viewModel = new MessageBoxViewModel
                 {
                     Message = message,
@@ -49,6 +53,8 @@ namespace Orchestra.Services
                 viewModel.SetTitle(caption);
 
                 await _uiVisualizerService.ShowDialogAsync(viewModel);
+
+                Mouse.OverrideCursor = previousCursor;
 
                 tcs.SetResult(viewModel.Result);
             });
