@@ -37,7 +37,7 @@ namespace Orchestra.Services
 
             var tcs = new TaskCompletionSource<MessageResult>();
 
-            _dispatcherService.BeginInvoke(() =>
+            _dispatcherService.BeginInvoke(async () =>
             {
                 var viewModel = new MessageBoxViewModel
                 {
@@ -48,7 +48,7 @@ namespace Orchestra.Services
 
                 viewModel.SetTitle(caption);
 
-                _uiVisualizerService.ShowDialog(viewModel);
+                await _uiVisualizerService.ShowDialogAsync(viewModel);
 
                 tcs.SetResult(viewModel.Result);
             });
