@@ -13,7 +13,7 @@ namespace Orchestra.Converters
     /// <summary>
     /// Converts a path to a string.
     /// </summary>
-    public class PathToStringConverter : ValueConverterBase
+    public class PathToStringConverter : ValueConverterBase<string>
     {
         #region Methods
         /// <summary>
@@ -23,7 +23,7 @@ namespace Orchestra.Converters
         /// <param name="targetType">The <see cref="T:System.Type" /> of data expected by the target dependency property.</param>
         /// <param name="parameter">An optional parameter to be used in the converter logic.</param>
         /// <returns>The value to be passed to the target dependency property.</returns>
-        protected override object Convert(object value, Type targetType, object parameter)
+        protected override object Convert(string value, Type targetType, object parameter)
         {
             var stringValue = value as string;
             if (string.IsNullOrWhiteSpace(stringValue))

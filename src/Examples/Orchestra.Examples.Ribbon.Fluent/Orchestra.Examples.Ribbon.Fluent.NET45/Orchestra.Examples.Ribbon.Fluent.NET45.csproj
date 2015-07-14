@@ -58,15 +58,15 @@
       <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0192\lib\net45\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fluent, Version=3.4.1.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+    <Reference Include="Fluent, Version=3.4.2.173, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Fluent.Ribbon.3.4.1\lib\net45\Fluent.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Fluent.Ribbon.3.4.2.173\lib\net45\Fluent.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0192\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Fluent.Ribbon.3.4.2.173\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
