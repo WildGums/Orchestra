@@ -60,8 +60,7 @@
     </Reference>
     <Reference Include="Fluent, Version=3.4.1.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Fluent.Ribbon.3.4.1\lib\net45\Fluent.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\..\lib\Fluent.Ribbon.3.4.2.173\lib\net45\Fluent.dll</HintPath>
     </Reference>
     <Reference Include="MethodTimer">
       <HintPath>..\..\..\..\lib\MethodTimer.Fody.1.15.3.0\Lib\portable-net4+sl5+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\MethodTimer.dll</HintPath>
