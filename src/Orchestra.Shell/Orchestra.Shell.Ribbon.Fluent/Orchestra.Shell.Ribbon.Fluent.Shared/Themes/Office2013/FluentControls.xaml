@@ -7,6 +7,18 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
 
+    <!--<Style TargetType="{x:Type fluent:Button}" BasedOn="{StaticResource {x:Type fluent:Button}}">
+        <Setter Property="MinWidth" Value="50" />
+    </Style>
+
+    <Style TargetType="{x:Type fluent:SplitButton}" BasedOn="{StaticResource {x:Type fluent:SplitButton}}">
+        <Setter Property="MinWidth" Value="50" />
+    </Style>
+
+    <Style TargetType="{x:Type fluent:DropDownButton}" BasedOn="{StaticResource {x:Type fluent:DropDownButton}}">
+        <Setter Property="MinWidth" Value="50" />
+    </Style>-->
+
     <Style x:Key="RibbonBorderStyle" TargetType="Border">
         <Setter Property="Margin" Value="6" />
         <Setter Property="BorderThickness" Value="1" />
@@ -403,7 +415,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!--RibbonButton-->
+    <!--RibbonButton-->    
     <ControlTemplate x:Key="RibbonButtonControlTemplate" TargetType="{x:Type fluent:Button}">
         <Border x:Name="border" Background="{DynamicResource TransparentBrush}"
                 Margin="2,0,2,0"
