@@ -9,6 +9,7 @@
     
     <i:Interaction.Behaviors>
         <catel:KeyPressToCommand Command="{Binding EscapeCommand}" Key="Escape" />
+        <catel:KeyPressToCommand Command="{Binding CopyToClipboard}" Key="C" Modifiers="Control" />
     </i:Interaction.Behaviors>
     
     <Grid Margin="10">
@@ -25,9 +26,9 @@
                    Tag="{Binding Icon, Converter={converters:MessageImageToTextConverter}}" />
             <DockPanel>
                 <ScrollViewer DockPanel.Dock="Top" MaxHeight="400" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" >
-                    <TextBlock TextWrapping="Wrap" MaxWidth="360" HorizontalAlignment="Stretch" Margin="0 0 0 10"
-                               Text="{Binding Message}"/>
+                    <TextBlock TextWrapping="Wrap" MaxWidth="360" HorizontalAlignment="Stretch" Margin="0 0 0 10" Text="{Binding Message}"/>
                 </ScrollViewer>
+                
                 <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                     <Button Content="OK" Command="{Binding OkCommand}" Width="80" Margin="6 2 0 2"
                             Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=OK}" />

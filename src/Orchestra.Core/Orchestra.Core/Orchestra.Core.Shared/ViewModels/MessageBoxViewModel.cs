@@ -7,16 +7,31 @@
 
 namespace Orchestra.ViewModels
 {
+    using System;
+    using System.Text;
     using System.Threading.Tasks;
+    using Catel;
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
+    using Services;
 
     public class MessageBoxViewModel : ViewModelBase
     {
+        private readonly IMessageService _messageService;
+        private readonly IClipboardService _clipboardService;
+
         #region Constructors
-        public MessageBoxViewModel()
+        public MessageBoxViewModel(IMessageService messageService, IClipboardService clipboardService)
         {
+            Argument.IsNotNull(() => messageService);
+            Argument.IsNotNull(() => clipboardService);
+
+            _messageService = messageService;
+            _clipboardService = clipboardService;
+
+            CopyToClipboard = new Command(OnCopyToClipboardExecute);
+
             OkCommand = new Command(OnOkCommandExecute);
             YesCommand = new Command(OnYesCommandExecute);
             NoCommand = new Command(OnNoCommandExecute);
@@ -73,6 +88,15 @@ namespace Orchestra.ViewModels
         }
 
         #region Commands
+        public Command CopyToClipboard { get; private set; }
+
+        private void OnCopyToClipboardExecute()
+        {
+            var text = _messageService.GetAsText(Message, Button);
+
+            _clipboardService.CopyToClipboard(text);
+        }
+
         public Command OkCommand { get; private set; }
 
         private async void OnOkCommandExecute()
