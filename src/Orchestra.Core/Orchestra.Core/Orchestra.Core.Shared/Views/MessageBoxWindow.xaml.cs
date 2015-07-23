@@ -7,6 +7,7 @@
 
 namespace Orchestra.Views
 {
+    using System;
     using Catel.Services;
     using Catel.Windows;
     using ViewModels;
@@ -28,6 +29,13 @@ namespace Orchestra.Views
             {
                 this.DisableCloseButton();
             }
+        }
+
+        protected override void OnLoaded(EventArgs e)
+        {
+            base.OnLoaded(e);
+
+            this.BringWindowToTop();
         }
         #endregion
     }

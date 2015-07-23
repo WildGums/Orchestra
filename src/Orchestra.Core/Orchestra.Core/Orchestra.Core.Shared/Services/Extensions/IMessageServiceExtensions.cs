@@ -17,6 +17,35 @@ namespace Orchestra.Services
     {
         public static string GetAsText(this IMessageService messageService, string message, MessageButton messageButton)
         {
+            var buttons = string.Empty;
+
+            switch (messageButton)
+            {
+                case MessageButton.OK:
+                    buttons = "[ OK ]";
+                    break;
+
+                case MessageButton.OKCancel:
+                    buttons = "[ OK ] | [ Cancel ]";
+                    break;
+
+                case MessageButton.YesNo:
+                    buttons = "[ Yes ] | [ No ]";
+                    break;
+
+                case MessageButton.YesNoCancel:
+                    buttons = "[ Yes ] | [ No ] | [ Cancel ]";
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return messageService.GetAsText(message, buttons);
+        }
+
+        public static string GetAsText(this IMessageService messageService, string message, string buttons)
+        {
             Argument.IsNotNull(() => messageService);
 
             var stringBuilder = new StringBuilder();
@@ -25,28 +54,7 @@ namespace Orchestra.Services
             stringBuilder.AppendLine();
             stringBuilder.AppendLine("--------------------------------------------");
             stringBuilder.AppendLine();
-
-            switch (messageButton)
-            {
-                case MessageButton.OK:
-                    stringBuilder.Append("[ OK ]");
-                    break;
-
-                case MessageButton.OKCancel:
-                    stringBuilder.Append("[ OK ] | [ Cancel ]");
-                    break;
-
-                case MessageButton.YesNo:
-                    stringBuilder.Append("[ Yes ] | [ No ]");
-                    break;
-
-                case MessageButton.YesNoCancel:
-                    stringBuilder.Append("[ Yes ] | [ No ] | [ Cancel ]");
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            stringBuilder.Append(buttons);
 
             return stringBuilder.ToString();
         }
