@@ -163,6 +163,7 @@
                                            CommandParameter="{x:Static services:MessageButton.YesNoCancel}" />
                         </StackPanel>
                     </fluent:SplitButton>
+                    <fluent:ToggleButton Header="Toggle button" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Arrows}}"/>
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox Header="Keyboard">

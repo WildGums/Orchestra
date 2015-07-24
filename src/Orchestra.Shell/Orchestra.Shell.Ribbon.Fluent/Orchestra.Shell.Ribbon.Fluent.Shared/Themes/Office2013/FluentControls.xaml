@@ -7,18 +7,6 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
 
-    <!--<Style TargetType="{x:Type fluent:Button}" BasedOn="{StaticResource {x:Type fluent:Button}}">
-        <Setter Property="MinWidth" Value="50" />
-    </Style>
-
-    <Style TargetType="{x:Type fluent:SplitButton}" BasedOn="{StaticResource {x:Type fluent:SplitButton}}">
-        <Setter Property="MinWidth" Value="50" />
-    </Style>
-
-    <Style TargetType="{x:Type fluent:DropDownButton}" BasedOn="{StaticResource {x:Type fluent:DropDownButton}}">
-        <Setter Property="MinWidth" Value="50" />
-    </Style>-->
-
     <Style x:Key="RibbonBorderStyle" TargetType="Border">
         <Setter Property="Margin" Value="6" />
         <Setter Property="BorderThickness" Value="1" />
@@ -421,7 +409,7 @@
                 Margin="2,0,2,0"
                 BorderBrush="{DynamicResource TransparentBrush}"
                 Height="Auto"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
             <Grid Height="Auto">
                 <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
@@ -694,91 +682,107 @@
     </ControlTemplate>
 
     <!--Ribbon Toggle Button-->
-    <Style TargetType="{x:Type fluent:ToggleButton}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type fluent:ToggleButton}">
-                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" 
-                            Margin="2,0,2,2"
-                            Background="{DynamicResource TransparentBrush}" 
-                            BorderBrush="{DynamicResource TransparentBrush}" 
-                            Height="Auto" 
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch">
-                        <Grid Height="Auto" HorizontalAlignment="Stretch">
-                            <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical">
-                                <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center"
-                                                  Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static fluent:StaticConverters.ObjectToImageConverter}}"
-                                                  Width="32" Margin="2 1 2 0" SnapsToDevicePixels="True"/>
-                                <fluent:TwoLineLabel x:Name="controlLabel"
-                                                     Text="{TemplateBinding Header}" 
-                                                     Style="{DynamicResource TwoLineLabelStyle}" 
-                                                     HorizontalAlignment="Stretch"  
-                                                     VerticalAlignment="Stretch" Margin="2,0,2,0"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="Size" Value="Small">
-                            <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
-                            <Setter Property="Visibility" TargetName="controlLabel" Value="Collapsed"/>
-                            <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
-                            <Setter Property="Width" TargetName="iconImage" Value="16"/>
-                            <Setter Property="Height" TargetName="iconImage" Value="16"/>
-                            <Setter Property="Margin" TargetName="iconImage" Value="1,0,2,0"/>
-                            <Setter Property="Content" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static fluent:StaticConverters.ObjectToImageConverter}}"/>
-                            <Setter Property="Margin" TargetName="controlLabel" Value="2,-2,2,2"/>
-                        </Trigger>
-                        <Trigger Property="Size" Value="Middle">
-                            <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
-                            <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
-                            <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
-                            <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
-                            <Setter Property="Margin" TargetName="controlLabel" Value="2,2,2,2"/>
-                            <Setter Property="VerticalAlignment" TargetName="border" Value="Stretch"/>
-                            <Setter Property="Width" TargetName="iconImage" Value="16"/>
-                            <Setter Property="Height" TargetName="iconImage" Value="16"/>
-                            <Setter Property="Margin" TargetName="iconImage" Value="1,0,2,0"/>
-                            <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>
-                            <Setter Property="Content" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static fluent:StaticConverters.ObjectToImageConverter}}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonCheckedBrush}"/>
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonCheckedBrush}"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
-                            <Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
-                            <Setter Property="Effect" TargetName="iconImage">
-                                <Setter.Value>
-                                    <fluent:GrayscaleEffect/>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True"/>
-                                <Condition Property="IsPressed" Value="False"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True"/>
-                                <Condition Property="IsPressed" Value="False"/>
-                                <Condition Property="IsChecked" Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-                        </MultiTrigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+
+    <ControlTemplate x:Key="RibbonToggleButtonControlTemplate" TargetType="{x:Type fluent:ToggleButton}">
+        <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" 
+                        Margin="2,0,2,2"
+                        Background="{DynamicResource TransparentBrush}" 
+                        BorderBrush="{DynamicResource TransparentBrush}" 
+                        Height="Auto" 
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+            <Grid Height="Auto" HorizontalAlignment="Stretch" Width="{TemplateBinding Width}">
+                <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical">
+                    <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center"
+                                                Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static fluent:StaticConverters.ObjectToImageConverter}}"
+                                                Width="32" Margin="2 1 2 0" SnapsToDevicePixels="True"/>
+                    <fluent:TwoLineLabel x:Name="controlLabel"
+                                                    Text="{TemplateBinding Header}" 
+                                                    Style="{DynamicResource TwoLineLabelStyle}" 
+                                                    HorizontalAlignment="Stretch"  
+                                                    VerticalAlignment="Stretch" Margin="2,0,2,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Size" Value="Small">
+                <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+                <Setter Property="Visibility" TargetName="controlLabel" Value="Collapsed"/>
+                <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+                <Setter Property="Width" TargetName="iconImage" Value="16"/>
+                <Setter Property="Height" TargetName="iconImage" Value="16"/>
+                <Setter Property="Margin" TargetName="iconImage" Value="1,0,2,0"/>
+                <Setter Property="Content" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static fluent:StaticConverters.ObjectToImageConverter}}"/>
+                <Setter Property="Margin" TargetName="controlLabel" Value="2,-2,2,2"/>
+            </Trigger>
+            <Trigger Property="Size" Value="Middle">
+                <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+                <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
+                <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
+                <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+                <Setter Property="Margin" TargetName="controlLabel" Value="2,2,2,2"/>
+                <Setter Property="VerticalAlignment" TargetName="border" Value="Stretch"/>
+                <Setter Property="Width" TargetName="iconImage" Value="16"/>
+                <Setter Property="Height" TargetName="iconImage" Value="16"/>
+                <Setter Property="Margin" TargetName="iconImage" Value="1,0,2,0"/>
+                <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>
+                <Setter Property="Content" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static fluent:StaticConverters.ObjectToImageConverter}}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+                <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonCheckedBrush}"/>
+                <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonCheckedBrush}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
+                <Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
+                <Setter Property="Effect" TargetName="iconImage">
+                    <Setter.Value>
+                        <fluent:GrayscaleEffect/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"/>
+                    <Condition Property="IsPressed" Value="False"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"/>
+                    <Condition Property="IsPressed" Value="False"/>
+                    <Condition Property="IsChecked" Value="True"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+    <Style TargetType="{x:Type fluent:Button}" BasedOn="{StaticResource {x:Type fluent:Button}}">
+        <Setter Property="MinWidth" Value="64" />
+        <Setter Property="MaxWidth" Value="80" />
+        <Setter Property="Template" Value="{StaticResource RibbonButtonControlTemplate}"/>
     </Style>
+
+    <Style TargetType="{x:Type fluent:ToggleButton}" BasedOn="{StaticResource {x:Type fluent:ToggleButton}}">
+        <Setter Property="MinWidth" Value="64" />
+        <Setter Property="MaxWidth" Value="80" />
+        <Setter Property="Template" Value="{StaticResource RibbonToggleButtonControlTemplate}"/>
+    </Style>
+
+    <Style TargetType="{x:Type fluent:SplitButton}" BasedOn="{StaticResource {x:Type fluent:SplitButton}}">
+        <Setter Property="MinWidth" Value="64" />
+        <Setter Property="MaxWidth" Value="80" />
+    </Style>
+
+    <!--<Style TargetType="{x:Type fluent:DropDownButton}" BasedOn="{StaticResource {x:Type fluent:DropDownButton}}">
+        <Setter Property="MinWidth" Value="50" />
+    </Style>-->
 </ResourceDictionary>
