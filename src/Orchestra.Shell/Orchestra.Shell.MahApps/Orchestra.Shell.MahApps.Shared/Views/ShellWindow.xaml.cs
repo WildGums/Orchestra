@@ -35,6 +35,8 @@ namespace Orchestra.Views
 
             InitializeComponent();
 
+            serviceLocator.RegisterInstance(pleaseWaitProgressBar, "pleaseWaitService");
+
             var accentColorBrush = ThemeHelper.GetAccentColorBrush();
             border.BorderBrush = accentColorBrush;
 
@@ -69,6 +71,12 @@ namespace Orchestra.Views
             }
 
             RightWindowCommands = windowCommands;
+
+            var statusBarContent = mahAppsService.GetStatusBar();
+            if (statusBarContent != null)
+            {
+                customStatusBarItem.Content = statusBarContent;
+            }
 
             var mainView = mahAppsService.GetMainView();
             contentControl.Content = mainView;

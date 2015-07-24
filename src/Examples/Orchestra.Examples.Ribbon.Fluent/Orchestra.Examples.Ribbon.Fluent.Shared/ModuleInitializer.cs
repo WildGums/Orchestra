@@ -1,7 +1,6 @@
 ﻿using Catel.IoC;
 using Orchestra.Examples.Ribbon.Services;
 using Orchestra.Services;
-using Orchestra.Shell.Services;
 
 /// <summary>
 /// Used by the ModuleInit. All code inside the Initialize method is ran as soon as the assembly is loaded.

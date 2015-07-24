@@ -30,13 +30,6 @@ namespace Orchestra.Views
                 this.DisableCloseButton();
             }
         }
-
-        protected override void OnLoaded(EventArgs e)
-        {
-            base.OnLoaded(e);
-
-            this.BringWindowToTop();
-        }
         #endregion
     }
 }

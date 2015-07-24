@@ -7,13 +7,10 @@
 
 namespace Orchestra.Services
 {
-    using System.Windows;
     using MahApps.Metro.Controls;
 
-    public interface IMahAppsService : IAboutInfoService
+    public interface IMahAppsService : IShellContentService, IAboutInfoService
     {
         WindowCommands GetRightWindowCommands();
-
-        FrameworkElement GetMainView();
     }
 }

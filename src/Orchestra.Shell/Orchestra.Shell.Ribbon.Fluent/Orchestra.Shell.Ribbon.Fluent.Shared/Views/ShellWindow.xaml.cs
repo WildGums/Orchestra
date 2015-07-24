@@ -14,7 +14,6 @@ namespace Orchestra.Views
     using Catel.IoC;
     using Fluent;
     using Services;
-    using Shell.Services;
 
     /// <summary>
     /// Interaction logic for ShellWindow.xaml.
