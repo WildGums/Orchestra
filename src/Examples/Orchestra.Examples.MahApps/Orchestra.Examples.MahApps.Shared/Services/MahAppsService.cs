@@ -70,6 +70,11 @@ namespace Orchestra.Examples.MahApps.Services
             return new MainView();
         }
 
+        public FrameworkElement GetStatusBar()
+        {
+            return null;
+        }
+
         public AboutInfo GetAboutInfo()
         {
             return new AboutInfo();

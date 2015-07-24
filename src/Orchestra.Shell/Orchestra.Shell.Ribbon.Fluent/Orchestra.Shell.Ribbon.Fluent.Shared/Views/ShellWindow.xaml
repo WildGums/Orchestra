@@ -63,8 +63,7 @@
                                         </Grid>
                                     </Decorator>
 
-                                    <Border BorderThickness="{TemplateBinding BorderThickness}"
-                            BorderBrush="{TemplateBinding BorderBrush}"/>
+                                    <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}"/>
                                 </Grid>
                             </ControlTemplate>
                         </Setter.Value>
