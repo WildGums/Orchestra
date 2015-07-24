@@ -533,7 +533,7 @@
                                                  Style="{DynamicResource TwoLineLabelStyle}"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"
-                                                 Margin="2,-2,2,0"
+                                                 Margin="2,-2,2,2"
                                                  HasGlyph="{TemplateBinding HasTriangle}" />
                         </Grid>
                     </Border>
