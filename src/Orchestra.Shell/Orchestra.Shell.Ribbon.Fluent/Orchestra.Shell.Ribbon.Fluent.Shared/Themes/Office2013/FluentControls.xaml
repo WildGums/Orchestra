@@ -765,7 +765,14 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <Style x:Key="MenuSeparatorStyle" TargetType="{x:Type Separator}">
+        <Setter Property="Template" Value="{DynamicResource MenuSeparatorControlTemplate}" />
+    </Style>
+    
     <ControlTemplate x:Key="RibbonDropDownButtonControlTemplate" TargetType="{x:Type fluent:DropDownButton}">
+        <ControlTemplate.Resources>
+            <Style BasedOn="{StaticResource MenuSeparatorStyle}" TargetType="{x:Type Separator}" />
+        </ControlTemplate.Resources>
         <Grid>
             <Border x:Name="PART_ButtonBorder"
                     BorderThickness="0"
@@ -1063,7 +1070,7 @@
         </Setter>
     </Style>
 
-    <ControlTemplate x:Key="RibbonGroupBoxControlTemplate"
+    <ControlTemplate x:Key="RibbonGroupBoxControlTemplate" 
                      TargetType="{x:Type fluent:RibbonGroupBox}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
