@@ -37,14 +37,18 @@ namespace Orchestra.ViewModels
             NoCommand = new Command(OnNoCommandExecute);
             CancelCommand = new Command(OnCancelCommandExecute);
             EscapeCommand = new Command(OnEscapeCommandExecute);
-        }
 
+            Result = MessageResult.None;
+        }
         #endregion
 
         #region Properties
         public string Message { get; set; }
+
         public MessageResult Result { get; set; }
+
         public MessageButton Button { get; set; }
+
         public MessageImage Icon { get; set; }
         #endregion
 
@@ -60,18 +64,24 @@ namespace Orchestra.ViewModels
             Title = assembly.Title();
         }
 
-        protected override Task Close()
+        protected override async Task Close()
         {
             SetResult();
-            return base.Close();
+
+            await base.Close();
         }
 
         private void SetResult()
         {
+            if (Result != MessageResult.None)
+            {
+                return;
+            }
+
             switch (Button)
             {
                 case MessageButton.OK:
-                    Result= MessageResult.OK;
+                    Result = MessageResult.OK;
                     break;
 
                 case MessageButton.OKCancel:
