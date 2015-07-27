@@ -7,8 +7,6 @@
 
 namespace Orchestra.ViewModels
 {
-    using System;
-    using System.Text;
     using System.Threading.Tasks;
     using Catel;
     using Catel.MVVM;
@@ -66,35 +64,25 @@ namespace Orchestra.ViewModels
 
         protected override async Task Close()
         {
-            SetResult();
+            if (Result == MessageResult.None)
+            {
+                switch (Button)
+                {
+                    case MessageButton.OK:
+                        Result = MessageResult.OK;
+                        break;
+
+                    case MessageButton.OKCancel:
+                        Result = MessageResult.Cancel;
+                        break;
+
+                    case MessageButton.YesNoCancel:
+                        Result = MessageResult.Cancel;
+                        break;
+                }
+            }
 
             await base.Close();
-        }
-
-        private void SetResult()
-        {
-            if (Result != MessageResult.None)
-            {
-                return;
-            }
-
-            switch (Button)
-            {
-                case MessageButton.OK:
-                    Result = MessageResult.OK;
-                    break;
-
-                case MessageButton.OKCancel:
-                    Result = MessageResult.Cancel;
-                    break;
-
-                case MessageButton.YesNoCancel:
-                    Result = MessageResult.Cancel;
-                    break;
-
-                default:
-                    return;
-            }
         }
 
         #region Commands
