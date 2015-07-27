@@ -766,17 +766,17 @@
     </ControlTemplate>
     
     <Style TargetType="{x:Type fluent:Button}" BasedOn="{StaticResource {x:Type fluent:Button}}">
-        <Setter Property="MinWidth" Value="64" />
+        <Setter Property="MinWidth" Value="50" />
         <Setter Property="Template" Value="{StaticResource RibbonButtonControlTemplate}"/>
     </Style>
 
     <Style TargetType="{x:Type fluent:ToggleButton}" BasedOn="{StaticResource {x:Type fluent:ToggleButton}}">
-        <Setter Property="MinWidth" Value="64" />
+        <Setter Property="MinWidth" Value="50" />
         <Setter Property="Template" Value="{StaticResource RibbonToggleButtonControlTemplate}"/>
     </Style>
 
     <Style TargetType="{x:Type fluent:SplitButton}" BasedOn="{StaticResource {x:Type fluent:SplitButton}}">
-        <Setter Property="MinWidth" Value="64" />
+        <Setter Property="MinWidth" Value="50" />
         <Setter Property="Template" Value="{StaticResource RibbonSplitButtonControlTemplate}"/>
     </Style>
 
