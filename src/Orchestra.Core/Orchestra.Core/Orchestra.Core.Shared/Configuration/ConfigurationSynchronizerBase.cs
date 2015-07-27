@@ -48,7 +48,7 @@ namespace Orchestra.Configuration
             // Note: important to apply first, otherwise the check for values might be equal (which we don't want during first apply)
             if (ApplyAtStartup)
             {
-                ApplyConfiguration();
+                ApplyConfiguration(true);
             }
 
             _lastKnownValue = ConfigurationService.GetValue(Key, DefaultValue);
@@ -62,10 +62,10 @@ namespace Orchestra.Configuration
             }
         }
 
-        private void ApplyConfiguration()
+        private void ApplyConfiguration(bool force = false)
         {
             var value = ConfigurationService.GetValue(Key, DefaultValue);
-            if (ObjectHelper.AreEqual(value, _lastKnownValue))
+            if (!force && ObjectHelper.AreEqual(value, _lastKnownValue))
             {
                 return;
             }
