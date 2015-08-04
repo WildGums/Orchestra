@@ -49,7 +49,7 @@ namespace Orchestra.Examples.TaskRunner
 
             var serviceLocator = ServiceLocator.Default;
             var shellService = serviceLocator.ResolveType<IShellService>();
-            shellService.Create<ShellWindow>();
+            shellService.CreateAsync<ShellWindow>();
 
             _end = DateTime.Now;
             _stopwatch.Stop();

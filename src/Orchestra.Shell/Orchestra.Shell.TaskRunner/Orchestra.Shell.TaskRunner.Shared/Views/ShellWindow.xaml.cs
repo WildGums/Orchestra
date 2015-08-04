@@ -80,9 +80,7 @@ namespace Orchestra.Views
             InitializeComponent();
             serviceLocator.RegisterInstance<ILogControlService>(new LogControlService(traceOutputControl));
 
-            var task = taskRunnerService.GetViewDataContext();
-            task.Wait();
-            ConfigurationContext = task.Result;
+            ConfigurationContext = taskRunnerService.GetViewDataContext();
 
             var startupSize = taskRunnerService.GetInitialWindowSize();
             if (startupSize != null && !startupSize.IsEmpty)

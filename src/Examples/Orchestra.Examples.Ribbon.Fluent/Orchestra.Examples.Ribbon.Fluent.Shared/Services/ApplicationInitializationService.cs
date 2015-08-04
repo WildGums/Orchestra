@@ -34,7 +34,7 @@ namespace Orchestra.Examples.Ribbon.Services
             _serviceLocator = serviceLocator;
         }
 
-        public override async Task InitializeBeforeCreatingShell()
+        public override async Task InitializeBeforeCreatingShellAsync()
         {
             // Non-async first
             await RegisterTypes();
@@ -64,7 +64,7 @@ namespace Orchestra.Examples.Ribbon.Services
             keyboardMappingsService.AdditionalKeyboardMappings.Add(new KeyboardMapping("MyGroup.Zoom", "Mousewheel", ModifierKeys.Control));
         }
 
-        public override async Task InitializeAfterCreatingShell()
+        public override async Task InitializeAfterCreatingShellAsync()
         {
             Log.Info("Delay to show the splash screen");
 

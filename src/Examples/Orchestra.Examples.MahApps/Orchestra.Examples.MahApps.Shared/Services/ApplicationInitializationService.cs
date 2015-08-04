@@ -24,7 +24,7 @@ namespace Orchestra.Examples.MahApps.Services
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
         #endregion
 
-        public override async Task InitializeBeforeCreatingShell()
+        public override async Task InitializeBeforeCreatingShellAsync()
         {
             // Non-async first
             await InitializeCommands();
@@ -52,7 +52,7 @@ namespace Orchestra.Examples.MahApps.Services
             commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
         }
 
-        public override async Task InitializeAfterCreatingShell()
+        public override async Task InitializeAfterCreatingShellAsync()
         {
             Log.Info("Delay to show the splash screen");
 

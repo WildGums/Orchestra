@@ -28,7 +28,7 @@ namespace Orchestra.Services
         /// Gets the data context that will be set to the view.
         /// </summary>
         /// <returns>The data context or <c>null</c>.</returns>
-        Task<object> GetViewDataContext();
+        object GetViewDataContext();
 
         /// <summary>
         /// Gets the view to show in the configuration.
@@ -40,7 +40,7 @@ namespace Orchestra.Services
         /// Runs the logic when the run button is clicked.
         /// </summary>
         /// <param name="dataContext">The data context retrieved earlier using the <see cref="GetViewDataContext"/> method.</param>
-        Task Run(object dataContext);
+        Task RunAsync(object dataContext);
 
         /// <summary>
         /// Gets the desired startup size.

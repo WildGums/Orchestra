@@ -8,10 +8,11 @@
 namespace Orchestra.ViewModels
 {
     using System;
-    using System.Threading;
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
+    using Catel.Threading;
     using Services;
 
     public class ShellViewModel : ViewModelBase
@@ -19,10 +20,6 @@ namespace Orchestra.ViewModels
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly ITaskRunnerService _taskRunnerService;
-        private readonly ICommandManager _commandManager;
-
-        // Note: will be replaced by BackgroundWorkerService in Catel
-        private Thread _handlerThread;
 
         public ShellViewModel(ITaskRunnerService taskRunnerService, ICommandManager commandManager)
         {
@@ -30,11 +27,10 @@ namespace Orchestra.ViewModels
             Argument.IsNotNull(() => commandManager);
 
             _taskRunnerService = taskRunnerService;
-            _commandManager = commandManager;
 
-            Run = new Command(OnRunExecute, OnRunCanExecute);
+            Run = new TaskCommand(OnRunExecuteAsync, OnRunCanExecute);
 
-            _commandManager.RegisterCommand("Runner.Run", Run, this);
+            commandManager.RegisterCommand("Runner.Run", Run, this);
 
             SuspendValidation = true;
 
@@ -51,7 +47,7 @@ namespace Orchestra.ViewModels
         /// <summary>
         /// Gets the Run command.
         /// </summary>
-        public Command Run { get; private set; }
+        public TaskCommand Run { get; private set; }
 
         private bool OnRunCanExecute()
         {
@@ -66,7 +62,7 @@ namespace Orchestra.ViewModels
         /// <summary>
         /// Method to invoke when the Run command is executed.
         /// </summary>
-        private void OnRunExecute()
+        private async Task OnRunExecuteAsync()
         {
             SuspendValidation = false;
 
@@ -92,25 +88,18 @@ namespace Orchestra.ViewModels
 
             IsRunning = true;
 
-            _handlerThread = new Thread(() =>
+            try
             {
-                try
-                {
-                    _taskRunnerService.Run(ConfigurationContext);
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex, "Failed to execute the command");
-                }
-                finally
-                {
-                    IsRunning = false;
-
-                    _handlerThread = null;
-                }
-            });
-
-            _handlerThread.Start();
+                await TaskHelper.Run(() => _taskRunnerService.RunAsync(ConfigurationContext));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to execute the command");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
         }
         #endregion
     }

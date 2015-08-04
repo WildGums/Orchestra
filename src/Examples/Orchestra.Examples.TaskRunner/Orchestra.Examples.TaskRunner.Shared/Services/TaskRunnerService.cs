@@ -24,7 +24,7 @@ namespace Orchestra.Examples.TaskRunner.Services
 
         public bool ShowCustomizeShortcutsButton { get { return true; }}
 
-        public async Task<object> GetViewDataContext()
+        public object GetViewDataContext()
         {
             return new Settings();
         }
@@ -34,7 +34,7 @@ namespace Orchestra.Examples.TaskRunner.Services
             return new SettingsView();
         }
 
-        public async Task Run(object dataContext)
+        public async Task RunAsync(object dataContext)
         {
             var settings = (Settings) dataContext;
 
