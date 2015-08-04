@@ -58,8 +58,6 @@
     <Storyboard x:Key="FadeOutStoryboard" AutoReverse="False">
         <DoubleAnimation BeginTime="0:0:1.0" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.5"
                          FillBehavior="Stop" />
-        <DoubleAnimation BeginTime="0:0:1.0" Storyboard.TargetProperty="Height" From="2" To="0" Duration="0:0:0.5"
-                         FillBehavior="Stop" />
     </Storyboard>
 
     <Style x:Key="LinkLabelWithAccentColorStyle" TargetType="{x:Type orc:LinkLabel}" BasedOn="{StaticResource {x:Type Label}}">

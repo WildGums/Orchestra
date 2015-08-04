@@ -30,7 +30,7 @@
         
         <ContentControl Grid.Row="1" x:Name="contentControl" />
 
-        <ProgressBar x:Name="pleaseWaitProgressBar" Grid.Row="2" Visibility="Collapsed" Height="2">
+        <ProgressBar x:Name="pleaseWaitProgressBar" Grid.Row="2" Visibility="Hidden" Height="2">
             <ProgressBar.Style>
                 <Style TargetType="{x:Type ProgressBar}">
                     <Setter Property="Margin" Value="0"/>
@@ -54,7 +54,7 @@
                                                 </Rectangle>
                                                 <Rectangle Fill="{TemplateBinding Background}" Name="HiderPost" RenderTransformOrigin="1, 0" Margin="50,0,0,0">
                                                     <Rectangle.RenderTransform>
-                                                        <ScaleTransform x:Name="HiderPostTransform" ScaleX="1"  />
+                                                        <ScaleTransform x:Name="HiderPostTransform" ScaleX="1" />
                                                     </Rectangle.RenderTransform>
                                                 </Rectangle>
                                             </Grid>
@@ -77,7 +77,7 @@
             </ProgressBar.Style>
         </ProgressBar>
         
-        <StatusBar Grid.Row="3" x:Name="statusBar">
+        <StatusBar Grid.Row="3" x:Name="statusBar" Margin="0,-2,0,0">
             <StatusBarItem>
                 <orchestra:AnimatingTextBlock x:Name="statusTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <orchestra:AnimatingTextBlock.ShowStoryboard>
