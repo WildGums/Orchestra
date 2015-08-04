@@ -30,11 +30,11 @@ namespace Orchestra.ViewModels
 
             CopyToClipboard = new Command(OnCopyToClipboardExecute);
 
-            OkCommand = new Command(OnOkCommandExecute);
-            YesCommand = new Command(OnYesCommandExecute);
-            NoCommand = new Command(OnNoCommandExecute);
-            CancelCommand = new Command(OnCancelCommandExecute);
-            EscapeCommand = new Command(OnEscapeCommandExecute);
+            OkCommand = new TaskCommand(OnOkCommandExecuteAsync);
+            YesCommand = new TaskCommand(OnYesCommandExecuteAsync);
+            NoCommand = new TaskCommand(OnNoCommandExecuteAsync);
+            CancelCommand = new TaskCommand(OnCancelCommandExecuteAsync);
+            EscapeCommand = new TaskCommand(OnEscapeCommandExecuteAsync);
 
             Result = MessageResult.None;
         }
@@ -62,7 +62,7 @@ namespace Orchestra.ViewModels
             Title = assembly.Title();
         }
 
-        protected override async Task Close()
+        protected override async Task CloseAsync()
         {
             if (Result == MessageResult.None)
             {
@@ -82,7 +82,7 @@ namespace Orchestra.ViewModels
                 }
             }
 
-            await base.Close();
+            await base.CloseAsync();
         }
 
         #region Commands
@@ -95,61 +95,58 @@ namespace Orchestra.ViewModels
             _clipboardService.CopyToClipboard(text);
         }
 
-        public Command OkCommand { get; private set; }
+        public TaskCommand OkCommand { get; private set; }
 
-        private async void OnOkCommandExecute()
+        private async Task OnOkCommandExecuteAsync()
         {
             Result = MessageResult.OK;
             await CloseViewModel(null);
         }
 
-        public Command YesCommand { get; private set; }
+        public TaskCommand YesCommand { get; private set; }
 
-        private async void OnYesCommandExecute()
+        private async Task OnYesCommandExecuteAsync()
         {
             Result = MessageResult.Yes;
             await CloseViewModel(null);
         }
 
-        public Command NoCommand { get; private set; }
+        public TaskCommand NoCommand { get; private set; }
 
-        private async void OnNoCommandExecute()
+        private async Task OnNoCommandExecuteAsync()
         {
             Result = MessageResult.No;
             await CloseViewModel(null);
         }
 
-        public Command CancelCommand { get; private set; }
+        public TaskCommand CancelCommand { get; private set; }
 
-        private async void OnCancelCommandExecute()
+        private async Task OnCancelCommandExecuteAsync()
         {
             Result = MessageResult.Cancel;
             await CloseViewModel(null);
         }
 
-        public Command EscapeCommand { get; private set; }
+        public TaskCommand EscapeCommand { get; private set; }
 
-        private void OnEscapeCommandExecute()
+        private async Task OnEscapeCommandExecuteAsync()
         {
             switch (Button)
             {
                 case MessageButton.OK:
-                    OnOkCommandExecute();
+                    await OnOkCommandExecuteAsync();
                     break;
 
                 case MessageButton.OKCancel:
-                    OnCancelCommandExecute();
+                    await OnCancelCommandExecuteAsync();
                     break;
 
                 case MessageButton.YesNo:
                     break;
 
                 case MessageButton.YesNoCancel:
-                    OnCancelCommandExecute();
+                    await OnCancelCommandExecuteAsync();
                     break;
-
-                default:
-                    return;
             }
         }
         #endregion

@@ -11,6 +11,7 @@ namespace Orchestra.Logging
     using System.Windows.Controls;
     using Catel;
     using Catel.Logging;
+    using Catel.Windows.Threading;
 
     public class TextBoxLogListener : LogListenerBase
     {
@@ -30,17 +31,17 @@ namespace Orchestra.Logging
         #region Methods
         public void Clear()
         {
-            _textBox.Dispatcher.Invoke(new Action(() => _textBox.Clear()));
+            _textBox.Dispatcher.Invoke(() => _textBox.Clear());
         }
 
         protected override void Write(ILog log, string message, LogEvent logEvent, object extraData, LogData logData, DateTime time)
         {
-            _textBox.Dispatcher.Invoke(new Action(() =>
+            _textBox.Dispatcher.Invoke(() =>
             {
                 _textBox.AppendText(string.Format("{0} {1}", time.ToString("hh:mm:ss.fff"), message));
                 _textBox.AppendText(Environment.NewLine);
                 _textBox.ScrollToEnd();
-            }));
+            });
         }
         #endregion
     }

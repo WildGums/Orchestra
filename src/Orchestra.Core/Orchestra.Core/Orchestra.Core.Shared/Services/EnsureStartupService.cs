@@ -64,7 +64,7 @@ namespace Orchestra.Services
             }
         }
 
-        public virtual async Task EnsureFailSafeStartup()
+        public virtual void EnsureFailSafeStartup()
         {
             if (SuccessfullyStarted)
             {

@@ -8,13 +8,12 @@
 namespace Orchestra.Services
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     public interface IAppDataService
     {
         #region Methods
-        Task<bool> BackupUserData();
-        Task<bool> OpenApplicationDataDirectory();
+        bool BackupUserData();
+        bool OpenApplicationDataDirectory();
         #endregion
 
         void DeleteUserData();

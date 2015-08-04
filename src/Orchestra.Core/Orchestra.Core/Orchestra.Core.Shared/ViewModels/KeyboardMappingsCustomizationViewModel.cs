@@ -190,9 +190,11 @@ namespace Orchestra.ViewModels
         #endregion
 
         #region Methods
-        protected override async Task Close()
+        protected override async Task CloseAsync()
         {
             _keyboardMappingsService.Save();
+
+            await base.CloseAsync();
         }
 
         private void UpdateCommands()

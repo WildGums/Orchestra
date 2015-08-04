@@ -9,6 +9,7 @@ namespace Orchestra
 {
     using System;
     using System.IO;
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
     using Path = Catel.IO.Path;
@@ -32,13 +33,13 @@ namespace Orchestra
         /// Adds a file log listener for an unhandled exception.
         /// </summary>
         /// <param name="ex">The unhandled exception.</param>
-        public static async void AddLogListenerForUnhandledException(Exception ex)
+        public static void AddLogListenerForUnhandledException(Exception ex)
         {
             AddFileLogListener("Crashreport");
 
             Log.Error(ex, "Application crashed");
 
-            await LogManager.FlushAllAsync();
+            LogManager.FlushAll();
         }
 
         public static ILogListener CreateFileLogListener(string prefix)

@@ -23,11 +23,13 @@ namespace Orchestra.ViewModels
         public SplashScreenViewModel(IAboutInfoService aboutInfoService)
         {
             Argument.IsNotNull(() => aboutInfoService);
+
             var aboutInfo = aboutInfoService.GetAboutInfo();
             CompanyLogoForSplashScreenUri = aboutInfo.CompanyLogoForSplashScreenUri;
         }
         #region Properties
         public Uri CompanyLogoForSplashScreenUri { get; private set; }
+
         /// <summary>
         /// Gets the company.
         /// </summary>
@@ -42,9 +44,9 @@ namespace Orchestra.ViewModels
         #endregion
 
         #region Methods
-        protected override async Task Initialize()
+        protected override async Task InitializeAsync()
         {
-            await base.Initialize();
+            await base.InitializeAsync();
 
             var assembly = Orchestra.AssemblyHelper.GetEntryAssembly();
             if (assembly != null)

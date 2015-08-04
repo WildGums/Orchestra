@@ -90,8 +90,10 @@ namespace Orchestra.ViewModels
         }
         #endregion
 
-        protected override async Task Initialize()
+        protected override async Task InitializeAsync()
         {
+            await base.InitializeAsync();
+
             Title = string.Format(_languageService.GetString("ShortcutsForApplication"), AssemblyHelper.GetEntryAssembly().Title());
 
             var mappingsByGroup = new Dictionary<string, KeyboardMappings>();

@@ -45,7 +45,7 @@ namespace Orchestra.Examples.MahApps.ViewModels
 
             Add = new Command(OnAddExecute);
             Edit = new Command(OnEditExecute, OnEditCanExecute);
-            Remove = new Command(OnRemoveExecute, OnRemoveCanExecute);
+            Remove = new TaskCommand(OnRemoveExecuteAsync, OnRemoveCanExecute);
         }
         #endregion
 
@@ -86,39 +86,34 @@ namespace Orchestra.Examples.MahApps.ViewModels
             _flyoutService.ShowFlyout(ExampleEnvironment.PersonFlyoutName, selectedPerson);
         }
 
-        public Command Remove { get; private set; }
+        public TaskCommand Remove { get; private set; }
 
         private bool OnRemoveCanExecute()
         {
             return SelectedPerson != null;
         }
 
-        private void OnRemoveExecute()
+        private async Task OnRemoveExecuteAsync()
         {
             var selectedPerson = SelectedPerson;
 
-            var task = _messageService.Show(string.Format("Are you sure you want to remove person '{0}'?", selectedPerson), "Are you sure?", MessageButton.YesNo, MessageImage.Question);
-
-            task.ContinueWith(result =>
+            if (await _messageService.Show(string.Format("Are you sure you want to remove person '{0}'?", selectedPerson), "Are you sure?", MessageButton.YesNo, MessageImage.Question) == MessageResult.Yes)
             {
-                if (result.Result == MessageResult.Yes)
-                {
-                    Log.Info("Removing person '{0}'", selectedPerson);
+                Log.Info("Removing person '{0}'", selectedPerson);
 
-                    _dispatcherService.Invoke(() =>
-                    {
-                        Persons.Remove(selectedPerson);
-                        SelectedPerson = Persons.FirstOrDefault();
-                    }, true);
-                }
-            });
+                _dispatcherService.Invoke(() =>
+                {
+                    Persons.Remove(selectedPerson);
+                    SelectedPerson = Persons.FirstOrDefault();
+                }, true);
+            }
         }
         #endregion
 
         #region Methods
-        protected override async Task Initialize()
+        protected override async Task InitializeAsync()
         {
-            await base.Initialize();
+            await base.InitializeAsync();
 
             SelectedPerson = Persons.FirstOrDefault();
         }

@@ -49,9 +49,9 @@ namespace Orchestra.ViewModels
         #endregion
 
         #region Methods
-        protected override async Task Initialize()
+        protected override async Task InitializeAsync()
         {
-            await base.Initialize();
+            await base.InitializeAsync();
 
             var items = new List<KeyValuePair<string, string>>();
 

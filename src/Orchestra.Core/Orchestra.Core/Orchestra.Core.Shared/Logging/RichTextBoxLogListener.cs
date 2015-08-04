@@ -15,6 +15,7 @@ namespace Orchestra.Logging
     using System.Windows.Media;
     using Catel;
     using Catel.Logging;
+    using Catel.Windows.Threading;
 
     public class RichTextBoxLogListener : LogListenerBase
     {
@@ -48,14 +49,14 @@ namespace Orchestra.Logging
         #region Methods
         public void Clear()
         {
-            _textBox.Dispatcher.Invoke(new Action(() => _textBox.Document.Blocks.Clear()));
+            _textBox.Dispatcher.Invoke(() => _textBox.Document.Blocks.Clear());
         }
 
         protected override void Write(ILog log, string message, LogEvent logEvent, object extraData, LogData logData, DateTime time)
         {
-            _textBox.Dispatcher.Invoke(new Action(() =>
+            _textBox.Dispatcher.Invoke(() =>
             {
-                string finalMessage = string.Format("{0} {1}", time.ToString("hh:mm:ss.fff"), message);
+                var finalMessage = string.Format("{0} {1}", time.ToString("hh:mm:ss.fff"), message);
 
                 var paragraph = new Paragraph(new Run(finalMessage));
 
@@ -64,7 +65,7 @@ namespace Orchestra.Logging
                 paragraph.Foreground = ColorSets[logEvent];
                 _textBox.Document.Blocks.Add(paragraph);
                 _textBox.ScrollToEnd();
-            }));
+            });
         }
 
         private void FixParagraphSpacing(Paragraph paragraph)

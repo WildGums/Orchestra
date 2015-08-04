@@ -8,6 +8,7 @@
 namespace Orchestra.Views
 {
     using System.Reflection;
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
@@ -44,9 +45,9 @@ namespace Orchestra.Views
 
             _assembly = AssemblyHelper.GetEntryAssembly();
 
-            Continue = new Command(OnContinueExecute);
-            ResetUserSettings = new Command(OnResetUserSettingsExecute);
-            BackupAndReset = new Command(OnResetAndBackupExecute);
+            Continue = new TaskCommand(OnContinueExecuteAsync);
+            ResetUserSettings = new TaskCommand(OnResetUserSettingsExecuteAsync);
+            BackupAndReset = new TaskCommand(OnResetAndBackupExecuteAsync);
         }
         #endregion
 
@@ -58,13 +59,13 @@ namespace Orchestra.Views
         #endregion
 
         #region Commands
-        public Command BackupAndReset { get; set; }
+        public TaskCommand BackupAndReset { get; set; }
 
-        private async void OnResetAndBackupExecute()
+        private async Task OnResetAndBackupExecuteAsync()
         {
             Log.Info("User choose to create a backup");
 
-            if (!await _appDataService.BackupUserData())
+            if (!_appDataService.BackupUserData())
             {
                 Log.Warning("User canceled the backup, exit application");
 
@@ -82,9 +83,9 @@ namespace Orchestra.Views
             await CloseViewModel(false);
         }
 
-        public Command ResetUserSettings { get; set; }
+        public TaskCommand ResetUserSettings { get; set; }
 
-        private async void OnResetUserSettingsExecute()
+        private async Task OnResetUserSettingsExecuteAsync()
         {
             Log.Info("User choose NOT to create a backup");
 
@@ -95,9 +96,9 @@ namespace Orchestra.Views
             await CloseViewModel(false);
         }
 
-        public Command Continue { get; set; }
+        public TaskCommand Continue { get; set; }
 
-        private async void OnContinueExecute()
+        private async Task OnContinueExecuteAsync()
         {
             Log.Info("User choose NOT to delete any data and continue (living on the edge)");
 

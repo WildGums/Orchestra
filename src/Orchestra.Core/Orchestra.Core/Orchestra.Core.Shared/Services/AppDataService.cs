@@ -55,7 +55,7 @@ namespace Orchestra.Services
 
         public List<string> ExclusionFilters { get; private set; }
 
-        public async Task<bool> OpenApplicationDataDirectory()
+        public bool OpenApplicationDataDirectory()
         {
             Log.Info("Opening data directory");
 
@@ -88,7 +88,7 @@ namespace Orchestra.Services
             }
         }
 
-        public async Task<bool> BackupUserData()
+        public bool BackupUserData()
         {
             var assembly = AssemblyHelper.GetEntryAssembly();
             var applicationDataDirectory = Catel.IO.Path.GetApplicationDataDirectory();
