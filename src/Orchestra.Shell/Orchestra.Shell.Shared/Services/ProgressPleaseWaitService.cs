@@ -17,7 +17,7 @@ namespace Orchestra.Services
     using Catel.Logging;
     using Catel.Services;
 
-    internal class ProgressPleaseWaitService: PleaseWaitService
+    internal class ProgressPleaseWaitService : PleaseWaitService
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
@@ -25,10 +25,10 @@ namespace Orchestra.Services
         private ProgressBar _progressBar;
         private ResourceDictionary _resourceDictionary;
 
-        public ProgressPleaseWaitService(IDispatcherService dispatcherService, IDependencyResolver dependencyResolver) 
+        public ProgressPleaseWaitService(IDispatcherService dispatcherService, IDependencyResolver dependencyResolver)
             : base(dispatcherService)
         {
-            Argument.IsNotNull(()=> dependencyResolver);
+            Argument.IsNotNull(() => dependencyResolver);
 
             _dependencyResolver = dependencyResolver;
         }
@@ -44,7 +44,7 @@ namespace Orchestra.Services
                 {
                     Log.Debug("Hiding progress bar");
 
-                    progressBar.Visibility = Visibility.Collapsed;
+                    progressBar.Visibility = Visibility.Hidden;
                 });
             }
         }
@@ -69,7 +69,7 @@ namespace Orchestra.Services
                         var storyboard = GetHideProgressBarStoryboard();
                         storyboard.Completed += (sender, e) =>
                         {
-                            progressBar.Visibility = Visibility.Collapsed;
+                            progressBar.Visibility = Visibility.Hidden;
                         };
 
                         storyboard.Begin(progressBar);

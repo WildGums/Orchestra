@@ -45,12 +45,12 @@
   <ItemGroup>
     <Reference Include="Catel.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Catel.Core.4.2.0-unstable0248\lib\net40\Catel.Core.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.Core.4.2.0-unstable0269\lib\net40\Catel.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Catel.Extensions.Controls, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.2.0-unstable0248\lib\net40\Catel.Extensions.Controls.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.2.0-unstable0269\lib\net40\Catel.Extensions.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Catel.Fody.Attributes, Version=2.8.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
@@ -60,7 +60,7 @@
     </Reference>
     <Reference Include="Catel.MVVM, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0248\lib\net40\Catel.MVVM.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0269\lib\net40\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fluent, Version=3.4.2.173, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
@@ -101,7 +101,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0248\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0269\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
