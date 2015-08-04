@@ -54,7 +54,6 @@
     </Reference>
     <Reference Include="Catel.MVVM, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-    <Reference Include="Catel.MVVM">
       <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0269\lib\net40\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>

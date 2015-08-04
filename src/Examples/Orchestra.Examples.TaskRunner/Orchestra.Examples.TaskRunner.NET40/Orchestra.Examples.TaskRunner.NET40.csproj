@@ -44,12 +44,6 @@
       <HintPath>..\..\..\..\lib\Catel.Core.4.2.0-unstable0269\lib\net40\Catel.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Catel.Extensions.Controls, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    <Reference Include="Catel.Core">
-      <HintPath>..\..\..\..\lib\Catel.Core.4.2.0-unstable0269\lib\net40\Catel.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Catel.Extensions.Controls">
       <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.2.0-unstable0269\lib\net40\Catel.Extensions.Controls.dll</HintPath>
       <Private>True</Private>
