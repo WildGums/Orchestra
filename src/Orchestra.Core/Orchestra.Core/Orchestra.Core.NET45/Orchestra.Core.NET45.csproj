@@ -79,7 +79,7 @@
     </Reference>
     <Reference Include="Orc.SystemInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Orc.SystemInfo.1.0.0-unstable0038\lib\net45\Orc.SystemInfo.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Orc.SystemInfo.1.0.0-unstable0042\lib\net45\Orc.SystemInfo.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

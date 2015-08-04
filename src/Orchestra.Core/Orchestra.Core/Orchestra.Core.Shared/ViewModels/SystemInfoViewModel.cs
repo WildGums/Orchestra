@@ -15,6 +15,7 @@ namespace Orchestra.ViewModels
     using Catel;
     using Catel.MVVM;
     using Catel.Services;
+    using Catel.Threading;
     using Orc.SystemInfo;
     using Services;
 
@@ -54,7 +55,9 @@ namespace Orchestra.ViewModels
 
             var items = new List<KeyValuePair<string, string>>();
 
-            foreach (var item in await _systemInfoService.GetSystemInfo())
+            var systemInfo = await TaskHelper.Run(() => _systemInfoService.GetSystemInfo());
+
+            foreach (var item in systemInfo)
             {
                 items.Add(new KeyValuePair<string, string>(item.Name, item.Value));
             }
