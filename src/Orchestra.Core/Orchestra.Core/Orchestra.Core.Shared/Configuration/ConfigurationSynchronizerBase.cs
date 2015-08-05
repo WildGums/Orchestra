@@ -7,6 +7,7 @@
 
 namespace Orchestra.Configuration
 {
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Configuration;
     using Catel.IoC;
@@ -39,30 +40,37 @@ namespace Orchestra.Configuration
 
         protected bool ApplyAtStartup { get; set; }
 
-        protected abstract void ApplyConfiguration(T value);
+        protected virtual void ApplyConfiguration(T value)
+        {
+        }
+
+        protected virtual async Task ApplyConfigurationAsync(T value)
+        {
+            ApplyConfiguration(value);
+        }
 
         protected abstract string GetStatus(T value);
 
-        void INeedCustomInitialization.Initialize()
+        async void INeedCustomInitialization.Initialize()
         {
             // Note: important to apply first, otherwise the check for values might be equal (which we don't want during first apply)
             if (ApplyAtStartup)
             {
-                ApplyConfiguration(true);
+                await ApplyConfigurationAsync(true);
             }
 
             _lastKnownValue = ConfigurationService.GetValue(Key, DefaultValue);
         }
 
-        private void OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+        private async void OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
         {
             if (e.IsConfigurationKey(Key))
             {
-                ApplyConfiguration();
+                await ApplyConfigurationAsync();
             }
         }
 
-        private void ApplyConfiguration(bool force = false)
+        private async Task ApplyConfigurationAsync(bool force = false)
         {
             var value = ConfigurationService.GetValue(Key, DefaultValue);
             if (!force && ObjectHelper.AreEqual(value, _lastKnownValue))
@@ -72,7 +80,7 @@ namespace Orchestra.Configuration
 
             _lastKnownValue = value;
 
-            ApplyConfiguration(value);
+            await ApplyConfigurationAsync(value);
 
             var status = GetStatus(value);
             if (!string.IsNullOrWhiteSpace(status))
