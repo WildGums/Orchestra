@@ -9,6 +9,7 @@ namespace Orchestra.Windows
 {
     using System;
     using System.ComponentModel;
+    using System.Threading.Tasks;
     using System.Windows;
     using Catel;
     using Catel.MVVM;
@@ -141,11 +142,11 @@ namespace Orchestra.Windows
         {
             if (ViewModel != null && !ViewModel.IsClosed)
             {
-                ViewModel.Closed += ViewModelClosed;
+                ViewModel.ClosedAsync += ViewModelClosedAsync;
             }
         }
 
-        private void ViewModelClosed(object sender, ViewModelClosedEventArgs e)
+        private async Task ViewModelClosedAsync(object sender, ViewModelClosedEventArgs e)
         {
             Close();
         }

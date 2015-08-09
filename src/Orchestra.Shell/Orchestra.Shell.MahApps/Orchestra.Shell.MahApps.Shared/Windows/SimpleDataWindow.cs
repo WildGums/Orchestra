@@ -18,8 +18,8 @@ namespace Orchestra.Windows
     using Catel.MVVM;
     using Catel.MVVM.Providers;
     using Catel.MVVM.Views;
+    using Catel.Threading;
     using Catel.Windows;
-    using MahApps.Metro.Controls.Dialogs;
 
     public class SimpleDataWindow : MahApps.Metro.Controls.Dialogs.CustomDialog, IDataWindow
     {
@@ -78,14 +78,14 @@ namespace Orchestra.Windows
 
             if (mode == DataWindowMode.OkCancel || mode == DataWindowMode.OkCancelApply)
             {
-                var button = new DataWindowButton("Ok", OnOkExecute, OnOkCanExecute);
+                var button = new DataWindowButton("Ok", async () => await OnOkExecuteAsync(), OnOkCanExecute);
                 button.IsDefault = true;
                 _buttons.Add(button);
             }
 
             if (mode == DataWindowMode.OkCancel || mode == DataWindowMode.OkCancelApply)
             {
-                var button = new DataWindowButton("Cancel", OnCancelExecute, OnCancelCanExecute);
+                var button = new DataWindowButton("Cancel", async () => await OnCancelExecuteAsync(), OnCancelCanExecute);
                 button.IsCancel = true;
                 _buttons.Add(button);
             }
@@ -113,12 +113,14 @@ namespace Orchestra.Windows
         /// <summary>
         /// Executes the Ok command.
         /// </summary>
-        protected void ExecuteOk()
+        protected Task ExecuteOkAsync()
         {
             if (OnOkCanExecute())
             {
-                OnOkExecute();
+                return OnOkExecuteAsync();
             }
+
+            return TaskHelper.Completed;
         }
 
         /// <summary>
@@ -133,9 +135,9 @@ namespace Orchestra.Windows
         /// <summary>
         /// Handled when the user invokes the Ok command.
         /// </summary>
-        protected async void OnOkExecute()
+        protected async Task OnOkExecuteAsync()
         {
-            if (!await ApplyChanges())
+            if (!await ApplyChangesAsync())
             {
                 return;
             }
@@ -146,12 +148,14 @@ namespace Orchestra.Windows
         /// <summary>
         /// Executes the Cancel command.
         /// </summary>
-        protected void ExecuteCancel()
+        protected Task ExecuteCancelAsync()
         {
             if (OnCancelCanExecute())
             {
-                OnCancelExecute();
+                return OnCancelExecuteAsync();
             }
+
+            return TaskHelper.Completed;
         }
 
         /// <summary>
@@ -166,9 +170,9 @@ namespace Orchestra.Windows
         /// <summary>
         /// Handled when the user invokes the Cancel command.
         /// </summary>
-        protected async void OnCancelExecute()
+        protected async Task OnCancelExecuteAsync()
         {
-            if (!await DiscardChanges())
+            if (!await DiscardChangesAsync())
             {
                 return;
             }
@@ -201,7 +205,7 @@ namespace Orchestra.Windows
         /// </summary>
         protected async void OnApplyExcute()
         {
-            await ApplyChanges();
+            await ApplyChangesAsync();
         }
 
         /// <summary>
@@ -245,17 +249,17 @@ namespace Orchestra.Windows
         /// Applies all changes made by this window.
         /// </summary>
         /// <returns>True if successful, otherwise false.</returns>
-        protected virtual async Task<bool> ApplyChanges()
+        protected virtual async Task<bool> ApplyChangesAsync()
         {
-            return await _logic.SaveViewModel();
+            return await _logic.SaveViewModelAsync();
         }
 
         /// <summary>
         /// Discards all changes made by this window.
         /// </summary>
-        protected virtual async Task<bool> DiscardChanges()
+        protected virtual async Task<bool> DiscardChangesAsync()
         {
-            return await _logic.CancelViewModel();
+            return await _logic.CancelViewModelAsync();
         }
         #endregion
 
@@ -358,11 +362,11 @@ namespace Orchestra.Windows
         {
             if (ViewModel != null && !ViewModel.IsClosed)
             {
-                ViewModel.Closed += ViewModelClosed;
+                ViewModel.ClosedAsync += ViewModelClosedAsync;
             }
         }
 
-        private void ViewModelClosed(object sender, ViewModelClosedEventArgs e)
+        private async Task ViewModelClosedAsync(object sender, ViewModelClosedEventArgs e)
         {
             Close();
         }

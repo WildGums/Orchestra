@@ -69,7 +69,7 @@ namespace Orchestra.Views
             {
                 Log.Warning("User canceled the backup, exit application");
 
-                await _messageService.ShowError("Failed to created a backup. To prevent data loss, the application will now exit and not delete any files. Please contact support so they can guide you through the process.", _assembly.Title());
+                await _messageService.ShowErrorAsync("Failed to created a backup. To prevent data loss, the application will now exit and not delete any files. Please contact support so they can guide you through the process.", _assembly.Title());
 
                 _navigationService.CloseApplication();
 
@@ -78,9 +78,9 @@ namespace Orchestra.Views
 
             _appDataService.DeleteUserData();
 
-            await _messageService.ShowInformation("Backup has been succesfully created.", _assembly.Title());
+            await _messageService.ShowInformationAsync("Backup has been succesfully created.", _assembly.Title());
 
-            await CloseViewModel(false);
+            await CloseViewModelAsync(false);
         }
 
         public TaskCommand ResetUserSettings { get; set; }
@@ -91,9 +91,9 @@ namespace Orchestra.Views
 
             _appDataService.DeleteUserData();
 
-            await _messageService.ShowInformation("User data settings have been successfully deleted.", _assembly.Title());
+            await _messageService.ShowInformationAsync("User data settings have been successfully deleted.", _assembly.Title());
 
-            await CloseViewModel(false);
+            await CloseViewModelAsync(false);
         }
 
         public TaskCommand Continue { get; set; }
@@ -102,7 +102,7 @@ namespace Orchestra.Views
         {
             Log.Info("User choose NOT to delete any data and continue (living on the edge)");
 
-            await CloseViewModel(false);
+            await CloseViewModelAsync(false);
         }
         #endregion
     }

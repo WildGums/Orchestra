@@ -100,7 +100,7 @@ namespace Orchestra.ViewModels
         private async Task OnOkCommandExecuteAsync()
         {
             Result = MessageResult.OK;
-            await CloseViewModel(null);
+            await CloseViewModelAsync(null);
         }
 
         public TaskCommand YesCommand { get; private set; }
@@ -108,7 +108,7 @@ namespace Orchestra.ViewModels
         private async Task OnYesCommandExecuteAsync()
         {
             Result = MessageResult.Yes;
-            await CloseViewModel(null);
+            await CloseViewModelAsync(null);
         }
 
         public TaskCommand NoCommand { get; private set; }
@@ -116,7 +116,7 @@ namespace Orchestra.ViewModels
         private async Task OnNoCommandExecuteAsync()
         {
             Result = MessageResult.No;
-            await CloseViewModel(null);
+            await CloseViewModelAsync(null);
         }
 
         public TaskCommand CancelCommand { get; private set; }
@@ -124,7 +124,7 @@ namespace Orchestra.ViewModels
         private async Task OnCancelCommandExecuteAsync()
         {
             Result = MessageResult.Cancel;
-            await CloseViewModel(null);
+            await CloseViewModelAsync(null);
         }
 
         public TaskCommand EscapeCommand { get; private set; }

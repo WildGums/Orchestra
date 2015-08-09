@@ -190,7 +190,7 @@ namespace Orchestra.Services
 
                 // Late resolve so user might change the message service
                 var messageService = _dependencyResolver.Resolve<IMessageService>();
-                await messageService.ShowError(string.Format("An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.\n\nPlease try restarting the application. If this error keeps coming up while starting the application, please contact support.", assemblyTitle), string.Format("Failed to start {0}", assemblyTitle));
+                await messageService.ShowErrorAsync(string.Format("An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.\n\nPlease try restarting the application. If this error keeps coming up while starting the application, please contact support.", assemblyTitle), string.Format("Failed to start {0}", assemblyTitle));
 
                 Application.Current.Shutdown(-1);
             }

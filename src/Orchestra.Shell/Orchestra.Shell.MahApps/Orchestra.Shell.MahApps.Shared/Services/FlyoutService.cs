@@ -69,7 +69,7 @@ namespace Orchestra.Services
 
             ((ICompositeCommand) _commandManager.GetCommand("Close")).RegisterAction(() => { flyout.IsOpen = false; });
 
-            flyout.IsOpenChanged += (sender, e) =>
+            flyout.IsOpenChanged += async (sender, e) =>
             {
                 if (!flyout.IsOpen)
                 {
@@ -82,15 +82,15 @@ namespace Orchestra.Services
                             switch (unloadBehavior)
                             {
                                 case UnloadBehavior.CloseViewModel:
-                                    vm.CloseViewModel(null);
+                                    await vm.CloseViewModelAsync(null);
                                     break;
 
                                 case UnloadBehavior.SaveAndCloseViewModel:
-                                    vm.SaveAndCloseViewModel();
+                                    await vm.SaveAndCloseViewModelAsync();
                                     break;
 
                                 case UnloadBehavior.CancelAndCloseViewModel:
-                                    vm.CancelAndCloseViewModel();
+                                    await vm.CancelAndCloseViewModelAsync();
                                     break;
 
                                 default:

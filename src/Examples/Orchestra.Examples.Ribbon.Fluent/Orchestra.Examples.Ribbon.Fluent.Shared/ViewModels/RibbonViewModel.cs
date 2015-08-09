@@ -81,7 +81,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         {
             if (_selectDirectoryService.DetermineDirectory())
             {
-                await _messageService.Show("You have chosen " + _selectDirectoryService.DirectoryName);
+                await _messageService.ShowAsync("You have chosen " + _selectDirectoryService.DirectoryName);
             }
         }
 
@@ -95,7 +95,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// </summary>
         private async void OnOpenRecentlyUsedItemExecute(string parameter)
         {
-            await _messageService.Show(string.Format("Just opened a recently used item: {0}", parameter));
+            await _messageService.ShowAsync(string.Format("Just opened a recently used item: {0}", parameter));
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         {
             if (!Directory.Exists(parameter))
             {
-                await _messageService.ShowWarning("The directory doesn't seem to exist. Cannot open the project in explorer.");
+                await _messageService.ShowWarningAsync("The directory doesn't seem to exist. Cannot open the project in explorer.");
                 return;
             }
 
@@ -158,9 +158,9 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         #endregion
 
         #region Methods
-        protected override async Task Initialize()
+        protected override async Task InitializeAsync()
         {
-            await base.Initialize();
+            await base.InitializeAsync();
 
             InitializeDemoData();
 
@@ -169,11 +169,11 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             UpdateRecentlyUsedItems();
         }
 
-        protected override Task Close()
+        protected override Task CloseAsync()
         {
             _recentlyUsedItemsService.Updated -= OnRecentlyUsedItemsServiceUpdated;
 
-            return base.Close();
+            return base.CloseAsync();
         }
 
         private void OnRecentlyUsedItemsServiceUpdated(object sender, EventArgs e)

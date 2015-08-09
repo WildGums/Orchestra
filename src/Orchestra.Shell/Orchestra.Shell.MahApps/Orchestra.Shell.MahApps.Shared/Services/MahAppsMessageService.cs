@@ -21,7 +21,7 @@ namespace Orchestra.Services
         {
         }
 
-        protected override async Task<MessageResult> ShowMessageBox(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
+        protected override async Task<MessageResult> ShowMessageBoxAsync(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
         {
             var window = Application.Current.MainWindow as MetroWindow;
             if (window == null)

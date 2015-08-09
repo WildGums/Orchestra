@@ -50,9 +50,9 @@ namespace Orchestra.Examples.TaskRunner.ViewModels
         public Settings Settings { get; private set; }
         #endregion
 
-        protected override async Task Initialize()
+        protected override async Task InitializeAsync()
         {
-            await base.Initialize();
+            await base.InitializeAsync();
 
             _dispatcherService.BeginInvoke(() => _logControlService.SelectedLevel = LogEvent.Debug | LogEvent.Info);
         }

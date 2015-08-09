@@ -171,7 +171,7 @@ namespace Orchestra.ViewModels
                     messageBuilder.AppendLine("Are you sure you want to assign the input gesture to '{0}'. It will be removed from the other commands.",
                         selectedCommand);
 
-                    if (await _messageService.Show(messageBuilder.ToString(), "Replace input gesture?", MessageButton.YesNo) == MessageResult.No)
+                    if (await _messageService.ShowAsync(messageBuilder.ToString(), "Replace input gesture?", MessageButton.YesNo) == MessageResult.No)
                     {
                         return;
                     }

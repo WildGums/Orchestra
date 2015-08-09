@@ -70,18 +70,18 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             commandManager.RegisterCommand("File.Exit", Exit, this);
         }
 
-        protected override async Task Initialize()
+        protected override async Task InitializeAsync()
         {
-            await base.Initialize();
+            await base.InitializeAsync();
 
             _recentlyUsedItemsService.Updated += OnRecentlyUsedItemsServiceUpdated;
         }
 
-        protected override async Task Close()
+        protected override async Task CloseAsync()
         {
             _recentlyUsedItemsService.Updated -= OnRecentlyUsedItemsServiceUpdated;
 
-            await base.Close();
+            await base.CloseAsync();
         }
 
         #region Commands
@@ -161,7 +161,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
 
             if (failed)
             {
-                if (await _messageService.Show("The file does not exist or has been removed. Would you like to remove it from the recently used list?", "Remove from recently used items?", MessageButton.YesNo) == MessageResult.Yes)
+                if (await _messageService.ShowAsync("The file does not exist or has been removed. Would you like to remove it from the recently used list?", "Remove from recently used items?", MessageButton.YesNo) == MessageResult.Yes)
                 {
                     var recentlyUsedItem = _recentlyUsedItemsService.Items.FirstOrDefault(x => string.Equals(x.Name, parameter));
                     if (recentlyUsedItem != null)
@@ -210,7 +210,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         {
             if (!File.Exists(parameter))
             {
-                await _messageService.ShowWarning("The file doesn't seem to exist. Cannot open the project in explorer.");
+                await _messageService.ShowWarningAsync("The file doesn't seem to exist. Cannot open the project in explorer.");
                 return;
             }
 

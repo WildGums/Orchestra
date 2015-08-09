@@ -35,19 +35,19 @@ namespace Orchestra.Examples.Ribbon
             switch (button)
             {
                 case MessageButton.OK:
-                    await _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text.", null, button, MessageImage.Error);
+                    await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text.", null, button, MessageImage.Error);
                     break;
 
                 case MessageButton.OKCancel:
-                    await _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", null, button, MessageImage.Information);
+                    await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", null, button, MessageImage.Information);
                     break;
 
                 case MessageButton.YesNo:
-                    await _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "", button, MessageImage.Warning);
+                    await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", "", button, MessageImage.Warning);
                     break;
 
                 case MessageButton.YesNoCancel:
-                    await _messageService.Show("This is a custom message box implemented in Orchestra. Here is your long text", "", button);
+                    await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", "", button);
                     break;
 
                 default:

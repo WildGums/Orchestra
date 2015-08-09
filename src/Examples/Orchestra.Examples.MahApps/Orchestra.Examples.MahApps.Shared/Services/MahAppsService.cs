@@ -45,12 +45,12 @@ namespace Orchestra.Examples.MahApps.Services
 
             var refreshButton = WindowCommandHelper.CreateWindowCommandButton("appbar_refresh_counterclockwise_down", "refresh");
             refreshButton.Command = _commandManager.GetCommand("File.Refresh");
-            _commandManager.RegisterAction("File.Refresh", () => _messageService.Show("Refresh"));
+            _commandManager.RegisterAction("File.Refresh", () => _messageService.ShowAsync("Refresh"));
             windowCommands.Items.Add(refreshButton);
 
             var saveButton = WindowCommandHelper.CreateWindowCommandButton("appbar_save", "save");
             saveButton.Command = _commandManager.GetCommand("File.Save");
-            _commandManager.RegisterAction("File.Save", () => _messageService.Show("Save"));
+            _commandManager.RegisterAction("File.Save", () => _messageService.ShowAsync("Save"));
             windowCommands.Items.Add(saveButton);
 
             var showWindowButton = WindowCommandHelper.CreateWindowCommandButton("appbar_new_window", "show window");

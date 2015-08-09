@@ -50,7 +50,7 @@ namespace Orchestra.ViewModels
             ShowLogButton = aboutInfo.ShowLogButton;
             AppIcon = assembly.ExtractLargestIcon();
             OpenUrl = new Command(OnOpenUrlExecute, OnOpenUrlCanExecute);
-            OpenLog = new Command(OnOpenLogExecute);
+            OpenLog = new TaskCommand(OnOpenLogExecuteAsync);
             ShowSystemInfo = new Command(OnShowSystemInfoExecute);
             EnableDetailedLogging = new Command(OnEnableDetailedLoggingExecute);
         }
@@ -96,9 +96,9 @@ namespace Orchestra.ViewModels
             _processService.StartProcess(UriInfo.Uri);
         }
 
-        public Command OpenLog { get; private set; }
+        public TaskCommand OpenLog { get; private set; }
 
-        private void OnOpenLogExecute()
+        private async Task OnOpenLogExecuteAsync()
         {
             var fileLogListener = (from logListener in LogManager.GetListeners()
                                    where logListener is FileLogListener
@@ -111,7 +111,7 @@ namespace Orchestra.ViewModels
             }
             else
             {
-                _messageService.ShowError("No log listener available that can be opened. Please contact support.");
+                await _messageService.ShowErrorAsync("No log listener available that can be opened. Please contact support.");
             }
         }
 

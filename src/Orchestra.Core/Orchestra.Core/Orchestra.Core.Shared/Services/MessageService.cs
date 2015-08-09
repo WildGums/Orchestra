@@ -40,7 +40,7 @@ namespace Orchestra.Services
         }
         #endregion
 
-        public override Task<MessageResult> Show(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
+        public override Task<MessageResult> ShowAsync(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
         {
             Argument.IsNotNullOrWhitespace("message", message);
 
