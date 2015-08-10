@@ -90,7 +90,7 @@ namespace Orchestra.ViewModels
 
             try
             {
-                await TaskHelper.Run(() => _taskRunnerService.RunAsync(ConfigurationContext));
+                await TaskHelper.Run(() => _taskRunnerService.RunAsync(ConfigurationContext), true);
             }
             catch (Exception ex)
             {

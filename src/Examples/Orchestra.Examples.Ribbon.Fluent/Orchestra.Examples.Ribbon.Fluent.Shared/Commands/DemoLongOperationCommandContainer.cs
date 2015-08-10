@@ -12,6 +12,7 @@ namespace Orchestra.Examples.Ribbon
     using Catel;
     using Catel.MVVM;
     using Catel.Services;
+    using Catel.Threading;
 
     internal class DemoLongOperationCommandContainer : CommandContainerBase
     {
@@ -32,7 +33,7 @@ namespace Orchestra.Examples.Ribbon
         {
             const int TotalItems = 250;
 
-            await Task.Factory.StartNew(() =>
+            await TaskHelper.Run(async () =>
             {
                 var random = new Random();
 
@@ -40,9 +41,9 @@ namespace Orchestra.Examples.Ribbon
                 {
                     _pleaseWaitService.UpdateStatus(i + 1, TotalItems);
 
-                    ThreadHelper.Sleep(random.Next(5, 30));
+                    await TaskShim.Delay(random.Next(5, 30));
                 }
-            });
+            }, true);
         }
     }
 }

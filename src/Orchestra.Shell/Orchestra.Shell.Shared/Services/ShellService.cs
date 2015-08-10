@@ -16,6 +16,7 @@ namespace Orchestra.Services
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
+    using Catel.Threading;
     using MethodTimer;
     using Views;
     using AssemblyHelper = Orchestra.AssemblyHelper;
@@ -154,7 +155,7 @@ namespace Orchestra.Services
 
                 Log.Info("Loading keyboard mappings");
 
-                await _keyboardMappingsService.LoadAsync();
+                await TaskHelper.Run(() => _keyboardMappingsService.Load(), true);
 
                 // Now we have a new window, resubscribe the command manager
                 _commandManager.SubscribeToKeyboardEvents();

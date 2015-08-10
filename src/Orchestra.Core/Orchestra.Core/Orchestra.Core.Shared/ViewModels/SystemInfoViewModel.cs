@@ -55,7 +55,7 @@ namespace Orchestra.ViewModels
 
             var items = new List<KeyValuePair<string, string>>();
 
-            var systemInfo = await TaskHelper.Run(() => _systemInfoService.GetSystemInfo());
+            var systemInfo = await TaskHelper.Run(() => _systemInfoService.GetSystemInfo(), true);
 
             foreach (var item in systemInfo)
             {
