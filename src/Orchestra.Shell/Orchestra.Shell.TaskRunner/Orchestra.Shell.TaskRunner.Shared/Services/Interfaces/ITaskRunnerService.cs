@@ -7,6 +7,8 @@
 
 namespace Orchestra.Services
 {
+    using System;
+    using System.ComponentModel;
     using System.Threading.Tasks;
     using System.Windows;
 
@@ -17,6 +19,11 @@ namespace Orchestra.Services
         /// </summary>
         /// <value>The title.</value>
         string Title { get; }
+
+        /// <summary>
+        /// Notifies when the title of the runner changes
+        /// </summary>
+        event EventHandler TitleChanged;
 
         /// <summary>
         /// Gets a value indicating whether to show the customize shortcuts button.

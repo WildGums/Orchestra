@@ -35,6 +35,7 @@ namespace Orchestra.ViewModels
             SuspendValidation = true;
 
             Title = taskRunnerService.Title;
+            taskRunnerService.TitleChanged += (sender, args) => Title = taskRunnerService.Title;
         }
 
         #region Properties
