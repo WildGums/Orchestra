@@ -7,9 +7,11 @@
 
 namespace Orchestra.Examples.TaskRunner.Services
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using Catel;
     using Catel.Logging;
     using Models;
     using Orchestra.Models;
@@ -20,7 +22,19 @@ namespace Orchestra.Examples.TaskRunner.Services
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        public string Title { get { return "Custom TaskRunner demo"; } }
+        private string _title = "Custom TaskRunner demo";
+
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                TitleChanged.SafeInvoke(this);
+            }
+        }
+
+        public event EventHandler TitleChanged;
 
         public bool ShowCustomizeShortcutsButton { get { return true; }}
 
