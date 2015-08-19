@@ -27,6 +27,7 @@ namespace Orchestra.Services
         }
         #endregion
 
+        #region Methods
         public void Close()
         {
             _ensureStartupService.ConfirmApplicationStartedSuccessfully();
@@ -39,5 +40,6 @@ namespace Orchestra.Services
             // TODO: consider application.Shutdown (if that results in a cleaner shutdown)
             Process.GetCurrentProcess().Kill();
         }
+        #endregion
     }
 }
