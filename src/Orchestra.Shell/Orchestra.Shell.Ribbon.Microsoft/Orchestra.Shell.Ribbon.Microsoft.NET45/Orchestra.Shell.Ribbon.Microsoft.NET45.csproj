@@ -41,11 +41,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.Core.4.2.0-unstable0289\lib\net45\Catel.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\Catel.Core.4.2.0-unstable0290\lib\net45\Catel.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Catel.Extensions.Controls, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.2.0-unstable0289\lib\net45\Catel.Extensions.Controls.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.2.0-unstable0290\lib\net45\Catel.Extensions.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Catel.Fody.Attributes, Version=2.8.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
@@ -54,23 +56,23 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Catel.MVVM, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0289\lib\net45\Catel.MVVM.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0290\lib\net45\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MethodTimer, Version=1.15.6.0, Culture=neutral, PublicKeyToken=cb1364609f40a1dc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\MethodTimer.Fody.1.15.6.0\lib\dotnet\MethodTimer.dll</HintPath>
+    <Reference Include="MethodTimer">
+      <HintPath>..\..\..\..\lib\MethodTimer.Fody.1.15.7.0\lib\dotnet\MethodTimer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Obsolete">
-      <HintPath>..\..\..\..\lib\Obsolete.Fody.4.0.2\lib\dotnet\Obsolete.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Obsolete.Fody.4.0.3\lib\dotnet\Obsolete.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0289\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.MVVM.4.2.0-unstable0290\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -122,15 +124,15 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\lib\Fody.1.29.2\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\Fody.1.29.2\build\dotnet\Fody.targets'))" />
     <Error Condition="!Exists('..\..\..\..\lib\ModuleInit.Fody.1.5.7.0\build\dotnet\ModuleInit.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\ModuleInit.Fody.1.5.7.0\build\dotnet\ModuleInit.Fody.targets'))" />
-    <Error Condition="!Exists('..\..\..\..\lib\Obsolete.Fody.4.0.2\build\dotnet\Obsolete.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\Obsolete.Fody.4.0.2\build\dotnet\Obsolete.Fody.targets'))" />
-    <Error Condition="!Exists('..\..\..\..\lib\MethodTimer.Fody.1.15.6.0\build\dotnet\MethodTimer.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\MethodTimer.Fody.1.15.6.0\build\dotnet\MethodTimer.Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\lib\Obsolete.Fody.4.0.3\build\dotnet\Obsolete.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\Obsolete.Fody.4.0.3\build\dotnet\Obsolete.Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\lib\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets'))" />
   </Target>
-  <Import Project="..\..\..\..\lib\Fody.1.29.2\build\dotnet\Fody.targets" Condition="Exists('..\..\..\..\lib\Fody.1.29.2\build\dotnet\Fody.targets')" />
   <Import Project="..\..\..\..\lib\ModuleInit.Fody.1.5.7.0\build\dotnet\ModuleInit.Fody.targets" Condition="Exists('..\..\..\..\lib\ModuleInit.Fody.1.5.7.0\build\dotnet\ModuleInit.Fody.targets')" />
-  <Import Project="..\..\..\..\lib\Obsolete.Fody.4.0.2\build\dotnet\Obsolete.Fody.targets" Condition="Exists('..\..\..\..\lib\Obsolete.Fody.4.0.2\build\dotnet\Obsolete.Fody.targets')" />
-  <Import Project="..\..\..\..\lib\MethodTimer.Fody.1.15.6.0\build\dotnet\MethodTimer.Fody.targets" Condition="Exists('..\..\..\..\lib\MethodTimer.Fody.1.15.6.0\build\dotnet\MethodTimer.Fody.targets')" />
+  <Import Project="..\..\..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets" Condition="Exists('..\..\..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets')" />
+  <Import Project="..\..\..\..\lib\Obsolete.Fody.4.0.3\build\dotnet\Obsolete.Fody.targets" Condition="Exists('..\..\..\..\lib\Obsolete.Fody.4.0.3\build\dotnet\Obsolete.Fody.targets')" />
+  <Import Project="..\..\..\..\lib\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets" Condition="Exists('..\..\..\..\lib\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
