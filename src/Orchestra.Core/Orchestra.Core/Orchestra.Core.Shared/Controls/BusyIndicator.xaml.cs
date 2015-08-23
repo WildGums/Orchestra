@@ -8,9 +8,11 @@
 namespace Orchestra.Controls
 {
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Media;
     using Catel.Windows;
     using Catel.Windows.Controls;
+    using Catel.Windows.Threading;
     using WPFSpark;
 
     /// <summary>
@@ -20,6 +22,7 @@ namespace Orchestra.Controls
     {
         #region Fields
         private MediaElementThreadInfo _mediaElementThreadInfo;
+        private Grid _grid;
 
         private Brush _foreground;
         private int _ignoreUnloadedEventCount;
@@ -88,6 +91,22 @@ namespace Orchestra.Controls
             }
         }
 
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+
+            if (_grid != null)
+            {
+                if (sizeInfo.WidthChanged)
+                {
+                    _grid.Dispatcher.BeginInvoke(() =>
+                    {
+                        _grid.Width = sizeInfo.NewSize.Width;
+                    });
+                }
+            }
+        }
+
         private void OnIgnoreUnloadedEventCountChanged()
         {
             _ignoreUnloadedEventCount = IgnoreUnloadedEventCount;
@@ -97,12 +116,19 @@ namespace Orchestra.Controls
         {
             var fluidProgressBar = new FluidProgressBar
             {
-                Width = ActualWidth,
                 HorizontalContentAlignment = HorizontalAlignment.Stretch,
                 Foreground = _foreground
             };
 
-            return fluidProgressBar;
+            var grid = new Grid();
+            grid.Width = ActualWidth;
+            //grid.Background = Brushes.Red;
+            grid.HorizontalAlignment = HorizontalAlignment.Stretch;
+            grid.Children.Add(fluidProgressBar);
+
+            _grid = grid;
+
+            return grid;
         }
         #endregion
     }
