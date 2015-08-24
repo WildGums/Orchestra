@@ -57,6 +57,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="CrashWarningWindowDropDownButtonStyle" TargetType="{x:Type orc:DropDownButton}" BasedOn="{StaticResource {x:Type orc:DropDownButton}}"/>
     </catel:Window.Resources>
     
     <Grid>
@@ -83,7 +85,8 @@
 
                 <DockPanel Margin="0 20 0 0" LastChildFill="False" VerticalAlignment="Top">
                     <orc:DropDownButton Header="User data settings" DockPanel.Dock="Left" Height="26" Width="140"
-                                        AccentColorBrush="{DynamicResource AccentColorBrush}" ShowDefaultButton="False" >
+                                        AccentColorBrush="{DynamicResource AccentColorBrush}" ShowDefaultButton="False"
+                                        Style="{StaticResource CrashWarningWindowDropDownButtonStyle}">
                         <orc:DropDownButton.DropDown>
                             <ContextMenu>
                                 <MenuItem Header="Reset" Command="{Binding ResetUserSettings}"/>

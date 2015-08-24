@@ -6,6 +6,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Catel.MVVM;component/themes/generic.xaml" />
         <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic.xaml" />
+        <ResourceDictionary Source="/Orc.Controls;component/Themes/Generic.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
     <Style TargetType="{x:Type GroupBox}">
