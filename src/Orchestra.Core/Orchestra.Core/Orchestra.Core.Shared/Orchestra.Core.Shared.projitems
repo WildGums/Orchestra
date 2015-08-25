@@ -215,4 +215,7 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Resources\Images\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Views\MessageBoxWindow.xaml" />
+  </ItemGroup>
 </Project>

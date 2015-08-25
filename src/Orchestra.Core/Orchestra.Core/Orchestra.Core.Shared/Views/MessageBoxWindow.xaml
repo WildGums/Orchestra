@@ -22,7 +22,7 @@
         </Grid.ColumnDefinitions>
 
         <DockPanel Grid.Row="0">
-            <Label Style="{StaticResource MessageBoxLabelStyle}" VerticalAlignment="Top"
+            <Label Style="{DynamicResource MessageBoxLabelStyle}" VerticalAlignment="Top"
                    Tag="{Binding Icon, Converter={converters:MessageImageToTextConverter}}" />
             <DockPanel>
                 <ScrollViewer DockPanel.Dock="Top" MaxHeight="400" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" >
