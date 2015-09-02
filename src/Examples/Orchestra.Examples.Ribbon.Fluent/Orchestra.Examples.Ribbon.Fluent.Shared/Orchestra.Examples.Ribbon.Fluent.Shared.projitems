@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>0280e6b2-58e3-4379-9502-de186ced9577</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Orchestra.Examples.Ribbon</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ApplicationAboutCommandContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ApplicationExitCommandContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\DemoLongOperationCommandContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\DemoShowMessageBoxCommandContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FontAwesome.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AboutInfoService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ApplicationInitializationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\RibbonService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RibbonViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\StatusBarViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\RibbonView.xaml.cs">
+      <DependentUpon>RibbonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StatusBarView.xaml.cs">
+      <DependentUpon>StatusBarView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\Icons\Logo.ico" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\Images\exit.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\Images\explorer.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\Images\file_menu.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\Images\keyboard.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\Images\open.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\Images\print.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\Images\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\RibbonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\StatusBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,91 @@
+﻿<windows:RibbonWindow x:Class="Orchestra.Views.ShellWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:orchestra="https://github.com/orcomp/orchestra"
+                      xmlns:windows="clr-namespace:Orchestra.Windows"
+                      ShowInTaskbar="True" ResizeMode="CanResize" WindowState="Maximized">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ContentControl Grid.Row="0" x:Name="ribbonContentControl" />
+        <ContentControl Grid.Row="1" x:Name="contentControl" />
+
+        <ProgressBar x:Name="pleaseWaitProgressBar" Grid.Row="2" Visibility="Collapsed" Height="2">
+            <ProgressBar.Style>
+                <Style TargetType="{x:Type ProgressBar}">
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ProgressBar}">
+                                <Grid Name="TemplateRoot" SnapsToDevicePixels="true">
+                                    <Rectangle Fill="{TemplateBinding Background}"/>
+                                    <Rectangle Name="PART_Track" Margin="0"/>
+                                    <Decorator x:Name="PART_Indicator" HorizontalAlignment="Left" Margin="0">
+                                        <Grid Name="Foreground">
+                                            <Rectangle Fill="{TemplateBinding Foreground}" Name="Indicator" />
+                                            <Grid x:Name="Animation" ClipToBounds="true" Visibility="Hidden">
+                                                <Rectangle Fill="{TemplateBinding Background}" Name="HiderPre" Margin="0,0,50,0">
+                                                    <Rectangle.RenderTransform>
+                                                        <ScaleTransform x:Name="HiderPreTransform" ScaleX="0"/>
+                                                    </Rectangle.RenderTransform>
+                                                </Rectangle>
+                                                <Rectangle Fill="{TemplateBinding Background}" Name="HiderPost" RenderTransformOrigin="1, 0" Margin="50,0,0,0">
+                                                    <Rectangle.RenderTransform>
+                                                        <ScaleTransform x:Name="HiderPostTransform" ScaleX="1"  />
+                                                    </Rectangle.RenderTransform>
+                                                </Rectangle>
+                                            </Grid>
+                                            <Grid Name="Overlay">
+                                            </Grid>
+                                        </Grid>
+                                    </Decorator>
+
+                                    <Border BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ProgressBar.Style>
+        </ProgressBar>
+
+        <StatusBar Grid.Row="3" x:Name="statusBar">
+            <StatusBarItem>
+                <orchestra:AnimatingTextBlock x:Name="statusTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <orchestra:AnimatingTextBlock.ShowStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </orchestra:AnimatingTextBlock.ShowStoryboard>
+                    <orchestra:AnimatingTextBlock.HideStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </orchestra:AnimatingTextBlock.HideStoryboard>
+                </orchestra:AnimatingTextBlock>
+            </StatusBarItem>
+
+            <StatusBarItem x:Name="customStatusBarItem" HorizontalAlignment="Right" />
+        </StatusBar>
+    </Grid>
+
+</windows:RibbonWindow>

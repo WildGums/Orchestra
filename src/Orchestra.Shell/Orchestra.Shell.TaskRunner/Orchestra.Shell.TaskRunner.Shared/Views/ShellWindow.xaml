@@ -1,0 +1,61 @@
+﻿<catel:DataWindow x:Class="Orchestra.Views.ShellWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:catel="http://catel.codeplex.com"
+                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                  xmlns:behaviors="clr-namespace:Orchestra.Behaviors"
+                  xmlns:orc="http://www.wildgums.net.au/orc"
+                  ShowInTaskbar="True" MinWidth="625" MinHeight="625" Width="625" Height="625"
+                  SizeToContent="Manual" ResizeMode="CanResizeWithGrip" UseLayoutRounding="True">
+    <catel:DataWindow.Resources>
+        <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic.xaml" />
+    </catel:DataWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <ContentControl Grid.Row="0" Grid.ColumnSpan="2" x:Name="contentControl" />
+
+        <Expander Grid.Row="1" Header="Run" IsExpanded="True" Style="{StaticResource GroupBoxExpander}">
+            <i:Interaction.Behaviors>
+                <behaviors:CommandToExpanderBehavior Command="{catel:CommandManagerBinding Groups.Run}" />
+            </i:Interaction.Behaviors>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!--<Label Grid.Column="0">
+                    <TextBlock TextWrapping="Wrap">
+                        Please make sure to provide the right configuration. When the configuration is set, the button at the right
+                        can be used to run the task. 
+                        <LineBreak /><LineBreak />
+                        Once the task is done, the results will be displayed below.
+                    </TextBlock>
+                </Label>-->
+
+                <Button Grid.Column="1" Width="64" Height="64" ToolTip="Run" Command="{catel:CommandManagerBinding Runner.Run}">
+                    <Image Source="/Orchestra.Shell.TaskRunner;component/Resources/Images/Run.png" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" />
+                </Button>
+
+            </Grid>
+        </Expander>
+
+        <GroupBox Grid.Row="2" Header="Results">
+            <orc:AdvancedLogViewerControl x:Name="traceOutputControl" AccentColorBrush="{StaticResource AccentColorBrush}" ShowFilterBox="False" ShowTypeNames="False"/>
+        </GroupBox>
+    </Grid>
+
+</catel:DataWindow>

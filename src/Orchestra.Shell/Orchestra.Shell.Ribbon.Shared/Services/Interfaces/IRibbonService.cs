@@ -5,16 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace Orchestra.Shell.Services
+namespace Orchestra.Services
 {
     using System.Windows;
 
-    public interface IRibbonService
+    public interface IRibbonService : IShellContentService
     {
         FrameworkElement GetRibbon();
-
-        FrameworkElement GetMainView();
-
-        FrameworkElement GetStatusBar();
     }
 }

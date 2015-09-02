@@ -26,7 +26,7 @@ namespace Orchestra.Services
         /// <typeparam name="TShell">The type of the shell.</typeparam>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        Task<TShell> CreateWithSplash<TShell>()
+        Task<TShell> CreateWithSplashAsync<TShell>()
             where TShell : IShell;
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Orchestra.Services
         /// <typeparam name="TShell">The type of the shell.</typeparam>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        Task<TShell> Create<TShell>()
+        Task<TShell> CreateAsync<TShell>()
             where TShell : IShell;
     }
 }

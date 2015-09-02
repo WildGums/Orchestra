@@ -1,0 +1,39 @@
+﻿<catel:UserControl x:Class="Orchestra.Examples.TaskRunner.Views.SettingsView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:catel="http://catel.codeplex.com"
+                   xmlns:orc="http://www.wildgums.net.au/orc"
+                   xmlns:converters="clr-namespace:Orchestra.Examples.TaskRunner.Converters">
+
+    <Expander IsExpanded="True" Header="Configuration" Style="{StaticResource GroupBoxExpander}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="131" />
+                <!-- 125 + 6 margin -->
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <orc:DirectoryPickerView Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,6,0" LabelText="Working directory"
+                                     SelectedDirectory="{Binding WorkingDirectory, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+
+            <orc:DirectoryPickerView Grid.Row="1" Grid.ColumnSpan="3" Margin="0,0,6,0" LabelText="Output directory"
+                                     SelectedDirectory="{Binding OutputDirectory, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Horizon" />
+            <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding HorizonStart, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+            <DatePicker Grid.Row="2" Grid.Column="2" SelectedDate="{Binding HorizonEnd, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Current time" />
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTime, Converter={converters:TextToDateTimeConverter}, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+        </Grid>
+    </Expander>
+
+</catel:UserControl>

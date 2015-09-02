@@ -15,30 +15,30 @@ namespace Orchestra.Services
         /// Initialization code before showing the splash screen.
         /// </summary>
         /// <returns>Task.</returns>
-        Task InitializeBeforeShowingSplashScreen();
+        Task InitializeBeforeShowingSplashScreenAsync();
 
         /// <summary>
         /// Initialization code before creating the shell.
         /// </summary>
         /// <returns>Task.</returns>
-        Task InitializeBeforeCreatingShell();
+        Task InitializeBeforeCreatingShellAsync();
 
         /// <summary>
         /// Initialization code after creating the shell.
         /// </summary>
         /// <returns>Task.</returns>
-        Task InitializeAfterCreatingShell();
+        Task InitializeAfterCreatingShellAsync();
 
         /// <summary>
         /// Initialization code before showing the shell.
         /// </summary>
         /// <returns>Task.</returns>
-        Task InitializeBeforeShowingShell();
+        Task InitializeBeforeShowingShellAsync();
 
         /// <summary>
         /// Initialization code after showing the shell.
         /// </summary>
         /// <returns>Task.</returns>
-        Task InitializeAfterShowingShell();
+        Task InitializeAfterShowingShellAsync();
     }
 }

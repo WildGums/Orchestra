@@ -16,8 +16,8 @@ namespace Orchestra.Services
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
+    using Catel.Threading;
     using MethodTimer;
-    using Properties;
     using Views;
     using AssemblyHelper = Orchestra.AssemblyHelper;
 
@@ -99,15 +99,15 @@ namespace Orchestra.Services
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
         [Time]
-        public async Task<TShell> CreateWithSplash<TShell>()
+        public async Task<TShell> CreateWithSplashAsync<TShell>()
             where TShell : IShell
         {
-            await _applicationInitializationService.InitializeBeforeShowingSplashScreen();
+            await _applicationInitializationService.InitializeBeforeShowingSplashScreenAsync();
 
             var splashScreen = _splashScreenService.CreateSplashScreen();
             splashScreen.Show();
 
-            var shell = await CreateShellInternal<TShell>(splashScreen.Close);
+            var shell = await CreateShellInternalAsync<TShell>(splashScreen.Close);
 
             return shell;
         }
@@ -119,10 +119,10 @@ namespace Orchestra.Services
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
         [Time]
-        public async Task<TShell> Create<TShell>()
+        public async Task<TShell> CreateAsync<TShell>()
             where TShell : IShell
         {
-            return await CreateShellInternal<TShell>();
+            return await CreateShellInternalAsync<TShell>();
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Orchestra.Services
         /// <param name="postShowShellCallback">The shell created callback.</param>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        private async Task<TShell> CreateShellInternal<TShell>(Action postShowShellCallback = null)
+        private async Task<TShell> CreateShellInternalAsync<TShell>(Action postShowShellCallback = null)
             where TShell : IShell
         {
             if (Shell != null)
@@ -142,40 +142,40 @@ namespace Orchestra.Services
 
             Log.Info("Checking if software was correctly closed previously");
 
-            await _ensureStartupService.EnsureFailSafeStartup();
+            _ensureStartupService.EnsureFailSafeStartup();
 
             var shell = default(TShell);
             var successfullyStarted = true;
 
             try
             {
-                await InitializeBeforeCreatingShell();
+                await InitializeBeforeCreatingShellAsync();
 
-                shell = await CreateShell<TShell>();
+                shell = await CreateShellAsync<TShell>();
 
                 Log.Info("Loading keyboard mappings");
 
-                await _keyboardMappingsService.LoadAsync();
+                await TaskHelper.Run(() => _keyboardMappingsService.Load(), true);
 
                 // Now we have a new window, resubscribe the command manager
                 _commandManager.SubscribeToKeyboardEvents();
 
-                await InitializeAfterCreatingShell();
+                await InitializeAfterCreatingShellAsync();
 
                 Log.Info("Confirming that application was started successfully");
 
                 _ensureStartupService.ConfirmApplicationStartedSuccessfully();
 
-                await InitializeBeforeShowingShell();
+                await InitializeBeforeShowingShellAsync();
 
-                await ShowShell(shell);
+                ShowShell(shell);
 
                 if (postShowShellCallback != null)
                 {
                     postShowShellCallback();
                 }
 
-                await InitializeAfterShowingShell();
+                await InitializeAfterShowingShellAsync();
             }
             catch (Exception ex)
             {
@@ -191,7 +191,7 @@ namespace Orchestra.Services
 
                 // Late resolve so user might change the message service
                 var messageService = _dependencyResolver.Resolve<IMessageService>();
-                await messageService.ShowError(string.Format("An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.\n\nPlease try restarting the application. If this error keeps coming up while starting the application, please contact support.", assemblyTitle), string.Format("Failed to start {0}", assemblyTitle));
+                await messageService.ShowErrorAsync(string.Format("An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.\n\nPlease try restarting the application. If this error keeps coming up while starting the application, please contact support.", assemblyTitle), string.Format("Failed to start {0}", assemblyTitle));
 
                 Application.Current.Shutdown(-1);
             }
@@ -200,23 +200,23 @@ namespace Orchestra.Services
         }
 
         [Time]
-        private async Task InitializeBeforeCreatingShell()
+        private async Task InitializeBeforeCreatingShellAsync()
         {
             Log.Debug("Calling IApplicationInitializationService.InitializeBeforeCreatingShell");
 
-            await _applicationInitializationService.InitializeBeforeCreatingShell();
+            await _applicationInitializationService.InitializeBeforeCreatingShellAsync();
         }
 
         [Time]
-        private async Task InitializeAfterCreatingShell()
+        private async Task InitializeAfterCreatingShellAsync()
         {
             Log.Debug("Calling IApplicationInitializationService.InitializeAfterCreatingShell");
 
-            await _applicationInitializationService.InitializeAfterCreatingShell();
+            await _applicationInitializationService.InitializeAfterCreatingShellAsync();
         }
 
         [Time]
-        private async Task<TShell> CreateShell<TShell>()
+        private async Task<TShell> CreateShellAsync<TShell>()
             where TShell : IShell
         {
             Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName());
@@ -237,25 +237,25 @@ namespace Orchestra.Services
         }
 
         [Time]
-        private async Task ShowShell(IShell shell)
+        private void ShowShell(IShell shell)
         {
             shell.Show();
         }
 
         [Time]
-        private async Task InitializeBeforeShowingShell()
+        private async Task InitializeBeforeShowingShellAsync()
         {
             Log.Debug("Calling IApplicationInitializationService.InitializeBeforeShowingShell");
 
-            await _applicationInitializationService.InitializeBeforeShowingShell();
+            await _applicationInitializationService.InitializeBeforeShowingShellAsync();
         }
 
         [Time]
-        private async Task InitializeAfterShowingShell()
+        private async Task InitializeAfterShowingShellAsync()
         {
             Log.Debug("Calling IApplicationInitializationService.InitializeAfterShowingShell");
 
-            await _applicationInitializationService.InitializeAfterShowingShell();
+            await _applicationInitializationService.InitializeAfterShowingShellAsync();
         }
         #endregion
     }

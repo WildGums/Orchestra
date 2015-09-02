@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>7efd7f52-35c2-4800-927d-55ad1ea843ad</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Orchestra</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\MahAppsExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\MahAppsHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\WindowCommandHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\FlyoutInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\FlyoutServiceExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\FlyoutService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IFlyoutService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IMahAppsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MahAppsAboutService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MahAppsMessageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MahAppsUIVisualizerService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ShellViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MahAppsAboutView.xaml.cs">
+      <DependentUpon>MahAppsAboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ShellWindow.xaml.cs">
+      <DependentUpon>ShellWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\MetroDataWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\SimpleDataWindow.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Resources\Entypo-license.txt" />
+    <None Include="$(MSBuildThisFileDirectory)Resources\Entypo.ttf" />
+    <None Include="$(MSBuildThisFileDirectory)Resources\WindowsIcons-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Resources\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\MahAppsAboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ShellWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+</Project>

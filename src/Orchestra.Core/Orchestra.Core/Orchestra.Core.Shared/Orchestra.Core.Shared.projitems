@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>bf3abc91-f3f1-4c8a-a418-1b845724cc7f</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Orchestra</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\HintsBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\AdorneredTooltipsCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\Interfaces\IAdorneredTooltipsCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CommandContainerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ToggleConfigurationCommandContainerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ConfigurationSynchronizerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\Extensions\ConfigurationExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\AnimatingTextBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\BusyIndicator.xaml.cs">
+      <DependentUpon>BusyIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\FluidProgressBar.xaml.cs">
+      <DependentUpon>FluidProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\KeyboardMappingControl.xaml.cs">
+      <DependentUpon>KeyboardMappingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToThicknessConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\CommandNameToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\KeyboardMappingToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\InputGestureToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\MessageButtonToCollapsingVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\MessageImageToTextConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\PathToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\OrchestraException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\AssemblyExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\FrameworkElementExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\IconExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\WindowExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\AssemblyHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DotNetPatchHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\FilterHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\IconHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\LogHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ScreenHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ThemeHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\VersionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Layers\HintsAdornerLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Layers\Interfaces\IAdornerLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\RichTextBoxLogListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\StatusLogListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\TextBoxLogListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\CanvasViewbox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\FontImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MethodTimeLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AboutInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CommandInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Hint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Interfaces\IHint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\KeyboardMapping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\KeyboardMappings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\RecentlyUsedItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\RecentlyUsedItems.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UriInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OrchestraEnvironment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AboutInfoService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AboutService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AdorneredTooltipsManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AdorneredTooltipsManagerFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AppDataService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ClipboardService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\CloseApplicationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\EnsureStartupService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IKeyboardMappingsServiceExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IMessageServiceExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IStatusServiceExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IViewActivationServiceExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\HintsProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IAboutInfoService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IAboutService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IAdorneredTooltipsManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IAdorneredTooltipsManagerFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IAppDataService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IClipboardService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\ICloseApplicationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IEnsureStartupService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IHintsProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IKeyboardMappingsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IRecentlyUsedItemsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\ISplashScreenService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IStatusFilterService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IStatusService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IThemeService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IViewActivationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\KeyboardMappingsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MessageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\PleaseWaitService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\RecentlyUsedItemsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\SplashScreenService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\StatusFilterService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\StatusService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ThemeService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ViewActivationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tooltips\AdorneredTooltip.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tooltips\AdorneredTooltipFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tooltips\AdornerHintGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tooltips\Interfaces\IAdorneredTooltip.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tooltips\Interfaces\IAdorneredTooltipFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tooltips\Interfaces\IAdornerTooltipGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tooltips\TextBlockAdorner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CrashWarningViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\KeyboardMappingsCustomizationViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\KeyboardMappingsOverviewViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MessageBoxViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SplashScreenViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SystemInfoViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CrashWarningWindow.xaml.cs">
+      <DependentUpon>CrashWarningWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsCustomizationView.xaml.cs">
+      <DependentUpon>KeyboardMappingsCustomizationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsCustomizationWindow.xaml.cs">
+      <DependentUpon>KeyboardMappingsCustomizationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsOverviewView.xaml.cs">
+      <DependentUpon>KeyboardMappingsOverviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsOverviewWindow.xaml.cs">
+      <DependentUpon>KeyboardMappingsOverviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MessageBoxWindow.xaml.cs">
+      <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SystemInfoWindow.xaml.cs">
+      <DependentUpon>SystemInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Extensions\WindowExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\FixMaximize.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Taskbar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\WpfScreen.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\BusyIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\FluidProgressBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\KeyboardMappingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\CrashWarningWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsCustomizationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsCustomizationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsOverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\KeyboardMappingsOverviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\MessageBoxWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SystemInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Resources\Images\" />
+  </ItemGroup>
+</Project>

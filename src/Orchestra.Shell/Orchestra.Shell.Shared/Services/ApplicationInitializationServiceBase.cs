@@ -14,28 +14,23 @@ namespace Orchestra.Services
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService
     {
-        [Time] 
-        public virtual async Task InitializeBeforeShowingSplashScreen()
+        public virtual async Task InitializeBeforeShowingSplashScreenAsync()
         {
         }
 
-        [Time]
-        public virtual async Task InitializeBeforeCreatingShell()
+        public virtual async Task InitializeBeforeCreatingShellAsync()
         {
         }
 
-        [Time]
-        public virtual async Task InitializeAfterCreatingShell()
+        public virtual async Task InitializeAfterCreatingShellAsync()
         {
         }
 
-        [Time]
-        public virtual async Task InitializeBeforeShowingShell()
+        public virtual async Task InitializeBeforeShowingShellAsync()
         {
         }
 
-        [Time]
-        public virtual async Task InitializeAfterShowingShell()
+        public virtual async Task InitializeAfterShowingShellAsync()
         {
         }
 
