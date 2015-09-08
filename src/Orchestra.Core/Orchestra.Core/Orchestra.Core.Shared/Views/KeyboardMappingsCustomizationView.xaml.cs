@@ -39,6 +39,11 @@ namespace Orchestra.Views
             if (vm != null)
             {
                 var modifiers = Keyboard.Modifiers;
+                if (modifiers == ModifierKeys.Shift)
+                {
+                    return;
+                }
+
                 var key = e.Key;
 
                 if (!IsValidKey(key))
@@ -53,6 +58,7 @@ namespace Orchestra.Views
 
         private bool IsValidKey(Key key)
         {
+            
             if (key >= Key.A && key <= Key.Z)
             {
                 return true;
