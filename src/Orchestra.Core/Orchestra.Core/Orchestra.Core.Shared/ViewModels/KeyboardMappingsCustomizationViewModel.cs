@@ -45,7 +45,7 @@ namespace Orchestra.ViewModels
             CommandFilter = string.Empty;
             SelectedCommand = string.Empty;
 
-            Reset = new Command(OnResetExecute);
+            Reset = new TaskCommand(OnResetExecute);
             Remove = new Command(OnRemoveExecute, OnRemoveCanExecute);
             Assign = new Command(OnAssignExecute, OnAssignCanExecute);
         }
@@ -71,21 +71,24 @@ namespace Orchestra.ViewModels
         /// <summary>
         /// Gets the Reset command.
         /// </summary>
-        public Command Reset { get; private set; }
+        public TaskCommand Reset { get; private set; }
 
         /// <summary>
         /// Method to invoke when the Reset command is executed.
         /// </summary>
-        private void OnResetExecute()
+        private async Task OnResetExecute()
         {
-            _keyboardMappingsService.Reset();
+            if (await _messageService.ShowAsync(string.Format("Resetting shortcuts will delete all your current shortcuts. This action cannot be undone. Are you sure you want to reset the shortcuts?"), string.Empty, MessageButton.YesNo, MessageImage.Question) == MessageResult.Yes)
+            { 
+                _keyboardMappingsService.Reset();
 
-            if (!string.IsNullOrWhiteSpace(SelectedCommand))
-            {
-                SelectedCommandInputGesture = _commandManager.GetInputGesture(SelectedCommand);
+                if (!string.IsNullOrWhiteSpace(SelectedCommand))
+                {
+                    SelectedCommandInputGesture = _commandManager.GetInputGesture(SelectedCommand);
+                }
+
+                UpdateCommands();
             }
-
-            UpdateCommands();
         }
 
         /// <summary>
