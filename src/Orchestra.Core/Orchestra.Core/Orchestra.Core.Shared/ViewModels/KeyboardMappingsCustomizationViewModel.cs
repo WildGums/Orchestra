@@ -78,17 +78,21 @@ namespace Orchestra.ViewModels
         /// </summary>
         private async Task OnResetExecute()
         {
-            if (await _messageService.ShowAsync(string.Format("Resetting shortcuts will delete all your current shortcuts. This action cannot be undone. Are you sure you want to reset the shortcuts?"), string.Empty, MessageButton.YesNo, MessageImage.Question) == MessageResult.Yes)
-            { 
-                _keyboardMappingsService.Reset();
+            var messageResult = await _messageService.ShowAsync("Resetting shortcuts will delete all your current shortcuts. This action cannot be undone. Are you sure you want to reset the shortcuts?", string.Empty, MessageButton.YesNo, MessageImage.Question);
 
-                if (!string.IsNullOrWhiteSpace(SelectedCommand))
-                {
-                    SelectedCommandInputGesture = _commandManager.GetInputGesture(SelectedCommand);
-                }
-
-                UpdateCommands();
+            if (messageResult == MessageResult.No)
+            {
+                return;
             }
+
+            _keyboardMappingsService.Reset();
+
+            if (!string.IsNullOrWhiteSpace(SelectedCommand))
+            {
+                SelectedCommandInputGesture = _commandManager.GetInputGesture(SelectedCommand);
+            }
+
+            UpdateCommands();
         }
 
         /// <summary>
