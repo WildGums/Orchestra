@@ -49,6 +49,11 @@ namespace Orchestra
             if (vistaIcon == null)
             {
                 var bitmap = ExtractIcon(icon);
+                if (bitmap == null)
+                {
+                    return null;
+                }
+
                 return ToBitmapImageWithTransparency(bitmap);
             }
 
@@ -104,7 +109,17 @@ namespace Orchestra
 
         private static Bitmap ExtractIcon(Icon icon)
         {
+            if (icon == null)
+            {
+                return null;
+            }
+
             var bitmapSource = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            if (bitmapSource == null)
+            {
+                return null;
+            }
+
             return ToBitmap(bitmapSource);
         }
 
