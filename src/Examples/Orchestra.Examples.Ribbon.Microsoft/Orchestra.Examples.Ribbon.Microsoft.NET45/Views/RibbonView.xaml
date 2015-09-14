@@ -31,7 +31,7 @@
 
                                         <Button Grid.Column="0" Command="{Binding ElementName=recentlyUsedItemsRibbonGallery, Path=DataContext.UnpinItem}"
                                                 CommandParameter="{Binding Name}">
-                                            <Image Source="/Resources/Images/Pinned.png" />
+                                            <Image Source="pack://application:,,,/Orchestra.Core;component/Resources/Images/Pinned.png" />
                                         </Button>
 
                                         <RibbonApplicationMenuItem Grid.Column="1" Header="{Binding Name, Converter={converters:PathToStringConverter}}" 
@@ -79,7 +79,7 @@
                                                 </Style>
                                             </Button.Style>
 
-                                            <Image Source="/Orchestra.Core;component/Resources/Images/Unpinned.png" />
+                                            <Image Source="pack://application:,,,/Orchestra.Core;component/Resources/Images/Unpinned.png" />
                                         </Button>
 
                                         <RibbonApplicationMenuItem Grid.Column="1" Header="{Binding Name, Converter={converters:PathToStringConverter}}" 

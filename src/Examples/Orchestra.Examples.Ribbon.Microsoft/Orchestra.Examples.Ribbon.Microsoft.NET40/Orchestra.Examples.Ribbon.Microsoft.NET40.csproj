@@ -40,8 +40,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>..\Orchestra.Examples.Ribbon.Microsoft.Shared\Resources\Icons\Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
