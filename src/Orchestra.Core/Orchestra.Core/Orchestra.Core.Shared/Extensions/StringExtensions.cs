@@ -63,7 +63,7 @@ namespace Orchestra
                 return input;
             }
 
-            string finalString = string.Empty;
+            var finalString = string.Empty;
 
             for (int i = 0; i < input.Length; i++)
             {
@@ -88,6 +88,7 @@ namespace Orchestra
         /// <param name="str">The string.</param>
         /// <param name="valueToCheck">The value to check.</param>
         /// <returns><c>true</c> if the strings are equal, <c>false</c> otherwise.</returns>
+        [ObsoleteEx(ReplacementTypeOrMember = "Catel.StringExtensions.EqualsIgnoreCase", TreatAsErrorFromVersion = "2.3.0", RemoveInVersion = "3.0.0")]
         public static bool EqualsIgnoreCase(this string str, string valueToCheck)
         {
             return string.Equals(str, valueToCheck, StringComparison.OrdinalIgnoreCase);
