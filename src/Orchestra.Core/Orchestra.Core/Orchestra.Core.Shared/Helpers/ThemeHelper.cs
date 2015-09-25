@@ -166,7 +166,7 @@ namespace Orchestra
                 var application = Application.Current;
                 if (application == null)
                 {
-                    Log.ErrorAndThrowException<OrchestraException>("Application.Current is null, cannot ensure application themes");
+                    throw Log.ErrorAndCreateException<OrchestraException>("Application.Current is null, cannot ensure application themes");
                 }
 
                 application.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = uri });

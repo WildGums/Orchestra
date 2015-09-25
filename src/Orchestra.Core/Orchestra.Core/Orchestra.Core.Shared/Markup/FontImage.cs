@@ -115,14 +115,12 @@ namespace Orchestra.Markup
             var fontFamily = FontFamily;
             if (fontFamily == null)
             {
-                Log.ErrorAndThrowException<InvalidOperationException>("FontFamily cannot be null, make sure to set it or use the DefaultFontFamily");
-                return null;
+                throw Log.ErrorAndCreateException<InvalidOperationException>("FontFamily cannot be null, make sure to set it or use the DefaultFontFamily");
             }
 
             if (!RegisteredFontFamilies.ContainsKey(fontFamily))
             {
-                Log.ErrorAndThrowException<InvalidOperationException>("FontFamily '{0}' is not yet registered, register it first using the RegisterFont method", fontFamily);
-                return null;
+                throw Log.ErrorAndCreateException<InvalidOperationException>("FontFamily '{0}' is not yet registered, register it first using the RegisterFont method", fontFamily);
             }
 
             var family = RegisteredFontFamilies[fontFamily];
@@ -141,7 +139,7 @@ namespace Orchestra.Markup
                 GlyphTypeface glyphTypeface;
                 if (!typeface.TryGetGlyphTypeface(out glyphTypeface))
                 {
-                    Log.ErrorAndThrowException<InvalidOperationException>("No glyph type face found");
+                    throw Log.ErrorAndCreateException<InvalidOperationException>("No glyph type face found");
                 }
 
                 var glyphIndexes = new ushort[text.Length];
