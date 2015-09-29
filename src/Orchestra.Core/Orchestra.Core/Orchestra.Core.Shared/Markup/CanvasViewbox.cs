@@ -17,6 +17,8 @@ namespace Orchestra.Markup
     /// </summary>
     public class CanvasViewbox : Catel.Windows.Markup.UpdatableMarkupExtension
     {
+        private string _pathName;
+
         public CanvasViewbox()
         {
             Foreground = Brushes.Transparent;
@@ -41,7 +43,15 @@ namespace Orchestra.Markup
         /// Gets or sets the name of the canvas as it can be found in the application resources.
         /// </summary>
         [ConstructorArgument("pathName")]
-        public string PathName { get; set; }
+        public string PathName
+        {
+            get { return _pathName; }
+            set
+            {
+                _pathName = value;
+                UpdateValue();
+            }
+        }
 
         protected override object ProvideDynamicValue()
         {
@@ -54,19 +64,26 @@ namespace Orchestra.Markup
 
             viewbox.Stretch = Stretch.Uniform;
 
-            // TODO: Question: should we clone or not? 
-            var canvas = System.Windows.Application.Current.FindResource(PathName) as Canvas;
-            if (canvas != null && Foreground != Brushes.Transparent)
+            Canvas canvas = null;
+
+            var pathName = PathName;
+            if (!string.IsNullOrWhiteSpace(pathName))
             {
-                foreach (var child in canvas.Children)
+                // TODO: Question: should we clone or not? 
+                canvas = System.Windows.Application.Current.FindResource(pathName) as Canvas;
+                if (canvas != null && Foreground != Brushes.Transparent)
                 {
-                    var path = child as Path;
-                    if (path != null)
+                    foreach (var child in canvas.Children)
                     {
-                        path.Fill = Foreground;
+                        var path = child as Path;
+                        if (path != null)
+                        {
+                            path.Fill = Foreground;
+                        }
                     }
                 }
             }
+
             viewbox.Child = canvas;
 
             return viewbox;
