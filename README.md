@@ -22,7 +22,7 @@ Orchestra provides support for a lot of different shells.
 ![Fluent Ribbon 01](doc/images/shell_fluentribbon_01.png)
 
 ![Fluent Ribbon 02](doc/images/shell_fluentribbon_02.png) 
-
+ 
 ## MahApps shell
 
 ![MahApps 01](doc/images/shell_mahapps_01.png)
