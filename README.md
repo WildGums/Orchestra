@@ -12,7 +12,7 @@ Orchestra is a composable shell built on top of [Catel](http://www.catelproject.
 Orchestra consists of a main shell including an SDK with services that allows developers to communicate with the shell. Developers can write their own modules which implement the actual functionality of their application.
 
 These modules can communicate with the shell, but also with each other through the services that are offered out of the box.
-
+ 
 # Shells
 
 Orchestra provides support for a lot of different shells.
