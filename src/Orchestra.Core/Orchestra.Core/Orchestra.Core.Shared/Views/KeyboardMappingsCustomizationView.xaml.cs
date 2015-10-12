@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingsView.xaml.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="KeyboardMappingsCustomizationView.xaml.cs" company="Wild Gums">
+//   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ namespace Orchestra.Views
     using System.Windows.Input;
     using Catel.Windows;
     using Catel.Windows.Controls;
-    using Orchestra.ViewModels;
+    using ViewModels;
     using InputGesture = Catel.Windows.Input.InputGesture;
 
     /// <summary>
@@ -58,7 +58,6 @@ namespace Orchestra.Views
 
         private bool IsValidKey(Key key)
         {
-            
             if (key >= Key.A && key <= Key.Z)
             {
                 return true;
