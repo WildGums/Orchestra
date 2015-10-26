@@ -8,8 +8,11 @@
 namespace Orchestra
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
+    using System.Runtime.ExceptionServices;
     using System.Windows;
     using System.Windows.Threading;
     using Catel.Logging;
@@ -20,6 +23,8 @@ namespace Orchestra
     public static class DotNetPatchHelper
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        private static readonly Queue<Exception> LastFirstChanceExceptions = new Queue<Exception>();
 
         private static bool _isAppDomainInitialized;
         private static bool _isApplicationInitialized;
@@ -42,7 +47,9 @@ namespace Orchestra
 
             _isAppDomainInitialized = true;
 
-            AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
+            var appDomain = AppDomain.CurrentDomain;
+            appDomain.UnhandledException += OnAppDomainUnhandledException;
+            appDomain.FirstChanceException += OnAppDomainFirstChanceException;
         }
 
         private static void InitializeApplication()
@@ -67,6 +74,19 @@ namespace Orchestra
             if (!HandleException((Exception)e.ExceptionObject))
             {
                 Process.GetCurrentProcess().Kill();
+            }
+        }
+
+        private static void OnAppDomainFirstChanceException(object sender, FirstChanceExceptionEventArgs e)
+        {
+            lock (LastFirstChanceExceptions)
+            {
+                LastFirstChanceExceptions.Enqueue(e.Exception);
+
+                while (LastFirstChanceExceptions.Count > 5)
+                {
+                    LastFirstChanceExceptions.Dequeue();
+                }
             }
         }
 
@@ -100,6 +120,21 @@ namespace Orchestra
                     LogManager.FlushAll();
 
                     return false;
+                }
+            }
+
+            Log.Info("Below is a list of the last first chance exceptions that occurred. It might provide more information to the issue.");
+
+            lock (LastFirstChanceExceptions)
+            {
+                while (LastFirstChanceExceptions.Count > 0)
+                {
+                    var firstChanceException = LastFirstChanceExceptions.Dequeue();
+                    
+                    Log.Info("================================================================================================");
+                    Log.Info();
+                    Log.Info(firstChanceException);
+                    Log.Info();
                 }
             }
 
