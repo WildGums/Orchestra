@@ -28,6 +28,7 @@ namespace Orchestra
 
         private static bool _isAppDomainInitialized;
         private static bool _isApplicationInitialized;
+        private static bool _handledException;
 
         /// <summary>
         /// Initializes the patch helper.
@@ -71,8 +72,15 @@ namespace Orchestra
         {
             Log.Debug("AppDomain unhandled exception");
 
+            if (_handledException)
+            {
+                Log.Debug("Already handled an unhandled exception");
+                return;
+            }
+
             if (!HandleException((Exception)e.ExceptionObject))
             {
+                _handledException = true;
                 Process.GetCurrentProcess().Kill();
             }
         }
@@ -94,8 +102,15 @@ namespace Orchestra
         {
             Log.Debug("Dispatcher unhandled exception");
 
+            if (_handledException)
+            {
+                Log.Debug("Already handled an unhandled exception");
+                return;
+            }
+
             if (!HandleException(e.Exception))
             {
+                _handledException = true;
                 Process.GetCurrentProcess().Kill();
             }
         }
