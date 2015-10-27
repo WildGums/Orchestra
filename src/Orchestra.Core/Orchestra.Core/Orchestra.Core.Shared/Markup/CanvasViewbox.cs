@@ -7,16 +7,23 @@
 
 namespace Orchestra.Markup
 {
+    using System.IO;
+    using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Markup;
     using System.Windows.Media;
-    using System.Windows.Shapes;
+    using System.Xml;
+    using Catel;
+    using Catel.Logging;
+    using Path = System.Windows.Shapes.Path;
 
     /// <summary>
     /// Markup extension that can show a canvas inside a viewbox.
     /// </summary>
     public class CanvasViewbox : Catel.Windows.Markup.UpdatableMarkupExtension
     {
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         private string _pathName;
 
         public CanvasViewbox()
@@ -69,18 +76,27 @@ namespace Orchestra.Markup
             var pathName = PathName;
             if (!string.IsNullOrWhiteSpace(pathName))
             {
-                // TODO: Question: should we clone or not? 
                 canvas = System.Windows.Application.Current.FindResource(pathName) as Canvas;
-                if (canvas != null && Foreground != Brushes.Transparent)
+                if (canvas != null)
                 {
-                    foreach (var child in canvas.Children)
+                    // Clone to prevent the same instance to be used multiple times
+                    canvas = canvas.Clone();
+
+                    if (canvas != null && Foreground != Brushes.Transparent)
                     {
-                        var path = child as Path;
-                        if (path != null)
+                        foreach (var child in canvas.Children)
                         {
-                            path.Fill = Foreground;
+                            var path = child as Path;
+                            if (path != null)
+                            {
+                                path.Fill = Foreground;
+                            }
                         }
                     }
+                }
+                else
+                {
+                    Log.Warning("Could not find a resource named '{0}'", pathName);
                 }
             }
 

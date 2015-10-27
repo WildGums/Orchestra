@@ -36,6 +36,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\PathToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\OrchestraException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\AssemblyExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IconExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
