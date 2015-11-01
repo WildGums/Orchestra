@@ -43,6 +43,7 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusService, StatusService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<Orchestra.Services.ISplashScreenService, Orchestra.Services.SplashScreenService>();
 
+        serviceLocator.RegisterTypeIfNotYetRegistered<ICommandInfoService, CommandInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAppDataService, AppDataService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IEnsureStartupService, EnsureStartupService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutInfoService, AboutInfoService>();

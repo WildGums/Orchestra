@@ -25,23 +25,26 @@ namespace Orchestra.ViewModels
     {
         private readonly IKeyboardMappingsService _keyboardMappingsService;
         private readonly ICommandManager _commandManager;
+        private readonly ICommandInfoService _commandInfoService;
         private readonly ILanguageService _languageService;
         private readonly IMessageService _messageService;
 
         public KeyboardMappingsCustomizationViewModel(IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
-            ILanguageService languageService, IMessageService messageService)
+            ICommandInfoService commandInfoService, ILanguageService languageService, IMessageService messageService)
         {
             Argument.IsNotNull(() => keyboardMappingsService);
             Argument.IsNotNull(() => commandManager);
+            Argument.IsNotNull(() => commandInfoService);
             Argument.IsNotNull(() => languageService);
             Argument.IsNotNull(() => messageService);
 
             _keyboardMappingsService = keyboardMappingsService;
             _commandManager = commandManager;
+            _commandInfoService = commandInfoService;
             _languageService = languageService;
             _messageService = messageService;
 
-            Commands = new FastObservableCollection<CommandInfo>();
+            Commands = new FastObservableCollection<ICommandInfo>();
             CommandFilter = string.Empty;
             SelectedCommand = string.Empty;
 
@@ -58,7 +61,7 @@ namespace Orchestra.ViewModels
 
         public string CommandFilter { get; set; }
 
-        public FastObservableCollection<CommandInfo> Commands { get; private set; }
+        public FastObservableCollection<ICommandInfo> Commands { get; private set; }
 
         public string SelectedCommand { get; set; }
 
@@ -189,7 +192,16 @@ namespace Orchestra.ViewModels
 
             using (Commands.SuspendChangeNotifications())
             {
-                Commands.ReplaceRange(allCommands.Select(x => new CommandInfo(x, _commandManager.GetInputGesture(x))));
+                Commands.Clear();
+
+                foreach (var command in allCommands)
+                {
+                    var commandInfo = _commandInfoService.GetCommandInfo(command);
+                    if (!commandInfo.IsHidden)
+                    {
+                        Commands.Add(commandInfo);
+                    }
+                }
             }
 
             // restore selection
