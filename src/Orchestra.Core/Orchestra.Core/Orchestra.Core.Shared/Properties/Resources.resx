@@ -120,6 +120,12 @@
   <data name="Assign" xml:space="preserve">
     <value>Assign</value>
   </data>
+  <data name="AssignInputGestureAreYouSure" xml:space="preserve">
+    <value>Are you sure you want to assign the input gesture to '{0}'. It will be removed from the other commands.</value>
+  </data>
+  <data name="AssignInputGestureUsedByFollowCommands" xml:space="preserve">
+    <value>The input gesture '{0}' is currently being used by the following commands:</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value />
   </data>
@@ -141,8 +147,14 @@
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="ReplaceInputGesture" xml:space="preserve">
+    <value>Replace input gesture?</value>
+  </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
+  </data>
+  <data name="ResetKeyboardShortcutsAreYouSure" xml:space="preserve">
+    <value>Resetting shortcuts will delete all your current shortcuts. This action cannot be undone. Are you sure you want to reset the shortcuts?</value>
   </data>
   <data name="ShortcutForSelectedCommand" xml:space="preserve">
     <value>Shortcut for selected command:</value>
