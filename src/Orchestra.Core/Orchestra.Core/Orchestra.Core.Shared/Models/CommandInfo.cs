@@ -19,7 +19,7 @@ namespace Orchestra.Models
         }
         #endregion
 
-        public string CommandName { get; set; }
+        public string CommandName { get; private set; }
 
         public InputGesture InputGesture { get; set; } 
 

@@ -12,7 +12,7 @@ namespace Orchestra.Models
     public interface ICommandInfo
     {
         #region Properties
-        string CommandName { get; set; }
+        string CommandName { get; }
         InputGesture InputGesture { get; set; }
         bool IsHidden { get; set; }
         #endregion
