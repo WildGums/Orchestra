@@ -9,6 +9,7 @@ namespace Orchestra.Services
 {
     using System;
     using System.Threading.Tasks;
+    using Catel.IoC;
     using Catel.Threading;
     using MethodTimer;
 
@@ -16,6 +17,10 @@ namespace Orchestra.Services
     {
         public virtual async Task InitializeBeforeShowingSplashScreenAsync()
         {
+            var serviceLocator = this.GetServiceLocator();
+            var themeService = serviceLocator.ResolveType<IThemeService>();
+
+            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, themeService.ShouldCreateStyleForwarders());
         }
 
         public virtual async Task InitializeBeforeCreatingShellAsync()
