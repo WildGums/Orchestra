@@ -157,7 +157,7 @@ namespace Orchestra
                 CreateAccentColorResourceDictionary(accentColor);
             }
 
-            EnsureOrchestraTheme();
+            EnsureOrchestraTheme(createStyleForwarders);
 
             try
             {
@@ -185,7 +185,8 @@ namespace Orchestra
         /// <summary>
         /// Ensures the orchestra theme.
         /// </summary>
-        private static void EnsureOrchestraTheme()
+        /// <param name="createStyleForwarders">if set to <c>true</c>, create style forwarders.</param>
+        private static void EnsureOrchestraTheme(bool createStyleForwarders)
         {
             if (_ensuredOrchestraThemes)
             {
@@ -194,7 +195,7 @@ namespace Orchestra
 
             _ensuredOrchestraThemes = true;
 
-            EnsureApplicationThemes(typeof(ThemeHelper).Assembly);
+            EnsureApplicationThemes(typeof(ThemeHelper).Assembly, createStyleForwarders);
         }
     }
 }
