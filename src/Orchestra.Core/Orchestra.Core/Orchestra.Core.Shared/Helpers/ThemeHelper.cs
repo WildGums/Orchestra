@@ -8,6 +8,7 @@
 namespace Orchestra
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Media;
@@ -85,7 +86,7 @@ namespace Orchestra
             }
 
             Log.Info("Setting theme to '{0}'", color.ToString());
-        
+
             Log.Debug("Creating runtime accent resource dictionary");
 
             var resourceDictionary = new ResourceDictionary();
@@ -137,7 +138,7 @@ namespace Orchestra
             Argument.IsNotNull(() => assembly);
 
             var uri = string.Format("/{0};component/themes/generic.xaml", assembly.GetName().Name);
-            
+
             EnsureApplicationThemes(uri, createStyleForwarders);
         }
 
@@ -169,7 +170,16 @@ namespace Orchestra
                     throw Log.ErrorAndCreateException<OrchestraException>("Application.Current is null, cannot ensure application themes");
                 }
 
-                application.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = uri });
+                var existingDictionary = (from dic in application.Resources.MergedDictionaries
+                                          where dic.Source != null && dic.Source == uri
+                                          select dic).FirstOrDefault();
+                if (existingDictionary == null)
+                {
+                    application.Resources.MergedDictionaries.Add(new ResourceDictionary
+                    {
+                        Source = uri
+                    });
+                }
 
                 if (createStyleForwarders)
                 {

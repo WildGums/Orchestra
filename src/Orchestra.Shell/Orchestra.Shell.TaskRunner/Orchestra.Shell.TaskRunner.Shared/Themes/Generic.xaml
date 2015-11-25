@@ -2,10 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:orc="http://www.wildgums.net.au/orc">
 
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Catel.Extensions.Controls;component/Themes/Generic.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <Style TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>

@@ -27,7 +27,7 @@ namespace Orchestra.Views
         {
             InitializeComponent();
 
-            StyleHelper.CreateStyleForwardersForDefaultStyles(Application.Current.Resources, Resources);
+            //StyleHelper.CreateStyleForwardersForDefaultStyles(Application.Current.Resources, Resources);
         }
         #endregion
 
