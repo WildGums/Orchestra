@@ -63,144 +63,162 @@ namespace Orchestra.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Assign.
         /// </summary>
-        internal static string Assign {
+        internal static string Orchestra_Assign {
             get {
-                return ResourceManager.GetString("Assign", resourceCulture);
+                return ResourceManager.GetString("Orchestra_Assign", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to assign the input gesture to &apos;{0}&apos;. It will be removed from the other commands..
         /// </summary>
-        internal static string AssignInputGestureAreYouSure {
+        internal static string Orchestra_AssignInputGestureAreYouSure {
             get {
-                return ResourceManager.GetString("AssignInputGestureAreYouSure", resourceCulture);
+                return ResourceManager.GetString("Orchestra_AssignInputGestureAreYouSure", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The input gesture &apos;{0}&apos; is currently being used by the following commands:.
         /// </summary>
-        internal static string AssignInputGestureUsedByFollowCommands {
+        internal static string Orchestra_AssignInputGestureUsedByFollowCommands {
             get {
-                return ResourceManager.GetString("AssignInputGestureUsedByFollowCommands", resourceCulture);
+                return ResourceManager.GetString("Orchestra_AssignInputGestureUsedByFollowCommands", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
-        internal static string Close {
+        internal static string Orchestra_Close {
             get {
-                return ResourceManager.GetString("Close", resourceCulture);
+                return ResourceManager.GetString("Orchestra_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Command.
+        /// </summary>
+        internal static string Orchestra_Command {
+            get {
+                return ResourceManager.GetString("Orchestra_Command", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Customize.
         /// </summary>
-        internal static string Customize {
+        internal static string Orchestra_Customize {
             get {
-                return ResourceManager.GetString("Customize", resourceCulture);
+                return ResourceManager.GetString("Orchestra_Customize", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Enable logging.
         /// </summary>
-        internal static string EnableLogging {
+        internal static string Orchestra_EnableLogging {
             get {
-                return ResourceManager.GetString("EnableLogging", resourceCulture);
+                return ResourceManager.GetString("Orchestra_EnableLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input gesture.
+        /// </summary>
+        internal static string Orchestra_InputGesture {
+            get {
+                return ResourceManager.GetString("Orchestra_InputGesture", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Keyboard shortcuts.
         /// </summary>
-        internal static string KeyboardShortcuts {
+        internal static string Orchestra_KeyboardShortcuts {
             get {
-                return ResourceManager.GetString("KeyboardShortcuts", resourceCulture);
+                return ResourceManager.GetString("Orchestra_KeyboardShortcuts", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Press shortcut keys:.
         /// </summary>
-        internal static string PressShortcutKeys {
+        internal static string Orchestra_PressShortcutKeys {
             get {
-                return ResourceManager.GetString("PressShortcutKeys", resourceCulture);
+                return ResourceManager.GetString("Orchestra_PressShortcutKeys", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Print.
         /// </summary>
-        internal static string Print {
+        internal static string Orchestra_Print {
             get {
-                return ResourceManager.GetString("Print", resourceCulture);
+                return ResourceManager.GetString("Orchestra_Print", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
-        internal static string Remove {
+        internal static string Orchestra_Remove {
             get {
-                return ResourceManager.GetString("Remove", resourceCulture);
+                return ResourceManager.GetString("Orchestra_Remove", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Replace input gesture?.
         /// </summary>
-        internal static string ReplaceInputGesture {
+        internal static string Orchestra_ReplaceInputGesture {
             get {
-                return ResourceManager.GetString("ReplaceInputGesture", resourceCulture);
+                return ResourceManager.GetString("Orchestra_ReplaceInputGesture", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
-        internal static string Reset {
+        internal static string Orchestra_Reset {
             get {
-                return ResourceManager.GetString("Reset", resourceCulture);
+                return ResourceManager.GetString("Orchestra_Reset", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Resetting shortcuts will delete all your current shortcuts. This action cannot be undone. Are you sure you want to reset the shortcuts?.
         /// </summary>
-        internal static string ResetKeyboardShortcutsAreYouSure {
+        internal static string Orchestra_ResetKeyboardShortcutsAreYouSure {
             get {
-                return ResourceManager.GetString("ResetKeyboardShortcutsAreYouSure", resourceCulture);
+                return ResourceManager.GetString("Orchestra_ResetKeyboardShortcutsAreYouSure", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Shortcut for selected command:.
         /// </summary>
-        internal static string ShortcutForSelectedCommand {
+        internal static string Orchestra_ShortcutForSelectedCommand {
             get {
-                return ResourceManager.GetString("ShortcutForSelectedCommand", resourceCulture);
+                return ResourceManager.GetString("Orchestra_ShortcutForSelectedCommand", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Keyboard shortcuts for {0}.
         /// </summary>
-        internal static string ShortcutsForApplication {
+        internal static string Orchestra_ShortcutsForApplication {
             get {
-                return ResourceManager.GetString("ShortcutsForApplication", resourceCulture);
+                return ResourceManager.GetString("Orchestra_ShortcutsForApplication", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Show commands containing:.
         /// </summary>
-        internal static string ShowCommandsContaining {
+        internal static string Orchestra_ShowCommandsContaining {
             get {
-                return ResourceManager.GetString("ShowCommandsContaining", resourceCulture);
+                return ResourceManager.GetString("Orchestra_ShowCommandsContaining", resourceCulture);
             }
         }
     }

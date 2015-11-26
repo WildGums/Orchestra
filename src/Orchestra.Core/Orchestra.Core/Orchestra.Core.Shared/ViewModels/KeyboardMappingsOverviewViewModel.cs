@@ -92,7 +92,7 @@ namespace Orchestra.ViewModels
         {
             await base.InitializeAsync();
 
-            Title = string.Format(_languageService.GetString("ShortcutsForApplication"), AssemblyHelper.GetEntryAssembly().Title());
+            Title = string.Format(_languageService.GetString("Orchestra_ShortcutsForApplication"), AssemblyHelper.GetEntryAssembly().Title());
 
             var mappingsByGroup = new Dictionary<string, KeyboardMappings>();
             mappingsByGroup.Add(string.Empty, new KeyboardMappings { GroupName = string.Empty });

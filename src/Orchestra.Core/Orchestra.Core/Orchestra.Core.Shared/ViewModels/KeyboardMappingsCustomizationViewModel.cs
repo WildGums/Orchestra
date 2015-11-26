@@ -56,7 +56,7 @@ namespace Orchestra.ViewModels
         #region Properties
         public override string Title
         {
-            get { return _languageService.GetString("KeyboardShortcuts"); }
+            get { return _languageService.GetString("Orchestra_KeyboardShortcuts"); }
         }
 
         public string CommandFilter { get; set; }
@@ -75,7 +75,7 @@ namespace Orchestra.ViewModels
 
         private async Task OnResetExecuteAsync()
         {
-            var messageResult = await _messageService.ShowAsync(_languageService.GetString("ResetKeyboardShortcutsAreYouSure"), string.Empty, MessageButton.YesNo, MessageImage.Question);
+            var messageResult = await _messageService.ShowAsync(_languageService.GetString("Orchestra_ResetKeyboardShortcutsAreYouSure"), string.Empty, MessageButton.YesNo, MessageImage.Question);
             if (messageResult == MessageResult.No)
             {
                 return;
@@ -142,7 +142,7 @@ namespace Orchestra.ViewModels
                 {
                     var messageBuilder = new StringBuilder();
 
-                    messageBuilder.AppendLine(_languageService.GetString("AssignInputGestureUsedByFollowCommands"), selectedInputGesture);
+                    messageBuilder.AppendLine(_languageService.GetString("Orchestra_AssignInputGestureUsedByFollowCommands"), selectedInputGesture);
                     messageBuilder.AppendLine();
 
                     foreach (var existingCommand in existingCommands)
@@ -151,9 +151,9 @@ namespace Orchestra.ViewModels
                     }
 
                     messageBuilder.AppendLine();
-                    messageBuilder.AppendLine(_languageService.GetString("AssignInputGestureAreYouSure"), selectedCommand);
+                    messageBuilder.AppendLine(_languageService.GetString("Orchestra_AssignInputGestureAreYouSure"), selectedCommand);
 
-                    if (await _messageService.ShowAsync(messageBuilder.ToString(), _languageService.GetString("Replace input gesture?"), 
+                    if (await _messageService.ShowAsync(messageBuilder.ToString(), _languageService.GetString("Orchestra_ReplaceInputGesture"), 
                         MessageButton.YesNo) == MessageResult.No)
                     {
                         return;

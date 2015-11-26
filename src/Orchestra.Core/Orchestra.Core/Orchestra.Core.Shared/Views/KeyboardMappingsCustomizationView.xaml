@@ -21,8 +21,8 @@
             <ColumnDefinition Width="112" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{catel:LanguageBinding ShowCommandsContaining}" />
-        <Button Grid.Row="0" Grid.Column="2" Content="{catel:LanguageBinding Reset}" Command="{Binding Reset}" />
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{catel:LanguageBinding Orchestra_ShowCommandsContaining}" />
+        <Button Grid.Row="0" Grid.Column="2" Content="{catel:LanguageBinding Orchestra_Reset}" Command="{Binding Reset}" />
         <TextBox Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding CommandFilter}">
             <i:Interaction.Behaviors>
                 <catel:UpdateBindingOnTextChanged UpdateDelay="500" />
@@ -32,20 +32,20 @@
         <ListView Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding Commands}" SelectedValue="{Binding SelectedCommand}" SelectedValuePath="CommandName">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Command" DisplayMemberBinding="{Binding CommandName}" Width="300" />
-                    <GridViewColumn Header="Input Gesture" DisplayMemberBinding="{Binding InputGesture}" Width="200" />
+                    <GridViewColumn Header="{catel:LanguageBinding Orchestra_Command}" DisplayMemberBinding="{Binding CommandName}" Width="300" />
+                    <GridViewColumn Header="{catel:LanguageBinding Orchestra_InputGesture}" DisplayMemberBinding="{Binding InputGesture}" Width="200" />
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <Label Grid.Row="3" Grid.Column="0" Content="{catel:LanguageBinding ShortcutForSelectedCommand}" />
+        <Label Grid.Row="3" Grid.Column="0" Content="{catel:LanguageBinding Orchestra_ShortcutForSelectedCommand}" />
         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedCommandInputGesture, Mode=OneWay}" IsReadOnly="True" />
-        <Button Grid.Row="3" Grid.Column="2" Content="{catel:LanguageBinding Remove}" Command="{Binding Remove}" />
+        <Button Grid.Row="3" Grid.Column="2" Content="{catel:LanguageBinding Orchestra_Remove}" Command="{Binding Remove}" />
 
-        <Label Grid.Row="4" Grid.Column="0" Content="{catel:LanguageBinding PressShortcutKeys}" />
+        <Label Grid.Row="4" Grid.Column="0" Content="{catel:LanguageBinding Orchestra_PressShortcutKeys}" />
         <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedCommandNewInputGesture, Converter={converters:InputGestureToStringConverter}}" 
                  KeyDown="OnNewInputGestureTextBoxKeyDown" />
-        <Button Grid.Row="4" Grid.Column="2" Content="{catel:LanguageBinding Assign}" Command="{Binding Assign}" />
+        <Button Grid.Row="4" Grid.Column="2" Content="{catel:LanguageBinding Orchestra_Assign}" Command="{Binding Assign}" />
 
     </Grid>
 </catel:UserControl>

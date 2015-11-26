@@ -117,52 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Assign" xml:space="preserve">
+  <data name="Orchestra_Assign" xml:space="preserve">
     <value>Assign</value>
   </data>
-  <data name="AssignInputGestureAreYouSure" xml:space="preserve">
+  <data name="Orchestra_AssignInputGestureAreYouSure" xml:space="preserve">
     <value>Are you sure you want to assign the input gesture to '{0}'. It will be removed from the other commands.</value>
   </data>
-  <data name="AssignInputGestureUsedByFollowCommands" xml:space="preserve">
+  <data name="Orchestra_AssignInputGestureUsedByFollowCommands" xml:space="preserve">
     <value>The input gesture '{0}' is currently being used by the following commands:</value>
   </data>
-  <data name="Close" xml:space="preserve">
+  <data name="Orchestra_Close" xml:space="preserve">
     <value>Close</value>
   </data>
-  <data name="Customize" xml:space="preserve">
+  <data name="Orchestra_Command" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="Orchestra_Customize" xml:space="preserve">
     <value>Customize</value>
   </data>
-  <data name="EnableLogging" xml:space="preserve">
+  <data name="Orchestra_EnableLogging" xml:space="preserve">
     <value>Enable logging</value>
   </data>
-  <data name="KeyboardShortcuts" xml:space="preserve">
+  <data name="Orchestra_InputGesture" xml:space="preserve">
+    <value>Input gesture</value>
+  </data>
+  <data name="Orchestra_KeyboardShortcuts" xml:space="preserve">
     <value>Keyboard shortcuts</value>
   </data>
-  <data name="PressShortcutKeys" xml:space="preserve">
+  <data name="Orchestra_PressShortcutKeys" xml:space="preserve">
     <value>Press shortcut keys:</value>
   </data>
-  <data name="Print" xml:space="preserve">
+  <data name="Orchestra_Print" xml:space="preserve">
     <value>Print</value>
   </data>
-  <data name="Remove" xml:space="preserve">
+  <data name="Orchestra_Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
-  <data name="ReplaceInputGesture" xml:space="preserve">
+  <data name="Orchestra_ReplaceInputGesture" xml:space="preserve">
     <value>Replace input gesture?</value>
   </data>
-  <data name="Reset" xml:space="preserve">
+  <data name="Orchestra_Reset" xml:space="preserve">
     <value>Reset</value>
   </data>
-  <data name="ResetKeyboardShortcutsAreYouSure" xml:space="preserve">
+  <data name="Orchestra_ResetKeyboardShortcutsAreYouSure" xml:space="preserve">
     <value>Resetting shortcuts will delete all your current shortcuts. This action cannot be undone. Are you sure you want to reset the shortcuts?</value>
   </data>
-  <data name="ShortcutForSelectedCommand" xml:space="preserve">
+  <data name="Orchestra_ShortcutForSelectedCommand" xml:space="preserve">
     <value>Shortcut for selected command:</value>
   </data>
-  <data name="ShortcutsForApplication" xml:space="preserve">
+  <data name="Orchestra_ShortcutsForApplication" xml:space="preserve">
     <value>Keyboard shortcuts for {0}</value>
   </data>
-  <data name="ShowCommandsContaining" xml:space="preserve">
+  <data name="Orchestra_ShowCommandsContaining" xml:space="preserve">
     <value>Show commands containing:</value>
   </data>
 </root>
