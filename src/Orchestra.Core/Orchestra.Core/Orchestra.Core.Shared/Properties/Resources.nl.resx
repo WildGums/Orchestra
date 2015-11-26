@@ -118,51 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Assign" xml:space="preserve">
-    <value>Assign</value>
+    <value>Toewijzen</value>
   </data>
   <data name="AssignInputGestureAreYouSure" xml:space="preserve">
-    <value>Are you sure you want to assign the input gesture to '{0}'. It will be removed from the other commands.</value>
+    <value>Weet je zeker dat je het invoer gebaar wilt toewijzen aan '{0}'. Het zal van andere commando's worden verwijderd.</value>
   </data>
   <data name="AssignInputGestureUsedByFollowCommands" xml:space="preserve">
-    <value>The input gesture '{0}' is currently being used by the following commands:</value>
+    <value>Het invoer gebaar '{0}' is momenteel toegewezen aan de volgende commando's:</value>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Sluiten</value>
   </data>
   <data name="Customize" xml:space="preserve">
-    <value>Customize</value>
+    <value>Aanpassen</value>
   </data>
   <data name="EnableLogging" xml:space="preserve">
-    <value>Enable logging</value>
+    <value>Start logging</value>
   </data>
   <data name="KeyboardShortcuts" xml:space="preserve">
-    <value>Keyboard shortcuts</value>
+    <value>Toetsenbord snelkoppelingen</value>
   </data>
   <data name="PressShortcutKeys" xml:space="preserve">
-    <value>Press shortcut keys:</value>
+    <value>Gebruik snelkoppeling toetsen:</value>
   </data>
   <data name="Print" xml:space="preserve">
     <value>Print</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
+    <value>Verwijderen</value>
   </data>
   <data name="ReplaceInputGesture" xml:space="preserve">
-    <value>Replace input gesture?</value>
+    <value>Vervang invoer gebaar?</value>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
   </data>
   <data name="ResetKeyboardShortcutsAreYouSure" xml:space="preserve">
-    <value>Resetting shortcuts will delete all your current shortcuts. This action cannot be undone. Are you sure you want to reset the shortcuts?</value>
+    <value>Het resetten van de snelkoppelingen zal alle huidige snelkoppelingen verwijderen. Deze actie kan niet ongedaan gemaakt worden. Weet je zeker dat je de snelkoppelingen wilt resetten?</value>
   </data>
   <data name="ShortcutForSelectedCommand" xml:space="preserve">
-    <value>Shortcut for selected command:</value>
+    <value>Snelkoppeling voor het geselecteerde commando:</value>
   </data>
   <data name="ShortcutsForApplication" xml:space="preserve">
-    <value>Keyboard shortcuts for {0}</value>
+    <value>Toetsenbord snelkoppeling voor {0}</value>
   </data>
   <data name="ShowCommandsContaining" xml:space="preserve">
-    <value>Show commands containing:</value>
+    <value>Toon commando's met:</value>
   </data>
 </root>

@@ -9,6 +9,7 @@ namespace Orchestra.Examples.MahApps
 {
     using System;
     using System.Diagnostics;
+    using System.Globalization;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
@@ -16,6 +17,7 @@ namespace Orchestra.Examples.MahApps
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
+    using Catel.Services;
     using global::MahApps.Metro.Controls;
     using Orchestra.Views;
     using Services;
@@ -53,6 +55,14 @@ namespace Orchestra.Examples.MahApps
 #if DEBUG
             LogManager.AddDebugListener(true);
 #endif
+
+            var languageService = ServiceLocator.Default.ResolveType<ILanguageService>();
+
+            // Note: it's best to use .CurrentUICulture in actual apps since it will use the preferred language
+            // of the user. But in order to demo multilingual features for devs (who mostly have en-US as .CurrentUICulture),
+            // we use .CurrentCulture for the sake of the demo
+            languageService.PreferredCulture = CultureInfo.CurrentCulture;
+            languageService.FallbackCulture = new CultureInfo("en-US");
 
             var serviceLocator = ServiceLocator.Default;
             var shellService = serviceLocator.ResolveType<IShellService>();

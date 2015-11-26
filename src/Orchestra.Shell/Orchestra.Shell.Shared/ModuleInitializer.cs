@@ -7,6 +7,7 @@
 
 using Catel.IoC;
 using Catel.Services;
+using Catel.Services.Models;
 using Orchestra.Services;
 
 /// <summary>
@@ -25,6 +26,10 @@ public static partial class ModuleInitializer
         serviceLocator.RegisterType<IShellService, ShellService>();
         serviceLocator.RegisterType<IApplicationInitializationService, ApplicationInitializationServiceBase>();
         serviceLocator.RegisterType<IPleaseWaitService, ProgressPleaseWaitService>();
+
+        var languageService = serviceLocator.ResolveType<ILanguageService>();
+        languageService.RegisterLanguageSource(new LanguageResourceSource(typeof(ShellService).Assembly.GetName().Name, 
+            "Orchestra.Properties", "Resources"));
 
         InitializeSpecific();
     }

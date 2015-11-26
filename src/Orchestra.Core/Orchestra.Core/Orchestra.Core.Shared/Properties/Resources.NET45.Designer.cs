@@ -88,7 +88,7 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string Close {
             get {
