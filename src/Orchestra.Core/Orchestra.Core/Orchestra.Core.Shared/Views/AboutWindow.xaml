@@ -3,8 +3,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://catel.codeplex.com"
                   xmlns:orc="http://www.wildgums.net.au/orc"
-                  ResizeMode="NoResize"
-                  WindowStyle="None" >
+                  ResizeMode="NoResize" WindowStyle="None">
 
     <Window.Resources>
         <catel:BooleanToCollapsingVisibilityConverter x:Key="BooleanToCollapsingVisibilityConverter" />
@@ -36,14 +35,14 @@
         <Image Grid.Row="1" Source="{Binding AppIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0 0 0 5">
             <Image.ContextMenu>
                 <ContextMenu>
-                    <MenuItem  Header="Enable detailed logging" Command="{Binding EnableDetailedLogging}"/>
-                    <MenuItem  Header="Show system info" Command="{Binding ShowSystemInfo}" />
+                    <MenuItem Header="{catel:LanguageBinding Orchestra_EnableDetailedLogging}" Command="{Binding EnableDetailedLogging}"/>
+                    <MenuItem Header="{catel:LanguageBinding Orchestra_ShowSystemInfo}" Command="{Binding ShowSystemInfo}" />
                 </ContextMenu>
             </Image.ContextMenu>
         </Image>
 
         <TextBlock Grid.Row="2" FontSize="19" FontWeight="Medium" HorizontalAlignment="Center" Margin="0 0 0 10" Text="{Binding Title}" />
-        <TextBlock Grid.Row="3" FontSize="13" HorizontalAlignment="Center" Text="Released on" Visibility="Collapsed" />
+        <TextBlock Grid.Row="3" FontSize="13" HorizontalAlignment="Center" Text="{catel:LanguageBinding Orchestra_ReleasedOn}" Visibility="Collapsed" />
         <TextBlock Grid.Row="4" FontSize="13" HorizontalAlignment="Center" Text="{Binding Version}" />
         <TextBlock Grid.Row="5" FontSize="13" HorizontalAlignment="Center" Text="{Binding BuildDateTime}" />
 
@@ -57,17 +56,17 @@
                        Visibility="{Binding UriInfo, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
         
         <TextBlock Grid.Row="8" FontSize="13" HorizontalAlignment="Center" Text="{Binding Copyright}" />
-        <TextBlock Grid.Row="9" FontSize="13" HorizontalAlignment="Center" Text="All rights reserved" />
+        <TextBlock Grid.Row="9" FontSize="13" HorizontalAlignment="Center" Text="{catel:LanguageBinding Orchestra_AllRightsReserved}" />
 
         <TextBlock Grid.Row="10" FontSize="13" HorizontalAlignment="Center" Margin="0 15 0 0" 
-                   Text="Debug logging is enabled for this application instance" 
+                   Text="{catel:LanguageBinding Orchestra_DebugLoggingIsEnabled}" 
                    Foreground="Gray" FontStyle="Italic"
                    Visibility="{Binding IsDebugLoggingEnabled, Converter={catel:BooleanToCollapsingVisibilityConverter}}" />
 
         <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Show log..." Width="75" Margin="20 20 15 30" Command="{Binding OpenLog}"
+            <Button Content="{catel:LanguageBinding Orchestra_ShowLog}" Width="75" Margin="20 20 15 30" Command="{Binding OpenLog}"
                     Visibility="{Binding ShowLogButton, Converter={StaticResource BooleanToCollapsingVisibilityConverter}}" />
-            <Button Content="Close" Width="75" Margin="0 20 20 30" Click="Close_OnClick" />
+            <Button Content="{catel:LanguageBinding Orchestra_Close}" Width="75" Margin="0 20 20 30" Click="Close_OnClick" />
         </StackPanel>
     </Grid>
 

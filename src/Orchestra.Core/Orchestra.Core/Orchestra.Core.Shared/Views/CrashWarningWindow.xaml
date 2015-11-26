@@ -75,28 +75,24 @@
             <Label Style="{StaticResource CrashWarningWindowLabelStyle}" Margin="0 0 30 10"/>
             
             <StackPanel>
-                <TextBlock TextWrapping="Wrap" Margin="0 0 0 10">
-                    It seems that the application failed to start correctly the last time it was started.
-                    <LineBreak /><LineBreak />
-                    If this happens again, try to reset the user data settings. The left button will allow you to reset (and optionally backup) your settings.
-                    <LineBreak /><LineBreak />
-                    When ready, click continue to start the application.
-                </TextBlock>
+                <TextBlock Text="{catel:LanguageBinding Orchestra_NotStartedCorrectly_01}" TextWrapping="Wrap" Margin="0 0 0 12" />
+                <TextBlock Text="{catel:LanguageBinding Orchestra_NotStartedCorrectly_02}" TextWrapping="Wrap" Margin="0 0 0 12" />
+                <TextBlock Text="{catel:LanguageBinding Orchestra_NotStartedCorrectly_03}" TextWrapping="Wrap" Margin="0 0 0 12" />
 
                 <DockPanel Margin="0 20 0 0" LastChildFill="False" VerticalAlignment="Top">
-                    <orc:DropDownButton Header="User data settings" DockPanel.Dock="Left" Height="26" Width="140"
+                    <orc:DropDownButton Header="{catel:LanguageBinding Orchestra_UserDataSettings}" DockPanel.Dock="Left" Height="26" Width="140"
                                         AccentColorBrush="{DynamicResource AccentColorBrush}" ShowDefaultButton="False"
                                         Style="{StaticResource CrashWarningWindowDropDownButtonStyle}">
                         <orc:DropDownButton.DropDown>
                             <ContextMenu>
-                                <MenuItem Header="Reset" Command="{Binding ResetUserSettings}"/>
-                                <MenuItem Header="Backup and Reset" Command="{Binding BackupAndReset}"/>
+                                <MenuItem Header="{catel:LanguageBinding Orchestra_Reset}" Command="{Binding ResetUserSettings}"/>
+                                <MenuItem Header="{catel:LanguageBinding Orchestra_BackupAndReset}" Command="{Binding BackupAndReset}"/>
                             </ContextMenu>
                         </orc:DropDownButton.DropDown>
                     </orc:DropDownButton>
 
-                    <Button Content="Continue" DockPanel.Dock="Right" Width="70" Height="26" 
-                    IsDefault="true" Command="{Binding Continue}" Style="{StaticResource CrashWarningWindowButtonStyle}"/>
+                    <Button Content="{catel:LanguageBinding Orchestra_Continue}" DockPanel.Dock="Right" Width="70" Height="26" 
+                            IsDefault="true" Command="{Binding Continue}" Style="{StaticResource CrashWarningWindowButtonStyle}"/>
                 </DockPanel>
             </StackPanel>
         </DockPanel>

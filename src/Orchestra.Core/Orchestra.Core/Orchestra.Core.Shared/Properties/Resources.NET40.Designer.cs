@@ -61,6 +61,15 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All rights reserved.
+        /// </summary>
+        internal static string Orchestra_AllRightsReserved {
+            get {
+                return ResourceManager.GetString("Orchestra_AllRightsReserved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign.
         /// </summary>
         internal static string Orchestra_Assign {
@@ -88,6 +97,33 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backup and Reset.
+        /// </summary>
+        internal static string Orchestra_BackupAndReset {
+            get {
+                return ResourceManager.GetString("Orchestra_BackupAndReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup has been succesfully created..
+        /// </summary>
+        internal static string Orchestra_BackupCreated {
+            get {
+                return ResourceManager.GetString("Orchestra_BackupCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Built on {0}.
+        /// </summary>
+        internal static string Orchestra_BuiltOn {
+            get {
+                return ResourceManager.GetString("Orchestra_BuiltOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string Orchestra_Close {
@@ -106,6 +142,24 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        internal static string Orchestra_Continue {
+            get {
+                return ResourceManager.GetString("Orchestra_Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        internal static string Orchestra_Copy {
+            get {
+                return ResourceManager.GetString("Orchestra_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customize.
         /// </summary>
         internal static string Orchestra_Customize {
@@ -115,11 +169,47 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Debug logging is enabled for this application instance.
+        /// </summary>
+        internal static string Orchestra_DebugLoggingIsEnabled {
+            get {
+                return ResourceManager.GetString("Orchestra_DebugLoggingIsEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User data settings have been successfully deleted..
+        /// </summary>
+        internal static string Orchestra_DeletedUserDataSettings {
+            get {
+                return ResourceManager.GetString("Orchestra_DeletedUserDataSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable detailed logging.
+        /// </summary>
+        internal static string Orchestra_EnableDetailedLogging {
+            get {
+                return ResourceManager.GetString("Orchestra_EnableDetailedLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable logging.
         /// </summary>
         internal static string Orchestra_EnableLogging {
             get {
                 return ResourceManager.GetString("Orchestra_EnableLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to created a backup. To prevent data loss, the application will now exit and not delete any files. Please contact support so they can guide you through the process..
+        /// </summary>
+        internal static string Orchestra_FailedToCreateBackup {
+            get {
+                return ResourceManager.GetString("Orchestra_FailedToCreateBackup", resourceCulture);
             }
         }
         
@@ -142,6 +232,42 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No log listener available that can be opened. Please contact support..
+        /// </summary>
+        internal static string Orchestra_NoLogListenerAvailable {
+            get {
+                return ResourceManager.GetString("Orchestra_NoLogListenerAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It seems that the application failed to start correctly the last time it was started..
+        /// </summary>
+        internal static string Orchestra_NotStartedCorrectly_01 {
+            get {
+                return ResourceManager.GetString("Orchestra_NotStartedCorrectly_01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this happens again, try to reset the user data settings. The left button will allow you to reset (and optionally backup) your settings..
+        /// </summary>
+        internal static string Orchestra_NotStartedCorrectly_02 {
+            get {
+                return ResourceManager.GetString("Orchestra_NotStartedCorrectly_02", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When ready, click continue to start the application..
+        /// </summary>
+        internal static string Orchestra_NotStartedCorrectly_03 {
+            get {
+                return ResourceManager.GetString("Orchestra_NotStartedCorrectly_03", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Press shortcut keys:.
         /// </summary>
         internal static string Orchestra_PressShortcutKeys {
@@ -156,6 +282,24 @@ namespace Orchestra.Properties {
         internal static string Orchestra_Print {
             get {
                 return ResourceManager.GetString("Orchestra_Print", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produced by {0}.
+        /// </summary>
+        internal static string Orchestra_ProducedBy {
+            get {
+                return ResourceManager.GetString("Orchestra_ProducedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Released on.
+        /// </summary>
+        internal static string Orchestra_ReleasedOn {
+            get {
+                return ResourceManager.GetString("Orchestra_ReleasedOn", resourceCulture);
             }
         }
         
@@ -196,6 +340,15 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Retrieving system information....
+        /// </summary>
+        internal static string Orchestra_RetrievingSystemInfo {
+            get {
+                return ResourceManager.GetString("Orchestra_RetrievingSystemInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shortcut for selected command:.
         /// </summary>
         internal static string Orchestra_ShortcutForSelectedCommand {
@@ -219,6 +372,42 @@ namespace Orchestra.Properties {
         internal static string Orchestra_ShowCommandsContaining {
             get {
                 return ResourceManager.GetString("Orchestra_ShowCommandsContaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show log....
+        /// </summary>
+        internal static string Orchestra_ShowLog {
+            get {
+                return ResourceManager.GetString("Orchestra_ShowLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show system info.
+        /// </summary>
+        internal static string Orchestra_ShowSystemInfo {
+            get {
+                return ResourceManager.GetString("Orchestra_ShowSystemInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System information.
+        /// </summary>
+        internal static string Orchestra_SystemInfo {
+            get {
+                return ResourceManager.GetString("Orchestra_SystemInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User data settings.
+        /// </summary>
+        internal static string Orchestra_UserDataSettings {
+            get {
+                return ResourceManager.GetString("Orchestra_UserDataSettings", resourceCulture);
             }
         }
     }

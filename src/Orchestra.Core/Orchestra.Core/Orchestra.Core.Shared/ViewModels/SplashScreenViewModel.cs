@@ -12,6 +12,7 @@ namespace Orchestra.ViewModels
     using Catel;
     using Catel.MVVM;
     using Catel.Reflection;
+    using Catel.Services;
     using Models;
     using Services;
 
@@ -20,26 +21,26 @@ namespace Orchestra.ViewModels
     /// </summary>
     public class SplashScreenViewModel : ViewModelBase
     {
-        public SplashScreenViewModel(IAboutInfoService aboutInfoService)
+        private readonly ILanguageService _languageService;
+
+        public SplashScreenViewModel(IAboutInfoService aboutInfoService, ILanguageService languageService)
         {
             Argument.IsNotNull(() => aboutInfoService);
+            Argument.IsNotNull(() => languageService);
+
+            _languageService = languageService;
 
             var aboutInfo = aboutInfoService.GetAboutInfo();
             CompanyLogoForSplashScreenUri = aboutInfo.CompanyLogoForSplashScreenUri;
         }
+
         #region Properties
         public Uri CompanyLogoForSplashScreenUri { get; private set; }
 
-        /// <summary>
-        /// Gets the company.
-        /// </summary>
-        /// <value>The company.</value>
         public string Company { get; private set; }
 
-        /// <summary>
-        /// Gets the version.
-        /// </summary>
-        /// <value>The version.</value>
+        public string ProducedBy { get; private set; }
+
         public string Version { get; private set; }
         #endregion
 
@@ -53,6 +54,7 @@ namespace Orchestra.ViewModels
             {
                 Title = assembly.Title();
                 Company = assembly.Company();
+                ProducedBy = string.Format(_languageService.GetString("Orchestra_ProducedBy"), Company);
                 Version = VersionHelper.GetCurrentVersion(assembly);
             }
         }

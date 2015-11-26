@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
         
         <Border Grid.Row="0" Grid.RowSpan="4" BorderThickness="1" BorderBrush="#D3D3D3" />
-        <TextBlock Grid.Row="1" FontSize="16" FontWeight="Medium" HorizontalAlignment="Left" Text="System information" Margin="20 10 20 0"/>
+        <TextBlock Grid.Row="1" FontSize="16" FontWeight="Medium" HorizontalAlignment="Left" Text="{catel:LanguageBinding Orchestra_SystemInfo}" Margin="20 10 20 0"/>
 
         <Grid Grid.Row="2">
             <ListBox ItemsSource="{Binding SystemInfo}" ScrollViewer.HorizontalScrollBarVisibility ="Disabled" Margin="10"
@@ -31,23 +31,25 @@
                                 <ColumnDefinition Width="165"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
+                            
                             <TextBlock Grid.Column="0" Text="{Binding Key}" VerticalAlignment="Top"/>
                             <TextBlock Grid.Column="1" Text="{Binding Value}" TextWrapping="Wrap"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            
             <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="15"
                 Visibility="{Binding IsSystemInformationLoaded, Converter={catel:BooleanToCollapsingVisibilityConverter}, ConverterParameter=False}">
-                <Label FontSize="14" HorizontalAlignment="Center">Retrieving system information...</Label>
+                <Label Content="{catel:LanguageBinding Orchestra_RetrievingSystemInfo}" FontSize="14" HorizontalAlignment="Center" />
                 <controls:BusyIndicator Foreground="{DynamicResource AccentColorBrush}" Margin="8" IgnoreUnloadedEventCount="1" />
             </StackPanel>
         </Grid>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Copy" Width="75" Margin="0 10 20 20" HorizontalAlignment="Right"
+            <Button Content="{catel:LanguageBinding Orchestra_Copy}" Width="75" Margin="0 10 20 20" HorizontalAlignment="Right"
                     Command="{Binding CopyToClipboard}" IsEnabled="{Binding IsSystemInformationLoaded}" />
-            <Button Content="Close" Width="75" Margin="0 10 20 20" HorizontalAlignment="Right" Click="Close_OnClick" />
+            <Button Content="{catel:LanguageBinding Orchestra_Close}" Width="75" Margin="0 10 20 20" HorizontalAlignment="Right" Click="OnCloseClick" />
         </StackPanel>
     </Grid>
     

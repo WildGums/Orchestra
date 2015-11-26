@@ -40,7 +40,7 @@ namespace Orchestra.Views
         #endregion
 
         #region Methods
-        private void Close_OnClick(object sender, RoutedEventArgs e)
+        private void OnCloseClick(object sender, RoutedEventArgs e)
         {
             Close();
         }

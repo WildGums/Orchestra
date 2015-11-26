@@ -30,13 +30,13 @@
                 </ScrollViewer>
                 
                 <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                    <Button Content="OK" Command="{Binding OkCommand}" Width="80" Margin="6 2 0 2"
+                    <Button Content="{catel:LanguageBinding OK}" Command="{Binding OkCommand}" Width="80" Margin="6 2 0 2"
                             Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=OK}" />
-                    <Button Content="Yes" Command="{Binding YesCommand}" Width="80" Margin="6 2 0 2"
+                    <Button Content="{catel:LanguageBinding Yes}" Command="{Binding YesCommand}" Width="80" Margin="6 2 0 2"
                             Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=Yes}"/>
-                    <Button Content="No" Command="{Binding NoCommand}" Width="80" Margin="6 2 0 2"
+                    <Button Content="{catel:LanguageBinding No}" Command="{Binding NoCommand}" Width="80" Margin="6 2 0 2"
                             Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=No}"/>
-                    <Button Content="Cancel" Command="{Binding CancelCommand}" Width="80" Margin="6 2 0 2"
+                    <Button Content="{catel:LanguageBinding Cancel}" Command="{Binding CancelCommand}" Width="80" Margin="6 2 0 2"
                             Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=Cancel}"/>
                 </StackPanel>
             </DockPanel>
