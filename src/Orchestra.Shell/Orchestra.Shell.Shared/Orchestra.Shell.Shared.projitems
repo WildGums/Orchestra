@@ -17,6 +17,10 @@
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\ApplicationWatcherBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\CloseApplicationWatcherBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\KeyPressApplicationWatcherBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\KeyPressWindowWatcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MethodTimeLogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ApplicationInitializationServiceBase.cs" />
