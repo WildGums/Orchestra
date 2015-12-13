@@ -62,20 +62,20 @@
       <HintPath>..\..\..\..\lib\Catel.MVVM.4.4.0\lib\net45\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fluent, Version=3.6.0.221, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+    <Reference Include="Fluent, Version=3.6.1.236, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Fluent.Ribbon.3.6.0.221\lib\net45\Fluent.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Fluent.Ribbon.3.6.1.236\lib\net45\Fluent.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Orc.Controls, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.2.0-unstable0006\lib\net45\Orc.Controls.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.2.0-unstable0012\lib\net45\Orc.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.4.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Fluent.Ribbon.3.6.1.236\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
