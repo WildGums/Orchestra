@@ -113,7 +113,7 @@ namespace Orchestra.Services
 
             if (!_flyouts.ContainsKey(name))
             {
-                Log.ErrorAndThrowException<InvalidOperationException>("Flyout '{0}' is not added yet", name);
+                throw Log.ErrorAndCreateException<InvalidOperationException>("Flyout '{0}' is not added yet", name);
             }
 
             var flyoutInfo = _flyouts[name];
@@ -137,7 +137,7 @@ namespace Orchestra.Services
 
             if (!_flyouts.ContainsKey(name))
             {
-                Log.ErrorAndThrowException<InvalidOperationException>("Flyout '{0}' is not added yet", name);
+                throw Log.ErrorAndCreateException<InvalidOperationException>("Flyout '{0}' is not added yet", name);
             }
 
             var flyoutInfo = _flyouts[name];

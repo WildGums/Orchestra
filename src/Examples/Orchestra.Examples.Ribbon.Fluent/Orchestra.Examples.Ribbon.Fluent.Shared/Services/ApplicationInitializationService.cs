@@ -37,24 +37,27 @@ namespace Orchestra.Examples.Ribbon.Services
         public override async Task InitializeBeforeCreatingShellAsync()
         {
             // Non-async first
-            await RegisterTypes();
-            await InitializeCommands();
+            await RegisterTypesAsync();
+            await InitializeCommandsAsync();
 
             await RunAndWaitAsync(new Func<Task>[]
             {
-                InitializePerformance
+                InitializePerformanceAsync
             });
         }
 
-        private async Task InitializeCommands()
+        private async Task InitializeCommandsAsync()
         {
             var commandManager = ServiceLocator.Default.ResolveType<ICommandManager>();
+            var commandInfoService = ServiceLocator.Default.ResolveType<ICommandInfoService>();
 
             commandManager.CreateCommandWithGesture(typeof(Commands.Application), "Exit");
             commandManager.CreateCommandWithGesture(typeof(Commands.Application), "About");
 
             commandManager.CreateCommandWithGesture(typeof(Commands.Demo), "LongOperation");
             commandManager.CreateCommandWithGesture(typeof(Commands.Demo), "ShowMessageBox");
+            commandManager.CreateCommandWithGesture(typeof(Commands.Demo), "Hidden");
+            commandInfoService.UpdateCommandInfo(Commands.Demo.Hidden, x => x.IsHidden = true);
 
             commandManager.CreateCommand("File.Open", new InputGesture(Key.O, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.SaveToImage", new InputGesture(Key.I, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
@@ -71,7 +74,7 @@ namespace Orchestra.Examples.Ribbon.Services
             Thread.Sleep(2500);
         }
 
-        private async Task InitializePerformance()
+        private async Task InitializePerformanceAsync()
         {
             Log.Info("Improving performance");
 
@@ -80,7 +83,7 @@ namespace Orchestra.Examples.Ribbon.Services
             Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
         }
 
-        private async Task RegisterTypes()
+        private async Task RegisterTypesAsync()
         {
             var serviceLocator = _serviceLocator;
 

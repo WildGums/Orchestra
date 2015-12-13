@@ -148,18 +148,13 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type orchestra:RibbonBackstageTabItem}">
                     <Grid Background="#00000000" Margin="0,3">
-                        <Border x:Name="border" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" Margin="0" CornerRadius="3" Background="{DynamicResource TransparentBrush}">
-                            <Border x:Name="border1" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
+                            <Border x:Name="border1" BorderBrush="{DynamicResource TransparentBrush}"
+                                    BorderThickness="1" Background="{DynamicResource TransparentBrush}">
                                 <ContentPresenter Margin="5,5,50,5" ContentSource="Header" />
                             </Border>
-                        </Border>
-                        <Path x:Name="path" Data="M1,0L0,1 1,2" Fill="#FFF4F4F5" HorizontalAlignment="Right" Height="11" Margin="0,0,-1,0" StrokeStartLineCap="Flat" Stretch="Fill" StrokeEndLineCap="Flat" Stroke="{DynamicResource RibbonTopBorderBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Miter" VerticalAlignment="Center" Width="6" Visibility="Collapsed"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Selector.IsSelected" Value="True">
-                            <Setter Property="Visibility" TargetName="path" Value="Visible"/>
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
                             <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
                             <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
                         </Trigger>
@@ -168,9 +163,7 @@
                                 <Condition Property="IsMouseOver" Value="True"/>
                                 <Condition Property="Selector.IsSelected" Value="False"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
                             <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>

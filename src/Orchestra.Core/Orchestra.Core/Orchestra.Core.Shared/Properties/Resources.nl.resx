@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Orchestra_AllRightsReserved" xml:space="preserve">
+    <value>Alle rechten voorbehouden</value>
+  </data>
+  <data name="Orchestra_Assign" xml:space="preserve">
+    <value>Toewijzen</value>
+  </data>
+  <data name="Orchestra_AssignInputGestureAreYouSure" xml:space="preserve">
+    <value>Weet je zeker dat je het invoer gebaar wilt toewijzen aan '{0}'. Het zal van andere commando's worden verwijderd.</value>
+  </data>
+  <data name="Orchestra_AssignInputGestureUsedByFollowCommands" xml:space="preserve">
+    <value>Het invoer gebaar '{0}' is momenteel toegewezen aan de volgende commando's:</value>
+  </data>
+  <data name="Orchestra_BackupAndReset" xml:space="preserve">
+    <value>Backup en Reset</value>
+  </data>
+  <data name="Orchestra_BackupCreated" xml:space="preserve">
+    <value>Backup maken is gelukt.</value>
+  </data>
+  <data name="Orchestra_BuiltOn" xml:space="preserve">
+    <value>Gemaakt op {0}</value>
+  </data>
+  <data name="Orchestra_Close" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="Orchestra_Command" xml:space="preserve">
+    <value>Commando</value>
+  </data>
+  <data name="Orchestra_Continue" xml:space="preserve">
+    <value>Doorgaan</value>
+  </data>
+  <data name="Orchestra_Copy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="Orchestra_Customize" xml:space="preserve">
+    <value>Aanpassen</value>
+  </data>
+  <data name="Orchestra_DebugLoggingIsEnabled" xml:space="preserve">
+    <value>Gedetailleerde logging is aangezet voor deze applicatie</value>
+  </data>
+  <data name="Orchestra_DeletedUserDataSettings" xml:space="preserve">
+    <value>Gebruikers data is verwijderd.</value>
+  </data>
+  <data name="Orchestra_EnableDetailedLogging" xml:space="preserve">
+    <value>Start gedetailleerde logging</value>
+  </data>
+  <data name="Orchestra_EnableLogging" xml:space="preserve">
+    <value>Start logging</value>
+  </data>
+  <data name="Orchestra_FailedToCreateBackup" xml:space="preserve">
+    <value>Het is niet gelukt om een backup te maken. Om data verlies te voorkomen zal de applicatie nu worden afgesloten en zullen er geen bestanden verwijderd worden. Neem a.u.b. contact op met support zodat zij je kunnen helpen.</value>
+  </data>
+  <data name="Orchestra_InputGesture" xml:space="preserve">
+    <value>Invoer gebaar</value>
+  </data>
+  <data name="Orchestra_KeyboardShortcuts" xml:space="preserve">
+    <value>Toetsenbord snelkoppelingen</value>
+  </data>
+  <data name="Orchestra_NoLogListenerAvailable" xml:space="preserve">
+    <value>Er is geen log dat geopend kan worden. Neem a.u.b. contact op met support.</value>
+  </data>
+  <data name="Orchestra_NotStartedCorrectly_01" xml:space="preserve">
+    <value>Het lijkt erop dat de applicatie niet goed gestart was de laatste keer.</value>
+  </data>
+  <data name="Orchestra_NotStartedCorrectly_02" xml:space="preserve">
+    <value>Mocht dit weer gebeuren, probeer dan de gebruikers data te resetten. De linker knop geeft je de mogelijkheid om de data te resetten (en optioneel een backup te maken).</value>
+  </data>
+  <data name="Orchestra_NotStartedCorrectly_03" xml:space="preserve">
+    <value>Wanneer je klaar bent, click dan op doorgaan om de applicatie te starten.</value>
+  </data>
+  <data name="Orchestra_PressShortcutKeys" xml:space="preserve">
+    <value>Gebruik snelkoppeling toetsen:</value>
+  </data>
+  <data name="Orchestra_Print" xml:space="preserve">
+    <value>Afdrukken</value>
+  </data>
+  <data name="Orchestra_ProducedBy" xml:space="preserve">
+    <value>Gemaakt door {0}</value>
+  </data>
+  <data name="Orchestra_ReleasedOn" xml:space="preserve">
+    <value>Gepubliceerd op</value>
+  </data>
+  <data name="Orchestra_Remove" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Orchestra_ReplaceInputGesture" xml:space="preserve">
+    <value>Vervang invoer gebaar?</value>
+  </data>
+  <data name="Orchestra_Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Orchestra_ResetKeyboardShortcutsAreYouSure" xml:space="preserve">
+    <value>Het resetten van de snelkoppelingen zal alle huidige snelkoppelingen verwijderen. Deze actie kan niet ongedaan gemaakt worden. Weet je zeker dat je de snelkoppelingen wilt resetten?</value>
+  </data>
+  <data name="Orchestra_RetrievingSystemInfo" xml:space="preserve">
+    <value>Bezig met ophalen van systeem informatie...</value>
+  </data>
+  <data name="Orchestra_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>Snelkoppeling voor het geselecteerde commando:</value>
+  </data>
+  <data name="Orchestra_ShortcutsForApplication" xml:space="preserve">
+    <value>Toetsenbord snelkoppeling voor {0}</value>
+  </data>
+  <data name="Orchestra_ShowCommandsContaining" xml:space="preserve">
+    <value>Toon commando's met:</value>
+  </data>
+  <data name="Orchestra_ShowLog" xml:space="preserve">
+    <value>Toon log...</value>
+  </data>
+  <data name="Orchestra_ShowSystemInfo" xml:space="preserve">
+    <value>Toon systeem info</value>
+  </data>
+  <data name="Orchestra_SystemInfo" xml:space="preserve">
+    <value>Systeem informatie</value>
+  </data>
+  <data name="Orchestra_UserDataSettings" xml:space="preserve">
+    <value>Gebruikers data</value>
+  </data>
+</root>

@@ -9,7 +9,7 @@ namespace Orchestra.Models
 {
     using Catel.Windows.Input;
 
-    public class CommandInfo
+    public class CommandInfo : ICommandInfo
     {
         #region Constructors
         public CommandInfo(string commandName, InputGesture inputGesture)
@@ -19,8 +19,10 @@ namespace Orchestra.Models
         }
         #endregion
 
-        public string CommandName { get; set; }
+        public string CommandName { get; private set; }
 
         public InputGesture InputGesture { get; set; } 
+
+        public bool IsHidden { get; set; }
     }
 }

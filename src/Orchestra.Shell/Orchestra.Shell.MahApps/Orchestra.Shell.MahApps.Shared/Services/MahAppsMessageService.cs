@@ -11,24 +11,22 @@ namespace Orchestra.Services
     using System.Threading.Tasks;
     using System.Windows;
     using Catel.Services;
+    using Catel.Threading;
     using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
 
     public class MahAppsMessageService : Catel.Services.MessageService
     {
+        private readonly IDispatcherService _dispatcherService;
+
         public MahAppsMessageService(IDispatcherService dispatcherService)
             : base(dispatcherService)
         {
+            _dispatcherService = dispatcherService;
         }
 
-        protected override async Task<MessageResult> ShowMessageBoxAsync(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
+        protected override Task<MessageResult> ShowMessageBoxAsync(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
         {
-            var window = Application.Current.MainWindow as MetroWindow;
-            if (window == null)
-            {
-                return MessageResult.Cancel;
-            }
-
             var style = MessageDialogStyle.Affirmative;
             var affirmativeResult = MessageResult.OK;
             var negativeResult = MessageResult.No;
@@ -64,21 +62,38 @@ namespace Orchestra.Services
                     throw new ArgumentOutOfRangeException("button");
             }
 
-            var result = await window.ShowMessageAsync(caption, message, style);
-            switch (result)
+            var tcs = new TaskCompletionSource<MessageResult>();
+
+            _dispatcherService.BeginInvoke(async () =>
             {
-                case MessageDialogResult.Negative:
-                    return negativeResult;
+                var window = Application.Current.MainWindow as MetroWindow;
+                if (window == null)
+                {
+                    tcs.SetResult(MessageResult.Cancel);
+                    return;
+                }
 
-                case MessageDialogResult.Affirmative:
-                    return affirmativeResult;
+                var result = await window.ShowMessageAsync(caption, message, style);
+                switch (result)
+                {
+                    case MessageDialogResult.Negative:
+                        tcs.SetResult(negativeResult);
+                        break;
 
-                case MessageDialogResult.FirstAuxiliary:
-                    return auxiliaryResult;
+                    case MessageDialogResult.Affirmative:
+                        tcs.SetResult(affirmativeResult);
+                        break;
 
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                    case MessageDialogResult.FirstAuxiliary:
+                        tcs.SetResult(auxiliaryResult);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            });
+
+            return tcs.Task;
         }
     }
 }

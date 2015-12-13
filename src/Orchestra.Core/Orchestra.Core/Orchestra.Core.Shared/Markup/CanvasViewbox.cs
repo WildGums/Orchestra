@@ -7,16 +7,25 @@
 
 namespace Orchestra.Markup
 {
+    using System.IO;
+    using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Markup;
     using System.Windows.Media;
-    using System.Windows.Shapes;
+    using System.Xml;
+    using Catel;
+    using Catel.Logging;
+    using Path = System.Windows.Shapes.Path;
 
     /// <summary>
     /// Markup extension that can show a canvas inside a viewbox.
     /// </summary>
     public class CanvasViewbox : Catel.Windows.Markup.UpdatableMarkupExtension
     {
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        private string _pathName;
+
         public CanvasViewbox()
         {
             Foreground = Brushes.Transparent;
@@ -41,7 +50,15 @@ namespace Orchestra.Markup
         /// Gets or sets the name of the canvas as it can be found in the application resources.
         /// </summary>
         [ConstructorArgument("pathName")]
-        public string PathName { get; set; }
+        public string PathName
+        {
+            get { return _pathName; }
+            set
+            {
+                _pathName = value;
+                UpdateValue();
+            }
+        }
 
         protected override object ProvideDynamicValue()
         {
@@ -54,19 +71,35 @@ namespace Orchestra.Markup
 
             viewbox.Stretch = Stretch.Uniform;
 
-            // TODO: Question: should we clone or not? 
-            var canvas = System.Windows.Application.Current.FindResource(PathName) as Canvas;
-            if (canvas != null && Foreground != Brushes.Transparent)
+            Canvas canvas = null;
+
+            var pathName = PathName;
+            if (!string.IsNullOrWhiteSpace(pathName))
             {
-                foreach (var child in canvas.Children)
+                canvas = System.Windows.Application.Current.FindResource(pathName) as Canvas;
+                if (canvas != null)
                 {
-                    var path = child as Path;
-                    if (path != null)
+                    // Clone to prevent the same instance to be used multiple times
+                    canvas = canvas.Clone();
+
+                    if (canvas != null && Foreground != Brushes.Transparent)
                     {
-                        path.Fill = Foreground;
+                        foreach (var child in canvas.Children)
+                        {
+                            var path = child as Path;
+                            if (path != null)
+                            {
+                                path.Fill = Foreground;
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    Log.Warning("Could not find a resource named '{0}'", pathName);
+                }
             }
+
             viewbox.Child = canvas;
 
             return viewbox;

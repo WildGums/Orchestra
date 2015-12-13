@@ -38,11 +38,6 @@ namespace Orchestra.Views
         public AboutWindow(AboutViewModel viewModel)
             : base(viewModel, DataWindowMode.Custom)
         {
-            var dependencyResolver = this.GetDependencyResolver();
-            var languageService = dependencyResolver.Resolve<ILanguageService>();
-
-            //AddCustomButton(new DataWindowButton(languageService.GetString("EnableLogging"), "EnableLogging"));
-
             InitializeComponent();
 
             this.ApplyApplicationIcon();

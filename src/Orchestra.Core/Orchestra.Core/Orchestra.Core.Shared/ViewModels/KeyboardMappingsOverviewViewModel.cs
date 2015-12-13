@@ -12,6 +12,7 @@ namespace Orchestra.ViewModels
     using System.Reflection;
     using System.Threading.Tasks;
     using Catel;
+    using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
@@ -23,37 +24,34 @@ namespace Orchestra.ViewModels
     /// </summary>
     public class KeyboardMappingsOverviewViewModel : ViewModelBase
     {
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         private readonly ICommandManager _commandManager;
+        private readonly ICommandInfoService _commandInfoService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly ILanguageService _languageService;
         private readonly IViewExportService _viewExportService;
         private readonly IKeyboardMappingsService _keyboardMappingsService;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardMappingsOverviewViewModel" /> class.
-        /// </summary>
-        /// <param name="commandManager">The command manager.</param>
-        /// <param name="uiVisualizerService">The UI visualizer service.</param>
-        /// <param name="languageService">The language service.</param>
-        /// <param name="viewExportService">The view export service.</param>
-        /// <param name="keyboardMappingsService">The keyboard mappings service.</param>
-        public KeyboardMappingsOverviewViewModel(ICommandManager commandManager, IUIVisualizerService uiVisualizerService,
+        public KeyboardMappingsOverviewViewModel(ICommandManager commandManager, ICommandInfoService commandInfoService, IUIVisualizerService uiVisualizerService,
             ILanguageService languageService, IViewExportService viewExportService, IKeyboardMappingsService keyboardMappingsService)
         {
             Argument.IsNotNull(() => commandManager);
+            Argument.IsNotNull(() => commandInfoService);
             Argument.IsNotNull(() => uiVisualizerService);
             Argument.IsNotNull(() => languageService);
             Argument.IsNotNull(() => viewExportService);
             Argument.IsNotNull(() => keyboardMappingsService);
 
             _commandManager = commandManager;
+            _commandInfoService = commandInfoService;
             _uiVisualizerService = uiVisualizerService;
             _languageService = languageService;
             _viewExportService = viewExportService;
             _keyboardMappingsService = keyboardMappingsService;
 
             Print = new Command(OnPrintExecute);
-            Customize = new Command(OnCustomizeExecute);
+            Customize = new TaskCommand(OnCustomizeExecuteAsync);
         }
 
         /// <summary>
@@ -79,14 +77,14 @@ namespace Orchestra.ViewModels
         /// <summary>
         /// Gets the Customize command.
         /// </summary>
-        public Command Customize { get; private set; }
+        public TaskCommand Customize { get; private set; }
 
         /// <summary>
         /// Method to invoke when the Customize command is executed.
         /// </summary>
-        private void OnCustomizeExecute()
+        private Task OnCustomizeExecuteAsync()
         {
-            _uiVisualizerService.ShowDialog<KeyboardMappingsCustomizationViewModel>();
+            return _uiVisualizerService.ShowDialogAsync<KeyboardMappingsCustomizationViewModel>();
         }
         #endregion
 
@@ -94,7 +92,7 @@ namespace Orchestra.ViewModels
         {
             await base.InitializeAsync();
 
-            Title = string.Format(_languageService.GetString("ShortcutsForApplication"), AssemblyHelper.GetEntryAssembly().Title());
+            Title = string.Format(_languageService.GetString("Orchestra_ShortcutsForApplication"), AssemblyHelper.GetEntryAssembly().Title());
 
             var mappingsByGroup = new Dictionary<string, KeyboardMappings>();
             mappingsByGroup.Add(string.Empty, new KeyboardMappings { GroupName = string.Empty });
@@ -110,6 +108,13 @@ namespace Orchestra.ViewModels
 
             foreach (var command in commands.OrderBy(x => x.GetCommandName()))
             {
+                var commandInfo = _commandInfoService.GetCommandInfo(command);
+                if (commandInfo.IsHidden)
+                {
+                    Log.Debug("Command '{0}' is hidden, not showing in keyboard mappings overview", command);
+                    continue;
+                }
+
                 var groupName = command.GetCommandGroup();
                 var inputGesture = _commandManager.GetInputGesture(command);
                 mappingsByGroup[groupName].Mappings.Add(new KeyboardMapping

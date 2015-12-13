@@ -51,7 +51,7 @@
             
         <controls:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="8" IgnoreUnloadedEventCount="1" />
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Company, StringFormat=Produced by {0}}" 
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding ProducedBy}" 
                    HorizontalAlignment="Left" Style="{StaticResource SplashTextBlockStyle}"
                    Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}, ConverterParameter=True}" />
 
@@ -61,7 +61,6 @@
 
         <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Version, StringFormat= v{0}}" 
                    HorizontalAlignment="Right" Style="{StaticResource SplashTextBlockStyle}" />
-
     </Grid>
 
 </catel:DataWindow>

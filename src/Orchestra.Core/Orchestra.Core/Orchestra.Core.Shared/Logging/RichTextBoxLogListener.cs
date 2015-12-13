@@ -56,7 +56,7 @@ namespace Orchestra.Logging
         {
             _textBox.Dispatcher.Invoke(() =>
             {
-                var finalMessage = string.Format("{0} {1}", time.ToString("hh:mm:ss.fff"), message);
+                var finalMessage = string.Format("{0} {1}", time.ToString("HH:mm:ss.fff"), message);
 
                 var paragraph = new Paragraph(new Run(finalMessage));
 

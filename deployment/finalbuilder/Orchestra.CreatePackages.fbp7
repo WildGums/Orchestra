@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <VSXML>
   <Object Class="TFBProject" XMLID="{425BD2D9-59D6-458B-AD77-AB55EA0157FB}">
     <Property MultiValue="0" name="EncryptedEditPassword" type="string"></Property>
@@ -1257,7 +1257,8 @@ ProjectDirectory=%SourceRoot%\%BaseDirectory%\%Name%
                 <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
                 <Property name="ExpandImpersonationToken" type="Boolean">False</Property>
                 <Property name="ExtraCmdLine" type="TStrings">
-                  <![CDATA[%Name%.exe %Name%.dll %Name%.xml %Name%.pdb %AdditionalFileCopies%
+                  <![CDATA[%Name%.exe %Name%.dll %Name%.xml %Name%.pdb %Name%.resources.dll 
+%AdditionalFileCopies%
 ]]>
                 </Property>
                 <Property MultiValue="0" name="ExtraCmdLineParamsAtEnd" type="string"></Property>
@@ -1525,6 +1526,7 @@ ProjectDirectory=%SourceRoot%\%BaseDirectory%\%Name%
               </Property>
               <Property name="ActionTextColor" type="Cardinal">0</Property>
               <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+              <Property name="DirectoriesOnly" type="Boolean">False</Property>
               <Property name="Enabled" type="Boolean">True</Property>
               <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
               <Property name="FailIfNoIterations" type="Boolean">False</Property>

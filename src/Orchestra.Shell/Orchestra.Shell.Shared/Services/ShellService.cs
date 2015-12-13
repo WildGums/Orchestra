@@ -137,7 +137,7 @@ namespace Orchestra.Services
         {
             if (Shell != null)
             {
-                Log.ErrorAndThrowException<OrchestraException>("The shell is already created and cannot be created again");
+                throw Log.ErrorAndCreateException<OrchestraException>("The shell is already created and cannot be created again");
             }
 
             Log.Info("Checking if software was correctly closed previously");

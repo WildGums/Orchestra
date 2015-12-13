@@ -23,18 +23,21 @@ namespace Orchestra.ViewModels
         private readonly IProcessService _processService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IMessageService _messageService;
+        private readonly ILanguageService _languageService;
 
         public AboutViewModel(AboutInfo aboutInfo, IProcessService processService, IUIVisualizerService uiVisualizerService,
-            IMessageService messageService)
+            IMessageService messageService, ILanguageService languageService)
         {
             Argument.IsNotNull(() => aboutInfo);
             Argument.IsNotNull(() => processService);
             Argument.IsNotNull(() => uiVisualizerService);
             Argument.IsNotNull(() => messageService);
-            
+            Argument.IsNotNull(() => languageService);
+
             _processService = processService;
             _uiVisualizerService = uiVisualizerService;
             _messageService = messageService;
+            _languageService = languageService;
 
             var assembly = aboutInfo.Assembly;
             var version = VersionHelper.GetCurrentVersion(assembly);
@@ -42,7 +45,7 @@ namespace Orchestra.ViewModels
 
             Title = assembly.Title();
             Version = string.Format("v {0}", version);
-            BuildDateTime = string.Format("Built on {0}", buildDateTime);
+            BuildDateTime = string.Format(languageService.GetString("Orchestra_BuiltOn"), buildDateTime);
             UriInfo = aboutInfo.UriInfo;
             Copyright = assembly.Copyright();
             CompanyLogoUri = aboutInfo.CompanyLogoUri;
@@ -111,7 +114,7 @@ namespace Orchestra.ViewModels
             }
             else
             {
-                await _messageService.ShowErrorAsync("No log listener available that can be opened. Please contact support.");
+                await _messageService.ShowErrorAsync(_languageService.GetString("Orchestra_NoLogListenerAvailable"));
             }
         }
 

@@ -36,7 +36,7 @@ namespace Orchestra.ViewModels
             _dispatcherService = dispatcherService;
             _clipboardService = clipboardService;
 
-            SystemInfo = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("Retrieving system info...", string.Empty) };
+            SystemInfo = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>(string.Empty, string.Empty) };
 
             CopyToClipboard = new Command(OnCopyToClipboardExecute);
         }

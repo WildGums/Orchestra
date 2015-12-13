@@ -15,7 +15,6 @@ namespace Orchestra.Converters
 
     internal class MessageButtonToCollapsingVisibilityConverter : VisibilityConverterBase
     {
-
         public MessageButtonToCollapsingVisibilityConverter() 
             : base(Visibility.Collapsed)
         {

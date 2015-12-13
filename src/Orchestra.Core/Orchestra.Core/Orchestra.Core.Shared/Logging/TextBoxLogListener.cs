@@ -38,7 +38,7 @@ namespace Orchestra.Logging
         {
             _textBox.Dispatcher.Invoke(() =>
             {
-                _textBox.AppendText(string.Format("{0} {1}", time.ToString("hh:mm:ss.fff"), message));
+                _textBox.AppendText(string.Format("{0} {1}", time.ToString("HH:mm:ss.fff"), message));
                 _textBox.AppendText(Environment.NewLine);
                 _textBox.ScrollToEnd();
             });

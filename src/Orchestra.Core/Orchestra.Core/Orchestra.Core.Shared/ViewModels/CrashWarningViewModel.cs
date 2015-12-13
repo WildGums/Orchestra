@@ -29,19 +29,23 @@ namespace Orchestra.Views
         private readonly Assembly _assembly;
         private readonly IMessageService _messageService;
         private readonly INavigationService _navigationService;
+        private readonly ILanguageService _languageService;
         #endregion
 
         #region Constructors
-        public CrashWarningViewModel(IAppDataService appDataService, IMessageService messageService, INavigationService navigationService)
+        public CrashWarningViewModel(IAppDataService appDataService, IMessageService messageService, INavigationService navigationService,
+            ILanguageService languageService)
         {
             Argument.IsNotNull(() => messageService);
             Argument.IsNotNull(() => navigationService);
             Argument.IsNotNull(() => navigationService);
             Argument.IsNotNull(() => appDataService);
+            Argument.IsNotNull(() => languageService);
 
             _appDataService = appDataService;
             _messageService = messageService;
             _navigationService = navigationService;
+            _languageService = languageService;
 
             _assembly = AssemblyHelper.GetEntryAssembly();
 
@@ -69,7 +73,7 @@ namespace Orchestra.Views
             {
                 Log.Warning("User canceled the backup, exit application");
 
-                await _messageService.ShowErrorAsync("Failed to created a backup. To prevent data loss, the application will now exit and not delete any files. Please contact support so they can guide you through the process.", _assembly.Title());
+                await _messageService.ShowErrorAsync(_languageService.GetString("Orchestra_FailedToCreateBackup"), _assembly.Title());
 
                 _navigationService.CloseApplication();
 
@@ -78,7 +82,7 @@ namespace Orchestra.Views
 
             _appDataService.DeleteUserData();
 
-            await _messageService.ShowInformationAsync("Backup has been succesfully created.", _assembly.Title());
+            await _messageService.ShowInformationAsync(_languageService.GetString("Orchestra_BackupCreated"), _assembly.Title());
 
             await CloseViewModelAsync(false);
         }
@@ -91,7 +95,7 @@ namespace Orchestra.Views
 
             _appDataService.DeleteUserData();
 
-            await _messageService.ShowInformationAsync("User data settings have been successfully deleted.", _assembly.Title());
+            await _messageService.ShowInformationAsync(_languageService.GetString("Orchestra_DeletedUserDataSettings"), _assembly.Title());
 
             await CloseViewModelAsync(false);
         }

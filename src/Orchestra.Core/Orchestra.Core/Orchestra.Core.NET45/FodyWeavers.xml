@@ -9,6 +9,6 @@
   </Costura>
   <Obsolete/>
   <MethodTimer/>
-  <LoadAssembliesOnStartup/>
   <Catel/>
+  <LoadAssembliesOnStartup/>
 </Weavers>

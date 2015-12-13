@@ -12,7 +12,7 @@ Orchestra is a composable shell built on top of [Catel](http://www.catelproject.
 Orchestra consists of a main shell including an SDK with services that allows developers to communicate with the shell. Developers can write their own modules which implement the actual functionality of their application.
 
 These modules can communicate with the shell, but also with each other through the services that are offered out of the box.
-
+ 
 # Shells
 
 Orchestra provides support for a lot of different shells.
@@ -22,7 +22,7 @@ Orchestra provides support for a lot of different shells.
 ![Fluent Ribbon 01](doc/images/shell_fluentribbon_01.png)
 
 ![Fluent Ribbon 02](doc/images/shell_fluentribbon_02.png) 
-
+ 
 ## MahApps shell
 
 ![MahApps 01](doc/images/shell_mahapps_01.png)
@@ -72,7 +72,7 @@ MIT License
 
 - Framework developed with best practices in mind which will allow you to deploy robust applications
 - Allows you to focus on the business logic so your application will be completed a lot sooner
-- Built on [Catel](http://Catel.Codeplex.com) and all that goes with it giving you a head start on your project
+- Built on [Catel](http://www.catelproject.com) and all that goes with it giving you a head start on your project
 - Nuget packages released regularly:
     - [Orchestra.Library](http://nuget.org/packages/Orchestra.Library)
     - [Orchestra.Shell](http://nuget.org/packages/Orchestra.Shell)
@@ -82,7 +82,7 @@ MIT License
 
 Orchestra uses a plugin architecture with some already well know open source libraries already implemented:
 
-- [Catel](http://Catel.Codeplex.com) (MVVM framework plus a lot more)
+- [Catel](http://www.catelproject.com) (MVVM framework plus a lot more)
 - [Fluent Ribbon](http://fluent.codeplex.com/)
 - [Prism](http://compositewpf.codeplex.com/)
 - [Nancy](http://www.nancyfx.org) (Lightweight Web Framework for .NET)

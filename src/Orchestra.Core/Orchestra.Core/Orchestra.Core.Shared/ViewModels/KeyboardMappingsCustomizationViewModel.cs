@@ -25,40 +25,43 @@ namespace Orchestra.ViewModels
     {
         private readonly IKeyboardMappingsService _keyboardMappingsService;
         private readonly ICommandManager _commandManager;
+        private readonly ICommandInfoService _commandInfoService;
         private readonly ILanguageService _languageService;
         private readonly IMessageService _messageService;
 
         public KeyboardMappingsCustomizationViewModel(IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
-            ILanguageService languageService, IMessageService messageService)
+            ICommandInfoService commandInfoService, ILanguageService languageService, IMessageService messageService)
         {
             Argument.IsNotNull(() => keyboardMappingsService);
             Argument.IsNotNull(() => commandManager);
+            Argument.IsNotNull(() => commandInfoService);
             Argument.IsNotNull(() => languageService);
             Argument.IsNotNull(() => messageService);
 
             _keyboardMappingsService = keyboardMappingsService;
             _commandManager = commandManager;
+            _commandInfoService = commandInfoService;
             _languageService = languageService;
             _messageService = messageService;
 
-            Commands = new FastObservableCollection<CommandInfo>();
+            Commands = new FastObservableCollection<ICommandInfo>();
             CommandFilter = string.Empty;
             SelectedCommand = string.Empty;
 
-            Reset = new Command(OnResetExecute);
+            Reset = new TaskCommand(OnResetExecuteAsync);
             Remove = new Command(OnRemoveExecute, OnRemoveCanExecute);
-            Assign = new Command(OnAssignExecute, OnAssignCanExecute);
+            Assign = new TaskCommand(OnAssignExecuteAsync, OnAssignCanExecute);
         }
 
         #region Properties
         public override string Title
         {
-            get { return _languageService.GetString("KeyboardShortcuts"); }
+            get { return _languageService.GetString("Orchestra_KeyboardShortcuts"); }
         }
 
         public string CommandFilter { get; set; }
 
-        public FastObservableCollection<CommandInfo> Commands { get; private set; }
+        public FastObservableCollection<ICommandInfo> Commands { get; private set; }
 
         public string SelectedCommand { get; set; }
 
@@ -68,16 +71,16 @@ namespace Orchestra.ViewModels
         #endregion
 
         #region Commands
-        /// <summary>
-        /// Gets the Reset command.
-        /// </summary>
-        public Command Reset { get; private set; }
+        public TaskCommand Reset { get; private set; }
 
-        /// <summary>
-        /// Method to invoke when the Reset command is executed.
-        /// </summary>
-        private void OnResetExecute()
+        private async Task OnResetExecuteAsync()
         {
+            var messageResult = await _messageService.ShowAsync(_languageService.GetString("Orchestra_ResetKeyboardShortcutsAreYouSure"), string.Empty, MessageButton.YesNo, MessageImage.Question);
+            if (messageResult == MessageResult.No)
+            {
+                return;
+            }
+
             _keyboardMappingsService.Reset();
 
             if (!string.IsNullOrWhiteSpace(SelectedCommand))
@@ -88,15 +91,8 @@ namespace Orchestra.ViewModels
             UpdateCommands();
         }
 
-        /// <summary>
-        /// Gets the Remove command.
-        /// </summary>
         public Command Remove { get; private set; }
 
-        /// <summary>
-        /// Method to check whether the Remove command can be executed.
-        /// </summary>
-        /// <returns><c>true</c> if the command can be executed; otherwise <c>false</c></returns>
         private bool OnRemoveCanExecute()
         {
             if (string.IsNullOrWhiteSpace(SelectedCommand))
@@ -107,9 +103,6 @@ namespace Orchestra.ViewModels
             return true;
         }
 
-        /// <summary>
-        /// Method to invoke when the Remove command is executed.
-        /// </summary>
         private void OnRemoveExecute()
         {
             SelectedCommandInputGesture = null;
@@ -118,15 +111,8 @@ namespace Orchestra.ViewModels
             UpdateCommands();
         }
 
-        /// <summary>
-        /// Gets the Assign command.
-        /// </summary>
-        public Command Assign { get; private set; }
+        public TaskCommand Assign { get; private set; }
 
-        /// <summary>
-        /// Method to check whether the Assign command can be executed.
-        /// </summary>
-        /// <returns><c>true</c> if the command can be executed; otherwise <c>false</c></returns>
         private bool OnAssignCanExecute()
         {
             if (string.IsNullOrWhiteSpace(SelectedCommand))
@@ -142,10 +128,7 @@ namespace Orchestra.ViewModels
             return true;
         }
 
-        /// <summary>
-        /// Method to invoke when the Assign command is executed.
-        /// </summary>
-        private async void OnAssignExecute()
+        private async Task OnAssignExecuteAsync()
         {
             SelectedCommandInputGesture = SelectedCommandNewInputGesture;
 
@@ -159,7 +142,7 @@ namespace Orchestra.ViewModels
                 {
                     var messageBuilder = new StringBuilder();
 
-                    messageBuilder.AppendLine("The input gesture '{0}' is currently being used by the following commands:", selectedInputGesture);
+                    messageBuilder.AppendLine(_languageService.GetString("Orchestra_AssignInputGestureUsedByFollowCommands"), selectedInputGesture);
                     messageBuilder.AppendLine();
 
                     foreach (var existingCommand in existingCommands)
@@ -168,10 +151,10 @@ namespace Orchestra.ViewModels
                     }
 
                     messageBuilder.AppendLine();
-                    messageBuilder.AppendLine("Are you sure you want to assign the input gesture to '{0}'. It will be removed from the other commands.",
-                        selectedCommand);
+                    messageBuilder.AppendLine(_languageService.GetString("Orchestra_AssignInputGestureAreYouSure"), selectedCommand);
 
-                    if (await _messageService.ShowAsync(messageBuilder.ToString(), "Replace input gesture?", MessageButton.YesNo) == MessageResult.No)
+                    if (await _messageService.ShowAsync(messageBuilder.ToString(), _languageService.GetString("Orchestra_ReplaceInputGesture"), 
+                        MessageButton.YesNo) == MessageResult.No)
                     {
                         return;
                     }
@@ -209,7 +192,16 @@ namespace Orchestra.ViewModels
 
             using (Commands.SuspendChangeNotifications())
             {
-                Commands.ReplaceRange(allCommands.Select(x => new CommandInfo(x, _commandManager.GetInputGesture(x))));
+                Commands.Clear();
+
+                foreach (var command in allCommands)
+                {
+                    var commandInfo = _commandInfoService.GetCommandInfo(command);
+                    if (!commandInfo.IsHidden)
+                    {
+                        Commands.Add(commandInfo);
+                    }
+                }
             }
 
             // restore selection

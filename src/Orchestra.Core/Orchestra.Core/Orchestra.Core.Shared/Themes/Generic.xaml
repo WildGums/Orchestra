@@ -4,11 +4,11 @@
                     xmlns:orc="http://www.wildgums.net.au/orc">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Catel.MVVM;component/themes/generic.xaml" />
-        <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic.xaml" />
+        <ResourceDictionary Source="/Catel.MVVM;component/Themes/Generic.xaml" />
         <ResourceDictionary Source="/Orc.Controls;component/Themes/Generic.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style TargetType="{x:Type GroupBox}">
         <Setter Property="Margin" Value="4" />
     </Style>
@@ -16,7 +16,7 @@
     <Geometry x:Key="WarningGeometry">M2,21.9997L12,2.00026L20.6247,19.2199L20.6291,19.2199L22,21.9997L22,21.9997L22,21.9997L2,21.9997ZM5.0287,19.9997L18.9638,19.9997L12,6.11526L5.0287,19.9997ZM12.9376,16.5456L11.2947,16.5456L11.2947,18.2081L12.9376,18.2081L12.9376,16.5456ZM12.9376,11.5581L11.2947,11.5581L11.2947,14.8831L12.9376,14.8831L12.9376,11.5581Z</Geometry>
     <Geometry x:Key="InfoGeometry">M11,9L13,9L13,7L11,7M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.51416,2 2,6.51416 2,12C2,17.4858 6.51416,22 12,22C17.4858,22 22,17.4858 22,12C22,6.51416 17.4858,2 12,2M11,17L13,17L13,11L11,11L11,17Z</Geometry>
     <Geometry x:Key="ErrorGeometry">M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z</Geometry>
-    
+
     <SolidColorBrush x:Key="WarningBrush" Color="DarkOrange" Opacity="0.1"/>
     <SolidColorBrush x:Key="ErrorBrush" Color="Red" Opacity="0.1"/>
     <SolidColorBrush x:Key="InfoBrush" Color="RoyalBlue" Opacity="0.1"/>
@@ -51,6 +51,33 @@
                             <Setter Property="Visibility" Value="Visible" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GroupBoxWithoutLine" TargetType="{x:Type GroupBox}">
+        <Setter Property="Padding" Value="8 0 4 0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GroupBox}">
+                    <Grid SnapsToDevicePixels="true">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0">
+                            <TextBlock Padding="4 0 0 0" Background="WhiteSmoke"
+                                       FontWeight="Medium" Foreground="#575757">
+                                <ContentPresenter ContentSource="Header" RecognizesAccessKey="True"
+                                                  SnapsToDevicePixels="True"/>
+                            </TextBlock>
+                        </DockPanel>
+                        <Border Grid.Row="1" BorderThickness="0" BorderBrush="Transparent">
+                            <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="True" />
+                        </Border>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
