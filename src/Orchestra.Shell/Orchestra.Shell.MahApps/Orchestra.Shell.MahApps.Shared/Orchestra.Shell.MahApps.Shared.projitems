@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\MahAppsAboutService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\MahAppsMessageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\MahAppsUIVisualizerService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ShellService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ShellViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MahAppsAboutView.xaml.cs">
       <DependentUpon>MahAppsAboutView.xaml</DependentUpon>
@@ -42,6 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Resources\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Controls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -15,11 +15,13 @@ namespace Orchestra.Windows
     using System.Windows;
     using System.Windows.Controls;
     using Catel;
+    using Catel.IoC;
     using Catel.MVVM;
     using Catel.MVVM.Providers;
     using Catel.MVVM.Views;
     using Catel.Threading;
     using Catel.Windows;
+    using Catel.Services;
 
     public class SimpleDataWindow : MahApps.Metro.Controls.Dialogs.CustomDialog, IDataWindow
     {
@@ -76,29 +78,31 @@ namespace Orchestra.Windows
                 }
             }
 
+            var languageService = ServiceLocator.Default.ResolveType<ILanguageService>();
+
             if (mode == DataWindowMode.OkCancel || mode == DataWindowMode.OkCancelApply)
             {
-                var button = new DataWindowButton("Ok", async () => await OnOkExecuteAsync(), OnOkCanExecute);
+                var button = new DataWindowButton(languageService.GetString("OK"), async () => await OnOkExecuteAsync(), OnOkCanExecute);
                 button.IsDefault = true;
                 _buttons.Add(button);
             }
 
             if (mode == DataWindowMode.OkCancel || mode == DataWindowMode.OkCancelApply)
             {
-                var button = new DataWindowButton("Cancel", async () => await OnCancelExecuteAsync(), OnCancelCanExecute);
+                var button = new DataWindowButton(languageService.GetString("Cancel"), async () => await OnCancelExecuteAsync(), OnCancelCanExecute);
                 button.IsCancel = true;
                 _buttons.Add(button);
             }
 
             if (mode == DataWindowMode.OkCancelApply)
             {
-                var button = new DataWindowButton("Apply", OnApplyExcute, OnApplyCanExecute);
+                var button = new DataWindowButton(languageService.GetString("Apply"), OnApplyExecute, OnApplyCanExecute);
                 _buttons.Add(button);
             }
 
             if (mode == DataWindowMode.Close)
             {
-                var button = new DataWindowButton("Close", OnCloseExecute);
+                var button = new DataWindowButton(languageService.GetString("Close"), OnCloseExecute);
                 _buttons.Add(button);
             }
 
@@ -187,7 +191,7 @@ namespace Orchestra.Windows
         {
             if (OnApplyCanExecute())
             {
-                OnApplyExcute();
+                OnApplyExecute();
             }
         }
 
@@ -203,7 +207,7 @@ namespace Orchestra.Windows
         /// <summary>
         /// Handled when the user invokes the Apply command.
         /// </summary>
-        protected async void OnApplyExcute()
+        protected async void OnApplyExecute()
         {
             await ApplyChangesAsync();
         }
@@ -351,6 +355,8 @@ namespace Orchestra.Windows
                     HorizontalAlignment = HorizontalAlignment.Right,
                     Margin = new Thickness(6, 12, 6, 12)
                 };
+
+                finalButton.Style = TryFindResource(typeof(Button)) as Style;
 
                 stackPanel.Children.Add(finalButton);
             }

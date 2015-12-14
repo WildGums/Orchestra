@@ -20,6 +20,7 @@ namespace Orchestra.Services
             var serviceLocator = this.GetServiceLocator();
             var themeService = serviceLocator.ResolveType<IThemeService>();
 
+            ThemeHelper.EnsureApplicationThemes(typeof(ApplicationInitializationServiceBase).Assembly, themeService.ShouldCreateStyleForwarders());
             ThemeHelper.EnsureApplicationThemes(GetType().Assembly, themeService.ShouldCreateStyleForwarders());
         }
 

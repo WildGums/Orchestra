@@ -12,33 +12,31 @@ namespace Orchestra.Views
     using Windows;
     using Catel.IoC;
     using Catel.MVVM;
+    using Catel.Windows;
     using MahApps.Metro.Controls;
     using Services;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
     /// </summary>
-    public partial class ShellWindow : MetroDataWindow, IShell
+    public partial class ShellWindow : IShell
     {
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="ShellWindow"/> class.
         /// </summary>
         public ShellWindow()
+            : base(DataWindowMode.Custom, setOwnerAndFocus: false)
         {
             var serviceLocator = ServiceLocator.Default;
 
-            var themeService = serviceLocator.ResolveType<IThemeService>();
-            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, themeService.ShouldCreateStyleForwarders());
+            InitializeComponent();
 
             MahAppsHelper.ApplyTheme();
 
-            InitializeComponent();
+            statusBar.Background = ThemeHelper.GetAccentColorBrush(AccentColorStyle.AccentColor4);
 
             serviceLocator.RegisterInstance(pleaseWaitProgressBar, "pleaseWaitService");
-
-            var accentColorBrush = ThemeHelper.GetAccentColorBrush();
-            border.BorderBrush = accentColorBrush;
 
             var statusService = serviceLocator.ResolveType<IStatusService>();
             statusService.Initialize(statusTextBlock);
@@ -81,7 +79,10 @@ namespace Orchestra.Views
             var mainView = mahAppsService.GetMainView();
             contentControl.Content = mainView;
 
-            SetBinding(TitleProperty, new Binding("ViewModel.Title") { Source = mainView });
+            SetBinding(TitleProperty, new Binding("ViewModel.Title")
+            {
+                Source = mainView
+            });
         }
         #endregion
     }

@@ -229,6 +229,8 @@ namespace Orchestra.Services
             {
                 Log.Debug("Setting the new shell as Application.MainWindow");
 
+                shellAsWindow.Owner = null;
+
                 var currentApp = Application.Current;
                 currentApp.MainWindow = shellAsWindow;
             }
