@@ -57,12 +57,28 @@
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
     </Style>
 
+    <!--<Style x:Key="DefaultDataGridStyle" TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MetroDataGrid}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+    </Style>
+
+    <Style x:Key="DefaultDataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MetroDataGridColumnHeader}">
+    </Style>
+
+    <Style x:Key="DefaultDataGridCellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MetroDataGridCell}">
+    </Style>
+
+    <Style x:Key="DefaultDataGridRowStyle" TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MetroDataGridRow}">
+    </Style>
+
+    <Style x:Key="DefaultDataGridRowHeaderStyle" TargetType="{x:Type DataGridRowHeader}" BasedOn="{StaticResource MetroDataGridRowHeader}">
+    </Style>-->
+
     <Style x:Key="DefaultDatePickerStyle" TargetType="{x:Type DatePicker}" BasedOn="{StaticResource MetroDatePicker}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
     </Style>
 
     <Style x:Key="DefaultGroupBoxStyle" TargetType="{x:Type GroupBox}" BasedOn="{StaticResource MetroGroupBox}">
-        <Setter Property="Margin" Value="{DynamicResource Margin.GroupBox}" />
+        <Setter Property="Margin" Value="6,4,6,4" />
     </Style>
 
     <Style x:Key="DefaultPasswordBoxStyle" TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource MetroPasswordBox}">
