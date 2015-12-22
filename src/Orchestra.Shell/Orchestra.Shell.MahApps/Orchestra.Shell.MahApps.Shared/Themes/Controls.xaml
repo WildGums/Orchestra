@@ -81,6 +81,10 @@
         <Setter Property="Margin" Value="6,4,6,4" />
     </Style>
 
+    <Style x:Key="DefaultLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource MetroLabel}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+    </Style>
+
     <Style x:Key="DefaultPasswordBoxStyle" TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource MetroPasswordBox}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
     </Style>
@@ -128,7 +132,7 @@
     <!--<Style TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}" />-->
     <Style TargetType="RichTextBox" BasedOn="{StaticResource MetroRichTextBox}" />
     <!--<Style TargetType="Slider" BasedOn="{StaticResource MetroSlider}" />-->
-    <Style TargetType="Label" BasedOn="{StaticResource MetroLabel}" />
+    <!--<Style TargetType="Label" BasedOn="{StaticResource MetroLabel}" />-->
     <Style TargetType="TabItem" BasedOn="{StaticResource MetroTabItem}" />
     <Style TargetType="TabControl" BasedOn="{StaticResource MetroTabControl}" />
     <Style TargetType="ScrollBar" BasedOn="{StaticResource MetroScrollBar}" />

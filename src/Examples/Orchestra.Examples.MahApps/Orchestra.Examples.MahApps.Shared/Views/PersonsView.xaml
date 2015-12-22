@@ -39,7 +39,19 @@
         </StackPanel>
 
         <GroupBox Header="Group box 1 test">
-            
+            <catel:StackGrid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Label Content="Some label" />
+                <ComboBox />
+            </catel:StackGrid>
         </GroupBox>
 
         <GroupBox Header="Group box 2 test">
