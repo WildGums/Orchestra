@@ -7,7 +7,7 @@
                          xmlns:orchestra="https://github.com/orcomp/orchestra"
                          xmlns:windows="clr-namespace:Orchestra.Windows"
                          SaveWindowPosition="False" SizeToContent="Manual" ShowInTaskbar="True" ResizeMode="CanResize"
-                         d:DesignHeight="696" d:DesignWidth="480" mc:Ignorable="d">
+                         CanCloseUsingEscape="False" d:DesignHeight="696" d:DesignWidth="480" mc:Ignorable="d">
 
     <windows:MetroDataWindow.Resources>
         <ResourceDictionary>
