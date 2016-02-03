@@ -38,7 +38,7 @@ namespace Orchestra.Examples.MahApps.Services
 
             var dependencyResolver = this.GetDependencyResolver();
             var flyoutService = dependencyResolver.Resolve<IFlyoutService>();
-            flyoutService.AddFlyout<PersonView>(ExampleEnvironment.PersonFlyoutName, Position.Right);
+            flyoutService.AddFlyout<PersonView>(ExampleEnvironment.PersonFlyoutName, Position.Right, flyoutTheme: FlyoutTheme.Accent);
         }
 
         private async Task InitializeCommands()

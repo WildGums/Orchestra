@@ -50,24 +50,30 @@ namespace Orchestra.Services
                 select flyout.Flyout);
         }
 
+        [ObsoleteEx(ReplacementTypeOrMember = "AddFlyout(string, Type, Position, UnloadBehavior, FlyoutTheme)", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
         public void AddFlyout(string name, Type viewType, Position position, UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel)
+        {
+            AddFlyout(name, viewType, position, unloadBehavior, FlyoutTheme.Adapt);
+        }
+
+        public void AddFlyout(string name, Type viewType, Position position, UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel, FlyoutTheme flyoutTheme = FlyoutTheme.Adapt)
         {
             Argument.IsNotNullOrWhitespace(() => name);
             Argument.IsNotNull(() => viewType);
 
             Log.Info("Adding flyout '{0}' with view type '{1}'", name, viewType.FullName);
 
-            var content = (UIElement) _typeFactory.CreateInstance(viewType);
+            var content = (UIElement)_typeFactory.CreateInstance(viewType);
 
             var flyout = new Flyout();
-            flyout.Theme = FlyoutTheme.Adapt;
+            flyout.Theme = flyoutTheme;
             flyout.Position = position;
 
             var flyoutInfo = new FlyoutInfo(flyout, content);
 
-            flyout.SetBinding(Flyout.HeaderProperty, new Binding("ViewModel.Title") {Source = content});
+            flyout.SetBinding(Flyout.HeaderProperty, new Binding("ViewModel.Title") { Source = content });
 
-            ((ICompositeCommand) _commandManager.GetCommand("Close")).RegisterAction(() => { flyout.IsOpen = false; });
+            ((ICompositeCommand)_commandManager.GetCommand("Close")).RegisterAction(() => { flyout.IsOpen = false; });
 
             flyout.IsOpenChanged += async (sender, e) =>
             {
@@ -106,6 +112,7 @@ namespace Orchestra.Services
 
             _flyouts[name] = flyoutInfo;
         }
+
 
         public void ShowFlyout(string name, object dataContext)
         {
