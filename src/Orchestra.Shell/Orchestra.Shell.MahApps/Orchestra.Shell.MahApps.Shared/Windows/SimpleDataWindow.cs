@@ -82,27 +82,27 @@ namespace Orchestra.Windows
 
             if (mode == DataWindowMode.OkCancel || mode == DataWindowMode.OkCancelApply)
             {
-                var button = new DataWindowButton(languageService.GetString("OK"), async () => await OnOkExecuteAsync(), OnOkCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetString("OK"), OnOkExecuteAsync, OnOkCanExecute);
                 button.IsDefault = true;
                 _buttons.Add(button);
             }
 
             if (mode == DataWindowMode.OkCancel || mode == DataWindowMode.OkCancelApply)
             {
-                var button = new DataWindowButton(languageService.GetString("Cancel"), async () => await OnCancelExecuteAsync(), OnCancelCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetString("Cancel"), OnCancelExecuteAsync, OnCancelCanExecute);
                 button.IsCancel = true;
                 _buttons.Add(button);
             }
 
             if (mode == DataWindowMode.OkCancelApply)
             {
-                var button = new DataWindowButton(languageService.GetString("Apply"), OnApplyExecute, OnApplyCanExecute);
+                var button = DataWindowButton.FromSync(languageService.GetString("Apply"), OnApplyExecute, OnApplyCanExecute);
                 _buttons.Add(button);
             }
 
             if (mode == DataWindowMode.Close)
             {
-                var button = new DataWindowButton(languageService.GetString("Close"), OnCloseExecute);
+                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute);
                 _buttons.Add(button);
             }
 

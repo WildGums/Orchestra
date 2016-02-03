@@ -703,25 +703,25 @@ namespace Orchestra.Windows
 
             if (IsOKButtonAvailable)
             {
-                var button = new DataWindowButton(languageService.GetString("OK"), async () => await OnOkExecuteAsync(), OnOkCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetString("OK"), OnOkExecuteAsync, OnOkCanExecute);
                 button.IsDefault = (DefaultButton == DataWindowDefaultButton.OK);
                 _buttons.Add(button);
             }
             if (IsCancelButtonAvailable)
             {
-                var button = new DataWindowButton(languageService.GetString("Cancel"), async () => await OnCancelExecuteAsync(), OnCancelCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetString("Cancel"), OnCancelExecuteAsync, OnCancelCanExecute);
                 button.IsCancel = true;
                 _buttons.Add(button);
             }
             if (IsApplyButtonAvailable)
             {
-                var button = new DataWindowButton(languageService.GetString("Apply"), async () => await OnApplyExcuteAsync(), OnApplyCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetString("Apply"), OnApplyExcuteAsync, OnApplyCanExecute);
                 button.IsDefault = (DefaultButton == DataWindowDefaultButton.Apply);
                 _buttons.Add(button);
             }
             if (IsCloseButtonAvailable)
             {
-                var button = new DataWindowButton(languageService.GetString("Close"), OnCloseExecute, OnCloseCanExecute);
+                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute, OnCloseCanExecute);
                 button.IsDefault = (DefaultButton == DataWindowDefaultButton.Close);
                 _buttons.Add(button);
             }

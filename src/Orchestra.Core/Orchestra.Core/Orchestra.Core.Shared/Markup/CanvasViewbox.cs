@@ -7,6 +7,7 @@
 
 namespace Orchestra.Markup
 {
+    using System;
     using System.IO;
     using System.Windows;
     using System.Windows.Controls;
@@ -60,7 +61,13 @@ namespace Orchestra.Markup
             }
         }
 
+        [Obsolete]
         protected override object ProvideDynamicValue()
+        {
+            return null;
+        }
+
+        protected override object ProvideDynamicValue(IServiceProvider serviceProvider)
         {
             return GetImageSource();
         }

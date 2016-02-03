@@ -219,7 +219,7 @@ namespace Orchestra.Services
         private async Task<TShell> CreateShellAsync<TShell>()
             where TShell : IShell
         {
-            Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName());
+            Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName(false));
 
             var shell = _typeFactory.CreateInstance<TShell>();
             Shell = shell;

@@ -62,7 +62,7 @@ namespace Orchestra.Views
 
             if (taskRunnerService.ShowCustomizeShortcutsButton)
             {
-                AddCustomButton(new DataWindowButton("Keyboard shortcuts", () => uiVisualizerService.ShowDialog<KeyboardMappingsOverviewViewModel>()));
+                AddCustomButton(DataWindowButton.FromSync("Keyboard shortcuts", () => uiVisualizerService.ShowDialog<KeyboardMappingsOverviewViewModel>()));
             }
 
             serviceLocator.RegisterInstance<IAboutInfoService>(taskRunnerService);
