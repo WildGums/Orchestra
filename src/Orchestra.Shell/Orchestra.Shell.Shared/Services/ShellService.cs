@@ -122,7 +122,17 @@ namespace Orchestra.Services
         public async Task<TShell> CreateAsync<TShell>()
             where TShell : IShell
         {
-            return await CreateShellInternalAsync<TShell>();
+            // Note: it's important to change the application mode. If we are not showing a splash screen,
+            // the app won't have a window and will immediately close (if we start any task that is awaited).
+            var application = Application.Current;
+            var currentApplicationCloseMode = application.ShutdownMode;
+            application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+            var shell = await CreateShellInternalAsync<TShell>();
+
+            application.ShutdownMode = currentApplicationCloseMode;
+
+            return shell;
         }
 
         /// <summary>

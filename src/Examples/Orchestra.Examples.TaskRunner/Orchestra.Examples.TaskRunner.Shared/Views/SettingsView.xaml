@@ -28,8 +28,8 @@
                                      SelectedDirectory="{Binding OutputDirectory, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
 
             <Label Grid.Row="2" Grid.Column="0" Content="Horizon" />
-            <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding HorizonStart, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
-            <DatePicker Grid.Row="2" Grid.Column="2" SelectedDate="{Binding HorizonEnd, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+            <orc:DatePickerControl Grid.Row="2" Grid.Column="1" Value="{Binding HorizonStart, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Margin="6,0,3,0" />
+            <orc:DatePickerControl Grid.Row="2" Grid.Column="2" Value="{Binding HorizonEnd, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Margin="3,0,6,0" />
 
             <Label Grid.Row="3" Grid.Column="0" Content="Current time" />
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTime, Converter={converters:TextToDateTimeConverter}, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
