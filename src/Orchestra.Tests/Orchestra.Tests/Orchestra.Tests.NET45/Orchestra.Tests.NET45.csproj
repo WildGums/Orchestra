@@ -52,7 +52,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MethodTimer">
-      <HintPath>..\..\..\..\lib\MethodTimer.Fody.1.15.8.0\lib\dotnet\MethodTimer.dll</HintPath>
+      <HintPath>..\..\..\..\lib\MethodTimer.Fody.1.15.9.0\lib\dotnet\MethodTimer.dll</HintPath>
       <Private>True</Private>
       <Private>False</Private>
     </Reference>
@@ -100,13 +100,13 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets'))" />
     <Error Condition="!Exists('..\..\..\..\lib\ModuleInit.Fody.1.5.8.0\build\dotnet\ModuleInit.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\ModuleInit.Fody.1.5.8.0\build\dotnet\ModuleInit.Fody.targets'))" />
-    <Error Condition="!Exists('..\..\..\..\lib\MethodTimer.Fody.1.15.8.0\build\dotnet\MethodTimer.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\MethodTimer.Fody.1.15.8.0\build\dotnet\MethodTimer.Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\lib\Fody.1.29.4\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\Fody.1.29.4\build\dotnet\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\lib\MethodTimer.Fody.1.15.9.0\build\dotnet\MethodTimer.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\lib\MethodTimer.Fody.1.15.9.0\build\dotnet\MethodTimer.Fody.targets'))" />
   </Target>
-  <Import Project="..\..\..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets" Condition="Exists('..\..\..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets')" />
   <Import Project="..\..\..\..\lib\ModuleInit.Fody.1.5.8.0\build\dotnet\ModuleInit.Fody.targets" Condition="Exists('..\..\..\..\lib\ModuleInit.Fody.1.5.8.0\build\dotnet\ModuleInit.Fody.targets')" />
-  <Import Project="..\..\..\..\lib\MethodTimer.Fody.1.15.8.0\build\dotnet\MethodTimer.Fody.targets" Condition="Exists('..\..\..\..\lib\MethodTimer.Fody.1.15.8.0\build\dotnet\MethodTimer.Fody.targets')" />
+  <Import Project="..\..\..\..\lib\Fody.1.29.4\build\dotnet\Fody.targets" Condition="Exists('..\..\..\..\lib\Fody.1.29.4\build\dotnet\Fody.targets')" />
+  <Import Project="..\..\..\..\lib\MethodTimer.Fody.1.15.9.0\build\dotnet\MethodTimer.Fody.targets" Condition="Exists('..\..\..\..\lib\MethodTimer.Fody.1.15.9.0\build\dotnet\MethodTimer.Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
