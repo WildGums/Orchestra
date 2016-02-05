@@ -1,23 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E502625D-7CC7-401B-ACDF-678B68F59005}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{56D8171F-1ABB-4F0F-8202-304A115060BC}"
-	ProjectSection(SolutionItems) = preProject
-		..\lib\repositories.config = ..\lib\repositories.config
-		..\lib\RestorePackages.bat = ..\lib\RestorePackages.bat
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{E79574E3-17CC-4E91-9019-D3B8208561CB}"
-	ProjectSection(SolutionItems) = preProject
-		..\doc\faq.txt = ..\doc\faq.txt
-		..\doc\history.txt = ..\doc\history.txt
-		..\doc\readme.txt = ..\doc\readme.txt
-		..\doc\release steps.txt = ..\doc\release steps.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Tests", "Orchestra.Tests", "{250CAB0E-A7F8-495B-B090-DB0AF1D51514}"
 EndProject
@@ -109,39 +95,45 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.Ribbon.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.TaskRunner.NET45", "Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.NET45\Orchestra.Examples.TaskRunner.NET45.csproj", "{1FE13CD6-6F35-4C73-9FEB-AC1C4519362D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{2FFC28B3-04F2-426B-B01A-003AB502371C}"
+	ProjectSection(SolutionItems) = preProject
+		Orchestra.sln.DotSettings = Orchestra.sln.DotSettings
+		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Examples\Orchestra.Examples.Ribbon.Fluent\Orchestra.Examples.Ribbon.Fluent.Shared\Orchestra.Examples.Ribbon.Fluent.Shared.projitems*{0280e6b2-58e3-4379-9502-de186ced9577}*SharedItemsImports = 13
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{e16a2bf1-3801-4615-a79e-52cedf260a89}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.Shared\Orchestra.Shell.MahApps.Shared.projitems*{e16a2bf1-3801-4615-a79e-52cedf260a89}*SharedItemsImports = 4
 		Examples\Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.Shared\Orchestra.Examples.MahApps.Shared.projitems*{ad1eaa55-6b88-45f5-b58b-5cfa4b015d9f}*SharedItemsImports = 4
-		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{d43a799a-938e-428d-87a5-e5200b2b4c3f}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.Shared\Orchestra.Shell.TaskRunner.Shared.projitems*{d43a799a-938e-428d-87a5-e5200b2b4c3f}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{d43a799a-938e-428d-87a5-e5200b2b4c3f}*SharedItemsImports = 4
 		Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.Shared\Orchestra.Examples.TaskRunner.Shared.projitems*{4f1a8f2d-73ba-415d-b741-9ab66f2735dc}*SharedItemsImports = 13
 		Orchestra.Core\Orchestra.Core\Orchestra.Core.Shared\Orchestra.Core.Shared.projitems*{805e1f16-7a10-42a2-82ba-5012412144bb}*SharedItemsImports = 4
 		Orchestra.Core\Orchestra.Core\Orchestra.Core.Shared\Orchestra.Core.Shared.projitems*{e004866f-01a2-467d-8c77-5216eb9ca71e}*SharedItemsImports = 4
-		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{fa9c977b-585b-4ac5-a870-168bf0a53ba8}*SharedItemsImports = 4
-		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{fa9c977b-585b-4ac5-a870-168bf0a53ba8}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.Shared\Orchestra.Shell.Ribbon.Fluent.Shared.projitems*{fa9c977b-585b-4ac5-a870-168bf0a53ba8}*SharedItemsImports = 4
-		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{2909c5c6-b2c7-49a4-bf8f-2225433effdf}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{fa9c977b-585b-4ac5-a870-168bf0a53ba8}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{fa9c977b-585b-4ac5-a870-168bf0a53ba8}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.Shared\Orchestra.Shell.TaskRunner.Shared.projitems*{2909c5c6-b2c7-49a4-bf8f-2225433effdf}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{2909c5c6-b2c7-49a4-bf8f-2225433effdf}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.Shared\Orchestra.Shell.Ribbon.Fluent.Shared.projitems*{378728e2-1764-42e3-8952-9e2c2ab8d57a}*SharedItemsImports = 13
 		Orchestra.Shell\Orchestra.Shell.Ribbon.Microsoft\Orchestra.Shell.Ribbon.Microsoft.Shared\Orchestra.Shell.Ribbon.Microsoft.Shared.projitems*{d2d05b12-63ab-4004-94a0-707f976a3f2b}*SharedItemsImports = 13
 		Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.Shared\Orchestra.Examples.TaskRunner.Shared.projitems*{45857215-f067-4652-8c87-71e7d8f432a7}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.Shared\Orchestra.Shell.TaskRunner.Shared.projitems*{21fb6308-232e-48b2-bf53-cff8ba03f828}*SharedItemsImports = 13
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{bc10fce0-c843-4592-802d-bb800a514ca0}*SharedItemsImports = 13
-		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
-		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Ribbon.Microsoft\Orchestra.Shell.Ribbon.Microsoft.Shared\Orchestra.Shell.Ribbon.Microsoft.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{f77a6406-6745-4eb1-bee4-42e5ac4eb0f6}*SharedItemsImports = 4
 		Examples\Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.Shared\Orchestra.Examples.MahApps.Shared.projitems*{1b9b5a92-56d2-4250-a3cc-993eeffb2e86}*SharedItemsImports = 13
 		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{09d9c5af-1d17-4c77-a5d4-cfdf278df4a3}*SharedItemsImports = 13
 		Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.Shared\Orchestra.Examples.TaskRunner.Shared.projitems*{1fe13cd6-6f35-4c73-9feb-ac1c4519362d}*SharedItemsImports = 4
 		Examples\Orchestra.Examples.Ribbon.Microsoft\Orchestra.Examples.Ribbon.Microsoft.Shared\Orchestra.Examples.Ribbon.Microsoft.Shared.projitems*{fd2ce39e-2e7f-4ec2-a06c-3d78e3cef22e}*SharedItemsImports = 4
 		Examples\Orchestra.Examples.Ribbon.Microsoft\Orchestra.Examples.Ribbon.Microsoft.Shared\Orchestra.Examples.Ribbon.Microsoft.Shared.projitems*{f092bdc9-b58a-4f43-a37b-bdca9825fd03}*SharedItemsImports = 4
 		Orchestra.Tests\Orchestra.Tests\Orchestra.Tests.Shared\Orchestra.Tests.Shared.projitems*{1f139b66-9cf8-4fde-bc15-7fc1cecc4b2f}*SharedItemsImports = 4
-		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{6eba4b51-3705-4af7-a682-5bd5e7c80655}*SharedItemsImports = 4
-		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{6eba4b51-3705-4af7-a682-5bd5e7c80655}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Ribbon.Microsoft\Orchestra.Shell.Ribbon.Microsoft.Shared\Orchestra.Shell.Ribbon.Microsoft.Shared.projitems*{6eba4b51-3705-4af7-a682-5bd5e7c80655}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{6eba4b51-3705-4af7-a682-5bd5e7c80655}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{6eba4b51-3705-4af7-a682-5bd5e7c80655}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{0e099ab6-235d-4ae1-96c8-3e2d85ff6af1}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.Shared\Orchestra.Shell.MahApps.Shared.projitems*{0e099ab6-235d-4ae1-96c8-3e2d85ff6af1}*SharedItemsImports = 4
 		Examples\Orchestra.Examples.Ribbon.Fluent\Orchestra.Examples.Ribbon.Fluent.Shared\Orchestra.Examples.Ribbon.Fluent.Shared.projitems*{9a59d96c-3d7b-414e-b097-bd6f4b01c457}*SharedItemsImports = 4
@@ -152,9 +144,9 @@ Global
 		Orchestra.Core\Orchestra.Core\Orchestra.Core.Shared\Orchestra.Core.Shared.projitems*{bf3abc91-f3f1-4c8a-a418-1b845724cc7f}*SharedItemsImports = 13
 		Examples\Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.Shared\Orchestra.Examples.MahApps.Shared.projitems*{608c0720-4276-47b0-b131-7a2267735c58}*SharedItemsImports = 4
 		Orchestra.Tests\Orchestra.Tests\Orchestra.Tests.Shared\Orchestra.Tests.Shared.projitems*{9d628894-bdd8-470b-8dc9-7bf2f7073ee5}*SharedItemsImports = 13
-		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{24614a48-3155-4428-bdc4-7c79ae8cedc3}*SharedItemsImports = 4
-		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{24614a48-3155-4428-bdc4-7c79ae8cedc3}*SharedItemsImports = 4
 		Orchestra.Shell\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.Shared\Orchestra.Shell.Ribbon.Fluent.Shared.projitems*{24614a48-3155-4428-bdc4-7c79ae8cedc3}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{24614a48-3155-4428-bdc4-7c79ae8cedc3}*SharedItemsImports = 4
+		Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{24614a48-3155-4428-bdc4-7c79ae8cedc3}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

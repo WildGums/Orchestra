@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AnimatingTextBlock.cs" company="CatenaLogic development team">
-//   Copyright (c) 2008 - 2014 CatenaLogic. All rights reserved.
+// <copyright file="AnimatingTextBlock.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 

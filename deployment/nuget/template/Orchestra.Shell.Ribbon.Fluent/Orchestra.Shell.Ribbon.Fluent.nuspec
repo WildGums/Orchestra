@@ -4,8 +4,8 @@
     <id>Orchestra.Shell.Ribbon.Fluent</id>
     <version>[VERSION]</version>
     <title>Orchestra.Shell.Ribbon.Fluent</title>
-    <authors>GeertvanHorrik,OrchestraDevs</authors>
-    <owners>GeertvanHorrik,OrchestraDevs</owners>
+    <authors>WildGums</authors>
+    <owners>WildGums</owners>
 
 	<description>
 	  The Ribbon.Fluent shell for Orchestra based applications.
@@ -16,7 +16,7 @@
 	<tags>mvvm orchestra shell prism framework wpf fluent ribbon</tags>
 
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <copyright>Copyright Wild Gums 2010 - 2015</copyright>
+    <copyright>Copyright WildGums 2010 - 2015</copyright>
 
 	<language>en-US</language>
 	<projectUrl>https://github.com/WildGums/Orchestra</projectUrl>
