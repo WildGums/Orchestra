@@ -8,11 +8,18 @@
 namespace Orchestra
 {
     using System.IO;
+    using Catel;
+    using Catel.Logging;
 
     public static class DirectoryHelper
     {
-        public static void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs = true)
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        public static void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs = true, bool overwriteExisting = false)
         {
+            Argument.IsNotNullOrWhitespace(() => sourceDirName);
+            Argument.IsNotNullOrWhitespace(() => destDirName);
+
             var dir = new DirectoryInfo(sourceDirName);
             var dirs = dir.GetDirectories();
 
@@ -20,6 +27,8 @@ namespace Orchestra
             {
                 throw new DirectoryNotFoundException("Source directory does not exist or could not be found: " + sourceDirName);
             }
+
+            Log.Debug("Copying directory '{0}' to '{1}'", sourceDirName, destDirName);
 
             if (!Directory.Exists(destDirName))
             {
@@ -30,7 +39,14 @@ namespace Orchestra
             foreach (var file in files)
             {
                 var temppath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(temppath, false);
+
+                if (File.Exists(temppath) && !overwriteExisting)
+                {
+                    Log.Debug("Skipping copying of '{0}', file already exists in target director", file.FullName);
+                    continue;
+                }
+
+                file.CopyTo(temppath, overwriteExisting);
             }
 
             if (copySubDirs)
@@ -38,7 +54,7 @@ namespace Orchestra
                 foreach (var subdir in dirs)
                 {
                     var temppath = Path.Combine(destDirName, subdir.Name);
-                    CopyDirectory(subdir.FullName, temppath);
+                    CopyDirectory(subdir.FullName, temppath, copySubDirs, overwriteExisting);
                 }
             }
         }
