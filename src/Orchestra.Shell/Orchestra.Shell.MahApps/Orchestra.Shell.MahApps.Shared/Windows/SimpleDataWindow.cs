@@ -102,7 +102,7 @@ namespace Orchestra.Windows
 
             if (mode == DataWindowMode.Close)
             {
-                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute);
+                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute, null);
                 _buttons.Add(button);
             }
 

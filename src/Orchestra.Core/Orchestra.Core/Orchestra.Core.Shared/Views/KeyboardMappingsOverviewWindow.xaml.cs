@@ -36,7 +36,7 @@ namespace Orchestra.Views
         {
             AddCustomButton(new DataWindowButton("Print", "Print"));
             AddCustomButton(new DataWindowButton("Customize", "Customize"));
-            AddCustomButton(DataWindowButton.FromSync("Close", Close));
+            AddCustomButton(DataWindowButton.FromSync("Close", Close, null));
 
             InitializeComponent();
         }
