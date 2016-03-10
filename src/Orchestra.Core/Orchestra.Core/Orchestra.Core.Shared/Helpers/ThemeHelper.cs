@@ -92,6 +92,15 @@ namespace Orchestra
         }
 
         /// <summary>
+        /// Gets the accent color resource dictionary if it has been created.
+        /// </summary>
+        /// <returns>ResourceDictionary.</returns>
+        public static ResourceDictionary GetAccentColorResourceDictionary()
+        {
+            return _accentColorResourceDictionary;
+        }
+
+        /// <summary>
         /// Creates the accent color resource dictionary and automatically adds it to the application resources.
         /// </summary>
         /// <returns>ResourceDictionary.</returns>
@@ -120,7 +129,6 @@ namespace Orchestra
             resourceDictionary.Add("AccentColorBrush3", new SolidColorBrush((Color)resourceDictionary["AccentColor3"]));
             resourceDictionary.Add("AccentColorBrush4", new SolidColorBrush((Color)resourceDictionary["AccentColor4"]));
             resourceDictionary.Add("WindowTitleColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
-            resourceDictionary.Add("AccentSelectedColorBrush", new SolidColorBrush(Colors.White));
 
             resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
                 {
@@ -133,6 +141,15 @@ namespace Orchestra
 
             resourceDictionary.Add("IdealForegroundColor", Colors.Black);
             resourceDictionary.Add("IdealForegroundColorBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
+            resourceDictionary.Add("IdealForegroundDisabledBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]) { Opacity = 0.4 });
+            resourceDictionary.Add("AccentSelectedColorBrush", new SolidColorBrush(Colors.White));
+
+            resourceDictionary.Add("MetroDataGrid.HighlightBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+            resourceDictionary.Add("MetroDataGrid.HighlightTextBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
+            resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor3"]));
+            resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+            resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor2"]));
+            resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightTextBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
 
             var application = Application.Current;
             var applicationResources = application.Resources;
