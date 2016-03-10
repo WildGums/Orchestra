@@ -56,7 +56,7 @@ namespace Orchestra.Configuration
             // Note: important to apply first, otherwise the check for values might be equal (which we don't want during first apply)
             if (ApplyAtStartup)
             {
-                await ApplyConfigurationAsync(true);
+                await ApplyConfigurationInternalAsync(true);
             }
 
             _lastKnownValue = ConfigurationService.GetValue(Key, DefaultValue);
@@ -66,11 +66,11 @@ namespace Orchestra.Configuration
         {
             if (e.IsConfigurationKey(Key))
             {
-                await ApplyConfigurationAsync();
+                await ApplyConfigurationInternalAsync();
             }
         }
 
-        private async Task ApplyConfigurationAsync(bool force = false)
+        private async Task ApplyConfigurationInternalAsync(bool force = false)
         {
             var value = ConfigurationService.GetValue(Key, DefaultValue);
             if (!force && ObjectHelper.AreEqual(value, _lastKnownValue))
