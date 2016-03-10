@@ -56,6 +56,7 @@ namespace Orchestra
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>The splitted string.</returns>
+        [ObsoleteEx(ReplacementTypeOrMember = "Catel.StringExtensions.SplitCamelCaseString", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
         public static string SplitCamelCaseString(this string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -88,7 +89,7 @@ namespace Orchestra
         /// <param name="str">The string.</param>
         /// <param name="valueToCheck">The value to check.</param>
         /// <returns><c>true</c> if the strings are equal, <c>false</c> otherwise.</returns>
-        [ObsoleteEx(ReplacementTypeOrMember = "Catel.StringExtensions.EqualsIgnoreCase", TreatAsErrorFromVersion = "2.3.0", RemoveInVersion = "3.0.0")]
+        [ObsoleteEx(ReplacementTypeOrMember = "Catel.StringExtensions.EqualsIgnoreCase", TreatAsErrorFromVersion = "2.3", RemoveInVersion = "3.0")]
         public static bool EqualsIgnoreCase(this string str, string valueToCheck)
         {
             return string.Equals(str, valueToCheck, StringComparison.OrdinalIgnoreCase);
