@@ -225,11 +225,15 @@ namespace Orchestra.Services
             await _applicationInitializationService.InitializeAfterCreatingShellAsync();
         }
 
+        partial void OnCreatingShell();
+
         [Time]
         private async Task<TShell> CreateShellAsync<TShell>()
             where TShell : IShell
         {
             Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName(false));
+
+            OnCreatingShell();
 
             var shell = _typeFactory.CreateInstance<TShell>();
             Shell = shell;
@@ -245,8 +249,12 @@ namespace Orchestra.Services
                 currentApp.MainWindow = shellAsWindow;
             }
 
+            OnCreatedShell();
+
             return shell;
         }
+
+        partial void OnCreatedShell();
 
         [Time]
         private void ShowShell(IShell shell)
