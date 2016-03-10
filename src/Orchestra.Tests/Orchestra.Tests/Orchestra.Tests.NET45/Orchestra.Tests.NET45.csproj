@@ -94,6 +94,9 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModuleInitializer.cs" />
+  </ItemGroup>
   <Import Project="..\Orchestra.Tests.Shared\Orchestra.Tests.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Tests.Shared\Orchestra.Tests.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

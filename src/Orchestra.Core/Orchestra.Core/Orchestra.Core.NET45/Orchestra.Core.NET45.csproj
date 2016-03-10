@@ -153,6 +153,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ModuleInitializer.cs" />
   </ItemGroup>
   <Import Project="..\Orchestra.Core.Shared\Orchestra.Core.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Core.Shared\Orchestra.Core.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

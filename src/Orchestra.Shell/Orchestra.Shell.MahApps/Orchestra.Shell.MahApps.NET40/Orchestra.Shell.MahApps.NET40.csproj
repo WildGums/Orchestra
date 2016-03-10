@@ -147,6 +147,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ModuleInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\..\Orchestra.Shell.Shared\Properties\Resources.de.resx">

@@ -113,6 +113,9 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModuleInitializer.cs" />
+  </ItemGroup>
   <Import Project="..\Orchestra.Examples.MahApps.Shared\Orchestra.Examples.MahApps.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Examples.MahApps.Shared\Orchestra.Examples.MahApps.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

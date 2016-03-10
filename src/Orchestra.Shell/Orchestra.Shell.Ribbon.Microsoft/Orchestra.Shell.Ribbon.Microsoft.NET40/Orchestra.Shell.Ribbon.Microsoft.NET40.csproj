@@ -150,6 +150,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ModuleInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="..\Orchestra.Shell.Ribbon.Microsoft.Shared\Resources\Images\about.png">

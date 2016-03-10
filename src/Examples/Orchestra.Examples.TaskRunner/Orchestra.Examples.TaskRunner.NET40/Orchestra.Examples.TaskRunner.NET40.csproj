@@ -129,6 +129,9 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModuleInitializer.cs" />
+  </ItemGroup>
   <Import Project="..\Orchestra.Examples.TaskRunner.Shared\Orchestra.Examples.TaskRunner.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Examples.TaskRunner.Shared\Orchestra.Examples.TaskRunner.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

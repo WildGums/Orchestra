@@ -170,6 +170,9 @@
       <Link>Resources\Images\refresh.png</Link>
     </Resource>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModuleInitializer.cs" />
+  </ItemGroup>
   <Import Project="..\Orchestra.Examples.Ribbon.Fluent.Shared\Orchestra.Examples.Ribbon.Fluent.Shared.projitems" Label="Shared" Condition="Exists('..\Orchestra.Examples.Ribbon.Fluent.Shared\Orchestra.Examples.Ribbon.Fluent.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

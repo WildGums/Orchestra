@@ -143,6 +143,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Views\RibbonView.xaml.cs">
       <DependentUpon>RibbonView.xaml</DependentUpon>
     </Compile>

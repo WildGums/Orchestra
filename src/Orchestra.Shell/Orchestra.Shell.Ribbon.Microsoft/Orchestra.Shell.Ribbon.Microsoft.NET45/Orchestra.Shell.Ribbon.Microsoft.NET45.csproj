@@ -102,6 +102,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ModuleInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Orchestra.Core\Orchestra.Core\Orchestra.Core.NET45\Orchestra.Core.NET45.csproj">
