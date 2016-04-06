@@ -63,14 +63,14 @@
       <HintPath>..\..\..\..\lib\Catel.MVVM.4.5.0-unstable0137\lib\net40\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ControlzEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
+    <Reference Include="ControlzEx, Version=2.0.0.54, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\ControlzEx.2.0.0-dev042\lib\net40\ControlzEx.dll</HintPath>
+      <HintPath>..\..\..\..\lib\ControlzEx.2.0.0.54\lib\net40\ControlzEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fluent, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+    <Reference Include="Fluent, Version=4.0.0.380, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Fluent.Ribbon.4.0.0-dev0345\lib\net40\Fluent.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Fluent.Ribbon.4.0.0.380\lib\net40\Fluent.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -106,7 +106,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.4.5.0-unstable0137\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\..\lib\ControlzEx.2.0.0.54\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
