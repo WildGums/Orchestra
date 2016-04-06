@@ -76,9 +76,8 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Obsolete">
-      <HintPath>..\..\..\..\lib\Obsolete.Fody.4.0.4\lib\dotnet\Obsolete.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Obsolete.Fody.4.0.5\lib\dotnet\Obsolete.dll</HintPath>
       <Private>True</Private>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Orc.Controls, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
