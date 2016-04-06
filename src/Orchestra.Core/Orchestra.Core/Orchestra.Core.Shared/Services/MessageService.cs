@@ -53,7 +53,7 @@ namespace Orchestra.Services
                 var previousCursor = Mouse.OverrideCursor;
                 Mouse.OverrideCursor = null;
 
-                var vm = _viewModelFactory.CreateViewModel<MessageBoxViewModel>(null);
+                var vm = _viewModelFactory.CreateViewModel<MessageBoxViewModel>(null, null);
 
                 vm.Message = message;
                 vm.Button = button;

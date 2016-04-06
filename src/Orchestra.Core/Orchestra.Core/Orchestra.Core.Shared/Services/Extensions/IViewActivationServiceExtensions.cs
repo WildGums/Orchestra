@@ -33,7 +33,7 @@ namespace Orchestra.Services
                 var viewModelFactory = dependencyResolver.Resolve<IViewModelFactory>();
                 var uiVisualizerService = dependencyResolver.Resolve<IUIVisualizerService>();
 
-                var vm = viewModelFactory.CreateViewModel(viewModelType, null);
+                var vm = viewModelFactory.CreateViewModel(viewModelType, null, null);
                 uiVisualizerService.Show(vm);
             }
         }
