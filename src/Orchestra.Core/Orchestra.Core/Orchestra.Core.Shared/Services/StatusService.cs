@@ -30,7 +30,7 @@ namespace Orchestra.Services
 
             _statusFilterService = statusFilterService;
 
-            var statusLogListener = new StatusLogListener(this);
+            var statusLogListener = new Orchestra.Logging.StatusLogListener(this);
 
             LogManager.AddListener(statusLogListener);
         }

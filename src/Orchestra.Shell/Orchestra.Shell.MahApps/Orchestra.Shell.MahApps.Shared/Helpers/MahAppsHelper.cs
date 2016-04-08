@@ -60,17 +60,32 @@ namespace Orchestra
             // Theme is always the 0-index of the resources
             var application = Application.Current;
             var applicationResources = application.Resources;
-            var resourceDictionary = applicationResources.MergedDictionaries[0];
+            var resourceDictionary = ThemeHelper.GetAccentColorResourceDictionary();
 
             var applicationTheme = ThemeManager.AppThemes.First(x => string.Equals(x.Name, "BaseLight"));
 
             // Insert to get the best MahApps performance (when looking up themes)
-            applicationResources.MergedDictionaries.Insert(1, applicationTheme.Resources);
+            //applicationResources.MergedDictionaries.Remove(resourceDictionary);
+            //applicationResources.MergedDictionaries.Insert(1, resourceDictionary);
+            applicationResources.MergedDictionaries.Insert(2, applicationTheme.Resources);
 
             Log.Debug("Applying theme to MahApps");
 
-            var newAccent = new Accent { Resources = resourceDictionary };
-            ThemeManager.ChangeAppStyle(application, newAccent, applicationTheme);
+            var theme = ThemeManager.DetectAppStyle(application);
+
+            //var newAccent = new Accent
+            //{
+            //    Name = "Runtime accent (Orchestra)",
+            //    Resources = resourceDictionary
+            //};
+
+            //// Workaround for bug in MahApps.Metro: https://github.com/MahApps/MahApps.Metro/issues/2300
+            //// Temporarily remove the resource dictionary so we can safely call ChangeAppStyle. Once this is
+            //// fixed, we only have to call ThemeManager.ChangeAppStyle
+
+            //ThemeManager.ChangeAppStyle(application, newAccent, applicationTheme);
+
+            //applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
         }
     }
 }
