@@ -47,5 +47,10 @@ namespace Orchestra.Services
 
             _commandInfo[commandName] = commandInfo;
         }
+
+        public void Invalidate()
+        {
+            _commandInfo.Clear();
+        }
     }
 }

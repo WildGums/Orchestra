@@ -88,6 +88,8 @@ namespace Orchestra.ViewModels
                 SelectedCommandInputGesture = _commandManager.GetInputGesture(SelectedCommand);
             }
 
+            _commandInfoService.Invalidate();
+
             UpdateCommands();
         }
 
@@ -106,8 +108,10 @@ namespace Orchestra.ViewModels
         private void OnRemoveExecute()
         {
             SelectedCommandInputGesture = null;
+
             _commandManager.UpdateInputGesture(SelectedCommand, null);
-            
+            _commandInfoService.Invalidate();
+
             UpdateCommands();
         }
 
@@ -167,15 +171,26 @@ namespace Orchestra.ViewModels
             }
 
             _commandManager.UpdateInputGesture(selectedCommand, selectedInputGesture);
+            _commandInfoService.Invalidate();
 
             UpdateCommands();
         }
         #endregion
 
         #region Methods
+        protected override async Task InitializeAsync()
+        {
+            await base.InitializeAsync();
+
+            // TODO: Suspend shortcuts
+            
+        }
+
         protected override async Task CloseAsync()
         {
             _keyboardMappingsService.Save();
+
+            // TODO: Resume shortcuts
 
             await base.CloseAsync();
         }

@@ -13,5 +13,6 @@ namespace Orchestra.Services
     {
         ICommandInfo GetCommandInfo(string commandName);
         void UpdateCommandInfo(string commandName, ICommandInfo commandInfo);
+        void Invalidate();
     }
 }
