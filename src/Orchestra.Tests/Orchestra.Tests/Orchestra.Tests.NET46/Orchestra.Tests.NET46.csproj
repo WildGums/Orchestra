@@ -64,8 +64,9 @@
       <HintPath>..\..\..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Orc.Controls">
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.3.0-unstable0082\lib\net46\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.3.0-unstable0085\lib\net46\Orc.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />

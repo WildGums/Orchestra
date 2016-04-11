@@ -63,9 +63,9 @@
       <HintPath>..\..\..\..\lib\ControlzEx.2.0.0.54\lib\net40\ControlzEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fluent, Version=4.0.0.380, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+    <Reference Include="Fluent, Version=4.0.2.384, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Fluent.Ribbon.4.0.0.380\lib\net40\Fluent.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Fluent.Ribbon.4.0.2.384\lib\net40\Fluent.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MethodTimer, Version=1.15.10.0, Culture=neutral, PublicKeyToken=cb1364609f40a1dc, processorArchitecture=MSIL">
@@ -87,13 +87,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Obsolete">
-      <HintPath>..\..\..\..\lib\Obsolete.Fody.4.0.5\lib\portable-net4+sl5+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\Obsolete.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Obsolete.Fody.4.1.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\Obsolete.dll</HintPath>
       <Private>True</Private>
       <Private>False</Private>
     </Reference>
     <Reference Include="Orc.Controls, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.3.0-unstable0082\lib\net40\Orc.Controls.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.3.0-unstable0085\lib\net40\Orc.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
