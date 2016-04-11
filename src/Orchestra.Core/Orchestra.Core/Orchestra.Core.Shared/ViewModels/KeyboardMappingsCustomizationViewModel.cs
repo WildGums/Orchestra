@@ -182,15 +182,14 @@ namespace Orchestra.ViewModels
         {
             await base.InitializeAsync();
 
-            // TODO: Suspend shortcuts
-            
+            _commandManager.IsKeyboardEventsSuspended = true;
         }
 
         protected override async Task CloseAsync()
         {
             _keyboardMappingsService.Save();
 
-            // TODO: Resume shortcuts
+            _commandManager.IsKeyboardEventsSuspended = false;
 
             await base.CloseAsync();
         }
