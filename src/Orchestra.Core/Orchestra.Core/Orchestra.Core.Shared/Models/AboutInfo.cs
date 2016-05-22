@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AboutInfo.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
+//   Copyright (c) 2008 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -10,6 +10,8 @@ namespace Orchestra.Models
     using System;
     using System.Reflection;
     using Catel.Data;
+    using Catel.Reflection;
+    using System.Windows.Media.Imaging;
 
     public class AboutInfo : ModelBase
     {
@@ -22,7 +24,45 @@ namespace Orchestra.Models
         /// <param name="logoImageSource">The logo image source.</param>
         /// <param name="uriInfo">The uri info. Can be <c>null</c>.</param>
         /// <param name="assembly">The assembly to use for the information. If <c>null</c>, the assembly will be determined automatically.</param>
-        public AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, UriInfo uriInfo = null, Assembly assembly = null, Uri companyLogoForSplashScreenUri = null)
+        public AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, UriInfo uriInfo = null, Assembly assembly = null,
+            Uri companyLogoForSplashScreenUri = null)
+            : this(companyLogoUri, logoImageSource, uriInfo, assembly, companyLogoForSplashScreenUri, null, null, null, null, null, null, null, null, null, null)
+        {
+            AppIcon = AppIcon ?? Assembly.ExtractLargestIcon();
+            BuildDateTime = BuildDateTime ?? Assembly.GetBuildDateTime();
+            Company = Company ?? Assembly.Company();
+            Copyright = Copyright ?? Assembly.Copyright();
+            Description = Description ?? Assembly.Description();
+            InformationalVersion = InformationalVersion ?? Assembly.InformationalVersion();
+            ProductName = ProductName ?? Assembly.Product();
+            Name = Name ?? Assembly.Title();
+            Version = Version ?? Assembly.Version();
+
+            DisplayVersion = DisplayVersion ?? VersionHelper.GetCurrentVersion(Assembly);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AboutInfo" /> class.
+        /// </summary>
+        /// <param name="companyLogoForSplashScreenUri"></param>
+        /// <param name="companyLogoUri">The company logo image Uri.</param>
+        /// <param name="logoImageSource">The logo image source.</param>
+        /// <param name="uriInfo">The uri info. Can be <c>null</c>.</param>
+        /// <param name="assembly">The assembly to use for the information. If <c>null</c>, the assembly will be determined automatically.</param>
+        /// <param name="appIcon">The application icon. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
+        /// <param name="buildDateTime">The application build datetime. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
+        /// <param name="company">The application company. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
+        /// <param name="copyright">The application copyright. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
+        /// <param name="description">The application description. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
+        /// <param name="displayVersion">The application display version. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
+        /// <param name="informationalVersion">The application informational version. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
+        /// <param name="productName">The application product name. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
+        /// <param name="name">The application title. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
+        /// <param name="version">The application version. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
+        protected AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, UriInfo uriInfo = null, Assembly assembly = null,
+            Uri companyLogoForSplashScreenUri = null, BitmapSource appIcon = null, DateTime? buildDateTime = null, string company = null,
+            string copyright = null, string description = null, string displayVersion = null, string informationalVersion = null,
+            string name = null, string productName = null, string version = null)
         {
             ShowLogButton = true;
 
@@ -31,33 +71,22 @@ namespace Orchestra.Models
             LogoImageSource = logoImageSource;
             UriInfo = uriInfo;
             Assembly = assembly ?? AssemblyHelper.GetEntryAssembly();
+
+            AppIcon = appIcon;
+            BuildDateTime = buildDateTime;
+            Company = company;
+            Copyright = copyright;
+            Description = description;
+            DisplayVersion = displayVersion;
+            InformationalVersion = informationalVersion;
+            ProductName = productName;
+            Name = name;
+            Version = version;
         }
+
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Gets the logo image source.
-        /// </summary>
-        /// <value>The company logo image Uri.</value>
-        public Uri CompanyLogoForSplashScreenUri { get; set; }
-
-        /// <summary>
-        /// Gets the logo image source.
-        /// </summary>
-        /// <value>The company logo image Uri.</value>
-        public Uri CompanyLogoUri { get; private set; }
-
-        /// <summary>
-        /// Gets the logo image source.
-        /// </summary>
-        /// <value>The logo image source.</value>
-        public string LogoImageSource { get; private set; }
-
-        /// <summary>
-        /// Gets the uri info.
-        /// </summary>
-        /// <value>The uri info.</value>
-        public UriInfo UriInfo { get; private set; }
 
         /// <summary>
         /// Gets the assembly.
@@ -66,10 +95,84 @@ namespace Orchestra.Models
         public Assembly Assembly { get; private set; }
 
         /// <summary>
+        /// Gets the application icon.
+        /// </summary>
+        public BitmapSource AppIcon { get; private set; }
+
+        /// <summary>
+        /// Gets the application build datetime.
+        /// </summary>
+        public DateTime? BuildDateTime { get; private set; }
+
+        /// <summary>
+        /// Gets the application logo image source.
+        /// </summary>
+        /// <value>The company logo image Uri.</value>
+        public Uri CompanyLogoForSplashScreenUri { get; set; }
+
+        /// <summary>
+        /// Gets the application logo image source.
+        /// </summary>
+        /// <value>The company logo image Uri.</value>
+        public Uri CompanyLogoUri { get; private set; }
+
+        /// <summary>
+        /// Gets the application company.
+        /// </summary>
+        public string Company { get; private set; }
+
+        /// <summary>
+        /// Gets the application copyright.
+        /// </summary>
+        public string Copyright { get; private set; }
+
+        /// <summary>
+        /// Gets the application description.
+        /// </summary>
+        public string Description { get; private set; }
+
+        /// <summary>
+        /// Gets the application display version.
+        /// </summary>
+        public string DisplayVersion { get; private set; }
+
+        /// <summary>
+        /// Gets the application informational version.
+        /// </summary>
+        public string InformationalVersion { get; private set; }
+
+        /// <summary>
+        /// Gets the application logo image source.
+        /// </summary>
+        /// <value>The logo image source.</value>
+        public string LogoImageSource { get; private set; }
+
+        /// <summary>
+        /// Gets the application name.
+        /// </summary>
+        public string Name { get; private set; }
+
+        /// <summary>
+        /// Gets the application product name.
+        /// </summary>
+        public string ProductName { get; private set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the about should show a log button.
         /// </summary>
         /// <value><c>true</c> if the log button should be shown; otherwise, <c>false</c>.</value>
         public bool ShowLogButton { get; set; }
+
+        /// <summary>
+        /// Gets the application uri info.
+        /// </summary>
+        /// <value>The uri info.</value>
+        public UriInfo UriInfo { get; private set; }
+
+        /// <summary>
+        /// Gets the application version.
+        /// </summary>
+        public string Version { get; private set; }
         #endregion
     }
 }
