@@ -24,31 +24,6 @@ namespace Orchestra.Models
         /// <param name="logoImageSource">The logo image source.</param>
         /// <param name="uriInfo">The uri info. Can be <c>null</c>.</param>
         /// <param name="assembly">The assembly to use for the information. If <c>null</c>, the assembly will be determined automatically.</param>
-        public AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, UriInfo uriInfo = null, Assembly assembly = null,
-            Uri companyLogoForSplashScreenUri = null)
-            : this(companyLogoUri, logoImageSource, uriInfo, assembly, companyLogoForSplashScreenUri, null, null, null, null, null, null, null, null, null, null)
-        {
-            AppIcon = AppIcon ?? Assembly.ExtractLargestIcon();
-            BuildDateTime = BuildDateTime ?? Assembly.GetBuildDateTime();
-            Company = Company ?? Assembly.Company();
-            Copyright = Copyright ?? Assembly.Copyright();
-            Description = Description ?? Assembly.Description();
-            InformationalVersion = InformationalVersion ?? Assembly.InformationalVersion();
-            ProductName = ProductName ?? Assembly.Product();
-            Name = Name ?? Assembly.Title();
-            Version = Version ?? Assembly.Version();
-
-            DisplayVersion = DisplayVersion ?? VersionHelper.GetCurrentVersion(Assembly);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AboutInfo" /> class.
-        /// </summary>
-        /// <param name="companyLogoForSplashScreenUri"></param>
-        /// <param name="companyLogoUri">The company logo image Uri.</param>
-        /// <param name="logoImageSource">The logo image source.</param>
-        /// <param name="uriInfo">The uri info. Can be <c>null</c>.</param>
-        /// <param name="assembly">The assembly to use for the information. If <c>null</c>, the assembly will be determined automatically.</param>
         /// <param name="appIcon">The application icon. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="buildDateTime">The application build datetime. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="company">The application company. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
@@ -66,24 +41,25 @@ namespace Orchestra.Models
         {
             ShowLogButton = true;
 
+            Assembly = assembly ?? AssemblyHelper.GetEntryAssembly();
+
             CompanyLogoForSplashScreenUri = companyLogoForSplashScreenUri;
             CompanyLogoUri = companyLogoUri;
             LogoImageSource = logoImageSource;
             UriInfo = uriInfo;
-            Assembly = assembly ?? AssemblyHelper.GetEntryAssembly();
+            
+            AppIcon = appIcon ?? Assembly.ExtractLargestIcon();
+            BuildDateTime = buildDateTime ?? Assembly.GetBuildDateTime();
+            Company = company ?? Assembly.Company();
+            Copyright = copyright ?? Assembly.Copyright();
+            Description = description ?? Assembly.Description();
+            InformationalVersion = informationalVersion ?? Assembly.InformationalVersion();
+            ProductName = productName ?? Assembly.Product();
+            Name = name ?? Assembly.Title();
+            Version = version ?? Assembly.Version();
 
-            AppIcon = appIcon;
-            BuildDateTime = buildDateTime;
-            Company = company;
-            Copyright = copyright;
-            Description = description;
-            DisplayVersion = displayVersion;
-            InformationalVersion = informationalVersion;
-            ProductName = productName;
-            Name = name;
-            Version = version;
+            DisplayVersion = displayVersion ?? VersionHelper.GetCurrentVersion(Assembly);
         }
-
         #endregion
 
         #region Properties
