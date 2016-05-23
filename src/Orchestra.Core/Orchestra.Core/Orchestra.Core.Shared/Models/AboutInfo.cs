@@ -59,7 +59,7 @@ namespace Orchestra.Models
         /// <param name="productName">The application product name. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="name">The application title. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="version">The application version. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
-        protected AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, UriInfo uriInfo = null, Assembly assembly = null,
+        public AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, UriInfo uriInfo = null, Assembly assembly = null,
             Uri companyLogoForSplashScreenUri = null, BitmapSource appIcon = null, DateTime? buildDateTime = null, string company = null,
             string copyright = null, string description = null, string displayVersion = null, string informationalVersion = null,
             string name = null, string productName = null, string version = null)
