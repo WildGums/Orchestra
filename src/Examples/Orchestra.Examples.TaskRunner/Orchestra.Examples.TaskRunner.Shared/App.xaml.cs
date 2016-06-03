@@ -42,7 +42,6 @@ namespace Orchestra.Examples.TaskRunner
         }
         #endregion
 
-
         protected override void OnStartup(StartupEventArgs e)
         {
 #if DEBUG
