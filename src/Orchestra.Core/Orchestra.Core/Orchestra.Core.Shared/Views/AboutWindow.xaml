@@ -12,7 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="15" />
-            <RowDefinition Height="135" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -32,7 +32,8 @@
 
         <Border Grid.Row="0" Grid.RowSpan="12" BorderThickness="1" BorderBrush="#D3D3D3" />
 
-        <Image Grid.Row="1" Source="{Binding AppIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0 0 0 5">
+        <Image Grid.Row="1" Source="{Binding AppIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0 0 0 5" Height="135"
+               Visibility="{Binding AppIcon, Converter={catel:ReferenceToCollapsingVisibilityConverter}}">
             <Image.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="{catel:LanguageBinding Orchestra_EnableDetailedLogging}" Command="{Binding EnableDetailedLogging}"/>
