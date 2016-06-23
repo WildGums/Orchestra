@@ -12,15 +12,17 @@ namespace Orchestra
     using System.Windows;
     using System.Windows.Interop;
     using Catel;
+    using Catel.Logging;
+    using Catel.Windows.Media;
 
-    public static class WindowExtensions
+    public static partial class WindowExtensions
     {
-        #region Fields
         private const uint MF_BYCOMMAND = 0x00000000;
         private const uint MF_GRAYED = 0x00000001;
         private const uint SC_CLOSE = 0xF060;
         private const int WM_SHOWWINDOW = 0x00000018;
-        #endregion
+
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         public static void DisableCloseButton(this Window window)
         {
@@ -64,6 +66,46 @@ namespace Orchestra
             Argument.IsNotNull(() => window);
 
             window.MaxHeight = SystemParameters.WorkArea.Height - 40;
+        }
+
+        public static void CenterWindowToScreen(this Window window)
+        {
+            Argument.IsNotNull(() => window);
+
+            var screenWidth = SystemParameters.PrimaryScreenWidth;
+            var screenHeight = SystemParameters.PrimaryScreenHeight;
+
+            window.CenterWindowToSize(new Rect(0, 0, screenWidth, screenHeight));
+        }
+
+        public static void CenterWindowToParent(this Window window)
+        {
+            Argument.IsNotNull(() => window);
+
+            var owner = window.Owner;
+            if (owner != null)
+            {
+                window.CenterWindowToSize(new Rect(owner.Left, owner.Top, owner.ActualWidth, owner.ActualHeight));
+                return;
+            }
+
+            var parentWindow = window.GetParentWindow();
+            if (parentWindow != null)
+            {
+                window.CenterWindowToSize(new Rect(parentWindow.Left, parentWindow.Top, parentWindow.ActualWidth, parentWindow.ActualHeight));
+                return;
+            }
+        }
+
+        public static void CenterWindowToSize(this Window window, Rect parentRect)
+        {
+            Argument.IsNotNull(() => window);
+
+            var windowWidth = window.Width;
+            var windowHeight = window.Height;
+
+            window.Left = parentRect.Left + (parentRect.Width / 2) - (windowWidth / 2);
+            window.Top = parentRect.Top + (parentRect.Height / 2) - (windowHeight / 2);
         }
 
         [DllImport("user32.dll")]

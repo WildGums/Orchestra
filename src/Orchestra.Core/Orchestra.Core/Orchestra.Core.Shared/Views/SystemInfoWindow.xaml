@@ -3,9 +3,14 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://catel.codeplex.com"
                   xmlns:controls="clr-namespace:Orchestra.Controls"
-                  ResizeMode="NoResize" MaxWidth="600" MaxHeight="650"
-                  WindowStyle="None">
-    
+                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                  xmlns:behaviors="clr-namespace:Orchestra.Behaviors"
+                  ResizeMode="NoResize" MaxWidth="600" MaxHeight="650" WindowStyle="None">
+
+    <i:Interaction.Behaviors>
+        <behaviors:RememberWindowSize />
+    </i:Interaction.Behaviors>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />

@@ -3,8 +3,15 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://catel.codeplex.com"
                   xmlns:views="clr-namespace:Orchestra.Views"
-                  Width="700" SizeToContent="Height">
+                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                  xmlns:behaviors="clr-namespace:Orchestra.Behaviors"
+                  Width="700" SizeToContent="Height"
+                  MinHeight="400" MinWidth="500">
 
+    <i:Interaction.Behaviors>
+        <behaviors:RememberWindowSize />
+    </i:Interaction.Behaviors>    
+    
     <views:KeyboardMappingsCustomizationView />
 
 </catel:DataWindow>

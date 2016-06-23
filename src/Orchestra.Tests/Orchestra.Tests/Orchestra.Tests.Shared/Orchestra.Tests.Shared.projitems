@@ -6,12 +6,13 @@
     <SharedGUID>9d628894-bdd8-470b-8dc9-7bf2f7073ee5</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Orchestra.Tests.Shared</Import_RootNamespace>
+    <Import_RootNamespace>Orchestra.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\CommandManagerExtensionsFacts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\InputGestureExtensionsFacts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\WindowExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\FilterHelperFacts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />

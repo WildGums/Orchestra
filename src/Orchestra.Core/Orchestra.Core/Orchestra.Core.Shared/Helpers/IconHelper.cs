@@ -64,6 +64,11 @@ namespace Orchestra
         {
             Bitmap extractedIcon = null;
 
+            if (icon == null)
+            {
+                return extractedIcon;
+            }
+
             try
             {
                 byte[] srcBuf = null;
