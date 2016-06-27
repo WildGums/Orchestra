@@ -17,7 +17,7 @@ namespace Orchestra
 
     public static partial class WindowExtensions
     {
-        private const string SizeSeparator = "x";
+        private const string SizeSeparator = "|";
 
         public static void SaveWindowSize(this Window window)
         {
@@ -33,7 +33,9 @@ namespace Orchestra
             {
                 var culture = CultureInfo.InvariantCulture;
 
-                File.WriteAllText(storageFile, $"{ObjectToStringHelper.ToString(window.Width, culture)}{SizeSeparator}{ObjectToStringHelper.ToString(window.Height, culture)}");
+                var contents = $"{ObjectToStringHelper.ToString(window.Width, culture)}{SizeSeparator}{ObjectToStringHelper.ToString(window.Height, culture)}{SizeSeparator}{window.WindowState}";
+
+                File.WriteAllText(storageFile, contents);
             }
             catch (Exception ex)
             {
@@ -41,7 +43,7 @@ namespace Orchestra
             }
         }
 
-        public static void LoadWindowSize(this Window window)
+        public static void LoadWindowSize(this Window window, bool restoreWindowState)
         {
             Argument.IsNotNull(() => window);
 
@@ -66,7 +68,7 @@ namespace Orchestra
                 }
 
                 var splitted = sizeText.Split(new [] { SizeSeparator }, StringSplitOptions.RemoveEmptyEntries);
-                if (splitted.Length != 2)
+                if (splitted.Length < 2)
                 {
                     Log.Warning($"Size text for window could not be splitted correctly, cannot restore window size");
                     return;
@@ -81,6 +83,20 @@ namespace Orchestra
 
                 window.Width = width;
                 window.Height = height;
+
+                if (restoreWindowState)
+                {
+                    if (splitted.Length > 2)
+                    {
+                        var windowState = Enum<WindowState>.Parse(splitted[2]);
+                        if (windowState != window.WindowState)
+                        {
+                            Log.Debug($"Restoring window state for '{windowName}' to '{windowState}'");
+
+                            window.WindowState = windowState;
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {

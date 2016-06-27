@@ -25,6 +25,16 @@ namespace Orchestra.Behaviors
 
         public static readonly DependencyProperty MakeWindowResizableProperty = DependencyProperty.Register("MakeWindowResizable", 
             typeof(bool), typeof(RememberWindowSize), new PropertyMetadata(true));
+
+
+        public bool RememberWindowState
+        {
+            get { return (bool)GetValue(RememberWindowStateProperty); }
+            set { SetValue(RememberWindowStateProperty, value); }
+        }
+
+        public static readonly DependencyProperty RememberWindowStateProperty = DependencyProperty.Register("RememberWindowState", 
+            typeof(bool), typeof(RememberWindowSize), new PropertyMetadata(true));
         #endregion
 
         protected override void OnAssociatedObjectLoaded()
@@ -42,7 +52,7 @@ namespace Orchestra.Behaviors
                 window.ResizeMode = ResizeMode.CanResize;
             }
 
-            window.LoadWindowSize();
+            window.LoadWindowSize(RememberWindowState);
 
             switch (window.WindowStartupLocation)
             {
