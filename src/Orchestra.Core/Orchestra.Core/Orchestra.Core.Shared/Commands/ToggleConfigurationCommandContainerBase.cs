@@ -48,8 +48,8 @@ namespace Orchestra
 
         protected override async Task ExecuteAsync(TExecuteParameter parameter)
         {
-            var oldVersion = ConfigurationService.GetValue(_configurationKey, _defaultValue);
-            ConfigurationService.SetValue(_configurationKey, !oldVersion);
+            var oldVersion = ConfigurationService.GetRoamingValue(_configurationKey, _defaultValue);
+            ConfigurationService.SetRoamingValue(_configurationKey, !oldVersion);
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Orchestra.Configuration
                 await ApplyConfigurationInternalAsync(true);
             }
 
-            _lastKnownValue = ConfigurationService.GetValue(Key, DefaultValue);
+            _lastKnownValue = ConfigurationService.GetRoamingValue(Key, DefaultValue);
         }
 
         private async void OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
@@ -72,7 +72,7 @@ namespace Orchestra.Configuration
 
         private async Task ApplyConfigurationInternalAsync(bool force = false)
         {
-            var value = ConfigurationService.GetValue(Key, DefaultValue);
+            var value = ConfigurationService.GetRoamingValue(Key, DefaultValue);
             if (!force && ObjectHelper.AreEqual(value, _lastKnownValue))
             {
                 return;

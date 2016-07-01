@@ -40,12 +40,12 @@
   <ItemGroup>
     <Reference Include="Catel.Core, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Catel.Core.4.5.0-unstable0247\lib\net46\Catel.Core.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.Core.4.5.0\lib\net46\Catel.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Catel.Extensions.Controls, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.5.0-unstable0247\lib\net46\Catel.Extensions.Controls.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.5.0\lib\net46\Catel.Extensions.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Catel.Fody.Attributes">
@@ -54,20 +54,21 @@
     </Reference>
     <Reference Include="Catel.MVVM, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Catel.MVVM.4.5.0-unstable0247\lib\net46\Catel.MVVM.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.MVVM.4.5.0\lib\net46\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ControlzEx">
-      <HintPath>..\..\..\..\lib\ControlzEx.2.0.0.54\lib\net45\ControlzEx.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fluent, Version=4.0.2.384, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+    <Reference Include="ControlzEx, Version=2.0.1.61, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Fluent.Ribbon.4.0.2.384\lib\net45\Fluent.dll</HintPath>
+      <HintPath>..\..\..\..\lib\ControlzEx.2.0.1.61\lib\net45\ControlzEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fluent, Version=4.0.3.394, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\Fluent.Ribbon.4.0.3.394\lib\net45\Fluent.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MethodTimer">
-      <HintPath>..\..\..\..\lib\MethodTimer.Fody.1.15.10.0\lib\dotnet\MethodTimer.dll</HintPath>
+      <HintPath>..\..\..\..\lib\MethodTimer.Fody.1.16.0.0\lib\dotnet\MethodTimer.dll</HintPath>
       <Private>True</Private>
       <Private>False</Private>
     </Reference>
@@ -78,7 +79,7 @@
     </Reference>
     <Reference Include="Orc.Controls, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.3.0-unstable0085\lib\net46\Orc.Controls.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.3.0-unstable0102\lib\net46\Orc.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -86,7 +87,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.4.5.0-unstable0247\lib\net46\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\..\lib\ControlzEx.2.0.1.61\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />

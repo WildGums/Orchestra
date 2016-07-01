@@ -3,7 +3,7 @@
   <ModuleInit/>
   <Costura>
     <IncludeAssemblies>
-      Ionic.Zip
+      DotNetZip
       Orc.SystemInfo
     </IncludeAssemblies>
   </Costura>
