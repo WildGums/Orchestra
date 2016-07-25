@@ -69,7 +69,7 @@ namespace Orchestra.Services
                 var window = Application.Current.MainWindow as MetroWindow;
                 if (window == null)
                 {
-                    tcs.SetResult(MessageResult.Cancel);
+                    tcs.TrySetResult(MessageResult.Cancel);
                     return;
                 }
 
@@ -77,15 +77,15 @@ namespace Orchestra.Services
                 switch (result)
                 {
                     case MessageDialogResult.Negative:
-                        tcs.SetResult(negativeResult);
+                        tcs.TrySetResult(negativeResult);
                         break;
 
                     case MessageDialogResult.Affirmative:
-                        tcs.SetResult(affirmativeResult);
+                        tcs.TrySetResult(affirmativeResult);
                         break;
 
                     case MessageDialogResult.FirstAuxiliary:
-                        tcs.SetResult(auxiliaryResult);
+                        tcs.TrySetResult(auxiliaryResult);
                         break;
 
                     default:

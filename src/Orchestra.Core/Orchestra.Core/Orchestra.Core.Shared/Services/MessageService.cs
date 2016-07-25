@@ -67,7 +67,7 @@ namespace Orchestra.Services
 
                 Log.Info("Result of message: {0}", vm.Result);
 
-                tcs.SetResult(vm.Result);
+                tcs.TrySetResult(vm.Result);
             });
 
             return tcs.Task;
