@@ -58,6 +58,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\VersionHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layers\HintsAdornerLayer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layers\Interfaces\IAdornerLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\FileLogListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\RichTextBoxLogListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\StatusLogListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\TextBoxLogListener.cs" />

@@ -112,7 +112,6 @@ public static class ModuleInitializer
 
         var fileLogListener = LogHelper.CreateFileLogListener(AssemblyHelper.GetEntryAssembly().GetName().Name);
 
-        fileLogListener.IgnoreCatelLogging = true;
         fileLogListener.IsDebugEnabled = false;
         fileLogListener.IsInfoEnabled = true;
         fileLogListener.IsWarningEnabled = true;

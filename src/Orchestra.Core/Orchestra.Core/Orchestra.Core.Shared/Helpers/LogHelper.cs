@@ -53,7 +53,7 @@ namespace Orchestra
             }
 
             var fileName = Path.Combine(directory, prefix + "_{Date}_{Time}_{ProcessId}");
-            var fileLogListener = new FileLogListener(fileName, 10 * 1024);
+            var fileLogListener = new Orchestra.Logging.FileLogListener(fileName, 10 * 1024);
 
             return fileLogListener;
         }
