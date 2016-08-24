@@ -7,6 +7,7 @@
 
 namespace Orchestra.Configuration
 {
+    using System;
     using System.Threading.Tasks;
     using Catel;
     using Catel.Configuration;
@@ -80,7 +81,15 @@ namespace Orchestra.Configuration
 
             _lastKnownValue = value;
 
-            await ApplyConfigurationAsync(value);
+            try
+            {
+                await ApplyConfigurationAsync(value);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Failed to apply configuration value for '{Key}'");
+                throw;
+            }
 
             var status = GetStatus(value);
             if (!string.IsNullOrWhiteSpace(status))
