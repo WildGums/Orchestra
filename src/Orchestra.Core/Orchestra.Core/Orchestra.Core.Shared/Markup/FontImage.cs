@@ -157,7 +157,12 @@ namespace Orchestra.Markup
 
                     try
                     {
-                        glyphIndex = glyphTypeface.CharacterToGlyphMap[text[i]];
+                        var key = text[i];
+
+                        if (!glyphTypeface.CharacterToGlyphMap.TryGetValue(key, out glyphIndex))
+                        {
+                            glyphIndex = 42;
+                        }
                     }
                     catch (Exception)
                     {
