@@ -15,6 +15,7 @@ namespace Orchestra
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
+        [ObsoleteEx(ReplacementTypeOrMember = "Orc.FileSystem.IDirectoryService.Copy", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
         public static void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs = true, bool overwriteExisting = false)
         {
             Argument.IsNotNullOrWhitespace(() => sourceDirName);

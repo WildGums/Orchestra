@@ -17,6 +17,7 @@ namespace Orchestra.Services
     using Catel.Reflection;
     using Catel.Services;
     using Ionic.Zip;
+    using Orc.FileSystem;
 
     public class AppDataService : IAppDataService
     {
@@ -25,16 +26,23 @@ namespace Orchestra.Services
         private readonly IMessageService _messageService;
         private readonly ISaveFileService _saveFileService;
         private readonly IProcessService _processService;
+        private readonly IDirectoryService _directoryService;
+        private readonly IFileService _fileService;
 
-        public AppDataService(IMessageService messageService, ISaveFileService saveFileService, IProcessService processService)
+        public AppDataService(IMessageService messageService, ISaveFileService saveFileService, 
+            IProcessService processService, IDirectoryService directoryService, IFileService fileService)
         {
             Argument.IsNotNull(() => messageService);
             Argument.IsNotNull(() => saveFileService);
             Argument.IsNotNull(() => processService);
+            Argument.IsNotNull(() => directoryService);
+            Argument.IsNotNull(() => fileService);
 
             _messageService = messageService;
             _saveFileService = saveFileService;
             _processService = processService;
+            _directoryService = directoryService;
+            _fileService = fileService;
 
             ExclusionFilters = new List<string>(new []
             {
@@ -43,10 +51,8 @@ namespace Orchestra.Services
             });
 
             var applicationDataDirectory = Catel.IO.Path.GetApplicationDataDirectory();
-            if (!Directory.Exists(applicationDataDirectory))
-            {
-                Directory.CreateDirectory(applicationDataDirectory);
-            }
+
+            _directoryService.Create(applicationDataDirectory);
 
             ApplicationDataDirectory = applicationDataDirectory;
         }
@@ -78,12 +84,12 @@ namespace Orchestra.Services
 
             var exclusionFilters = ExclusionFilters;
 
-            var allFiles = Directory.GetFiles(applicationDataDirectory, "*.*", SearchOption.AllDirectories);
+            var allFiles = _directoryService.GetFiles(applicationDataDirectory, "*.*", SearchOption.AllDirectories);
             foreach (var fileName in allFiles)
             {
                 if (!MatchesFilters(exclusionFilters, fileName))
                 {
-                    File.Delete(fileName);
+                    _fileService.Delete(fileName);
                 }
             }
         }

@@ -13,22 +13,26 @@ namespace Orchestra.Services
     using Catel;
     using Catel.Logging;
     using Catel.Runtime.Serialization.Xml;
+    using Orc.FileSystem;
     using Orchestra.Models;
     using Path = Catel.IO.Path;
 
     public class RecentlyUsedItemsService : IRecentlyUsedItemsService
     {
         private readonly IXmlSerializer _xmlSerializer;
+        private readonly IFileService _fileService;
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly string _fileName;
         private readonly RecentlyUsedItems _items;
 
-        public RecentlyUsedItemsService(IXmlSerializer xmlSerializer)
+        public RecentlyUsedItemsService(IXmlSerializer xmlSerializer, IFileService fileService)
         {
             Argument.IsNotNull(() => xmlSerializer);
+            Argument.IsNotNull(() => fileService);
 
             _xmlSerializer = xmlSerializer;
+            _fileService = fileService;
 
             _fileName = Path.Combine(Path.GetApplicationDataDirectory(), "recentlyused.xml");
             _items = new RecentlyUsedItems();
@@ -238,13 +242,13 @@ namespace Orchestra.Services
 
             try
             {
-                if (!File.Exists(_fileName))
+                if (!_fileService.Exists(_fileName))
                 {
                     Log.Info("No recently used items found");
                     return;
                 }
 
-                using (var fileStream = File.Open(_fileName, FileMode.Open))
+                using (var fileStream = _fileService.OpenRead(_fileName))
                 {
                     _xmlSerializer.Deserialize(_items, fileStream, null);
                 }
@@ -261,7 +265,7 @@ namespace Orchestra.Services
 
             try
             {
-                using (var fileStream = File.Open(_fileName, FileMode.Create))
+                using (var fileStream = _fileService.Create(_fileName))
                 {
                     _xmlSerializer.Serialize(_items, fileStream, null);
                 }
