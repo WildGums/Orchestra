@@ -6,7 +6,10 @@
 
 
 using System;
+using System.Globalization;
 using System.IO;
+using System.Windows;
+using System.Windows.Markup;
 using Catel.IoC;
 using Catel.Logging;
 using Catel.Services;
@@ -30,6 +33,9 @@ public static class ModuleInitializer
     public static void Initialize()
     {
         InitializeLogging();
+
+        FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
         var serviceLocator = ServiceLocator.Default;
 
