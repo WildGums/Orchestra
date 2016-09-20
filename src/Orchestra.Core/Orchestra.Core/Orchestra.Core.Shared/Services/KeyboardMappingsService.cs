@@ -54,7 +54,7 @@ namespace Orchestra.Services
 
                 using (var fileStream = File.Open(_fileName, FileMode.Open, FileAccess.Read))
                 {
-                    var keyboardMappings = _xmlSerializer.Deserialize(typeof (KeyboardMappings), fileStream) as KeyboardMappings;
+                    var keyboardMappings = _xmlSerializer.Deserialize(typeof (KeyboardMappings), fileStream, null) as KeyboardMappings;
                     if (keyboardMappings != null)
                     {
                         foreach (var keyboardMapping in keyboardMappings.Mappings)
@@ -96,7 +96,7 @@ namespace Orchestra.Services
 
                 using (var fileStream = File.Open(_fileName, FileMode.Create, FileAccess.Write))
                 {
-                    _xmlSerializer.Serialize(keyboardMappings, fileStream);
+                    _xmlSerializer.Serialize(keyboardMappings, fileStream, null);
                 }
             }
             catch (Exception ex)

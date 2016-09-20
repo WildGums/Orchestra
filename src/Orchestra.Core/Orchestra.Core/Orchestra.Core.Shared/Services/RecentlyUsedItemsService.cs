@@ -246,7 +246,7 @@ namespace Orchestra.Services
 
                 using (var fileStream = File.Open(_fileName, FileMode.Open))
                 {
-                    _xmlSerializer.Deserialize(_items, fileStream);
+                    _xmlSerializer.Deserialize(_items, fileStream, null);
                 }
             }
             catch (Exception ex)
@@ -263,7 +263,7 @@ namespace Orchestra.Services
             {
                 using (var fileStream = File.Open(_fileName, FileMode.Create))
                 {
-                    _xmlSerializer.Serialize(_items, fileStream);
+                    _xmlSerializer.Serialize(_items, fileStream, null);
                 }
             }
             catch (Exception ex)
