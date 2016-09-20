@@ -26,6 +26,7 @@
     <dependencies>
       <dependency id="Catel.Extensions.Controls" version="[replaced]" />
       <dependency id="Orc.Controls" version="[replaced]" />
+	  <dependency id="Orc.FileSystem" version="[replaced]" />
     </dependencies>
   </metadata>
 </package>
