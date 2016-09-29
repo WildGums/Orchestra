@@ -34,8 +34,9 @@ public static class ModuleInitializer
     {
         InitializeLogging();
 
+        // Ensure that we are using the right culture
         FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
-                new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+            new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
         var serviceLocator = ServiceLocator.Default;
 
