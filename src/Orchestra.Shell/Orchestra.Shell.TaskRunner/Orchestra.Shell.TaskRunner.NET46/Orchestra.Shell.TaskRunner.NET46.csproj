@@ -65,17 +65,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Orc.Controls, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.3.0-unstable0109\lib\net46\Orc.Controls.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.3.0-unstable0124\lib\net46\Orc.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Orc.FileSystem, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.0.0-unstable0015\lib\net46\Orc.FileSystem.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.0.0-unstable0026\lib\net46\Orc.FileSystem.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Orc.LogViewer, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Orc.LogViewer.1.2.0-unstable0008\lib\net46\Orc.LogViewer.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Orc.LogViewer.1.2.0-unstable0010\lib\net46\Orc.LogViewer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
