@@ -61,6 +61,13 @@ namespace Orchestra.Windows
         /// <exception cref="System.NotSupportedException"></exception>
         protected SimpleDataWindow(IViewModel viewModel, DataWindowMode mode = DataWindowMode.OkCancel, IEnumerable<DataWindowButton> additionalButtons = null)
         {
+            if (CatelEnvironment.IsInDesignMode)
+            {
+                return;
+            }
+
+            ThemeHelper.EnsureCatelMvvmThemeIsLoaded();
+
             _logic = new WindowLogic(this, null, viewModel);
             _logic.PropertyChanged += (sender, e) => PropertyChanged.SafeInvoke(this, e);
             _logic.ViewModelChanged += (sender, e) => ViewModelChanged.SafeInvoke(this, e);
