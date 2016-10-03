@@ -30,6 +30,7 @@ namespace Orchestra.Windows
     using Catel.Logging;
     using System.Windows.Input;
     using Catel.Windows.Threading;
+    using MahApps.Metro;
 
     /// <summary>
     /// Base class for a metro window with the Catel mvvm behavior.
@@ -113,10 +114,6 @@ namespace Orchestra.Windows
             {
                 return;
             }
-
-            // Set window style (WPF doesn't allow styling on root elements of XAML files, too bad)
-            // For more info, see http://social.msdn.microsoft.com/Forums/en-US/wpf/thread/3059c0e4-c372-4da2-b384-28f271feef05/
-            SetResourceReference(StyleProperty, typeof(DataWindow));
 
             Mode = mode;
             DefaultButton = defaultButton;
