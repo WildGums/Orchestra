@@ -118,12 +118,16 @@ namespace Orchestra
             var resourceDictionary = new ResourceDictionary();
 
             resourceDictionary.Add("HighlightColor", color);
+            resourceDictionary.Add("HighlightBrush", new SolidColorBrush((Color)resourceDictionary["HighlightColor"]));
+
             resourceDictionary.Add("AccentColor", GetAccentColor(AccentColorStyle.AccentColor1));
             resourceDictionary.Add("AccentColor2", GetAccentColor(AccentColorStyle.AccentColor2));
             resourceDictionary.Add("AccentColor3", GetAccentColor(AccentColorStyle.AccentColor3));
             resourceDictionary.Add("AccentColor4", GetAccentColor(AccentColorStyle.AccentColor4));
 
-            resourceDictionary.Add("HighlightBrush", new SolidColorBrush((Color)resourceDictionary["HighlightColor"]));
+            resourceDictionary.Add("AccentBaseColor", (Color)resourceDictionary["AccentColor"]);
+            resourceDictionary.Add("AccentBaseColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+
             resourceDictionary.Add("AccentColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
             resourceDictionary.Add("AccentColorBrush2", new SolidColorBrush((Color)resourceDictionary["AccentColor2"]));
             resourceDictionary.Add("AccentColorBrush3", new SolidColorBrush((Color)resourceDictionary["AccentColor3"]));

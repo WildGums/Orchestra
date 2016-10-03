@@ -65,27 +65,30 @@ namespace Orchestra
             var applicationTheme = ThemeManager.AppThemes.First(x => string.Equals(x.Name, "BaseLight"));
 
             // Insert to get the best MahApps performance (when looking up themes)
-            //applicationResources.MergedDictionaries.Remove(resourceDictionary);
-            //applicationResources.MergedDictionaries.Insert(1, resourceDictionary);
+            applicationResources.MergedDictionaries.Remove(resourceDictionary);
             applicationResources.MergedDictionaries.Insert(2, applicationTheme.Resources);
 
             Log.Debug("Applying theme to MahApps");
 
-            var theme = ThemeManager.DetectAppStyle(application);
+            var newAccent = new Accent
+            {
+                Name = "Runtime accent (Orchestra)",
+                Resources = resourceDictionary
+            };
 
-            //var newAccent = new Accent
+            ThemeManager.ChangeAppStyle(application, newAccent, applicationTheme);
+
+            // Note: important to add the resources dictionary *after* changing the app style, but then insert at the top 
+            // so MahApps theme detection performance is best
+            applicationResources.MergedDictionaries.Insert(1, resourceDictionary);
+
+            //var theme = ThemeManager.GetAppTheme(applicationResources);
+            //if (theme == null)
             //{
-            //    Name = "Runtime accent (Orchestra)",
-            //    Resources = resourceDictionary
-            //};
-
-            //// Workaround for bug in MahApps.Metro: https://github.com/MahApps/MahApps.Metro/issues/2300
-            //// Temporarily remove the resource dictionary so we can safely call ChangeAppStyle. Once this is
-            //// fixed, we only have to call ThemeManager.ChangeAppStyle
-
-            //ThemeManager.ChangeAppStyle(application, newAccent, applicationTheme);
-
-            //applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
+            //    // Note: check ThemeManager.IsAccentDictionary() in https://github.com/MahApps/MahApps.Metro/blob/develop/MahApps.Metro/ThemeManager.cs#L234 
+            //    // for a list of expected resources
+            //    Log.Warning("No app theme found after applying it, make sure to include all resources that MahApps expects inside ThemeHelper.GetAccentColorResourceDictionary()");
+            //}
         }
     }
 }
