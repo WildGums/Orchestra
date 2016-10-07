@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ClipboardService.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2015 Orchestra development team. All rights reserved.
+// <copyright file="ClipboardService.cs" company="WildGums">
+//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 

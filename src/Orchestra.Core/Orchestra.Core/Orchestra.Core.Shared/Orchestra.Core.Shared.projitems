@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\KeyPressApplicationWatcherBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\KeyPressWindowWatcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\HintsBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RememberWindowSize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\AdorneredTooltipsCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\Interfaces\IAdorneredTooltipsCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CommandContainerBase.cs" />
@@ -45,7 +46,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IconExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\WindowExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\WindowExtensions.size.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AssemblyHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DirectoryHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\DotNetPatchHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\FilterHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\IconHelper.cs" />
@@ -55,6 +58,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\VersionHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layers\HintsAdornerLayer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layers\Interfaces\IAdornerLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\FileLogListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\RichTextBoxLogListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\StatusLogListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\TextBoxLogListener.cs" />

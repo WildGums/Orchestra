@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="FontImage.cs" company="Catel development team">
-//   Copyright (c) 2008 - 2014 Catel development team. All rights reserved.
+// <copyright file="FontImage.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -100,7 +100,13 @@ namespace Orchestra.Markup
         /// When implemented in a derived class, returns an object that is provided as the value of the target property for this markup extension.
         /// </summary>
         /// <returns>The object value to set on the property where the extension is applied.</returns>
+        [Obsolete("Please use `ProvideDynamicValue(IServiceProvider)` instead. Will be treated as an error from version 5.0.0. Will be removed in version 5.0.0.", false)]
         protected override object ProvideDynamicValue()
+        {
+            return null;
+        }
+
+        protected override object ProvideDynamicValue(IServiceProvider serviceProvider)
         {
             return GetImageSource();
         }
@@ -151,7 +157,12 @@ namespace Orchestra.Markup
 
                     try
                     {
-                        glyphIndex = glyphTypeface.CharacterToGlyphMap[text[i]];
+                        var key = text[i];
+
+                        if (!glyphTypeface.CharacterToGlyphMap.TryGetValue(key, out glyphIndex))
+                        {
+                            glyphIndex = 42;
+                        }
                     }
                     catch (Exception)
                     {

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingsOverviewWindow.xaml.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="KeyboardMappingsOverviewWindow.xaml.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ namespace Orchestra.Views
     /// <summary>
     /// Interaction logic for KeyboardMappingsOverviewWindow.xaml.
     /// </summary>
-    public partial class KeyboardMappingsOverviewWindow : DataWindow
+    public partial class KeyboardMappingsOverviewWindow
     {
         #region Constructors
         /// <summary>
@@ -36,7 +36,7 @@ namespace Orchestra.Views
         {
             AddCustomButton(new DataWindowButton("Print", "Print"));
             AddCustomButton(new DataWindowButton("Customize", "Customize"));
-            AddCustomButton(new DataWindowButton("Close", Close));
+            AddCustomButton(DataWindowButton.FromSync("Close", Close, null));
 
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ThemeHelper.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="ThemeHelper.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -8,11 +8,13 @@
 namespace Orchestra
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Media;
     using Catel;
+    using Catel.Caching;
     using Catel.Logging;
     using Catel.Windows;
 
@@ -35,43 +37,67 @@ namespace Orchestra
         private static ResourceDictionary _accentColorResourceDictionary;
 
         private static bool _ensuredOrchestraThemes;
-        private static SolidColorBrush _cachedAccentColorBrush;
+        private static SolidColorBrush _accentColorBrushCache;
+
+        private static readonly CacheStorage<AccentColorStyle, Color> _accentColorsCache = new CacheStorage<AccentColorStyle, Color>();
+        private static readonly CacheStorage<AccentColorStyle, SolidColorBrush> _accentColorBrushesCache = new CacheStorage<AccentColorStyle, SolidColorBrush>();
 
         public static Color GetAccentColor(AccentColorStyle colorStyle = AccentColorStyle.AccentColor)
         {
-            var color = GetAccentColorBrush().Color;
-
-            switch (colorStyle)
+            return _accentColorsCache.GetFromCacheOrFetch(colorStyle, () =>
             {
-                case AccentColorStyle.AccentColor:
-                    return Color.FromArgb(255, color.R, color.G, color.B);
+                var color = GetAccentColorBrush().Color;
 
-                case AccentColorStyle.AccentColor1:
-                    return Color.FromArgb(204, color.R, color.G, color.B);
+                switch (colorStyle)
+                {
+                    case AccentColorStyle.AccentColor:
+                        return Color.FromArgb(255, color.R, color.G, color.B);
 
-                case AccentColorStyle.AccentColor2:
-                    return Color.FromArgb(153, color.R, color.G, color.B);
+                    case AccentColorStyle.AccentColor1:
+                        return Color.FromArgb(204, color.R, color.G, color.B);
 
-                case AccentColorStyle.AccentColor3:
-                    return Color.FromArgb(102, color.R, color.G, color.B);
+                    case AccentColorStyle.AccentColor2:
+                        return Color.FromArgb(153, color.R, color.G, color.B);
 
-                case AccentColorStyle.AccentColor4:
-                    return Color.FromArgb(51, color.R, color.G, color.B);
+                    case AccentColorStyle.AccentColor3:
+                        return Color.FromArgb(102, color.R, color.G, color.B);
 
-                default:
-                    throw new ArgumentOutOfRangeException("colorStyle");
-            }
+                    case AccentColorStyle.AccentColor4:
+                        return Color.FromArgb(51, color.R, color.G, color.B);
+
+                    default:
+                        throw new ArgumentOutOfRangeException("colorStyle");
+                }
+            });
+        }
+
+        public static SolidColorBrush GetAccentColorBrush(AccentColorStyle colorStyle)
+        {
+            return _accentColorBrushesCache.GetFromCacheOrFetch(colorStyle, () =>
+            {
+                var color = GetAccentColor(colorStyle);
+                return new SolidColorBrush(color);
+            });
         }
 
         public static SolidColorBrush GetAccentColorBrush()
         {
-            if (_cachedAccentColorBrush != null)
+            if (_accentColorBrushCache != null)
             {
-                return _cachedAccentColorBrush;
+                return _accentColorBrushCache;
             }
 
-            _cachedAccentColorBrush = Application.Current.TryFindResource("AccentColorBrush") as SolidColorBrush;
-            return _cachedAccentColorBrush ?? OrchestraEnvironment.DefaultAccentColorBrush;
+            _accentColorBrushCache = Application.Current.TryFindResource("AccentColorBrush") as SolidColorBrush;
+            return _accentColorBrushCache ?? OrchestraEnvironment.DefaultAccentColorBrush;
+        }
+
+        /// <summary>
+        /// Gets the accent color resource dictionary if it has been created.
+        /// </summary>
+        /// <returns>ResourceDictionary.</returns>
+        public static ResourceDictionary GetAccentColorResourceDictionary()
+        {
+            return _accentColorResourceDictionary;
         }
 
         /// <summary>
@@ -92,18 +118,21 @@ namespace Orchestra
             var resourceDictionary = new ResourceDictionary();
 
             resourceDictionary.Add("HighlightColor", color);
+            resourceDictionary.Add("HighlightBrush", new SolidColorBrush((Color)resourceDictionary["HighlightColor"]));
+
             resourceDictionary.Add("AccentColor", GetAccentColor(AccentColorStyle.AccentColor1));
             resourceDictionary.Add("AccentColor2", GetAccentColor(AccentColorStyle.AccentColor2));
             resourceDictionary.Add("AccentColor3", GetAccentColor(AccentColorStyle.AccentColor3));
             resourceDictionary.Add("AccentColor4", GetAccentColor(AccentColorStyle.AccentColor4));
 
-            resourceDictionary.Add("HighlightBrush", new SolidColorBrush((Color)resourceDictionary["HighlightColor"]));
+            resourceDictionary.Add("AccentBaseColor", (Color)resourceDictionary["AccentColor"]);
+            resourceDictionary.Add("AccentBaseColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+
             resourceDictionary.Add("AccentColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
             resourceDictionary.Add("AccentColorBrush2", new SolidColorBrush((Color)resourceDictionary["AccentColor2"]));
             resourceDictionary.Add("AccentColorBrush3", new SolidColorBrush((Color)resourceDictionary["AccentColor3"]));
             resourceDictionary.Add("AccentColorBrush4", new SolidColorBrush((Color)resourceDictionary["AccentColor4"]));
             resourceDictionary.Add("WindowTitleColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
-            resourceDictionary.Add("AccentSelectedColorBrush", new SolidColorBrush(Colors.White));
 
             resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
                 {
@@ -116,6 +145,15 @@ namespace Orchestra
 
             resourceDictionary.Add("IdealForegroundColor", Colors.Black);
             resourceDictionary.Add("IdealForegroundColorBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
+            resourceDictionary.Add("IdealForegroundDisabledBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]) { Opacity = 0.4 });
+            resourceDictionary.Add("AccentSelectedColorBrush", new SolidColorBrush(Colors.White));
+
+            resourceDictionary.Add("MetroDataGrid.HighlightBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+            resourceDictionary.Add("MetroDataGrid.HighlightTextBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
+            resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor3"]));
+            resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+            resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor2"]));
+            resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightTextBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
 
             var application = Application.Current;
             var applicationResources = application.Resources;
@@ -175,14 +213,20 @@ namespace Orchestra
                                           select dic).FirstOrDefault();
                 if (existingDictionary == null)
                 {
-                    application.Resources.MergedDictionaries.Add(new ResourceDictionary
+                    existingDictionary = new ResourceDictionary
                     {
                         Source = uri
-                    });
+                    };
+
+                    application.Resources.MergedDictionaries.Add(existingDictionary);
                 }
 
                 if (createStyleForwarders)
                 {
+                    // Step 1: allow this lib to create the app themes first
+                    StyleHelper.CreateStyleForwardersForDefaultStyles(existingDictionary);
+
+                    // Step 2: always allow core libs to fill up the missing pieces
                     StyleHelper.CreateStyleForwardersForDefaultStyles();
                 }
             }

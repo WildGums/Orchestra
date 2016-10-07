@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ShellService.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="ShellService.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -122,7 +122,17 @@ namespace Orchestra.Services
         public async Task<TShell> CreateAsync<TShell>()
             where TShell : IShell
         {
-            return await CreateShellInternalAsync<TShell>();
+            // Note: it's important to change the application mode. If we are not showing a splash screen,
+            // the app won't have a window and will immediately close (if we start any task that is awaited).
+            var application = Application.Current;
+            var currentApplicationCloseMode = application.ShutdownMode;
+            application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+            var shell = await CreateShellInternalAsync<TShell>();
+
+            application.ShutdownMode = currentApplicationCloseMode;
+
+            return shell;
         }
 
         /// <summary>
@@ -215,11 +225,15 @@ namespace Orchestra.Services
             await _applicationInitializationService.InitializeAfterCreatingShellAsync();
         }
 
+        partial void OnCreatingShell();
+
         [Time]
         private async Task<TShell> CreateShellAsync<TShell>()
             where TShell : IShell
         {
-            Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName());
+            Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName(false));
+
+            OnCreatingShell();
 
             var shell = _typeFactory.CreateInstance<TShell>();
             Shell = shell;
@@ -229,12 +243,18 @@ namespace Orchestra.Services
             {
                 Log.Debug("Setting the new shell as Application.MainWindow");
 
+                shellAsWindow.Owner = null;
+
                 var currentApp = Application.Current;
                 currentApp.MainWindow = shellAsWindow;
             }
 
+            OnCreatedShell();
+
             return shell;
         }
+
+        partial void OnCreatedShell();
 
         [Time]
         private void ShowShell(IShell shell)

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RibbonViewModel.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="RibbonViewModel.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
     using Catel.MVVM;
     using Catel.Services;
     using Models;
-
+    using Orc.FileSystem;
     using Orchestra.Services;
     using Orchestra.ViewModels;
 
@@ -29,6 +29,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         private readonly IRecentlyUsedItemsService _recentlyUsedItemsService;
         private readonly IMessageService _messageService;
         private readonly IProcessService _processService;
+        private readonly IFileService _fileService;
 
         public RibbonViewModel(INavigationService navigationService, 
             IUIVisualizerService uiVisualizerService,
@@ -36,7 +37,8 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             IRecentlyUsedItemsService recentlyUsedItemsService, 
             IOpenFileService openFileService,
             IMessageService messageService,
-            IProcessService processService)
+            IProcessService processService,
+            IFileService fileService)
         {
             Argument.IsNotNull(() => navigationService);
             Argument.IsNotNull(() => uiVisualizerService);
@@ -45,6 +47,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             Argument.IsNotNull(() => openFileService);
             Argument.IsNotNull(() => messageService);
             Argument.IsNotNull(() => processService);
+            Argument.IsNotNull(() => fileService);
 
             _navigationService = navigationService;
             _uiVisualizerService = uiVisualizerService;
@@ -52,6 +55,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             _openFileService = openFileService;
             _messageService = messageService;
             _processService = processService;
+            _fileService = fileService;
 
             Help = new Command(OnHelpExecute);
             Open = new Command(this.OnOpenExecute);
@@ -152,7 +156,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             try
             {
                 // TODO replace following line with actual load logic
-                failed = !File.Exists(parameter);
+                failed = !_fileService.Exists(parameter);
             }
             catch (Exception)
             {
@@ -208,7 +212,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// </summary>
         private async void OnOpenInExplorerExecute(string parameter)
         {
-            if (!File.Exists(parameter))
+            if (!_fileService.Exists(parameter))
             {
                 await _messageService.ShowWarningAsync("The file doesn't seem to exist. Cannot open the project in explorer.");
                 return;

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Weavers VerifyAssembly="true">
+  <ModuleInit/>
+  <Obsolete/>
+  <MethodTimer/>
+  <Catel/>
+  <LoadAssembliesOnStartup/>
+</Weavers>

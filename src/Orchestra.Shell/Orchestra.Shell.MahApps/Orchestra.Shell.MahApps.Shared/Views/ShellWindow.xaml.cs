@@ -1,44 +1,38 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MainWindow.xaml.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="MainWindow.xaml.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
 namespace Orchestra.Views
 {
-    using System.Windows;
     using System.Windows.Data;
-    using Windows;
     using Catel.IoC;
     using Catel.MVVM;
+    using Catel.Windows;
     using MahApps.Metro.Controls;
     using Services;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
     /// </summary>
-    public partial class ShellWindow : MetroDataWindow, IShell
+    public partial class ShellWindow : IShell
     {
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="ShellWindow"/> class.
         /// </summary>
         public ShellWindow()
+            : base(DataWindowMode.Custom, setOwnerAndFocus: false)
         {
             var serviceLocator = ServiceLocator.Default;
 
-            var themeService = serviceLocator.ResolveType<IThemeService>();
-            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, themeService.ShouldCreateStyleForwarders());
-
-            MahAppsHelper.ApplyTheme();
-
             InitializeComponent();
 
-            serviceLocator.RegisterInstance(pleaseWaitProgressBar, "pleaseWaitService");
+            statusBar.Background = ThemeHelper.GetAccentColorBrush(AccentColorStyle.AccentColor4);
 
-            var accentColorBrush = ThemeHelper.GetAccentColorBrush();
-            border.BorderBrush = accentColorBrush;
+            serviceLocator.RegisterInstance(pleaseWaitProgressBar, "pleaseWaitService");
 
             var statusService = serviceLocator.ResolveType<IStatusService>();
             statusService.Initialize(statusTextBlock);
@@ -81,7 +75,10 @@ namespace Orchestra.Views
             var mainView = mahAppsService.GetMainView();
             contentControl.Content = mainView;
 
-            SetBinding(TitleProperty, new Binding("ViewModel.Title") { Source = mainView });
+            SetBinding(TitleProperty, new Binding("ViewModel.Title")
+            {
+                Source = mainView
+            });
         }
         #endregion
     }

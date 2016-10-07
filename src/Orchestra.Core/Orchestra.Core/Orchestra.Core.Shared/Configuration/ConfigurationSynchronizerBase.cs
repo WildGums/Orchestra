@@ -1,12 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ConfigurationSynchronizerBase.cs" company="Wild Gums">
-//   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
+// <copyright file="ConfigurationSynchronizerBase.cs" company="WildGums">
+//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
 namespace Orchestra.Configuration
 {
+    using System;
     using System.Threading.Tasks;
     using Catel;
     using Catel.Configuration;
@@ -56,23 +57,23 @@ namespace Orchestra.Configuration
             // Note: important to apply first, otherwise the check for values might be equal (which we don't want during first apply)
             if (ApplyAtStartup)
             {
-                await ApplyConfigurationAsync(true);
+                await ApplyConfigurationInternalAsync(true);
             }
 
-            _lastKnownValue = ConfigurationService.GetValue(Key, DefaultValue);
+            _lastKnownValue = ConfigurationService.GetRoamingValue(Key, DefaultValue);
         }
 
         private async void OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
         {
             if (e.IsConfigurationKey(Key))
             {
-                await ApplyConfigurationAsync();
+                await ApplyConfigurationInternalAsync();
             }
         }
 
-        private async Task ApplyConfigurationAsync(bool force = false)
+        private async Task ApplyConfigurationInternalAsync(bool force = false)
         {
-            var value = ConfigurationService.GetValue(Key, DefaultValue);
+            var value = ConfigurationService.GetRoamingValue(Key, DefaultValue);
             if (!force && ObjectHelper.AreEqual(value, _lastKnownValue))
             {
                 return;
@@ -80,7 +81,15 @@ namespace Orchestra.Configuration
 
             _lastKnownValue = value;
 
-            await ApplyConfigurationAsync(value);
+            try
+            {
+                await ApplyConfigurationAsync(value);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Failed to apply configuration value for '{Key}'");
+                throw;
+            }
 
             var status = GetStatus(value);
             if (!string.IsNullOrWhiteSpace(status))

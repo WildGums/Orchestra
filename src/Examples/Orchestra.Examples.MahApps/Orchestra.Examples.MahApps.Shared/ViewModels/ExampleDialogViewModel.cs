@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ExampleDialogViewModel.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="ExampleDialogViewModel.cs" company="WildGums">
+//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -11,9 +11,11 @@ namespace Orchestra.Examples.MahApps.ViewModels
 
     public class ExampleDialogViewModel : ViewModelBase
     {
+        #region Properties
         public override string Title
         {
             get { return "Bindable title"; }
         }
+        #endregion
     }
 }

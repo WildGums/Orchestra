@@ -906,7 +906,7 @@ AdditionalFileCopies=%AdditionalFileCopies%
                 <Property MultiValue="1" name="Description" type="string">
                   <![CDATA[Copy NuGet files for NET46]]>
                 </Property>
-                <Property name="Enabled" type="Boolean">False</Property>
+                <Property name="Enabled" type="Boolean">True</Property>
                 <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
                 <Property name="FailIfActionListEmpty" type="Boolean">False</Property>
                 <Property name="HideActionFromLog" type="Boolean">False</Property>

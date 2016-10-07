@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RibbonViewModel.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="RibbonViewModel.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -17,6 +17,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
     using Catel.Reflection;
     using Catel.Services;
     using Models;
+    using Orc.FileSystem;
     using Orchestra.Services;
     using Orchestra.ViewModels;
 
@@ -28,10 +29,11 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         private readonly IProcessService _processService;
         private readonly IMessageService _messageService;
         private readonly ISelectDirectoryService _selectDirectoryService;
+        private readonly IDirectoryService _directoryService;
 
         public RibbonViewModel(INavigationService navigationService, IUIVisualizerService uiVisualizerService,
             ICommandManager commandManager, IRecentlyUsedItemsService recentlyUsedItemsService, IProcessService processService,
-            IMessageService messageService, ISelectDirectoryService selectDirectoryService)
+            IMessageService messageService, ISelectDirectoryService selectDirectoryService, IDirectoryService directoryService)
         {
             Argument.IsNotNull(() => navigationService);
             Argument.IsNotNull(() => uiVisualizerService);
@@ -40,6 +42,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             Argument.IsNotNull(() => processService);
             Argument.IsNotNull(() => messageService);
             Argument.IsNotNull(() => selectDirectoryService);
+            Argument.IsNotNull(() => directoryService);
 
             _navigationService = navigationService;
             _uiVisualizerService = uiVisualizerService;
@@ -47,6 +50,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             _processService = processService;
             _messageService = messageService;
             _selectDirectoryService = selectDirectoryService;
+            _directoryService = directoryService;
 
             OpenProject = new Command(OnOpenProjectExecute);
             OpenRecentlyUsedItem = new Command<string>(OnOpenRecentlyUsedItemExecute);
@@ -108,7 +112,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// </summary>
         private async void OnOpenInExplorerExecute(string parameter)
         {
-            if (!Directory.Exists(parameter))
+            if (!_directoryService.Exists(parameter))
             {
                 await _messageService.ShowWarningAsync("The directory doesn't seem to exist. Cannot open the project in explorer.");
                 return;

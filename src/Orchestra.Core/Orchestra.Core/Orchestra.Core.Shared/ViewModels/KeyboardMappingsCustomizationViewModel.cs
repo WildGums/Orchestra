@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingsViewModel.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="KeyboardMappingsViewModel.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -88,6 +88,8 @@ namespace Orchestra.ViewModels
                 SelectedCommandInputGesture = _commandManager.GetInputGesture(SelectedCommand);
             }
 
+            _commandInfoService.Invalidate();
+
             UpdateCommands();
         }
 
@@ -106,8 +108,10 @@ namespace Orchestra.ViewModels
         private void OnRemoveExecute()
         {
             SelectedCommandInputGesture = null;
+
             _commandManager.UpdateInputGesture(SelectedCommand, null);
-            
+            _commandInfoService.Invalidate();
+
             UpdateCommands();
         }
 
@@ -167,15 +171,25 @@ namespace Orchestra.ViewModels
             }
 
             _commandManager.UpdateInputGesture(selectedCommand, selectedInputGesture);
+            _commandInfoService.Invalidate();
 
             UpdateCommands();
         }
         #endregion
 
         #region Methods
+        protected override async Task InitializeAsync()
+        {
+            await base.InitializeAsync();
+
+            _commandManager.IsKeyboardEventsSuspended = true;
+        }
+
         protected override async Task CloseAsync()
         {
             _keyboardMappingsService.Save();
+
+            _commandManager.IsKeyboardEventsSuspended = false;
 
             await base.CloseAsync();
         }

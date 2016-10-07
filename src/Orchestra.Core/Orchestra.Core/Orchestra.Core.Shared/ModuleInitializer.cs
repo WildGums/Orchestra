@@ -1,12 +1,15 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ModuleInitializer.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="ModuleInitializer.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
 using System;
+using System.Globalization;
 using System.IO;
+using System.Windows;
+using System.Windows.Markup;
 using Catel.IoC;
 using Catel.Logging;
 using Catel.Services;
@@ -30,6 +33,10 @@ public static class ModuleInitializer
     public static void Initialize()
     {
         InitializeLogging();
+
+        // Ensure that we are using the right culture
+        FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
+            new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
         var serviceLocator = ServiceLocator.Default;
 
@@ -112,7 +119,6 @@ public static class ModuleInitializer
 
         var fileLogListener = LogHelper.CreateFileLogListener(AssemblyHelper.GetEntryAssembly().GetName().Name);
 
-        fileLogListener.IgnoreCatelLogging = true;
         fileLogListener.IsDebugEnabled = false;
         fileLogListener.IsInfoEnabled = true;
         fileLogListener.IsWarningEnabled = true;

@@ -3,6 +3,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Orchestra.Shell.Ribbon.Fluent;Component/Themes/Office2013/Generic.xaml" />
+        <!--<ResourceDictionary Source="/Orchestra.Shell.Ribbon.Fluent;component/themes/controls.xaml" />-->
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="EnsureStartupService.cs" company="Wild Gums">
-//   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
+// <copyright file="EnsureStartupService.cs" company="WildGums">
+//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -12,6 +12,7 @@ namespace Orchestra.Services
     using Catel;
     using Catel.Logging;
     using Catel.Services;
+    using Orc.FileSystem;
     using Views;
 
     public class EnsureStartupService : IEnsureStartupService
@@ -19,24 +20,27 @@ namespace Orchestra.Services
         #region Fields
         private readonly IAppDataService _appDataService;
         private readonly IUIVisualizerService _uiVisualizerService;
+        private readonly IFileService _fileService;
         #endregion
 
         #region Constructors
-        public EnsureStartupService(IAppDataService appDataService, IUIVisualizerService uiVisualizerService)
+        public EnsureStartupService(IAppDataService appDataService, IUIVisualizerService uiVisualizerService, IFileService fileService)
         {
             Argument.IsNotNull(() => appDataService);
             Argument.IsNotNull(() => uiVisualizerService);
+            Argument.IsNotNull(() => fileService);
 
             _appDataService = appDataService;
             _uiVisualizerService = uiVisualizerService;
+            _fileService = fileService;
 
             var checkFile = GetCheckFileName();
-            SuccessfullyStarted = !File.Exists(checkFile);
+            SuccessfullyStarted = !_fileService.Exists(checkFile);
             
             // Always create the file
             Log.Debug("Creating fail safe file check");
 
-            using (File.Create(checkFile))
+            using (_fileService.Create(checkFile))
             {
                 // Dispose required
             }
@@ -58,9 +62,9 @@ namespace Orchestra.Services
 
             var checkFile = GetCheckFileName();
 
-            if (File.Exists(checkFile))
+            if (_fileService.Exists(checkFile))
             {
-                File.Delete(checkFile);
+                _fileService.Delete(checkFile);
             }
         }
 

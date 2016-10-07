@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MessageService.cs" company="Wild Gums">
-//   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
+// <copyright file="MessageService.cs" company="WildGums">
+//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -53,7 +53,7 @@ namespace Orchestra.Services
                 var previousCursor = Mouse.OverrideCursor;
                 Mouse.OverrideCursor = null;
 
-                var vm = _viewModelFactory.CreateViewModel<MessageBoxViewModel>(null);
+                var vm = _viewModelFactory.CreateViewModel<MessageBoxViewModel>(null, null);
 
                 vm.Message = message;
                 vm.Button = button;
@@ -67,7 +67,7 @@ namespace Orchestra.Services
 
                 Log.Info("Result of message: {0}", vm.Result);
 
-                tcs.SetResult(vm.Result);
+                tcs.TrySetResult(vm.Result);
             });
 
             return tcs.Task;

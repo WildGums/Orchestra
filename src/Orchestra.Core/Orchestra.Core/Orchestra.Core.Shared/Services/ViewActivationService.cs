@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ViewActivationService.cs" company="Wild Gums">
-//   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
+// <copyright file="ViewActivationService.cs" company="WildGums">
+//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -61,7 +61,7 @@ namespace Orchestra.Services
                         var userControl = view as UserControl;
                         if (userControl != null)
                         {
-                            Log.Info("View already exists, activating existing instance");
+                            Log.Debug("View already exists, activating existing instance");
 
                             userControl.Focus();
                             return true;
@@ -70,7 +70,7 @@ namespace Orchestra.Services
                         var window = view as Window;
                         if (window != null)
                         {
-                            Log.Info("View already exists, activating existing instance");
+                            Log.Debug("View already exists, activating existing instance");
 
                             window.Focus();
                             return true;
@@ -79,7 +79,7 @@ namespace Orchestra.Services
                 }
             }
 
-            Log.Info("Existing view not found");
+            Log.Debug("Existing view not found");
 
             return false;
         }

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PleaseWaitService.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="PleaseWaitService.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -39,6 +39,8 @@ namespace Orchestra.Services
         #region IPleaseWaitService Members
         public virtual void Show(string status = "")
         {
+            Log.Debug("Showing busy indicator");
+
             if (ShowCounter <= 0)
             {
                 ShowCounter = 1;
@@ -86,6 +88,8 @@ namespace Orchestra.Services
 
         public virtual void Hide()
         {
+            Log.Debug("Hiding busy indicator");
+
             ShowCounter = 0;
 
             _dispatcherService.BeginInvokeIfRequired(() =>
@@ -106,16 +110,21 @@ namespace Orchestra.Services
             {
                 ShowCounter++;
             }
+
+            Log.Debug($"Pushed busy indicator, counter is '{ShowCounter}'");
         }
 
         public virtual void Pop()
         {
             ShowCounter--;
 
+            Log.Debug($"Popped busy indicator, counter is '{ShowCounter}'");
+
             if (ShowCounter <= 0)
             {
                 Hide();
             }
+
         }
         #endregion
     }

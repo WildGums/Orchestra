@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2014-2015 Wild Gums
+Copyright (c) 2014-2016 WildGums
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,3 +20,45 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+==============================================================================
+
+Additional licenses / components
+--------------------------------
+
+Some parts are based on other open-source components. Each component that is based 
+on another component has a reference to the original component including the original 
+license the code was delivered upon. Below is a list of other components / licenses.
+
+Note: if you feel an item is missing in this list, please let us know!
+
+* Catel
+  https://github.com/catel/catel
+  Original license: MIT
+
+* ControlzEx
+  https://github.com/controlzex/controlzex
+  Original license: MIT  
+  
+* DotNetZip
+  https://dotnetzip.codeplex.com/
+  Original license: Ms-PL (compatible with MIT)
+
+* Fluent.Ribbon
+  https://github.com/fluentribbon/fluent.ribbon
+  Original license: MIT    
+  
+* MahApps.Metro
+  https://github.com/mahapps/mahapps.metro
+  Original license: Ms-PL (compatible with MIT)
+  
+* Orc.Controls
+  https://github.com/wildgums/orc.controls
+  Original license: MIT
+  
+* Orc.LogViewer
+  https://github.com/wildgums/orc.logviewer
+  Original license: MIT  
+  
+* Orc.SystemInfo
+  https://github.com/wildgums/orc.systeminfo
+  Original license: MIT

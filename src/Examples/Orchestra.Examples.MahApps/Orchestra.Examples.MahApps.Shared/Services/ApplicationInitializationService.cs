@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ApplicationInitializationService.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="ApplicationInitializationService.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ namespace Orchestra.Examples.MahApps.Services
 
             var dependencyResolver = this.GetDependencyResolver();
             var flyoutService = dependencyResolver.Resolve<IFlyoutService>();
-            flyoutService.AddFlyout<PersonView>(ExampleEnvironment.PersonFlyoutName, Position.Right);
+            flyoutService.AddFlyout<PersonView>(ExampleEnvironment.PersonFlyoutName, Position.Right, flyoutTheme: FlyoutTheme.Accent);
         }
 
         private async Task InitializeCommands()

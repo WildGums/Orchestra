@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingsService.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="KeyboardMappingsService.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -14,6 +14,7 @@ namespace Orchestra.Services
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Runtime.Serialization.Xml;
+    using Orc.FileSystem;
     using Orchestra.Models;
     using Path = Catel.IO.Path;
 
@@ -23,16 +24,19 @@ namespace Orchestra.Services
 
         private readonly ICommandManager _commandManager;
         private readonly IXmlSerializer _xmlSerializer;
+        private readonly IFileService _fileService;
 
         private readonly string _fileName;
 
-        public KeyboardMappingsService(ICommandManager commandManager, IXmlSerializer xmlSerializer)
+        public KeyboardMappingsService(ICommandManager commandManager, IXmlSerializer xmlSerializer, IFileService fileService)
         {
             Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => xmlSerializer);
+            Argument.IsNotNull(() => fileService);
 
             _commandManager = commandManager;
             _xmlSerializer = xmlSerializer;
+            _fileService = fileService;
             _fileName = Path.Combine(Path.GetApplicationDataDirectory(), "keyboardmappings.xml");
 
             AdditionalKeyboardMappings = new List<KeyboardMapping>();
@@ -46,15 +50,15 @@ namespace Orchestra.Services
 
             try
             {
-                if (!File.Exists(_fileName))
+                if (!_fileService.Exists(_fileName))
                 {
                     Log.Warning("Keyboard mapping file not found at '{0}'", _fileName);
                     return;
                 }
 
-                using (var fileStream = File.Open(_fileName, FileMode.Open, FileAccess.Read))
+                using (var fileStream = _fileService.OpenRead(_fileName))
                 {
-                    var keyboardMappings = _xmlSerializer.Deserialize(typeof (KeyboardMappings), fileStream) as KeyboardMappings;
+                    var keyboardMappings = _xmlSerializer.Deserialize(typeof (KeyboardMappings), fileStream, null) as KeyboardMappings;
                     if (keyboardMappings != null)
                     {
                         foreach (var keyboardMapping in keyboardMappings.Mappings)
@@ -94,9 +98,9 @@ namespace Orchestra.Services
                     keyboardMappings.Mappings.Add(keyboardMapping);
                 }
 
-                using (var fileStream = File.Open(_fileName, FileMode.Create, FileAccess.Write))
+                using (var fileStream = _fileService.Create(_fileName))
                 {
-                    _xmlSerializer.Serialize(keyboardMappings, fileStream);
+                    _xmlSerializer.Serialize(keyboardMappings, fileStream, null);
                 }
             }
             catch (Exception ex)

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LogHelper.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="LogHelper.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -53,7 +53,7 @@ namespace Orchestra
             }
 
             var fileName = Path.Combine(directory, prefix + "_{Date}_{Time}_{ProcessId}");
-            var fileLogListener = new FileLogListener(fileName, 10 * 1024);
+            var fileLogListener = new Orchestra.Logging.FileLogListener(fileName, 10 * 1024);
 
             return fileLogListener;
         }

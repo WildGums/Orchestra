@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AboutViewModel.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="AboutViewModel.cs" company="WildGums">
+//   Copyright (c) 2008 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -40,18 +40,18 @@ namespace Orchestra.ViewModels
             _languageService = languageService;
 
             var assembly = aboutInfo.Assembly;
-            var version = VersionHelper.GetCurrentVersion(assembly);
-            var buildDateTime = assembly.GetBuildDateTime();
+            var version = aboutInfo.DisplayVersion;
+            var buildDateTime = aboutInfo.BuildDateTime.Value;
 
-            Title = assembly.Title();
-            Version = string.Format("v {0}", version);
+            Title = aboutInfo.Name;
+            Version = string.Format("v {0}", aboutInfo.DisplayVersion);
             BuildDateTime = string.Format(languageService.GetString("Orchestra_BuiltOn"), buildDateTime);
             UriInfo = aboutInfo.UriInfo;
-            Copyright = assembly.Copyright();
+            Copyright = aboutInfo.Copyright;
             CompanyLogoUri = aboutInfo.CompanyLogoUri;
             ImageSourceUrl = aboutInfo.LogoImageSource;
             ShowLogButton = aboutInfo.ShowLogButton;
-            AppIcon = assembly.ExtractLargestIcon();
+            AppIcon = aboutInfo.AppIcon;
             OpenUrl = new Command(OnOpenUrlExecute, OnOpenUrlCanExecute);
             OpenLog = new TaskCommand(OnOpenLogExecuteAsync);
             ShowSystemInfo = new Command(OnShowSystemInfoExecute);

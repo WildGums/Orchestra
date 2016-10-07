@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IViewActivationServiceExtensions.cs" company="Wild Gums">
-//   Copyright (c) 2008 - 2015 Wild Gums. All rights reserved.
+// <copyright file="IViewActivationServiceExtensions.cs" company="WildGums">
+//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ namespace Orchestra.Services
                 var viewModelFactory = dependencyResolver.Resolve<IViewModelFactory>();
                 var uiVisualizerService = dependencyResolver.Resolve<IUIVisualizerService>();
 
-                var vm = viewModelFactory.CreateViewModel(viewModelType, null);
+                var vm = viewModelFactory.CreateViewModel(viewModelType, null, null);
                 uiVisualizerService.Show(vm);
             }
         }

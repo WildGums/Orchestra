@@ -7,7 +7,7 @@
 ![Version](https://img.shields.io/nuget/v/orchestra.core.svg)
 ![Pre-release version](https://img.shields.io/nuget/vpre/orchestra.core.svg)
 
-Orchestra is a composable shell built on top of [Catel](http://www.catelproject.com).
+Orchestra is a composable shell built on top of [Catel](http://www.catelproject.com). 
 
 Orchestra consists of a main shell including an SDK with services that allows developers to communicate with the shell. Developers can write their own modules which implement the actual functionality of their application.
 

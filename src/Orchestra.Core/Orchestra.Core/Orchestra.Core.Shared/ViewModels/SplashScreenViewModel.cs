@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SplashScreenViewModel.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="SplashScreenViewModel.cs" company="WildGums">
+//   Copyright (c) 2008 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -21,6 +21,7 @@ namespace Orchestra.ViewModels
     /// </summary>
     public class SplashScreenViewModel : ViewModelBase
     {
+        private readonly IAboutInfoService _aboutInfoService;
         private readonly ILanguageService _languageService;
 
         public SplashScreenViewModel(IAboutInfoService aboutInfoService, ILanguageService languageService)
@@ -28,10 +29,8 @@ namespace Orchestra.ViewModels
             Argument.IsNotNull(() => aboutInfoService);
             Argument.IsNotNull(() => languageService);
 
+            _aboutInfoService = aboutInfoService;
             _languageService = languageService;
-
-            var aboutInfo = aboutInfoService.GetAboutInfo();
-            CompanyLogoForSplashScreenUri = aboutInfo.CompanyLogoForSplashScreenUri;
         }
 
         #region Properties
@@ -49,14 +48,13 @@ namespace Orchestra.ViewModels
         {
             await base.InitializeAsync();
 
-            var assembly = Orchestra.AssemblyHelper.GetEntryAssembly();
-            if (assembly != null)
-            {
-                Title = assembly.Title();
-                Company = assembly.Company();
-                ProducedBy = string.Format(_languageService.GetString("Orchestra_ProducedBy"), Company);
-                Version = VersionHelper.GetCurrentVersion(assembly);
-            }
+            var aboutInfo = _aboutInfoService.GetAboutInfo();
+
+            Title = aboutInfo.Name;
+            Company = aboutInfo.Company;
+            CompanyLogoForSplashScreenUri = aboutInfo.CompanyLogoForSplashScreenUri;
+            ProducedBy = string.Format(_languageService.GetString("Orchestra_ProducedBy"), Company);
+            Version = aboutInfo.DisplayVersion;
         }
         #endregion
     }

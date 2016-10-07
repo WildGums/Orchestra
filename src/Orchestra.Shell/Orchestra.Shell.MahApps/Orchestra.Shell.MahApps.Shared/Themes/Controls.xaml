@@ -1,0 +1,166 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls">
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic/catel.sizes.normal.xaml" />
+
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+
+        <!-- Important: do NOT include these controls, the controls are manually imported below -->
+        <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />-->
+
+        <!-- All of this is also imported in Controls.xaml, but we need this for the based on stuff -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Sizes.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Page.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/ValidationErrorTemplate.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Scrollbars.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ListView.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Buttons.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Calendar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.CheckBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ComboBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ContextMenu.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.DatePicker.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.DataGrid.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Expander.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.GroupBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ListBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.PasswordBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ProgressBar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.RadioButton.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Slider.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TabControl.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBlock.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Label.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Tooltip.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ToolBar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TreeView.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.StatusBar.xaml" />
+
+        <!-- Additional styles -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MetroButton}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button}" />
+    </Style>
+
+    <Style x:Key="DefaultCheckBoxStyle" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MetroCheckBox}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.CheckBox}" />
+    </Style>
+
+    <Style x:Key="DefaultComboBoxStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MetroComboBox}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+    </Style>
+
+    <!--<Style x:Key="DefaultDataGridStyle" TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MetroDataGrid}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+    </Style>
+
+    <Style x:Key="DefaultDataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MetroDataGridColumnHeader}">
+    </Style>
+
+    <Style x:Key="DefaultDataGridCellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MetroDataGridCell}">
+    </Style>
+
+    <Style x:Key="DefaultDataGridRowStyle" TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MetroDataGridRow}">
+    </Style>
+
+    <Style x:Key="DefaultDataGridRowHeaderStyle" TargetType="{x:Type DataGridRowHeader}" BasedOn="{StaticResource MetroDataGridRowHeader}">
+    </Style>-->
+
+    <Style x:Key="DefaultDatePickerStyle" TargetType="{x:Type DatePicker}" BasedOn="{StaticResource MetroDatePicker}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+    </Style>
+
+    <Style x:Key="DefaultGroupBoxStyle" TargetType="{x:Type GroupBox}" BasedOn="{StaticResource MetroGroupBox}">
+        <Setter Property="Margin" Value="6,4,6,4" />
+    </Style>
+
+    <Style x:Key="DefaultLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource MetroLabel}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+    </Style>
+
+    <Style x:Key="DefaultPasswordBoxStyle" TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource MetroPasswordBox}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+    </Style>
+
+    <Style x:Key="DefaultProgressBarStyle" TargetType="{x:Type ProgressBar}" BasedOn="{StaticResource MetroProgressBar}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+    </Style>
+
+    <Style x:Key="DefaultRadioButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MetroRadioButton}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.RadioButton}" />
+    </Style>
+
+    <Style x:Key="DefaultSliderStyle" TargetType="{x:Type Slider}" BasedOn="{StaticResource MetroSlider}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+    </Style>
+
+    <Style x:Key="DefaultTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MetroTextBox}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+    </Style>
+
+    <Style x:Key="DefaultToggleButtonStyle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MetroToggleButton}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button}" />
+    </Style>
+
+    <!-- Styles from https://github.com/Catel/Catel/blob/develop/src/Catel.MVVM/Catel.MVVM.NET40/Themes/DataWindow.generic.xaml -->
+    <Style x:Key="DataWindowButtonStyle" TargetType="Button" BasedOn="{StaticResource MetroButton}">
+        <Setter Property="Margin" Value="6, 6, 0, 0" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="MinHeight" Value="23" />
+    </Style>
+
+    <!-- Controls below are from this url:
+         https://github.com/MahApps/MahApps.Metro/blob/master/MahApps.Metro/Styles/Controls.xaml -->
+
+    <Style x:Key="MetroToggleSwitchButton" TargetType="{x:Type mahapps:ToggleSwitchButton}" BasedOn="{StaticResource {x:Type mahapps:ToggleSwitchButton}}" />
+    <Style x:Key="MetroToggleSwitch" TargetType="{x:Type mahapps:ToggleSwitch}" BasedOn="{StaticResource {x:Type mahapps:ToggleSwitch}}" />
+
+    <!-- note: default style for textblock is now in MetroWindow !!! -->
+
+    <Style TargetType="{x:Type mahapps:CustomValidationPopup}" BasedOn="{StaticResource MetroValidationPopup}" />
+    <Style TargetType="ToolTip" BasedOn="{StaticResource MetroToolTip}" />
+    <!--<Style TargetType="Button" BasedOn="{StaticResource MetroButton}" />-->
+    <!--<Style TargetType="ToggleButton" BasedOn="{StaticResource MetroToggleButton}" />-->
+    <!--<Style TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}" />-->
+    <Style TargetType="RichTextBox" BasedOn="{StaticResource MetroRichTextBox}" />
+    <!--<Style TargetType="Slider" BasedOn="{StaticResource MetroSlider}" />-->
+    <!--<Style TargetType="Label" BasedOn="{StaticResource MetroLabel}" />-->
+    <Style TargetType="TabItem" BasedOn="{StaticResource MetroTabItem}" />
+    <Style TargetType="TabControl" BasedOn="{StaticResource MetroTabControl}" />
+    <Style TargetType="ScrollBar" BasedOn="{StaticResource MetroScrollBar}" />
+    <!--<Style TargetType="RadioButton" BasedOn="{StaticResource MetroRadioButton}" />
+    <Style TargetType="ProgressBar" BasedOn="{StaticResource MetroProgressBar}" />
+    <Style TargetType="PasswordBox" BasedOn="{StaticResource MetroPasswordBox}" />
+    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroCheckBox}" />
+    <Style TargetType="ComboBox" BasedOn="{StaticResource MetroComboBox}" />-->
+    <Style TargetType="ComboBoxItem" BasedOn="{StaticResource MetroComboBoxItem}" />
+    <!--    <Style TargetType="Separator" BasedOn="{StaticResource MetroSeparator}" />-->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource MetroMenuItem}" />
+    <Style TargetType="Menu" BasedOn="{StaticResource MetroMenu}" />
+    <Style TargetType="ContextMenu" BasedOn="{StaticResource MetroContextMenu}" />
+    <Style TargetType="Expander" BasedOn="{StaticResource MetroExpander}" />
+    <!--<Style TargetType="GroupBox" BasedOn="{StaticResource MetroGroupBox}" />-->
+    <Style TargetType="ListBox" BasedOn="{StaticResource MetroListBox}" />
+    <Style TargetType="ListBoxItem" BasedOn="{StaticResource MetroListBoxItem}" />
+    <Style TargetType="GridViewColumnHeader" BasedOn="{StaticResource MetroGridViewColumnHeader}" />
+    <Style TargetType="ListView" BasedOn="{StaticResource MetroListView}" />
+    <Style TargetType="ListViewItem" BasedOn="{StaticResource MetroListViewItem}" />
+    <Style TargetType="TreeView" BasedOn="{StaticResource MetroTreeView}" />
+    <Style TargetType="TreeViewItem" BasedOn="{StaticResource MetroTreeViewItem}" />
+    <!--<Style TargetType="DatePicker" BasedOn="{StaticResource MetroDatePicker}" />-->
+    <Style TargetType="DatePickerTextBox" BasedOn="{StaticResource MetroDatePickerTextBox}" />
+    <Style TargetType="Calendar" BasedOn="{StaticResource MetroCalendar}" />
+    <Style TargetType="DataGrid" BasedOn="{StaticResource MetroDataGrid}" />
+    <Style TargetType="StatusBar" BasedOn="{StaticResource MetroStatusBar}" />
+    <Style TargetType="StatusBarItem" BasedOn="{StaticResource MetroStatusBarItem}" />
+    <Style TargetType="ScrollViewer" BasedOn="{StaticResource MetroScrollViewer}" />
+
+</ResourceDictionary>

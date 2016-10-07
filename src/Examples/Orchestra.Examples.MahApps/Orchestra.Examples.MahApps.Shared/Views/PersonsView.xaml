@@ -4,13 +4,15 @@
                    xmlns:catel="http://catel.codeplex.com"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
 
-    <Grid>
+    <catel:StackGrid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal">
             <Button  Command="{Binding Add}" ToolTip="Add">
                 <Rectangle Width="14" Height="14" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
                     <Rectangle.OpacityMask>
@@ -36,7 +38,27 @@
             </Button>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Persons}" 
+        <GroupBox Header="Group box 1 test">
+            <catel:StackGrid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Label Content="Some label" />
+                <ComboBox />
+            </catel:StackGrid>
+        </GroupBox>
+
+        <GroupBox Header="Group box 2 test">
+
+        </GroupBox>
+
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Persons}" Margin="6,4,6,4"
                   SelectedItem="{Binding SelectedPerson}" SelectionMode="Single" CanUserAddRows="False">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
@@ -53,6 +75,6 @@
                                     Binding="{Binding LastName, Mode=OneWay}" />
             </DataGrid.Columns>
         </DataGrid>
-    </Grid>
+    </catel:StackGrid>
     
 </catel:UserControl>

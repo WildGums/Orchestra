@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MahAppsHelper.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="MahAppsHelper.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -60,17 +60,35 @@ namespace Orchestra
             // Theme is always the 0-index of the resources
             var application = Application.Current;
             var applicationResources = application.Resources;
-            var resourceDictionary = applicationResources.MergedDictionaries[0];
+            var resourceDictionary = ThemeHelper.GetAccentColorResourceDictionary();
 
             var applicationTheme = ThemeManager.AppThemes.First(x => string.Equals(x.Name, "BaseLight"));
 
             // Insert to get the best MahApps performance (when looking up themes)
-            applicationResources.MergedDictionaries.Insert(1, applicationTheme.Resources);
+            applicationResources.MergedDictionaries.Remove(resourceDictionary);
+            applicationResources.MergedDictionaries.Insert(2, applicationTheme.Resources);
 
             Log.Debug("Applying theme to MahApps");
 
-            var newAccent = new Accent { Resources = resourceDictionary };
+            var newAccent = new Accent
+            {
+                Name = "Runtime accent (Orchestra)",
+                Resources = resourceDictionary
+            };
+
             ThemeManager.ChangeAppStyle(application, newAccent, applicationTheme);
+
+            // Note: important to add the resources dictionary *after* changing the app style, but then insert at the top 
+            // so MahApps theme detection performance is best
+            applicationResources.MergedDictionaries.Insert(1, resourceDictionary);
+
+            //var theme = ThemeManager.GetAppTheme(applicationResources);
+            //if (theme == null)
+            //{
+            //    // Note: check ThemeManager.IsAccentDictionary() in https://github.com/MahApps/MahApps.Metro/blob/develop/MahApps.Metro/ThemeManager.cs#L234 
+            //    // for a list of expected resources
+            //    Log.Warning("No app theme found after applying it, make sure to include all resources that MahApps expects inside ThemeHelper.GetAccentColorResourceDictionary()");
+            //}
         }
     }
 }

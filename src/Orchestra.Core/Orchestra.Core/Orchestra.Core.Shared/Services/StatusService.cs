@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StatusService.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="StatusService.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ namespace Orchestra.Services
 
             _statusFilterService = statusFilterService;
 
-            var statusLogListener = new StatusLogListener(this);
+            var statusLogListener = new Orchestra.Logging.StatusLogListener(this);
 
             LogManager.AddListener(statusLogListener);
         }

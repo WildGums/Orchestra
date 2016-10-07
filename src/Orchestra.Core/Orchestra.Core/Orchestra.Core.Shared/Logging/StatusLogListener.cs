@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StatusLogListener.cs" company="Orchestra development team">
-//   Copyright (c) 2008 - 2014 Orchestra development team. All rights reserved.
+// <copyright file="StatusLogListener.cs" company="WildGums">
+//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ namespace Orchestra.Logging
     /// <summary>
     /// Status log listener.
     /// </summary>
-    public class StatusLogListener : LogListenerBase
+    public class StatusLogListener : Catel.Logging.StatusLogListener
     {
         #region Fields
         private readonly IStatusService _statusService;
@@ -31,6 +31,10 @@ namespace Orchestra.Logging
 
             IgnoreCatelLogging = true;
             IsDebugEnabled = false;
+            IsInfoEnabled = false;
+            IsWarningEnabled = false;
+            IsErrorEnabled = false;
+            IsStatusEnabled = true;
         }
         #endregion
 
