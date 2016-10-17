@@ -112,7 +112,7 @@ namespace Orchestra.Controls
             }
             else
             {
-                textBlockToHide.Opacity = 0d;
+                textBlockToHide.SetCurrentValue(OpacityProperty, 0d);
                 OnHideComplete();
             }
         }
@@ -142,7 +142,7 @@ namespace Orchestra.Controls
             }
 
             var textBlockToShow = (TextBlock)_contentGrid.Children[_currentIndex];
-            textBlockToShow.Text = Text;
+            textBlockToShow.SetCurrentValue(TextBlock.TextProperty, Text);
 
             var showStoryboard = ShowStoryboard;
             if (showStoryboard != null)
@@ -155,7 +155,7 @@ namespace Orchestra.Controls
             }
             else
             {
-                textBlockToShow.Opacity = 1d;
+                textBlockToShow.SetCurrentValue(OpacityProperty, 1d);
             }
         }
 
@@ -181,7 +181,7 @@ namespace Orchestra.Controls
         private void InitializeControl()
         {
             _contentGrid = CreateContent();
-            Content = _contentGrid;
+            SetCurrentValue(ContentProperty, _contentGrid);
         }
 
         private Grid CreateContent()
@@ -189,7 +189,7 @@ namespace Orchestra.Controls
             var grid = new Grid();
 
             var renderTransform = RenderTransform;
-            RenderTransform = null;
+            SetCurrentValue(RenderTransformProperty, null);
 
             for (int i = 0; i < 2; i++)
             {
@@ -213,7 +213,7 @@ namespace Orchestra.Controls
         /// <param name="status">The status.</param>
         public void UpdateStatus(string status)
         {
-            Dispatcher.BeginInvoke(() => Text = status);
+            Dispatcher.BeginInvoke(() => SetCurrentValue(TextProperty, status));
         }
     }
 }

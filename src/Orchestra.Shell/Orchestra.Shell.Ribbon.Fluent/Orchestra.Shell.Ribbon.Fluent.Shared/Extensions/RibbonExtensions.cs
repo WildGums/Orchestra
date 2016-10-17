@@ -40,7 +40,7 @@ namespace Orchestra
 
             if (imageSource != null)
             {
-                button.Icon = imageSource;
+                button.SetCurrentValue(FluentButton.IconProperty, imageSource);
             }
 
             return button;

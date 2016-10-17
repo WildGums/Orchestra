@@ -58,14 +58,14 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => window);
 
-            window.MaxWidth = SystemParameters.WorkArea.Width - 40;
+            window.SetCurrentValue(FrameworkElement.MaxWidthProperty, SystemParameters.WorkArea.Width - 40);
         }
 
         public static void SetMaximumHeight(this Window window)
         {
             Argument.IsNotNull(() => window);
 
-            window.MaxHeight = SystemParameters.WorkArea.Height - 40;
+            window.SetCurrentValue(FrameworkElement.MaxHeightProperty, SystemParameters.WorkArea.Height - 40);
         }
 
         public static void CenterWindowToScreen(this Window window)
@@ -104,8 +104,8 @@ namespace Orchestra
             var windowWidth = window.Width;
             var windowHeight = window.Height;
 
-            window.Left = parentRect.Left + (parentRect.Width / 2) - (windowWidth / 2);
-            window.Top = parentRect.Top + (parentRect.Height / 2) - (windowHeight / 2);
+            window.SetCurrentValue(Window.LeftProperty, parentRect.Left + (parentRect.Width / 2) - (windowWidth / 2));
+            window.SetCurrentValue(Window.TopProperty, parentRect.Top + (parentRect.Height / 2) - (windowHeight / 2));
         }
 
         [DllImport("user32.dll")]

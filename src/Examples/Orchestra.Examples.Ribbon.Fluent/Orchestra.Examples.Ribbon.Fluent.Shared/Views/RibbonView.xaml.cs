@@ -7,15 +7,9 @@
 
 namespace Orchestra.Examples.Ribbon.Views
 {
-    /// <summary>
-    /// Interaction logic for RibbonView.xaml.
-    /// </summary>
     public partial class RibbonView 
     {
         #region Constructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RibbonView"/> class.
-        /// </summary>
         public RibbonView()
         {
             InitializeComponent();
@@ -27,7 +21,7 @@ namespace Orchestra.Examples.Ribbon.Views
         {
             base.OnViewModelChanged();
 
-            backstageTabControl.DataContext = ViewModel;
+            backstageTabControl.SetCurrentValue(DataContextProperty, ViewModel);
         }
         #endregion
     }

@@ -86,15 +86,17 @@ namespace Orchestra
             return true;
         }
 
-        [ObsoleteEx(ReplacementTypeOrMember = "Execute", TreatAsErrorFromVersion = "3.0.0", RemoveInVersion = "4.0.0")]
         protected virtual async Task ExecuteAsync(TExecuteParameter parameter)
         {
             
         }
 
-        protected virtual async Task Execute(TExecuteParameter parameter)
+        [ObsoleteEx(ReplacementTypeOrMember = "ExecuteAsync", TreatAsErrorFromVersion = "3.0.0", RemoveInVersion = "4.0.0")]
+#pragma warning disable UseAsyncSuffix // Use Async suffix
+        protected virtual Task Execute(TExecuteParameter parameter)
+#pragma warning restore UseAsyncSuffix // Use Async suffix
         {
-            await ExecuteAsync(parameter);
+            return ExecuteAsync(parameter);
         }
         
         #endregion

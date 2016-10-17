@@ -52,9 +52,9 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             _selectDirectoryService = selectDirectoryService;
             _directoryService = directoryService;
 
-            OpenProject = new Command(OnOpenProjectExecute);
-            OpenRecentlyUsedItem = new Command<string>(OnOpenRecentlyUsedItemExecute);
-            OpenInExplorer = new Command<string>(OnOpenInExplorerExecute);
+            OpenProject = new TaskCommand(OnOpenProjectExecuteAsync);
+            OpenRecentlyUsedItem = new TaskCommand<string>(OnOpenRecentlyUsedItemExecuteAsync);
+            OpenInExplorer = new TaskCommand<string>(OnOpenInExplorerExecuteAsync);
             UnpinItem = new Command<string>(OnUnpinItemExecute);
             PinItem = new Command<string>(OnPinItemExecute);
 
@@ -76,12 +76,12 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// <summary>
         /// Gets the OpenProject command.
         /// </summary>
-        public Command OpenProject { get; private set; }
+        public TaskCommand OpenProject { get; private set; }
 
         /// <summary>
         /// Method to invoke when the OpenProject command is executed.
         /// </summary>
-        private async void OnOpenProjectExecute()
+        private async Task OnOpenProjectExecuteAsync()
         {
             if (_selectDirectoryService.DetermineDirectory())
             {
@@ -92,25 +92,25 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// <summary>
         /// Gets the OpenRecentlyUsedItem command.
         /// </summary>
-        public Command<string> OpenRecentlyUsedItem { get; private set; }
+        public TaskCommand<string> OpenRecentlyUsedItem { get; private set; }
 
         /// <summary>
         /// Method to invoke when the OpenRecentlyUsedItem command is executed.
         /// </summary>
-        private async void OnOpenRecentlyUsedItemExecute(string parameter)
+        private Task OnOpenRecentlyUsedItemExecuteAsync(string parameter)
         {
-            await _messageService.ShowAsync(string.Format("Just opened a recently used item: {0}", parameter));
+            return _messageService.ShowAsync($"Just opened a recently used item: {parameter}");
         }
 
         /// <summary>
         /// Gets the OpenInExplorer command.
         /// </summary>
-        public Command<string> OpenInExplorer { get; private set; }
+        public TaskCommand<string> OpenInExplorer { get; private set; }
 
         /// <summary>
         /// Method to invoke when the OpenInExplorer command is executed.
         /// </summary>
-        private async void OnOpenInExplorerExecute(string parameter)
+        private async Task OnOpenInExplorerExecuteAsync(string parameter)
         {
             if (!_directoryService.Exists(parameter))
             {

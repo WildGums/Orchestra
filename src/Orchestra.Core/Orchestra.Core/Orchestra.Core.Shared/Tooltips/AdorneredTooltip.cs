@@ -55,7 +55,7 @@ namespace Orchestra.Tooltips
         #region Methods
         private void UpdateVisibility()
         {
-            _adorner.Visibility = _visible && _adornerLayerVisible ? Visibility.Visible : Visibility.Collapsed;
+            _adorner.SetCurrentValue(UIElement.VisibilityProperty, _visible && _adornerLayerVisible ? Visibility.Visible : Visibility.Collapsed);
         }
         #endregion
     }

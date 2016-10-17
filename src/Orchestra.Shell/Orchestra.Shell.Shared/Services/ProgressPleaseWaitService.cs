@@ -44,7 +44,7 @@ namespace Orchestra.Services
                 {
                     Log.Debug("Hiding progress bar");
 
-                    progressBar.Visibility = Visibility.Hidden;
+                    progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
                 });
             }
         }
@@ -58,9 +58,9 @@ namespace Orchestra.Services
             {
                 _dispatcherService.BeginInvoke(() =>
                 {
-                    progressBar.Minimum = 0;
-                    progressBar.Maximum = totalItems;
-                    progressBar.Value = currentItem;
+                    progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MinimumProperty, (double)0);
+                    progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MaximumProperty, (double)totalItems);
+                    progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.ValueProperty, (double)currentItem);
 
                     if (currentItem < 0 || currentItem >= totalItems)
                     {
@@ -69,7 +69,7 @@ namespace Orchestra.Services
                         var storyboard = GetHideProgressBarStoryboard();
                         storyboard.Completed += (sender, e) =>
                         {
-                            progressBar.Visibility = Visibility.Hidden;
+                            progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
                         };
 
                         storyboard.Begin(progressBar);
@@ -78,7 +78,7 @@ namespace Orchestra.Services
                     {
                         Log.Debug("Showing progress bar");
 
-                        progressBar.Visibility = Visibility.Visible;
+                        progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Visible);
                     }
                 });
             }

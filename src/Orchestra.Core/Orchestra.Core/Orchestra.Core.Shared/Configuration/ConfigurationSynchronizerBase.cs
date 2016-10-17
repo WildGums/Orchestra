@@ -52,7 +52,9 @@ namespace Orchestra.Configuration
 
         protected abstract string GetStatus(T value);
 
+#pragma warning disable AvoidAsyncVoid
         async void INeedCustomInitialization.Initialize()
+#pragma warning restore AvoidAsyncVoid
         {
             // Note: important to apply first, otherwise the check for values might be equal (which we don't want during first apply)
             if (ApplyAtStartup)
@@ -63,7 +65,9 @@ namespace Orchestra.Configuration
             _lastKnownValue = ConfigurationService.GetRoamingValue(Key, DefaultValue);
         }
 
+#pragma warning disable AvoidAsyncVoid
         private async void OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+#pragma warning restore AvoidAsyncVoid
         {
             if (e.IsConfigurationKey(Key))
             {

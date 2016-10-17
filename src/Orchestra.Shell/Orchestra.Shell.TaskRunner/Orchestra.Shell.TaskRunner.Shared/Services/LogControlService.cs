@@ -27,7 +27,7 @@ namespace Orchestra.Services
         public LogEvent SelectedLevel
         {
             get { return _traceOutputControl.Level; }
-            set { _traceOutputControl.Level = value; }
+            set { _traceOutputControl.SetCurrentValue(AdvancedLogViewerControl.LevelProperty, value); }
         }
 
         public void Clear()

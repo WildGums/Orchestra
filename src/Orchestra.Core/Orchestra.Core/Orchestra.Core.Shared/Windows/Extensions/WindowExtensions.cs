@@ -31,7 +31,7 @@ namespace Orchestra.Windows
                 var mainWindow = application.MainWindow;
                 if (mainWindow != null)
                 {
-                    window.Icon = application.MainWindow.Icon;
+                    window.SetCurrentValue(Window.IconProperty, application.MainWindow.Icon);
                 }
             }
         }

@@ -1,12 +1,11 @@
-﻿<UserControl x:Class="WPFSpark.FluidProgressBar"
+﻿<UserControl x:Class="Orchestra.Controls.FluidProgressBar"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:wpfspark="clr-namespace:WPFSpark"
-             mc:Ignorable="d"
-             d:DesignHeight="300"
-             d:DesignWidth="300">
+             xmlns:controls="clr-namespace:Orchestra.Controls"
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+    
     <UserControl.Resources>
         <ExponentialEase EasingMode="EaseOut"
                          Exponent="2"
@@ -133,11 +132,11 @@
     </UserControl.Resources>
     <Grid>
         <Rectangle x:Name="Dot1"
-                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   Width="{Binding Path=DotWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   Height="{Binding Path=DotHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   RadiusX="{Binding Path=DotRadiusX, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   RadiusY="{Binding Path=DotRadiusY, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
+                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   Width="{Binding Path=DotWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   Height="{Binding Path=DotHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   RadiusX="{Binding Path=DotRadiusX, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   RadiusY="{Binding Path=DotRadiusY, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
                    HorizontalAlignment="Left"
                    IsHitTestVisible="False"
                    Opacity="0">
@@ -151,11 +150,11 @@
             </Rectangle.CacheMode>
         </Rectangle>
         <Rectangle x:Name="Dot2"
-                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   Width="{Binding Path=DotWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   Height="{Binding Path=DotHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   RadiusX="{Binding Path=DotRadiusX, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   RadiusY="{Binding Path=DotRadiusY, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
+                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   Width="{Binding Path=DotWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   Height="{Binding Path=DotHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   RadiusX="{Binding Path=DotRadiusX, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   RadiusY="{Binding Path=DotRadiusY, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
                    HorizontalAlignment="Left"
                    IsHitTestVisible="False"
                    Opacity="0">
@@ -169,11 +168,11 @@
             </Rectangle.CacheMode>
         </Rectangle>
         <Rectangle x:Name="Dot3"
-                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   Width="{Binding Path=DotWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   Height="{Binding Path=DotHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   RadiusX="{Binding Path=DotRadiusX, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   RadiusY="{Binding Path=DotRadiusY, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
+                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   Width="{Binding Path=DotWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   Height="{Binding Path=DotHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   RadiusX="{Binding Path=DotRadiusX, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   RadiusY="{Binding Path=DotRadiusY, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
                    HorizontalAlignment="Left"
                    IsHitTestVisible="False"
                    Opacity="0">
@@ -187,11 +186,11 @@
             </Rectangle.CacheMode>
         </Rectangle>
         <Rectangle x:Name="Dot4"
-                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   Width="{Binding Path=DotWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   Height="{Binding Path=DotHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   RadiusX="{Binding Path=DotRadiusX, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   RadiusY="{Binding Path=DotRadiusY, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
+                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   Width="{Binding Path=DotWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   Height="{Binding Path=DotHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   RadiusX="{Binding Path=DotRadiusX, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   RadiusY="{Binding Path=DotRadiusY, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
                    HorizontalAlignment="Left"
                    IsHitTestVisible="False"
                    Opacity="0">
@@ -205,11 +204,11 @@
             </Rectangle.CacheMode>
         </Rectangle>
         <Rectangle x:Name="Dot5"
-                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   Width="{Binding Path=DotWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   Height="{Binding Path=DotHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   RadiusX="{Binding Path=DotRadiusX, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
-                   RadiusY="{Binding Path=DotRadiusY, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type wpfspark:FluidProgressBar}}}"
+                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   Width="{Binding Path=DotWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   Height="{Binding Path=DotHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   RadiusX="{Binding Path=DotRadiusX, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
+                   RadiusY="{Binding Path=DotRadiusY, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FluidProgressBar}}}"
                    HorizontalAlignment="Left"
                    IsHitTestVisible="False"
                    Opacity="0">

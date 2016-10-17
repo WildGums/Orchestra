@@ -132,7 +132,8 @@ namespace Orchestra.Services
         private Adorner CreateAdornerTooltip(IHint hint, UIElement adornedElement)
         {
             var adorner = _adornerTooltipGenerator.GetAdornerTooltip(hint, adornedElement);
-            adorner.Visibility = !IsEnabled ? Visibility.Collapsed : Visibility.Visible;
+
+            adorner.SetCurrentValue(UIElement.VisibilityProperty, !IsEnabled ? Visibility.Collapsed : Visibility.Visible);
 
             return adorner;
         }

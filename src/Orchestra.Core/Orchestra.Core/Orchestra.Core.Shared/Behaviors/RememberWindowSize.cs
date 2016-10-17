@@ -48,8 +48,8 @@ namespace Orchestra.Behaviors
             {
                 Log.Debug($"Setting window ResizeMode to CanResize and SizeToContent to Manual of '{windowType}'");
 
-                window.SizeToContent = SizeToContent.Manual;
-                window.ResizeMode = ResizeMode.CanResize;
+                window.SetCurrentValue(Window.SizeToContentProperty, SizeToContent.Manual);
+                window.SetCurrentValue(Window.ResizeModeProperty, ResizeMode.CanResize);
             }
 
             window.LoadWindowSize(RememberWindowState);

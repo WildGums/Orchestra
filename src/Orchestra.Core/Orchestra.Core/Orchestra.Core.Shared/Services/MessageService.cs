@@ -48,7 +48,9 @@ namespace Orchestra.Services
 
             var tcs = new TaskCompletionSource<MessageResult>();
 
+#pragma warning disable AvoidAsyncVoid
             _dispatcherService.BeginInvoke(async () =>
+#pragma warning restore AvoidAsyncVoid
             {
                 var previousCursor = Mouse.OverrideCursor;
                 Mouse.OverrideCursor = null;

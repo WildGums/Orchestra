@@ -25,15 +25,15 @@ namespace Orchestra.Examples.Ribbon.Services
         public override async Task InitializeBeforeCreatingShellAsync()
         {
             // Non-async first
-            await InitializeCommands();
+            await InitializeCommandsAsync();
 
             await RunAndWaitAsync(new Func<Task>[]
             {
-                InitializePerformance
+                InitializePerformanceAsync
             });
         }
 
-        private async Task InitializeCommands()
+        private async Task InitializeCommandsAsync()
         {
             var commandManager = ServiceLocator.Default.ResolveType<ICommandManager>();
 
@@ -52,7 +52,7 @@ namespace Orchestra.Examples.Ribbon.Services
             //Thread.Sleep(2500);
         }
 
-        private async Task InitializePerformance()
+        private async Task InitializePerformanceAsync()
         {
             Log.Info("Improving performance");
 
