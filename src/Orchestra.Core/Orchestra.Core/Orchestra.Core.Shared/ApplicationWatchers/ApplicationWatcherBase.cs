@@ -14,6 +14,7 @@ namespace Orchestra
     using System.Windows.Threading;
     using Catel.IoC;
     using Catel.Services;
+    using ViewModels;
 
     public abstract class ApplicationWatcherBase
     {
@@ -66,7 +67,8 @@ namespace Orchestra
             DispatcherTimer.Stop();
 
             _mainWindow = System.Windows.Application.Current.MainWindow;
-            if (_mainWindow is Orchestra.Views.SplashScreen)
+            if (_mainWindow is Orchestra.Views.SplashScreen ||
+                SplashScreenViewModel.IsActive)
             {
                 _mainWindow = null;
             }
