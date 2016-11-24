@@ -34,18 +34,22 @@ namespace Orchestra.ViewModels
         }
 
         #region Properties
+        public static bool IsActive { get; private set; }
+
         public Uri CompanyLogoForSplashScreenUri { get; private set; }
 
         public string Company { get; private set; }
 
         public string ProducedBy { get; private set; }
 
-        public string Version { get; private set; }
+        public string Version { get; private set; }        
         #endregion
 
         #region Methods
         protected override async Task InitializeAsync()
         {
+            IsActive = true;
+
             await base.InitializeAsync();
 
             var aboutInfo = _aboutInfoService.GetAboutInfo();
@@ -55,6 +59,13 @@ namespace Orchestra.ViewModels
             CompanyLogoForSplashScreenUri = aboutInfo.CompanyLogoForSplashScreenUri;
             ProducedBy = string.Format(_languageService.GetString("Orchestra_ProducedBy"), Company);
             Version = aboutInfo.DisplayVersion;
+        }
+
+        protected override Task OnClosedAsync(bool? result)
+        {
+            IsActive = false;
+
+            return base.OnClosedAsync(result);
         }
         #endregion
     }
