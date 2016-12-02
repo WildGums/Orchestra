@@ -55,8 +55,8 @@
       <HintPath>..\..\..\..\lib\Catel.MVVM.4.5.4\lib\net40\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ControlzEx, Version=2.1.2.3, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\ControlzEx.2.1.2.3\lib\net40\ControlzEx.dll</HintPath>
+    <Reference Include="ControlzEx, Version=2.1.4.13, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\ControlzEx.2.1.4.13\lib\net40\ControlzEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fluent, Version=4.0.3.394, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
@@ -112,7 +112,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.4.5.4\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\..\lib\ControlzEx.2.1.4.13\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
