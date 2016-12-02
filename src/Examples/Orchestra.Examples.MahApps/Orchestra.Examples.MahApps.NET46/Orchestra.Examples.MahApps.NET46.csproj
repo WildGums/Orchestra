@@ -59,12 +59,12 @@
       <HintPath>..\..\..\..\lib\MahApps.Metro.1.3.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Orc.Controls, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.3.0\lib\net46\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=1.3.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.3.5\lib\net46\Orc.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Orc.FileSystem, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.0.0\lib\net46\Orc.FileSystem.dll</HintPath>
+    <Reference Include="Orc.FileSystem, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.1.1\lib\net46\Orc.FileSystem.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
