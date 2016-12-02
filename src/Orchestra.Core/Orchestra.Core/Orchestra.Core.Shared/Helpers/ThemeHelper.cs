@@ -134,6 +134,14 @@ namespace Orchestra
             resourceDictionary.Add("AccentColorBrush4", new SolidColorBrush((Color)resourceDictionary["AccentColor4"]));
             resourceDictionary.Add("WindowTitleColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
 
+            // Wpf styles
+            resourceDictionary.Add(SystemColors.ControlColorKey, (Color)resourceDictionary["AccentColor"]);
+            resourceDictionary.Add(SystemColors.ControlBrushKey, new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+            resourceDictionary.Add(SystemColors.HighlightColorKey, (Color)resourceDictionary["AccentColor"]);
+            resourceDictionary.Add(SystemColors.HighlightBrushKey, new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+            //resourceDictionary.Add(SystemColors.Highligh, (SolidColorBrush)resourceDictionary["AccentColorBrush"]);
+
+            // MahApps styles
             resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
                 {
                     new GradientStop((Color)resourceDictionary["HighlightColor"], 0),
