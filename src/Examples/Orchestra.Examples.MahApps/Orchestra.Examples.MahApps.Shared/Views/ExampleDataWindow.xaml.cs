@@ -6,8 +6,6 @@
 
 namespace Orchestra.Examples.MahApps.Views
 {
-    using Catel.Windows;
-
     public sealed partial class ExampleDataWindow
     {
         #region Constructors

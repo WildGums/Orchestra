@@ -13,11 +13,17 @@
 
     <Grid>
         <catel:TabControl>
-            <TabItem IsSelected="True" Header="Persons" controls:ControlsHelper.HeaderFontSize="32" 
+            <TabItem IsSelected="True" Header="Persons" controls:ControlsHelper.HeaderFontSize="32"
                      VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <views:PersonsView />
+
+            </TabItem>
+            <TabItem IsSelected="True" Header="Controls" controls:ControlsHelper.HeaderFontSize="32"
+                     VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <views:ControlsView />
+
             </TabItem>
         </catel:TabControl>
     </Grid>
-    
+
 </catel:UserControl>

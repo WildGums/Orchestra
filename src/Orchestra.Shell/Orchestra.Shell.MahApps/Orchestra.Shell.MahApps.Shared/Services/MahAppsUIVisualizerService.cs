@@ -13,7 +13,7 @@ namespace Orchestra.Services
     using System.Windows.Controls;
     using Catel.MVVM;
     using Catel.Services;
-    using Catel.Windows.Threading;
+    using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
 
     public class MahAppsUIVisualizerService : UIVisualizerService
@@ -40,30 +40,26 @@ namespace Orchestra.Services
             return base.ShowWindow(window, showModal);
         }
 
-        protected override Task<bool?> ShowWindowAsync(FrameworkElement window, bool showModal)
+        protected override async Task<bool?> ShowWindowAsync(FrameworkElement window, bool showModal)
         {
             var simpleDialog = window as CustomDialog;
             if (simpleDialog != null)
             {
-                return Task<bool?>.Factory.StartNew(() =>
+                if (showModal)
                 {
-                    simpleDialog.Dispatcher.Invoke(simpleDialog.Show);
-                    return true;
+                    var metroWindow = Application.Current.GetMainWindow();
+                    await metroWindow.ShowMetroDialogAsync(simpleDialog);
+                    await simpleDialog.WaitUntilUnloadedAsync();
+                }
+                else
+                {
+                    simpleDialog.Invoke(simpleDialog.Show);
+                }
 
-                    //if (showModal)
-                    //{
-                    //    simpleDialog.Dispatcher.Invoke(simpleDialog.ShowModal);
-                    //    return true;
-                    //}
-                    //else
-                    //{
-                    //    simpleDialog.Dispatcher.Invoke(simpleDialog.Show);
-                    //    return true;
-                    //}
-                });
+                return true;
             }
 
-            return base.ShowWindowAsync(window, showModal);
+            return await base.ShowWindowAsync(window, showModal);
         }
     }
 }
