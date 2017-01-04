@@ -7,7 +7,6 @@
 
 namespace Orchestra.Services
 {
-    using System;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Catel;

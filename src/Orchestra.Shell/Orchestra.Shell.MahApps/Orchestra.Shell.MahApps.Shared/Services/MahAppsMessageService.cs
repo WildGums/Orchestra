@@ -10,8 +10,8 @@ namespace Orchestra.Services
     using System;
     using System.Threading.Tasks;
     using System.Windows;
+    using Catel.IoC;
     using Catel.Services;
-    using Catel.Threading;
     using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
 
@@ -32,23 +32,31 @@ namespace Orchestra.Services
             var negativeResult = MessageResult.No;
             var auxiliaryResult = MessageResult.Cancel;
 
+            var languageService = ServiceLocator.Default.ResolveType<ILanguageService>();
+            MetroDialogSettings settings = new MetroDialogSettings();
+
             switch (button)
             {
                 case MessageButton.OK:
                     style = MessageDialogStyle.Affirmative;
                     affirmativeResult = MessageResult.OK;
+                    settings.AffirmativeButtonText = languageService.GetString("OK");
                     break;
 
                 case MessageButton.OKCancel:
                     style = MessageDialogStyle.AffirmativeAndNegative;
                     affirmativeResult = MessageResult.OK;
                     negativeResult = MessageResult.Cancel;
+                    settings.AffirmativeButtonText = languageService.GetString("OK");
+                    settings.NegativeButtonText = languageService.GetString("Cancel");
                     break;
 
                 case MessageButton.YesNo:
                     style = MessageDialogStyle.AffirmativeAndNegative;
                     affirmativeResult = MessageResult.Yes;
                     negativeResult = MessageResult.No;
+                    settings.AffirmativeButtonText = languageService.GetString("Yes");
+                    settings.NegativeButtonText = languageService.GetString("No");
                     break;
 
                 case MessageButton.YesNoCancel:
@@ -56,6 +64,9 @@ namespace Orchestra.Services
                     affirmativeResult = MessageResult.Yes;
                     negativeResult = MessageResult.No;
                     auxiliaryResult = MessageResult.Cancel;
+                    settings.AffirmativeButtonText = languageService.GetString("Yes");
+                    settings.NegativeButtonText = languageService.GetString("No");
+                    settings.FirstAuxiliaryButtonText = languageService.GetString("Cancel");
                     break;
 
                 default:
@@ -75,7 +86,7 @@ namespace Orchestra.Services
                     return;
                 }
 
-                var result = await window.ShowMessageAsync(caption, message, style);
+                var result = await window.ShowMessageAsync(caption, message, style, settings);
                 switch (result)
                 {
                     case MessageDialogResult.Negative:

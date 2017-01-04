@@ -97,7 +97,7 @@ namespace Orchestra.Examples.MahApps.ViewModels
         {
             var selectedPerson = SelectedPerson;
 
-            if (await _messageService.ShowAsync(string.Format("Are you sure you want to remove person '{0}'?", selectedPerson), "Are you sure?", MessageButton.YesNo, MessageImage.Question) == MessageResult.Yes)
+            if (await _messageService.ShowAsync(string.Format("Are you sure you want to remove person '{0}'?", selectedPerson), "Are you sure?", MessageButton.YesNoCancel, MessageImage.Question) == MessageResult.Yes)
             {
                 Log.Info("Removing person '{0}'", selectedPerson);
 
