@@ -7,7 +7,6 @@
 
 namespace Orchestra.Views
 {
-    using System;
     using Catel.Services;
     using Catel.Windows;
     using ViewModels;

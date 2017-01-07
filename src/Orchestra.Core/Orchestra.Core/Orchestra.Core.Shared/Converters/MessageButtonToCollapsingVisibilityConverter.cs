@@ -9,13 +9,12 @@ namespace Orchestra.Converters
 {
     using System;
     using System.Windows;
-    using Catel.Data;
     using Catel.MVVM.Converters;
     using Catel.Services;
 
     internal class MessageButtonToCollapsingVisibilityConverter : VisibilityConverterBase
     {
-        public MessageButtonToCollapsingVisibilityConverter() 
+        public MessageButtonToCollapsingVisibilityConverter()
             : base(Visibility.Collapsed)
         {
         }
