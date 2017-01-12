@@ -10,19 +10,11 @@ namespace Orchestra.Examples.MahApps
     using System;
     using System.Diagnostics;
     using System.Globalization;
-    using System.Threading;
-    using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Input;
     using Catel.IoC;
     using Catel.Logging;
-    using Catel.MVVM;
     using Catel.Services;
-    using global::MahApps.Metro.Controls;
     using Orchestra.Views;
-    using Services;
-    using Views;
-    using InputGesture = Catel.Windows.Input.InputGesture;
     using Orchestra.Services;
 
     /// <summary>
