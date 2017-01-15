@@ -24,6 +24,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\MahAppsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ControlsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ExampleDataViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ExampleDialogOkCancelApplyViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ExampleDialogOkCancelViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ExampleDialogCloseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ExampleDialogViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PersonsViewModel.cs" />
@@ -46,6 +49,15 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PersonView.xaml.cs">
       <DependentUpon>PersonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ExampleDialogCloseView.xaml.cs">
+      <DependentUpon>ExampleDialogCloseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ExampleDialogOkCancelView.xaml.cs">
+      <DependentUpon>ExampleDialogOkCancelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ExampleDialogOkCancelApplyView.xaml.cs">
+      <DependentUpon>ExampleDialogOkCancelApplyView.xaml</DependentUpon>
     </Compile>
     <Folder Include="$(MSBuildThisFileDirectory)Resources\Images\" />
     <Folder Include="$(MSBuildThisFileDirectory)Resources\Icons\" />
@@ -77,6 +89,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\PersonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ExampleDialogCloseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ExampleDialogOkCancelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ExampleDialogOkCancelApplyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

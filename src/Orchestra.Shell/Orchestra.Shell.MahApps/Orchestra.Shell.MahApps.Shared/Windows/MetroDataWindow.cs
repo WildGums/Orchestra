@@ -30,7 +30,6 @@ namespace Orchestra.Windows
     using Catel.Logging;
     using System.Windows.Input;
     using Catel.Windows.Threading;
-    using MahApps.Metro;
 
     /// <summary>
     /// Base class for a metro window with the Catel mvvm behavior.
@@ -135,7 +134,7 @@ namespace Orchestra.Windows
             _logic = new WindowLogic(this, null, viewModel);
             _logic.TargetViewPropertyChanged += (sender, e) =>
             {
-                // Do not call this for ActualWidth and ActualHeight WPF, will cause problems with NET 40 
+                // Do not call this for ActualWidth and ActualHeight WPF, will cause problems with NET 40
                 // on systems where NET45 is *not* installed
                 if (!string.Equals(e.PropertyName, "ActualWidth", StringComparison.InvariantCulture) &&
                     !string.Equals(e.PropertyName, "ActualHeight", StringComparison.InvariantCulture))
@@ -206,7 +205,7 @@ namespace Orchestra.Windows
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the view model container should prevent the 
+        /// Gets or sets a value indicating whether the view model container should prevent the
         /// creation of a view model.
         /// <para />
         /// This property is very useful when using views in transitions where the view model is no longer required.
@@ -605,7 +604,7 @@ namespace Orchestra.Windows
         }
 
         /// <summary>
-        /// Sets the DialogResult, but keeps track of whether the DialogResult can actually be set. For example, 
+        /// Sets the DialogResult, but keeps track of whether the DialogResult can actually be set. For example,
         /// dialogs which are not called with <c>ShowDialog</c> can not set the DialogResult.
         /// </summary>
         /// <param name="result">The result.</param>

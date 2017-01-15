@@ -33,6 +33,7 @@ namespace Orchestra.Windows
         private event EventHandler<DataContextChangedEventArgs> _viewDataContextChanged;
 
         private readonly Collection<DataWindowButton> _buttons = new Collection<DataWindowButton>();
+        private bool? _dialogResult;
         #endregion
 
         #region Constructors
@@ -109,7 +110,7 @@ namespace Orchestra.Windows
 
             if (mode == DataWindowMode.Close)
             {
-                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute, null);
+                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute, () => true);
                 _buttons.Add(button);
             }
 
@@ -148,12 +149,12 @@ namespace Orchestra.Windows
         /// </summary>
         protected async Task OnOkExecuteAsync()
         {
-            if (!await ApplyChangesAsync())
+            if (!await ApplyChangesAsync().ConfigureAwait(false))
             {
                 return;
             }
 
-            Close();
+            DialogResult = true;
         }
 
         /// <summary>
@@ -183,12 +184,12 @@ namespace Orchestra.Windows
         /// </summary>
         protected async Task OnCancelExecuteAsync()
         {
-            if (!await DiscardChangesAsync())
+            if (!await DiscardChangesAsync().ConfigureAwait(false))
             {
                 return;
             }
 
-            Close();
+            DialogResult = false;
         }
 
         /// <summary>
@@ -198,7 +199,7 @@ namespace Orchestra.Windows
         {
             if (OnApplyCanExecute())
             {
-                await OnApplyExecuteAsync();
+                await OnApplyExecuteAsync().ConfigureAwait(false);
             }
         }
 
@@ -216,7 +217,7 @@ namespace Orchestra.Windows
         /// </summary>
         protected async Task OnApplyExecuteAsync()
         {
-            await ApplyChangesAsync();
+            await ApplyChangesAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -232,7 +233,27 @@ namespace Orchestra.Windows
         /// </summary>
         protected void OnCloseExecute()
         {
+            DialogResult = null;
             Close();
+        }
+        #endregion
+
+        #region Properties
+        public bool? DialogResult
+        {
+            get
+            {
+                return _dialogResult;
+            }
+            set
+            {
+                if (value != _dialogResult)
+                {
+                    _dialogResult = value;
+
+                    Close();
+                }
+            }
         }
         #endregion
 
@@ -262,7 +283,7 @@ namespace Orchestra.Windows
         /// <returns>True if successful, otherwise false.</returns>
         protected virtual async Task<bool> ApplyChangesAsync()
         {
-            return await _logic.SaveViewModelAsync();
+            return await _logic.SaveViewModelAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -270,7 +291,7 @@ namespace Orchestra.Windows
         /// </summary>
         protected virtual async Task<bool> DiscardChangesAsync()
         {
-            return await _logic.CancelViewModelAsync();
+            return await _logic.CancelViewModelAsync().ConfigureAwait(false);
         }
         #endregion
 

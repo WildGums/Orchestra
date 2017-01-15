@@ -13,7 +13,15 @@
                         </Rectangle.OpacityMask>
                     </Rectangle>
                 </Button>
-
+                <Button Command="{Binding OnShowCloseDialogExecute}">
+                  Shows a dialog with only a close button
+                </Button>
+                <Button Command="{Binding OnShowOkCancelDialogExecute}">
+                  Shows a dialog with Ok &amp; cancel buttons
+                </Button>
+                <Button Command="{Binding OnShowOkCancelApplyDialogExecute}">
+                  Shows a dialog with Ok, cancel &amp; aplly buttons
+                </Button>
             </StackPanel>
 
         </GroupBox>
