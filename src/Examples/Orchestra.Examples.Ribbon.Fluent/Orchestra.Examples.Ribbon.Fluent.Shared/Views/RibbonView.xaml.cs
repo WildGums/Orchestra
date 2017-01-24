@@ -16,12 +16,16 @@ namespace Orchestra.Examples.Ribbon.Views
 
             ribbon.AddAboutButton();
         }
+        #endregion
 
+        #region Methods
         protected override void OnViewModelChanged()
         {
             base.OnViewModelChanged();
 
-            backstageTabControl.SetCurrentValue(DataContextProperty, ViewModel);
+#pragma warning disable WPF0041
+            backstageTabControl.DataContext = ViewModel;
+#pragma warning restore WPF0041
         }
         #endregion
     }
