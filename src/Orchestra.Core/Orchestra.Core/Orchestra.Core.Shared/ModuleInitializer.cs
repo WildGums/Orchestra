@@ -35,8 +35,10 @@ public static class ModuleInitializer
         InitializeLogging();
 
         // Ensure that we are using the right culture
+#pragma warning disable WPF0011 // Containing type should be used as registered owner.
         FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
             new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+#pragma warning restore WPF0011 // Containing type should be used as registered owner.
 
         var serviceLocator = ServiceLocator.Default;
 

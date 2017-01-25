@@ -148,7 +148,7 @@ namespace Orchestra.Views
             {
                 _hasUpdatedViewModel = true;
 
-                view.SetCurrentValue(DataContextProperty, ConfigurationContext);
+                view.SetValue(DataContextProperty, ConfigurationContext);
             }
         }
         #endregion

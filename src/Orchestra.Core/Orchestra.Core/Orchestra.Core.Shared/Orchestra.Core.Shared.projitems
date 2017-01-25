@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\ApplicationWatcherBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\CloseApplicationWatcherBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\KeyPressApplicationWatcherBase.cs" />

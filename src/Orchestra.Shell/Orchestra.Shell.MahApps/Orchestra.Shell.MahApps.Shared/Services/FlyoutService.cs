@@ -138,7 +138,7 @@ namespace Orchestra.Services
                 }
 
                 flyout.SetCurrentValue(System.Windows.Controls.ContentControl.ContentProperty, flyoutInfo.Content);
-                flyout.SetCurrentValue(FrameworkElement.DataContextProperty, dataContext);
+                flyout.SetValue(FrameworkElement.DataContextProperty, dataContext);
                 flyout.SetCurrentValue(Flyout.IsOpenProperty, true);
             });
         }
