@@ -25,7 +25,7 @@ namespace Orchestra.Windows
 
         #region Constants
         public static readonly DependencyProperty FixMaximizeProperty = DependencyProperty.RegisterAttached(
-                "FixMaximize", typeof(bool), typeof(FixMaximize), new FrameworkPropertyMetadata(false, FixMaximizeChanged));
+                "FixMaximize", typeof(bool), typeof(FixMaximize), new FrameworkPropertyMetadata(false, OnFixMaximizeChanged));
         #endregion
 
         #region Methods
@@ -39,7 +39,7 @@ namespace Orchestra.Windows
             return (bool)ribbonWindow.GetValue(FixMaximizeProperty);
         }
 
-        private static void FixMaximizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnFixMaximizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbonWindow = (Window)d;
             if ((bool)e.NewValue)

@@ -85,36 +85,36 @@ namespace Orchestra.Views
             var startupSize = taskRunnerService.GetInitialWindowSize();
             if (startupSize != null && !startupSize.IsEmpty)
             {
-                bool setWidth = startupSize.Width > 0d;
-                bool setHeight = startupSize.Height > 0d;
+                var setWidth = startupSize.Width > 0d;
+                var setHeight = startupSize.Height > 0d;
 
                 if (setHeight && setWidth)
                 {
-                    SizeToContent = SizeToContent.Manual;
+                    SetCurrentValue(SizeToContentProperty, SizeToContent.Manual);
                 }
                 else if (setHeight)
                 {
-                    SizeToContent = SizeToContent.Width;
+                    SetCurrentValue(SizeToContentProperty, SizeToContent.Width);
                 }
                 else if (setWidth)
                 {
-                    SizeToContent = SizeToContent.Height;
+                    SetCurrentValue(SizeToContentProperty, SizeToContent.Height);
                 }
                 else
                 {
-                    SizeToContent = SizeToContent.WidthAndHeight;
+                    SetCurrentValue(SizeToContentProperty, SizeToContent.WidthAndHeight);
                 }
 
                 if (setWidth)
                 {
-                    MinWidth = startupSize.Width;
-                    Width = startupSize.Width;
+                    SetCurrentValue(MinWidthProperty, startupSize.Width);
+                    SetCurrentValue(WidthProperty, startupSize.Width);
                 }
 
                 if (setHeight)
                 {
-                    MinHeight = startupSize.Height;
-                    Height = startupSize.Height;
+                    SetCurrentValue(MinHeightProperty, startupSize.Height);
+                    SetCurrentValue(HeightProperty, startupSize.Height);
                 }                
             }
 
@@ -128,13 +128,12 @@ namespace Orchestra.Views
         [ViewToViewModel(MappingType = ViewToViewModelMappingType.TwoWayViewWins)]
         public object ConfigurationContext
         {
-            get { return (object)GetValue(ConfigurationContextProperty); }
+            get { return GetValue(ConfigurationContextProperty); }
             set { SetValue(ConfigurationContextProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ConfigurationContext.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ConfigurationContextProperty =
-            DependencyProperty.Register("ConfigurationContext", typeof(object), typeof(ShellWindow), new PropertyMetadata(null));
+        public static readonly DependencyProperty ConfigurationContextProperty = DependencyProperty.Register("ConfigurationContext", typeof(object), 
+            typeof(ShellWindow), new PropertyMetadata(null));
         #endregion
 
         #region Methods
@@ -149,7 +148,7 @@ namespace Orchestra.Views
             {
                 _hasUpdatedViewModel = true;
 
-                view.DataContext = ConfigurationContext;
+                view.SetValue(DataContextProperty, ConfigurationContext);
             }
         }
         #endregion

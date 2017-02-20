@@ -59,7 +59,7 @@ namespace Orchestra.Views
 
                 var aboutService = serviceLocator.ResolveType<IAboutService>();
                 commandManager.RegisterAction("Help.About", aboutService.ShowAbout);
-                aboutWindowCommand.Command = commandManager.GetCommand("Help.About");
+                aboutWindowCommand.SetCurrentValue(System.Windows.Controls.Primitives.ButtonBase.CommandProperty, commandManager.GetCommand("Help.About"));
 
                 windowCommands.Items.Add(aboutWindowCommand);
             }
@@ -69,7 +69,7 @@ namespace Orchestra.Views
             var statusBarContent = mahAppsService.GetStatusBar();
             if (statusBarContent != null)
             {
-                customStatusBarItem.Content = statusBarContent;
+                customStatusBarItem.SetCurrentValue(ContentProperty, statusBarContent);
             }
 
             var mainView = mahAppsService.GetMainView();

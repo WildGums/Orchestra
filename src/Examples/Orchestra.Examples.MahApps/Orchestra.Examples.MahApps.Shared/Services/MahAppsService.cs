@@ -44,21 +44,21 @@ namespace Orchestra.Examples.MahApps.Services
             var windowCommands = new WindowCommands();
 
             var refreshButton = WindowCommandHelper.CreateWindowCommandButton("appbar_refresh_counterclockwise_down", "refresh");
-            refreshButton.Command = _commandManager.GetCommand("File.Refresh");
+            refreshButton.SetCurrentValue(System.Windows.Controls.Primitives.ButtonBase.CommandProperty, _commandManager.GetCommand("File.Refresh"));
             _commandManager.RegisterAction("File.Refresh", () => _messageService.ShowAsync("Refresh"));
             windowCommands.Items.Add(refreshButton);
 
             var saveButton = WindowCommandHelper.CreateWindowCommandButton("appbar_save", "save");
-            saveButton.Command = _commandManager.GetCommand("File.Save");
+            saveButton.SetCurrentValue(System.Windows.Controls.Primitives.ButtonBase.CommandProperty, _commandManager.GetCommand("File.Save"));
             _commandManager.RegisterAction("File.Save", () => _messageService.ShowAsync("Save"));
             windowCommands.Items.Add(saveButton);
 
             var showWindowButton = WindowCommandHelper.CreateWindowCommandButton("appbar_new_window", "show dialog window");
-            showWindowButton.Command = new Command(() => _uiVisualizerService.ShowDialog<ExampleDialogViewModel>());
+            showWindowButton.SetCurrentValue(System.Windows.Controls.Primitives.ButtonBase.CommandProperty, new Command(() => _uiVisualizerService.ShowDialog<ExampleDialogViewModel>()));
             windowCommands.Items.Add(showWindowButton);
 
             var showDataWindowButton = WindowCommandHelper.CreateWindowCommandButton("appbar_new_window", "show data window");
-            showDataWindowButton.Command = new Command(() => _uiVisualizerService.ShowDialog<ExampleDataViewModel>());
+            showDataWindowButton.SetCurrentValue(System.Windows.Controls.Primitives.ButtonBase.CommandProperty, new Command(() => _uiVisualizerService.ShowDialog<ExampleDataViewModel>()));
             windowCommands.Items.Add(showDataWindowButton);
             
             return windowCommands;

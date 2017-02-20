@@ -7,7 +7,6 @@
 
 namespace Orchestra.Services
 {
-    using System;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Catel;
@@ -48,7 +47,9 @@ namespace Orchestra.Services
 
             var tcs = new TaskCompletionSource<MessageResult>();
 
+#pragma warning disable AvoidAsyncVoid
             _dispatcherService.BeginInvoke(async () =>
+#pragma warning restore AvoidAsyncVoid
             {
                 var previousCursor = Mouse.OverrideCursor;
                 Mouse.OverrideCursor = null;

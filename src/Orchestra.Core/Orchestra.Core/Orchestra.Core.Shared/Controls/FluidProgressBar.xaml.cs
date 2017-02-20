@@ -1,57 +1,65 @@
-﻿#region File Header
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="FluidProgressBar.xaml.cs" company="WildGums">
+//   Copyright (c) 2008 - 2016 WildGums. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
-// -------------------------------------------------------------------------------
-// 
-// This file is part of the WPFSpark project: http://wpfspark.codeplex.com/
-//
-// Author: Ratish Philip
-// 
-// WPFSpark v1.1
-//
-// -------------------------------------------------------------------------------
 
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Animation;
-
-namespace WPFSpark
+namespace Orchestra.Controls
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Media.Animation;
+
     /// <summary>
     /// Interaction logic for FluidProgressBar.xaml
     /// </summary>
     public partial class FluidProgressBar : UserControl, IDisposable
     {
-        #region Internal class
-
-        private class KeyFrameDetails
-        {
-            public KeyTime KeyFrameTime { get; set; }
-            public List<DoubleKeyFrame> KeyFrames { get; set; }
-        }
-
-        #endregion
-
         #region Fields
-
-        Dictionary<int, KeyFrameDetails> keyFrameMap = null;
-        Dictionary<int, KeyFrameDetails> opKeyFrameMap = null;
+        readonly Dictionary<int, KeyFrameDetails> _keyFrameMap = null;
+        readonly Dictionary<int, KeyFrameDetails> _opKeyFrameMap = null;
+        bool _isStoryboardRunning;
         //KeyTime keyA = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0));
         //KeyTime keyB = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0.5));
         //KeyTime keyC = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(2.0));
         //KeyTime keyD = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(2.5));
-        Storyboard sb;
-        bool isStoryboardRunning;
+        Storyboard _sb;
+        #endregion
+
+        #region Constructors
+
+        #region Construction / Initialization
+        public FluidProgressBar()
+        {
+            InitializeComponent();
+
+            _keyFrameMap = new Dictionary<int, KeyFrameDetails>();
+            _opKeyFrameMap = new Dictionary<int, KeyFrameDetails>();
+
+            GetKeyFramesFromStoryboard();
+
+            SizeChanged += OnSizeChanged;
+            Loaded += OnLoaded;
+            IsVisibleChanged += OnIsVisibleChanged;
+        }
+        #endregion
 
         #endregion
 
-        #region Dependency Properties
+        #region Internal class
+        private class KeyFrameDetails
+        {
+            #region Properties
+            public KeyTime KeyFrameTime { get; set; }
+            public List<DoubleKeyFrame> KeyFrames { get; set; }
+            #endregion
+        }
+        #endregion
 
         #region Delay
-
         /// <summary>
         /// Delay Dependency Property
         /// </summary>
@@ -65,7 +73,7 @@ namespace WPFSpark
         /// </summary>
         public Duration Delay
         {
-            get { return (Duration)GetValue(DelayProperty); }
+            get { return (Duration) GetValue(DelayProperty); }
             set { SetValue(DelayProperty, value); }
         }
 
@@ -76,9 +84,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnDelayChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            Duration oldDelay = (Duration)e.OldValue;
-            Duration newDelay = pBar.Delay;
+            var pBar = (FluidProgressBar) d;
+            var oldDelay = (Duration) e.OldValue;
+            var newDelay = pBar.Delay;
             pBar.OnDelayChanged(oldDelay, newDelay);
         }
 
@@ -89,20 +97,22 @@ namespace WPFSpark
         /// <param name="newDelay">New Value</param>
         protected virtual void OnDelayChanged(Duration oldDelay, Duration newDelay)
         {
-            bool isActive = isStoryboardRunning;
+            bool isActive = _isStoryboardRunning;
             if (isActive)
+            {
                 StopFluidAnimation();
+            }
 
             UpdateTimelineDelay(newDelay);
 
             if (isActive)
+            {
                 StartFluidAnimation();
+            }
         }
-
         #endregion
 
         #region DotWidth
-
         /// <summary>
         /// DotWidth Dependency Property
         /// </summary>
@@ -116,7 +126,7 @@ namespace WPFSpark
         /// </summary>
         public double DotWidth
         {
-            get { return (double)GetValue(DotWidthProperty); }
+            get { return (double) GetValue(DotWidthProperty); }
             set { SetValue(DotWidthProperty, value); }
         }
 
@@ -127,9 +137,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnDotWidthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            double oldDotWidth = (double)e.OldValue;
-            double newDotWidth = pBar.DotWidth;
+            var pBar = (FluidProgressBar) d;
+            var oldDotWidth = (double) e.OldValue;
+            var newDotWidth = pBar.DotWidth;
             pBar.OnDotWidthChanged(oldDotWidth, newDotWidth);
         }
 
@@ -140,14 +150,14 @@ namespace WPFSpark
         /// <param name="newDotWidth">New Value</param>
         protected virtual void OnDotWidthChanged(double oldDotWidth, double newDotWidth)
         {
-            if (isStoryboardRunning)
+            if (_isStoryboardRunning)
+            {
                 RestartStoryboardAnimation();
+            }
         }
-
         #endregion
 
         #region DotHeight
-
         /// <summary>
         /// DotHeight Dependency Property
         /// </summary>
@@ -161,7 +171,7 @@ namespace WPFSpark
         /// </summary>
         public double DotHeight
         {
-            get { return (double)GetValue(DotHeightProperty); }
+            get { return (double) GetValue(DotHeightProperty); }
             set { SetValue(DotHeightProperty, value); }
         }
 
@@ -172,9 +182,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnDotHeightChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            double oldDotHeight = (double)e.OldValue;
-            double newDotHeight = pBar.DotHeight;
+            var pBar = (FluidProgressBar) d;
+            var oldDotHeight = (double) e.OldValue;
+            var newDotHeight = pBar.DotHeight;
             pBar.OnDotHeightChanged(oldDotHeight, newDotHeight);
         }
 
@@ -185,14 +195,14 @@ namespace WPFSpark
         /// <param name="newDotHeight">New Value</param>
         protected virtual void OnDotHeightChanged(double oldDotHeight, double newDotHeight)
         {
-            if (isStoryboardRunning)
+            if (_isStoryboardRunning)
+            {
                 RestartStoryboardAnimation();
+            }
         }
-
         #endregion
 
         #region DotRadiusX
-
         /// <summary>
         /// DotRadiusX Dependency Property
         /// </summary>
@@ -206,7 +216,7 @@ namespace WPFSpark
         /// </summary>
         public double DotRadiusX
         {
-            get { return (double)GetValue(DotRadiusXProperty); }
+            get { return (double) GetValue(DotRadiusXProperty); }
             set { SetValue(DotRadiusXProperty, value); }
         }
 
@@ -217,9 +227,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnDotRadiusXChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            double oldDotRadiusX = (double)e.OldValue;
-            double newDotRadiusX = pBar.DotRadiusX;
+            var pBar = (FluidProgressBar) d;
+            var oldDotRadiusX = (double) e.OldValue;
+            var newDotRadiusX = pBar.DotRadiusX;
             pBar.OnDotRadiusXChanged(oldDotRadiusX, newDotRadiusX);
         }
 
@@ -230,14 +240,14 @@ namespace WPFSpark
         /// <param name="newDotRadiusX">New Value</param>
         protected virtual void OnDotRadiusXChanged(double oldDotRadiusX, double newDotRadiusX)
         {
-            if (isStoryboardRunning)
+            if (_isStoryboardRunning)
+            {
                 RestartStoryboardAnimation();
+            }
         }
-
         #endregion
 
         #region DotRadiusY
-
         /// <summary>
         /// DotRadiusY Dependency Property
         /// </summary>
@@ -251,7 +261,7 @@ namespace WPFSpark
         /// </summary>
         public double DotRadiusY
         {
-            get { return (double)GetValue(DotRadiusYProperty); }
+            get { return (double) GetValue(DotRadiusYProperty); }
             set { SetValue(DotRadiusYProperty, value); }
         }
 
@@ -262,9 +272,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnDotRadiusYChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            double oldDotRadiusY = (double)e.OldValue;
-            double newDotRadiusY = pBar.DotRadiusY;
+            var pBar = (FluidProgressBar) d;
+            var oldDotRadiusY = (double) e.OldValue;
+            var newDotRadiusY = pBar.DotRadiusY;
             pBar.OnDotRadiusYChanged(oldDotRadiusY, newDotRadiusY);
         }
 
@@ -275,14 +285,14 @@ namespace WPFSpark
         /// <param name="newDotRadiusY">New Value</param>
         protected virtual void OnDotRadiusYChanged(double oldDotRadiusY, double newDotRadiusY)
         {
-            if (isStoryboardRunning)
+            if (_isStoryboardRunning)
+            {
                 RestartStoryboardAnimation();
+            }
         }
-
         #endregion
 
         #region DurationA
-
         /// <summary>
         /// DurationA Dependency Property
         /// </summary>
@@ -296,7 +306,7 @@ namespace WPFSpark
         /// </summary>
         public Duration DurationA
         {
-            get { return (Duration)GetValue(DurationAProperty); }
+            get { return (Duration) GetValue(DurationAProperty); }
             set { SetValue(DurationAProperty, value); }
         }
 
@@ -307,9 +317,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnDurationAChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            Duration oldDurationA = (Duration)e.OldValue;
-            Duration newDurationA = pBar.DurationA;
+            var pBar = (FluidProgressBar) d;
+            var oldDurationA = (Duration) e.OldValue;
+            var newDurationA = pBar.DurationA;
             pBar.OnDurationAChanged(oldDurationA, newDurationA);
         }
 
@@ -320,20 +330,22 @@ namespace WPFSpark
         /// <param name="newDurationA">New Value</param>
         protected virtual void OnDurationAChanged(Duration oldDurationA, Duration newDurationA)
         {
-            bool isActive = isStoryboardRunning;
+            var isActive = _isStoryboardRunning;
             if (isActive)
+            {
                 StopFluidAnimation();
+            }
 
             UpdateKeyTimes(1, newDurationA);
 
             if (isActive)
+            {
                 StartFluidAnimation();
+            }
         }
-
         #endregion
 
         #region DurationB
-
         /// <summary>
         /// DurationB Dependency Property
         /// </summary>
@@ -347,7 +359,7 @@ namespace WPFSpark
         /// </summary>
         public Duration DurationB
         {
-            get { return (Duration)GetValue(DurationBProperty); }
+            get { return (Duration) GetValue(DurationBProperty); }
             set { SetValue(DurationBProperty, value); }
         }
 
@@ -358,9 +370,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnDurationBChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            Duration oldDurationB = (Duration)e.OldValue;
-            Duration newDurationB = pBar.DurationB;
+            var pBar = (FluidProgressBar) d;
+            var oldDurationB = (Duration) e.OldValue;
+            var newDurationB = pBar.DurationB;
             pBar.OnDurationBChanged(oldDurationB, newDurationB);
         }
 
@@ -371,20 +383,22 @@ namespace WPFSpark
         /// <param name="newDurationB">New Value</param>
         protected virtual void OnDurationBChanged(Duration oldDurationB, Duration newDurationB)
         {
-            bool isActive = isStoryboardRunning;
+            bool isActive = _isStoryboardRunning;
             if (isActive)
+            {
                 StopFluidAnimation();
+            }
 
             UpdateKeyTimes(2, newDurationB);
 
             if (isActive)
+            {
                 StartFluidAnimation();
+            }
         }
-
         #endregion
 
         #region DurationC
-
         /// <summary>
         /// DurationC Dependency Property
         /// </summary>
@@ -398,7 +412,7 @@ namespace WPFSpark
         /// </summary>
         public Duration DurationC
         {
-            get { return (Duration)GetValue(DurationCProperty); }
+            get { return (Duration) GetValue(DurationCProperty); }
             set { SetValue(DurationCProperty, value); }
         }
 
@@ -409,9 +423,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnDurationCChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            Duration oldDurationC = (Duration)e.OldValue;
-            Duration newDurationC = pBar.DurationC;
+            var pBar = (FluidProgressBar) d;
+            var oldDurationC = (Duration) e.OldValue;
+            var newDurationC = pBar.DurationC;
             pBar.OnDurationCChanged(oldDurationC, newDurationC);
         }
 
@@ -422,20 +436,22 @@ namespace WPFSpark
         /// <param name="newDurationC">New Value</param>
         protected virtual void OnDurationCChanged(Duration oldDurationC, Duration newDurationC)
         {
-            bool isActive = isStoryboardRunning;
+            bool isActive = _isStoryboardRunning;
             if (isActive)
+            {
                 StopFluidAnimation();
+            }
 
             UpdateKeyTimes(3, newDurationC);
 
             if (isActive)
+            {
                 StartFluidAnimation();
+            }
         }
-
         #endregion
 
         #region KeyFrameA
-
         /// <summary>
         /// KeyFrameA Dependency Property
         /// </summary>
@@ -449,7 +465,7 @@ namespace WPFSpark
         /// </summary>
         public double KeyFrameA
         {
-            get { return (double)GetValue(KeyFrameAProperty); }
+            get { return (double) GetValue(KeyFrameAProperty); }
             set { SetValue(KeyFrameAProperty, value); }
         }
 
@@ -460,9 +476,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnKeyFrameAChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            double oldKeyFrameA = (double)e.OldValue;
-            double newKeyFrameA = pBar.KeyFrameA;
+            var pBar = (FluidProgressBar) d;
+            var oldKeyFrameA = (double) e.OldValue;
+            var newKeyFrameA = pBar.KeyFrameA;
             pBar.OnKeyFrameAChanged(oldKeyFrameA, newKeyFrameA);
         }
 
@@ -475,11 +491,9 @@ namespace WPFSpark
         {
             RestartStoryboardAnimation();
         }
-
         #endregion
 
         #region KeyFrameB
-
         /// <summary>
         /// KeyFrameB Dependency Property
         /// </summary>
@@ -493,7 +507,7 @@ namespace WPFSpark
         /// </summary>
         public double KeyFrameB
         {
-            get { return (double)GetValue(KeyFrameBProperty); }
+            get { return (double) GetValue(KeyFrameBProperty); }
             set { SetValue(KeyFrameBProperty, value); }
         }
 
@@ -504,9 +518,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnKeyFrameBChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            double oldKeyFrameB = (double)e.OldValue;
-            double newKeyFrameB = pBar.KeyFrameB;
+            var pBar = (FluidProgressBar) d;
+            var oldKeyFrameB = (double) e.OldValue;
+            var newKeyFrameB = pBar.KeyFrameB;
             pBar.OnKeyFrameBChanged(oldKeyFrameB, newKeyFrameB);
         }
 
@@ -519,11 +533,9 @@ namespace WPFSpark
         {
             RestartStoryboardAnimation();
         }
-
         #endregion
 
         #region Oscillate
-
         /// <summary>
         /// Oscillate Dependency Property
         /// </summary>
@@ -537,7 +549,7 @@ namespace WPFSpark
         /// </summary>
         public bool Oscillate
         {
-            get { return (bool)GetValue(OscillateProperty); }
+            get { return (bool) GetValue(OscillateProperty); }
             set { SetValue(OscillateProperty, value); }
         }
 
@@ -548,9 +560,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnOscillateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            bool oldOscillate = (bool)e.OldValue;
-            bool newOscillate = pBar.Oscillate;
+            var pBar = (FluidProgressBar) d;
+            var oldOscillate = (bool) e.OldValue;
+            var newOscillate = pBar.Oscillate;
             pBar.OnOscillateChanged(oldOscillate, newOscillate);
         }
 
@@ -561,19 +573,19 @@ namespace WPFSpark
         /// <param name="newOscillate">New Value</param>
         protected virtual void OnOscillateChanged(bool oldOscillate, bool newOscillate)
         {
-            if (sb != null)
+            if (_sb != null)
             {
                 StopFluidAnimation();
-                sb.AutoReverse = newOscillate;
-                sb.Duration = newOscillate ? ReverseDuration : TotalDuration;
+
+                _sb.SetCurrentValue(Timeline.AutoReverseProperty, newOscillate);
+                _sb.SetCurrentValue(Timeline.DurationProperty, newOscillate ? ReverseDuration : TotalDuration);
+
                 StartFluidAnimation();
             }
         }
-
         #endregion
 
         #region ReverseDuration
-
         /// <summary>
         /// ReverseDuration Dependency Property
         /// </summary>
@@ -587,7 +599,7 @@ namespace WPFSpark
         /// </summary>
         public Duration ReverseDuration
         {
-            get { return (Duration)GetValue(ReverseDurationProperty); }
+            get { return (Duration) GetValue(ReverseDurationProperty); }
             set { SetValue(ReverseDurationProperty, value); }
         }
 
@@ -598,9 +610,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnReverseDurationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            Duration oldReverseDuration = (Duration)e.OldValue;
-            Duration newReverseDuration = pBar.ReverseDuration;
+            var pBar = (FluidProgressBar) d;
+            var oldReverseDuration = (Duration) e.OldValue;
+            var newReverseDuration = pBar.ReverseDuration;
             pBar.OnReverseDurationChanged(oldReverseDuration, newReverseDuration);
         }
 
@@ -611,17 +623,16 @@ namespace WPFSpark
         /// <param name="newReverseDuration">New Value</param>
         protected virtual void OnReverseDurationChanged(Duration oldReverseDuration, Duration newReverseDuration)
         {
-            if ((sb != null) && (Oscillate))
+            if ((_sb != null) && (Oscillate))
             {
-                sb.Duration = newReverseDuration;
+                _sb.SetCurrentValue(Timeline.DurationProperty, newReverseDuration);
+
                 RestartStoryboardAnimation();
             }
         }
-
         #endregion
 
         #region TotalDuration
-
         /// <summary>
         /// TotalDuration Dependency Property
         /// </summary>
@@ -635,7 +646,7 @@ namespace WPFSpark
         /// </summary>
         public Duration TotalDuration
         {
-            get { return (Duration)GetValue(TotalDurationProperty); }
+            get { return (Duration) GetValue(TotalDurationProperty); }
             set { SetValue(TotalDurationProperty, value); }
         }
 
@@ -646,9 +657,9 @@ namespace WPFSpark
         /// <param name="e">DependencyProperty changed event arguments</param>
         private static void OnTotalDurationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FluidProgressBar pBar = (FluidProgressBar)d;
-            Duration oldTotalDuration = (Duration)e.OldValue;
-            Duration newTotalDuration = pBar.TotalDuration;
+            var pBar = (FluidProgressBar) d;
+            var oldTotalDuration = (Duration) e.OldValue;
+            var newTotalDuration = pBar.TotalDuration;
             pBar.OnTotalDurationChanged(oldTotalDuration, newTotalDuration);
         }
 
@@ -659,46 +670,22 @@ namespace WPFSpark
         /// <param name="newTotalDuration">New Value</param>
         protected virtual void OnTotalDurationChanged(Duration oldTotalDuration, Duration newTotalDuration)
         {
-            if ((sb != null) && (!Oscillate))
+            if ((_sb != null) && (!Oscillate))
             {
-                sb.Duration = newTotalDuration;
+                _sb.SetCurrentValue(Timeline.DurationProperty, newTotalDuration);
+
                 RestartStoryboardAnimation();
             }
         }
-
-        #endregion
-
-        #endregion
-
-        #region Construction / Initialization
-
-        /// <summary>
-        /// Ctor
-        /// </summary>
-        public FluidProgressBar()
-        {
-            InitializeComponent();
-
-            keyFrameMap = new Dictionary<int, KeyFrameDetails>();
-            opKeyFrameMap = new Dictionary<int, KeyFrameDetails>();
-
-            GetKeyFramesFromStoryboard();
-
-            this.SizeChanged += new SizeChangedEventHandler(OnSizeChanged);
-            this.Loaded += new RoutedEventHandler(OnLoaded);
-            this.IsVisibleChanged += new DependencyPropertyChangedEventHandler(OnIsVisibleChanged);
-        }
-
         #endregion
 
         #region Event Handlers
-
         /// <summary>
         /// Handles the Loaded event
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">EventArgs</param>
-        void OnLoaded(object sender, System.Windows.RoutedEventArgs e)
+        void OnLoaded(object sender, RoutedEventArgs e)
         {
             // Update the key frames
             UpdateKeyFrames();
@@ -711,7 +698,7 @@ namespace WPFSpark
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">EventArgs</param>
-        void OnSizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             // Restart the animation
             RestartStoryboardAnimation();
@@ -724,7 +711,7 @@ namespace WPFSpark
         /// <param name="e">EventArgs</param>
         void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (this.Visibility == Visibility.Visible)
+            if (Visibility == Visibility.Visible)
             {
                 UpdateKeyFrames();
                 StartFluidAnimation();
@@ -734,20 +721,18 @@ namespace WPFSpark
                 StopFluidAnimation();
             }
         }
-
         #endregion
 
         #region Helpers
-
         /// <summary>
         /// Starts the animation
         /// </summary>
         private void StartFluidAnimation()
         {
-            if ((sb != null) && (!isStoryboardRunning))
+            if ((_sb != null) && (!_isStoryboardRunning))
             {
-                sb.Begin();
-                isStoryboardRunning = true;
+                _sb.Begin();
+                _isStoryboardRunning = true;
             }
         }
 
@@ -756,12 +741,12 @@ namespace WPFSpark
         /// </summary>
         private void StopFluidAnimation()
         {
-            if ((sb != null) && (isStoryboardRunning))
+            if ((_sb != null) && (_isStoryboardRunning))
             {
                 // Move the timeline to the end and stop the animation
-                sb.SeekAlignedToLastTick(TimeSpan.FromSeconds(0));
-                sb.Stop();
-                isStoryboardRunning = false;
+                _sb.SeekAlignedToLastTick(TimeSpan.FromSeconds(0));
+                _sb.Stop();
+                _isStoryboardRunning = false;
             }
         }
 
@@ -781,15 +766,15 @@ namespace WPFSpark
         /// </summary>
         private void GetKeyFramesFromStoryboard()
         {
-            sb = (Storyboard)this.Resources["FluidStoryboard"];
-            if (sb != null)
+            _sb = (Storyboard) Resources["FluidStoryboard"];
+            if (_sb != null)
             {
-                foreach (Timeline timeline in sb.Children)
+                foreach (var timeline in _sb.Children)
                 {
-                    DoubleAnimationUsingKeyFrames dakeys = timeline as DoubleAnimationUsingKeyFrames;
+                    var dakeys = timeline as DoubleAnimationUsingKeyFrames;
                     if (dakeys != null)
                     {
-                        string targetName = Storyboard.GetTargetName(dakeys);
+                        var targetName = Storyboard.GetTargetName(dakeys);
                         ProcessDoubleAnimationWithKeys(dakeys, !targetName.StartsWith("Trans"));
                     }
                 }
@@ -804,24 +789,24 @@ namespace WPFSpark
         private void ProcessDoubleAnimationWithKeys(DoubleAnimationUsingKeyFrames dakeys, bool isOpacityAnim = false)
         {
             // Get all the keyframes in the instance.
-            for (int i = 0; i < dakeys.KeyFrames.Count; i++)
+            for (var i = 0; i < dakeys.KeyFrames.Count; i++)
             {
-                DoubleKeyFrame frame = dakeys.KeyFrames[i];
+                var frame = dakeys.KeyFrames[i];
 
                 Dictionary<int, KeyFrameDetails> targetMap = null;
 
                 if (isOpacityAnim)
                 {
-                    targetMap = opKeyFrameMap;
+                    targetMap = _opKeyFrameMap;
                 }
                 else
                 {
-                    targetMap = keyFrameMap;
+                    targetMap = _keyFrameMap;
                 }
 
                 if (!targetMap.ContainsKey(i))
                 {
-                    targetMap[i] = new KeyFrameDetails() { KeyFrames = new List<DoubleKeyFrame>() };
+                    targetMap[i] = new KeyFrameDetails() {KeyFrames = new List<DoubleKeyFrame>()};
                 }
 
                 // Update the keyframe time and add it to the map
@@ -836,19 +821,20 @@ namespace WPFSpark
         private void UpdateKeyFrames()
         {
             // Get the current width of the FluidProgressBar
-            double width = this.ActualWidth;
+            var width = ActualWidth;
             // Update the values only if the current width is greater than Zero and is visible
-            if ((width > 0.0) && (this.Visibility == System.Windows.Visibility.Visible))
+            if ((width > 0.0) && (Visibility == Visibility.Visible))
             {
-                double Point0 = -10;
-                double PointA = width * KeyFrameA;
-                double PointB = width * KeyFrameB;
-                double PointC = width + 10;
+                var point0 = -10;
+                var pointA = width*KeyFrameA;
+                var pointB = width*KeyFrameB;
+                var pointC = width + 10;
+
                 // Update the keyframes stored in the map
-                UpdateKeyFrame(0, Point0);
-                UpdateKeyFrame(1, PointA);
-                UpdateKeyFrame(2, PointB);
-                UpdateKeyFrame(3, PointC);
+                UpdateKeyFrame(0, point0);
+                UpdateKeyFrame(1, pointA);
+                UpdateKeyFrame(2, pointB);
+                UpdateKeyFrame(3, pointC);
             }
         }
 
@@ -859,17 +845,17 @@ namespace WPFSpark
         /// <param name="newValue">New value to be given to the key value of the keyframes</param>
         private void UpdateKeyFrame(int key, double newValue)
         {
-            if (keyFrameMap.ContainsKey(key))
+            if (_keyFrameMap.ContainsKey(key))
             {
-                foreach (var frame in keyFrameMap[key].KeyFrames)
+                foreach (var frame in _keyFrameMap[key].KeyFrames)
                 {
                     if (frame is LinearDoubleKeyFrame)
                     {
-                        frame.SetValue(LinearDoubleKeyFrame.ValueProperty, newValue);
+                        frame.SetCurrentValue(DoubleKeyFrame.ValueProperty, newValue);
                     }
                     else if (frame is EasingDoubleKeyFrame)
                     {
-                        frame.SetValue(EasingDoubleKeyFrame.ValueProperty, newValue);
+                        frame.SetCurrentValue(DoubleKeyFrame.ValueProperty, newValue);
                     }
                 }
             }
@@ -915,20 +901,20 @@ namespace WPFSpark
         /// <param name="newDuration">New value to be given to the duration value of the keyframes</param>
         private void UpdateKeyTime(int key, Duration newDuration)
         {
-            if (keyFrameMap.ContainsKey(key))
+            if (_keyFrameMap.ContainsKey(key))
             {
-                KeyTime newKeyTime = KeyTime.FromTimeSpan(newDuration.TimeSpan);
-                keyFrameMap[key].KeyFrameTime = newKeyTime;
+                var newKeyTime = KeyTime.FromTimeSpan(newDuration.TimeSpan);
+                _keyFrameMap[key].KeyFrameTime = newKeyTime;
 
-                foreach (var frame in keyFrameMap[key].KeyFrames)
+                foreach (var frame in _keyFrameMap[key].KeyFrames)
                 {
                     if (frame is LinearDoubleKeyFrame)
                     {
-                        frame.SetValue(LinearDoubleKeyFrame.KeyTimeProperty, newKeyTime);
+                        frame.SetCurrentValue(DoubleKeyFrame.KeyTimeProperty, newKeyTime);
                     }
                     else if (frame is EasingDoubleKeyFrame)
                     {
-                        frame.SetValue(EasingDoubleKeyFrame.KeyTimeProperty, newKeyTime);
+                        frame.SetCurrentValue(DoubleKeyFrame.KeyTimeProperty, newKeyTime);
                     }
                 }
             }
@@ -941,16 +927,16 @@ namespace WPFSpark
         /// <param name="newDuration">New value to be given to the duration value of the keyframes</param>
         private void UpdateOpacityKeyTime(int key, Duration newDuration)
         {
-            if (opKeyFrameMap.ContainsKey(key))
+            if (_opKeyFrameMap.ContainsKey(key))
             {
-                KeyTime newKeyTime = KeyTime.FromTimeSpan(newDuration.TimeSpan);
-                opKeyFrameMap[key].KeyFrameTime = newKeyTime;
+                var newKeyTime = KeyTime.FromTimeSpan(newDuration.TimeSpan);
+                _opKeyFrameMap[key].KeyFrameTime = newKeyTime;
 
-                foreach (var frame in opKeyFrameMap[key].KeyFrames)
+                foreach (var frame in _opKeyFrameMap[key].KeyFrames)
                 {
                     if (frame is DiscreteDoubleKeyFrame)
                     {
-                        frame.SetValue(DiscreteDoubleKeyFrame.KeyTimeProperty, newKeyTime);
+                        frame.SetCurrentValue(DoubleKeyFrame.KeyTimeProperty, newKeyTime);
                     }
                 }
             }
@@ -962,33 +948,34 @@ namespace WPFSpark
         /// <param name="newDelay">Delay duration</param>
         private void UpdateTimelineDelay(Duration newDelay)
         {
-            Duration nextDelay = new Duration(TimeSpan.FromSeconds(0));
+            var nextDelay = new Duration(TimeSpan.FromSeconds(0));
 
-            if (sb != null)
+            if (_sb != null)
             {
-                for (int i = 0; i < sb.Children.Count; i++)
+                for (int i = 0; i < _sb.Children.Count; i++)
                 {
                     // The first five animations are for translation
                     // The next five animations are for opacity
                     if (i == 5)
+                    {
                         nextDelay = newDelay;
+                    }
                     else
+                    {
                         nextDelay += newDelay;
+                    }
 
-
-                    DoubleAnimationUsingKeyFrames timeline = sb.Children[i] as DoubleAnimationUsingKeyFrames;
+                    var timeline = _sb.Children[i] as DoubleAnimationUsingKeyFrames;
                     if (timeline != null)
                     {
-                        timeline.SetValue(DoubleAnimationUsingKeyFrames.BeginTimeProperty, nextDelay.TimeSpan);
+                        timeline.SetCurrentValue(Timeline.BeginTimeProperty, nextDelay.TimeSpan);
                     }
                 }
             }
         }
-
         #endregion
 
         #region IDisposable Implementation
-
         /// <summary>
         /// Releases all resources used by an instance of the FluidProgressBar class.
         /// </summary>
@@ -1031,7 +1018,6 @@ namespace WPFSpark
 
             // free native resources if there are any.			
         }
-
         #endregion
     }
 }

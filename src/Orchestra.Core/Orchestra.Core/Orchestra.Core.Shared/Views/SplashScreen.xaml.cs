@@ -29,6 +29,6 @@ namespace Orchestra.Views
 
             Background = (application != null) ? ThemeHelper.GetAccentColorBrush() : Brushes.DodgerBlue;
         }
-        #endregion 
+        #endregion
     }
 }

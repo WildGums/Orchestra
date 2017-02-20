@@ -6,12 +6,12 @@
                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                   SizeToContent="WidthAndHeight" ResizeMode="NoResize"
                   WindowStartupLocation="CenterOwner" CanCloseUsingEscape="False">
-    
+
     <i:Interaction.Behaviors>
         <catel:KeyPressToCommand Command="{Binding EscapeCommand}" Key="Escape" />
         <catel:KeyPressToCommand Command="{Binding CopyToClipboard}" Key="C" Modifiers="Control" />
     </i:Interaction.Behaviors>
-    
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="90" />
@@ -28,7 +28,7 @@
                 <ScrollViewer DockPanel.Dock="Top" MaxHeight="400" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" >
                     <TextBlock TextWrapping="Wrap" MaxWidth="360" HorizontalAlignment="Stretch" Margin="0 0 0 10" Text="{Binding Message}"/>
                 </ScrollViewer>
-                
+
                 <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                     <Button Content="{catel:LanguageBinding OK}" Command="{Binding OkCommand}" Width="80" Margin="6 2 0 2"
                             Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=OK}" />

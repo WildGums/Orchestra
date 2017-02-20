@@ -13,6 +13,7 @@ namespace Orchestra.Markup
     using System.Windows.Controls;
     using System.Windows.Markup;
     using System.Windows.Media;
+    using System.Windows.Shapes;
     using System.Xml;
     using Catel;
     using Catel.Logging;
@@ -96,7 +97,7 @@ namespace Orchestra.Markup
                             var path = child as Path;
                             if (path != null)
                             {
-                                path.Fill = Foreground;
+                                path.SetCurrentValue(Shape.FillProperty, Foreground);
                             }
                         }
                     }

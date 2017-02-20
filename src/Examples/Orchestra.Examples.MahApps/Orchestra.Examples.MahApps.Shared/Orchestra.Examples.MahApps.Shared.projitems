@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>
@@ -22,11 +23,15 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\ApplicationInitializationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\MahAppsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ControlsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ExampleDataViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ExampleDialogViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PersonsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PersonViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ControlsView.xaml.cs">
+      <DependentUpon>ControlsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ExampleDataWindow.xaml.cs">
       <DependentUpon>ExampleDataWindow.xaml</DependentUpon>
     </Compile>
@@ -49,6 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ControlsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

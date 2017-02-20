@@ -48,13 +48,13 @@ namespace Orchestra.Views
             var ribbonContent = ribbonService.GetRibbon();
             if (ribbonContent != null)
             {
-                ribbonContentControl.Content = ribbonContent;
+                ribbonContentControl.SetCurrentValue(ContentProperty, ribbonContent);
             }
 
             var statusBarContent = ribbonService.GetStatusBar();
             if (statusBarContent != null)
             {
-                customStatusBarItem.Content = statusBarContent;
+                customStatusBarItem.SetCurrentValue(ContentProperty, statusBarContent);
             }
 
             contentControl.Content = ribbonService.GetMainView();

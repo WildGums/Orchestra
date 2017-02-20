@@ -70,7 +70,7 @@ namespace Orchestra.Logging
 
         private void FixParagraphSpacing(Paragraph paragraph)
         {
-            paragraph.Margin = new Thickness(0);
+            paragraph.SetCurrentValue(Block.MarginProperty, new Thickness(0));
         }
         #endregion
     }

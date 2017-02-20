@@ -161,6 +161,30 @@
                             <fluent:Button Header="Yes/No/Cancel" Size="Middle" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
                                            Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                            CommandParameter="{x:Static services:MessageButton.YesNoCancel}" />
+
+                            <fluent:Button Header="Icons - Stop" Size="Middle" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
+                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                           CommandParameter="{x:Static services:MessageImage.Stop}" />
+
+                            <fluent:Button Header="Icons - Exclamation" Size="Middle" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
+                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                           CommandParameter="{x:Static services:MessageImage.Exclamation}" />                            
+                            
+                            <fluent:Button Header="Icons - Error" Size="Middle" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
+                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                           CommandParameter="{x:Static services:MessageImage.Error}" />
+
+                            <fluent:Button Header="Icons - Warning" Size="Middle" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
+                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                           CommandParameter="{x:Static services:MessageImage.Warning}" />
+
+                            <fluent:Button Header="Icons - Information" Size="Middle" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
+                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                           CommandParameter="{x:Static services:MessageImage.Information}" />
+
+                            <fluent:Button Header="Icons - Question" Size="Middle" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Send}}" 
+                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                           CommandParameter="{x:Static services:MessageImage.Question}" />
                         </StackPanel>
                     </fluent:SplitButton>
                     <fluent:ToggleButton Header="Toggle button" LargeIcon="{orchestra:FontImage {x:Static ribbon:FontAwesome.Arrows}}"/>

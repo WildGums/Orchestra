@@ -92,7 +92,7 @@ namespace Orchestra.Controls
             grid.Children.Add(image);
             grid.Children.Add(label);
 
-            Content = grid;
+            SetCurrentValue(ContentProperty, grid);
         }
     }
 }

@@ -8,7 +8,22 @@
             <TabItem Header="Plots" >
                 <TextBlock Text="IT WORKS!" />
             </TabItem>
-            <TabItem Header="Aggregate"/>
+
+            <TabItem Header="Aggregate">
+                <ListBox>
+                    <ListBoxItem Content="My string 1" />
+                    <ListBoxItem Content="My string 2" />
+                    <ListBoxItem Content="My string 3" />
+                    <ListBoxItem Content="My string 4" />
+                    <ListBoxItem Content="My string 5" />
+                    <ListBoxItem Content="My string 6" />
+                    <ListBoxItem Content="My string 7" />
+                    <ListBoxItem Content="My string 8" />
+                    <ListBoxItem Content="My string 9" />
+                    <ListBoxItem Content="My string 10" />
+                </ListBox>
+            </TabItem>
+            
             <TabItem Header="Overlay">
                 <TextBlock Text="IT WORKS!" />
             </TabItem>

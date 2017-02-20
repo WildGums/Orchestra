@@ -62,10 +62,10 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             Exit = new Command(OnExitExecute);
             ShowKeyboardMappings = new Command(OnShowKeyboardMappingsExecute);
 
-            OpenRecentlyUsedItem = new Command<string>(OnOpenRecentlyUsedItemExecute);
+            OpenRecentlyUsedItem = new TaskCommand<string>(OnOpenRecentlyUsedItemExecuteAsync);
             UnpinItem = new Command<string>(OnUnpinItemExecute);
             PinItem = new Command<string>(OnPinItemExecute);
-            OpenInExplorer = new Command<string>(OnOpenInExplorerExecute);
+            OpenInExplorer = new TaskCommand<string>(OnOpenInExplorerExecuteAsync);
 
             OnRecentlyUsedItemsServiceUpdated(null, null);
 
@@ -144,12 +144,12 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// <summary>
         /// Gets the OpenRecentlyUsedItem command.
         /// </summary>
-        public Command<string> OpenRecentlyUsedItem { get; private set; }
+        public TaskCommand<string> OpenRecentlyUsedItem { get; private set; }
 
         /// <summary>
         /// Method to invoke when the OpenRecentlyUsedItem command is executed.
         /// </summary>
-        private async void OnOpenRecentlyUsedItemExecute(string parameter)
+        private async Task OnOpenRecentlyUsedItemExecuteAsync(string parameter)
         {
             var failed = false;
 
@@ -205,12 +205,12 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// <summary>
         /// Gets the OpenInExplorer command.
         /// </summary>
-        public Command<string> OpenInExplorer { get; private set; }
+        public TaskCommand<string> OpenInExplorer { get; private set; }
 
         /// <summary>
         /// Method to invoke when the OpenInExplorer command is executed.
         /// </summary>
-        private async void OnOpenInExplorerExecute(string parameter)
+        private async Task OnOpenInExplorerExecuteAsync(string parameter)
         {
             if (!_fileService.Exists(parameter))
             {

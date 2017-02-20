@@ -30,28 +30,38 @@ namespace Orchestra.Examples.Ribbon
 
         protected override async Task ExecuteAsync(object parameter)
         {
-            var button = (MessageButton)parameter;
-
-            switch (button)
+            if (parameter is MessageButton)
             {
-                case MessageButton.OK:
-                    await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text.", null, button, MessageImage.Error);
-                    break;
+                var button = (MessageButton) parameter;
 
-                case MessageButton.OKCancel:
-                    await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", null, button, MessageImage.Information);
-                    break;
+                switch (button)
+                {
+                    case MessageButton.OK:
+                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text. This is a custom message box implemented in Orchestra. Here is your long text.", null, button, MessageImage.Error);
+                        break;
 
-                case MessageButton.YesNo:
-                    await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", "", button, MessageImage.Warning);
-                    break;
+                    case MessageButton.OKCancel:
+                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", null, button, MessageImage.Information);
+                        break;
 
-                case MessageButton.YesNoCancel:
-                    await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", "", button);
-                    break;
+                    case MessageButton.YesNo:
+                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", "", button, MessageImage.Warning);
+                        break;
 
-                default:
-                    return;
+                    case MessageButton.YesNoCancel:
+                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", "", button);
+                        break;
+
+                    default:
+                        return;
+                }
+            }
+
+            if (parameter is MessageImage)
+            {
+                var image = (MessageImage) parameter;
+
+                await _messageService.ShowAsync($"This message should show the image '{image}'", icon: image);
             }
         }
     }

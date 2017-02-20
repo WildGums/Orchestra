@@ -782,7 +782,9 @@ namespace Orchestra.Windows
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="args">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+#pragma warning disable AvoidAsyncVoid
         private async void OnDataWindowClosing(object sender, CancelEventArgs args)
+#pragma warning restore AvoidAsyncVoid
         {
             if (!_forceClose && !ClosedByButton)
             {

@@ -27,7 +27,9 @@ namespace Orchestra
             EnqueueShellActivatedAction(Subscribe);
         }
 
+#pragma warning disable AvoidAsyncVoid
         private static async void OnWindowClosing(object sender, CancelEventArgs e)
+#pragma warning restore AvoidAsyncVoid
         {
             if (e.Cancel)
             {

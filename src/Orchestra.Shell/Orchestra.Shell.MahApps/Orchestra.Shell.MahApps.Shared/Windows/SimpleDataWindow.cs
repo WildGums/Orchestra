@@ -103,7 +103,7 @@ namespace Orchestra.Windows
 
             if (mode == DataWindowMode.OkCancelApply)
             {
-                var button = DataWindowButton.FromSync(languageService.GetString("Apply"), OnApplyExecute, OnApplyCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetString("Apply"), OnApplyExecuteAsync, OnApplyCanExecute);
                 _buttons.Add(button);
             }
 
@@ -194,11 +194,11 @@ namespace Orchestra.Windows
         /// <summary>
         /// Executes the Apply command.
         /// </summary>
-        protected void ExecuteApply()
+        protected async Task ExecuteApplyAsync()
         {
             if (OnApplyCanExecute())
             {
-                OnApplyExecute();
+                await OnApplyExecuteAsync();
             }
         }
 
@@ -214,7 +214,7 @@ namespace Orchestra.Windows
         /// <summary>
         /// Handled when the user invokes the Apply command.
         /// </summary>
-        protected async void OnApplyExecute()
+        protected async Task OnApplyExecuteAsync()
         {
             await ApplyChangesAsync();
         }
@@ -368,7 +368,7 @@ namespace Orchestra.Windows
                 stackPanel.Children.Add(finalButton);
             }
 
-            DialogBottom = stackPanel;
+            SetCurrentValue(DialogBottomProperty, stackPanel);
         }
 
         private void OnViewModelChanged()

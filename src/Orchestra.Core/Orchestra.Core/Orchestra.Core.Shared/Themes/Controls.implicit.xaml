@@ -6,7 +6,11 @@
         <!--<ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic/catel.sizes.large.xaml" />-->
         <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic/catel.generic.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
+    <Style TargetType="{x:Type GroupBox}">
+        <Setter Property="Margin" Value="4" />
+    </Style>
+
     <Style TargetType="{x:Type Button}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Button}" />
         <Setter Property="Template">
@@ -630,7 +634,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style TargetType="{x:Type RadioButton}">
         <Setter Property="Margin" Value="{DynamicResource Margin.RadioButton}" />
         <Setter Property="BorderThickness" Value="1"/>
@@ -679,4 +683,15 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

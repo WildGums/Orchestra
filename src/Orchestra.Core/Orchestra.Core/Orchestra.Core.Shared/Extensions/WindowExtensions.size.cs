@@ -81,8 +81,8 @@ namespace Orchestra
 
                 Log.Debug($"Setting window size for '{windowName}' to '{width} x {height}'");
 
-                window.Width = width;
-                window.Height = height;
+                window.SetCurrentValue(FrameworkElement.WidthProperty, width);
+                window.SetCurrentValue(FrameworkElement.HeightProperty, height);
 
                 if (restoreWindowState)
                 {
@@ -93,7 +93,7 @@ namespace Orchestra
                         {
                             Log.Debug($"Restoring window state for '{windowName}' to '{windowState}'");
 
-                            window.WindowState = windowState;
+                            window.SetCurrentValue(Window.WindowStateProperty, windowState);
                         }
                     }
                 }

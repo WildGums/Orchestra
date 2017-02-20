@@ -29,7 +29,7 @@ namespace Orchestra.Examples.Ribbon.Views
         {
             base.OnViewModelChanged();
 
-            recentlyUsedItemsRibbonGallery.DataContext = ViewModel;
+            recentlyUsedItemsRibbonGallery.SetValue(DataContextProperty, ViewModel);
         }
     }
 }

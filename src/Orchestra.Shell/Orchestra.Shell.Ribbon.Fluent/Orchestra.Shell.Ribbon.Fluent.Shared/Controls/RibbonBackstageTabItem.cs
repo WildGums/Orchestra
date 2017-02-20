@@ -26,13 +26,13 @@ namespace Orchestra.Controls
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(ImageSource),
             typeof(RibbonBackstageTabItem), new PropertyMetadata(null, (sender, e) => ((RibbonBackstageTabItem)sender).BuildHeader()));
 
+
         public string HeaderText
         {
             get { return (string)GetValue(HeaderTextProperty); }
             set { SetValue(HeaderTextProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for HeaderText.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.Register("HeaderText", typeof(string),
             typeof(RibbonBackstageTabItem), new PropertyMetadata(string.Empty, (sender, e) => ((RibbonBackstageTabItem)sender).BuildHeader()));
 
@@ -45,7 +45,7 @@ namespace Orchestra.Controls
                 HeaderText = HeaderText
             };
 
-            Header = header;
+            SetCurrentValue(HeaderProperty, header);
         }
     }
 }

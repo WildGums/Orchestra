@@ -44,7 +44,7 @@ namespace Orchestra.Behaviors
             var expander = AssociatedObject;
             if (expander != null)
             {
-                expander.IsExpanded = !expander.IsExpanded;
+                expander.SetCurrentValue(Expander.IsExpandedProperty, !expander.IsExpanded);
             }
         }
     }

@@ -13,7 +13,6 @@ namespace Orchestra.Controls
     using Catel.Windows;
     using Catel.Windows.Controls;
     using Catel.Windows.Threading;
-    using WPFSpark;
 
     /// <summary>
     /// Interaction logic for BusyIndicator.xaml
@@ -101,7 +100,7 @@ namespace Orchestra.Controls
                 {
                     _grid.Dispatcher.BeginInvoke(() =>
                     {
-                        _grid.Width = sizeInfo.NewSize.Width;
+                        _grid.SetCurrentValue(WidthProperty, sizeInfo.NewSize.Width);
                     });
                 }
             }

@@ -8,6 +8,7 @@
 namespace Orchestra
 {
     using System;
+    using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Media.Imaging;
@@ -55,23 +56,23 @@ namespace Orchestra
             var booleanToCollapsingVisibilityConverter = new BooleanToCollapsingVisibilityConverter();
 
             var minimizeButton = CreateRibbonButton(GetImageUri("/Resources/Images/minimize.png"));
-            minimizeButton.SetBinding(RibbonButton.VisibilityProperty, new Binding("IsMinimized")
+            minimizeButton.SetBinding(UIElement.VisibilityProperty, new Binding("IsMinimized")
             {
                 Source = ribbon,
                 Converter = booleanToCollapsingVisibilityConverter,
                 ConverterParameter = false
             });
-            minimizeButton.Click += (sender, e) => ribbon.IsMinimized = true;
+            minimizeButton.Click += (sender, e) => ribbon.SetCurrentValue(Ribbon.IsMinimizedProperty, true);
             stackPanel.Children.Add(minimizeButton);
 
             var maximizeButton = CreateRibbonButton(GetImageUri("/Resources/Images/maximize.png"));
-            maximizeButton.SetBinding(RibbonButton.VisibilityProperty, new Binding("IsMinimized")
+            maximizeButton.SetBinding(UIElement.VisibilityProperty, new Binding("IsMinimized")
             {
                 Source = ribbon,
                 Converter = booleanToCollapsingVisibilityConverter,
                 ConverterParameter = true
             });
-            maximizeButton.Click += (sender, e) => ribbon.IsMinimized = false;
+            maximizeButton.Click += (sender, e) => ribbon.SetCurrentValue(Ribbon.IsMinimizedProperty, false);
             stackPanel.Children.Add(maximizeButton);
         }
 
@@ -81,9 +82,9 @@ namespace Orchestra
             if (helpPaneContent == null)
             {
                 helpPaneContent = new StackPanel();
-                helpPaneContent.Orientation = Orientation.Horizontal;
+                helpPaneContent.SetCurrentValue(StackPanel.OrientationProperty, Orientation.Horizontal);
 
-                ribbon.HelpPaneContent = helpPaneContent;
+                ribbon.SetCurrentValue(Ribbon.HelpPaneContentProperty, helpPaneContent);
             }
 
             return helpPaneContent;

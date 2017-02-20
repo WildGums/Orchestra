@@ -75,7 +75,9 @@ namespace Orchestra.Services
 
             ((ICompositeCommand)_commandManager.GetCommand("Close")).RegisterAction(() => { flyout.IsOpen = false; });
 
+#pragma warning disable AvoidAsyncVoid
             flyout.IsOpenChanged += async (sender, e) =>
+#pragma warning restore AvoidAsyncVoid
             {
                 if (!flyout.IsOpen)
                 {
@@ -126,16 +128,19 @@ namespace Orchestra.Services
             var flyoutInfo = _flyouts[name];
             var flyout = flyoutInfo.Flyout;
 
-            var flyoutsControl = flyout.Parent as FlyoutsControl;
-            if (flyoutsControl != null)
+            flyout.Dispatcher.BeginInvoke(() =>
             {
-                flyoutsControl.BorderThickness = new Thickness(1);
-                flyoutsControl.BorderBrush = ThemeHelper.GetAccentColorBrush();
-            }
+                var flyoutsControl = flyout.Parent as FlyoutsControl;
+                if (flyoutsControl != null)
+                {
+                    flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderThicknessProperty, new Thickness(1));
+                    flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderBrushProperty, ThemeHelper.GetAccentColorBrush());
+                }
 
-            flyout.Content = flyoutInfo.Content;
-            flyout.DataContext = dataContext;
-            flyout.Dispatcher.BeginInvoke(() => flyout.IsOpen = true);
+                flyout.SetCurrentValue(System.Windows.Controls.ContentControl.ContentProperty, flyoutInfo.Content);
+                flyout.SetValue(FrameworkElement.DataContextProperty, dataContext);
+                flyout.SetCurrentValue(Flyout.IsOpenProperty, true);
+            });
         }
 
         public void HideFlyout(string name)
@@ -150,7 +155,10 @@ namespace Orchestra.Services
             var flyoutInfo = _flyouts[name];
             var flyout = flyoutInfo.Flyout;
 
-            flyout.IsOpen = false;
+            flyout.BeginInvoke(() =>
+            {
+                flyout.SetCurrentValue(Flyout.IsOpenProperty, false);
+            });
         }
         #endregion
     }
