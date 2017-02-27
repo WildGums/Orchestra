@@ -3,113 +3,119 @@
 [![Join the chat at https://gitter.im/WildGums/Orchestra](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/WildGums/Orchestra?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![License](https://img.shields.io/github/license/wildgums/orchestra.svg)
-![NuGet downloads](https://img.shields.io/nuget/dt/orchestra.core.svg)
 ![Version](https://img.shields.io/nuget/v/orchestra.core.svg)
 ![Pre-release version](https://img.shields.io/nuget/vpre/orchestra.core.svg)
 
-Orchestra is a composable shell built on top of [Catel](http://www.catelproject.com). 
+Orchestra is a composable WPF shell built on top of [Catel](http://www.catelproject.com).
 
-Orchestra consists of a main shell including an SDK with services that allows developers to communicate with the shell. Developers can write their own modules which implement the actual functionality of their application.
+It has been in active development for over 4 years (initial commit 2012/06/18) and is used in numerous Line of Business (LOB) applications on a daily basis.
 
-These modules can communicate with the shell, but also with each other through the services that are offered out of the box.
- 
-# Shells
+Orchestra consists of a main shell including an SDK with services that allow developers to communicate with the shell.
 
-Orchestra provides support for a lot of different shells.
+## Goals
 
-## Fluent Ribbon shell
+Provide a robust yet flexible LOB shell, designed with best practices in mind, to jump start the development of desktop applications.
 
-![Fluent Ribbon 01](doc/images/shell_fluentribbon_01.png)
+In other words, we wanted to create a shell that dramatically speeds up the time it takes to release a LOB application to market by enabling developers to concentrate more on their business logic and less on scaffolding.
 
-![Fluent Ribbon 02](doc/images/shell_fluentribbon_02.png) 
- 
-## MahApps shell
+## Available Shells
 
-![MahApps 01](doc/images/shell_mahapps_01.png)
+Orchestra provides support for two different shells:
 
-# More information
+- Fluent ribbon
+- MahApps
 
-Please check [LogViewer](https://github.com/WildGums/LogViewer), for an example on how to build an application with Orchestra.
+|  Fluent ribbon shell                                       | MahApps shell                                   |
+|------------------------------------------------------------|-------------------------------------------------|
+| ![Fluent Ribbon 01](doc/images/shell_fluentribbon_01.png)  | ![MahApps 01](doc/images/shell_mahapps_01.png)  |
+| ![Fluent Ribbon 02](doc/images/shell_fluentribbon_02.png)  |                                                 |
 
-## Update 2015/04/16
 
-Some of the features which will come out of the box:
+## Release cycle
 
-- [x] [MahApps](http://mahapps.com/) integration
-- [ ] Module management (Nearly there with [Orc.NuGetExplorer](https://github.com/WildGums/Orc.NuGetExplorer))
-- [x] License management => [Orc.LicenseManager](https://github.com/Orcomp/Orc.LicenseManager)
-- [x] Command management
-- [x] Shortcut manager (which will allow end users to remap shortcut keys)
-- [x] Splash screen customization
-- [x] About box window
-- [x] Automatic updates => [Orc.Squirrel](https://github.com/Orcomp/Orc.Squirrel)
+- Stable: every 2 to 3 months ('master' branch).
+- Prerelease: daily/weekly as required ('develop' branch).
 
-Features already included in [Catel](https://catelproject.atlassian.net/wiki/display/CTL/Catel+documentation+Home):
-- [x] Application wide logging
-- [x] FluentValidation
-- [x] Memento (undo/redo)
+## Nuget packages
 
-Other Projects that might be of interest (And integrate easily with Orchestra):
+- [Orchestra.Core](https://www.nuget.org/packages/Orchestra.Core)
+- [Orchestra.Shell.Ribbon.Fluent](https://www.nuget.org/packages/Orchestra.Shell.Ribbon.Fluent)
+- [Orchestra.Shell.MahApps](https://www.nuget.org/packages/Orchestra.Shell.MahApp)
 
-- [Orc.ProjectManagement](https://github.com/Orcomp/Orc.ProjectManagement)
-- [Orc.WorkspaceManagement](https://github.com/Orcomp/Orc.WorkspaceManagement)
-- [Orc.LicenseManager](https://github.com/Orcomp/Orc.LicenseManager)
-- [Orc.Squirrel](https://github.com/Orcomp/Orc.Squirrel) (Automatic Updates)
-- [Orc.FilterBuilder](https://github.com/Orcomp/Orc.FilterBuilder)
+## Prerequisites
+
+A good working knowledge of Inversion of Control (IoC).
+
+## Orchestra features
+
+- Application wide logging with an in app log viewer (CTRL + L)
+- Command manager
+- Shortcut key manager
+- Fluent validation
+- Themeable 'about box' window
+- Themeable splash screen
+- Consistent styling across the whole application
+
+## Orchestra + module features
+
+We purposely designed Orchestra to be a lightweight shell. However you can 'super charge' it with the following open source libraries:
+(We use all these libraries with Orchestra. In fact they were designed to work seamlessly with Orchestra. Hint: the libraries all start with Orc.*)
+
+- License management ([Orc.LicenseManager](https://github.com/Orcomp/Orc.LicenseManager))
+- Project management ([Orc.ProjectManagement](https://github.com/Orcomp/Orc.ProjectManagement))
+- Automatic updates ([Orc.NuGetExplorer](https://github.com/WildGums/Orc.NuGetExplorer) [Orc.Squirrel](https://github.com/Orcomp/Orc.Squirrel))
+- Undo/Redo ([Orc.Memento](https://github.com/WildGums/Orc.Memento))
+- Crash reporting ([Orc.CrashReporting](https://github.com/WildGums/Orc.CrashReporting))
+
+## Orchestra libraries
+
+Here is a list of the major libraries that link back to their respective Github repositories:
+
 - [Orc.Controls](https://github.com/Orcomp/Orc.Controls)
-- [Orc.Search](https://github.com/WildGums/Orc.Search)
-- [Orc.Feedback](https://github.com/WildGums/Orc.Feedback)
-- [Orc.SystemInfo](https://github.com/WildGums/Orc.SystemInfo)
 - [Orc.CrashReporting](https://github.com/WildGums/Orc.CrashReporting)
+- [Orc.Feedback](https://github.com/WildGums/Orc.Feedback)
+- [Orc.FilterBuilder](https://github.com/Orcomp/Orc.FilterBuilder)
+- [Orc.LicenseManager](https://github.com/Orcomp/Orc.LicenseManager)
+- [Orc.Memento](https://github.com/WildGums/Orc.Memento)
 - [Orc.Notifications](https://github.com/WildGums/Orc.Notifications)
 - [Orc.NuGetExplorer](https://github.com/WildGums/Orc.NuGetExplorer)
+- [Orc.ProjectManagement](https://github.com/Orcomp/Orc.ProjectManagement)
+- [Orc.Search](https://github.com/WildGums/Orc.Search)
+- [Orc.Squirrel](https://github.com/Orcomp/Orc.Squirrel)
+- [Orc.SystemInfo](https://github.com/WildGums/Orc.SystemInfo)
+- [Orc.WorkspaceManagement](https://github.com/Orcomp/Orc.WorkspaceManagement)
+
+You can find the full list [here](https://github.com/WildGums).
+
+## Example Applications
+
+Here are some examples of open source applications built with Orchestra and other Orc.* libraries. (If you have an open source application based on Orchestra that you would like to list here, please let us know.):
+
+- [LogViewer](https://github.com/WildGums/LogViewer): Desktop application that makes it easy to search and visualize logs created by Orchestra
+- [CsvTextEditor](https://github.com/WildGums/CsvTextEditor): Desktop application that makes editing small CSV files easier
+
+## Contributions
+
+Please feel free to contribute, either by:
+
+- Reporting any issues
+- Submitting pull requests
+- Documentation
+- Blogs and tutorials
+
+## Services and Consulting
+
+If you need help building a new desktop application (whether for internal use within your organization or to release to the public)
+or need to setup a complete dev ops environment (which will allow you to commit your code and have an new version of your plugin ready for consumption within minutes and automatically applied to your application), please send us an email: contact@wildgums.com
+
+It took us a lot of time to get this right. What initially seems like a simple and quick task can end up taking months, so benefit from our experience and save yourself a lot of time and money by letting us show you how to release a desktop application within weeks.
 
 ## License
 
 MIT License
 
-## Benefits to users:
-
-- Framework developed with best practices in mind which will allow you to deploy robust applications
-- Allows you to focus on the business logic so your application will be completed a lot sooner
-- Built on [Catel](http://www.catelproject.com) and all that goes with it giving you a head start on your project
-- Nuget packages released regularly:
-    - [Orchestra.Library](http://nuget.org/packages/Orchestra.Library)
-    - [Orchestra.Shell](http://nuget.org/packages/Orchestra.Shell)
-- Visual Studio templates to get started quickly
-
-## Plugin architecture
-
-Orchestra uses a plugin architecture with some already well know open source libraries already implemented:
-
-- [Catel](http://www.catelproject.com) (MVVM framework plus a lot more)
-- [Fluent Ribbon](http://fluent.codeplex.com/)
-- [Prism](http://compositewpf.codeplex.com/)
-- [Nancy](http://www.nancyfx.org) (Lightweight Web Framework for .NET)
-- [OxyPlot](http://oxyplot.codeplex.com/) (Cross platform plotting library - Work in progress)
-
-It is easy to add extra modules by following the examples.
-
-## Roadmap
-
-- Automatic plugin update infrastructure
-
-## Support
-
-Please create an issue.
-
-## Contribute
-
-Everyone is encouraged to contribute, either by:
-
-- Submitting pull requests
-- Documentation
-- Blogs and tutorials
-
-## Other similar projects
+## Other similar open source projects
 
 - [Gemini](https://github.com/tgjones/gemini "Gemini")
 - [Wide](https://github.com/chandramouleswaran/Wide/ "Wide")
 - [Albatross Shell](https://albatrossshell.codeplex.com/ "Albatross Shell")
-
-
