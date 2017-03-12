@@ -63,11 +63,11 @@
     <Reference Include="MahApps.Metro, Version=1.4.3.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\MahApps.Metro.1.4.3\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.Controls, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.4.0\lib\net45\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.4.1\lib\net45\Orc.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.FileSystem, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.2.0\lib\net45\Orc.FileSystem.dll</HintPath>
+    <Reference Include="Orc.FileSystem, Version=1.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.2.5\lib\net45\Orc.FileSystem.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

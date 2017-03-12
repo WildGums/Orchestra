@@ -58,11 +58,11 @@
     <Reference Include="Microsoft.Windows.Shell">
       <HintPath>..\..\..\..\lib\RibbonsControlLibrary\Microsoft.Windows.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.Controls, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.4.0\lib\net46\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.4.1\lib\net46\Orc.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.FileSystem, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.2.0\lib\net46\Orc.FileSystem.dll</HintPath>
+    <Reference Include="Orc.FileSystem, Version=1.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.2.5\lib\net46\Orc.FileSystem.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

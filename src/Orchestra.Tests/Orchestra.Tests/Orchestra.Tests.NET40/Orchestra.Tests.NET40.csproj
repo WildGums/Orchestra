@@ -94,11 +94,11 @@
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.Controls, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.4.0\lib\net40\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.4.1\lib\net40\Orc.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.FileSystem, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.2.0\lib\net40\Orc.FileSystem.dll</HintPath>
+    <Reference Include="Orc.FileSystem, Version=1.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.2.5\lib\net40\Orc.FileSystem.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
