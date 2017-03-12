@@ -64,10 +64,8 @@
       <HintPath>..\..\..\..\lib\ControlzEx.2.1.4.13\lib\net45\ControlzEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fluent, Version=4.0.3.394, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Fluent.Ribbon.4.0.3.394\lib\net45\Fluent.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Fluent, Version=5.0.0.8, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Fluent.Ribbon.5.0.0.8\lib\net45\Fluent.dll</HintPath>
     </Reference>
     <Reference Include="Orc.Controls, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\Orc.Controls.1.4.0\lib\net45\Orc.Controls.dll</HintPath>
