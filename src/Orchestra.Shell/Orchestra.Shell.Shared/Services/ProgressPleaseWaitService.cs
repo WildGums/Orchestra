@@ -8,10 +8,10 @@
 namespace Orchestra.Services
 {
     using System;
-    using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media.Animation;
+    using System.Windows.Threading;
     using Catel;
     using Catel.IoC;
     using Catel.Logging;
@@ -25,28 +25,45 @@ namespace Orchestra.Services
         private ProgressBar _progressBar;
         private ResourceDictionary _resourceDictionary;
 
+        private readonly DispatcherTimer _hidingTimer;
+
         public ProgressPleaseWaitService(IDispatcherService dispatcherService, IDependencyResolver dependencyResolver)
             : base(dispatcherService)
         {
             Argument.IsNotNull(() => dependencyResolver);
 
             _dependencyResolver = dependencyResolver;
+
+            _hidingTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(10)
+            };
+
+            _hidingTimer.Tick += Callback;
         }
 
         public override void Hide()
         {
             base.Hide();
 
-            var progressBar = InitializeProgressBar();
-            if (progressBar != null)
-            {
-                _dispatcherService.BeginInvoke(() =>
-                {
-                    Log.Debug("Hiding progress bar");
+            _hidingTimer.Start();
+        }
 
-                    progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
-                });
-            }
+        private void Callback(object sender, EventArgs eventArgs)
+        {
+            Log.Debug("Hiding progress bar");
+
+            _hidingTimer.Stop();
+
+            var progressBar = InitializeProgressBar();
+
+            var storyboard = GetHideProgressBarStoryboard();
+            storyboard.Completed += (s, e) =>
+            {
+                progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
+            };
+
+            storyboard.Begin(progressBar);
         }
 
         public override void UpdateStatus(int currentItem, int totalItems, string statusFormat = "")
@@ -56,7 +73,7 @@ namespace Orchestra.Services
             var progressBar = InitializeProgressBar();
             if (progressBar != null)
             {
-                _dispatcherService.BeginInvoke(() =>
+                _dispatcherService.Invoke(() =>
                 {
                     progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MinimumProperty, (double)0);
                     progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MaximumProperty, (double)totalItems);
@@ -64,23 +81,17 @@ namespace Orchestra.Services
 
                     if (currentItem < 0 || currentItem >= totalItems)
                     {
-                        Log.Debug("Hiding progress bar");
-
-                        var storyboard = GetHideProgressBarStoryboard();
-                        storyboard.Completed += (sender, e) =>
-                        {
-                            progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
-                        };
-
-                        storyboard.Begin(progressBar);
+                        Hide();
                     }
                     else if (progressBar.Visibility != Visibility.Visible)
                     {
                         Log.Debug("Showing progress bar");
 
+                        _hidingTimer.Stop();
+
                         progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Visible);
-                    }
-                });
+                    }                    
+                }, true);
             }
         }
 
