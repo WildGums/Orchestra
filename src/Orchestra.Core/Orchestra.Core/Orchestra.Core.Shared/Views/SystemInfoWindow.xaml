@@ -7,6 +7,8 @@
                   xmlns:behaviors="clr-namespace:Orchestra.Behaviors"
                   ResizeMode="NoResize" 
                   WindowStyle="None"
+                  MinWidth="400"
+                  MinHeight="500"
                   MaxWidth="450" 
                   MaxHeight="650">
 
