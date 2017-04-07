@@ -151,7 +151,7 @@ namespace Orchestra
             resourceDictionary.Add("CheckmarkFill", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
             resourceDictionary.Add("RightArrowFill", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
 
-            resourceDictionary.Add("IdealForegroundColor", Colors.Black);
+            resourceDictionary.Add("IdealForegroundColor", Colors.White);
             resourceDictionary.Add("IdealForegroundColorBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
             resourceDictionary.Add("IdealForegroundDisabledBrush", new SolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]) { Opacity = 0.4 });
             resourceDictionary.Add("AccentSelectedColorBrush", new SolidColorBrush(Colors.White));

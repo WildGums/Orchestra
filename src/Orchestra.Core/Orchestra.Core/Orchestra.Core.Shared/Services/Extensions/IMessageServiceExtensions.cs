@@ -17,7 +17,7 @@ namespace Orchestra.Services
     {
         public static string GetAsText(this IMessageService messageService, string message, MessageButton messageButton)
         {
-            var buttons = string.Empty;
+            string buttons;
 
             switch (messageButton)
             {
@@ -46,7 +46,8 @@ namespace Orchestra.Services
 
         public static string GetAsText(this IMessageService messageService, string message, string buttons)
         {
-            Argument.IsNotNull(() => messageService);
+            // Note: removed because of Catel.Fody bug
+            //Argument.IsNotNull(() => messageService);
 
             var stringBuilder = new StringBuilder();
 

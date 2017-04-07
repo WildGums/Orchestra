@@ -39,7 +39,7 @@ namespace Orchestra.Services
                 Interval = TimeSpan.FromMilliseconds(10)
             };
 
-            _hidingTimer.Tick += Callback;
+            _hidingTimer.Tick += OnHideTimerTick;
         }
 
         public override void Hide()
@@ -47,24 +47,7 @@ namespace Orchestra.Services
             base.Hide();
 
             _hidingTimer.Start();
-        }
-
-        private void Callback(object sender, EventArgs eventArgs)
-        {
-            Log.Debug("Hiding progress bar");
-
-            _hidingTimer.Stop();
-
-            var progressBar = InitializeProgressBar();
-
-            var storyboard = GetHideProgressBarStoryboard();
-            storyboard.Completed += (s, e) =>
-            {
-                progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
-            };
-
-            storyboard.Begin(progressBar);
-        }
+        }        
 
         public override void UpdateStatus(int currentItem, int totalItems, string statusFormat = "")
         {
@@ -73,7 +56,7 @@ namespace Orchestra.Services
             var progressBar = InitializeProgressBar();
             if (progressBar != null)
             {
-                _dispatcherService.Invoke(() =>
+                _dispatcherService.BeginInvoke(() =>
                 {
                     progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MinimumProperty, (double)0);
                     progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MaximumProperty, (double)totalItems);
@@ -93,6 +76,23 @@ namespace Orchestra.Services
                     }                    
                 }, true);
             }
+        }
+
+        private void OnHideTimerTick(object sender, EventArgs eventArgs)
+        {
+            Log.Debug("Hiding progress bar");
+
+            _hidingTimer.Stop();
+
+            var progressBar = InitializeProgressBar();
+
+            var storyboard = GetHideProgressBarStoryboard();
+            storyboard.Completed += (s, e) =>
+            {
+                progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
+            };
+
+            storyboard.Begin(progressBar);
         }
 
         private ProgressBar InitializeProgressBar()

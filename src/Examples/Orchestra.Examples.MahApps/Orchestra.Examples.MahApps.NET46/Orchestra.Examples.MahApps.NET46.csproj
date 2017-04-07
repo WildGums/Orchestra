@@ -47,9 +47,8 @@
       <HintPath>..\..\..\..\lib\Catel.Extensions.Controls.4.5.4\lib\net46\Catel.Extensions.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Catel.Fody.Attributes">
-      <HintPath>..\..\..\..\lib\Catel.Fody.2.14.0\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Catel.Fody.Attributes, Version=2.15.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Catel.Fody.2.15.0\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="Catel.MVVM, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\Catel.MVVM.4.5.4\lib\net46\Catel.MVVM.dll</HintPath>
@@ -58,11 +57,11 @@
     <Reference Include="MahApps.Metro, Version=1.4.3.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\MahApps.Metro.1.4.3\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.Controls, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.Controls.1.4.0\lib\net46\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.Controls.1.5.0\lib\net46\Orc.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.FileSystem, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.2.0\lib\net46\Orc.FileSystem.dll</HintPath>
+    <Reference Include="Orc.FileSystem, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.FileSystem.1.2.6\lib\net46\Orc.FileSystem.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -122,8 +121,8 @@
     <Analyzer Include="..\..\..\..\lib\AsyncUsageAnalyzers.1.0.0-alpha003\analyzers\dotnet\AsyncUsageAnalyzers.dll" />
     <Analyzer Include="..\..\..\..\lib\PublicApiAnalyzer.1.0.0-alpha001\analyzers\dotnet\cs\PublicApiAnalyzer.CodeFixes.dll" />
     <Analyzer Include="..\..\..\..\lib\PublicApiAnalyzer.1.0.0-alpha001\analyzers\dotnet\cs\PublicApiAnalyzer.dll" />
-    <Analyzer Include="..\..\..\..\lib\WpfAnalyzers.0.2.7.6\analyzers\dotnet\cs\WpfAnalyzers.Analyzers.dll" />
-    <Analyzer Include="..\..\..\..\lib\WpfAnalyzers.0.2.7.6\analyzers\dotnet\cs\WpfAnalyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\..\..\lib\WpfAnalyzers.0.2.7.8\analyzers\dotnet\cs\WpfAnalyzers.Analyzers.dll" />
+    <Analyzer Include="..\..\..\..\lib\WpfAnalyzers.0.2.7.8\analyzers\dotnet\cs\WpfAnalyzers.CodeFixes.dll" />
   </ItemGroup>
   <Import Project="..\Orchestra.Examples.MahApps.Shared\Orchestra.Examples.MahApps.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

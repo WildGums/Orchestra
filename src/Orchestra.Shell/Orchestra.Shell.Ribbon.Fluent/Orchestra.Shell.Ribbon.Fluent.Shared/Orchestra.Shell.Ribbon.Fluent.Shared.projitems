@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
-	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\GlobalSuppressions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\..\GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\RibbonBackstageButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\RibbonBackstageTabControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\RibbonBackstageTabItem.cs" />
@@ -31,11 +31,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Themes\Office2013\FluentControls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Themes\Office2013\Generic.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Themes\FluentControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
