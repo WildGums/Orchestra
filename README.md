@@ -6,7 +6,7 @@
 ![Version](https://img.shields.io/nuget/v/orchestra.core.svg)
 ![Pre-release version](https://img.shields.io/nuget/vpre/orchestra.core.svg)
 
-Orchestra is a composable WPF shell built on top of [Catel](http://www.catelproject.com).
+Orchestra is a composable WPF shell and framework built on top of [Catel](http://www.catelproject.com).
 
 It has been in active development for over 4 years (initial commit 2012/06/18) and is used in numerous Line of Business (LOB) applications on a daily basis.
 
@@ -16,7 +16,7 @@ Orchestra consists of a main shell including an SDK with services that allow dev
 
 Provide a robust yet flexible LOB shell, designed with best practices in mind, to jump start the development of desktop applications.
 
-In other words, we wanted to create a shell that dramatically speeds up the time it takes to release a LOB application to market by enabling developers to concentrate more on their business logic and less on scaffolding.
+In other words, we wanted to create a shell that dramatically speeds up the time it takes to release a LOB application to market by enabling developers to concentrate more on the business logic and less on scaffolding.
 
 ## Available Shells
 
@@ -65,7 +65,6 @@ We purposely designed Orchestra to be a lightweight shell. However you can 'supe
 - Project management ([Orc.ProjectManagement](https://github.com/Orcomp/Orc.ProjectManagement))
 - Automatic updates ([Orc.NuGetExplorer](https://github.com/WildGums/Orc.NuGetExplorer) [Orc.Squirrel](https://github.com/Orcomp/Orc.Squirrel))
 - Undo/Redo ([Orc.Memento](https://github.com/WildGums/Orc.Memento))
-- Crash reporting ([Orc.CrashReporting](https://github.com/WildGums/Orc.CrashReporting))
 
 ## Orchestra libraries
 
@@ -89,10 +88,15 @@ You can find the full list [here](https://github.com/WildGums).
 
 ## Example Applications
 
-Here are some examples of open source applications built with Orchestra and other Orc.* libraries. (If you have an open source application based on Orchestra that you would like to list here, please let us know.):
+Here are some examples of applications built with Orchestra and other Orc.* libraries:
 
-- [LogViewer](https://github.com/WildGums/LogViewer): Desktop application that makes it easy to search and visualize logs created by Orchestra
-- [CsvTextEditor](https://github.com/WildGums/CsvTextEditor): Desktop application that makes editing small CSV files easier
+| [LogViewer](https://github.com/WildGums/LogViewer)                                | Rantt                   | [CsvTextEditor](https://github.com/WildGums/CsvTextEditor) | FlexGrid    |
+|:-:                                                                                |:-:                      |:-:                                                         |:-:          |
+|Log viewer   | Gantt chart application | Csv file text editor                                       | Data visualizer            |
+| ![Log Viewer](doc/images/LogViewer.png)                                            |![Gantt Chart](doc/images/Rantt.png)    |![CsvTextEditor](doc/images/CsvTextEditor.png)    |![FlexGrid](doc/images/FlexGrid.png)   |
+|   |   |   |   |
+
+[LogViewer](https://github.com/WildGums/LogViewer) and [CsvTextEditor](https://github.com/WildGums/CsvTextEditor) are open source projects hosted on Github. 
 
 ## Contributions
 
