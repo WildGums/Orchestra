@@ -85,14 +85,13 @@ namespace Orchestra.Services
             _hidingTimer.Stop();
 
             var progressBar = InitializeProgressBar();
-
-            var storyboard = GetHideProgressBarStoryboard();
-
             if (progressBar == null)
             {
                 return;
             }
-            
+
+            var storyboard = GetHideProgressBarStoryboard();
+
             storyboard.Completed += (s, e) =>
             {
                 progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
