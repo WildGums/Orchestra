@@ -87,6 +87,12 @@ namespace Orchestra.Services
             var progressBar = InitializeProgressBar();
 
             var storyboard = GetHideProgressBarStoryboard();
+
+            if (progressBar == null)
+            {
+                return;
+            }
+            
             storyboard.Completed += (s, e) =>
             {
                 progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
