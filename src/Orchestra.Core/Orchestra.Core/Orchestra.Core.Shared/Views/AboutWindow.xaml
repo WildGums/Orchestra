@@ -8,7 +8,7 @@
     <Window.Resources>
         <catel:BooleanToCollapsingVisibilityConverter x:Key="BooleanToCollapsingVisibilityConverter" />
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="15" />
@@ -55,8 +55,15 @@
                        Url="{Binding UriInfo.Uri}" Content="{Binding UriInfo.DisplayText}" Command="{Binding OpenUrl}"
                        Style="{StaticResource LinkLabelWithAccentColorStyle}" Margin="0"
                        Visibility="{Binding UriInfo, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
-        
-        <TextBlock Grid.Row="8" FontSize="13" HorizontalAlignment="Center" Text="{Binding Copyright}" />
+
+        <TextBlock Grid.Row="8" FontSize="13" HorizontalAlignment="Center" Text="{Binding Copyright}"
+                   Visibility="{Binding CopyrightUrl, Converter={catel:BooleanToCollapsingVisibilityConverter Link={catel:BooleanToOppositeBooleanConverter Link={catel:ReferenceToBooleanConverter}}}}"/>
+
+        <orc:LinkLabel Grid.Row="8" FontSize="13" HorizontalAlignment="Center" LinkLabelBehavior="AlwaysUnderline"
+                       Url="{Binding CopyrightUrl}" Content="{Binding Copyright}" Command="{Binding OpenCopyrightUrl}"
+                       Style="{StaticResource LinkLabelWithAccentColorStyle}" Margin="0"
+                       Visibility="{Binding CopyrightUrl, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
+
         <TextBlock Grid.Row="9" FontSize="13" HorizontalAlignment="Center" Text="{catel:LanguageBinding Orchestra_AllRightsReserved}" />
 
         <TextBlock Grid.Row="10" FontSize="13" HorizontalAlignment="Center" Margin="0 15 0 0" 
