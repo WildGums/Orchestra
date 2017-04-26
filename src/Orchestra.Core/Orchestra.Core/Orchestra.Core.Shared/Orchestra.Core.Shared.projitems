@@ -10,7 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
-	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\GlobalSuppressions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\..\MethodTimeLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\..\GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\ApplicationWatcherBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\CloseApplicationWatcherBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\KeyPressApplicationWatcherBase.cs" />
@@ -65,7 +66,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logging\TextBoxLogListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Markup\CanvasViewbox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Markup\FontImage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MethodTimeLogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AboutInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CommandInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Hint.cs" />
