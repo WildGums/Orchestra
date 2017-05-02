@@ -13,8 +13,7 @@ namespace Orchestra
     using System.Windows.Interop;
     using Catel;
     using Catel.Logging;
-    using Catel.Windows.Media;
-
+    
     public static partial class WindowExtensions
     {
         private const uint MF_BYCOMMAND = 0x00000000;

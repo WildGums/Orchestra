@@ -2,9 +2,10 @@
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:catel="http://catel.codeplex.com"
-                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   xmlns:orc="http://www.wildgums.net.au/orc">
 
-    <catel:StackGrid>
+    <orc:StackGrid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -39,7 +40,7 @@
         </StackPanel>
 
         <GroupBox Header="Group box 1 test">
-            <catel:StackGrid>
+            <orc:StackGrid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -51,7 +52,7 @@
                 
                 <Label Content="Some label" />
                 <ComboBox />
-            </catel:StackGrid>
+            </orc:StackGrid>
         </GroupBox>
 
         <GroupBox Header="Group box 2 test">
@@ -75,6 +76,9 @@
                                     Binding="{Binding LastName, Mode=OneWay}" />
             </DataGrid.Columns>
         </DataGrid>
-    </catel:StackGrid>
+    </orc:StackGrid>
     
 </catel:UserControl>
+
+
+

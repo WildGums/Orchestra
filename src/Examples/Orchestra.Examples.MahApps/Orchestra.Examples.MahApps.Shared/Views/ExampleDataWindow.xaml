@@ -4,22 +4,22 @@
                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                            xmlns:orchestra="https://github.com/orcomp/orchestra"
-                           xmlns:controls="http://catel.codeplex.com"
+                           xmlns:orc="http://www.wildgums.net.au/orc"
                            mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="400">
 
-    <controls:StackGrid>
-        <controls:StackGrid.ColumnDefinitions>
+    <orc:StackGrid>
+        <orc:StackGrid.ColumnDefinitions>
             <ColumnDefinition Width="*" MinWidth="400" />
             <ColumnDefinition Width="*" MinWidth="400" />
-        </controls:StackGrid.ColumnDefinitions>
+        </orc:StackGrid.ColumnDefinitions>
 
-        <controls:StackGrid.RowDefinitions>
+        <orc:StackGrid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-        </controls:StackGrid.RowDefinitions>
+        </orc:StackGrid.RowDefinitions>
 
         <Label Grid.ColumnSpan="2" Content="{Binding Title}" />
         <Label Grid.ColumnSpan="2" Content="This is an example window with MahApps" />
@@ -32,6 +32,13 @@
 
         <ProgressBar IsIndeterminate="True" />
         <Slider Minimum="100" Maximum="200" />
-    </controls:StackGrid>
+    </orc:StackGrid>
 
 </orchestra:MetroDataWindow>
+
+
+
+
+
+
+

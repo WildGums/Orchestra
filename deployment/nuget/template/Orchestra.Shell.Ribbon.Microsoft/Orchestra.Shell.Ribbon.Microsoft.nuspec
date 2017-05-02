@@ -26,7 +26,7 @@
     <dependencies>
       <dependency id="Orchestra.Core" version="[VERSION]" />
 
-      <dependency id="Catel.Extensions.Controls" version="[replaced]" />
+      <dependency id="Catel.MVVM" version="[replaced]" />
     </dependencies>
   </metadata>
 </package>

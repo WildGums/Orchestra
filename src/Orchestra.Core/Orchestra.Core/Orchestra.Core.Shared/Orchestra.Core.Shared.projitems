@@ -47,6 +47,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IconExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\VisualExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\WindowExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\WindowExtensions.size.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AssemblyHelper.cs" />
