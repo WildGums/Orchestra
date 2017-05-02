@@ -12,6 +12,8 @@
         
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.listbox.xaml" />
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.messagebox.xaml" />
+
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.normal.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
