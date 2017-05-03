@@ -1,30 +1,29 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StyleHelper.cs" company="Catel development team">
-//   Copyright (c) 2008 - 2015 Catel development team. All rights reserved.
+// <copyright file="StyleHelper.cs" company="WildGums">
+//   Copyright (c) 2008 - 2017 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 
 namespace Orchestra
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
     using Catel;
     using Catel.Logging;
-
 #if NET
     using Catel.Caching;
     using System.Windows.Markup;
-    using Orchestra.StylesExplorer.MarkupReflection;
+    using StylesExplorer.MarkupReflection;
     using XmlNamespaceManager = System.Xml.XmlNamespaceManager;
 #endif
-
 #if NETFX_CORE
     using global::Windows.UI.Xaml;
 #else
     using System.Windows;
     using System.Xml;
+
 #endif
 
     #region Enums
@@ -60,45 +59,21 @@ namespace Orchestra
     /// </summary>
     public static class StyleHelper
     {
-        #region Constants
-        /// <summary>
-        /// Prefix of a default style key.
-        /// </summary>
-        private const string DefaultKeyPrefix = "Default";
-
-        /// <summary>
-        /// Postfix of a default style key.
-        /// </summary>
-        private const string DefaultKeyPostfix = "Style";
-        #endregion
-
         #region Fields
         /// <summary>
         /// The log.
         /// </summary>
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-#if NET
-        /// <summary>
-        /// Cached decompiled XAML resource dictionaries.
-        /// </summary>
-        private static readonly CacheStorage<Uri, Tuple<XmlDocument, XmlNamespaceManager>> _resourceDictionaryCache = new CacheStorage<Uri, Tuple<XmlDocument, XmlNamespaceManager>>();
-
-        /// <summary>
-        /// Cached types of <see cref="FrameworkElement"/> belonging to the string representation of the type.
-        /// </summary>
-        private static readonly CacheStorage<string, Type> _styleToFrameworkElementTypeCache = new CacheStorage<string, Type>();
-#endif
-        #endregion
-
-        #region Properties
         /// <summary>
         /// This property allows you to disable all pixel shaders in Catel.
         /// <para />
         /// By default, all pixel shaders are enabled.
         /// </summary>
         public static PixelShaderMode PixelShaderMode = PixelShaderMode.Auto;
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Gets or sets a value indicating whether style forwarding is enabled. Style forwarding can be
         /// enabled by calling one of the <see cref="CreateStyleForwardersForDefaultStyles(string)"/> overloads.
@@ -109,6 +84,7 @@ namespace Orchestra
         public static bool IsStyleForwardingEnabled { get; private set; }
         #endregion
 
+        #region Methods
 #if NET
         /// <summary>
         /// Ensures that an application instance exists and the styles are applied to the application. This method is extremely useful
@@ -142,6 +118,7 @@ namespace Orchestra
                 }
             }
         }
+
 #endif
 
         /// <summary>
@@ -221,10 +198,10 @@ namespace Orchestra
             {
                 // Get all keys from this resource dictionary
                 var keys = (from key in sourceResources.Keys as ICollection<object>
-                            where key is string &&
-                                  ((string)key).StartsWith(defaultPrefix, StringComparison.Ordinal) &&
-                                  ((string)key).EndsWith(DefaultKeyPostfix, StringComparison.Ordinal)
-                            select key).ToList();
+                    where key is string &&
+                          ((string) key).StartsWith(defaultPrefix, StringComparison.Ordinal) &&
+                          ((string) key).EndsWith(DefaultKeyPostfix, StringComparison.Ordinal)
+                    select key).ToList();
 
                 foreach (string key in keys)
                 {
@@ -332,8 +309,8 @@ namespace Orchestra
             Argument.IsNotNull("targetType", targetType);
 
             var styleKey = (from key in rootResourceDictionary.Keys as ICollection<object>
-                            where key is Type && (Type)key == targetType
-                            select key).FirstOrDefault();
+                where key is Type && (Type) key == targetType
+                select key).FirstOrDefault();
             if (styleKey != null)
             {
                 return rootResourceDictionary;
@@ -367,10 +344,10 @@ namespace Orchestra
             var styles = new List<Style>();
 
             var keys = from key in sourceResources.Keys as ICollection<object>
-                       where key is string &&
-                             ((string)key).StartsWith(defaultPrefix, StringComparison.Ordinal) &&
-                             ((string)key).EndsWith(DefaultKeyPostfix, StringComparison.Ordinal)
-                       select key;
+                where key is string &&
+                      ((string) key).StartsWith(defaultPrefix, StringComparison.Ordinal) &&
+                      ((string) key).EndsWith(DefaultKeyPostfix, StringComparison.Ordinal)
+                select key;
 
             foreach (string key in keys)
             {
@@ -429,8 +406,8 @@ namespace Orchestra
             foreach (SetterBase setter in style.Setters)
             {
                 bool exists = (from styleSetter in newStyle.Setters
-                               where setter is Setter && ((Setter)styleSetter).Property == ((Setter)setter).Property
-                               select styleSetter).Any();
+                    where setter is Setter && ((Setter) styleSetter).Property == ((Setter) setter).Property
+                    select styleSetter).Any();
                 if (!exists)
                 {
                     newStyle.Setters.Add(setter);
@@ -449,6 +426,7 @@ namespace Orchestra
         }
 
 #if NET
+
         /// <summary>
         /// Recreates the default styles based on theme.
         /// </summary>
@@ -469,10 +447,10 @@ namespace Orchestra
             Argument.IsNotNull("defaultPrefix", defaultPrefix);
 
             var keys = (from key in resources.Keys as ICollection<object>
-                        where key is string &&
-                              ((string)key).StartsWith(defaultPrefix, StringComparison.InvariantCulture) &&
-                              ((string)key).EndsWith(DefaultKeyPostfix, StringComparison.InvariantCulture)
-                        select key).ToList();
+                where key is string &&
+                      ((string) key).StartsWith(defaultPrefix, StringComparison.InvariantCulture) &&
+                      ((string) key).EndsWith(DefaultKeyPostfix, StringComparison.InvariantCulture)
+                select key).ToList();
 
             foreach (string key in keys)
             {
@@ -496,6 +474,7 @@ namespace Orchestra
                 RecreateDefaultStylesBasedOnTheme(rootResourceDictionary, resourceDictionary, defaultPrefix);
             }
         }
+
 #endif
 
         /// <summary>
@@ -541,8 +520,36 @@ namespace Orchestra
 
             return newStyle;
         }
+        #endregion
+
+        #region Constants
+        /// <summary>
+        /// Prefix of a default style key.
+        /// </summary>
+        private const string DefaultKeyPrefix = "Default";
+
+        /// <summary>
+        /// Postfix of a default style key.
+        /// </summary>
+        private const string DefaultKeyPostfix = "Style";
+        #endregion
 
 #if NET
+
+        /// <summary>
+        /// Cached decompiled XAML resource dictionaries.
+        /// </summary>
+        private static readonly CacheStorage<Uri, Tuple<XmlDocument, XmlNamespaceManager>> _resourceDictionaryCache = new CacheStorage<Uri, Tuple<XmlDocument, XmlNamespaceManager>>();
+
+        /// <summary>
+        /// Cached types of <see cref="FrameworkElement"/> belonging to the string representation of the type.
+        /// </summary>
+        private static readonly CacheStorage<string, Type> _styleToFrameworkElementTypeCache = new CacheStorage<string, Type>();
+
+#endif
+
+#if NET
+
         /// <summary>
         /// Finds the <see cref="FrameworkElement"/> a specific style is based on.
         /// </summary>
@@ -581,13 +588,13 @@ namespace Orchestra
 
                     string basedOnValue = xmlAttribute.Value;
                     basedOnValue = basedOnValue.Replace("StaticResource", "");
-                    basedOnValue = basedOnValue.Replace("x:Type", "").Trim(new[] { ' ', '{', '}' });
+                    basedOnValue = basedOnValue.Replace("x:Type", "").Trim(new[] {' ', '{', '}'});
 
                     #region Create xml type mapper
-                    var xamlTypeMapper = new XamlTypeMapper(new[] { "PresentationFramework" });
+                    var xamlTypeMapper = new XamlTypeMapper(new[] {"PresentationFramework"});
                     foreach (XmlAttribute namespaceAttribute in doc.DocumentElement.Attributes)
                     {
-                        string xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(new[] { ':' });
+                        string xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(new[] {':'});
 
                         string value = namespaceAttribute.Value;
                         string clrNamespace = value;
@@ -600,13 +607,13 @@ namespace Orchestra
                             // * clr-namespace:[NAMESPACE];assembly=[ASSEMBLY]
                             if (clrNamespace.Contains(";"))
                             {
-                                clrNamespace = clrNamespace.Split(new[] { ';' })[0];
+                                clrNamespace = clrNamespace.Split(new[] {';'})[0];
                             }
                             clrNamespace = clrNamespace.Replace("clr-namespace:", string.Empty);
 
                             if (value.Contains(";"))
                             {
-                                assemblyName = value.Split(new[] { ';' })[1].Replace("assembly:", string.Empty);
+                                assemblyName = value.Split(new[] {';'})[1].Replace("assembly:", string.Empty);
                             }
 
                             xamlTypeMapper.AddMappingProcessingInstruction(xmlNamespace, clrNamespace, assemblyName);
@@ -614,7 +621,7 @@ namespace Orchestra
                     }
                     #endregion
 
-                    string[] splittedType = basedOnValue.Split(new[] { ':' });
+                    string[] splittedType = basedOnValue.Split(new[] {':'});
                     string typeNamespace = (splittedType.Length == 2) ? splittedType[0] : "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
                     string typeName = (splittedType.Length == 2) ? splittedType[1] : splittedType[0];
                     var type = xamlTypeMapper.GetType(typeNamespace, typeName);
@@ -655,7 +662,7 @@ namespace Orchestra
                 foreach (XmlAttribute namespaceAttribute in doc.DocumentElement.Attributes)
                 {
                     // Clean up namespace (remove xmlns prefix)
-                    string xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(new[] { ':' });
+                    string xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(new[] {':'});
                     xmlNamespaceManager.AddNamespace(xmlNamespace, namespaceAttribute.Value);
                 }
 
@@ -666,6 +673,7 @@ namespace Orchestra
                 return new Tuple<XmlDocument, XmlNamespaceManager>(doc, xmlNamespaceManager);
             });
         }
+
 #endif
     }
 }
