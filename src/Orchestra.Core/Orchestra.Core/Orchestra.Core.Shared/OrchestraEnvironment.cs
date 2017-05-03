@@ -14,7 +14,7 @@ namespace Orchestra
         public const string OrchestraUrl = "https://github.com/orcomp/orchestra";
 
         #region Constants
-        public static readonly SolidColorBrush DefaultAccentColorBrush = new SolidColorBrush(Colors.Blue);
+        public static readonly SolidColorBrush DefaultAccentColorBrush = new SolidColorBrush(Colors.Orange);
         #endregion
     }
 }
