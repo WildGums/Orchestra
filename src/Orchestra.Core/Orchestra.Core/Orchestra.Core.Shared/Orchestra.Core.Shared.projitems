@@ -112,6 +112,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\ClipboardService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CloseApplicationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CommandInfoService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ConfigurationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\EnsureStartupService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\ICommandInfoServiceExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IKeyboardMappingsServiceExtensions.cs" />
