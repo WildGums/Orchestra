@@ -28,6 +28,7 @@ namespace Orchestra.Models
         /// <param name="buildDateTime">The application build datetime. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="company">The application company. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="copyright">The application copyright. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
+        /// <param name="copyrightUri">The application copyright Uri. Can be <c>null</c>.</param>
         /// <param name="description">The application description. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="displayVersion">The application display version. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="informationalVersion">The application informational version. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
@@ -36,7 +37,7 @@ namespace Orchestra.Models
         /// <param name="version">The application version. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         public AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, UriInfo uriInfo = null, Assembly assembly = null,
             Uri companyLogoForSplashScreenUri = null, BitmapSource appIcon = null, DateTime? buildDateTime = null, string company = null,
-            string copyright = null, string description = null, string displayVersion = null, string informationalVersion = null,
+            string copyright = null, Uri copyrightUri = null, string description = null, string displayVersion = null, string informationalVersion = null,
             string name = null, string productName = null, string version = null)
         {
             ShowLogButton = true;
@@ -45,9 +46,10 @@ namespace Orchestra.Models
 
             CompanyLogoForSplashScreenUri = companyLogoForSplashScreenUri;
             CompanyLogoUri = companyLogoUri;
+            CopyrightUri = copyrightUri;
             LogoImageSource = logoImageSource;
             UriInfo = uriInfo;
-            
+
             AppIcon = appIcon ?? Assembly.ExtractLargestIcon();
             BuildDateTime = buildDateTime ?? Assembly.GetBuildDateTime();
             Company = company ?? Assembly.Company();
@@ -81,7 +83,7 @@ namespace Orchestra.Models
         public DateTime? BuildDateTime { get; private set; }
 
         /// <summary>
-        /// Gets the application logo image source.
+        /// Gets the application logo image Uri.
         /// </summary>
         /// <value>The company logo image Uri.</value>
         public Uri CompanyLogoForSplashScreenUri { get; set; }
@@ -101,6 +103,11 @@ namespace Orchestra.Models
         /// Gets the application copyright.
         /// </summary>
         public string Copyright { get; private set; }
+
+        /// <summary>
+        /// Gets the application copyright Uri.
+        /// </summary>
+        public Uri CopyrightUri { get; private set; }
 
         /// <summary>
         /// Gets the application description.

@@ -48,11 +48,13 @@ namespace Orchestra.ViewModels
             BuildDateTime = string.Format(languageService.GetString("Orchestra_BuiltOn"), buildDateTime);
             UriInfo = aboutInfo.UriInfo;
             Copyright = aboutInfo.Copyright;
+            CopyrightUrl = aboutInfo.CopyrightUri == null ? null : aboutInfo.CopyrightUri.ToString();
             CompanyLogoUri = aboutInfo.CompanyLogoUri;
             ImageSourceUrl = aboutInfo.LogoImageSource;
             ShowLogButton = aboutInfo.ShowLogButton;
             AppIcon = aboutInfo.AppIcon;
             OpenUrl = new Command(OnOpenUrlExecute, OnOpenUrlCanExecute);
+            OpenCopyrightUrl = new Command(OnOpenCopyrightUrlExecute, OnOpenCopyrightUrlCanExecute);
             OpenLog = new TaskCommand(OnOpenLogExecuteAsync);
             ShowSystemInfo = new Command(OnShowSystemInfoExecute);
             EnableDetailedLogging = new Command(OnEnableDetailedLoggingExecute);
@@ -69,6 +71,8 @@ namespace Orchestra.ViewModels
 
         public string Copyright { get; private set; }
 
+        public string CopyrightUrl { get; private set; }
+
         public Uri CompanyLogoUri { get; private set; }
 
         public string ImageSourceUrl { get; private set; }
@@ -83,6 +87,8 @@ namespace Orchestra.ViewModels
         #region Commands
         public Command OpenUrl { get; private set; }
 
+        public Command OpenCopyrightUrl { get; private set; }
+
         private bool OnOpenUrlCanExecute()
         {
             var uriInfo = UriInfo;
@@ -94,9 +100,19 @@ namespace Orchestra.ViewModels
             return !string.IsNullOrEmpty(uriInfo.Uri);
         }
 
+        private bool OnOpenCopyrightUrlCanExecute()
+        {
+            return !string.IsNullOrEmpty(CopyrightUrl);
+        }
+
         private void OnOpenUrlExecute()
         {
             _processService.StartProcess(UriInfo.Uri);
+        }
+
+        private void OnOpenCopyrightUrlExecute()
+        {
+            _processService.StartProcess(CopyrightUrl);
         }
 
         public TaskCommand OpenLog { get; private set; }
@@ -108,7 +124,7 @@ namespace Orchestra.ViewModels
                                    select logListener).FirstOrDefault();
             if (fileLogListener != null)
             {
-                var filePath = ((FileLogListener) fileLogListener).FilePath;
+                var filePath = ((FileLogListener)fileLogListener).FilePath;
 
                 _processService.StartProcess(filePath);
             }
