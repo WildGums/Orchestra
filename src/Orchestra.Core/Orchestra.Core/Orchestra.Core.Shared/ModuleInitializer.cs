@@ -101,29 +101,9 @@ public static class ModuleInitializer
 
     private static void InitializeLogging()
     {
-        // Delete all log files older than 1 week
-        try
-        {
-            var applicationDataDirectory = Catel.IO.Path.GetApplicationDataDirectory();
-            if (Directory.Exists(applicationDataDirectory))
-            {
-                var logFiles = Directory.GetFiles(applicationDataDirectory, "*.log");
-                foreach (var logFile in logFiles)
-                {
-                    var lastWriteTime = File.GetLastWriteTime(logFile);
-                    if (lastWriteTime < DateTime.Now.AddDays(-7))
-                    {
-                        File.Delete(logFile);
-                    }
-                }
-            }
-        }
-        catch (Exception)
-        {
-            // Ignore
-        }
+        LogHelper.CleanUpAllLogTypeFiles();
 
-        var fileLogListener = LogHelper.CreateFileLogListener(AssemblyHelper.GetEntryAssembly().GetName().Name);
+        var fileLogListener = LogHelper.CreateFileLogListener(LogFilePrefixes.EntryAssemblyName);
 
         fileLogListener.IsDebugEnabled = false;
         fileLogListener.IsInfoEnabled = true;
