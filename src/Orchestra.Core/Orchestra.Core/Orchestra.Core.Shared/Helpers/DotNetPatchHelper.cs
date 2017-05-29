@@ -162,7 +162,7 @@ namespace Orchestra
         {
             Log.Error(content);
 
-            var finalMessage = string.Format("{0}\n\nNote: you can use CTRL + C to copy this message into the clipboard", content);
+            var finalMessage = $"{content}\n\nNote: you can use CTRL + C to copy this message into the clipboard";
 
             MessageBox.Show(finalMessage);
         }
