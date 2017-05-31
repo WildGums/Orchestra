@@ -8,6 +8,7 @@
 namespace Orchestra.Services
 {
     using System;
+    using System.Globalization;
     using System.IO;
     using System.Threading.Tasks;
     using Catel;
@@ -19,60 +20,294 @@ namespace Orchestra.Services
     using Orc.FileSystem;
     using Path = Catel.IO.Path;
 
-    public class ConfigurationService : Catel.Configuration.ConfigurationService
+    /// <summary>
+    /// Custom implementation to work around https://github.com/Catel/Catel/issues/1029, can be changed
+    /// once upgraded to Catel v5
+    /// </summary>
+    public class ConfigurationService : IConfigurationService
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly IFileService _fileService;
+        private readonly ISerializationManager _serializationManager;
+        private readonly IObjectConverterService _objectConverterService;
+
         private string _localConfigFilePath;
         private string _roamingConfigFilePath;
 
         private DynamicConfiguration _localConfiguration;
         private DynamicConfiguration _roamingConfiguration;
 
-        private bool _isFailedToInitialize;
+        private bool _suspendNotifications = false;
+        private bool _hasPendingNotifications = false;
+        //private bool _isFailedToInitialize;
 
         #region Constructors
-        public ConfigurationService(ISerializationManager serializationManager, IObjectConverterService objectConverterService, IFileService fileService) 
-            : base(serializationManager, objectConverterService)
+        public ConfigurationService(ISerializationManager serializationManager, IObjectConverterService objectConverterService,
+            IFileService fileService)
         {
+            Argument.IsNotNull(() => serializationManager);
+            Argument.IsNotNull(() => objectConverterService);
             Argument.IsNotNull(() => fileService);
 
+            _serializationManager = serializationManager;
+            _objectConverterService = objectConverterService;
             _fileService = fileService;
+
+            // Use temporary base initialization, InitializeAsync will override later
+            _localConfigFilePath = Path.Combine(Path.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserLocal), "configuration.xml");
+
+            try
+            {
+                if (File.Exists(_localConfigFilePath))
+                {
+                    using (var fileStream = new FileStream(_localConfigFilePath, FileMode.Open))
+                    {
+                        _localConfiguration = ModelBase.Load<DynamicConfiguration>(fileStream, SerializationMode.Xml, null);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to load local configuration, using default settings");
+            }
+
+            if (_localConfiguration == null)
+            {
+                _localConfiguration = new DynamicConfiguration();
+            }
+
+            _roamingConfigFilePath = Path.Combine(Path.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "configuration.xml");
+
+            try
+            {
+                if (File.Exists(_roamingConfigFilePath))
+                {
+                    using (var fileStream = new FileStream(_roamingConfigFilePath, FileMode.Open))
+                    {
+                        _roamingConfiguration = ModelBase.Load<DynamicConfiguration>(fileStream, SerializationMode.Xml, null);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to load roaming configuration, using default settings");
+            }
+
+            if (_roamingConfiguration == null)
+            {
+                _roamingConfiguration = new DynamicConfiguration();
+            }
 
 #pragma warning disable 4014
             InitializeAsync();
 #pragma warning restore 4014
-        }    
+        }
         #endregion
 
-        protected override string GetValueFromStore(ConfigurationContainer container, string key)
+        #region Events
+        /// <summary>
+        /// Occurs when the configuration has changed.
+        /// </summary>
+        public event EventHandler<ConfigurationChangedEventArgs> ConfigurationChanged;
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Suspends the notifications of this service until the returned object is disposed.
+        /// </summary>
+        /// <returns>IDisposable.</returns>
+        public IDisposable SuspendNotifications()
         {
-            if (_isFailedToInitialize)
-            {
-                return base.GetValueFromStore(container, key);
-            }
+            return new DisposableToken<ConfigurationService>(this,
+                x =>
+                {
+                    x.Instance._suspendNotifications = true;
+                },
+                x =>
+                {
+                    x.Instance._suspendNotifications = false;
+                    if (x.Instance._hasPendingNotifications)
+                    {
+                        x.Instance.RaiseConfigurationChanged(ConfigurationContainer.Roaming, string.Empty, string.Empty);
+                        x.Instance._hasPendingNotifications = false;
+                    }
+                });
+        }
 
-            var settings = GetConfigurationContainer(container);
-            if (settings == null)
-            {
-                // in case if configuration container still not loaded, use the one loaded in base class
-                return base.GetValueFromStore(container, key);
-            }
+        /// <summary>
+        /// Gets the configuration value.
+        /// </summary>
+        /// <typeparam name="T">The type of the value to retrieve.</typeparam>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value. Will be returned if the value cannot be found.</param>
+        /// <returns>The configuration value.</returns>
+        /// <exception cref="ArgumentException">The <paramref name="key" /> is <c>null</c> or whitespace.</exception>
+        [ObsoleteEx(ReplacementTypeOrMember = "GetValue<T>(ConfigurationContainer, string, T)", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
+        public T GetValue<T>(string key, T defaultValue = default(T))
+        {
+            return GetValue(ConfigurationContainer.Roaming, key, defaultValue);
+        }
 
+        /// <summary>
+        /// Gets the configuration value.
+        /// </summary>
+        /// <typeparam name="T">The type of the value to retrieve.</typeparam>
+        /// <param name="container">The container.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value. Will be returned if the value cannot be found.</param>
+        /// <returns>The configuration value.</returns>
+        /// <exception cref="ArgumentException">The <paramref name="key" /> is <c>null</c> or whitespace.</exception>
+        public T GetValue<T>(ConfigurationContainer container, string key, T defaultValue = default(T))
+        {
+            Argument.IsNotNullOrWhitespace("key", key);
+
+            key = GetFinalKey(key);
+
+            try
+            {
+                if (!ValueExists(container, key))
+                {
+                    return defaultValue;
+                }
+
+                var value = GetValueFromStore(container, key);
+                if (value == null)
+                {
+                    return defaultValue;
+                }
+
+                // ObjectConverterService doesn't support object, but just return the value as is
+                if (typeof(T) == typeof(object))
+                {
+                    return (T)(object)value;
+                }
+
+                return (T)_objectConverterService.ConvertFromStringToObject(value, typeof(T), CultureInfo.InvariantCulture);
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, $"Failed to retrieve configuration value '{container}.{key}', returning default value");
+
+                return defaultValue;
+            }
+        }
+
+        /// <summary>
+        /// Sets the configuration value.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <exception cref="ArgumentException">The <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        [ObsoleteEx(ReplacementTypeOrMember = "SetValue(ConfigurationContainer, string, object)", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
+        public void SetValue(string key, object value)
+        {
+            SetValue(ConfigurationContainer.Roaming, key, value);
+        }
+
+        /// <summary>
+        /// Sets the configuration value.
+        /// </summary>
+        /// <param name="container">The container.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <exception cref="ArgumentException">The <paramref name="key" /> is <c>null</c> or whitespace.</exception>
+        public void SetValue(ConfigurationContainer container, string key, object value)
+        {
+            Argument.IsNotNullOrWhitespace("key", key);
+
+            var originalKey = key;
+            key = GetFinalKey(key);
+
+            var stringValue = _objectConverterService.ConvertFromObjectToString(value, CultureInfo.InvariantCulture);
+            var existingValue = GetValueFromStore(container, key);
+
+            SetValueToStore(container, key, stringValue);
+
+            if (!string.Equals(stringValue, existingValue))
+            {
+                RaiseConfigurationChanged(container, originalKey, value);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified value is available.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns><c>true</c> if the specified value is available; otherwise, <c>false</c>.</returns>
+        /// <exception cref="ArgumentException">The <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        [ObsoleteEx(ReplacementTypeOrMember = "IsValueAvailable(ConfigurationContainer, string)", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
+        public bool IsValueAvailable(string key)
+        {
+            return IsValueAvailable(ConfigurationContainer.Roaming, key);
+        }
+
+        /// <summary>
+        /// Determines whether the specified value is available.
+        /// </summary>
+        /// <param name="container">The container.</param>
+        /// <param name="key">The key.</param>
+        /// <returns><c>true</c> if the specified value is available; otherwise, <c>false</c>.</returns>
+        /// <exception cref="ArgumentException">The <paramref name="key" /> is <c>null</c> or whitespace.</exception>
+        public bool IsValueAvailable(ConfigurationContainer container, string key)
+        {
+            Argument.IsNotNullOrWhitespace("key", key);
+
+            key = GetFinalKey(key);
+
+            return ValueExists(container, key);
+        }
+
+        /// <summary>
+        /// Initializes the value by setting the value to the <paramref name="defaultValue" /> if the value does not yet exist.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <exception cref="ArgumentException">The <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        [ObsoleteEx(ReplacementTypeOrMember = "InitializeValue(ConfigurationContainer, string, object)", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
+        public void InitializeValue(string key, object defaultValue)
+        {
+            InitializeValue(ConfigurationContainer.Roaming, key, defaultValue);
+        }
+
+        /// <summary>
+        /// Initializes the value by setting the value to the <paramref name="defaultValue" /> if the value does not yet exist.
+        /// </summary>
+        /// <param name="container">The container.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <exception cref="ArgumentException">The <paramref name="key" /> is <c>null</c> or whitespace.</exception>
+        public void InitializeValue(ConfigurationContainer container, string key, object defaultValue)
+        {
+            Argument.IsNotNullOrWhitespace("key", key);
+
+            if (!IsValueAvailable(container, key))
+            {
+                SetValue(container, key, defaultValue);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified key value exists in the configuration.
+        /// </summary>
+        /// <param name="container">The container.</param>
+        /// <param name="key">The key.</param>
+        /// <returns><c>true</c> if the value exists, <c>false</c> otherwise.</returns>
+        protected virtual bool ValueExists(ConfigurationContainer container, string key)
+        {
+            var settings = GetSettingsContainer(container);
+            return settings.IsConfigurationValueSet(key);
+        }
+
+        protected virtual string GetValueFromStore(ConfigurationContainer container, string key)
+        {
+            var settings = GetSettingsContainer(container);
             return settings.GetConfigurationValue<string>(key, string.Empty);
         }
 
-        protected override void SetValueToStore(ConfigurationContainer container, string key, string value)
+        protected virtual void SetValueToStore(ConfigurationContainer container, string key, string value)
         {
-            if (_isFailedToInitialize)
-            {
-                base.SetValueToStore(container, key, value);
-
-                return;
-            }
-
-            var settings = GetConfigurationContainer(container);
+            var settings = GetSettingsContainer(container);
 
             if (!settings.IsConfigurationValueSet(key))
             {
@@ -81,13 +316,26 @@ namespace Orchestra.Services
 
             settings.SetConfigurationValue(key, value);
 
-            var fileName = GetConfigurationFileName(container);
+            string fileName = string.Empty;
+
+            switch (container)
+            {
+                case ConfigurationContainer.Local:
+                    fileName = _localConfigFilePath;
+                    break;
+
+                case ConfigurationContainer.Roaming:
+                    fileName = _roamingConfigFilePath;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException("container");
+            }
 
 #pragma warning disable 4014
             SaveConfigurationAsync(fileName, settings);
 #pragma warning restore 4014
         }
-
 
         private async Task InitializeAsync()
         {
@@ -103,7 +351,7 @@ namespace Orchestra.Services
             {
                 Log.Error(ex, "Failed to initialize ConfigurationService");
 
-                _isFailedToInitialize = true;
+                //_isFailedToInitialize = true;
             }
         }
 
@@ -161,9 +409,37 @@ namespace Orchestra.Services
             return result;
         }
 
-        private DynamicConfiguration GetConfigurationContainer(ConfigurationContainer container)
+        /// <summary>
+        /// Gets the final key. This method allows customization of the key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>System.String.</returns>
+        protected virtual string GetFinalKey(string key)
         {
-            DynamicConfiguration settings;
+            key = key.Replace(" ", "_");
+
+            return key;
+        }
+
+        private void RaiseConfigurationChanged(ConfigurationContainer container, string key, object value)
+        {
+            if (_suspendNotifications)
+            {
+                _hasPendingNotifications = true;
+                return;
+            }
+
+            ConfigurationChanged.SafeInvoke(this, () => new ConfigurationChangedEventArgs(container, key, value));
+        }
+
+        /// <summary>
+        /// Gets the settings container for this platform
+        /// </summary>
+        /// <param name="container">The settings container.</param>
+        /// <returns>The settings container.</returns>
+        protected DynamicConfiguration GetSettingsContainer(ConfigurationContainer container)
+        {
+            DynamicConfiguration settings = null;
 
             switch (container)
             {
@@ -176,30 +452,11 @@ namespace Orchestra.Services
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(container));
+                    throw new ArgumentOutOfRangeException("container");
             }
 
             return settings;
         }
-
-        private string GetConfigurationFileName(ConfigurationContainer container)
-        {
-            string fileName;
-
-            switch (container)
-            {
-                case ConfigurationContainer.Local:
-                    fileName = _localConfigFilePath;
-                    break;
-
-                case ConfigurationContainer.Roaming:
-                    fileName = _roamingConfigFilePath;
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(container));
-            }
-            return fileName;
-        }
+        #endregion
     }
 }
