@@ -77,8 +77,8 @@
     <Reference Include="Orc.FileSystem, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\Orc.FileSystem.1.3.0\lib\net40\Orc.FileSystem.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.LogViewer, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.LogViewer.1.3.0\lib\net40\Orc.LogViewer.dll</HintPath>
+    <Reference Include="Orc.LogViewer, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.LogViewer.1.4.0\lib\net40\Orc.LogViewer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
