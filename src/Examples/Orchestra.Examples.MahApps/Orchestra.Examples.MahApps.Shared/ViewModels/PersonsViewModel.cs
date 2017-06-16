@@ -113,7 +113,7 @@ namespace Orchestra.Examples.MahApps.ViewModels
         #region Methods
         protected override async Task InitializeAsync()
         {
-            await base.InitializeAsync().ConfigureAwait(false);
+            await base.InitializeAsync();
 
             SelectedPerson = Persons.FirstOrDefault();
         }

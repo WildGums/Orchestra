@@ -50,7 +50,7 @@ namespace Orchestra.Services
                 {
                     var metroWindow = Application.Current.GetMainWindow();
                     await metroWindow.ShowMetroDialogAsync(simpleDialog);
-                    await simpleDialog.WaitUntilUnloadedAsync().ConfigureAwait(false);
+                    await simpleDialog.WaitUntilUnloadedAsync();
                     var simpleDataWindow = window as SimpleDataWindow;
                     bool? result = true;
                     if (simpleDataWindow != null)
