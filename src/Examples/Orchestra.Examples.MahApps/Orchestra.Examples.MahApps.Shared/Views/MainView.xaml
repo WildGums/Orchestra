@@ -3,16 +3,17 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:catel="http://catel.codeplex.com"
                    xmlns:views="clr-namespace:Orchestra.Examples.MahApps.Views"
-                   xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
+                   xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                   xmlns:orc="http://www.wildgums.net.au/orc">
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Style TargetType="catel:TabControl" BasedOn="{StaticResource {x:Type TabControl}}" />
+            <Style TargetType="orc:TabControl" BasedOn="{StaticResource {x:Type TabControl}}" />
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
-        <catel:TabControl>
+        <orc:TabControl>
             <TabItem IsSelected="True" Header="Persons" controls:ControlsHelper.HeaderFontSize="32"
                      VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <views:PersonsView />
@@ -23,7 +24,8 @@
                 <views:ControlsView />
 
             </TabItem>
-        </catel:TabControl>
+        </orc:TabControl>
     </Grid>
 
 </catel:UserControl>
+

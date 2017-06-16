@@ -9,6 +9,7 @@
     <Import_RootNamespace>Orchestra</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+
     <Folder Include="$(MSBuildThisFileDirectory)Controls\Interfaces\" />
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
@@ -17,7 +18,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)MethodTimeLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\MethodTimeLogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ApplicationInitializationServiceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IApplicationInitializationService.cs" />

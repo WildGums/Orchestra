@@ -21,15 +21,15 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <orc:DirectoryPickerView Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,6,0" LabelText="Working directory"
-                                     SelectedDirectory="{Binding WorkingDirectory, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+            <orc:DirectoryPicker Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,6,0" LabelText="Working directory"
+                                 SelectedDirectory="{Binding WorkingDirectory, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
 
-            <orc:DirectoryPickerView Grid.Row="1" Grid.ColumnSpan="3" Margin="0,0,6,0" LabelText="Output directory"
-                                     SelectedDirectory="{Binding OutputDirectory, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+            <orc:DirectoryPicker Grid.Row="1" Grid.ColumnSpan="3" Margin="0,0,6,0" LabelText="Output directory"
+                                 SelectedDirectory="{Binding OutputDirectory, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
 
             <Label Grid.Row="2" Grid.Column="0" Content="Horizon" />
-            <orc:DatePickerControl Grid.Row="2" Grid.Column="1" Value="{Binding HorizonStart, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Margin="6,0,3,0" />
-            <orc:DatePickerControl Grid.Row="2" Grid.Column="2" Value="{Binding HorizonEnd, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Margin="3,0,6,0" />
+            <orc:DatePicker Grid.Row="2" Grid.Column="1" Value="{Binding HorizonStart, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Margin="6,0,3,0" />
+            <orc:DatePicker Grid.Row="2" Grid.Column="2" Value="{Binding HorizonEnd, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Margin="3,0,6,0" />
 
             <Label Grid.Row="3" Grid.Column="0" Content="Current time" />
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTime, Converter={converters:TextToDateTimeConverter}, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />

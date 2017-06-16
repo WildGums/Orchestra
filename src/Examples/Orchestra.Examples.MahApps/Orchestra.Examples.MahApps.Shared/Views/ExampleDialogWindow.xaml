@@ -2,21 +2,22 @@
                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:catel="http://catel.codeplex.com"
-                            xmlns:orchestra="https://github.com/orcomp/orchestra">
+                            xmlns:orchestra="https://github.com/orcomp/orchestra"
+                            xmlns:orc="http://www.wildgums.net.au/orc">
 
-    <catel:StackGrid>
-        <catel:StackGrid.ColumnDefinitions>
+    <orc:StackGrid>
+        <orc:StackGrid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-        </catel:StackGrid.ColumnDefinitions>
+        </orc:StackGrid.ColumnDefinitions>
 
-        <catel:StackGrid.RowDefinitions>
+        <orc:StackGrid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-        </catel:StackGrid.RowDefinitions>
+        </orc:StackGrid.RowDefinitions>
 
         <Label Grid.ColumnSpan="2" Content="{Binding Title}" />
         <Label Grid.ColumnSpan="2" Content="This is an example window with MahApps" />
@@ -29,6 +30,13 @@
 
         <ProgressBar IsIndeterminate="True" />
         <Slider Minimum="100" Maximum="200" />
-    </catel:StackGrid>
+    </orc:StackGrid>
 
 </orchestra:SimpleDataWindow>
+
+
+
+
+
+
+

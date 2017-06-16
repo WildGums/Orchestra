@@ -2,9 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic/catel.sizes.normal.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Orchestra.sizes.normal.xaml" />
         <!--<ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic/catel.sizes.large.xaml" />-->
-        <ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic/catel.generic.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Orchestra.generic.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type GroupBox}">

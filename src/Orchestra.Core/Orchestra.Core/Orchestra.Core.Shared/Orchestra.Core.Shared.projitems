@@ -10,7 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)..\..\..\SolutionAssemblyInfo.cs" />
-	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\GlobalSuppressions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\..\MethodTimeLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\..\..\GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\ApplicationWatcherBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\CloseApplicationWatcherBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationWatchers\KeyPressApplicationWatcherBase.cs" />
@@ -41,11 +42,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\MessageImageToTextConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\PathToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\OrchestraException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ApplicationExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\AssemblyExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IconExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\VisualExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\WindowExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\WindowExtensions.size.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AssemblyHelper.cs" />
@@ -55,6 +58,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\IconHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\LogHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ScreenHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\StyleHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ThemeHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\VersionHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layers\HintsAdornerLayer.cs" />
@@ -65,7 +69,28 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logging\TextBoxLogListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Markup\CanvasViewbox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Markup\FontImage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MethodTimeLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\AppDomainTypeResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\BamlAssembly.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\BamlBinaryReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\BamlFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\BamlRecordType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\DotNetType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\IDependencyPropertyDescriptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\IType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\ITypeResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\KnownInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\PropertyDeclaration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\ResourceName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\TypeDeclaration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\WpfDependencyPropertyDescriptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\XmlBamlElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\XmlBamlNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\XmlBamlProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\XmlBamlPropertyElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\XmlBamlReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\XmlBamlText.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\XmlNamespace.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\Ricciolo\XmlPIMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AboutInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CommandInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Hint.cs" />
@@ -87,6 +112,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\ClipboardService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CloseApplicationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CommandInfoService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ConfigurationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\EnsureStartupService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\ICommandInfoServiceExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IKeyboardMappingsServiceExtensions.cs" />
@@ -182,6 +208,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Controls\KeyboardMappingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Orchestra.generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Orchestra.large.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Orchestra.normal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Orchestra.sizes.large.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Orchestra.sizes.normal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,15 +3,15 @@
                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                         xmlns:catel="http://catel.codeplex.com"
                          xmlns:orchestra="https://github.com/orcomp/orchestra"
                          xmlns:windows="clr-namespace:Orchestra.Windows"
+                         xmlns:orc="http://www.wildgums.net.au/orc"
                          SaveWindowPosition="False" SizeToContent="Manual" ShowInTaskbar="True" ResizeMode="CanResize"
                          CanCloseUsingEscape="False" d:DesignHeight="696" d:DesignWidth="480" mc:Ignorable="d">
 
     <windows:MetroDataWindow.Resources>
         <ResourceDictionary>
-            <Style TargetType="catel:TabControl" BasedOn="{StaticResource {x:Type TabControl}}" />
+            <Style TargetType="orc:TabControl" BasedOn="{StaticResource {x:Type TabControl}}" />
         </ResourceDictionary>
     </windows:MetroDataWindow.Resources>
 

@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Markup;
+using Catel.Configuration;
 using Catel.IoC;
 using Catel.Logging;
 using Catel.Services;
@@ -21,6 +22,7 @@ using Orchestra.Services;
 using Orchestra.Tooltips;
 using Orchestra.ViewModels;
 using Orchestra.Views;
+using ConfigurationService = Orchestra.Services.ConfigurationService;
 
 /// <summary>
 /// Used by the ModuleInit. All code inside the Initialize method is ran as soon as the assembly is loaded.
@@ -42,6 +44,8 @@ public static class ModuleInitializer
 
         var serviceLocator = ServiceLocator.Default;
 
+        serviceLocator.RegisterType<IConfigurationService, ConfigurationService>();
+
         // Overide style of Catel please wait service
         serviceLocator.RegisterType<IPleaseWaitService, Orchestra.Services.PleaseWaitService>();
 
@@ -59,7 +63,7 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IClipboardService, ClipboardService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IThemeService, ThemeService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();        
 
         serviceLocator.RegisterType<IMessageService, Orchestra.Services.MessageService>();
 
@@ -97,29 +101,9 @@ public static class ModuleInitializer
 
     private static void InitializeLogging()
     {
-        // Delete all log files older than 1 week
-        try
-        {
-            var applicationDataDirectory = Catel.IO.Path.GetApplicationDataDirectory();
-            if (Directory.Exists(applicationDataDirectory))
-            {
-                var logFiles = Directory.GetFiles(applicationDataDirectory, "*.log");
-                foreach (var logFile in logFiles)
-                {
-                    var lastWriteTime = File.GetLastWriteTime(logFile);
-                    if (lastWriteTime < DateTime.Now.AddDays(-7))
-                    {
-                        File.Delete(logFile);
-                    }
-                }
-            }
-        }
-        catch (Exception)
-        {
-            // Ignore
-        }
+        LogHelper.CleanUpAllLogTypeFiles();
 
-        var fileLogListener = LogHelper.CreateFileLogListener(AssemblyHelper.GetEntryAssembly().GetName().Name);
+        var fileLogListener = LogHelper.CreateFileLogListener(LogFilePrefixes.EntryAssemblyName);
 
         fileLogListener.IsDebugEnabled = false;
         fileLogListener.IsInfoEnabled = true;
