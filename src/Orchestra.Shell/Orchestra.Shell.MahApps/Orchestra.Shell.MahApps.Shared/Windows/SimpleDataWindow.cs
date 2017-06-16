@@ -33,6 +33,7 @@ namespace Orchestra.Windows
         private event EventHandler<DataContextChangedEventArgs> _viewDataContextChanged;
 
         private readonly Collection<DataWindowButton> _buttons = new Collection<DataWindowButton>();
+        private bool? _dialogResult;
         #endregion
 
         #region Constructors
@@ -109,7 +110,7 @@ namespace Orchestra.Windows
 
             if (mode == DataWindowMode.Close)
             {
-                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute, null);
+                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute, () => true);
                 _buttons.Add(button);
             }
 
@@ -153,7 +154,7 @@ namespace Orchestra.Windows
                 return;
             }
 
-            Close();
+            DialogResult = true;
         }
 
         /// <summary>
@@ -188,7 +189,7 @@ namespace Orchestra.Windows
                 return;
             }
 
-            Close();
+            DialogResult = false;
         }
 
         /// <summary>
@@ -232,7 +233,27 @@ namespace Orchestra.Windows
         /// </summary>
         protected void OnCloseExecute()
         {
+            DialogResult = null;
             Close();
+        }
+        #endregion
+
+        #region Properties
+        public bool? DialogResult
+        {
+            get
+            {
+                return _dialogResult;
+            }
+            set
+            {
+                if (value != _dialogResult)
+                {
+                    _dialogResult = value;
+
+                    Close();
+                }
+            }
         }
         #endregion
 

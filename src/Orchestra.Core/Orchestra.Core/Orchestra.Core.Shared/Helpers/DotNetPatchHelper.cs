@@ -8,7 +8,6 @@
 namespace Orchestra
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
@@ -145,7 +144,7 @@ namespace Orchestra
                 while (LastFirstChanceExceptions.Count > 0)
                 {
                     var firstChanceException = LastFirstChanceExceptions.Dequeue();
-                    
+
                     Log.Info("================================================================================================");
                     Log.Info();
                     Log.Info(firstChanceException);

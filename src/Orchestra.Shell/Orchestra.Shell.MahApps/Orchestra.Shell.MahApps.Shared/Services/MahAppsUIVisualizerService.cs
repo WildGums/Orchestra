@@ -11,6 +11,7 @@ namespace Orchestra.Services
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
+    using Windows;
     using Catel.MVVM;
     using Catel.Services;
     using MahApps.Metro.Controls;
@@ -49,12 +50,18 @@ namespace Orchestra.Services
                 {
                     var metroWindow = Application.Current.GetMainWindow();
                     await metroWindow.ShowMetroDialogAsync(simpleDialog);
-                    await simpleDialog.WaitUntilUnloadedAsync();
+                    await simpleDialog.WaitUntilUnloadedAsync().ConfigureAwait(false);
+                    var simpleDataWindow = window as SimpleDataWindow;
+                    bool? result = true;
+                    if (simpleDataWindow != null)
+                    {
+                        result = simpleDataWindow.DialogResult;
+                    }
+
+                    return result;
                 }
-                else
-                {
-                    simpleDialog.Invoke(simpleDialog.Show);
-                }
+
+                simpleDialog.Invoke(simpleDialog.Show);
 
                 return true;
             }
