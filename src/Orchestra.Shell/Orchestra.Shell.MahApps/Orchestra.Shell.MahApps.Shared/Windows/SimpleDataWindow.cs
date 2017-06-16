@@ -149,7 +149,7 @@ namespace Orchestra.Windows
         /// </summary>
         protected async Task OnOkExecuteAsync()
         {
-            if (!await ApplyChangesAsync().ConfigureAwait(false))
+            if (!await ApplyChangesAsync())
             {
                 return;
             }
@@ -184,7 +184,7 @@ namespace Orchestra.Windows
         /// </summary>
         protected async Task OnCancelExecuteAsync()
         {
-            if (!await DiscardChangesAsync().ConfigureAwait(false))
+            if (!await DiscardChangesAsync())
             {
                 return;
             }
@@ -199,7 +199,7 @@ namespace Orchestra.Windows
         {
             if (OnApplyCanExecute())
             {
-                await OnApplyExecuteAsync().ConfigureAwait(false);
+                await OnApplyExecuteAsync();
             }
         }
 
@@ -217,7 +217,7 @@ namespace Orchestra.Windows
         /// </summary>
         protected async Task OnApplyExecuteAsync()
         {
-            await ApplyChangesAsync().ConfigureAwait(false);
+            await ApplyChangesAsync();
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace Orchestra.Windows
         /// <returns>True if successful, otherwise false.</returns>
         protected virtual async Task<bool> ApplyChangesAsync()
         {
-            return await _logic.SaveViewModelAsync().ConfigureAwait(false);
+            return await _logic.SaveViewModelAsync();
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace Orchestra.Windows
         /// </summary>
         protected virtual async Task<bool> DiscardChangesAsync()
         {
-            return await _logic.CancelViewModelAsync().ConfigureAwait(false);
+            return await _logic.CancelViewModelAsync();
         }
         #endregion
 

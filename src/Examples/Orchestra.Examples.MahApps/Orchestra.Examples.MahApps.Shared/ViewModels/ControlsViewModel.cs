@@ -18,33 +18,33 @@
             _uiVisualizerService = uiVisualizerService;
             _messageService = messageService;
 
-            OnShowCustomDialogExecute = new TaskCommand(ShowCustomDialogExecuteAsync);
-            OnShowCloseDialogExecute = new TaskCommand(ShowCloseDialogExecuteAsync);
-            OnShowOkCancelDialogExecute = new TaskCommand(ShowOkCancelDialogExecuteAsync);
-            OnShowOkCancelApplyDialogExecute = new TaskCommand(ShowOkCancelApplyDialogExecuteAsync);
+            ShowCustomDialog = new TaskCommand(OnShowCustomDialogExecuteAsync);
+            ShowCloseDialog = new TaskCommand(OnShowCloseDialogExecuteAsync);
+            ShowOkCancelDialog = new TaskCommand(OnShowOkCancelDialogExecuteAsync);
+            ShowOkCancelApplyDialog = new TaskCommand(OnShowOkCancelApplyDialogExecuteAsync);
         }
 
-        public TaskCommand OnShowCustomDialogExecute { get; private set; }
+        public TaskCommand ShowCustomDialog { get; private set; }
 
-        public TaskCommand OnShowCloseDialogExecute { get; private set; }
+        public TaskCommand ShowCloseDialog { get; private set; }
 
-        public TaskCommand OnShowOkCancelDialogExecute { get; private set; }
+        public TaskCommand ShowOkCancelDialog { get; private set; }
 
-        public TaskCommand OnShowOkCancelApplyDialogExecute { get; private set; }
+        public TaskCommand ShowOkCancelApplyDialog { get; private set; }
 
-        private async Task ShowOkCancelApplyDialogExecuteAsync()
+        private async Task OnShowOkCancelApplyDialogExecuteAsync()
         {
             var result = await _uiVisualizerService.ShowDialogAsync<ExampleDialogOkCancelApplyViewModel>();
             await ShowResultInMessageBoxAsync(result);
         }
 
-        private async Task ShowOkCancelDialogExecuteAsync()
+        private async Task OnShowOkCancelDialogExecuteAsync()
         {
             var result = await _uiVisualizerService.ShowDialogAsync<ExampleDialogOkCancelViewModel>();
             await ShowResultInMessageBoxAsync(result);
         }
 
-        private async Task ShowCloseDialogExecuteAsync()
+        private async Task OnShowCloseDialogExecuteAsync()
         {
             var result = await _uiVisualizerService.ShowDialogAsync<ExampleDialogCloseViewModel>();
             await ShowResultInMessageBoxAsync(result);
@@ -56,7 +56,7 @@
             await _messageService.ShowInformationAsync($"The result of the custom dialog is '{part}'");
         }
 
-        private async Task ShowCustomDialogExecuteAsync()
+        private async Task OnShowCustomDialogExecuteAsync()
         {
             var result = await _uiVisualizerService.ShowDialogAsync<ExampleDialogViewModel>();
             var messageResult = await _messageService.ShowInformationAsync($"The result of the custom dialog is {result}");
