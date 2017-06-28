@@ -249,7 +249,9 @@ namespace Orchestra.Windows
             {
                 if (value != _dialogResult)
                 {
+#pragma warning disable WPF1012 // Notify when property changes.
                     _dialogResult = value;
+#pragma warning restore WPF1012 // Notify when property changes.
 
                     Close();
                 }
