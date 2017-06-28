@@ -55,6 +55,12 @@
     </Style>
 
     <Style TargetType="{x:Type ComboBox}">
+        <Style.Resources>
+            <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
+                <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+            </ControlTemplate>
+        </Style.Resources>
+        
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -128,7 +134,8 @@
                                 </Style>
                             </ToggleButton.Style>
                         </ToggleButton>
-                        <ContentPresenter ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                        <ContentPresenter Name="ContentSite"
+                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                       Content="{TemplateBinding SelectionBoxItem}"
                                       ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                       ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
@@ -136,6 +143,17 @@
                                       IsHitTestVisible="False" Margin="{TemplateBinding Padding}"
                                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+                        <TextBox x:Name="PART_EditableTextBox"
+                                 Style="{x:Null}" 
+                                 Template="{StaticResource ComboBoxTextBox}" 
+                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                 Margin="{TemplateBinding Padding}"
+                                 Focusable="True" 
+                                 Background="Transparent"
+                                 Visibility="Hidden"
+                                 IsReadOnly="{TemplateBinding IsReadOnly}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="True">
@@ -152,6 +170,11 @@
                         <Trigger Property="CanContentScroll" SourceName="DropDownScrollViewer" Value="False">
                             <Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
                             <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
+                        </Trigger>
+                        <Trigger Property="IsEditable" Value="true">
+                            <Setter Property="IsTabStop" Value="false"/>
+                            <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                     <ControlTemplate.Resources>
