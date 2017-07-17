@@ -52,8 +52,8 @@
     <Reference Include="ControlzEx, Version=2.2.0.4, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\ControlzEx.2.2.0.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
-    <Reference Include="Fluent, Version=5.0.2.47, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Fluent.Ribbon.5.0.2.47\lib\net45\Fluent.dll</HintPath>
+    <Reference Include="Fluent, Version=5.0.2.46, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Fluent.Ribbon.5.0.2.46\lib\net45\Fluent.dll</HintPath>
     </Reference>
     <Reference Include="MethodTimer, Version=1.19.0.0, Culture=neutral, PublicKeyToken=cb1364609f40a1dc, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\MethodTimer.Fody.1.19.0\lib\dotnet\MethodTimer.dll</HintPath>
