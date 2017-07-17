@@ -276,7 +276,15 @@ namespace Orchestra.Windows
         /// <returns>True if successful, otherwise false.</returns>
         protected virtual bool ValidateData()
         {
-            return _logic.ValidateViewModel();
+            var vm = _logic.ViewModel;
+            if (vm == null)
+            {
+                return false;
+            }
+
+            vm.Validate();
+
+            return vm.ValidationContext.HasErrors;
         }
 
         /// <summary>

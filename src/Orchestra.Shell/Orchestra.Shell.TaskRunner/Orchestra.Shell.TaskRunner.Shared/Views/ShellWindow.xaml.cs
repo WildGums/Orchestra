@@ -62,7 +62,7 @@ namespace Orchestra.Views
 
             if (taskRunnerService.ShowCustomizeShortcutsButton)
             {
-                AddCustomButton(DataWindowButton.FromSync("Keyboard shortcuts", () => uiVisualizerService.ShowDialog<KeyboardMappingsOverviewViewModel>(), null));
+                AddCustomButton(DataWindowButton.FromAsync("Keyboard shortcuts", () => uiVisualizerService.ShowDialogAsync<KeyboardMappingsOverviewViewModel>(), null));
             }
 
             serviceLocator.RegisterInstance<IAboutInfoService>(taskRunnerService);
@@ -70,7 +70,9 @@ namespace Orchestra.Views
             if (taskRunnerService.GetAboutInfo() != null)
             {
                 var aboutService = serviceLocator.ResolveType<IAboutService>();
-                commandManager.RegisterAction("Help.About", aboutService.ShowAbout);
+#pragma warning disable AvoidAsyncVoid // Avoid async void
+                commandManager.RegisterAction("Help.About", async () => await aboutService.ShowAboutAsync());
+#pragma warning restore AvoidAsyncVoid // Avoid async void
 
                 AddCustomButton(new DataWindowButton("About", commandManager.GetCommand("Help.About")));
             }

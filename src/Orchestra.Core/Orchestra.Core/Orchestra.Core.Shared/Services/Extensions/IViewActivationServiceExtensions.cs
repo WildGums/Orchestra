@@ -8,6 +8,7 @@
 namespace Orchestra.Services
 {
     using System;
+    using System.Threading.Tasks;
     using Catel;
     using Catel.IoC;
     using Catel.MVVM;
@@ -15,13 +16,13 @@ namespace Orchestra.Services
 
     public static class IViewActivationServiceExtensions
     {
-        public static void ActivateOrShow<TViewModel>(this IViewActivationService viewActivationService)
+        public static Task ActivateOrShowAsync<TViewModel>(this IViewActivationService viewActivationService)
             where TViewModel : IViewModel
         {
-            viewActivationService.ActivateOrShow(typeof (TViewModel));
+            return viewActivationService.ActivateOrShowAsync(typeof (TViewModel));
         }
 
-        public static void ActivateOrShow(this IViewActivationService viewActivationService, Type viewModelType)
+        public static async Task ActivateOrShowAsync(this IViewActivationService viewActivationService, Type viewModelType)
         {
             Argument.IsNotNull(() => viewActivationService);
             Argument.IsNotNull(() => viewModelType);
@@ -34,11 +35,11 @@ namespace Orchestra.Services
                 var uiVisualizerService = dependencyResolver.Resolve<IUIVisualizerService>();
 
                 var vm = viewModelFactory.CreateViewModel(viewModelType, null, null);
-                uiVisualizerService.Show(vm);
+                await uiVisualizerService.ShowAsync(vm);
             }
         }
 
-        public static void ActivateOrShow(this IViewActivationService viewActivationService, IViewModel viewModel)
+        public static async Task ActivateOrShowAsync(this IViewActivationService viewActivationService, IViewModel viewModel)
         {
             Argument.IsNotNull(() => viewActivationService);
             Argument.IsNotNull(() => viewModel);
@@ -49,7 +50,7 @@ namespace Orchestra.Services
 
                 var uiVisualizerService = dependencyResolver.Resolve<IUIVisualizerService>();
 
-                uiVisualizerService.Show(viewModel);
+                await uiVisualizerService.ShowAsync(viewModel);
             }
         }
     }

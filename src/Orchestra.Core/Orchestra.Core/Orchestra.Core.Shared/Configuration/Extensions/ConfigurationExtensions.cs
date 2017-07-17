@@ -7,6 +7,7 @@
 
 namespace Orchestra.Configuration
 {
+    using Catel;
     using Catel.Configuration;
 
     public static class ConfigurationExtensions

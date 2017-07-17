@@ -32,7 +32,7 @@ namespace Orchestra.Examples.Ribbon
         #region Methods
         protected override void Execute(object parameter)
         {
-            _aboutService.ShowAbout();
+            _aboutService.ShowAboutAsync();
         }
         #endregion
     }

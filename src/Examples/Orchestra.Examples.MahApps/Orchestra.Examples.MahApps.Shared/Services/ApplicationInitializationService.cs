@@ -63,7 +63,6 @@ namespace Orchestra.Examples.MahApps.Services
         {
             Log.Info("Improving performance");
 
-            Catel.Data.ModelBase.DefaultSuspendValidationValue = true;
             Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
             Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
         }

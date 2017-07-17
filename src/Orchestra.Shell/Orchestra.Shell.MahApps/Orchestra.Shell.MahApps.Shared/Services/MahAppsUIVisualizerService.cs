@@ -23,24 +23,7 @@ namespace Orchestra.Services
             : base(viewLocator)
         {
         }
-
-        protected override Type WindowType
-        {
-            get { return typeof (Control); }
-        }
-
-        protected override bool? ShowWindow(FrameworkElement window, bool showModal)
-        {
-            var simpleDialog = window as CustomDialog;
-            if (simpleDialog != null)
-            {
-                simpleDialog.Show();
-                return true;
-            }
-
-            return base.ShowWindow(window, showModal);
-        }
-
+        
         protected override async Task<bool?> ShowWindowAsync(FrameworkElement window, bool showModal)
         {
             var simpleDialog = window as CustomDialog;

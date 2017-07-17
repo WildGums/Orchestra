@@ -28,7 +28,7 @@ namespace Orchestra
             ribbon.AddRibbonButton(GetImageUri("/Resources/Images/about.png"), () =>
             {
                 var aboutService = ServiceLocator.Default.ResolveType<IAboutService>();
-                aboutService.ShowAbout();
+                aboutService.ShowAboutAsync();
             });
         }
 

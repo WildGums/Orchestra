@@ -11,33 +11,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Core", "Orchestra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Shell", "Orchestra.Shell", "{3D709C83-E2D1-4288-84D7-CBAF3C6B1BAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Core.NET40", "Orchestra.Core\Orchestra.Core\Orchestra.Core.NET40\Orchestra.Core.NET40.csproj", "{805E1F16-7A10-42A2-82BA-5012412144BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Core.NET47", "Orchestra.Core\Orchestra.Core\Orchestra.Core.NET47\Orchestra.Core.NET47.csproj", "{805E1F16-7A10-42A2-82BA-5012412144BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Tests.NET40", "Orchestra.Tests\Orchestra.Tests\Orchestra.Tests.NET40\Orchestra.Tests.NET40.csproj", "{96F837EA-C848-4AA4-AF9D-6FA1B370506F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Tests.NET47", "Orchestra.Tests\Orchestra.Tests\Orchestra.Tests.NET47\Orchestra.Tests.NET47.csproj", "{96F837EA-C848-4AA4-AF9D-6FA1B370506F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{DBEB5ED3-4622-408E-92D9-EC60F316A5C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.MahApps.NET40", "Examples\Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.NET40\Orchestra.Examples.MahApps.NET40.csproj", "{608C0720-4276-47B0-B131-7A2267735C58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.MahApps.NET47", "Examples\Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.NET47\Orchestra.Examples.MahApps.NET47.csproj", "{608C0720-4276-47B0-B131-7A2267735C58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.MahApps.NET40", "Orchestra.Shell\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.NET40\Orchestra.Shell.MahApps.NET40.csproj", "{E16A2BF1-3801-4615-A79E-52CEDF260A89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.MahApps.NET47", "Orchestra.Shell\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.NET47\Orchestra.Shell.MahApps.NET47.csproj", "{E16A2BF1-3801-4615-A79E-52CEDF260A89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.Ribbon.Microsoft.NET40", "Orchestra.Shell\Orchestra.Shell.Ribbon.Microsoft\Orchestra.Shell.Ribbon.Microsoft.NET40\Orchestra.Shell.Ribbon.Microsoft.NET40.csproj", "{F77A6406-6745-4EB1-BEE4-42E5AC4EB0F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.Ribbon.Microsoft.NET47", "Orchestra.Shell\Orchestra.Shell.Ribbon.Microsoft\Orchestra.Shell.Ribbon.Microsoft.NET47\Orchestra.Shell.Ribbon.Microsoft.NET47.csproj", "{F77A6406-6745-4EB1-BEE4-42E5AC4EB0F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestra.Docking", "Orchestra.Docking", "{D22473C6-3A99-4FDB-8A92-97BD07DCFD6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.Ribbon.Microsoft.NET40", "Examples\Orchestra.Examples.Ribbon.Microsoft\Orchestra.Examples.Ribbon.Microsoft.NET40\Orchestra.Examples.Ribbon.Microsoft.NET40.csproj", "{F092BDC9-B58A-4F43-A37B-BDCA9825FD03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.Ribbon.Microsoft.NET47", "Examples\Orchestra.Examples.Ribbon.Microsoft\Orchestra.Examples.Ribbon.Microsoft.NET47\Orchestra.Examples.Ribbon.Microsoft.NET47.csproj", "{F092BDC9-B58A-4F43-A37B-BDCA9825FD03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.TaskRunner.NET40", "Orchestra.Shell\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.NET40\Orchestra.Shell.TaskRunner.NET40.csproj", "{2909C5C6-B2C7-49A4-BF8F-2225433EFFDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.TaskRunner.NET47", "Orchestra.Shell\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.NET47\Orchestra.Shell.TaskRunner.NET47.csproj", "{2909C5C6-B2C7-49A4-BF8F-2225433EFFDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.TaskRunner.NET40", "Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.NET40\Orchestra.Examples.TaskRunner.NET40.csproj", "{45857215-F067-4652-8C87-71E7D8F432A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.TaskRunner.NET47", "Examples\Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.NET47\Orchestra.Examples.TaskRunner.NET47.csproj", "{45857215-F067-4652-8C87-71E7D8F432A7}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Shared", "Orchestra.Shell\Orchestra.Shell.Shared\Orchestra.Shell.Shared.shproj", "{BC10FCE0-C843-4592-802D-BB800A514CA0}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Ribbon.Shared", "Orchestra.Shell\Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.shproj", "{09D9C5AF-1D17-4C77-A5D4-CFDF278DF4A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.Ribbon.Fluent.NET40", "Orchestra.Shell\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.NET40\Orchestra.Shell.Ribbon.Fluent.NET40.csproj", "{24614A48-3155-4428-BDC4-7C79AE8CEDC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Shell.Ribbon.Fluent.NET47", "Orchestra.Shell\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.NET47\Orchestra.Shell.Ribbon.Fluent.NET47.csproj", "{24614A48-3155-4428-BDC4-7C79AE8CEDC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.Ribbon.Fluent.NET40", "Examples\Orchestra.Examples.Ribbon.Fluent\Orchestra.Examples.Ribbon.Fluent.NET40\Orchestra.Examples.Ribbon.Fluent.NET40.csproj", "{850DDB5D-1694-4D89-AF95-A8E31305A53C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestra.Examples.Ribbon.Fluent.NET47", "Examples\Orchestra.Examples.Ribbon.Fluent\Orchestra.Examples.Ribbon.Fluent.NET47\Orchestra.Examples.Ribbon.Fluent.NET47.csproj", "{850DDB5D-1694-4D89-AF95-A8E31305A53C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MahApps", "MahApps", "{6F7CA0E0-A61D-4AFF-BEA4-413D67116693}"
 EndProject

@@ -68,7 +68,7 @@ namespace Orchestra.Services
             }
         }
 
-        public virtual void EnsureFailSafeStartup()
+        public virtual async Task EnsureFailSafeStartupAsync()
         {
             if (SuccessfullyStarted)
             {
@@ -80,7 +80,7 @@ namespace Orchestra.Services
 
             Log.Debug("Showing CrashWarningWindow dialog");
 
-            _uiVisualizerService.ShowDialog<CrashWarningViewModel>();
+            await _uiVisualizerService.ShowDialogAsync<CrashWarningViewModel>();
         }
         #endregion
 

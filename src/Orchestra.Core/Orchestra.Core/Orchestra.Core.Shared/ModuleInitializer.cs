@@ -14,7 +14,6 @@ using Catel.Configuration;
 using Catel.IoC;
 using Catel.Logging;
 using Catel.Services;
-using Catel.Services.Models;
 using Orchestra;
 using Orchestra.Collections;
 using Orchestra.Layers;
@@ -22,7 +21,6 @@ using Orchestra.Services;
 using Orchestra.Tooltips;
 using Orchestra.ViewModels;
 using Orchestra.Views;
-using ConfigurationService = Orchestra.Services.ConfigurationService;
 
 /// <summary>
 /// Used by the ModuleInit. All code inside the Initialize method is ran as soon as the assembly is loaded.
@@ -43,8 +41,6 @@ public static class ModuleInitializer
 #pragma warning restore WPF0011 // Containing type should be used as registered owner.
 
         var serviceLocator = ServiceLocator.Default;
-
-        serviceLocator.RegisterType<IConfigurationService, ConfigurationService>();
 
         // Overide style of Catel please wait service
         serviceLocator.RegisterType<IPleaseWaitService, Orchestra.Services.PleaseWaitService>();

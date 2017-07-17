@@ -58,7 +58,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             UnpinItem = new Command<string>(OnUnpinItemExecute);
             PinItem = new Command<string>(OnPinItemExecute);
 
-            ShowKeyboardMappings = new Command(OnShowKeyboardMappingsExecute);
+            ShowKeyboardMappings = new TaskCommand(OnShowKeyboardMappingsExecuteAsync);
 
             commandManager.RegisterCommand("File.Open", OpenProject, this);
 
@@ -83,7 +83,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// </summary>
         private async Task OnOpenProjectExecuteAsync()
         {
-            if (_selectDirectoryService.DetermineDirectory())
+            if (await _selectDirectoryService.DetermineDirectoryAsync())
             {
                 await _messageService.ShowAsync("You have chosen " + _selectDirectoryService.DirectoryName);
             }
@@ -150,14 +150,14 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// <summary>
         /// Gets the ShowKeyboardMappings command.
         /// </summary>
-        public Command ShowKeyboardMappings { get; private set; }
+        public TaskCommand ShowKeyboardMappings { get; private set; }
 
         /// <summary>
         /// Method to invoke when the ShowKeyboardMappings command is executed.
         /// </summary>
-        private void OnShowKeyboardMappingsExecute()
+        private async Task OnShowKeyboardMappingsExecuteAsync()
         {
-            _uiVisualizerService.ShowDialog<KeyboardMappingsCustomizationViewModel>();
+            await _uiVisualizerService.ShowDialogAsync<KeyboardMappingsCustomizationViewModel>();
         }
         #endregion
 

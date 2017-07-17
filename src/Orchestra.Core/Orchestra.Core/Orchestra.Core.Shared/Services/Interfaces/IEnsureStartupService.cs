@@ -7,6 +7,8 @@
 
 namespace Orchestra.Services
 {
+    using System.Threading.Tasks;
+
     public interface IEnsureStartupService
     {
         #region Properties
@@ -15,7 +17,7 @@ namespace Orchestra.Services
 
         #region Methods
         void ConfirmApplicationStartedSuccessfully();
-        void EnsureFailSafeStartup();
+        Task EnsureFailSafeStartupAsync();
         #endregion
     }
 }

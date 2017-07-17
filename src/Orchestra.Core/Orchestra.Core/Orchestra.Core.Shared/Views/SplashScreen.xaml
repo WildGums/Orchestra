@@ -1,7 +1,7 @@
 ﻿<catel:DataWindow x:Class="Orchestra.Views.SplashScreen"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                  xmlns:catel="http://catel.codeplex.com"
+                  xmlns:catel="http://schemas.catelproject.com"
                   xmlns:controls="clr-namespace:Orchestra.Controls"
                   WindowStartupLocation="CenterScreen" WindowStyle="None" SnapsToDevicePixels="True"
                   SizeToContent="WidthAndHeight" Background="{x:Null}" ResizeMode="NoResize" AllowsTransparency="True"

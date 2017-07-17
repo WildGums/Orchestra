@@ -69,7 +69,7 @@ namespace Orchestra.Views
         {
             Log.Info("User choose to create a backup");
 
-            if (!_appDataService.BackupUserData())
+            if (!await _appDataService.BackupUserDataAsync())
             {
                 Log.Warning("User canceled the backup, exit application");
 
@@ -80,7 +80,7 @@ namespace Orchestra.Views
                 return;
             }
 
-            _appDataService.DeleteUserData();
+            await _appDataService.DeleteUserDataAsync();
 
             await _messageService.ShowInformationAsync(_languageService.GetString("Orchestra_BackupCreated"), _assembly.Title());
 
@@ -93,7 +93,7 @@ namespace Orchestra.Views
         {
             Log.Info("User choose NOT to create a backup");
 
-            _appDataService.DeleteUserData();
+            await _appDataService.DeleteUserDataAsync();
 
             await _messageService.ShowInformationAsync(_languageService.GetString("Orchestra_DeletedUserDataSettings"), _assembly.Title());
 

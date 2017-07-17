@@ -56,7 +56,7 @@ namespace Orchestra.ViewModels
             OpenUrl = new Command(OnOpenUrlExecute, OnOpenUrlCanExecute);
             OpenCopyrightUrl = new Command(OnOpenCopyrightUrlExecute, OnOpenCopyrightUrlCanExecute);
             OpenLog = new TaskCommand(OnOpenLogExecuteAsync);
-            ShowSystemInfo = new Command(OnShowSystemInfoExecute);
+            ShowSystemInfo = new TaskCommand(OnShowSystemInfoExecuteAsync);
             EnableDetailedLogging = new Command(OnEnableDetailedLoggingExecute);
         }
 
@@ -134,11 +134,11 @@ namespace Orchestra.ViewModels
             }
         }
 
-        public Command ShowSystemInfo { get; private set; }
+        public TaskCommand ShowSystemInfo { get; private set; }
 
-        private void OnShowSystemInfoExecute()
+        private Task OnShowSystemInfoExecuteAsync()
         {
-            _uiVisualizerService.ShowDialog<SystemInfoViewModel>();
+            return _uiVisualizerService.ShowDialogAsync<SystemInfoViewModel>();
         }
 
         public Command EnableDetailedLogging { get; private set; }

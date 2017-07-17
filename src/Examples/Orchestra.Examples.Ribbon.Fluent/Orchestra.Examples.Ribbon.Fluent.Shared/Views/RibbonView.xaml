@@ -1,7 +1,7 @@
 ﻿<catel:UserControl x:Class="Orchestra.Examples.Ribbon.Views.RibbonView"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:catel="http://catel.codeplex.com"
+                   xmlns:catel="http://schemas.catelproject.com"
                    xmlns:views="clr-namespace:Orchestra.Views;assembly=Orchestra.Core"
                    xmlns:fluent="urn:fluent-ribbon"
                    xmlns:orchestra="https://github.com/orcomp/orchestra"
@@ -36,7 +36,7 @@
                                                                                  HeaderTextStyleKey="RibbonBackstageSubHeaderLabelStyle"
                                                                                  Icon="/Resources/Images/open.png" />
 
-                                        <ItemsControl Grid.Row="1" ItemsSource="{Binding PinnedItems}" Visibility="{Binding PinnedItems, Converter={catel:CountCollapsedConverter}}">
+                                        <ItemsControl Grid.Row="1" ItemsSource="{Binding PinnedItems}" Visibility="{Binding PinnedItems, Converter={catel:CollectionToCollapsingVisibilityConverter}}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <orchestra:RibbonBackstageButton Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenRecentlyUsedItem}" 
@@ -66,9 +66,9 @@
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
 
-                                        <Border Grid.Row="2" Height="1" Style="{StaticResource RibbonBorderStyle}" Visibility="{Binding PinnedItems, Converter={catel:CountCollapsedConverter}}" />
+                                        <Border Grid.Row="2" Height="1" Style="{StaticResource RibbonBorderStyle}" Visibility="{Binding PinnedItems, Converter={catel:CollectionToCollapsingVisibilityConverter}}" />
 
-                                        <ItemsControl Grid.Row="3" ItemsSource="{Binding RecentlyUsedItems}" Visibility="{Binding RecentlyUsedItems, Converter={catel:CountCollapsedConverter}}">
+                                        <ItemsControl Grid.Row="3" ItemsSource="{Binding RecentlyUsedItems}" Visibility="{Binding RecentlyUsedItems, Converter={catel:CollectionToCollapsingVisibilityConverter}}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <orchestra:RibbonBackstageButton Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenRecentlyUsedItem}" 
