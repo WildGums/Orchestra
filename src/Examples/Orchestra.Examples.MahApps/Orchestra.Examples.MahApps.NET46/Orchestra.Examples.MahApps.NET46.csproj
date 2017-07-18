@@ -40,13 +40,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.Core.5.0.0-beta0003\lib\net46\Catel.Core.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.Core.5.0.0-beta0006\lib\net46\Catel.Core.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Fody.Attributes, Version=2.17.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\Catel.Fody.2.17.0\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="Catel.MVVM, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.5.0.0-beta0003\lib\net46\Catel.MVVM.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.MVVM.5.0.0-beta0006\lib\net46\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
