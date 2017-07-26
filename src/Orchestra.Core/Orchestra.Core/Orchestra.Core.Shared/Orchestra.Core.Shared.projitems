@@ -20,7 +20,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RememberWindowSize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\AdorneredTooltipsCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\Interfaces\IAdorneredTooltipsCollection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Commands\CommandContainerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\ToggleConfigurationCommandContainerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\ConfigurationSynchronizerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\Extensions\ConfigurationExtensions.cs" />
@@ -34,6 +33,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\KeyboardMappingControl.xaml.cs">
       <DependentUpon>KeyboardMappingControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\MediaElementThreadFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\MediaElementThreadInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\VisualTargetPresentationSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\VisualWrapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToThicknessConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\CommandNameToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\KeyboardMappingToStringConverter.cs" />
@@ -48,11 +51,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IconExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\VisualExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\WindowExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\WindowExtensions.size.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AssemblyHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DirectoryHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\DotNetPatchHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\FilterHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\IconHelper.cs" />
@@ -112,10 +113,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\ClipboardService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CloseApplicationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CommandInfoService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\ConfigurationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\EnsureStartupService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\ICommandInfoServiceExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IKeyboardMappingsServiceExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IMessageServiceExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IStatusServiceExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Extensions\IViewActivationServiceExtensions.cs" />

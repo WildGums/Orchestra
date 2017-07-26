@@ -57,10 +57,10 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             _processService = processService;
             _fileService = fileService;
 
-            Help = new Command(OnHelpExecute);
-            Open = new Command(this.OnOpenExecute);
+            Help = new TaskCommand(OnHelpExecuteAsync);
+            Open = new TaskCommand(this.OnOpenExecuteAsync);
             Exit = new Command(OnExitExecute);
-            ShowKeyboardMappings = new Command(OnShowKeyboardMappingsExecute);
+            ShowKeyboardMappings = new TaskCommand(OnShowKeyboardMappingsExecuteAsync);
 
             OpenRecentlyUsedItem = new TaskCommand<string>(OnOpenRecentlyUsedItemExecuteAsync);
             UnpinItem = new Command<string>(OnUnpinItemExecute);
@@ -92,17 +92,18 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// <summary>
         /// Gets the Help command.
         /// </summary>
-        public Command Help { get; private set; }
+        public TaskCommand Help { get; private set; }
 
         /// <summary>
         /// Method to invoke when the Help command is executed.
         /// </summary>
-        private void OnHelpExecute()
+        private async Task OnHelpExecuteAsync()
         {
             var aboutInfo = new AboutInfo(new Uri("pack://application:,,,/Resources/Images/CompanyLogo.png", UriKind.RelativeOrAbsolute), 
                 "/Orchestra.Examples.Ribbon.Microsoft;component/Resources/Images/CompanyLogo.png", 
                 new UriInfo("http://www.catelproject.com", "Product website"));
-            _uiVisualizerService.ShowDialog<AboutViewModel>(aboutInfo);
+
+            await _uiVisualizerService.ShowDialogAsync<AboutViewModel>(aboutInfo);
         }
 
         /// <summary>
@@ -118,11 +119,11 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             _navigationService.CloseApplication();
         }
 
-        public Command Open { get; private set; }
+        public TaskCommand Open { get; private set; }
 
-        private void OnOpenExecute()
+        private async Task OnOpenExecuteAsync()
         {
-            if (_openFileService.DetermineFile())
+            if (await _openFileService.DetermineFileAsync())
             {
                 _recentlyUsedItemsService.AddItem(new RecentlyUsedItem(_openFileService.FileName, DateTime.Now));
             }
@@ -131,14 +132,14 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// <summary>
         /// Gets the ShowKeyboardMappings command.
         /// </summary>
-        public Command ShowKeyboardMappings { get; private set; }
+        public TaskCommand ShowKeyboardMappings { get; private set; }
 
         /// <summary>
         /// Method to invoke when the ShowKeyboardMappings command is executed.
         /// </summary>
-        private void OnShowKeyboardMappingsExecute()
+        private async Task OnShowKeyboardMappingsExecuteAsync()
         {
-            _uiVisualizerService.ShowDialog<KeyboardMappingsCustomizationViewModel>();
+            await _uiVisualizerService.ShowDialogAsync<KeyboardMappingsCustomizationViewModel>();
         }
 
         /// <summary>

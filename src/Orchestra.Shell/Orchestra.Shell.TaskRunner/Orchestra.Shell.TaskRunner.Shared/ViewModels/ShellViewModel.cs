@@ -32,8 +32,6 @@ namespace Orchestra.ViewModels
 
             commandManager.RegisterCommand("Runner.Run", Run, this);
 
-            SuspendValidation = true;
-
             Title = taskRunnerService.Title;
             taskRunnerService.TitleChanged += (sender, args) => Title = taskRunnerService.Title;
         }
@@ -65,8 +63,6 @@ namespace Orchestra.ViewModels
         /// </summary>
         private async Task OnRunExecuteAsync()
         {
-            SuspendValidation = false;
-
             Validate(true);
 
             if (HasErrors)

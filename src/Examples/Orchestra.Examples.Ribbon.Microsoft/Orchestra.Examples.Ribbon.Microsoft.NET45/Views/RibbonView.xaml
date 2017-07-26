@@ -1,7 +1,7 @@
 ﻿<catel:UserControl x:Class="Orchestra.Examples.Ribbon.Views.RibbonView"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:catel="http://catel.codeplex.com"
+                   xmlns:catel="http://schemas.catelproject.com"
                    xmlns:converters="clr-namespace:Orchestra.Converters;assembly=Orchestra.Core"
                    xmlns:views="clr-namespace:Orchestra.Views;assembly=Orchestra.Core">
     
@@ -13,7 +13,7 @@
                     <RibbonGallery x:Name="recentlyUsedItemsRibbonGallery" CanUserFilter="False" ColumnsStretchToFill="True">
                         <RibbonGalleryCategory Header="Pinned documents" Background="Transparent"
                                                       ItemsSource="{Binding PinnedItems}"
-                                                      Visibility="{Binding PinnedItems, Converter={catel:CountCollapsedConverter}}">
+                                                      Visibility="{Binding PinnedItems, Converter={catel:CollectionToCollapsingVisibilityConverter}}">
                             <RibbonGalleryCategory.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Vertical" IsItemsHost="True" />

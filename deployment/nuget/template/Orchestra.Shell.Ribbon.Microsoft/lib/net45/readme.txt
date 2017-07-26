@@ -1,1 +1,0 @@
-RibbonsControlLibrary not required, Ribbon is located in System.Windows.Controls.Ribbon.dll

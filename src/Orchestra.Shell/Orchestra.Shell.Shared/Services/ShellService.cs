@@ -152,7 +152,7 @@ namespace Orchestra.Services
 
             Log.Info("Checking if software was correctly closed previously");
 
-            _ensureStartupService.EnsureFailSafeStartup();
+            await _ensureStartupService.EnsureFailSafeStartupAsync();
 
             var shell = default(TShell);
             var successfullyStarted = true;

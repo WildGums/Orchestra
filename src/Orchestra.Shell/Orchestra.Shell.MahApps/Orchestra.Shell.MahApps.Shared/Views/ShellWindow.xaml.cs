@@ -58,7 +58,9 @@ namespace Orchestra.Views
                 var aboutWindowCommand = WindowCommandHelper.CreateWindowCommandButton("appbar_information", "about");
 
                 var aboutService = serviceLocator.ResolveType<IAboutService>();
-                commandManager.RegisterAction("Help.About", aboutService.ShowAbout);
+#pragma warning disable AvoidAsyncVoid // Avoid async void
+                commandManager.RegisterAction("Help.About", async () => await aboutService.ShowAboutAsync());
+#pragma warning restore AvoidAsyncVoid // Avoid async void
                 aboutWindowCommand.SetCurrentValue(System.Windows.Controls.Primitives.ButtonBase.CommandProperty, commandManager.GetCommand("Help.About"));
 
                 windowCommands.Items.Add(aboutWindowCommand);

@@ -96,16 +96,6 @@ namespace Orchestra.Markup
         public string ItemName { get; set; }
         #endregion
 
-        /// <summary>
-        /// When implemented in a derived class, returns an object that is provided as the value of the target property for this markup extension.
-        /// </summary>
-        /// <returns>The object value to set on the property where the extension is applied.</returns>
-        [Obsolete("Please use `ProvideDynamicValue(IServiceProvider)` instead. Will be treated as an error from version 5.0.0. Will be removed in version 5.0.0.", false)]
-        protected override object ProvideDynamicValue()
-        {
-            return null;
-        }
-
         protected override object ProvideDynamicValue(IServiceProvider serviceProvider)
         {
             return GetImageSource();
@@ -177,7 +167,9 @@ namespace Orchestra.Markup
 
                 try
                 {
+#pragma warning disable 618
                     var glyphRun = new GlyphRun(glyphTypeface, 0, false, RenderingEmSize, glyphIndexes, new Point(0, 0), advanceWidths, null, null, null, null, null, null);
+#pragma warning restore 618
                     var glyphRunDrawing = new GlyphRunDrawing(foreBrush, glyphRun);
 
                     //TextOptions.SetTextRenderingMode(glyphRunDrawing, TextRenderingMode.Aliased);

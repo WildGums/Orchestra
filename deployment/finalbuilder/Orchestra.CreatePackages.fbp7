@@ -926,6 +926,37 @@ AdditionalFileCopies=%AdditionalFileCopies%
                 <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
                 <Property name="SuppressStatusMessages" type="Boolean">False</Property>
               </Object>
+              <Object Class="TRunActionListAction" XMLID="{E54521D2-918F-4D3E-90D7-57F8F1F77A96}">
+                <Property MultiValue="0" name="ActionComment" type="string"></Property>
+                <Property MultiValue="1" name="ActionDescription" type="string">
+                  <![CDATA[Copy NuGet files for NET47]]>
+                </Property>
+                <Property MultiValue="0" name="ActionListID" type="string">{33F5508A-F8BE-4E63-9935-AE89A1775983}</Property>
+                <Property name="ActionTextColor" type="Cardinal">0</Property>
+                <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+                <Property MultiValue="1" name="Description" type="string">
+                  <![CDATA[Copy NuGet files for NET47]]>
+                </Property>
+                <Property name="Enabled" type="Boolean">True</Property>
+                <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+                <Property name="FailIfActionListEmpty" type="Boolean">False</Property>
+                <Property name="HideActionFromLog" type="Boolean">False</Property>
+                <Property name="IgnoreFailure" type="Boolean">False</Property>
+                <Property name="Locked" type="Boolean">False</Property>
+                <Property name="LogActionProperties" type="Boolean">False</Property>
+                <Property MultiValue="0" name="LogToVariable" type="TVariableName"></Property>
+                <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+                <Property name="Parameters" type="TStrings">
+                  <![CDATA[Source=%BuildOutput%\NET47\%Name%\
+Target=%TargetRootDirectory%\%Name%\lib\net47
+Name=%Name%
+AdditionalFileCopies=%AdditionalFileCopies%
+]]>
+                </Property>
+                <Property name="PauseInterval" type="Cardinal">0</Property>
+                <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+                <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+              </Object>
               <Object Class="TRunActionListAction" XMLID="{261B1608-BFB3-4500-B906-3BF08E99B4E7}">
                 <Property MultiValue="0" name="ActionComment" type="string"></Property>
                 <Property MultiValue="1" name="ActionDescription" type="string">

@@ -54,11 +54,11 @@ namespace Orchestra.Examples.MahApps.Services
             windowCommands.Items.Add(saveButton);
 
             var showWindowButton = WindowCommandHelper.CreateWindowCommandButton("appbar_new_window", "show dialog window");
-            showWindowButton.SetCurrentValue(System.Windows.Controls.Primitives.ButtonBase.CommandProperty, new Command(() => _uiVisualizerService.ShowDialog<ExampleDialogViewModel>()));
+            showWindowButton.SetCurrentValue(System.Windows.Controls.Primitives.ButtonBase.CommandProperty, new TaskCommand(() => _uiVisualizerService.ShowDialogAsync<ExampleDialogViewModel>()));
             windowCommands.Items.Add(showWindowButton);
 
             var showDataWindowButton = WindowCommandHelper.CreateWindowCommandButton("appbar_new_window", "show data window");
-            showDataWindowButton.SetCurrentValue(System.Windows.Controls.Primitives.ButtonBase.CommandProperty, new Command(() => _uiVisualizerService.ShowDialog<ExampleDataViewModel>()));
+            showDataWindowButton.SetCurrentValue(System.Windows.Controls.Primitives.ButtonBase.CommandProperty, new TaskCommand(() => _uiVisualizerService.ShowDialogAsync<ExampleDataViewModel>()));
             windowCommands.Items.Add(showDataWindowButton);
             
             return windowCommands;

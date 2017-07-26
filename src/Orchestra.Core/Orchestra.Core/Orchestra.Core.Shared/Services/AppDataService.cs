@@ -76,7 +76,7 @@ namespace Orchestra.Services
             return FilterHelper.MatchesFilters(filters, fileName);
         }
 
-        public void DeleteUserData()
+        public async Task DeleteUserDataAsync()
         {
             var applicationDataDirectory = ApplicationDataDirectory;
 
@@ -94,7 +94,7 @@ namespace Orchestra.Services
             }
         }
 
-        public bool BackupUserData()
+        public async Task<bool> BackupUserDataAsync()
         {
             var assembly = AssemblyHelper.GetEntryAssembly();
             var applicationDataDirectory = Catel.IO.Path.GetApplicationDataDirectory();
@@ -103,7 +103,7 @@ namespace Orchestra.Services
             _saveFileService.FileName = string.Format("{0} backup {1}.zip", assembly.Title(), DateTime.Now.ToString("yyyyMMdd hhmmss"));
             _saveFileService.Filter = "Zip files|*.zip";
 
-            if (!_saveFileService.DetermineFile())
+            if (!await _saveFileService.DetermineFileAsync())
             {
                 return false;
             }

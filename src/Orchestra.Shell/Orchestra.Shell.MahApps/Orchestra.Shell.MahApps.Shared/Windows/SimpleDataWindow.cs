@@ -33,6 +33,7 @@ namespace Orchestra.Windows
         private event EventHandler<DataContextChangedEventArgs> _viewDataContextChanged;
 
         private readonly Collection<DataWindowButton> _buttons = new Collection<DataWindowButton>();
+        private bool? _dialogResult;
         #endregion
 
         #region Constructors
@@ -109,7 +110,7 @@ namespace Orchestra.Windows
 
             if (mode == DataWindowMode.Close)
             {
-                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute, null);
+                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute, () => true);
                 _buttons.Add(button);
             }
 
@@ -153,7 +154,7 @@ namespace Orchestra.Windows
                 return;
             }
 
-            Close();
+            DialogResult = true;
         }
 
         /// <summary>
@@ -188,7 +189,7 @@ namespace Orchestra.Windows
                 return;
             }
 
-            Close();
+            DialogResult = false;
         }
 
         /// <summary>
@@ -232,7 +233,29 @@ namespace Orchestra.Windows
         /// </summary>
         protected void OnCloseExecute()
         {
+            DialogResult = null;
             Close();
+        }
+        #endregion
+
+        #region Properties
+        public bool? DialogResult
+        {
+            get
+            {
+                return _dialogResult;
+            }
+            set
+            {
+                if (value != _dialogResult)
+                {
+#pragma warning disable WPF1012 // Notify when property changes.
+                    _dialogResult = value;
+#pragma warning restore WPF1012 // Notify when property changes.
+
+                    Close();
+                }
+            }
         }
         #endregion
 
@@ -253,7 +276,15 @@ namespace Orchestra.Windows
         /// <returns>True if successful, otherwise false.</returns>
         protected virtual bool ValidateData()
         {
-            return _logic.ValidateViewModel();
+            var vm = _logic.ViewModel;
+            if (vm == null)
+            {
+                return false;
+            }
+
+            vm.Validate();
+
+            return vm.ValidationContext.HasErrors;
         }
 
         /// <summary>

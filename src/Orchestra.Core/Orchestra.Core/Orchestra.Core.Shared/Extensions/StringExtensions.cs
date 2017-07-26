@@ -49,51 +49,6 @@ namespace Orchestra
 
             return commandName.Split(new[] { '.' })[1];
         }
-
-        /// <summary>
-        /// Converts the value from a camel case string to a splitted string. For example, <c>ThisTest</c> will be
-        /// converted to <c>this test</c>.
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <returns>The splitted string.</returns>
-        [ObsoleteEx(ReplacementTypeOrMember = "Catel.StringExtensions.SplitCamelCaseString", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
-        public static string SplitCamelCaseString(this string input)
-        {
-            if (string.IsNullOrEmpty(input))
-            {
-                return input;
-            }
-
-            var finalString = string.Empty;
-
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (i != 0)
-                {
-                    if (char.IsUpper(input[i]))
-                    {
-                        finalString += " " + char.ToLower(input[i]);
-                        continue;
-                    }
-                }
-
-                finalString += input[i];
-            }
-
-            return finalString;
-        }
-
-        /// <summary>
-        /// Executes a string comparison that is case insensitive.
-        /// </summary>
-        /// <param name="str">The string.</param>
-        /// <param name="valueToCheck">The value to check.</param>
-        /// <returns><c>true</c> if the strings are equal, <c>false</c> otherwise.</returns>
-        [ObsoleteEx(ReplacementTypeOrMember = "Catel.StringExtensions.EqualsIgnoreCase", TreatAsErrorFromVersion = "2.3", RemoveInVersion = "3.0")]
-        public static bool EqualsIgnoreCase(this string str, string valueToCheck)
-        {
-            return string.Equals(str, valueToCheck, StringComparison.OrdinalIgnoreCase);
-        }
         #endregion
     }
 }

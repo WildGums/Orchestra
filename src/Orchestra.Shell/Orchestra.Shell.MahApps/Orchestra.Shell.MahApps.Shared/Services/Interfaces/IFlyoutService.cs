@@ -14,8 +14,6 @@ namespace Orchestra.Services
 
     public interface IFlyoutService
     {
-        [ObsoleteEx(ReplacementTypeOrMember = "AddFlyout(string, Type, Position, UnloadBehavior, FlyoutTheme)", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
-        void AddFlyout(string name, Type viewType, Position position, UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel);
         void AddFlyout(string name, Type viewType, Position position, UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel, FlyoutTheme flyoutTheme = FlyoutTheme.Adapt);
 
         void ShowFlyout(string name, object dataContext);

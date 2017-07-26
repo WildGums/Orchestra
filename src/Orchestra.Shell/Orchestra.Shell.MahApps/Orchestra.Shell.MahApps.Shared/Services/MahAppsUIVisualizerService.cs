@@ -11,6 +11,7 @@ namespace Orchestra.Services
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
+    using Windows;
     using Catel.MVVM;
     using Catel.Services;
     using MahApps.Metro.Controls;
@@ -22,25 +23,8 @@ namespace Orchestra.Services
             : base(viewLocator)
         {
         }
-
-        protected override Type WindowType
-        {
-            get { return typeof (Control); }
-        }
-
-        protected override bool? ShowWindow(FrameworkElement window, bool showModal)
-        {
-            var simpleDialog = window as CustomDialog;
-            if (simpleDialog != null)
-            {
-                simpleDialog.Show();
-                return true;
-            }
-
-            return base.ShowWindow(window, showModal);
-        }
-
-        protected override async Task<bool?> ShowWindowAsync(FrameworkElement window, bool showModal)
+        
+        protected override async Task<bool?> ShowWindowAsync(FrameworkElement window, object data, bool showModal)
         {
             var simpleDialog = window as CustomDialog;
             if (simpleDialog != null)
@@ -50,16 +34,22 @@ namespace Orchestra.Services
                     var metroWindow = Application.Current.GetMainWindow();
                     await metroWindow.ShowMetroDialogAsync(simpleDialog);
                     await simpleDialog.WaitUntilUnloadedAsync();
+                    var simpleDataWindow = window as SimpleDataWindow;
+                    bool? result = true;
+                    if (simpleDataWindow != null)
+                    {
+                        result = simpleDataWindow.DialogResult;
+                    }
+
+                    return result;
                 }
-                else
-                {
-                    simpleDialog.Invoke(simpleDialog.Show);
-                }
+
+                simpleDialog.Invoke(simpleDialog.Show);
 
                 return true;
             }
 
-            return await base.ShowWindowAsync(window, showModal);
+            return await base.ShowWindowAsync(window, data, showModal);
         }
     }
 }

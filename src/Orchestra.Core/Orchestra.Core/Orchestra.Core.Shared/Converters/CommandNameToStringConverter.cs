@@ -9,6 +9,7 @@ namespace Orchestra.Converters
 {
     using System;
     using System.Linq;
+    using Catel;
     using Catel.MVVM.Converters;
 
     /// <summary>
@@ -32,7 +33,7 @@ namespace Orchestra.Converters
             }
 
             var splittedStrings = (from x in stringValue.Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries)
-                                   select x.SplitCamelCaseString());
+                                   select x.SplitCamelCase());
 
             return string.Join(" ➝ ", splittedStrings);
         }

@@ -12,7 +12,7 @@ namespace Orchestra.Examples.TaskRunner.Models
     using System.ComponentModel;
     using Catel.Data;
 
-    public class Settings : ModelBase
+    public class Settings : ValidatableModelBase
     {
         public Settings()
         {

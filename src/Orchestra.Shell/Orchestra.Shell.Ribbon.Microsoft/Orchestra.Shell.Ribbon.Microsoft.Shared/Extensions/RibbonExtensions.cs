@@ -40,7 +40,7 @@ namespace Orchestra
             aboutButton.Click += (sender, e) =>
             {
                 var aboutService = ServiceLocator.Default.ResolveType<IAboutService>();
-                aboutService.ShowAbout();
+                aboutService.ShowAboutAsync();
             };
             stackPanel.Children.Add(aboutButton);
         }

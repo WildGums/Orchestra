@@ -7,6 +7,7 @@
 
 namespace Orchestra.Services
 {
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
     using Catel.Services;
@@ -28,14 +29,14 @@ namespace Orchestra.Services
             _aboutInfoService = aboutInfoService;
         }
 
-        public virtual void ShowAbout()
+        public virtual async Task ShowAboutAsync()
         {
             var aboutInfo = _aboutInfoService.GetAboutInfo();
             if (aboutInfo != null)
             {
                 Log.Info("Showing about dialog");
 
-                _uiVisualizerService.ShowDialog<AboutViewModel>(aboutInfo);
+                await _uiVisualizerService.ShowDialogAsync<AboutViewModel>(aboutInfo);
             }
             else
             {

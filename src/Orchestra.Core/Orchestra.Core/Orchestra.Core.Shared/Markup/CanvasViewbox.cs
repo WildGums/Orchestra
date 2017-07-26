@@ -62,12 +62,6 @@ namespace Orchestra.Markup
             }
         }
 
-        [Obsolete]
-        protected override object ProvideDynamicValue()
-        {
-            return null;
-        }
-
         protected override object ProvideDynamicValue(IServiceProvider serviceProvider)
         {
             return GetImageSource();

@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Weavers VerifyAssembly="true">
-  <ModuleInit/>
+  <LoadAssembliesOnStartup/>
   <Costura DisableCleanup="true">
     <IncludeAssemblies>
       DotNetZip
       Orc.SystemInfo
     </IncludeAssemblies>
   </Costura>
-  <Obsolete/>
   <MethodTimer/>
-  <LoadAssembliesOnStartup/>
+  <ModuleInit/>
+  <Obsolete/>
   <Catel/>
 </Weavers>

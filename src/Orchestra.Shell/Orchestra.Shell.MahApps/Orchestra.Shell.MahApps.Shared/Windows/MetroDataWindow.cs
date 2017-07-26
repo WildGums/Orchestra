@@ -26,11 +26,9 @@ namespace Orchestra.Windows
     using Catel.Windows;
     using Catel.Services;
     using MahApps.Metro.Controls;
-    using WrapOptions = Catel.Windows.WrapOptions;
     using Catel.Logging;
     using System.Windows.Input;
     using Catel.Windows.Threading;
-    using MahApps.Metro;
 
     /// <summary>
     /// Base class for a metro window with the Catel mvvm behavior.
@@ -52,6 +50,7 @@ namespace Orchestra.Windows
         private readonly InfoBarMessageControlGenerationMode _infoBarMessageControlGenerationMode;
 
         private readonly WindowLogic _logic;
+        private readonly IWrapControlService _wrapControlService;
 
         private event EventHandler<EventArgs> _viewLoaded;
         private event EventHandler<EventArgs> _viewUnloaded;
@@ -115,6 +114,9 @@ namespace Orchestra.Windows
                 return;
             }
 
+            var serviceLocator = this.GetServiceLocator();
+            _wrapControlService = serviceLocator.ResolveType<IWrapControlService>();
+
             Mode = mode;
             DefaultButton = defaultButton;
             _infoBarMessageControlGenerationMode = infoBarMessageControlGenerationMode;
@@ -135,7 +137,7 @@ namespace Orchestra.Windows
             _logic = new WindowLogic(this, null, viewModel);
             _logic.TargetViewPropertyChanged += (sender, e) =>
             {
-                // Do not call this for ActualWidth and ActualHeight WPF, will cause problems with NET 40 
+                // Do not call this for ActualWidth and ActualHeight WPF, will cause problems with NET 40
                 // on systems where NET45 is *not* installed
                 if (!string.Equals(e.PropertyName, "ActualWidth", StringComparison.InvariantCulture) &&
                     !string.Equals(e.PropertyName, "ActualHeight", StringComparison.InvariantCulture))
@@ -206,7 +208,7 @@ namespace Orchestra.Windows
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the view model container should prevent the 
+        /// Gets or sets a value indicating whether the view model container should prevent the
         /// creation of a view model.
         /// <para />
         /// This property is very useful when using views in transitions where the view model is no longer required.
@@ -605,7 +607,7 @@ namespace Orchestra.Windows
         }
 
         /// <summary>
-        /// Sets the DialogResult, but keeps track of whether the DialogResult can actually be set. For example, 
+        /// Sets the DialogResult, but keeps track of whether the DialogResult can actually be set. For example,
         /// dialogs which are not called with <c>ShowDialog</c> can not set the DialogResult.
         /// </summary>
         /// <param name="result">The result.</param>
@@ -691,7 +693,7 @@ namespace Orchestra.Windows
             }
 
             var newContentAsFrameworkElement = newContent as FrameworkElement;
-            if (_isWrapped || !WrapControlHelper.CanBeWrapped(newContentAsFrameworkElement))
+            if (_isWrapped || !_wrapControlService.CanBeWrapped(newContentAsFrameworkElement))
             {
                 return;
             }
@@ -728,26 +730,26 @@ namespace Orchestra.Windows
                 _commands.Add(button.Command);
             }
 
-            var wrapOptions = WrapOptions.GenerateWarningAndErrorValidatorForDataContext;
+            var wrapOptions = WrapControlServiceWrapOptions.GenerateWarningAndErrorValidatorForDataContext;
             switch (_infoBarMessageControlGenerationMode)
             {
                 case InfoBarMessageControlGenerationMode.None:
                     break;
 
                 case InfoBarMessageControlGenerationMode.Inline:
-                    wrapOptions |= WrapOptions.GenerateInlineInfoBarMessageControl;
+                    wrapOptions |= WrapControlServiceWrapOptions.GenerateInlineInfoBarMessageControl;
                     break;
 
                 case InfoBarMessageControlGenerationMode.Overlay:
-                    wrapOptions |= WrapOptions.GenerateOverlayInfoBarMessageControl;
+                    wrapOptions |= WrapControlServiceWrapOptions.GenerateOverlayInfoBarMessageControl;
                     break;
             }
 
             _isWrapped = true;
 
-            var contentGrid = WrapControlHelper.Wrap(newContentAsFrameworkElement, wrapOptions, _buttons.ToArray(), this);
+            var contentGrid = _wrapControlService.Wrap(newContentAsFrameworkElement, wrapOptions, _buttons.ToArray(), this);
 
-            var internalGrid = contentGrid.FindVisualDescendant(obj => (obj is FrameworkElement) && string.Equals(((FrameworkElement)obj).Name, WrapControlHelper.InternalGridName)) as Grid;
+            var internalGrid = contentGrid.FindVisualDescendant(obj => (obj is FrameworkElement) && string.Equals(((FrameworkElement)obj).Name, WrapControlServiceControlNames.InternalGridName)) as Grid;
             if (internalGrid != null)
             {
                 internalGrid.SetResourceReference(StyleProperty, "WindowGridStyle");
@@ -757,7 +759,7 @@ namespace Orchestra.Windows
                 _defaultOkCommand = (from button in _buttons
                                      where button.IsDefault
                                      select button.Command).FirstOrDefault();
-                _defaultOkElement = WrapControlHelper.GetWrappedElement<ButtonBase>(contentGrid, WrapControlHelper.DefaultOkButtonName);
+                _defaultOkElement = _wrapControlService.GetWrappedElement<ButtonBase>(contentGrid, WrapControlServiceControlNames.DefaultOkButtonName);
 
                 _defaultCancelCommand = (from button in _buttons
                                          where button.IsCancel
@@ -825,8 +827,15 @@ namespace Orchestra.Windows
         /// <returns>True if successful, otherwise false.</returns>
         protected virtual bool ValidateData()
         {
-            var result = _logic.ValidateViewModel();
-            return result;
+            var vm = _logic.ViewModel;
+            if (vm == null)
+            {
+                return false;
+            }
+
+            vm.Validate();
+
+            return vm.ValidationContext.HasErrors;
         }
 
         /// <summary>

@@ -50,12 +50,6 @@ namespace Orchestra.Services
                 select flyout.Flyout);
         }
 
-        [ObsoleteEx(ReplacementTypeOrMember = "AddFlyout(string, Type, Position, UnloadBehavior, FlyoutTheme)", TreatAsErrorFromVersion = "2.0", RemoveInVersion = "3.0")]
-        public void AddFlyout(string name, Type viewType, Position position, UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel)
-        {
-            AddFlyout(name, viewType, position, unloadBehavior, FlyoutTheme.Adapt);
-        }
-
         public void AddFlyout(string name, Type viewType, Position position, UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel, FlyoutTheme flyoutTheme = FlyoutTheme.Adapt)
         {
             Argument.IsNotNullOrWhitespace(() => name);
