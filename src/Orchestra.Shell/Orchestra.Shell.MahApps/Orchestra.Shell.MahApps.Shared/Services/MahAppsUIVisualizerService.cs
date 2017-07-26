@@ -24,7 +24,7 @@ namespace Orchestra.Services
         {
         }
         
-        protected override async Task<bool?> ShowWindowAsync(FrameworkElement window, bool showModal)
+        protected override async Task<bool?> ShowWindowAsync(FrameworkElement window, object data, bool showModal)
         {
             var simpleDialog = window as CustomDialog;
             if (simpleDialog != null)
@@ -49,7 +49,7 @@ namespace Orchestra.Services
                 return true;
             }
 
-            return await base.ShowWindowAsync(window, showModal);
+            return await base.ShowWindowAsync(window, data, showModal);
         }
     }
 }
