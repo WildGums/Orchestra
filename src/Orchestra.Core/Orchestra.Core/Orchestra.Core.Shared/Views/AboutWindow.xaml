@@ -71,10 +71,10 @@
                    Foreground="Gray" FontStyle="Italic"
                    Visibility="{Binding IsDebugLoggingEnabled, Converter={catel:BooleanToCollapsingVisibilityConverter}}" />
 
-        <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="{catel:LanguageBinding Orchestra_ShowLog}" Width="75" Margin="20 20 15 30" Command="{Binding OpenLog}"
+        <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20 0 20 0">
+            <Button Content="{catel:LanguageBinding Orchestra_ShowLog}" Width="75" Margin="0 20 15 30" Command="{Binding OpenLog}"
                     Visibility="{Binding ShowLogButton, Converter={StaticResource BooleanToCollapsingVisibilityConverter}}" />
-            <Button Content="{catel:LanguageBinding Orchestra_Close}" Width="75" Margin="0 20 20 30" Click="Close_OnClick" />
+            <Button Content="{catel:LanguageBinding Orchestra_Close}" Width="75" Margin="0 20 0 30" Click="Close_OnClick" />
         </StackPanel>
     </Grid>
 
