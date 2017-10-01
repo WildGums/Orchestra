@@ -115,10 +115,8 @@ namespace Orchestra.Services
     {
         public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver) { }
         public Orchestra.Views.IShell Shell { get; }
-        [MethodTimer.TimeAttribute()]
         public System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell : Orchestra.Views.IShell { }
-        [MethodTimer.TimeAttribute()]
         public System.Threading.Tasks.Task<TShell> CreateWithSplashAsync<TShell>()
             where TShell : Orchestra.Views.IShell { }
     }
