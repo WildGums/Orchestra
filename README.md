@@ -29,8 +29,8 @@ Orchestra provides support for two different shells:
 
 |  Fluent ribbon shell                                       | MahApps shell                                   |
 |------------------------------------------------------------|-------------------------------------------------|
-| ![Fluent Ribbon 01](../images/orchestra/shell_fluentribbon_01.png)  | ![MahApps 01](../images/orchestra/shell_mahapps_01.png)  |
-| ![Fluent Ribbon 02](../images/orchestra/shell_fluentribbon_02.png)  |                                                 |
+| ![Fluent Ribbon 01](doc/images/orchestra/shell_fluentribbon_01.png)  | ![MahApps 01](doc/images/orchestra/shell_mahapps_01.png)  |
+| ![Fluent Ribbon 02](doc/images/orchestra/shell_fluentribbon_02.png)  |                                                 |
 
 ## Sample Applications
 
@@ -39,7 +39,7 @@ Here are some examples of applications built with Orchestra and other Orc.* libr
 | [LogViewer](https://github.com/WildGums/LogViewer)                                | Rantt                   | [CsvTextEditor](https://github.com/WildGums/CsvTextEditor) | FlexGrid    |
 |:-:                                                                                |:-:                      |:-:                                                         |:-:          |
 |Log viewer   | Gantt chart application | Csv file text editor                                       | Data visualizer            |
-| ![Log Viewer](../images/LogViewer.png)                                            |![Gantt Chart](../images/Rantt.png)    |![CsvTextEditor](../images/CsvTextEditor.png)    |![FlexGrid](../images/FlexGrid.png)   |
+| ![Log Viewer](doc/images/LogViewer.png)                                            |![Gantt Chart](doc/images/Rantt.png)    |![CsvTextEditor](doc/images/CsvTextEditor.png)    |![FlexGrid](doc/images/FlexGrid.png)   |
 |   |   |   |   |
 
 [LogViewer](https://github.com/WildGums/LogViewer) and [CsvTextEditor](https://github.com/WildGums/CsvTextEditor) are open source projects hosted on Github.
