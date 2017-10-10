@@ -29,8 +29,8 @@ Orchestra provides support for two different shells:
 
 |  Fluent ribbon shell                                       | MahApps shell                                   |
 |------------------------------------------------------------|-------------------------------------------------|
-| ![Fluent Ribbon 01](doc/images/orchestra/shell_fluentribbon_01.png)  | ![MahApps 01](doc/images/orchestra/shell_mahapps_01.png)  |
-| ![Fluent Ribbon 02](doc/images/orchestra/shell_fluentribbon_02.png)  |                                                 |
+| ![Fluent Ribbon 01](doc/images/shell_fluentribbon_01.png)  | ![MahApps 01](doc/images/shell_mahapps_01.png)  |
+| ![Fluent Ribbon 02](doc/images/shell_fluentribbon_02.png)  |                                                 |
 
 ## Sample Applications
 
