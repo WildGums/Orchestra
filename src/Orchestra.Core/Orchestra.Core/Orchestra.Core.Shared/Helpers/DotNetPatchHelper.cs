@@ -11,6 +11,7 @@ namespace Orchestra
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Runtime.ExceptionServices;
     using System.Windows;
     using System.Windows.Threading;
@@ -88,7 +89,10 @@ namespace Orchestra
         {
             lock (LastFirstChanceExceptions)
             {
-                LastFirstChanceExceptions.Enqueue(e.Exception);
+                if (!LastFirstChanceExceptions.Contains(e.Exception))
+                {
+                    LastFirstChanceExceptions.Enqueue(e.Exception);
+                }
 
                 while (LastFirstChanceExceptions.Count > 5)
                 {
