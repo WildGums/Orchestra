@@ -67,7 +67,7 @@ namespace Orchestra.Services
 
                             if (!_commandManager.IsCommandCreated(keyboardMapping.CommandName))
                             {
-                                Log.Warning("Command '{0}' is not created in the CommandManager, cannot update input gesture", keyboardMapping.CommandName);
+                                Log.Debug("Command '{0}' is not created in the CommandManager, cannot update input gesture", keyboardMapping.CommandName);
                                 continue;
                             }
 
