@@ -65,8 +65,8 @@
     <Reference Include="Obsolete, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\Obsolete.Fody.4.3.7\lib\netstandard1.0\Obsolete.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.Controls, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Orc.Controls.2.0.0\lib\net45\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Orc.Controls.2.0.4\lib\net45\Orc.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Orc.FileSystem, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\Orc.FileSystem.2.0.0\lib\net45\Orc.FileSystem.dll</HintPath>
