@@ -40,13 +40,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=5.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.Core.5.3.0-beta0000\lib\net46\Catel.Core.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.Core.5.3.0-beta0001\lib\net46\Catel.Core.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Fody.Attributes, Version=2.19.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\Catel.Fody.2.19.0\lib\netstandard1.0\Catel.Fody.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="Catel.MVVM, Version=5.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.5.3.0-beta0000\lib\net46\Catel.MVVM.dll</HintPath>
+      <HintPath>..\..\..\..\lib\Catel.MVVM.5.3.0-beta0001\lib\net46\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
