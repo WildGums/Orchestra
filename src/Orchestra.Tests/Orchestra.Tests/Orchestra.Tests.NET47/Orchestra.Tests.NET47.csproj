@@ -79,14 +79,14 @@
     <Reference Include="ApprovalUtilities.Net45, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\ApprovalUtilities.3.0.13\lib\net45\ApprovalUtilities.Net45.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Core, Version=5.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.Core.5.2.0\lib\net47\Catel.Core.dll</HintPath>
+    <Reference Include="Catel.Core, Version=5.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Catel.Core.5.3.0-beta0000\lib\net47\Catel.Core.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Fody.Attributes, Version=2.19.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\Catel.Fody.2.19.0\lib\netstandard1.0\Catel.Fody.Attributes.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.MVVM, Version=5.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\lib\Catel.MVVM.5.2.0\lib\net47\Catel.MVVM.dll</HintPath>
+    <Reference Include="Catel.MVVM, Version=5.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\lib\Catel.MVVM.5.3.0-beta0000\lib\net47\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="MethodTimer, Version=0.0.0.0, Culture=neutral, PublicKeyToken=cb1364609f40a1dc, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\lib\MethodTimer.Fody.2.0.2\lib\net452\MethodTimer.dll</HintPath>

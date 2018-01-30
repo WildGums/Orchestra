@@ -21,7 +21,7 @@ namespace Orchestra.Services
         private readonly ILanguageService _languageService;
 
         public MahAppsMessageService(IDispatcherService dispatcherService, ILanguageService languageService)
-            : base(dispatcherService)
+            : base(dispatcherService, languageService)
         {
             Argument.IsNotNull(() => languageService);
 

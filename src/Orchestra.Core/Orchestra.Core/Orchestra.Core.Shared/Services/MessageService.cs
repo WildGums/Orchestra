@@ -26,8 +26,9 @@ namespace Orchestra.Services
         #endregion
 
         #region Constructors
-        public MessageService(IDispatcherService dispatcherService, IUIVisualizerService uiVisualizerService, IViewModelFactory viewModelFactory)
-            : base(dispatcherService)
+        public MessageService(IDispatcherService dispatcherService, IUIVisualizerService uiVisualizerService, 
+            IViewModelFactory viewModelFactory, ILanguageService languageService)
+            : base(dispatcherService, languageService)
         {
             Argument.IsNotNull(() => dispatcherService);
             Argument.IsNotNull(() => uiVisualizerService);
