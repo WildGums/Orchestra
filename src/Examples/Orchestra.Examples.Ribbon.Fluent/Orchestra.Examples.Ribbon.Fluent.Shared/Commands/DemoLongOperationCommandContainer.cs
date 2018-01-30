@@ -18,20 +18,26 @@ namespace Orchestra.Examples.Ribbon
     {
         #region Fields
         private readonly IPleaseWaitService _pleaseWaitService;
+        private readonly IMessageService _messageService;
         #endregion
 
         #region Constructors
-        public DemoLongOperationCommandContainer(ICommandManager commandManager,
-            IPleaseWaitService pleaseWaitService)
+        public DemoLongOperationCommandContainer(ICommandManager commandManager, IPleaseWaitService pleaseWaitService, IMessageService messageService)
             : base(Commands.Demo.LongOperation, commandManager)
         {
+            Argument.IsNotNull(() => pleaseWaitService);
+            Argument.IsNotNull(() => messageService);
+
             _pleaseWaitService = pleaseWaitService;
+            _messageService = messageService;
         }
         #endregion
 
         protected override async Task ExecuteAsync(object parameter)
         {
             const int TotalItems = 250;
+
+            await _messageService.ShowAsync("App will now simulate a long-running processing with progress at the bottom");
 
             await TaskHelper.Run(async () =>
             {
