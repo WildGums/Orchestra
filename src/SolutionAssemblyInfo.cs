@@ -15,7 +15,7 @@ using System.Resources;
 ////[assembly: AssemblyDescription("DEFINED IN ACTUAL ASSEMBLYINFO")]
 
 [assembly: AssemblyCompany("WildGums")]
-[assembly: AssemblyCopyright("Copyright © WildGums 2010 - 2017")]
+[assembly: AssemblyCopyright("Copyright © WildGums 2010 - 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en-US")]
@@ -30,5 +30,5 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("3.0")]
-[assembly: AssemblyInformationalVersion("3.0, Nightly, Released on 2013-09-01 13:32")]
+[assembly: AssemblyVersion("4.0")]
+[assembly: AssemblyInformationalVersion("4.0, Nightly, Released on 2013-09-01 13:32")]
