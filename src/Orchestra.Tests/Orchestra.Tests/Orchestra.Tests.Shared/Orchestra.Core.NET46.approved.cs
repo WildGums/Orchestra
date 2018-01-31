@@ -150,6 +150,7 @@ namespace Orchestra
     }
     public class static ThemeHelper
     {
+        public static bool DynamicallyDetermineIdealTextColor { get; set; }
         public static System.Windows.ResourceDictionary CreateAccentColorResourceDictionary(System.Windows.Media.Color color) { }
         public static void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = False) { }
         public static void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = False) { }

@@ -8,7 +8,6 @@
 namespace Orchestra
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Windows;
@@ -16,7 +15,6 @@ namespace Orchestra
     using Catel;
     using Catel.Caching;
     using Catel.Logging;
-    using Catel.Windows;
 
     public enum AccentColorStyle
     {
@@ -42,6 +40,20 @@ namespace Orchestra
 
         private static readonly CacheStorage<AccentColorStyle, Color> _accentColorsCache = new CacheStorage<AccentColorStyle, Color>();
         private static readonly CacheStorage<AccentColorStyle, SolidColorBrush> _accentColorBrushesCache = new CacheStorage<AccentColorStyle, SolidColorBrush>();
+
+        static ThemeHelper()
+        {
+            DynamicallyDetermineIdealTextColor = true;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the ideal text color for the ribbon and other controls
+        /// should be determined automatically based on the color.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the text color should be determined automatically; otherwise, <c>false</c>.
+        /// </value>
+        public static bool DynamicallyDetermineIdealTextColor { get; set; }
 
         public static Color GetAccentColor(AccentColorStyle colorStyle = AccentColorStyle.AccentColor)
         {
@@ -211,7 +223,15 @@ namespace Orchestra
             resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush40", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
             resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush20", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
 
-            resourceDictionary.Add("Fluent.Ribbon.Colors.IdealForegroundColor", GetIdealTextColor(color));
+            if (DynamicallyDetermineIdealTextColor)
+            {
+                resourceDictionary.Add("Fluent.Ribbon.Colors.IdealForegroundColor", GetIdealTextColor(color));
+            }
+            else
+            {
+                // White since we use the light them
+                resourceDictionary.Add("Fluent.Ribbon.Colors.IdealForegroundColor", Colors.White);
+            }
 
             resourceDictionary.Add("Fluent.Ribbon.Brushes.IdealForegroundColorBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.IdealForegroundColor"]));
             resourceDictionary.Add("Fluent.Ribbon.Brushes.IdealForegroundDisabledBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.IdealForegroundColor"], 0.4));
