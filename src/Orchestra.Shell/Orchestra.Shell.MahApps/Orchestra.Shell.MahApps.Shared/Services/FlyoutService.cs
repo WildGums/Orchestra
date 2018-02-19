@@ -131,9 +131,18 @@ namespace Orchestra.Services
                     flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderBrushProperty, ThemeHelper.GetAccentColorBrush());
                 }
 
-                flyout.SetCurrentValue(System.Windows.Controls.ContentControl.ContentProperty, flyoutInfo.Content);
+                var isOpen = flyout.IsOpen;
+                if (!isOpen)
+                {
+                    flyout.SetCurrentValue(System.Windows.Controls.ContentControl.ContentProperty, flyoutInfo.Content);
+                }
+
                 flyout.SetValue(FrameworkElement.DataContextProperty, dataContext);
-                flyout.SetCurrentValue(Flyout.IsOpenProperty, true);
+
+                if (!isOpen)
+                {
+                    flyout.SetCurrentValue(Flyout.IsOpenProperty, true);
+                }
             });
         }
 

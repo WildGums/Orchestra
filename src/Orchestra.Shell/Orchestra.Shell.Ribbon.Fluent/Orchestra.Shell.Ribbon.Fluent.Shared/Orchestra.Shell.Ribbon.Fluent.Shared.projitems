@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\RibbonBackstageTabItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\RibbonBackstageTabItemHeader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\RibbonExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\FluentRibbonHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IShellService.cs" />

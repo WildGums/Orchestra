@@ -25,6 +25,7 @@ namespace Orchestra
         AccentColor2 = 2,
         AccentColor3 = 3,
         AccentColor4 = 4,
+        AccentColor5 = 5,
     }
     public class static ApplicationExtensions
     {
@@ -149,6 +150,7 @@ namespace Orchestra
     }
     public class static ThemeHelper
     {
+        public static bool DynamicallyDetermineIdealTextColor { get; set; }
         public static System.Windows.ResourceDictionary CreateAccentColorResourceDictionary(System.Windows.Media.Color color) { }
         public static void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = False) { }
         public static void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = False) { }
@@ -790,7 +792,7 @@ namespace Orchestra.Services
     }
     public class MessageService : Catel.Services.MessageService
     {
-        public MessageService(Catel.Services.IDispatcherService dispatcherService, Catel.Services.IUIVisualizerService uiVisualizerService, Catel.MVVM.IViewModelFactory viewModelFactory) { }
+        public MessageService(Catel.Services.IDispatcherService dispatcherService, Catel.Services.IUIVisualizerService uiVisualizerService, Catel.MVVM.IViewModelFactory viewModelFactory, Catel.Services.ILanguageService languageService) { }
         public override System.Threading.Tasks.Task<Catel.Services.MessageResult> ShowAsync(string message, string caption = "", Catel.Services.MessageButton button = 1, Catel.Services.MessageImage icon = 0) { }
     }
     public class PleaseWaitService : Catel.Services.IPleaseWaitService

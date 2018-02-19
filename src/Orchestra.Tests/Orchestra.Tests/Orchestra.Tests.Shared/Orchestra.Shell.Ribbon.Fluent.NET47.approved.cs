@@ -51,6 +51,10 @@ namespace Orchestra.Controls
 namespace Orchestra
 {
     
+    public class static FluentRibbonHelper
+    {
+        public static void ApplyTheme() { }
+    }
     public class static RibbonExtensions
     {
         public static void AddAboutButton(this Fluent.Ribbon ribbon) { }

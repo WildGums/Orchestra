@@ -49,8 +49,8 @@
                                                                 <ColumnDefinition Width="6" />
                                                             </Grid.ColumnDefinitions>
 
-                                                            <orchestra:RibbonBackstageButton Grid.Column="0" Command="{Binding ElementName=backstageTabControl, Path=DataContext.UnpinItem}" CommandParameter="{Binding Name}"
-                                                                                              Style="{StaticResource AutoHidingRibbonBackstageButtonStyle}">
+                                                            <orchestra:RibbonBackstageButton Grid.Column="0" Command="{Binding ElementName=backstageTabControl, Path=DataContext.UnpinItem}" CommandParameter="{Binding Name}" 
+                                                                                             ShowBorder="false" Width="24" Height="24" Style="{StaticResource AutoHidingRibbonBackstageButtonStyle}">
                                                                 <Image Source="pack://application:,,,/Orchestra.Core;component/Resources/Images/Pinned.png" />
                                                             </orchestra:RibbonBackstageButton>
 
@@ -81,15 +81,15 @@
                                                                 <ColumnDefinition Width="6" />
                                                             </Grid.ColumnDefinitions>
 
-                                                            <orchestra:RibbonBackstageButton Grid.Column="0" Command="{Binding ElementName=backstageTabControl, Path=DataContext.PinItem}" CommandParameter="{Binding Name}"
-                                                                                              Style="{StaticResource AutoHidingRibbonBackstageButtonStyle}">
+                                                            <orchestra:RibbonBackstageButton Grid.Column="0" Command="{Binding ElementName=backstageTabControl, Path=DataContext.PinItem}" CommandParameter="{Binding Name}" 
+                                                                                             ShowBorder="false" Width="24" Height="24" Style="{StaticResource AutoHidingRibbonBackstageButtonStyle}">
                                                                 <Image Source="pack://application:,,,/Orchestra.Core;component/Resources/Images/Unpinned.png" />
                                                             </orchestra:RibbonBackstageButton>
 
                                                             <Label Grid.Column="1" Content="{Binding Name, Converter={orchestra:PathToStringConverter}, ConverterParameter=100}" />
 
                                                             <orchestra:RibbonBackstageButton Grid.Column="2" Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenInExplorer}"
-                                                                                              CommandParameter="{Binding Name}" Width="24" Height="24" ToolTip="Open in explorer" ShowBorder="False">
+                                                                                             CommandParameter="{Binding Name}" Width="24" Height="24" ToolTip="Open in explorer" ShowBorder="False">
                                                                 <Image Source="pack://application:,,,/Orchestra.Examples.Ribbon;component/Resources/Images/explorer.png" />
                                                             </orchestra:RibbonBackstageButton>
                                                         </Grid>
