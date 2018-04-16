@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace Orchestra.Examples.Ribbon
+namespace Orchestra.Examples.Ribbon.Views
 {
     /// <summary>
     /// Interaction logic for MainView.xaml

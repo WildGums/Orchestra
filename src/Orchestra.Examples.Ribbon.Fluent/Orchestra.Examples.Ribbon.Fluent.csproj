@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net46</TargetFrameworks>
     <AssemblyName>Orchestra.Examples.Ribbon.Fluent</AssemblyName>
-    <RootNamespace>Orchestra.Examples.Ribbon.Fluent</RootNamespace>
+    <RootNamespace>Orchestra.Examples.Ribbon</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
   </PropertyGroup>
 
@@ -36,7 +36,7 @@
     <ProjectReference Include="..\Orchestra.Core\Orchestra.Core.csproj" />
     <ProjectReference Include="..\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.csproj" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
