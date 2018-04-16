@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net462</TargetFrameworks>
+    <TargetFrameworks>net46</TargetFrameworks>
     <AssemblyName>Orchestra.Examples.Ribbon.Fluent</AssemblyName>
     <RootNamespace>Orchestra.Examples.Ribbon.Fluent</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
