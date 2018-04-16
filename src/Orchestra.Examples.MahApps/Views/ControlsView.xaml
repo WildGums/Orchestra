@@ -1,0 +1,31 @@
+﻿<catel:UserControl x:Class="Orchestra.Examples.MahApps.Views.ControlsView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:catel="http://schemas.catelproject.com">
+
+    <Grid>
+        <GroupBox Header="UIVisualizer">
+            <StackPanel>
+                <Button Command="{Binding ShowCustomDialog}" ToolTip="Add">
+                    <Rectangle Width="14" Height="14" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_new_window}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+                <Button Command="{Binding ShowCloseDialog}">
+                  Shows a dialog with only a close button
+                </Button>
+                <Button Command="{Binding ShowOkCancelDialog}">
+                  Shows a dialog with Ok &amp; cancel buttons
+                </Button>
+                <Button Command="{Binding ShowOkCancelApplyDialog}">
+                  Shows a dialog with Ok, cancel &amp; aplly buttons
+                </Button>
+            </StackPanel>
+
+        </GroupBox>
+
+    </Grid>
+
+</catel:UserControl>

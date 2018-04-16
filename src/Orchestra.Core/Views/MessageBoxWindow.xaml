@@ -1,0 +1,45 @@
+﻿<catel:DataWindow x:Class="Orchestra.Views.MessageBoxWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:catel="http://schemas.catelproject.com"
+                  xmlns:converters="clr-namespace:Orchestra.Converters"
+                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                  SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+                  WindowStartupLocation="CenterOwner" CanCloseUsingEscape="False">
+
+    <i:Interaction.Behaviors>
+        <catel:KeyPressToCommand Command="{Binding EscapeCommand}" Key="Escape" />
+        <catel:KeyPressToCommand Command="{Binding CopyToClipboard}" Key="C" Modifiers="Control" />
+    </i:Interaction.Behaviors>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="90" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="360" />
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <Label Style="{DynamicResource MessageBoxLabelStyle}" VerticalAlignment="Top"
+                   Tag="{Binding Icon, Converter={converters:MessageImageToTextConverter}}" />
+            <DockPanel>
+                <ScrollViewer DockPanel.Dock="Top" MaxHeight="400" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" >
+                    <TextBlock TextWrapping="Wrap" MaxWidth="360" HorizontalAlignment="Stretch" Margin="0 0 0 10" Text="{Binding Message}"/>
+                </ScrollViewer>
+
+                <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <Button Content="{catel:LanguageBinding OK}" Command="{Binding OkCommand}" Width="80" Margin="6 2 0 2"
+                            Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=OK}" />
+                    <Button Content="{catel:LanguageBinding Yes}" Command="{Binding YesCommand}" Width="80" Margin="6 2 0 2"
+                            Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=Yes}"/>
+                    <Button Content="{catel:LanguageBinding No}" Command="{Binding NoCommand}" Width="80" Margin="6 2 0 2"
+                            Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=No}"/>
+                    <Button Content="{catel:LanguageBinding Cancel}" Command="{Binding CancelCommand}" Width="80" Margin="6 2 0 2"
+                            Visibility="{Binding Button, Converter={converters:MessageButtonToCollapsingVisibilityConverter}, ConverterParameter=Cancel}"/>
+                </StackPanel>
+            </DockPanel>
+        </DockPanel>
+    </Grid>
+</catel:DataWindow>
