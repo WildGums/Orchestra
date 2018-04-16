@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ionic.Zip" Version="1.9.1.8" />
-    <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="2.1.0" />
+    <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="MethodTimer.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.2" PrivateAssets="all" />
     <PackageReference Include="Catel.Core" Version="5.3.0" />
