@@ -113,7 +113,7 @@ Task("Package")
 {
 	foreach (var projectToPackage in projectsToPackage)
 	{
-		Information("Packaging '{0}'", projectsToPackage);
+		Information("Packaging '{0}'", projectToPackage);
 
 		var msBuildSettings = new MSBuildSettings {
             Verbosity = Verbosity.Minimal, // Verbosity.Diagnostic
