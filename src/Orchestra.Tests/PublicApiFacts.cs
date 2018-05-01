@@ -7,6 +7,7 @@
 
 namespace Orchestra.Tests
 {
+    using System.Runtime.CompilerServices;
     using ApiApprover;
     using NUnit.Framework;
     using Services;
@@ -14,7 +15,7 @@ namespace Orchestra.Tests
     [TestFixture]
     public class PublicApiFacts
     {
-        [Test]
+        [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public void Orchestra_Core_HasNoBreakingChanges()
         {
             var assembly = typeof(AboutService).Assembly;
@@ -22,7 +23,7 @@ namespace Orchestra.Tests
             PublicApiApprover.ApprovePublicApi(assembly);
         }
 
-        [Test]
+        [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public void Orchestra_Shell_MahApps_HasNoBreakingChanges()
         {
             var assembly = typeof(MahAppsHelper).Assembly;
@@ -30,7 +31,7 @@ namespace Orchestra.Tests
             PublicApiApprover.ApprovePublicApi(assembly);
         }
 
-        [Test]
+        [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public void Orchestra_Shell_Ribbon_Fluent_HasNoBreakingChanges()
         {
             var assembly = typeof(RibbonExtensions).Assembly;
