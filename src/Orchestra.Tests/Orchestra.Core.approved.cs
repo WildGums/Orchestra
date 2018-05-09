@@ -241,10 +241,13 @@ namespace Orchestra.Configuration
     public abstract class ConfigurationSynchronizerBase<T> : Catel.IoC.INeedCustomInitialization
     {
         protected ConfigurationSynchronizerBase(string key, T defaultValue, Catel.Configuration.IConfigurationService configurationService) { }
+        protected ConfigurationSynchronizerBase(string key, T defaultValue, Catel.Configuration.ConfigurationContainer container, Catel.Configuration.IConfigurationService configurationService) { }
         protected bool ApplyAtStartup { get; set; }
         protected Catel.Configuration.IConfigurationService ConfigurationService { get; }
+        protected Catel.Configuration.ConfigurationContainer Container { get; }
         protected T DefaultValue { get; }
         protected string Key { get; }
+        public void ApplyConfiguration() { }
         protected virtual void ApplyConfiguration(T value) { }
         protected virtual System.Threading.Tasks.Task ApplyConfigurationAsync(T value) { }
         protected abstract string GetStatus(T value);

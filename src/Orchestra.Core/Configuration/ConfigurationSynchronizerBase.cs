@@ -20,13 +20,19 @@ namespace Orchestra.Configuration
 
         private T _lastKnownValue;
 
-        protected ConfigurationSynchronizerBase(string key, T defaultValue, IConfigurationService configurationService)
+        protected ConfigurationSynchronizerBase(string key, T defaultValue,  IConfigurationService configurationService)
+            : this(key, defaultValue, ConfigurationContainer.Roaming, configurationService)
+        {
+        }
+
+        protected ConfigurationSynchronizerBase(string key, T defaultValue, ConfigurationContainer container, IConfigurationService configurationService)
         {
             Argument.IsNotNullOrWhitespace(() => key);
             Argument.IsNotNull(() => configurationService);
 
             ApplyAtStartup = true;
             Key = key;
+            Container = container;
             DefaultValue = defaultValue;
             ConfigurationService = configurationService;
 
@@ -37,9 +43,18 @@ namespace Orchestra.Configuration
 
         protected string Key { get; private set; }
 
+        protected ConfigurationContainer Container { get; private set; }
+
         protected T DefaultValue { get; private set; }
 
         protected bool ApplyAtStartup { get; set; }
+
+        public void ApplyConfiguration()
+        {
+            var value = ConfigurationService.GetValue(Container, Key, DefaultValue);
+
+            ApplyConfiguration(value);
+        }
 
         protected virtual void ApplyConfiguration(T value)
         {
@@ -62,7 +77,7 @@ namespace Orchestra.Configuration
                 await ApplyConfigurationInternalAsync(true);
             }
 
-            _lastKnownValue = ConfigurationService.GetRoamingValue(Key, DefaultValue);
+            _lastKnownValue = ConfigurationService.GetValue(Container, Key, DefaultValue);
         }
 
 #pragma warning disable AvoidAsyncVoid
@@ -77,7 +92,7 @@ namespace Orchestra.Configuration
 
         private async Task ApplyConfigurationInternalAsync(bool force = false)
         {
-            var value = ConfigurationService.GetRoamingValue(Key, DefaultValue);
+            var value = ConfigurationService.GetValue(Container, Key, DefaultValue);
             if (!force && ObjectHelper.AreEqual(value, _lastKnownValue))
             {
                 return;
