@@ -247,9 +247,10 @@ namespace Orchestra.Configuration
         protected Catel.Configuration.ConfigurationContainer Container { get; }
         protected T DefaultValue { get; }
         protected string Key { get; }
-        public void ApplyConfiguration() { }
+        public virtual void ApplyConfiguration() { }
         protected virtual void ApplyConfiguration(T value) { }
         protected virtual System.Threading.Tasks.Task ApplyConfigurationAsync(T value) { }
+        public virtual T GetCurrentValue() { }
         protected abstract string GetStatus(T value);
     }
 }

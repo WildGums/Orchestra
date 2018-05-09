@@ -49,7 +49,13 @@ namespace Orchestra.Configuration
 
         protected bool ApplyAtStartup { get; set; }
 
-        public void ApplyConfiguration()
+        public virtual T GetCurrentValue()
+        {
+            var value = ConfigurationService.GetValue(Container, Key, DefaultValue);
+            return value;
+        }
+
+        public virtual void ApplyConfiguration()
         {
             var value = ConfigurationService.GetValue(Container, Key, DefaultValue);
 
@@ -92,7 +98,7 @@ namespace Orchestra.Configuration
 
         private async Task ApplyConfigurationInternalAsync(bool force = false)
         {
-            var value = ConfigurationService.GetValue(Container, Key, DefaultValue);
+            var value = GetCurrentValue();
             if (!force && ObjectHelper.AreEqual(value, _lastKnownValue))
             {
                 return;
