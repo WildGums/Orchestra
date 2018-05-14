@@ -12,47 +12,15 @@ namespace Orchestra
     using System.Linq;
     using Catel;
     using Catel.Logging;
-#if NET
+
     using Catel.Caching;
     using System.Windows.Markup;
     using StylesExplorer.MarkupReflection;
     using XmlNamespaceManager = System.Xml.XmlNamespaceManager;
-#endif
-#if NETFX_CORE
-    using global::Windows.UI.Xaml;
-#else
     using System.Windows;
     using System.Xml;
-
-#endif
-
-    #region Enums
-    /// <summary>
-    /// Sets the available pixel shader modes of Catel.
-    /// </summary>
-    public enum PixelShaderMode
-    {
-        /// <summary>
-        /// Disable all pixel shaders.
-        /// </summary>
-        Off,
-
-        /// <summary>
-        /// Automatically determine the best option.
-        /// </summary>
-        Auto,
-
-        /// <summary>
-        /// Use hardware for the pixel shaders.
-        /// </summary>
-        Hardware,
-
-        /// <summary>
-        /// Use software for the pixel shaders.
-        /// </summary>
-        Software
-    }
-    #endregion
+    using Catel.Reflection;
+    using Catel.Collections;
 
     /// <summary>
     /// Helper class for WPF styles and themes.
@@ -64,13 +32,6 @@ namespace Orchestra
         /// The log.
         /// </summary>
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
-        /// <summary>
-        /// This property allows you to disable all pixel shaders in Catel.
-        /// <para />
-        /// By default, all pixel shaders are enabled.
-        /// </summary>
-        public static PixelShaderMode PixelShaderMode = PixelShaderMode.Auto;
         #endregion
 
         #region Properties
@@ -85,7 +46,6 @@ namespace Orchestra
         #endregion
 
         #region Methods
-#if NET
         /// <summary>
         /// Ensures that an application instance exists and the styles are applied to the application. This method is extremely useful
         /// to apply when WPF is hosted (for example, when loaded as plugin of a non-WPF application).
@@ -103,8 +63,14 @@ namespace Orchestra
             {
                 try
                 {
+                    // Ensure we have an application
                     new Application();
-                    Application.Current.Resources.MergedDictionaries.Add(Application.LoadComponent(applicationResourceDictionary) as ResourceDictionary);
+
+                    var resourceDictionary = Application.LoadComponent(applicationResourceDictionary) as ResourceDictionary;
+                    if (resourceDictionary != null)
+                    {
+                        Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+                    }
 
                     CreateStyleForwardersForDefaultStyles(Application.Current.Resources, defaultPrefix);
 
@@ -118,8 +84,6 @@ namespace Orchestra
                 }
             }
         }
-
-#endif
 
         /// <summary>
         /// Creates style forwarders for default styles. This means that all styles found in the theme that are
@@ -166,7 +130,7 @@ namespace Orchestra
         public static void CreateStyleForwardersForDefaultStyles(ResourceDictionary sourceResources, ResourceDictionary targetResources,
             string defaultPrefix = DefaultKeyPrefix)
         {
-            CreateStyleForwardersForDefaultStyles(sourceResources, sourceResources, targetResources, false, defaultPrefix);
+            CreateStyleForwardersForDefaultStyles(sourceResources, sourceResources, targetResources, defaultPrefix);
         }
 
         /// <summary>
@@ -178,7 +142,6 @@ namespace Orchestra
         /// <param name="rootResourceDictionary">The root resource dictionary.</param>
         /// <param name="sourceResources">Resource dictionary to read the keys from (thus that contains the default styles).</param>
         /// <param name="targetResources">Resource dictionary where the forwarders will be written to.</param>
-        /// <param name="forceForwarders">if set to <c>true</c>, styles will not be completed but only forwarders are created.</param>
         /// <param name="defaultPrefix">The default prefix, uses to determine the styles as base for other styles.</param>
         /// <param name="recreateStylesBasedOnTheme">if set to <c>true</c>, the styles will be recreated with BasedOn on the current theme.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="rootResourceDictionary" /> is <c>null</c>.</exception>
@@ -186,111 +149,77 @@ namespace Orchestra
         /// <exception cref="ArgumentNullException">The <paramref name="targetResources" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">The <paramref name="defaultPrefix" /> is <c>null</c> or whitespace.</exception>
         public static void CreateStyleForwardersForDefaultStyles(ResourceDictionary rootResourceDictionary, ResourceDictionary sourceResources,
-            ResourceDictionary targetResources, bool forceForwarders, string defaultPrefix = DefaultKeyPrefix, bool recreateStylesBasedOnTheme = false)
+            ResourceDictionary targetResources, string defaultPrefix = DefaultKeyPrefix, bool recreateStylesBasedOnTheme = false)
         {
             Argument.IsNotNull("rootResourceDictionary", rootResourceDictionary);
             Argument.IsNotNull("sourceResources", sourceResources);
             Argument.IsNotNull("targetResources", targetResources);
             Argument.IsNotNullOrWhitespace("defaultPrefix", defaultPrefix);
 
-            #region If forced, use old mechanism
-            if (forceForwarders)
+            var defaultStyles = FindDefaultStyles(sourceResources, defaultPrefix).ToList();
+
+            for (int i = 0; i < defaultStyles.Count; i++)
             {
-                // Get all keys from this resource dictionary
-                var keys = (from key in sourceResources.Keys as ICollection<object>
-                    where key is string &&
-                          ((string) key).StartsWith(defaultPrefix, StringComparison.Ordinal) &&
-                          ((string) key).EndsWith(DefaultKeyPostfix, StringComparison.Ordinal)
-                    select key).ToList();
+                var defaultStyle = defaultStyles[i];
 
-                foreach (string key in keys)
-                {
-                    var style = sourceResources[key] as Style;
-                    if (style != null)
-                    {
-                        Type targetType = style.TargetType;
-                        if (targetType != null)
-                        {
-                            try
-                            {
-#if NET
-                                var styleForwarder = new Style(targetType, style);
-#else
-                                var styleForwarder = new Style(targetType);
-                                styleForwarder.BasedOn = style;
-#endif
-                                targetResources.Add(targetType, styleForwarder);
-                            }
-                            catch (Exception ex)
-                            {
-                                Log.Warning(ex, "Failed to create style forwarder for '{0}'", key);
-                            }
-                        }
-                    }
-                }
-
-                foreach (var resourceDictionary in sourceResources.MergedDictionaries)
-                {
-                    CreateStyleForwardersForDefaultStyles(rootResourceDictionary, resourceDictionary, targetResources, forceForwarders, defaultPrefix);
-                }
-
-                return;
-            }
-            #endregion
-
-            var defaultStyles = FindDefaultStyles(sourceResources, defaultPrefix);
-            foreach (var defaultStyle in defaultStyles)
-            {
                 try
                 {
+                    var baseStyle = defaultStyle;
+
                     var targetType = defaultStyle.TargetType;
                     if (targetType != null)
                     {
-                        bool hasSetStyle = false;
+                        var targetTypeName = targetType.Name;
 
-                        var resourceDictionaryDefiningStyle = FindResourceDictionaryDeclaringType(targetResources, targetType);
+                        // Step 1: if already defined in the target resources, we need to update it
+                        var resourceDictionaryDefiningStyle = FindResourceDictionaryDeclaringType(targetResources, targetType, 2);
                         if (resourceDictionaryDefiningStyle != null)
                         {
-                            var style = resourceDictionaryDefiningStyle[targetType] as Style;
-                            if (style != null)
+                            var existingStyle = resourceDictionaryDefiningStyle[targetType] as Style;
+                            if (existingStyle != null)
                             {
-                                Log.Debug("Completing the style info for '{0}' with the additional info from the default style definition", targetType);
+                                // Double check whether the style is not sealed, if so, use it as a base style instead
+                                if (!existingStyle.IsSealed)
+                                {
+                                    //Log.Debug("Completing the style info for '{0}' with the additional info from the default style definition", targetType);
 
-                                resourceDictionaryDefiningStyle[targetType] = CompleteStyleWithAdditionalInfo(style, defaultStyle);
-                                hasSetStyle = true;
+                                    resourceDictionaryDefiningStyle[targetType] = CompleteStyleWithAdditionalInfo(existingStyle, defaultStyle, false);
+                                    continue;
+                                }
+
+                                // Create a new style with the style forwarders based on the source file
+                                baseStyle = existingStyle;
                             }
                         }
 
-                        if (!hasSetStyle)
+                        //Log.Debug("Couldn't find style definition for '{0}', creating style forwarder", targetType);
+
+                        var style = new Style(targetType, baseStyle);
+
+                        if (!ReferenceEquals(baseStyle, defaultStyle))
                         {
-                            Log.Debug("Couldn't find style definition for '{0}', creating style forwarder", targetType);
-
-#if NET
-                            var style = new Style(targetType, defaultStyle);
-                            if (!targetResources.Contains(targetType))
-                            {
-                                targetResources.Add(targetType, style);
-                            }
-#else
-                            var targetStyle = new Style(targetType);
-                            targetStyle.BasedOn = defaultStyle;
-                            targetResources.Add(targetType, targetStyle);
-#endif
+                            // Copy the default style stuff
+                            CompleteStyleWithAdditionalInfo(style, defaultStyle, true);
                         }
+
+                        //if (!targetResources.Contains(targetType))
+                        //{
+                        // Always overwrite
+                        targetResources[targetType] = style;
+                        //}
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Log.Warning("Failed to complete the style for '{0}'", defaultStyle);
+                    var tag = defaultStyle?.TargetType?.ToString() ?? defaultStyle?.ToString();
+                    Log.Warning(ex, "Failed to complete the style for '{0}'", tag);
                 }
             }
 
-#if NET
             if (recreateStylesBasedOnTheme)
             {
                 RecreateDefaultStylesBasedOnTheme(rootResourceDictionary, targetResources, defaultPrefix);
             }
-#endif
 
             IsStyleForwardingEnabled = true;
         }
@@ -300,28 +229,36 @@ namespace Orchestra
         /// </summary>
         /// <param name="rootResourceDictionary">The root resource dictionary.</param>
         /// <param name="targetType">Type of the target.</param>
+        /// <param name="maxDepth">The max depth to search.</param>
         /// <returns><see cref="ResourceDictionary"/> in which the style is defined, or <c>null</c> if not found.</returns>
         /// <exception cref="ArgumentNullException">The <paramref name="rootResourceDictionary"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="targetType"/> is <c>null</c>.</exception>
-        private static ResourceDictionary FindResourceDictionaryDeclaringType(ResourceDictionary rootResourceDictionary, Type targetType)
+        private static ResourceDictionary FindResourceDictionaryDeclaringType(ResourceDictionary rootResourceDictionary, Type targetType,
+            int maxDepth = int.MaxValue)
         {
             Argument.IsNotNull("rootResourceDictionary", rootResourceDictionary);
             Argument.IsNotNull("targetType", targetType);
 
             var styleKey = (from key in rootResourceDictionary.Keys as ICollection<object>
-                where key is Type && (Type) key == targetType
-                select key).FirstOrDefault();
+                            let typeKey = key as Type
+                            where typeKey != null && typeKey == targetType
+                            select typeKey).FirstOrDefault();
             if (styleKey != null)
             {
                 return rootResourceDictionary;
             }
 
-            foreach (var mergedResourceDictionary in rootResourceDictionary.MergedDictionaries)
+            if (maxDepth > 0)
             {
-                var foundResourceDictionary = FindResourceDictionaryDeclaringType(mergedResourceDictionary, targetType);
-                if (foundResourceDictionary != null)
+                maxDepth--;
+
+                foreach (var mergedResourceDictionary in rootResourceDictionary.MergedDictionaries)
                 {
-                    return foundResourceDictionary;
+                    var foundResourceDictionary = FindResourceDictionaryDeclaringType(mergedResourceDictionary, targetType, maxDepth);
+                    if (foundResourceDictionary != null)
+                    {
+                        return foundResourceDictionary;
+                    }
                 }
             }
 
@@ -343,11 +280,12 @@ namespace Orchestra
 
             var styles = new List<Style>();
 
-            var keys = from key in sourceResources.Keys as ICollection<object>
-                where key is string &&
-                      ((string) key).StartsWith(defaultPrefix, StringComparison.Ordinal) &&
-                      ((string) key).EndsWith(DefaultKeyPostfix, StringComparison.Ordinal)
-                select key;
+            var keys = (from key in sourceResources.Keys as ICollection<object>
+                        let stringKey = key as string
+                        where stringKey != null &&
+                              (stringKey).StartsWith(defaultPrefix, StringComparison.Ordinal) &&
+                              (stringKey).EndsWith(DefaultKeyPostfix, StringComparison.Ordinal)
+                        select stringKey).Distinct().ToList();
 
             foreach (string key in keys)
             {
@@ -378,15 +316,21 @@ namespace Orchestra
         /// </summary>
         /// <param name="style">The style.</param>
         /// <param name="styleWithAdditionalInfo">The style with additional info.</param>
+        /// <param name="updateExistingStyle">If <c>true</c>, the existing style will be updated; otherwise a new style will be created. </param>
         /// <returns>New completed style.</returns>
         /// <exception cref="ArgumentNullException">The <paramref name="style"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="styleWithAdditionalInfo"/> is <c>null</c>.</exception>
-        private static Style CompleteStyleWithAdditionalInfo(Style style, Style styleWithAdditionalInfo)
+        private static Style CompleteStyleWithAdditionalInfo(Style style, Style styleWithAdditionalInfo, bool updateExistingStyle)
         {
             Argument.IsNotNull("style", style);
             Argument.IsNotNull("styleWithAdditionalInfo", styleWithAdditionalInfo);
 
-            var newStyle = new Style(style.TargetType);
+            Style newStyle = style;
+
+            if (!updateExistingStyle)
+            {
+                newStyle = new Style(style.TargetType);
+            }
 
             #region Copy style with additional info
             foreach (var setter in styleWithAdditionalInfo.Setters)
@@ -394,38 +338,35 @@ namespace Orchestra
                 newStyle.Setters.Add(setter);
             }
 
-#if NET
             foreach (var trigger in styleWithAdditionalInfo.Triggers)
             {
                 newStyle.Triggers.Add(trigger);
             }
-#endif
             #endregion
 
             #region Copy original style
-            foreach (SetterBase setter in style.Setters)
+            if (!updateExistingStyle)
             {
-                bool exists = (from styleSetter in newStyle.Setters
-                    where setter is Setter && ((Setter) styleSetter).Property == ((Setter) setter).Property
-                    select styleSetter).Any();
-                if (!exists)
+                foreach (SetterBase setter in style.Setters)
                 {
-                    newStyle.Setters.Add(setter);
+                    bool exists = (from styleSetter in newStyle.Setters
+                                   where setter is Setter && ((Setter)styleSetter).Property == ((Setter)setter).Property
+                                   select styleSetter).Any();
+                    if (!exists)
+                    {
+                        newStyle.Setters.Add(setter);
+                    }
+                }
+
+                foreach (var trigger in style.Triggers)
+                {
+                    newStyle.Triggers.Add(trigger);
                 }
             }
-
-#if NET
-            foreach (var trigger in style.Triggers)
-            {
-                newStyle.Triggers.Add(trigger);
-            }
-#endif
             #endregion
 
             return newStyle;
         }
-
-#if NET
 
         /// <summary>
         /// Recreates the default styles based on theme.
@@ -447,10 +388,11 @@ namespace Orchestra
             Argument.IsNotNull("defaultPrefix", defaultPrefix);
 
             var keys = (from key in resources.Keys as ICollection<object>
-                where key is string &&
-                      ((string) key).StartsWith(defaultPrefix, StringComparison.InvariantCulture) &&
-                      ((string) key).EndsWith(DefaultKeyPostfix, StringComparison.InvariantCulture)
-                select key).ToList();
+                        let stringKey = key as string
+                        where stringKey != null &&
+                              (stringKey).StartsWith(defaultPrefix, StringComparison.InvariantCulture) &&
+                              (stringKey).EndsWith(DefaultKeyPostfix, StringComparison.InvariantCulture)
+                        select stringKey).ToList();
 
             foreach (string key in keys)
             {
@@ -475,8 +417,6 @@ namespace Orchestra
             }
         }
 
-#endif
-
         /// <summary>
         /// Clones a style when the style is based on a control.
         /// </summary>
@@ -499,24 +439,17 @@ namespace Orchestra
             Argument.IsNotNull("style", style);
             Argument.IsNotNull("basedOnType", basedOnType);
 
-#if NET
             var newStyle = new Style(style.TargetType, rootResourceDictionary[basedOnType] as Style);
-#else
-            var newStyle = new Style(style.TargetType);
-            newStyle.BasedOn = rootResourceDictionary[basedOnType] as Style;
-#endif
 
             foreach (var setter in style.Setters)
             {
                 newStyle.Setters.Add(setter);
             }
 
-#if NET
             foreach (var trigger in style.Triggers)
             {
                 newStyle.Triggers.Add(trigger);
             }
-#endif
 
             return newStyle;
         }
@@ -534,8 +467,6 @@ namespace Orchestra
         private const string DefaultKeyPostfix = "Style";
         #endregion
 
-#if NET
-
         /// <summary>
         /// Cached decompiled XAML resource dictionaries.
         /// </summary>
@@ -545,10 +476,6 @@ namespace Orchestra
         /// Cached types of <see cref="FrameworkElement"/> belonging to the string representation of the type.
         /// </summary>
         private static readonly CacheStorage<string, Type> _styleToFrameworkElementTypeCache = new CacheStorage<string, Type>();
-
-#endif
-
-#if NET
 
         /// <summary>
         /// Finds the <see cref="FrameworkElement"/> a specific style is based on.
@@ -587,14 +514,14 @@ namespace Orchestra
                     }
 
                     string basedOnValue = xmlAttribute.Value;
-                    basedOnValue = basedOnValue.Replace("StaticResource", "");
-                    basedOnValue = basedOnValue.Replace("x:Type", "").Trim(new[] {' ', '{', '}'});
+                    basedOnValue = basedOnValue.Replace("StaticResource", string.Empty);
+                    basedOnValue = basedOnValue.Replace("x:Type", string.Empty).Trim(' ', '{', '}');
 
                     #region Create xml type mapper
-                    var xamlTypeMapper = new XamlTypeMapper(new[] {"PresentationFramework"});
+                    var xamlTypeMapper = new XamlTypeMapper(new[] { "PresentationFramework" });
                     foreach (XmlAttribute namespaceAttribute in doc.DocumentElement.Attributes)
                     {
-                        string xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(new[] {':'});
+                        string xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(':');
 
                         string value = namespaceAttribute.Value;
                         string clrNamespace = value;
@@ -607,13 +534,13 @@ namespace Orchestra
                             // * clr-namespace:[NAMESPACE];assembly=[ASSEMBLY]
                             if (clrNamespace.Contains(";"))
                             {
-                                clrNamespace = clrNamespace.Split(new[] {';'})[0];
+                                clrNamespace = clrNamespace.Split(';')[0];
                             }
                             clrNamespace = clrNamespace.Replace("clr-namespace:", string.Empty);
 
                             if (value.Contains(";"))
                             {
-                                assemblyName = value.Split(new[] {';'})[1].Replace("assembly:", string.Empty);
+                                assemblyName = value.Split(';')[1].Replace("assembly:", string.Empty);
                             }
 
                             xamlTypeMapper.AddMappingProcessingInstruction(xmlNamespace, clrNamespace, assemblyName);
@@ -621,7 +548,7 @@ namespace Orchestra
                     }
                     #endregion
 
-                    string[] splittedType = basedOnValue.Split(new[] {':'});
+                    string[] splittedType = basedOnValue.Split(':');
                     string typeNamespace = (splittedType.Length == 2) ? splittedType[0] : "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
                     string typeName = (splittedType.Length == 2) ? splittedType[1] : splittedType[0];
                     var type = xamlTypeMapper.GetType(typeNamespace, typeName);
@@ -662,7 +589,7 @@ namespace Orchestra
                 foreach (XmlAttribute namespaceAttribute in doc.DocumentElement.Attributes)
                 {
                     // Clean up namespace (remove xmlns prefix)
-                    string xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(new[] {':'});
+                    string xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(':');
                     xmlNamespaceManager.AddNamespace(xmlNamespace, namespaceAttribute.Value);
                 }
 
@@ -673,7 +600,5 @@ namespace Orchestra
                 return new Tuple<XmlDocument, XmlNamespaceManager>(doc, xmlNamespaceManager);
             });
         }
-
-#endif
     }
 }

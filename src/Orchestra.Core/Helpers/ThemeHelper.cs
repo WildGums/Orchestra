@@ -327,7 +327,7 @@ namespace Orchestra
                 if (createStyleForwarders)
                 {
                     // Step 1: allow this lib to create the app themes first
-                    StyleHelper.CreateStyleForwardersForDefaultStyles(existingDictionary);
+                    //StyleHelper.CreateStyleForwardersForDefaultStyles(existingDictionary);
 
                     // Step 2: always allow core libs to fill up the missing pieces
                     StyleHelper.CreateStyleForwardersForDefaultStyles();

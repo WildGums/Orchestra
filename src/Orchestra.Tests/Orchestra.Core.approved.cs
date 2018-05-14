@@ -118,13 +118,6 @@ namespace Orchestra
         public OrchestraException(string message) { }
         public OrchestraException(string message, System.Exception innerException) { }
     }
-    public enum PixelShaderMode
-    {
-        Off = 0,
-        Auto = 1,
-        Hardware = 2,
-        Software = 3,
-    }
     public class static ScreenHelper
     {
         public static System.Windows.Size GetDpi() { }
@@ -136,12 +129,11 @@ namespace Orchestra
     }
     public class static StyleHelper
     {
-        public static Orchestra.PixelShaderMode PixelShaderMode;
         public static bool IsStyleForwardingEnabled { get; }
         public static void CreateStyleForwardersForDefaultStyles(string defaultPrefix = "Default") { }
         public static void CreateStyleForwardersForDefaultStyles(System.Windows.ResourceDictionary sourceResources, string defaultPrefix = "Default") { }
         public static void CreateStyleForwardersForDefaultStyles(System.Windows.ResourceDictionary sourceResources, System.Windows.ResourceDictionary targetResources, string defaultPrefix = "Default") { }
-        public static void CreateStyleForwardersForDefaultStyles(System.Windows.ResourceDictionary rootResourceDictionary, System.Windows.ResourceDictionary sourceResources, System.Windows.ResourceDictionary targetResources, bool forceForwarders, string defaultPrefix = "Default", bool recreateStylesBasedOnTheme = False) { }
+        public static void CreateStyleForwardersForDefaultStyles(System.Windows.ResourceDictionary rootResourceDictionary, System.Windows.ResourceDictionary sourceResources, System.Windows.ResourceDictionary targetResources, string defaultPrefix = "Default", bool recreateStylesBasedOnTheme = False) { }
         public static void EnsureApplicationResourcesAndCreateStyleForwarders(System.Uri applicationResourceDictionary, string defaultPrefix = "Default") { }
     }
     public class static ThemeHelper
