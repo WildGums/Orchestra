@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="nl" original="ORCHESTRA.CORE/PROPERTIES/RESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6900.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="ORCHESTRA.CORE/PROPERTIES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="Orchestra_AllRightsReserved" translate="yes" xml:space="preserve">
+          <source>All rights reserved</source>
+          <target state="translated">Alle rechten voorbehouden</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_Assign" translate="yes" xml:space="preserve">
+          <source>Assign</source>
+          <target state="translated">Toewijzen</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_AssignInputGestureAreYouSure" translate="yes" xml:space="preserve">
+          <source>Are you sure you want to assign the input gesture to '{0}'. It will be removed from the other commands.</source>
+          <target state="translated">Weet je zeker dat je het invoer gebaar wilt toewijzen aan '{0}'. Het zal van andere commando's worden verwijderd.</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_AssignInputGestureUsedByFollowCommands" translate="yes" xml:space="preserve">
+          <source>The input gesture '{0}' is currently being used by the following commands:</source>
+          <target state="translated">Het invoer gebaar '{0}' is momenteel toegewezen aan de volgende commando's:</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_BackupAndReset" translate="yes" xml:space="preserve">
+          <source>Backup and Reset</source>
+          <target state="translated">Backup en Reset</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_BackupCreated" translate="yes" xml:space="preserve">
+          <source>Backup has been succesfully created.</source>
+          <target state="translated">Backup maken is gelukt.</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_BuiltOn" translate="yes" xml:space="preserve">
+          <source>Built on {0}</source>
+          <target state="translated">Gemaakt op {0}</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_Close" translate="yes" xml:space="preserve">
+          <source>Close</source>
+          <target state="translated">Sluiten</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_Command" translate="yes" xml:space="preserve">
+          <source>Command</source>
+          <target state="translated">Commando</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_Continue" translate="yes" xml:space="preserve">
+          <source>Continue</source>
+          <target state="translated">Doorgaan</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_Copy" translate="yes" xml:space="preserve">
+          <source>Copy</source>
+          <target state="translated">Kopiëren</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_Customize" translate="yes" xml:space="preserve">
+          <source>Customize</source>
+          <target state="translated">Aanpassen</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_DebugLoggingIsEnabled" translate="yes" xml:space="preserve">
+          <source>Debug logging is enabled for this application instance</source>
+          <target state="translated">Gedetailleerde logging is aangezet voor deze applicatie</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_DeletedUserDataSettings" translate="yes" xml:space="preserve">
+          <source>User data settings have been successfully deleted.</source>
+          <target state="translated">Gebruikers data is verwijderd.</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_EnableDetailedLogging" translate="yes" xml:space="preserve">
+          <source>Enable detailed logging</source>
+          <target state="translated">Start gedetailleerde logging</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_EnableLogging" translate="yes" xml:space="preserve">
+          <source>Enable logging</source>
+          <target state="translated">Start logging</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_FailedToCreateBackup" translate="yes" xml:space="preserve">
+          <source>Failed to created a backup. To prevent data loss, the application will now exit and not delete any files. Please contact support so they can guide you through the process.</source>
+          <target state="translated">Het is niet gelukt om een backup te maken. Om data verlies te voorkomen zal de applicatie nu worden afgesloten en zullen er geen bestanden verwijderd worden. Neem a.u.b. contact op met support zodat zij je kunnen helpen.</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_InputGesture" translate="yes" xml:space="preserve">
+          <source>Input gesture</source>
+          <target state="translated">Invoer gebaar</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_KeyboardShortcuts" translate="yes" xml:space="preserve">
+          <source>Keyboard shortcuts</source>
+          <target state="translated">Toetsenbord snelkoppelingen</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_NoLogListenerAvailable" translate="yes" xml:space="preserve">
+          <source>No log listener available that can be opened. Please contact support.</source>
+          <target state="translated">Er is geen log dat geopend kan worden. Neem a.u.b. contact op met support.</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_NotStartedCorrectly_01" translate="yes" xml:space="preserve">
+          <source>It seems that the application failed to start correctly the last time it was started.</source>
+          <target state="translated">Het lijkt erop dat de applicatie niet goed gestart was de laatste keer.</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_NotStartedCorrectly_02" translate="yes" xml:space="preserve">
+          <source>If this happens again, try to reset the user data settings. The left button will allow you to reset (and optionally backup) your settings.</source>
+          <target state="translated">Mocht dit weer gebeuren, probeer dan de gebruikers data te resetten. De linker knop geeft je de mogelijkheid om de data te resetten (en optioneel een backup te maken).</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_NotStartedCorrectly_03" translate="yes" xml:space="preserve">
+          <source>When ready, click continue to start the application.</source>
+          <target state="translated">Wanneer je klaar bent, click dan op doorgaan om de applicatie te starten.</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_PressShortcutKeys" translate="yes" xml:space="preserve">
+          <source>Press shortcut keys:</source>
+          <target state="translated">Gebruik snelkoppeling toetsen:</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_Print" translate="yes" xml:space="preserve">
+          <source>Print</source>
+          <target state="translated">Afdrukken</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ProducedBy" translate="yes" xml:space="preserve">
+          <source>Produced by {0}</source>
+          <target state="translated">Gemaakt door {0}</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ReleasedOn" translate="yes" xml:space="preserve">
+          <source>Released on</source>
+          <target state="translated">Gepubliceerd op</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_Remove" translate="yes" xml:space="preserve">
+          <source>Remove</source>
+          <target state="translated">Verwijderen</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ReplaceInputGesture" translate="yes" xml:space="preserve">
+          <source>Replace input gesture?</source>
+          <target state="translated">Vervang invoer gebaar?</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_Reset" translate="yes" xml:space="preserve">
+          <source>Reset</source>
+          <target state="needs-review-translation">Reset</target>
+          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+        </trans-unit>
+        <trans-unit id="Orchestra_ResetKeyboardShortcutsAreYouSure" translate="yes" xml:space="preserve">
+          <source>Resetting shortcuts will delete all your current shortcuts. This action cannot be undone. Are you sure you want to reset the shortcuts?</source>
+          <target state="translated">Het resetten van de snelkoppelingen zal alle huidige snelkoppelingen verwijderen. Deze actie kan niet ongedaan gemaakt worden. Weet je zeker dat je de snelkoppelingen wilt resetten?</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_RetrievingSystemInfo" translate="yes" xml:space="preserve">
+          <source>Retrieving system information...</source>
+          <target state="translated">Bezig met ophalen van systeem informatie...</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShortcutForSelectedCommand" translate="yes" xml:space="preserve">
+          <source>Shortcut for selected command:</source>
+          <target state="translated">Snelkoppeling voor het geselecteerde commando:</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShortcutsForApplication" translate="yes" xml:space="preserve">
+          <source>Keyboard shortcuts for {0}</source>
+          <target state="translated">Toetsenbord snelkoppeling voor {0}</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShowCommandsContaining" translate="yes" xml:space="preserve">
+          <source>Show commands containing:</source>
+          <target state="translated">Toon commando's met:</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShowLog" translate="yes" xml:space="preserve">
+          <source>Show log...</source>
+          <target state="translated">Toon log...</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShowSystemInfo" translate="yes" xml:space="preserve">
+          <source>Show system info</source>
+          <target state="translated">Toon systeem info</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_SystemInfo" translate="yes" xml:space="preserve">
+          <source>System information</source>
+          <target state="translated">Systeem informatie</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_UserDataSettings" translate="yes" xml:space="preserve">
+          <source>User data settings</source>
+          <target state="translated">Gebruikers data</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

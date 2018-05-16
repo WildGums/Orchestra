@@ -42,7 +42,7 @@ namespace Orchestra.Controls
 
             thread.SetApartmentState(ApartmentState.STA);
             thread.IsBackground = true;
-            thread.Start(new object[] {visual, createVisual});
+            thread.Start(new object[] { visual, createVisual });
 
             _autoResetEvent.WaitOne();
 
@@ -53,10 +53,10 @@ namespace Orchestra.Controls
         {
             try
             {
-                var objects = (object[]) arg;
+                var objects = (object[])arg;
 
-                var hostVisual = (HostVisual) objects[0];
-                var createVisual = (Func<Visual>) objects[1];
+                var hostVisual = (HostVisual)objects[0];
+                var createVisual = (Func<Visual>)objects[1];
 
                 var indeterminateSource = new VisualTargetPresentationSource(hostVisual);
 
