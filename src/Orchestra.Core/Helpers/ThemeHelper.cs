@@ -14,7 +14,9 @@ namespace Orchestra
     using System.Windows.Media;
     using Catel;
     using Catel.Caching;
+    using Catel.IoC;
     using Catel.Logging;
+    using Orchestra.Services;
 
     public enum AccentColorStyle
     {
@@ -103,8 +105,10 @@ namespace Orchestra
                 return _accentColorBrushCache;
             }
 
-            _accentColorBrushCache = Application.Current.TryFindResource("AccentColorBrush") as SolidColorBrush;
-            return _accentColorBrushCache ?? OrchestraEnvironment.DefaultAccentColorBrush;
+            var accentColorService = ServiceLocator.Default.ResolveType<IAccentColorService>();
+            _accentColorBrushCache = GetSolidColorBrush(accentColorService.GetAccentColor());
+
+            return _accentColorBrushCache;
         }
 
         private static SolidColorBrush GetSolidColorBrush(Color color, double opacity = 1d)

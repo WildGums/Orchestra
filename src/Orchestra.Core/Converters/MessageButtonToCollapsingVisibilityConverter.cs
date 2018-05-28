@@ -27,14 +27,17 @@ namespace Orchestra.Converters
             {
                 return true;
             }
+
             if (parameter.Equals("Yes") && (button == MessageButton.YesNoCancel || button == MessageButton.YesNo))
             {
                 return true;
             }
+
             if (parameter.Equals("No") && (button == MessageButton.YesNoCancel || button == MessageButton.YesNo))
             {
                 return true;
             }
+
             if (parameter.Equals("Cancel") && (button == MessageButton.OKCancel || button == MessageButton.YesNoCancel))
             {
                 return true;
@@ -42,6 +45,5 @@ namespace Orchestra.Converters
 
             return false;
         }
-
     }
 }

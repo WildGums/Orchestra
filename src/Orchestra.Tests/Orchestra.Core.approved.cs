@@ -582,6 +582,11 @@ namespace Orchestra.Services
         public AboutService(Catel.Services.IUIVisualizerService uiVisualizerService, Orchestra.Services.IAboutInfoService aboutInfoService) { }
         public virtual System.Threading.Tasks.Task ShowAboutAsync() { }
     }
+    public class AccentColorService : Orchestra.Services.IAccentColorService
+    {
+        public AccentColorService() { }
+        public virtual System.Windows.Media.Color GetAccentColor() { }
+    }
     public class AdorneredTooltipsManager : Orchestra.Services.IAdorneredTooltipsManager
     {
         public AdorneredTooltipsManager(Orchestra.Services.IAdornerTooltipGenerator adornerTooltipGenerator, Orchestra.Services.IHintsProvider hintsProviderProvider, Orchestra.Layers.IAdornerLayer adornerLayer, Orchestra.Collections.IAdorneredTooltipsCollection adorneredTooltipsCollection) { }
@@ -645,6 +650,10 @@ namespace Orchestra.Services
     public interface IAboutService
     {
         System.Threading.Tasks.Task ShowAboutAsync();
+    }
+    public interface IAccentColorService
+    {
+        System.Windows.Media.Color GetAccentColor();
     }
     public interface IAdorneredTooltipsManager
     {

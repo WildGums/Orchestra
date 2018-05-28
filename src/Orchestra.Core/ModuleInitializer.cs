@@ -55,6 +55,7 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<ICommandInfoService, CommandInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAppDataService, AppDataService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IEnsureStartupService, EnsureStartupService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IAccentColorService, AccentColorService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutInfoService, AboutInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IClipboardService, ClipboardService>();
