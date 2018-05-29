@@ -163,8 +163,6 @@ namespace Orchestra.Services
 
                 shell = await CreateShellAsync<TShell>();
 
-                Log.Info("Loading keyboard mappings");
-
                 await TaskHelper.Run(() => _keyboardMappingsService.Load(), true);
 
                 // Now we have a new window, resubscribe the command manager
