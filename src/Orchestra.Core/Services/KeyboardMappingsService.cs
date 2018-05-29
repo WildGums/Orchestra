@@ -46,13 +46,13 @@ namespace Orchestra.Services
 
         public void Load()
         {
-            Log.Info("Loading keyboard mappings");
+            Log.Debug("Loading keyboard mappings");
 
             try
             {
                 if (!_fileService.Exists(_fileName))
                 {
-                    Log.Warning("Keyboard mapping file not found at '{0}'", _fileName);
+                    Log.Debug("Keyboard mapping file not found at '{0}'", _fileName);
                     return;
                 }
 
@@ -84,7 +84,7 @@ namespace Orchestra.Services
 
         public void Save()
         {
-            Log.Info("Saving keyboard mappings");
+            Log.Debug("Saving keyboard mappings");
 
             try
             {
@@ -111,7 +111,7 @@ namespace Orchestra.Services
 
         public void Reset()
         {
-            Log.Info("Resetting keyboard mappings");
+            Log.Debug("Resetting keyboard mappings");
 
             _commandManager.ResetInputGestures();
         }
