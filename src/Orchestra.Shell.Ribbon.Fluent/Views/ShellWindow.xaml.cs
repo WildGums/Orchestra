@@ -47,7 +47,10 @@ namespace Orchestra.Views
                 customStatusBarItem.SetCurrentValue(ContentProperty, statusBarContent);
             }
 
-            contentControl.Content = ribbonService.GetMainView();
+            var mainView = ribbonService.GetMainView();
+            contentControl.Content = mainView;
+
+            ShellDimensionsHelper.ApplyDimensions(this, mainView);
         }
     }
 }

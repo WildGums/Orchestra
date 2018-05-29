@@ -7,6 +7,7 @@
 
 namespace Orchestra.Views
 {
+    using System.Windows;
     using System.Windows.Data;
     using Catel.IoC;
     using Catel.MVVM;
@@ -76,6 +77,8 @@ namespace Orchestra.Views
 
             var mainView = mahAppsService.GetMainView();
             contentControl.Content = mainView;
+
+            ShellDimensionsHelper.ApplyDimensions(this, mainView);
 
             SetBinding(TitleProperty, new Binding("ViewModel.Title")
             {

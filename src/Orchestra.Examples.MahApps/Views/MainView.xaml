@@ -4,7 +4,8 @@
                    xmlns:catel="http://schemas.catelproject.com"
                    xmlns:views="clr-namespace:Orchestra.Examples.MahApps.Views"
                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
+                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
+                   MinWidth="600" MinHeight="400">
 
     <UserControl.Resources>
         <ResourceDictionary>
