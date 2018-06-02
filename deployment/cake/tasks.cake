@@ -176,12 +176,27 @@ Task("CodeSign")
 
     Information("Found '{0}' files to code sign, this can take a few minutes", filesToSign.Count);
 
-    Sign(filesToSign, new SignToolSignSettings 
+    var signToolSignSettings = new SignToolSignSettings 
     {
         AppendSignature = false,
         TimeStampUri = new Uri(codeSignTimeStampUri),
         CertSubjectName = codeSignCertificateSubjectName
-    });
+    };
+
+    Sign(filesToSign, signToolSignSettings);
+
+    // Note parallel doesn't seem to be faster in an example repository:
+    // 1 thread:   1m 30s
+    // 4 threads:  1m 30s
+    // 10 threads: 1m 30s
+    // Parallel.ForEach(filesToSign, new ParallelOptions 
+    //     { 
+    //         MaxDegreeOfParallelism = 10 
+    //     },
+    //     fileToSign => 
+    //     { 
+    //         Sign(fileToSign, signToolSignSettings);
+    //     });
 });
 
 //-------------------------------------------------------------
