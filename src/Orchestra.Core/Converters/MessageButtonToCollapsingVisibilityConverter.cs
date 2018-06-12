@@ -17,6 +17,7 @@ namespace Orchestra.Converters
         public MessageButtonToCollapsingVisibilityConverter()
             : base(Visibility.Collapsed)
         {
+            SupportInversionUsingCommandParameter = false;
         }
 
         protected override bool IsVisible(object value, Type targetType, object parameter)
