@@ -1,5 +1,7 @@
 #addin "nuget:?package=MagicChunks"
 #addin "nuget:?package=Cake.FileHelpers"
+#addin "nuget:?package=Cake.Sonar"
+#tool "nuget:?package=MSBuild.SonarQube.Runner.Tool"
 
 Information("Running target '{0}'", target);
 Information("Using output directory '{0}'", outputRootDirectory);
@@ -124,9 +126,31 @@ Task("UpdateInfo")
 
 //-------------------------------------------------------------
 
+Task("SonarBegin")
+    .ContinueOnError()
+    .Does(() =>
+{
+    if (string.IsNullOrWhiteSpace(sonarUrl))
+    {
+        Information("Skipping Sonar integration since url is not specified");
+        return;
+    }
+
+    SonarBegin(new SonarBeginSettings {
+        Url = sonarUrl,
+        Login = sonarUsername,
+        Password = sonarPassword,
+        Verbose = true,
+        Key = sonarProject
+    });
+});
+
+//-------------------------------------------------------------
+
 Task("Build")
 	.IsDependentOn("Clean")
 	.IsDependentOn("UpdateInfo")
+    .IsDependentOn("SonarBegin")
 	.Does(() =>
 {
 	var msBuildSettings = new MSBuildSettings {
@@ -144,8 +168,27 @@ Task("Build")
 
 //-------------------------------------------------------------
 
-Task("CodeSign")
+Task("SonarEnd")
     .IsDependentOn("Build")
+    .ContinueOnError()
+    .Does(() =>
+{
+    if (string.IsNullOrWhiteSpace(sonarUrl))
+    {
+        // No need to log, we already did
+        return;
+    }
+
+    SonarEnd(new SonarEndSettings {
+        Login = sonarUsername,
+        Password = sonarPassword,
+     });
+});
+
+//-------------------------------------------------------------
+
+Task("CodeSign")
+    .IsDependentOn("SonarEnd")
     .ContinueOnError()
     .Does(() =>
 {
