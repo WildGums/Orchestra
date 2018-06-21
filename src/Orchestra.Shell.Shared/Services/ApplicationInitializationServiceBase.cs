@@ -15,6 +15,10 @@ namespace Orchestra.Services
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService
     {
+        public virtual bool ShowSplashScreen => true;
+
+        public virtual bool ShowShell => true;
+
         public virtual async Task InitializeBeforeShowingSplashScreenAsync()
         {
             var serviceLocator = this.GetServiceLocator();

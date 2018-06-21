@@ -100,14 +100,27 @@ namespace Orchestra.Services
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
         [Time]
         public async Task<TShell> CreateWithSplashAsync<TShell>()
-            where TShell : IShell
+            where TShell : class, IShell
         {
             await _applicationInitializationService.InitializeBeforeShowingSplashScreenAsync();
 
-            var splashScreen = _splashScreenService.CreateSplashScreen();
-            splashScreen.Show();
+            TShell shell = null;
 
-            var shell = await CreateShellInternalAsync<TShell>(splashScreen.Close);
+            if (_applicationInitializationService.ShowSplashScreen)
+            {
+                Log.Debug("Showing splash screen");
+
+                var splashScreen = _splashScreenService.CreateSplashScreen();
+                splashScreen.Show();
+
+                shell = await CreateShellInternalAsync<TShell>(splashScreen.Close);
+            }
+            else
+            {
+                Log.Debug("Not showing splash screen");
+
+                shell = await CreateShellInternalAsync<TShell>();
+            }
 
             return shell;
         }
@@ -120,7 +133,7 @@ namespace Orchestra.Services
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
         [Time]
         public async Task<TShell> CreateAsync<TShell>()
-            where TShell : IShell
+            where TShell : class, IShell
         {
             // Note: it's important to change the application mode. If we are not showing a splash screen,
             // the app won't have a window and will immediately close (if we start any task that is awaited).
@@ -163,7 +176,7 @@ namespace Orchestra.Services
 
                 shell = await CreateShellAsync<TShell>();
 
-                await TaskHelper.Run(() => _keyboardMappingsService.Load(), true);
+                _keyboardMappingsService.Load();
 
                 // Now we have a new window, resubscribe the command manager
                 _commandManager.SubscribeToKeyboardEvents();
@@ -257,6 +270,14 @@ namespace Orchestra.Services
         [Time]
         private void ShowShell(IShell shell)
         {
+            if (!_applicationInitializationService.ShowShell)
+            {
+                Log.Debug("Not showing shell");
+                return;
+            }
+
+            Log.Debug("Showing shell");
+
             shell.Show();
         }
 

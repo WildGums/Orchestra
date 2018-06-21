@@ -42,6 +42,8 @@ namespace Orchestra.Services
     public class ApplicationInitializationServiceBase : Orchestra.Services.IApplicationInitializationService
     {
         public ApplicationInitializationServiceBase() { }
+        public virtual bool ShowShell { get; }
+        public virtual bool ShowSplashScreen { get; }
         public virtual System.Threading.Tasks.Task InitializeAfterCreatingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeAfterShowingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeBeforeCreatingShellAsync() { }
@@ -63,6 +65,8 @@ namespace Orchestra.Services
     }
     public interface IApplicationInitializationService
     {
+        bool ShowShell { get; }
+        bool ShowSplashScreen { get; }
         System.Threading.Tasks.Task InitializeAfterCreatingShellAsync();
         System.Threading.Tasks.Task InitializeAfterShowingShellAsync();
         System.Threading.Tasks.Task InitializeBeforeCreatingShellAsync();
@@ -89,9 +93,9 @@ namespace Orchestra.Services
     {
         Orchestra.Views.IShell Shell { get; }
         System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
-            where TShell : Orchestra.Views.IShell;
+            where TShell :  class, Orchestra.Views.IShell;
         System.Threading.Tasks.Task<TShell> CreateWithSplashAsync<TShell>()
-            where TShell : Orchestra.Views.IShell;
+            where TShell :  class, Orchestra.Views.IShell;
     }
     public class MahAppsAboutService : Orchestra.Services.AboutService
     {
@@ -112,9 +116,9 @@ namespace Orchestra.Services
         public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver) { }
         public Orchestra.Views.IShell Shell { get; }
         public System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
-            where TShell : Orchestra.Views.IShell { }
+            where TShell :  class, Orchestra.Views.IShell { }
         public System.Threading.Tasks.Task<TShell> CreateWithSplashAsync<TShell>()
-            where TShell : Orchestra.Views.IShell { }
+            where TShell :  class, Orchestra.Views.IShell { }
     }
 }
 namespace Orchestra.ViewModels

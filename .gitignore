@@ -123,6 +123,7 @@ Desktop.ini
 
 # mstest test results
 TestResults
-src/.vs/
+.vs/
 .sonarqube/
 .github/
+BundleArtifacts/

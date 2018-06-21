@@ -12,6 +12,22 @@ namespace Orchestra.Services
     public interface IApplicationInitializationService
     {
         /// <summary>
+        /// Gets a value indicating whether the splash screen should be shown.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the splash screen should be shown; otherwise, <c>false</c>.
+        /// </value>
+        bool ShowSplashScreen { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the shell should be shown.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the shell should be shown; otherwise, <c>false</c>.
+        /// </value>
+        bool ShowShell { get; }
+
+        /// <summary>
         /// Initialization code before showing the splash screen.
         /// </summary>
         /// <returns>Task.</returns>

@@ -27,7 +27,7 @@ namespace Orchestra.Services
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
         Task<TShell> CreateWithSplashAsync<TShell>()
-            where TShell : IShell;
+            where TShell : class, IShell;
 
         /// <summary>
         /// Creates a new shell.
@@ -36,6 +36,6 @@ namespace Orchestra.Services
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
         Task<TShell> CreateAsync<TShell>()
-            where TShell : IShell;
+            where TShell : class, IShell;
     }
 }
