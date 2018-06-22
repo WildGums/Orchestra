@@ -61,7 +61,7 @@ namespace Orchestra.Examples.Ribbon
 
             var serviceLocator = ServiceLocator.Default;
             var shellService = serviceLocator.ResolveType<IShellService>();
-            shellService.CreateWithSplashAsync<ShellWindow>();
+            shellService.CreateAsync<ShellWindow>();
 
             _stopwatch.Stop();
 

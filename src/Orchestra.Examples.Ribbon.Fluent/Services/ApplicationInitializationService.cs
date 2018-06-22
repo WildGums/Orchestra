@@ -27,7 +27,9 @@ namespace Orchestra.Examples.Ribbon.Services
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
         #endregion
 
-        public override bool ShowSplashScreen => true;
+        public override bool ShowSplashScreen => false;
+
+        public override bool ShowShell => false;
 
         public ApplicationInitializationService(IServiceLocator serviceLocator)
         {

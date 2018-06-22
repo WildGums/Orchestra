@@ -98,8 +98,22 @@ namespace Orchestra.Services
         /// <typeparam name="TShell">The type of the shell.</typeparam>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
+        [ObsoleteEx(Message = "App is now constructed with splash by default. Splash can be hidden by using ShowSplash = false", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
         [Time]
-        public async Task<TShell> CreateWithSplashAsync<TShell>()
+        public Task<TShell> CreateWithSplashAsync<TShell>()
+            where TShell : class, IShell
+        {
+            return CreateAsync<TShell>();
+        }
+
+        /// <summary>
+        /// Creates a new shell.
+        /// </summary>
+        /// <typeparam name="TShell">The type of the shell.</typeparam>
+        /// <returns>The created shell.</returns>
+        /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
+        [Time]
+        public async Task<TShell> CreateAsync<TShell>()
             where TShell : class, IShell
         {
             await _applicationInitializationService.InitializeBeforeShowingSplashScreenAsync();
@@ -119,31 +133,16 @@ namespace Orchestra.Services
             {
                 Log.Debug("Not showing splash screen");
 
+                // Note: it's important to change the application mode. If we are not showing a splash screen,
+                // the app won't have a window and will immediately close (if we start any task that is awaited)
+                var application = Application.Current;
+                var currentApplicationCloseMode = application.ShutdownMode;
+                application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
                 shell = await CreateShellInternalAsync<TShell>();
+
+                application.ShutdownMode = currentApplicationCloseMode;
             }
-
-            return shell;
-        }
-
-        /// <summary>
-        /// Creates a new shell.
-        /// </summary>
-        /// <typeparam name="TShell">The type of the shell.</typeparam>
-        /// <returns>The created shell.</returns>
-        /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        [Time]
-        public async Task<TShell> CreateAsync<TShell>()
-            where TShell : class, IShell
-        {
-            // Note: it's important to change the application mode. If we are not showing a splash screen,
-            // the app won't have a window and will immediately close (if we start any task that is awaited).
-            var application = Application.Current;
-            var currentApplicationCloseMode = application.ShutdownMode;
-            application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-
-            var shell = await CreateShellInternalAsync<TShell>();
-
-            application.ShutdownMode = currentApplicationCloseMode;
 
             return shell;
         }

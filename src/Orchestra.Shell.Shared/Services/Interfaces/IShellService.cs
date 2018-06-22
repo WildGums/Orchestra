@@ -26,6 +26,7 @@ namespace Orchestra.Services
         /// <typeparam name="TShell">The type of the shell.</typeparam>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
+        [ObsoleteEx(Message = "App is now constructed with splash by default. Splash can be hidden by using ShowSplash = false", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
         Task<TShell> CreateWithSplashAsync<TShell>()
             where TShell : class, IShell;
 
