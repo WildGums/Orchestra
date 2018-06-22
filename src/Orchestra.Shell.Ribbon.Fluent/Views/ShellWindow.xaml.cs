@@ -8,6 +8,7 @@
 namespace Orchestra.Views
 {
     using Catel.IoC;
+    using Catel.Windows;
     using Services;
 
     /// <summary>
@@ -39,6 +40,12 @@ namespace Orchestra.Views
             if (ribbonContent != null)
             {
                 ribbonContentControl.SetCurrentValue(ContentProperty, ribbonContent);
+
+                var ribbon = ribbonContent.FindVisualDescendantByType<Fluent.Ribbon>();
+                if (ribbon != null)
+                {
+                    serviceLocator.RegisterInstance<Fluent.Ribbon>(ribbon);
+                }
             }
 
             var statusBarContent = ribbonService.GetStatusBar();
