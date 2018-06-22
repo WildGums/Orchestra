@@ -98,8 +98,7 @@ namespace Orchestra.Services
         System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell;
         [System.ObsoleteAttribute("App is now constructed with splash by default. Splash can be hidden by using Show" +
-            "Splash = false. Will be treated as an error from version 5.0.0. Will be removed " +
-            "in version 6.0.0.", false)]
+            "Splash = false. Will be removed in version 6.0.0.", true)]
         System.Threading.Tasks.Task<TShell> CreateWithSplashAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell;
     }
@@ -110,8 +109,7 @@ namespace Orchestra.Services
         public System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }
         [System.ObsoleteAttribute("App is now constructed with splash by default. Splash can be hidden by using Show" +
-            "Splash = false. Will be treated as an error from version 5.0.0. Will be removed " +
-            "in version 6.0.0.", false)]
+            "Splash = false. Will be removed in version 6.0.0.", true)]
         public System.Threading.Tasks.Task<TShell> CreateWithSplashAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }
     }
