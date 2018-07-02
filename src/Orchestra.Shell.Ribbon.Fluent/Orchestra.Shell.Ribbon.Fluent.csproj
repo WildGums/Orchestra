@@ -10,6 +10,11 @@
     <PackageTags>orc;orchestra;wpf;xaml;shell;ribbon;fluent</PackageTags>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- SonarQube requires a project guid -->
+    <ProjectGuid>BD65929C-36C0-4935-8D03-9AB82684C56D</ProjectGuid>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="ControlzEx" Version="3.0.2.4" />
     <PackageReference Include="Fluent.Ribbon" Version="6.1.0.233" />

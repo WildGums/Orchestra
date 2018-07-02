@@ -10,6 +10,11 @@
     <PackageTags>orc;orchestra;wpf;xaml</PackageTags>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- SonarQube requires a project guid -->
+    <ProjectGuid>C7049E9C-D258-4E3F-8DE3-17D8C50145CA</ProjectGuid>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="Ionic.Zip" Version="1.9.1.8" />
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="2.1.0" PrivateAssets="all" />

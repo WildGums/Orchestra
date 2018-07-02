@@ -4,6 +4,7 @@
     <AssemblyName>Orchestra.Examples.MahApps</AssemblyName>
     <RootNamespace>Orchestra.Examples.MahApps</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
+    <SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
 
   <PropertyGroup>

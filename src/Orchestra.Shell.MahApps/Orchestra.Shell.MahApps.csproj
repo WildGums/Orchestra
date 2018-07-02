@@ -10,6 +10,11 @@
     <PackageTags>orc;orchestra;wpf;xaml;shell;mahapps;metro</PackageTags>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- SonarQube requires a project guid -->
+    <ProjectGuid>084B7CDB-15B4-400A-B1EE-9596F1CBE6B2</ProjectGuid>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="ControlzEx" Version="3.0.2.4" />
     <PackageReference Include="MahApps.Metro" Version="1.6.4" />

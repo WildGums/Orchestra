@@ -4,6 +4,7 @@
     <AssemblyName>Orchestra.Examples.Ribbon.Fluent</AssemblyName>
     <RootNamespace>Orchestra.Examples.Ribbon</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
+    <SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
 
   <PropertyGroup>

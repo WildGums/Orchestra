@@ -4,6 +4,7 @@
     <AssemblyName>Orchestra.Examples.TaskRunner</AssemblyName>
     <RootNamespace>Orchestra.Examples.TaskRunner</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
+    <SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
 
   <PropertyGroup>
