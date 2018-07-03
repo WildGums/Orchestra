@@ -101,6 +101,8 @@ Task("Build")
 //-------------------------------------------------------------
 
 Task("Package")
+    // Make sure to update if we are running on a new agent so we can sign nuget packages
+    .IsDependentOn("UpdateNuGet")
     .IsDependentOn("CodeSign")
     .Does(() =>
 {
