@@ -70,11 +70,20 @@ Task("Build")
     {
         SonarBegin(new SonarBeginSettings 
         {
+            // SonarQube info
             Url = SonarUrl,
             Login = SonarUsername,
             Password = SonarPassword,
+
+            // Project info
+            Key = SonarProject,
+            // Branch only works with the branch plugin
+            //Branch = RepositoryBranchName,
+            Version = VersionFullSemVer,
+            
+            // Minimize extreme logging
             Verbose = false,
-            Key = SonarProject
+            Silent = true,
         });
     }
     else
@@ -101,6 +110,8 @@ Task("Build")
 //-------------------------------------------------------------
 
 Task("Package")
+    // Make sure we have the temporary "project.assets.json" in case we need to package with Visual Studio
+    .IsDependentOn("RestorePackages")
     // Make sure to update if we are running on a new agent so we can sign nuget packages
     .IsDependentOn("UpdateNuGet")
     .IsDependentOn("CodeSign")
