@@ -132,6 +132,7 @@ namespace Orchestra
             }
             catch (Exception)
             {
+                // Ignore
             }
         }
     }

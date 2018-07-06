@@ -1,4 +1,4 @@
-#if NET
+﻿#if NET
 
 #pragma warning disable 1591 // 1591 = missing xml
 
@@ -9,7 +9,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
     internal class XmlBamlPropertyElement : XmlBamlElement
     {
         private readonly PropertyType _propertyType;
-        private PropertyDeclaration propertyDeclaration;
+        private readonly PropertyDeclaration propertyDeclaration;
 
 
         public XmlBamlPropertyElement(PropertyType propertyType, PropertyDeclaration propertyDeclaration)

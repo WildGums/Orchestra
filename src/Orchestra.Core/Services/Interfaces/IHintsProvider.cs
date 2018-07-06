@@ -14,7 +14,7 @@ namespace Orchestra.Services
     public interface IHintsProvider
     {
         #region Methods
-        IList<IHint> GetHintsFor(FrameworkElement element);
+        IHint[] GetHintsFor(FrameworkElement element);
         #endregion
     }
 }

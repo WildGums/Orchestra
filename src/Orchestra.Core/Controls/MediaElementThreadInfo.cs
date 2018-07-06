@@ -10,7 +10,6 @@
 
 namespace Orchestra.Controls
 {
-    using System;
     using System.Threading;
     using System.Windows.Media;
     using Catel;
@@ -18,7 +17,7 @@ namespace Orchestra.Controls
     /// <summary>
     /// Media element thread info.
     /// </summary>
-    public class MediaElementThreadInfo : IDisposable
+    public class MediaElementThreadInfo : Disposable
     {
         #region Constructors
         /// <summary>
@@ -51,16 +50,15 @@ namespace Orchestra.Controls
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
+
+        protected override void DisposeManaged()
         {
+            base.DisposeManaged();
+
             var thread = Thread;
             if (thread != null)
             {
                 thread.Abort();
-                thread = null;
             }
 
             Thread = null;

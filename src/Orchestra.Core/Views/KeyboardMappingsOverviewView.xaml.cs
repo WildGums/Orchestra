@@ -23,8 +23,6 @@ namespace Orchestra.Views
         public KeyboardMappingsOverviewView()
         {
             InitializeComponent();
-
-            //StyleHelper.CreateStyleForwardersForDefaultStyles(Application.Current.Resources, Resources);
         }
         #endregion
     }

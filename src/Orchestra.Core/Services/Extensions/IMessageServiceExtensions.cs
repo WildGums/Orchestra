@@ -38,7 +38,7 @@ namespace Orchestra.Services
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(messageButton));
             }
 
             return messageService.GetAsText(message, buttons);
@@ -46,9 +46,6 @@ namespace Orchestra.Services
 
         public static string GetAsText(this IMessageService messageService, string message, string buttons)
         {
-            // Note: removed because of Catel.Fody bug
-            //Argument.IsNotNull(() => messageService);
-
             var stringBuilder = new StringBuilder();
 
             stringBuilder.AppendLine(message);

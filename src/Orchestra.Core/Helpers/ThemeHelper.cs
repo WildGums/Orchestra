@@ -84,7 +84,7 @@ namespace Orchestra
                         return Color.FromArgb(20, color.R, color.G, color.B);
 
                     default:
-                        throw new ArgumentOutOfRangeException("colorStyle");
+                        throw new ArgumentOutOfRangeException(nameof(colorStyle));
                 }
             });
         }
@@ -185,7 +185,6 @@ namespace Orchestra
             // Wpf styles
             resourceDictionary.Add(SystemColors.HighlightColorKey, (Color)resourceDictionary["AccentColor"]);
             resourceDictionary.Add(SystemColors.HighlightBrushKey, GetSolidColorBrush((Color)resourceDictionary["AccentColor"]));
-            //resourceDictionary.Add(SystemColors.Highligh, (SolidColorBrush)resourceDictionary["AccentColorBrush"]);
 
             // MahApps styles (we should in an ideal situation move this to the MahApps shell code)
             #region MahApps
@@ -330,10 +329,6 @@ namespace Orchestra
 
                 if (createStyleForwarders)
                 {
-                    // Step 1: allow this lib to create the app themes first
-                    //StyleHelper.CreateStyleForwardersForDefaultStyles(existingDictionary);
-
-                    // Step 2: always allow core libs to fill up the missing pieces
                     StyleHelper.CreateStyleForwardersForDefaultStyles();
                 }
             }

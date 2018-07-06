@@ -1,4 +1,4 @@
-#if NET
+﻿#if NET
 
 #pragma warning disable 0659    // 0659 = implements equals but not gethashcode
 #pragma warning disable 1591    // 1591 = missing xml
@@ -88,20 +88,6 @@ namespace Orchestra.StylesExplorer.MarkupReflection
         {
             get { return _isKnown; }
         }
-
-        //public Type DotNetType
-        //{
-        //    get
-        //    {
-        //        if (!_typeLoaded)
-        //        {
-        //            _type = Type.GetType(String.Format("{0}.{1}, {2}", this.Namespace, this.Name, this.Assembly), false, true);
-        //            _typeLoaded = true;
-        //        }
-
-        //        return _type;
-        //    }
-        //}
 
         public IType Type
         {

@@ -184,7 +184,7 @@ namespace Orchestra.Behaviors
     public class HintsBehavior : Catel.Windows.Interactivity.BehaviorBase<System.Windows.FrameworkElement>
     {
         public static readonly System.Windows.DependencyProperty AdornerProperty;
-        public HintsBehavior(Orchestra.Services.IAdorneredTooltipsManagerFactory adorneredTooltipsManagerFactory, Orchestra.Tooltips.IAdorneredTooltipFactory adorneredTooltipFactory, Orchestra.Services.IHintsProvider hintsProvider, Orchestra.Services.IAdornerTooltipGenerator adornerTooltipGenerator) { }
+        public HintsBehavior(Orchestra.Services.IAdorneredTooltipsManagerFactory adorneredTooltipsManagerFactory) { }
         public System.Windows.Media.Visual Adorner { get; set; }
         protected override void Initialize() { }
     }
@@ -326,12 +326,12 @@ namespace Orchestra.Controls
     {
         public static Orchestra.Controls.MediaElementThreadInfo CreateMediaElementsOnWorkerThread(System.Func<System.Windows.Media.Visual> createVisual) { }
     }
-    public class MediaElementThreadInfo : System.IDisposable
+    public class MediaElementThreadInfo : Catel.Disposable
     {
         public MediaElementThreadInfo(System.Windows.Media.HostVisual hostVisual, System.Threading.Thread thread) { }
         public System.Windows.Media.HostVisual HostVisual { get; }
         public System.Threading.Thread Thread { get; }
-        public void Dispose() { }
+        protected override void DisposeManaged() { }
     }
     public class VisualTargetPresentationSource : System.Windows.PresentationSource
     {
@@ -604,7 +604,7 @@ namespace Orchestra.Services
     }
     public class AppDataService : Orchestra.Services.IAppDataService
     {
-        public AppDataService(Catel.Services.IMessageService messageService, Catel.Services.ISaveFileService saveFileService, Catel.Services.IProcessService processService, Orc.FileSystem.IDirectoryService directoryService, Orc.FileSystem.IFileService fileService) { }
+        public AppDataService(Catel.Services.ISaveFileService saveFileService, Catel.Services.IProcessService processService, Orc.FileSystem.IDirectoryService directoryService, Orc.FileSystem.IFileService fileService) { }
         public string ApplicationDataDirectory { get; }
         public System.Collections.Generic.List<string> ExclusionFilters { get; }
         public System.Threading.Tasks.Task<bool> BackupUserDataAsync() { }
@@ -641,7 +641,7 @@ namespace Orchestra.Services
         public HintsProvider() { }
         public void AddHint<TControlType>(string hintText, System.Linq.Expressions.Expression<System.Func<object>> userControlName) { }
         public void AddHint<TControlType>(Orchestra.Models.IHint hint) { }
-        public System.Collections.Generic.IList<Orchestra.Models.IHint> GetHintsFor(System.Windows.FrameworkElement element) { }
+        public Orchestra.Models.IHint[] GetHintsFor(System.Windows.FrameworkElement element) { }
     }
     public interface IAboutInfoService
     {
@@ -706,7 +706,7 @@ namespace Orchestra.Services
     }
     public interface IHintsProvider
     {
-        System.Collections.Generic.IList<Orchestra.Models.IHint> GetHintsFor(System.Windows.FrameworkElement element);
+        Orchestra.Models.IHint[] GetHintsFor(System.Windows.FrameworkElement element);
     }
     public interface IKeyboardMappingsService
     {
@@ -1077,28 +1077,7 @@ namespace Orchestra.Windows
         public static readonly System.Windows.DependencyProperty FixMaximizeProperty;
         public FixMaximize() { }
         public static bool GetFixMaximize(System.Windows.Window ribbonWindow) { }
-        public static bool GetWindowRect(System.IntPtr hwnd, out Orchestra.Windows.FixMaximize.RECT lpRect) { }
         public static void SetFixMaximize(System.Windows.Window ribbonWindow, bool value) { }
-        public struct MINMAXINFO
-        {
-            public Orchestra.Windows.FixMaximize.POINT ptMaxPosition;
-            public Orchestra.Windows.FixMaximize.POINT ptMaxSize;
-            public Orchestra.Windows.FixMaximize.POINT ptMaxTrackSize;
-            public Orchestra.Windows.FixMaximize.POINT ptMinTrackSize;
-            public Orchestra.Windows.FixMaximize.POINT ptReserved;
-        }
-        public struct POINT
-        {
-            public int x;
-            public int y;
-        }
-        public struct RECT
-        {
-            public int bottom;
-            public int left;
-            public int right;
-            public int top;
-        }
     }
     public struct RECT
     {

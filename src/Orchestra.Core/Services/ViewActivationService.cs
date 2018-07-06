@@ -54,27 +54,24 @@ namespace Orchestra.Services
             foreach (var view in _viewManager.ActiveViews)
             {
                 var vm = view.ViewModel;
-                if (vm != null)
+                if (vm != null && predicate(vm))
                 {
-                    if (predicate(vm))
+                    var userControl = view as UserControl;
+                    if (userControl != null)
                     {
-                        var userControl = view as UserControl;
-                        if (userControl != null)
-                        {
-                            Log.Debug("View already exists, activating existing instance");
+                        Log.Debug("View already exists, activating existing instance");
 
-                            userControl.Focus();
-                            return true;
-                        }
+                        userControl.Focus();
+                        return true;
+                    }
 
-                        var window = view as Window;
-                        if (window != null)
-                        {
-                            Log.Debug("View already exists, activating existing instance");
+                    var window = view as Window;
+                    if (window != null)
+                    {
+                        Log.Debug("View already exists, activating existing instance");
 
-                            window.Focus();
-                            return true;
-                        }
+                        window.Focus();
+                        return true;
                     }
                 }
             }

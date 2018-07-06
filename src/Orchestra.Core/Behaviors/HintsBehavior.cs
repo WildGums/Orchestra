@@ -14,6 +14,7 @@ namespace Orchestra.Behaviors
     using Catel;
     using Catel.IoC;
     using Catel.Logging;
+    using Catel.Windows.Input;
     using Catel.Windows.Interactivity;
     using Services;
     using Tooltips;
@@ -23,24 +24,12 @@ namespace Orchestra.Behaviors
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly IAdorneredTooltipsManagerFactory _adorneredTooltipsManagerFactory;
-        private readonly IAdorneredTooltipFactory _adorneredTooltipFactory;
-        private readonly IHintsProvider _hintsProvider;
-        private readonly IAdornerTooltipGenerator _adornerTooltipGenerator;
 
-        private IAdorneredTooltipsManager _adorneredTooltipsManager;
-
-        public HintsBehavior(IAdorneredTooltipsManagerFactory adorneredTooltipsManagerFactory, IAdorneredTooltipFactory adorneredTooltipFactory,
-            IHintsProvider hintsProvider, IAdornerTooltipGenerator adornerTooltipGenerator)
+        public HintsBehavior(IAdorneredTooltipsManagerFactory adorneredTooltipsManagerFactory)
         {
             Argument.IsNotNull(() => adorneredTooltipsManagerFactory);
-            Argument.IsNotNull(() => adorneredTooltipFactory);
-            Argument.IsNotNull(() => hintsProvider);
-            Argument.IsNotNull(() => adornerTooltipGenerator);
 
             _adorneredTooltipsManagerFactory = adorneredTooltipsManagerFactory;
-            _adorneredTooltipFactory = adorneredTooltipFactory;
-            _hintsProvider = hintsProvider;
-            _adornerTooltipGenerator = adornerTooltipGenerator;
         }
 
         #region Properties
@@ -66,10 +55,11 @@ namespace Orchestra.Behaviors
                 return;
             }
 
-            _adorneredTooltipsManager = _adorneredTooltipsManagerFactory.Create(adornerLayer);
-
-            // TODO: Only enable on ALT key
-            _adorneredTooltipsManager.Enable();
+            if (KeyboardHelper.AreKeyboardModifiersPressed(System.Windows.Input.ModifierKeys.Alt))
+            {
+                var adorneredTooltipsManager = _adorneredTooltipsManagerFactory.Create(adornerLayer);
+                adorneredTooltipsManager.Enable();
+            }
         }
     }
 }

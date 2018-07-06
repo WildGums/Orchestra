@@ -1,4 +1,4 @@
-#if NET
+﻿#if NET
 
 #pragma warning disable 1591 // 1591 = missing xml
 
@@ -8,8 +8,8 @@ namespace Orchestra.StylesExplorer.MarkupReflection
 {
     internal class XmlNamespace
     {
-        private string _prefix;
-        private string _namespace;
+        private readonly string _prefix;
+        private readonly string _namespace;
 
         public XmlNamespace(string prefix, string ns)
         {
@@ -29,11 +29,11 @@ namespace Orchestra.StylesExplorer.MarkupReflection
 
         public override bool Equals(object obj)
         {
-            if (obj is XmlNamespace)
+            if (obj is XmlNamespace xmlNamespace)
             {
-                XmlNamespace o = (XmlNamespace)obj;
-                return (o.Prefix.Equals(this.Prefix) && o.Namespace.Equals(this.Namespace));
+                return (xmlNamespace.Prefix.Equals(Prefix) && xmlNamespace.Namespace.Equals(Namespace));
             }
+
             return base.Equals(obj);
         }
 

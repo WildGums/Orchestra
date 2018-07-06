@@ -17,7 +17,7 @@ namespace Orchestra.Services
     public class HintsProvider : IHintsProvider
     {
         #region Fields
-        private readonly Dictionary<Type, IList<IHint>> _hints = new Dictionary<Type, IList<IHint>>();
+        private readonly Dictionary<Type, List<IHint>> _hints = new Dictionary<Type, List<IHint>>();
         #endregion
 
         #region Methods
@@ -45,16 +45,14 @@ namespace Orchestra.Services
             _hints[type].Add(hint);
         }
 
-        public IList<IHint> GetHintsFor(FrameworkElement element)
+        public IHint[] GetHintsFor(FrameworkElement element)
         {
-            IList<IHint> hints = null;
-
-            if (_hints.TryGetValue(element.GetType(), out hints))
+            if (_hints.TryGetValue(element.GetType(), out var hints))
             {
-                return hints;
+                return hints.ToArray();
             }
 
-            return null;
+            return Array.Empty<IHint>();
         }
         #endregion
     }

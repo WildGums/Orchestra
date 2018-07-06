@@ -1,4 +1,4 @@
-#if NET
+﻿#if NET
 
 #pragma warning disable 1591 // 1591 = missing xml
 
@@ -11,10 +11,9 @@ namespace Orchestra.StylesExplorer.MarkupReflection
     /// </summary>
     internal class XmlPIMapping
     {
-        private string _xmlNamespace;
-        private short _assemblyId;
-        private string _clrNamespace;
-        private static XmlPIMapping _default = new XmlPIMapping(PresentationNamespace, 0, String.Empty);
+        private readonly short _assemblyId;
+        private readonly string _clrNamespace;
+        private static readonly XmlPIMapping _default = new XmlPIMapping(PresentationNamespace, 0, String.Empty);
 
         public const string XamlNamespace = "http://schemas.microsoft.com/winfx/2006/xaml";
         public const string PresentationNamespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
@@ -23,7 +22,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
 
         public XmlPIMapping(string xmlNamespace, short assemblyId, string clrNamespace)
         {
-            _xmlNamespace = xmlNamespace;
+            XmlNamespace = xmlNamespace;
             _assemblyId = assemblyId;
             _clrNamespace = clrNamespace;
         }
@@ -31,11 +30,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
         /// <summary>
         /// Restituisce o imposta il namespace XML
         /// </summary>
-        public string XmlNamespace
-        {
-            get { return _xmlNamespace; }
-            set { _xmlNamespace = value;}
-        }
+        public string XmlNamespace { get; set; }
 
         /// <summary>
         /// Restituisce l'id dell'assembly

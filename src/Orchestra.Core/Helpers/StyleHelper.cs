@@ -10,17 +10,14 @@ namespace Orchestra
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Catel;
-    using Catel.Logging;
-
-    using Catel.Caching;
+    using System.Windows;
     using System.Windows.Markup;
+    using System.Xml;
+    using Catel;
+    using Catel.Caching;
+    using Catel.Logging;
     using StylesExplorer.MarkupReflection;
     using XmlNamespaceManager = System.Xml.XmlNamespaceManager;
-    using System.Windows;
-    using System.Xml;
-    using Catel.Reflection;
-    using Catel.Collections;
 
     /// <summary>
     /// Helper class for WPF styles and themes.
@@ -158,7 +155,7 @@ namespace Orchestra
 
             var defaultStyles = FindDefaultStyles(sourceResources, defaultPrefix).ToList();
 
-            for (int i = 0; i < defaultStyles.Count; i++)
+            for (var i = 0; i < defaultStyles.Count; i++)
             {
                 var defaultStyle = defaultStyles[i];
 
@@ -169,8 +166,6 @@ namespace Orchestra
                     var targetType = defaultStyle.TargetType;
                     if (targetType != null)
                     {
-                        var targetTypeName = targetType.Name;
-
                         // Step 1: if already defined in the target resources, we need to update it
                         var resourceDictionaryDefiningStyle = FindResourceDictionaryDeclaringType(targetResources, targetType, 2);
                         if (resourceDictionaryDefiningStyle != null)
@@ -181,8 +176,6 @@ namespace Orchestra
                                 // Double check whether the style is not sealed, if so, use it as a base style instead
                                 if (!existingStyle.IsSealed)
                                 {
-                                    //Log.Debug("Completing the style info for '{0}' with the additional info from the default style definition", targetType);
-
                                     resourceDictionaryDefiningStyle[targetType] = CompleteStyleWithAdditionalInfo(existingStyle, defaultStyle, false);
                                     continue;
                                 }
@@ -192,8 +185,6 @@ namespace Orchestra
                             }
                         }
 
-                        //Log.Debug("Couldn't find style definition for '{0}', creating style forwarder", targetType);
-
                         var style = new Style(targetType, baseStyle);
 
                         if (!ReferenceEquals(baseStyle, defaultStyle))
@@ -202,11 +193,8 @@ namespace Orchestra
                             CompleteStyleWithAdditionalInfo(style, defaultStyle, true);
                         }
 
-                        //if (!targetResources.Contains(targetType))
-                        //{
                         // Always overwrite
                         targetResources[targetType] = style;
-                        //}
                     }
                 }
                 catch (Exception ex)
@@ -287,7 +275,7 @@ namespace Orchestra
                               (stringKey).EndsWith(DefaultKeyPostfix, StringComparison.Ordinal)
                         select stringKey).Distinct().ToList();
 
-            foreach (string key in keys)
+            foreach (var key in keys)
             {
                 try
                 {
@@ -325,7 +313,7 @@ namespace Orchestra
             Argument.IsNotNull("style", style);
             Argument.IsNotNull("styleWithAdditionalInfo", styleWithAdditionalInfo);
 
-            Style newStyle = style;
+            var newStyle = style;
 
             if (!updateExistingStyle)
             {
@@ -347,11 +335,11 @@ namespace Orchestra
             #region Copy original style
             if (!updateExistingStyle)
             {
-                foreach (SetterBase setter in style.Setters)
+                foreach (var setter in style.Setters)
                 {
-                    bool exists = (from styleSetter in newStyle.Setters
-                                   where setter is Setter && ((Setter)styleSetter).Property == ((Setter)setter).Property
-                                   select styleSetter).Any();
+                    var exists = (from styleSetter in newStyle.Setters
+                                  where setter is Setter && ((Setter)styleSetter).Property == ((Setter)setter).Property
+                                  select styleSetter).Any();
                     if (!exists)
                     {
                         newStyle.Setters.Add(setter);
@@ -394,7 +382,7 @@ namespace Orchestra
                               (stringKey).EndsWith(DefaultKeyPostfix, StringComparison.InvariantCulture)
                         select stringKey).ToList();
 
-            foreach (string key in keys)
+            foreach (var key in keys)
             {
                 var style = resources[key] as Style;
                 if (style == null)
@@ -505,7 +493,7 @@ namespace Orchestra
                     var doc = xmlDocInfo.Item1;
                     var xmlNamespaceManager = xmlDocInfo.Item2;
 
-                    string xpath = string.Format("/ctl:ResourceDictionary/ctl:Style[@x:Key='{0}']/@BasedOn", styleKey);
+                    var xpath = string.Format("/ctl:ResourceDictionary/ctl:Style[@x:Key='{0}']/@BasedOn", styleKey);
                     var xmlAttribute = doc.SelectSingleNode(xpath, xmlNamespaceManager) as XmlAttribute;
                     if (xmlAttribute == null)
                     {
@@ -513,7 +501,7 @@ namespace Orchestra
                         return null;
                     }
 
-                    string basedOnValue = xmlAttribute.Value;
+                    var basedOnValue = xmlAttribute.Value;
                     basedOnValue = basedOnValue.Replace("StaticResource", string.Empty);
                     basedOnValue = basedOnValue.Replace("x:Type", string.Empty).Trim(' ', '{', '}');
 
@@ -521,11 +509,11 @@ namespace Orchestra
                     var xamlTypeMapper = new XamlTypeMapper(new[] { "PresentationFramework" });
                     foreach (XmlAttribute namespaceAttribute in doc.DocumentElement.Attributes)
                     {
-                        string xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(':');
+                        var xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(':');
 
-                        string value = namespaceAttribute.Value;
-                        string clrNamespace = value;
-                        string assemblyName = string.Empty;
+                        var value = namespaceAttribute.Value;
+                        var clrNamespace = value;
+                        var assemblyName = string.Empty;
 
                         if (clrNamespace.StartsWith("clr-namespace:"))
                         {
@@ -548,9 +536,9 @@ namespace Orchestra
                     }
                     #endregion
 
-                    string[] splittedType = basedOnValue.Split(':');
-                    string typeNamespace = (splittedType.Length == 2) ? splittedType[0] : "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
-                    string typeName = (splittedType.Length == 2) ? splittedType[1] : splittedType[0];
+                    var splittedType = basedOnValue.Split(':');
+                    var typeNamespace = (splittedType.Length == 2) ? splittedType[0] : "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
+                    var typeName = (splittedType.Length == 2) ? splittedType[1] : splittedType[0];
                     var type = xamlTypeMapper.GetType(typeNamespace, typeName);
                     if (type == null)
                     {
@@ -589,7 +577,7 @@ namespace Orchestra
                 foreach (XmlAttribute namespaceAttribute in doc.DocumentElement.Attributes)
                 {
                     // Clean up namespace (remove xmlns prefix)
-                    string xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(':');
+                    var xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(':');
                     xmlNamespaceManager.AddNamespace(xmlNamespace, namespaceAttribute.Value);
                 }
 

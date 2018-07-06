@@ -23,22 +23,19 @@ namespace Orchestra.Services
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        private readonly IMessageService _messageService;
         private readonly ISaveFileService _saveFileService;
         private readonly IProcessService _processService;
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
 
-        public AppDataService(IMessageService messageService, ISaveFileService saveFileService, 
+        public AppDataService(ISaveFileService saveFileService, 
             IProcessService processService, IDirectoryService directoryService, IFileService fileService)
         {
-            Argument.IsNotNull(() => messageService);
             Argument.IsNotNull(() => saveFileService);
             Argument.IsNotNull(() => processService);
             Argument.IsNotNull(() => directoryService);
             Argument.IsNotNull(() => fileService);
 
-            _messageService = messageService;
             _saveFileService = saveFileService;
             _processService = processService;
             _directoryService = directoryService;

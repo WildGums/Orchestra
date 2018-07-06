@@ -1,4 +1,4 @@
-#if NET
+﻿#if NET
 
 #pragma warning disable 1591 // 1591 = missing xml
 
@@ -15,7 +15,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
     internal class BamlAssembly : MarshalByRefObject
     {
         private readonly string _filePath;
-        private Assembly _assembly;
+        private readonly Assembly _assembly;
         private BamlFileList _bamlFile;
 
         public BamlAssembly(Assembly assembly)
@@ -31,7 +31,9 @@ namespace Orchestra.StylesExplorer.MarkupReflection
             this._filePath = Path.GetFullPath(filePath);
             this._assembly = Assembly.LoadFile(this.FilePath);
             if (String.Compare(this.Assembly.CodeBase, this.FilePath, true) != 0)
+            {
                 throw new ArgumentException("Cannot load filePath because Assembly is already loaded", "filePath");
+            }
 
             ReadBaml();
         }
@@ -39,39 +41,44 @@ namespace Orchestra.StylesExplorer.MarkupReflection
         private void ReadBaml()
         {
             // Get available names
-            string[] resources = this.Assembly.GetManifestResourceNames();
-            foreach (string res in resources)
+            var resources = this.Assembly.GetManifestResourceNames();
+            foreach (var res in resources)
             {
                 // Solo le risorse
-                if (String.Compare(Path.GetExtension(res), ".resources", true) != 0) continue;
+                if (String.Compare(Path.GetExtension(res), ".resources", true) != 0)
+                {
+                    continue;
+                }
 
                 // Get stream
-                using (Stream stream = this.Assembly.GetManifestResourceStream(res))
+                using (var stream = this.Assembly.GetManifestResourceStream(res))
                 {
                     try
                     {
-                        ResourceReader reader = new ResourceReader(stream);
+                        var reader = new ResourceReader(stream);
                         foreach (DictionaryEntry entry in reader)
                         {
                             if (String.Compare(Path.GetExtension(entry.Key.ToString()), ".baml", true) == 0 && entry.Value is Stream)
                             {
-                                BamlFile bm = new BamlFile(GetAssemblyResourceUri(entry.Key.ToString()), (Stream)entry.Value);
+                                var bm = new BamlFile(GetAssemblyResourceUri(entry.Key.ToString()), (Stream)entry.Value);
                                 this.BamlFiles.Add(bm);
                             }
                         }
                     }
                     catch (ArgumentException)
-                    {}
+                    {
+                        // ignore
+                    }
                 }
             }
         }
 
         private Uri GetAssemblyResourceUri(string resourceName)
         {
-            AssemblyName asm = this.Assembly.GetName();
-            byte[] data = asm.GetPublicKeyToken();
-            StringBuilder token = new StringBuilder(data.Length * 2);
-            for (int x = 0; x < data.Length; x++)
+            var asm = this.Assembly.GetName();
+            var data = asm.GetPublicKeyToken();
+            var token = new StringBuilder(data.Length * 2);
+            for (var x = 0; x < data.Length; x++)
             {
                 token.Append(data[x].ToString("x", System.Globalization.CultureInfo.InvariantCulture));
             }
@@ -94,8 +101,11 @@ namespace Orchestra.StylesExplorer.MarkupReflection
             get
             {
                 if (_bamlFile == null)
+                {
                     _bamlFile = new BamlFileList();
-                 return _bamlFile;
+                }
+
+                return _bamlFile;
             }
         }
 
@@ -108,7 +118,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
     [Serializable]
     internal class BamlFileList : Collection<BamlFile>
     {
-        
+
     }
 }
 

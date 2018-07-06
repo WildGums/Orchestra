@@ -68,7 +68,7 @@ namespace Orchestra.Behaviors
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(window.WindowStartupLocation));
             }
 
             window.Closed += OnWindowClosed;

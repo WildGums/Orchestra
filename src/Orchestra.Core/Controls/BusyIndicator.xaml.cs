@@ -10,8 +10,6 @@ namespace Orchestra.Controls
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
-    using Catel.Windows;
-    using Catel.Windows.Controls;
     using Catel.Windows.Threading;
 
     /// <summary>
@@ -45,12 +43,13 @@ namespace Orchestra.Controls
         #region Properties
         public Brush Foreground
         {
-            get { return (Brush) GetValue(ForegroundProperty); }
+            get { return (Brush)GetValue(ForegroundProperty); }
             set { SetValue(ForegroundProperty, value); }
         }
 
         public static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register("Foreground", typeof(Brush),
             typeof(BusyIndicator), new PropertyMetadata(Brushes.White, (sender, e) => ((BusyIndicator)sender)._foreground = e.NewValue as Brush));
+
 
         public int IgnoreUnloadedEventCount
         {
@@ -59,7 +58,7 @@ namespace Orchestra.Controls
         }
 
         // Using a DependencyProperty as the backing store for IgnoreUnloadedEventCount.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IgnoreUnloadedEventCountProperty = DependencyProperty.Register("IgnoreUnloadedEventCount", 
+        public static readonly DependencyProperty IgnoreUnloadedEventCountProperty = DependencyProperty.Register("IgnoreUnloadedEventCount",
             typeof(int), typeof(BusyIndicator), new PropertyMetadata(0, (sender, e) => ((BusyIndicator)sender).OnIgnoreUnloadedEventCountChanged()));
         #endregion
 
@@ -94,15 +93,12 @@ namespace Orchestra.Controls
         {
             base.OnRenderSizeChanged(sizeInfo);
 
-            if (_grid != null)
+            if (_grid != null && sizeInfo.WidthChanged)
             {
-                if (sizeInfo.WidthChanged)
+                _grid.Dispatcher.BeginInvoke(() =>
                 {
-                    _grid.Dispatcher.BeginInvoke(() =>
-                    {
-                        _grid.SetCurrentValue(WidthProperty, sizeInfo.NewSize.Width);
-                    });
-                }
+                    _grid.SetCurrentValue(WidthProperty, sizeInfo.NewSize.Width);
+                });
             }
         }
 
@@ -121,7 +117,6 @@ namespace Orchestra.Controls
 
             var grid = new Grid();
             grid.Width = ActualWidth;
-            //grid.Background = Brushes.Red;
             grid.HorizontalAlignment = HorizontalAlignment.Stretch;
             grid.Children.Add(fluidProgressBar);
 

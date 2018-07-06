@@ -50,7 +50,7 @@ namespace Orchestra.Services
             _lastStatus = finalStatus;
 
             var resetTimer = new DispatcherTimer();
-            resetTimer.Interval = TimeSpan.FromSeconds(8);;
+            resetTimer.Interval = TimeSpan.FromSeconds(8);
             resetTimer.Tick += OnResetTimerTick;
             resetTimer.Tag = finalStatus;
             resetTimer.Start();

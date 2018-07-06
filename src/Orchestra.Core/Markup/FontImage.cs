@@ -172,12 +172,7 @@ namespace Orchestra.Markup
 #pragma warning restore 618
                     var glyphRunDrawing = new GlyphRunDrawing(foreBrush, glyphRun);
 
-                    //TextOptions.SetTextRenderingMode(glyphRunDrawing, TextRenderingMode.Aliased);
-
                     var drawingImage = new DrawingImage(glyphRunDrawing);
-
-                    //TextOptions.SetTextRenderingMode(drawingImage, TextRenderingMode.Aliased);
-
                     return drawingImage;
                 }
                 catch (Exception ex)

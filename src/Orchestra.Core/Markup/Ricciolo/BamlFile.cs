@@ -1,4 +1,4 @@
-#if NET
+﻿#if NET
 
 #pragma warning disable 1591 // 1591 = missing xml
 
@@ -6,6 +6,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using Catel;
 
 namespace Orchestra.StylesExplorer.MarkupReflection
 {
@@ -14,15 +15,13 @@ namespace Orchestra.StylesExplorer.MarkupReflection
     /// </summary>
     internal class BamlFile : Component
     {
-        private Uri _uri;
+        private readonly Uri _uri;
         private readonly Stream _stream;
 
         public BamlFile(Uri uri, Stream stream)
         {
-            if (uri == null)
-                new ArgumentNullException("uri");
-            if (stream == null)
-                throw new ArgumentNullException("stream");
+            Argument.IsNotNull(() => uri);
+            Argument.IsNotNull(() => stream);
 
             _uri = uri;
             _stream = stream;
@@ -36,7 +35,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
         {
             try
             {
-                return Application.LoadComponent(this.Uri);
+                return Application.LoadComponent(Uri);
             }
             catch (Exception e)
             {
@@ -49,7 +48,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
             base.Dispose(disposing);
 
             if (disposing)
-                this.Stream.Dispose();
+                Stream.Dispose();
         }
 
         public override object InitializeLifetimeService()

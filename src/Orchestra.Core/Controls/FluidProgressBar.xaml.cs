@@ -19,14 +19,10 @@ namespace Orchestra.Controls
     public partial class FluidProgressBar : UserControl, IDisposable
     {
         #region Fields
-        readonly Dictionary<int, KeyFrameDetails> _keyFrameMap = null;
-        readonly Dictionary<int, KeyFrameDetails> _opKeyFrameMap = null;
-        bool _isStoryboardRunning;
-        //KeyTime keyA = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0));
-        //KeyTime keyB = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0.5));
-        //KeyTime keyC = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(2.0));
-        //KeyTime keyD = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(2.5));
-        Storyboard _sb;
+        private readonly Dictionary<int, KeyFrameDetails> _keyFrameMap = null;
+        private readonly Dictionary<int, KeyFrameDetails> _opKeyFrameMap = null;
+        private bool _isStoryboardRunning;
+        private Storyboard _sb;
         #endregion
 
         #region Constructors

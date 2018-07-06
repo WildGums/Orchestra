@@ -39,8 +39,6 @@ namespace Orchestra.ViewModels
             _messageService = messageService;
             _languageService = languageService;
 
-            var assembly = aboutInfo.Assembly;
-            var version = aboutInfo.DisplayVersion;
             var buildDateTime = aboutInfo.BuildDateTime.Value;
 
             Title = aboutInfo.Name;

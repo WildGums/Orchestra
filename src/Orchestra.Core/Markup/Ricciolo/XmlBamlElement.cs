@@ -1,4 +1,4 @@
-#if NET
+﻿#if NET
 
 #pragma warning disable 1591 // 1591 = missing xml
 
@@ -11,11 +11,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
 {
     internal class XmlBamlElement : XmlBamlNode
     {
-        private ArrayList _arguments = new ArrayList();
-        private XmlNamespaceCollection _namespaces = new XmlNamespaceCollection();
-        private TypeDeclaration _typeDeclaration;
-        private KeysResourcesCollection _keysResources = new KeysResourcesCollection();
-        private long _position;
+        private readonly XmlNamespaceCollection _namespaces = new XmlNamespaceCollection();
 
         public XmlBamlElement()
         {
@@ -32,17 +28,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
             get { return _namespaces; }
         }
 
-        public TypeDeclaration TypeDeclaration
-        {
-            get
-            {
-                return this._typeDeclaration;
-            }
-            set
-            {
-                this._typeDeclaration = value;
-            }
-        }
+        public TypeDeclaration TypeDeclaration { get; set; }
 
         public override XmlNodeType NodeType
         {
@@ -52,11 +38,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
             }
         }
 
-        public long Position
-        {
-            get { return _position; }
-            set { _position = value; }
-        }
+        public long Position { get; set; }
 
         public override string ToString()
         {
@@ -111,8 +93,8 @@ namespace Orchestra.StylesExplorer.MarkupReflection
 
     internal class KeysResource
     {
-        private KeysTable _keys = new KeysTable();
-        private ArrayList _staticResources = new ArrayList();
+        private readonly KeysTable _keys = new KeysTable();
+        private readonly ArrayList _staticResources = new ArrayList();
 
         public KeysTable Keys
         {
@@ -127,33 +109,33 @@ namespace Orchestra.StylesExplorer.MarkupReflection
 
     internal class KeysTable
     {
-        private Hashtable table = new Hashtable();
+        private readonly Hashtable _table = new Hashtable();
 
         public String this[long position]
         {
             get
             {
-                return (string)this.table[position];
+                return (string)this._table[position];
             }
             set
             {
-                this.table[position] = value;
+                this._table[position] = value;
             }
         }
 
         public int Count
         {
-            get { return this.table.Count; }
+            get { return this._table.Count; }
         }
 
         public void Remove(long position)
         {
-            this.table.Remove(position);
+            this._table.Remove(position);
         }
 
         public bool HasKey(long position)
         {
-            return this.table.ContainsKey(position);
+            return this._table.ContainsKey(position);
         }
     }
 }

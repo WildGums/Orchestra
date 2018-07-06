@@ -25,10 +25,9 @@ namespace Orchestra.Converters
         /// <returns>The value to be passed to the target dependency property.</returns>
         protected override object Convert(string value, Type targetType, object parameter)
         {
-            var stringValue = value as string;
-            if (string.IsNullOrWhiteSpace(stringValue))
+            if (string.IsNullOrWhiteSpace(value))
             {
-                return stringValue;
+                return value;
             }
 
             var maxCharacters = 25;
@@ -38,21 +37,20 @@ namespace Orchestra.Converters
                 maxCharacters = (int) parameter;
             }
 
-            if (parameter is string)
+            if (parameter is string parameterAsString)
             {
-                int newMaxCharacters;
-                if (int.TryParse((string)parameter, out newMaxCharacters))
+                if (int.TryParse(parameterAsString, out var newMaxCharacters))
                 {
                     maxCharacters = newMaxCharacters;
                 }
             }
 
-            if (stringValue.Length > maxCharacters)
+            if (value.Length > maxCharacters)
             {
-                stringValue = string.Format("...{0}", stringValue.Substring(stringValue.Length - maxCharacters));
+                value = string.Format("...{0}", value.Substring(value.Length - maxCharacters));
             }
 
-            return stringValue;
+            return value;
         }
         #endregion
     }

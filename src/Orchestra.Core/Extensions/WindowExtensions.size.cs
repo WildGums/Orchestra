@@ -67,7 +67,7 @@ namespace Orchestra
                     return;
                 }
 
-                var splitted = sizeText.Split(new [] { SizeSeparator }, StringSplitOptions.RemoveEmptyEntries);
+                var splitted = sizeText.Split(new[] { SizeSeparator }, StringSplitOptions.RemoveEmptyEntries);
                 if (splitted.Length < 2)
                 {
                     Log.Warning($"Size text for window could not be splitted correctly, cannot restore window size");
@@ -84,17 +84,14 @@ namespace Orchestra
                 window.SetCurrentValue(FrameworkElement.WidthProperty, width);
                 window.SetCurrentValue(FrameworkElement.HeightProperty, height);
 
-                if (restoreWindowState)
+                if (restoreWindowState && splitted.Length > 2)
                 {
-                    if (splitted.Length > 2)
+                    var windowState = Enum<WindowState>.Parse(splitted[2]);
+                    if (windowState != window.WindowState)
                     {
-                        var windowState = Enum<WindowState>.Parse(splitted[2]);
-                        if (windowState != window.WindowState)
-                        {
-                            Log.Debug($"Restoring window state for '{windowName}' to '{windowState}'");
+                        Log.Debug($"Restoring window state for '{windowName}' to '{windowState}'");
 
-                            window.SetCurrentValue(Window.WindowStateProperty, windowState);
-                        }
+                        window.SetCurrentValue(Window.WindowStateProperty, windowState);
                     }
                 }
             }

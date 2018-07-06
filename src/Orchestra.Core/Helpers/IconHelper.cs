@@ -230,22 +230,6 @@ namespace Orchestra
                 }
             }
 
-            /// <summary>
-            /// Extracts all the icons from the file.
-            /// </summary>
-            /// <returns>An array of System.Drawing.Icon objects.</returns>
-            /// <remarks>Always returns new copies of the Icons. They should be disposed by the user.</remarks>
-            public Icon[] GetAllIcons()
-            {
-                var icons = new List<Icon>();
-                for (int i = 0; i < Count; ++i)
-                {
-                    icons.Add(GetIcon(i));
-                }
-
-                return icons.ToArray();
-            }
-
             private void Initialize(string fileName)
             {
                 if (fileName == null)

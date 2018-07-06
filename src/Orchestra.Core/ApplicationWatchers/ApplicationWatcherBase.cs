@@ -20,7 +20,6 @@ namespace Orchestra
     {
         protected static readonly IDispatcherService DispatcherService;
 
-        private static Window _mainWindow;
         private static readonly DispatcherTimer DispatcherTimer;
         private static Queue<Action<Window>> _shellActivatedActions;
         private static readonly object _lock = new object();
@@ -66,14 +65,13 @@ namespace Orchestra
         {
             DispatcherTimer.Stop();
 
-            _mainWindow = System.Windows.Application.Current.MainWindow;
-            if (_mainWindow is Orchestra.Views.SplashScreen ||
-                SplashScreenViewModel.IsActive)
+            var mainWindow = System.Windows.Application.Current.MainWindow;
+            if (mainWindow is Orchestra.Views.SplashScreen || SplashScreenViewModel.IsActive)
             {
-                _mainWindow = null;
+                mainWindow = null;
             }
 
-            if (_mainWindow == null)
+            if (mainWindow == null)
             {
                 DispatcherTimer.Start();
                 return;
@@ -90,7 +88,7 @@ namespace Orchestra
                 while (_shellActivatedActions.Any())
                 {
                     var action = _shellActivatedActions.Dequeue();
-                    action(_mainWindow);
+                    action(mainWindow);
                 }
             }
         }

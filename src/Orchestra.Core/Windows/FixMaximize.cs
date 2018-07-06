@@ -67,8 +67,7 @@ namespace Orchestra.Windows
 
             if (msg == WM_SIZE && wParam.ToInt32() == SIZE_MAXIMIZED)
             {
-                var rect = new RECT();
-                GetWindowRect(hwnd, out rect);
+                GetWindowRect(hwnd, out var rect);
 
                 var newRect = new RECT();
 
@@ -135,12 +134,12 @@ namespace Orchestra.Windows
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
         [DllImport("user32.dll")]
-        public static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
+        private static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
         #endregion
 
         #region Nested type: MINMAXINFO
         [StructLayout(LayoutKind.Sequential)]
-        public struct MINMAXINFO
+        private struct MINMAXINFO
         {
             public POINT ptReserved;
             public POINT ptMaxSize;
@@ -152,7 +151,7 @@ namespace Orchestra.Windows
 
         #region Nested type: POINT
         [StructLayout(LayoutKind.Sequential)]
-        public struct POINT
+        private struct POINT
         {
             public int x;
             public int y;
@@ -161,7 +160,7 @@ namespace Orchestra.Windows
 
         #region Nested type: RECT
         [StructLayout(LayoutKind.Sequential, Pack = 0)]
-        public struct RECT
+        private struct RECT
         {
             public int left;
             public int top;

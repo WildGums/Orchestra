@@ -23,7 +23,6 @@ namespace Orchestra
         private const uint MF_BYCOMMAND = 0x00000000;
         private const uint MF_GRAYED = 0x00000001;
         private const uint SC_CLOSE = 0xF060;
-        private const int WM_SHOWWINDOW = 0x00000018;
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
@@ -32,31 +31,31 @@ namespace Orchestra
         private static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, uint uEnable);
         
         [DllImport("user32.dll", SetLastError = true)]
-        static extern bool BringWindowToTop(IntPtr hWnd);
+        private static extern bool BringWindowToTop(IntPtr hWnd);
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern bool BringWindowToTop(HandleRef hWnd);
+        private static extern bool BringWindowToTop(HandleRef hWnd);
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
         [DllImport("user32.dll")]
-        static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, IntPtr ProcessId);
+        private static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, IntPtr ProcessId);
 
         [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
+        private static extern IntPtr GetForegroundWindow();
 
         [DllImport("kernel32.dll")]
-        static extern IntPtr GetCurrentThreadId();
+        private static extern IntPtr GetCurrentThreadId();
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern bool AttachThreadInput(IntPtr idAttach, IntPtr idAttachTo, bool fAttach);
+        private static extern bool AttachThreadInput(IntPtr idAttach, IntPtr idAttachTo, bool fAttach);
 
         [DllImport("user32.dll")]
-        static extern IntPtr GetLastActivePopup(IntPtr hWnd);
+        private static extern IntPtr GetLastActivePopup(IntPtr hWnd);
 
         [DllImport("user32.dll")]
-        static extern IntPtr SetActiveWindow(IntPtr hWnd);
+        private static extern IntPtr SetActiveWindow(IntPtr hWnd);
         #endregion
 
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
@@ -130,7 +129,6 @@ namespace Orchestra
             if (parentWindow != null)
             {
                 window.CenterWindowToSize(new Rect(parentWindow.Left, parentWindow.Top, parentWindow.ActualWidth, parentWindow.ActualHeight));
-                return;
             }
         }
 
@@ -168,6 +166,7 @@ namespace Orchestra
             }
             catch (Exception)
             {
+                // Ignore
             }
         }
 

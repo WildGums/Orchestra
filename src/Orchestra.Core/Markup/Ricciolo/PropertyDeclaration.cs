@@ -1,4 +1,4 @@
-#if NET
+﻿#if NET
 
 #pragma warning disable 1591 // 1591 = missing xml
 
@@ -6,20 +6,20 @@ namespace Orchestra.StylesExplorer.MarkupReflection
 {
     internal class PropertyDeclaration
     {
-        private TypeDeclaration declaringType;
-        private string name;
+        private readonly TypeDeclaration _declaringType;
+        private readonly string _name;
 
         // Methods
         public PropertyDeclaration(string name)
         {
-            this.name = name;
-            this.declaringType = null;
+            this._name = name;
+            this._declaringType = null;
         }
 
         public PropertyDeclaration(string name, TypeDeclaration declaringType)
         {
-            this.name = name;
-            this.declaringType = declaringType;
+            this._name = name;
+            this._declaringType = declaringType;
         }
 
         public override string ToString()
@@ -40,7 +40,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
         {
             get
             {
-                return this.declaringType;
+                return this._declaringType;
             }
         }
 
@@ -48,7 +48,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
         {
             get
             {
-                return this.name;
+                return this._name;
             }
         }
     }
