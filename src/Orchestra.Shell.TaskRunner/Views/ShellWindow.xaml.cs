@@ -85,7 +85,7 @@ namespace Orchestra.Views
             ConfigurationContext = taskRunnerService.GetViewDataContext();
 
             var startupSize = taskRunnerService.GetInitialWindowSize();
-            if (startupSize != null && !startupSize.IsEmpty)
+            if (!startupSize.IsEmpty)
             {
                 var setWidth = startupSize.Width > 0d;
                 var setHeight = startupSize.Height > 0d;

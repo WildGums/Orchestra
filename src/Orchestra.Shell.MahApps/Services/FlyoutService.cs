@@ -96,7 +96,7 @@ namespace Orchestra.Services
                                     break;
 
                                 default:
-                                    throw new ArgumentOutOfRangeException("unloadBehavior");
+                                    throw new ArgumentOutOfRangeException(nameof(unloadBehavior));
                             }
                         }
                     }

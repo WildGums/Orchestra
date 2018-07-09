@@ -1,4 +1,4 @@
-#if NET
+﻿#if NET
 
 #pragma warning disable 1591 // 1591 = missing xml
 
@@ -12,8 +12,8 @@ namespace Orchestra.StylesExplorer.MarkupReflection
     {
         internal TypeDeclaration[] KnownTypeTable = null;
         internal PropertyDeclaration[] KnownPropertyTable = null;
-        internal static String[] KnownAssemblyTable = null;
-        internal Hashtable KnownResourceTable = new Hashtable();
+        internal static readonly string[] KnownAssemblyTable = null;
+        internal readonly Hashtable KnownResourceTable = new Hashtable();
 
         #region Initialize
 
@@ -29,19 +29,13 @@ namespace Orchestra.StylesExplorer.MarkupReflection
             KnownAssemblyTable[4] = "WindowBase, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35";
         }
 
-        public KnownInfo() : this(null)
+        public KnownInfo() 
+            : this(null)
         {
         }
 
         public KnownInfo(ITypeResolver resolver)
         {
-            KnownAssemblyTable = new string[5];
-            KnownAssemblyTable[0] = "PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35";
-            KnownAssemblyTable[1] = "PresentationCore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35";
-            KnownAssemblyTable[2] = "mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
-            KnownAssemblyTable[3] = "System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
-            KnownAssemblyTable[4] = "WindowBase, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35";
-
             KnownTypeTable = new TypeDeclaration[760];
             KnownTypeTable[0] = new TypeDeclaration(resolver, string.Empty, string.Empty, 0);
             KnownTypeTable[1] = new TypeDeclaration(resolver, "AccessText", "System.Windows.Controls", 0);

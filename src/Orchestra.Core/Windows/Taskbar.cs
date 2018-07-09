@@ -75,7 +75,7 @@ namespace Orchestra.Windows
         #endregion
     }
 
-    public enum ABM : uint
+    internal enum ABM : uint
     {
         New = 0x00000000,
         Remove = 0x00000001,
@@ -90,7 +90,7 @@ namespace Orchestra.Windows
         SetState = 0x0000000A,
     }
 
-    public enum ABE : uint
+    internal enum ABE : uint
     {
         Left = 0,
         Top = 1,
@@ -98,7 +98,7 @@ namespace Orchestra.Windows
         Bottom = 3
     }
 
-    public static class ABS
+    internal static class ABS
     {
         #region Constants
         public const int Autohide = 0x0000001;
@@ -106,24 +106,24 @@ namespace Orchestra.Windows
         #endregion
     }
 
-    public static class Shell32
+    internal static class Shell32
     {
         #region Methods
         [DllImport("shell32.dll", SetLastError = true)]
-        public static extern IntPtr SHAppBarMessage(ABM dwMessage, [In] ref APPBARDATA pData);
+        internal static extern IntPtr SHAppBarMessage(ABM dwMessage, [In] ref APPBARDATA pData);
         #endregion
     }
 
-    public static class User32
+    internal static class User32
     {
         #region Methods
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         #endregion
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct APPBARDATA
+    internal struct APPBARDATA
     {
         public static APPBARDATA NewAPPBARDATA()
         {
@@ -143,7 +143,7 @@ namespace Orchestra.Windows
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct RECT
+    internal struct RECT
     {
         #region Fields
         public int left;

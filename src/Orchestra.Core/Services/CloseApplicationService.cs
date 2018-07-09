@@ -37,7 +37,6 @@ namespace Orchestra.Services
             // Very dirty, but allow app to write the file
             Thread.Sleep(50);
 
-            // TODO: consider application.Shutdown (if that results in a cleaner shutdown)
             Process.GetCurrentProcess().Kill();
         }
         #endregion

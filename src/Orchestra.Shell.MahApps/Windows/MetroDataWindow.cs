@@ -17,18 +17,18 @@ namespace Orchestra.Windows
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
+    using System.Windows.Input;
     using Catel;
     using Catel.IoC;
+    using Catel.Logging;
     using Catel.MVVM;
     using Catel.MVVM.Providers;
     using Catel.MVVM.Views;
+    using Catel.Services;
     using Catel.Threading;
     using Catel.Windows;
-    using Catel.Services;
-    using MahApps.Metro.Controls;
-    using Catel.Logging;
-    using System.Windows.Input;
     using Catel.Windows.Threading;
+    using MahApps.Metro.Controls;
 
     /// <summary>
     /// Base class for a metro window with the Catel mvvm behavior.
@@ -842,7 +842,7 @@ namespace Orchestra.Windows
         /// Applies all changes made by this window.
         /// </summary>
         /// <returns>True if successful, otherwise false.</returns>
-        protected async virtual Task<bool> ApplyChangesAsync()
+        protected virtual async Task<bool> ApplyChangesAsync()
         {
             var result = await _logic.SaveViewModelAsync();
             return result;
@@ -851,16 +851,13 @@ namespace Orchestra.Windows
         /// <summary>
         /// Discards all changes made by this window.
         /// </summary>
-        protected async virtual Task<bool> DiscardChangesAsync()
+        protected virtual async Task<bool> DiscardChangesAsync()
         {
             // CTL-735 We might be handling the ViewModel.Closed event
             var vm = _logic.ViewModel;
-            if (vm != null)
+            if (vm != null && vm.IsClosed)
             {
-                if (vm.IsClosed)
-                {
-                    return true;
-                }
+                return true;
             }
 
             var result = await _logic.CancelViewModelAsync();

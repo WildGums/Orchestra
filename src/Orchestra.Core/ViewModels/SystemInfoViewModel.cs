@@ -22,18 +22,15 @@ namespace Orchestra.ViewModels
     public class SystemInfoViewModel : ViewModelBase
     {
         private readonly ISystemInfoService _systemInfoService;
-        private readonly IDispatcherService _dispatcherService;
         private readonly IClipboardService _clipboardService;
 
         #region Constructors
-        public SystemInfoViewModel(ISystemInfoService systemInfoService, IDispatcherService dispatcherService, IClipboardService clipboardService)
+        public SystemInfoViewModel(ISystemInfoService systemInfoService, IClipboardService clipboardService)
         {
             Argument.IsNotNull(() => systemInfoService);
-            Argument.IsNotNull(() => dispatcherService);
             Argument.IsNotNull(() => clipboardService);
 
             _systemInfoService = systemInfoService;
-            _dispatcherService = dispatcherService;
             _clipboardService = clipboardService;
 
             SystemInfo = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>(string.Empty, string.Empty) };

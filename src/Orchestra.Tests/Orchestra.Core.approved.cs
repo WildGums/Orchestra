@@ -98,7 +98,7 @@ namespace Orchestra
     public class static LogFilePrefixes
     {
         public static readonly string[] All;
-        public static readonly string Crashreport;
+        public static readonly string CrashReport;
         public static readonly string EntryAssemblyName;
         public static readonly string Log;
     }
@@ -966,7 +966,7 @@ namespace Orchestra.ViewModels
     {
         public static readonly Catel.Data.PropertyData IsSystemInformationLoadedProperty;
         public static readonly Catel.Data.PropertyData SystemInfoProperty;
-        public SystemInfoViewModel(Orc.SystemInfo.ISystemInfoService systemInfoService, Catel.Services.IDispatcherService dispatcherService, Orchestra.Services.IClipboardService clipboardService) { }
+        public SystemInfoViewModel(Orc.SystemInfo.ISystemInfoService systemInfoService, Orchestra.Services.IClipboardService clipboardService) { }
         public Catel.MVVM.Command CopyToClipboard { get; }
         public bool IsSystemInformationLoaded { get; }
         public System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, string>> SystemInfo { get; }
@@ -1036,59 +1036,12 @@ namespace Orchestra.Views
 }
 namespace Orchestra.Windows
 {
-    public enum ABE : uint
-    {
-        Left = 0u,
-        Top = 1u,
-        Right = 2u,
-        Bottom = 3u,
-    }
-    public enum ABM : uint
-    {
-        New = 0u,
-        Remove = 1u,
-        QueryPos = 2u,
-        SetPos = 3u,
-        GetState = 4u,
-        GetTaskbarPos = 5u,
-        Activate = 6u,
-        GetAutoHideBar = 7u,
-        SetAutoHideBar = 8u,
-        WindowPosChanged = 9u,
-        SetState = 10u,
-    }
-    public class static ABS
-    {
-        public const int AlwaysOnTop = 2;
-        public const int Autohide = 1;
-    }
-    public struct APPBARDATA
-    {
-        public int cbSize;
-        public System.IntPtr hWnd;
-        public int lParam;
-        public Orchestra.Windows.RECT rc;
-        public uint uCallbackMessage;
-        public Orchestra.Windows.ABE uEdge;
-        public static Orchestra.Windows.APPBARDATA NewAPPBARDATA() { }
-    }
     public class FixMaximize : System.Windows.DependencyObject
     {
         public static readonly System.Windows.DependencyProperty FixMaximizeProperty;
         public FixMaximize() { }
         public static bool GetFixMaximize(System.Windows.Window ribbonWindow) { }
         public static void SetFixMaximize(System.Windows.Window ribbonWindow, bool value) { }
-    }
-    public struct RECT
-    {
-        public int bottom;
-        public int left;
-        public int right;
-        public int top;
-    }
-    public class static Shell32
-    {
-        public static System.IntPtr SHAppBarMessage(Orchestra.Windows.ABM dwMessage, ref Orchestra.Windows.APPBARDATA pData) { }
     }
     public sealed class Taskbar
     {
@@ -1107,10 +1060,6 @@ namespace Orchestra.Windows
         Top = 1,
         Right = 2,
         Bottom = 3,
-    }
-    public class static User32
-    {
-        public static System.IntPtr FindWindow(string lpClassName, string lpWindowName) { }
     }
     public class static WindowExtensions
     {

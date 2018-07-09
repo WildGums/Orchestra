@@ -19,8 +19,6 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => dialog);
 
-            //dialog.ShowDialogExternally();
-
             var metroWindow = Application.Current.GetMainWindow();
 
             metroWindow.Dispatcher.Invoke(() => metroWindow.ShowMetroDialogAsync(dialog));

@@ -19,7 +19,7 @@ namespace Orchestra
         /// <summary>
         /// The crashreport prefix.
         /// </summary>
-        public static readonly string Crashreport = "Crashreport";
+        public static readonly string CrashReport = "Crashreport";
 
         /// <summary>
         /// The entry assembly name prefix.
@@ -34,7 +34,7 @@ namespace Orchestra
         /// <summary>
         /// All file log prefixes
         /// </summary>
-        public static readonly string[] All = { EntryAssemblyName, Crashreport, Log };
+        public static readonly string[] All = { EntryAssemblyName, CrashReport, Log };
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ namespace Orchestra
         /// <param name="ex">The unhandled exception.</param>
         public static void AddLogListenerForUnhandledException(Exception ex)
         {
-            AddFileLogListener(LogFilePrefixes.Crashreport);
+            AddFileLogListener(LogFilePrefixes.CrashReport);
 
             Log.Error(ex, "Application crashed");
 

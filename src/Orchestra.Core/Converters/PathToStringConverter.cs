@@ -34,15 +34,12 @@ namespace Orchestra.Converters
 
             if (parameter is int)
             {
-                maxCharacters = (int) parameter;
+                maxCharacters = (int)parameter;
             }
 
-            if (parameter is string parameterAsString)
+            if (parameter is string parameterAsString && int.TryParse(parameterAsString, out var newMaxCharacters))
             {
-                if (int.TryParse(parameterAsString, out var newMaxCharacters))
-                {
-                    maxCharacters = newMaxCharacters;
-                }
+                maxCharacters = newMaxCharacters;
             }
 
             if (value.Length > maxCharacters)

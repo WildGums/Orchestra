@@ -81,14 +81,6 @@ namespace Orchestra
             // Note: important to add the resources dictionary *after* changing the app style, but then insert at the top 
             // so MahApps theme detection performance is best
             applicationResources.MergedDictionaries.Insert(1, resourceDictionary);
-
-            //var theme = ThemeManager.GetAppTheme(applicationResources);
-            //if (theme == null)
-            //{
-            //    // Note: check ThemeManager.IsAccentDictionary() in https://github.com/MahApps/MahApps.Metro/blob/develop/MahApps.Metro/ThemeManager.cs#L234 
-            //    // for a list of expected resources
-            //    Log.Warning("No app theme found after applying it, make sure to include all resources that MahApps expects inside ThemeHelper.GetAccentColorResourceDictionary()");
-            //}
         }
     }
 }

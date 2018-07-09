@@ -73,7 +73,7 @@ namespace Orchestra.Services
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException("button");
+                    throw new ArgumentOutOfRangeException(nameof(button));
             }
 
             var tcs = new TaskCompletionSource<MessageResult>();
@@ -105,7 +105,7 @@ namespace Orchestra.Services
                         break;
 
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException(nameof(result));
                 }
             });
 
