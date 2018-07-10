@@ -25,6 +25,22 @@ private void UpdateSolutionAssemblyInfo()
 
 //-------------------------------------------------------------
 
+private string GetProjectDirectory(string projectName)
+{
+    var projectDirectory = string.Format("./src/{0}/", projectName);
+    return projectDirectory;
+}
+
+//-------------------------------------------------------------
+
+private string GetProjectFileName(string projectName)
+{
+    var fileName = string.Format("{0}{1}.csproj", GetProjectDirectory(projectName), projectName);
+    return fileName;
+}
+
+//-------------------------------------------------------------
+
 Task("UpdateNuGet")
     .ContinueOnError()
     .Does(() => 

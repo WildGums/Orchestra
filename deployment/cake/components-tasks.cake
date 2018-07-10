@@ -22,7 +22,7 @@ private void UpdateInfoForComponents()
     {
         Information("Updating version for component '{0}'", component);
 
-        var projectFileName = string.Format("./src/{0}/{0}.csproj", component);
+        var projectFileName = GetProjectFileName(component);
 
         TransformConfig(projectFileName, new TransformationCollection 
         {
@@ -44,7 +44,7 @@ private void BuildComponents()
     {
         Information("Building component '{0}'", component);
 
-        var projectFileName = string.Format("./src/{0}/{0}.csproj", component);
+        var projectFileName = GetProjectFileName(component);
         
         var msBuildSettings = new MSBuildSettings {
             Verbosity = Verbosity.Quiet, // Verbosity.Diagnostic

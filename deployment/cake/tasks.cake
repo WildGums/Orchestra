@@ -3,6 +3,8 @@
 #l "apps-wpf-tasks.cake"
 #l "components-tasks.cake"
 
+#addin "nuget:?package=System.Net.Http&version=4.3.3"
+#addin "nuget:?package=Newtonsoft.Json&version=11.0.2"
 #addin "nuget:?package=Cake.Sonar&version=1.1.0"
 
 #tool "nuget:?package=MSBuild.SonarQube.Runner.Tool&version=4.3.0"
@@ -20,7 +22,7 @@ private void BuildTestProjects()
     {
         Information("Building test project '{0}'", testProject);
 
-        var projectFileName = string.Format("./src/{0}/{0}.csproj", testProject);
+        var projectFileName = GetProjectFileName(testProject);
         
         var msBuildSettings = new MSBuildSettings
         {
@@ -63,7 +65,7 @@ Task("UpdateInfo")
 Task("Build")
     .IsDependentOn("Clean")
     .IsDependentOn("UpdateInfo")
-    .Does(() =>
+    .Does(async () =>
 {
     var enableSonar = !string.IsNullOrWhiteSpace(SonarUrl);
     if (enableSonar)
@@ -102,6 +104,69 @@ Task("Build")
             Login = SonarUsername,
             Password = SonarPassword,
         });
+        
+        Information("Checking whether the project passed the SonarQube gateway...");
+            
+        var status = "none";
+
+        // We need to use /api/qualitygates/project_status
+        var client = new System.Net.Http.HttpClient();
+        using (client)
+        {
+            var queryUri = string.Format("{0}/api/qualitygates/project_status?projectKey={1}", SonarUrl, SonarProject);
+
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12 | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls;
+
+            var byteArray = Encoding.ASCII.GetBytes(string.Format("{0}:{1}", SonarUsername, SonarPassword));
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            Debug("Invoking GET request: '{0}'", queryUri);
+
+            var response = await client.GetAsync(new Uri(queryUri));
+
+            Debug("Parsing request contents");
+
+            var content = response.Content;
+            var jsonContent = await content.ReadAsStringAsync();
+
+            Debug(jsonContent);
+
+            dynamic result = Newtonsoft.Json.Linq.JObject.Parse(jsonContent);
+            status = result.projectStatus.status;
+        }
+
+        Information("SonarQube gateway status returned from request: '{0}'", status);
+
+        if (string.IsNullOrWhiteSpace(status))
+        {
+            status = "none";
+        }
+
+        status = status.ToLower();
+
+        switch (status)
+        {
+            case "error":
+                Error("The SonarQube gateway for '{0}' returned ERROR, please check the error(s) at {1}/dashboard?id={0}", SonarProject, SonarUrl);
+                break;
+
+            case "warn":
+                Warning("The SonarQube gateway for '{0}' returned WARNING, please check the warning(s) at {1}/dashboard?id={0}", SonarProject, SonarUrl);
+                break;
+
+            case "none":
+                Warning("The SonarQube gateway for '{0}' returned NONE, please check why no gateway status is available at {1}/dashboard?id={0}", SonarProject, SonarUrl);
+                break;
+
+            case "ok":
+                Information("The SonarQube gateway for '{0}' returned OK, well done! If you want to show off the results, check out {1}/dashboard?id={0}", SonarProject, SonarUrl);
+                break;
+
+            default:
+                Error("Unexpected SonarQube gateway status '{0}' for project '{1}'", status, SonarProject);
+                break;
+        }
     }
 
     BuildTestProjects();
@@ -135,7 +200,7 @@ Task("BuildAndPackage")
 //-------------------------------------------------------------
 
 Task("Default")
-	.IsDependentOn("Build");
+	.IsDependentOn("BuildAndPackage");
 
 //-------------------------------------------------------------
 

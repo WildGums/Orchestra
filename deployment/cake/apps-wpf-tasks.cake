@@ -37,7 +37,7 @@ private void BuildWpfApps()
     {
         Information("Building WPF app '{0}'", wpfApp);
 
-        var projectFileName = string.Format("./src/{0}/{0}.csproj", wpfApp);
+        var projectFileName = GetProjectFileName(wpfApp);
         
         var msBuildSettings = new MSBuildSettings {
             Verbosity = Verbosity.Quiet, // Verbosity.Diagnostic
