@@ -65,6 +65,7 @@ Task("UpdateInfo")
 Task("Build")
     .IsDependentOn("Clean")
     .IsDependentOn("UpdateInfo")
+    .IsDependentOn("CleanupCode")
     .Does(async () =>
 {
     var enableSonar = !string.IsNullOrWhiteSpace(SonarUrl);

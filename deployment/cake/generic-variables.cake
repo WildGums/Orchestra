@@ -15,7 +15,7 @@ var NuGetExe = "./tools/nuget.exe";
 // Solution / build info
 var SolutionName = GetBuildServerVariable("SolutionName", DefaultSolutionName);
 var SolutionAssemblyInfoFileName = "./src/SolutionAssemblyInfo.cs";
-var SolutionFileName = string.Format("./src/{0}", SolutionName);
+var SolutionFileName = string.Format("./src/{0}", string.Format("{0}.sln", SolutionName));
 var IsCiBuild = bool.Parse(GetContinuaCIVariable("IsCiBuild", "False"));
 var IsOfficialBuild = bool.Parse(GetContinuaCIVariable("IsOfficialBuild", "False"));
 var ConfigurationName = GetBuildServerVariable("ConfigurationName", "Release");
