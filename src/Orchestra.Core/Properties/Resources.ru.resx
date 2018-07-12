@@ -91,7 +91,7 @@
     <value>Произведено {0}</value>
   </data>
   <data name="Orchestra_ReleasedOn" xml:space="preserve">
-    <value>Выпущено </value>
+    <value>Выпущено</value>
   </data>
   <data name="Orchestra_Remove" xml:space="preserve">
     <value>Удалить</value>
