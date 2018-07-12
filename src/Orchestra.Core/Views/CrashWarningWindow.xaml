@@ -80,7 +80,7 @@
                 <TextBlock Text="{catel:LanguageBinding Orchestra_NotStartedCorrectly_03}" TextWrapping="Wrap" Margin="0 0 0 12" />
 
                 <DockPanel Margin="0 20 0 0" LastChildFill="False" VerticalAlignment="Top">
-                    <orccontrols:DropDownButton Header="{catel:LanguageBinding Orchestra_UserDataSettings}" DockPanel.Dock="Left" Height="26" Width="140"
+                    <orccontrols:DropDownButton Header="{catel:LanguageBinding Orchestra_UserDataSettings}" DockPanel.Dock="Left" Height="26" MinWidth="140"
                                         AccentColorBrush="{DynamicResource AccentColorBrush}" ShowDefaultButton="False"
                                         Style="{StaticResource CrashWarningWindowDropDownButtonStyle}">
                         <orccontrols:DropDownButton.DropDown>
@@ -91,7 +91,7 @@
                         </orccontrols:DropDownButton.DropDown>
                     </orccontrols:DropDownButton>
 
-                    <Button Content="{catel:LanguageBinding Orchestra_Continue}" DockPanel.Dock="Right" Width="70" Height="26" 
+                    <Button Content="{catel:LanguageBinding Orchestra_Continue}" DockPanel.Dock="Right" MinWidth="70" Height="26" 
                             IsDefault="true" Command="{Binding Continue}" Style="{StaticResource CrashWarningWindowButtonStyle}"/>
                 </DockPanel>
             </StackPanel>
