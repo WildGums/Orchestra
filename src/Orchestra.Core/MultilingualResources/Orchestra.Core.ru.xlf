@@ -8,7 +8,7 @@
       <group id="ORCHESTRA.CORE/PROPERTIES/RESOURCES.RESX" datatype="resx">
         <trans-unit id="Orchestra_AllRightsReserved" translate="yes" xml:space="preserve">
           <source>All rights reserved</source>
-          <target state="translated">Все права сохранены</target>
+          <target state="translated">Все права защищены</target>
         </trans-unit>
         <trans-unit id="Orchestra_Assign" translate="yes" xml:space="preserve">
           <source>Assign</source>
@@ -84,7 +84,7 @@
         </trans-unit>
         <trans-unit id="Orchestra_NoLogListenerAvailable" translate="yes" xml:space="preserve">
           <source>No log listener available that can be opened. Please contact support.</source>
-          <target state="translated">Нет доступных для чтения логгеров. Пожалуйста, свяжитесь со службой технической поддержки.</target>
+          <target state="translated">Нет логгеров, которые можно было бы использовать. Пожалуйста, свяжитесь со службой технической поддержки.</target>
         </trans-unit>
         <trans-unit id="Orchestra_NotStartedCorrectly_01" translate="yes" xml:space="preserve">
           <source>It seems that the application failed to start correctly the last time it was started.</source>
@@ -100,7 +100,7 @@
         </trans-unit>
         <trans-unit id="Orchestra_PressShortcutKeys" translate="yes" xml:space="preserve">
           <source>Press shortcut keys:</source>
-          <target state="translated">Нажмите сочетание клавиш:</target>
+          <target state="translated">Используйте сочетание клавиш:</target>
         </trans-unit>
         <trans-unit id="Orchestra_Print" translate="yes" xml:space="preserve">
           <source>Print</source>

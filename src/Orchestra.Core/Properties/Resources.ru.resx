@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Orchestra_AllRightsReserved" xml:space="preserve">
-    <value>Все права сохранены</value>
+    <value>Все права защищены</value>
   </data>
   <data name="Orchestra_Assign" xml:space="preserve">
     <value>Привязать</value>
@@ -70,7 +70,7 @@
     <value>Сочетания клавиш</value>
   </data>
   <data name="Orchestra_NoLogListenerAvailable" xml:space="preserve">
-    <value>Нет доступных для чтения логгеров. Пожалуйста, свяжитесь со службой технической поддержки.</value>
+    <value>Нет логгеров, которые можно было бы использовать. Пожалуйста, свяжитесь со службой технической поддержки.</value>
   </data>
   <data name="Orchestra_NotStartedCorrectly_01" xml:space="preserve">
     <value>Судя по всему, приложение не удалось запустить в последний раз, когда оно было вызвано.</value>
@@ -82,7 +82,7 @@
     <value>Когда будете готовы, кликните "Продолжить", чтобы запустить приложение.</value>
   </data>
   <data name="Orchestra_PressShortcutKeys" xml:space="preserve">
-    <value>Нажмите сочетание клавиш:</value>
+    <value>Используйте сочетание клавиш:</value>
   </data>
   <data name="Orchestra_Print" xml:space="preserve">
     <value>Печать</value>
