@@ -13,120 +13,120 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Orchestra_AllRightsReserved" xml:space="preserve">
-    <value>All rights reserved</value>
+    <value>Все права защищены</value>
   </data>
   <data name="Orchestra_Assign" xml:space="preserve">
-    <value>Assign</value>
+    <value>Привязать</value>
   </data>
   <data name="Orchestra_AssignInputGestureAreYouSure" xml:space="preserve">
-    <value>Are you sure you want to assign the input gesture to '{0}'. It will be removed from the other commands.</value>
+    <value>Вы уверены, что хотите привязать сочетание клавиш к '{0}'? Оно будет удалено для остальных команд.</value>
   </data>
   <data name="Orchestra_AssignInputGestureUsedByFollowCommands" xml:space="preserve">
-    <value>The input gesture '{0}' is currently being used by the following commands:</value>
+    <value>Сочетание клавиш '{0}' в настоящий момент используется следующими командами:</value>
   </data>
   <data name="Orchestra_BackupAndReset" xml:space="preserve">
-    <value>Backup and Reset</value>
+    <value>Сохранить резервную копию и сбросить</value>
   </data>
   <data name="Orchestra_BackupCreated" xml:space="preserve">
-    <value>Backup has been succesfully created.</value>
+    <value>Резервная копия была успешно создана.</value>
   </data>
   <data name="Orchestra_BuiltOn" xml:space="preserve">
-    <value>Built on {0}</value>
+    <value>Собрано {0}</value>
   </data>
   <data name="Orchestra_Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Закрыть</value>
   </data>
   <data name="Orchestra_Command" xml:space="preserve">
-    <value>Command</value>
+    <value>Команда</value>
   </data>
   <data name="Orchestra_Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Продолжить</value>
   </data>
   <data name="Orchestra_Copy" xml:space="preserve">
-    <value>Copy</value>
+    <value>Копировать</value>
   </data>
   <data name="Orchestra_Customize" xml:space="preserve">
-    <value>Customize</value>
+    <value>Кастомизировать</value>
   </data>
   <data name="Orchestra_DebugLoggingIsEnabled" xml:space="preserve">
-    <value>Debug logging is enabled for this application instance</value>
+    <value>Отладочное логирование включено для данного экземпляра приложения</value>
   </data>
   <data name="Orchestra_DeletedUserDataSettings" xml:space="preserve">
-    <value>User data settings have been successfully deleted.</value>
+    <value>Пользовательские настройки были успешно удалены.</value>
   </data>
   <data name="Orchestra_EnableDetailedLogging" xml:space="preserve">
-    <value>Enable detailed logging</value>
+    <value>Включить детальное логирование</value>
   </data>
   <data name="Orchestra_EnableLogging" xml:space="preserve">
-    <value>Enable logging</value>
+    <value>Включить логирование</value>
   </data>
   <data name="Orchestra_FailedToCreateBackup" xml:space="preserve">
-    <value>Failed to created a backup. To prevent data loss, the application will now exit and not delete any files. Please contact support so they can guide you through the process.</value>
+    <value>Не удалось создать резервную копию. Для предотвращения потери данных, приложение будет закрыто и никакие файлы не будут удалены. Пожалуйста, обратитесь в службу технической поддержки для решения данной проблемы.</value>
   </data>
   <data name="Orchestra_InputGesture" xml:space="preserve">
-    <value>Input gesture</value>
+    <value>Сочетание клавиш</value>
   </data>
   <data name="Orchestra_KeyboardShortcuts" xml:space="preserve">
-    <value>Keyboard shortcuts</value>
+    <value>Сочетания клавиш</value>
   </data>
   <data name="Orchestra_NoLogListenerAvailable" xml:space="preserve">
-    <value>No log listener available that can be opened. Please contact support.</value>
+    <value>Нет логгеров, которые можно было бы использовать. Пожалуйста, свяжитесь со службой технической поддержки.</value>
   </data>
   <data name="Orchestra_NotStartedCorrectly_01" xml:space="preserve">
-    <value>It seems that the application failed to start correctly the last time it was started.</value>
+    <value>Судя по всему, приложение не удалось запустить в последний раз, когда оно было вызвано.</value>
   </data>
   <data name="Orchestra_NotStartedCorrectly_02" xml:space="preserve">
-    <value>If this happens again, try to reset the user data settings. The left button will allow you to reset (and optionally backup) your settings.</value>
+    <value>Если это повторится, попробуйте сбросить пользовательские настройки. Левая кнопка позволит вам выполнить сброс (и, при необходимости, сохранить резервную копию) ваших настроек.</value>
   </data>
   <data name="Orchestra_NotStartedCorrectly_03" xml:space="preserve">
-    <value>When ready, click continue to start the application.</value>
+    <value>Когда будете готовы, кликните "Продолжить", чтобы запустить приложение.</value>
   </data>
   <data name="Orchestra_PressShortcutKeys" xml:space="preserve">
-    <value>Press shortcut keys:</value>
+    <value>Используйте сочетание клавиш:</value>
   </data>
   <data name="Orchestra_Print" xml:space="preserve">
-    <value>Print</value>
+    <value>Печать</value>
   </data>
   <data name="Orchestra_ProducedBy" xml:space="preserve">
-    <value>Produced by {0}</value>
+    <value>Произведено {0}</value>
   </data>
   <data name="Orchestra_ReleasedOn" xml:space="preserve">
-    <value>Released on</value>
+    <value>Выпущено</value>
   </data>
   <data name="Orchestra_Remove" xml:space="preserve">
-    <value>Remove</value>
+    <value>Удалить</value>
   </data>
   <data name="Orchestra_ReplaceInputGesture" xml:space="preserve">
-    <value>Replace input gesture?</value>
+    <value>Заменить сочетание клавиш?</value>
   </data>
   <data name="Orchestra_Reset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Сброс</value>
   </data>
   <data name="Orchestra_ResetKeyboardShortcutsAreYouSure" xml:space="preserve">
-    <value>Resetting shortcuts will delete all your current shortcuts. This action cannot be undone. Are you sure you want to reset the shortcuts?</value>
+    <value>Сброс сочетаний клавиш удалит все ваши сочетания. Это действие не может быть отменено. Вы уверены, что хотите сбросить сочетания клавиш?</value>
   </data>
   <data name="Orchestra_RetrievingSystemInfo" xml:space="preserve">
-    <value>Retrieving system information...</value>
+    <value>Получение информации о системе...</value>
   </data>
   <data name="Orchestra_ShortcutForSelectedCommand" xml:space="preserve">
-    <value>Shortcut for selected command:</value>
+    <value>Сочетание для выбранной команды:</value>
   </data>
   <data name="Orchestra_ShortcutsForApplication" xml:space="preserve">
-    <value>Keyboard shortcuts for {0}</value>
+    <value>Сочетание клавиш для {0}</value>
   </data>
   <data name="Orchestra_ShowCommandsContaining" xml:space="preserve">
-    <value>Show commands containing:</value>
+    <value>Показать команды, содержащие:</value>
   </data>
   <data name="Orchestra_ShowLog" xml:space="preserve">
-    <value>Show log...</value>
+    <value>Показать лог...</value>
   </data>
   <data name="Orchestra_ShowSystemInfo" xml:space="preserve">
-    <value>Show system info</value>
+    <value>Показать информацию о системе</value>
   </data>
   <data name="Orchestra_SystemInfo" xml:space="preserve">
-    <value>System information</value>
+    <value>Информация о системе</value>
   </data>
   <data name="Orchestra_UserDataSettings" xml:space="preserve">
-    <value>User data settings</value>
+    <value>Пользовательские настройки</value>
   </data>
 </root>
