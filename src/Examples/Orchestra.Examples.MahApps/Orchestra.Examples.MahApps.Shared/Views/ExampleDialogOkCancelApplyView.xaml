@@ -1,9 +1,0 @@
-﻿<orchestra:SimpleDataWindow x:Class="Orchestra.Examples.MahApps.Views.ExampleDialogOkCancelApplyView"
-                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                            xmlns:orchestra="https://github.com/orcomp/orchestra">
-  <TextBlock
-    TextWrapping="Wrap">
-    This dialog contains an ok, cancel and apply button.
-  </TextBlock>
-</orchestra:SimpleDataWindow>

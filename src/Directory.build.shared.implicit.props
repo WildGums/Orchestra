@@ -1,0 +1,43 @@
+<Project>
+  <!-- 
+    This file applies to projects automatically, but should not contain any project-specific information so it can easily be replaced
+  -->
+  
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CS1591;CS1998;NU1603;NU1605;NU1608;NU1701</NoWarn>
+    <NoError>$(NoError);CS1591;CS1998;NU1603;NU1605;NU1608;NU1701</NoError>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <PackageOutputPath>$(ProjectDir)..\..\output\$(Configuration)\</PackageOutputPath>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <Deterministic>False</Deterministic>
+  </PropertyGroup>
+
+  <!-- (temporary?) workaround for https://github.com/dotnet/sdk/issues/1458 -->
+  <ItemGroup>
+    <PackageReference Include="SourceLink.Copy.PdbFiles" Version="2.8.3" PrivateAssets="All" />
+  </ItemGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- https://github.com/dotnet/sdk/issues/810 - the temporary project has the wrong file extension -->
+    <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\*.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+  </ItemGroup>
+</Project>

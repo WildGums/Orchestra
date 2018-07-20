@@ -1,0 +1,100 @@
+﻿<catel:Window x:Class="Orchestra.Views.CrashWarningWindow"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:catel="http://schemas.catelproject.com"
+              xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
+              SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+              WindowStartupLocation="CenterOwner">
+
+    <catel:Window.Resources>
+
+        <Geometry x:Key="TriangleGeometry">M2,21.9997L12,2.00026L20.6247,19.2199L20.6291,19.2199L22,21.9997L22,21.9997L22,21.9997L2,21.9997ZM5.0287,19.9997L18.9638,19.9997L12,6.11526L5.0287,19.9997ZM12.9376,16.5456L11.2947,16.5456L11.2947,18.2081L12.9376,18.2081L12.9376,16.5456ZM12.9376,11.5581L11.2947,11.5581L11.2947,14.8831L12.9376,14.8831L12.9376,11.5581Z</Geometry>
+
+        <Style x:Key="CrashWarningWindowLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Label}">
+                        <Grid VerticalAlignment="Top" Height="45" Width="45">
+                            <Viewbox x:Name="Viewbox">
+                                <Path Data="{StaticResource TriangleGeometry}" HorizontalAlignment="Center"
+                                      Margin="0" SnapsToDevicePixels="True" Stretch="Fill" UseLayoutRounding="True"
+                                      Fill="Orange" VerticalAlignment="Center"/>
+                            </Viewbox>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="CrashWarningWindowButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="Chrome" BorderBrush="LightGray" BorderThickness="1" Background="#FFF4F4F4" SnapsToDevicePixels="True">
+                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"
+                                                  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  RecognizesAccessKey="True"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource ControlsHighlightBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource AccentColorBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" TargetName="Chrome" Value="{DynamicResource AccentColorBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#FFADADAD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CrashWarningWindowDropDownButtonStyle" TargetType="{x:Type orccontrols:DropDownButton}" BasedOn="{StaticResource {x:Type orccontrols:DropDownButton}}"/>
+    </catel:Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500" />
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="10">
+            <Label Style="{StaticResource CrashWarningWindowLabelStyle}" Margin="0 0 30 10"/>
+            
+            <StackPanel>
+                <TextBlock Text="{catel:LanguageBinding Orchestra_NotStartedCorrectly_01}" TextWrapping="Wrap" Margin="0 0 0 12" />
+                <TextBlock Text="{catel:LanguageBinding Orchestra_NotStartedCorrectly_02}" TextWrapping="Wrap" Margin="0 0 0 12" />
+                <TextBlock Text="{catel:LanguageBinding Orchestra_NotStartedCorrectly_03}" TextWrapping="Wrap" Margin="0 0 0 12" />
+
+                <DockPanel Margin="0 20 0 0" LastChildFill="False" VerticalAlignment="Top">
+                    <orccontrols:DropDownButton Header="{catel:LanguageBinding Orchestra_UserDataSettings}" DockPanel.Dock="Left" Height="26" MinWidth="140"
+                                        AccentColorBrush="{DynamicResource AccentColorBrush}" ShowDefaultButton="False"
+                                        Style="{StaticResource CrashWarningWindowDropDownButtonStyle}">
+                        <orccontrols:DropDownButton.DropDown>
+                            <ContextMenu>
+                                <MenuItem Header="{catel:LanguageBinding Orchestra_Reset}" Command="{Binding ResetUserSettings}"/>
+                                <MenuItem Header="{catel:LanguageBinding Orchestra_BackupAndReset}" Command="{Binding BackupAndReset}"/>
+                            </ContextMenu>
+                        </orccontrols:DropDownButton.DropDown>
+                    </orccontrols:DropDownButton>
+
+                    <Button Content="{catel:LanguageBinding Orchestra_Continue}" DockPanel.Dock="Right" MinWidth="70" Height="26" 
+                            IsDefault="true" Command="{Binding Continue}" Style="{StaticResource CrashWarningWindowButtonStyle}"/>
+                </DockPanel>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</catel:Window>

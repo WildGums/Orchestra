@@ -1,9 +1,3 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MethodTimeLogger.cs" company="WildGums">
-//   Copyright (c) 2008 - 2017 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
 using System.Reflection;
 using Catel.Logging;
 using System;
