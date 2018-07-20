@@ -4,13 +4,29 @@
 var Company = GetBuildServerVariable("Company", DefaultCompany);
 
 // Versioning
-var VersionMajorMinorPatch = GetBuildServerVariable("GitVersion_MajorMinorPatch", "3.0.0");
-var VersionFullSemVer = GetBuildServerVariable("GitVersion_FullSemVer", "3.0.0-alpha.1");
-var VersionNuGet = GetBuildServerVariable("GitVersion_NuGetVersion", "3.0.0-alpha0001");
+var VersionMajorMinorPatch = GetBuildServerVariable("GitVersion_MajorMinorPatch", "unknown");
+var VersionFullSemVer = GetBuildServerVariable("GitVersion_FullSemVer", "unknown");
+var VersionNuGet = GetBuildServerVariable("GitVersion_NuGetVersion", "unknown");
+
+if (VersionNuGet == "unknown")
+{
+    Information("No version info specified, falling back to GitVersion");
+
+    // Fallback to GitVersion
+    var gitVersion = GitVersion(new GitVersionSettings 
+    {
+        UpdateAssemblyInfo = false
+    });
+    
+    VersionMajorMinorPatch = gitVersion.MajorMinorPatch;
+    VersionFullSemVer = gitVersion.FullSemVer;
+    VersionNuGet = gitVersion.NuGetVersionV2;
+}
 
 // NuGet
 var NuGetPackageSources = GetBuildServerVariable("NuGetPackageSources", string.Empty);
 var NuGetExe = "./tools/nuget.exe";
+var NuGetLocalPackagesDirectory = "c:\\source\\_packages";
 
 // Solution / build info
 var SolutionName = GetBuildServerVariable("SolutionName", DefaultSolutionName);
