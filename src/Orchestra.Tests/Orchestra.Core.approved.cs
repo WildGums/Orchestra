@@ -570,6 +570,14 @@ namespace Orchestra.Models
         public string Uri { get; set; }
     }
 }
+namespace Orchestra.Reflection
+{
+    public class EntryAssemblyResolver : Catel.Reflection.IEntryAssemblyResolver
+    {
+        public EntryAssemblyResolver() { }
+        public System.Reflection.Assembly Resolve() { }
+    }
+}
 namespace Orchestra.Services
 {
     public class AboutInfoService : Orchestra.Services.IAboutInfoService
