@@ -5,18 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-using System;
 using System.Globalization;
-using System.IO;
 using System.Windows;
 using System.Windows.Markup;
-using Catel.Configuration;
 using Catel.IoC;
 using Catel.Logging;
+using Catel.Reflection;
 using Catel.Services;
 using Orchestra;
 using Orchestra.Collections;
 using Orchestra.Layers;
+using Orchestra.Reflection;
 using Orchestra.Services;
 using Orchestra.Tooltips;
 using Orchestra.ViewModels;
@@ -32,6 +31,11 @@ public static class ModuleInitializer
     /// </summary>
     public static void Initialize()
     {
+        var serviceLocator = ServiceLocator.Default;
+
+        // Fix for https://github.com/Catel/Catel/issues/1208
+        serviceLocator.RegisterType<IEntryAssemblyResolver, EntryAssemblyResolver>();
+
         InitializeLogging();
 
         // Ensure that we are using the right culture
@@ -39,8 +43,6 @@ public static class ModuleInitializer
         FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
             new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 #pragma warning restore WPF0011 // Containing type should be used as registered owner.
-
-        var serviceLocator = ServiceLocator.Default;
 
         // Overide style of Catel please wait service
         serviceLocator.RegisterType<IPleaseWaitService, Orchestra.Services.PleaseWaitService>();
@@ -60,7 +62,7 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IClipboardService, ClipboardService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IThemeService, ThemeService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();        
+        serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();
 
         serviceLocator.RegisterType<IMessageService, Orchestra.Services.MessageService>();
 

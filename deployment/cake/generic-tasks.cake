@@ -7,6 +7,26 @@
 
 //-------------------------------------------------------------
 
+private void LogSeparator(string messageFormat, params object[] args)
+{
+    Information("");
+    Information("----------------------------------------");
+    Information(messageFormat, args);
+    Information("----------------------------------------");
+    Information("");
+}
+
+//-------------------------------------------------------------
+
+private void LogSeparator()
+{
+    Information("");
+    Information("----------------------------------------");
+    Information("");
+}
+
+//-------------------------------------------------------------
+
 private void CleanUpCode(bool failOnChanges)
 {
     Information("Cleaning up code using CodeCleanup (R# command line tools)");
