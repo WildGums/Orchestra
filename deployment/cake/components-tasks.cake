@@ -42,7 +42,7 @@ private void BuildComponents()
     
     foreach (var component in Components)
     {
-        Information("Building component '{0}'", component);
+        LogSeparator("Building component '{0}'", component);
 
         var projectFileName = GetProjectFileName(component);
         
@@ -79,7 +79,7 @@ private void PackageComponents()
 
     foreach (var component in Components)
     {
-        Information("Packaging component '{0}'", component);
+        LogSeparator("Packaging component '{0}'", component);
 
         var projectFileName = string.Format("./src/{0}/{0}.csproj", component);
 
@@ -146,6 +146,8 @@ private void PackageComponents()
 
             MSBuild(projectFileName, msBuildSettings);
         }
+        
+        LogSeparator();
     }
 
     var codeSign = (!IsCiBuild && !string.IsNullOrWhiteSpace(CodeSignCertificateSubjectName));
