@@ -1,9 +1,11 @@
 #l "apps-wpf-variables.cake"
 
-#tool "Squirrel.Windows" 
+#addin "nuget:?package=Cake.Squirrel&version=0.13.0"
+#addin "nuget:?package=MagicChunks&version=2.0.0.119"
+//#addin "nuget:?Cake.AzureStorage&version=0.14.0"
 
-#addin nuget:?package=Cake.Squirrel&version=0.13.0
-#addin nuget:?package=MagicChunks&version=2.0.0.119
+#tool "nuget:?package=Squirrel.Windows&version=1.8.0"
+#tool "nuget:?package=AzureStorageSync&version=2.0.0-alpha0028&prerelease"
 
 //-------------------------------------------------------------
 
@@ -307,6 +309,55 @@ private void PackageWpfApps()
 
 //-------------------------------------------------------------
 
+private void DeployWpfApps()
+{
+    if (!HasWpfApps())
+    {
+        return;
+    }
+    
+    var azureConnectionString = AzureDeploymentsStorageConnectionString;
+    if (string.IsNullOrWhiteSpace(azureConnectionString))
+    {
+        Warning("Skipping deployments of WPF apps because not Azure deployments storage connection string was specified");
+        return;
+    }
+    
+    var azureStorageSyncExes = GetFiles("./tools/AzureStorageSync*/**/AzureStorageSync.exe");
+    var azureStorageSyncExe = azureStorageSyncExes.LastOrDefault();
+    if (azureStorageSyncExe == null)
+    {
+        Error("Can't find the AzureStorageSync tool that should have been installed via this script");
+        return;
+    }
+
+    foreach (var wpfApp in WpfApps)
+    {
+        if (!ShouldDeployProject(wpfApp))
+        {
+            Information("WPF app '{0}' should not be deployed", wpfApp);
+            continue;
+        }
+        
+        LogSeparator("Deploying WPF app '{0}'", wpfApp);
+
+        //%DeploymentsShare%\%ProjectName% /%ProjectName% -c %AzureDeploymentsStorageConnectionString%
+        var deploymentShare = string.Format("{0}/{1}", DeploymentsShare, wpfApp);
+
+        var exitCode = StartProcess(azureStorageSyncExe, new ProcessSettings
+        {
+            Arguments = string.Format("{0} /{1} -c {2}", deploymentShare, wpfApp, azureConnectionString)
+        });
+
+        if (exitCode != 0)
+        {
+            Error("Received unexpected exit code '{0}' for WPF app '{1}'", exitCode, wpfApp);
+        }
+    }
+}
+
+//-------------------------------------------------------------
+
 Task("UpdateInfoForWpfApps")
     .IsDependentOn("Clean")
     .Does(() =>
@@ -331,4 +382,13 @@ Task("PackageWpfApps")
     .Does(() =>
 {
     PackageWpfApps();
+});
+
+//-------------------------------------------------------------
+
+Task("DeployWpfApps")
+    .IsDependentOn("PackageWpfApps")
+    .Does(() =>
+{
+    DeployWpfApps();
 });

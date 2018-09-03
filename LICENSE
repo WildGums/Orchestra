@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2014 - 2017 WildGums
+Copyright (c) 2014 - 2018 WildGums
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -63,6 +63,6 @@ Note: if you feel an item is missing in this list, please let us know!
   https://github.com/wildgums/orc.systeminfo
   Original license: MIT
   
-* Internal Style Helper based on Styles Explorer
+* Internal Style Helper based on Styles Explorer (Ricciolo)
   http://stylesexplorer.codeplex.com/license
   Original license: Ms-PL (compatible with MIT)
