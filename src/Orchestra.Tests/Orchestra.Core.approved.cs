@@ -60,9 +60,17 @@ namespace Orchestra
     {
         public static void Initialize() { }
     }
+    public class FileBasedThirdPartyNotice : Orchestra.ThirdPartyNotice
+    {
+        public FileBasedThirdPartyNotice(string title, string url, string fileName) { }
+    }
     public class static FilterHelper
     {
         public static bool MatchesFilters(System.Collections.Generic.IEnumerable<string> filters, string fileName) { }
+    }
+    public class FontThirdPartyNotice : Orchestra.ThirdPartyNotice
+    {
+        public FontThirdPartyNotice(string fontName, string fontUrl) { }
     }
     public class static FrameworkElementExtensions
     {
@@ -118,6 +126,13 @@ namespace Orchestra
         public OrchestraException(string message) { }
         public OrchestraException(string message, System.Exception innerException) { }
     }
+    public class ResourceBasedThirdPartyNotice : Orchestra.ThirdPartyNotice
+    {
+        public ResourceBasedThirdPartyNotice(string title, string url, string assemblyName, string relativeResourceName) { }
+        public ResourceBasedThirdPartyNotice(string title, string url, string assemblyName, string rootNamespace, string relativeResourceName) { }
+        public ResourceBasedThirdPartyNotice(string title, string url, System.Reflection.Assembly assembly, string relativeResourceName) { }
+        public ResourceBasedThirdPartyNotice(string title, string url, System.Reflection.Assembly assembly, string rootNamespace, string relativeResourceName) { }
+    }
     public class static ScreenHelper
     {
         public static System.Windows.Size GetDpi() { }
@@ -146,6 +161,13 @@ namespace Orchestra
         public static System.Windows.Media.SolidColorBrush GetAccentColorBrush(Orchestra.AccentColorStyle colorStyle) { }
         public static System.Windows.Media.SolidColorBrush GetAccentColorBrush() { }
         public static System.Windows.ResourceDictionary GetAccentColorResourceDictionary() { }
+    }
+    public class ThirdPartyNotice
+    {
+        public ThirdPartyNotice() { }
+        public string Content { get; set; }
+        public string Title { get; set; }
+        public string Url { get; set; }
     }
     public abstract class ToggleConfigurationCommandContainerBase : Orchestra.ToggleConfigurationCommandContainerBase<object>
     {
@@ -765,6 +787,15 @@ namespace Orchestra.Services
     {
         bool ShouldCreateStyleForwarders();
     }
+    public interface IThirdPartyNoticesService
+    {
+        void Add(Orchestra.ThirdPartyNotice thirdPartyNotice);
+        System.Collections.Generic.List<Orchestra.ThirdPartyNotice> GetThirdPartyNotices();
+    }
+    public class static IThirdPartyNoticesServiceExtensions
+    {
+        public static void AddWithTryCatch(this Orchestra.Services.IThirdPartyNoticesService thirdPartyNoticesService, System.Func<Orchestra.ThirdPartyNotice> func) { }
+    }
     public interface IViewActivationService
     {
         bool Activate(Catel.MVVM.IViewModel viewModel);
@@ -837,6 +868,12 @@ namespace Orchestra.Services
         public ThemeService() { }
         public virtual bool ShouldCreateStyleForwarders() { }
     }
+    public class ThirdPartyNoticesService : Orchestra.Services.IThirdPartyNoticesService
+    {
+        public ThirdPartyNoticesService() { }
+        public void Add(Orchestra.ThirdPartyNotice thirdPartyNotice) { }
+        public System.Collections.Generic.List<Orchestra.ThirdPartyNotice> GetThirdPartyNotices() { }
+    }
     public class ViewActivationService : Orchestra.Services.IViewActivationService
     {
         public ViewActivationService(Catel.MVVM.Views.IViewManager viewManager) { }
@@ -901,6 +938,7 @@ namespace Orchestra.ViewModels
         public Catel.MVVM.Command OpenUrl { get; }
         public bool ShowLogButton { get; }
         public Catel.MVVM.TaskCommand ShowSystemInfo { get; }
+        public Catel.MVVM.TaskCommand ShowThirdPartyNotices { get; }
         public override string Title { get; set; }
         public Orchestra.Models.UriInfo UriInfo { get; }
         public string Version { get; }
@@ -980,6 +1018,15 @@ namespace Orchestra.ViewModels
         public System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, string>> SystemInfo { get; }
         protected override System.Threading.Tasks.Task InitializeAsync() { }
     }
+    public class ThirdPartyNoticesViewModel : Catel.MVVM.ViewModelBase
+    {
+        public static readonly Catel.Data.PropertyData ExplanationProperty;
+        public static readonly Catel.Data.PropertyData ThirdPartyNoticesProperty;
+        public ThirdPartyNoticesViewModel(Orchestra.Services.IAboutInfoService aboutInfoService, Orchestra.Services.IThirdPartyNoticesService thirdPartyNoticesService) { }
+        public string Explanation { get; }
+        public System.Collections.Generic.List<Orchestra.ThirdPartyNotice> ThirdPartyNotices { get; }
+        protected override System.Threading.Tasks.Task InitializeAsync() { }
+    }
 }
 namespace Orchestra.Views
 {
@@ -1039,6 +1086,11 @@ namespace Orchestra.Views
     {
         public SystemInfoWindow() { }
         public SystemInfoWindow(Orchestra.ViewModels.SystemInfoViewModel viewModel) { }
+        public void InitializeComponent() { }
+    }
+    public class ThirdPartyNoticesWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
+    {
+        public ThirdPartyNoticesWindow() { }
         public void InitializeComponent() { }
     }
 }
