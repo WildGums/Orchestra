@@ -23,50 +23,13 @@ Parameters["StartYear"] = "2014";
 // DEFINE COMPONENTS TO BUILD / PACKAGE
 //=======================================================
 
-var ComponentsToBuild = new string[]
-{
-    "Orchestra.Core", 
-    "Orchestra.Shell.MahApps", 
-    "Orchestra.Shell.Ribbon.Fluent", 
-    "Orchestra.Shell.Ribbon.Microsoft", 
-    "Orchestra.Shell.TaskRunner"
-};
+Components.Add("Orchestra.Core");
+Components.Add("Orchestra.Shell.MahApps");
+Components.Add("Orchestra.Shell.Ribbon.Fluent");
+Components.Add("Orchestra.Shell.Ribbon.Microsoft");
+Components.Add("Orchestra.Shell.TaskRunner");
 
-//=======================================================
-// DEFINE WEB APPS TO BUILD / PACKAGE
-//=======================================================
-
-var WebAppsToBuild = new string[]
-{
-
-};
-
-//=======================================================
-// DEFINE WPF APPS TO BUILD / PACKAGE
-//=======================================================
-
-var WpfAppsToBuild = new string[]
-{
-
-};
-
-//=======================================================
-// DEFINE UWP APPS TO BUILD / PACKAGE
-//=======================================================
-
-var UwpAppsToBuild = new string[]
-{
-
-};
-
-//=======================================================
-// DEFINE TEST PROJECTS TO BUILD
-//=======================================================
-
-var TestProjectsToBuild = new string[]
-{
-    string.Format("{0}.Tests", GetBuildServerVariable("SolutionName"))
-};
+TestProjects.Add(string.Format("{0}.Tests", GetBuildServerVariable("SolutionName")));
 
 //=======================================================
 // REQUIRED INITIALIZATION, DO NOT CHANGE
