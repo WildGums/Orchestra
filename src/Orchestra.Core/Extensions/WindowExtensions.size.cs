@@ -21,19 +21,30 @@ namespace Orchestra
 
         public static void SaveWindowSize(this Window window)
         {
+            SaveWindowSize(window, null);
+        }
+
+        public static void SaveWindowSize(this Window window, string tag)
+        {
             Argument.IsNotNull(() => window);
 
             var windowName = window.GetType().Name;
 
             Log.Debug($"Saving window size for '{windowName}'");
 
-            var storageFile = GetWindowStorageFile(window);
+            var storageFile = GetWindowStorageFile(window, tag);
 
             try
             {
                 var culture = CultureInfo.InvariantCulture;
 
-                var contents = $"{ObjectToStringHelper.ToString(window.Width, culture)}{SizeSeparator}{ObjectToStringHelper.ToString(window.Height, culture)}{SizeSeparator}{window.WindowState}";
+                var width = ObjectToStringHelper.ToString(window.Width, culture);
+                var height = ObjectToStringHelper.ToString(window.Height, culture);
+                var left = ObjectToStringHelper.ToString(window.Left, culture);
+                var top = ObjectToStringHelper.ToString(window.Top, culture);
+                var state = ObjectToStringHelper.ToString(window.WindowState, culture);
+
+                var contents = $"{width}{SizeSeparator}{height}{SizeSeparator}{state}{SizeSeparator}{left}{SizeSeparator}{top}";
 
                 File.WriteAllText(storageFile, contents);
             }
@@ -45,13 +56,18 @@ namespace Orchestra
 
         public static void LoadWindowSize(this Window window, bool restoreWindowState)
         {
+            LoadWindowSize(window, null, restoreWindowState, false);
+        }
+
+        public static void LoadWindowSize(this Window window, string tag = null, bool restoreWindowState = false, bool restoreWindowPosition = false)
+        {
             Argument.IsNotNull(() => window);
 
             var windowName = window.GetType().Name;
 
             Log.Debug($"Loading window size for '{windowName}'");
 
-            var storageFile = GetWindowStorageFile(window);
+            var storageFile = GetWindowStorageFile(window, tag);
             if (!File.Exists(storageFile))
             {
                 Log.Debug($"Window size file '{storageFile}' does not exist, cannot restore window size");
@@ -94,6 +110,17 @@ namespace Orchestra
                         window.SetCurrentValue(Window.WindowStateProperty, windowState);
                     }
                 }
+
+                if (restoreWindowPosition && splitted.Length > 3)
+                {
+                    var left = StringToObjectHelper.ToDouble(splitted[3], culture);
+                    var top = StringToObjectHelper.ToDouble(splitted[4], culture);
+
+                    Log.Debug($"Restoring window position for '{windowName}' to '{left} (x) / {top} (y)'");
+
+                    window.SetCurrentValue(Window.LeftProperty, left);
+                    window.SetCurrentValue(Window.TopProperty, top);
+                }
             }
             catch (Exception ex)
             {
@@ -101,16 +128,22 @@ namespace Orchestra
             }
         }
 
-        private static string GetWindowStorageFile(this Window window)
+        private static string GetWindowStorageFile(this Window window, string tag)
         {
             Argument.IsNotNull(() => window);
 
-            var appData = Path.GetApplicationDataDirectory();
+            var appData = Catel.IO.Path.GetApplicationDataDirectory();
             var directory = Path.Combine(appData, "windows");
 
             Directory.CreateDirectory(directory);
 
-            var file = Path.Combine(directory, $"{window.GetType().FullName}.dat");
+            var tagToUse = string.Empty;
+            if (!string.IsNullOrWhiteSpace(tag))
+            {
+                tagToUse = $"_{tag.GetSlug()}";
+            }
+
+            var file = Path.Combine(directory, $"{window.GetType().FullName}{tagToUse}.dat");
             return file;
         }
     }

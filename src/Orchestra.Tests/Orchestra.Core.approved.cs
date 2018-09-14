@@ -195,7 +195,9 @@ namespace Orchestra
         public static void CenterWindowToSize(this System.Windows.Window window, System.Windows.Rect parentRect) { }
         public static void DisableCloseButton(this System.Windows.Window window) { }
         public static void LoadWindowSize(this System.Windows.Window window, bool restoreWindowState) { }
+        public static void LoadWindowSize(this System.Windows.Window window, string tag = null, bool restoreWindowState = False, bool restoreWindowPosition = False) { }
         public static void SaveWindowSize(this System.Windows.Window window) { }
+        public static void SaveWindowSize(this System.Windows.Window window, string tag) { }
         public static void SetMaximumHeight(this System.Windows.Window window) { }
         public static void SetMaximumWidth(this System.Windows.Window window) { }
         public static void SetMaximumWidthAndHeight(this System.Windows.Window window) { }
