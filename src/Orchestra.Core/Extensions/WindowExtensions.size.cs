@@ -56,10 +56,10 @@ namespace Orchestra
 
         public static void LoadWindowSize(this Window window, bool restoreWindowState)
         {
-            LoadWindowSize(window, null, restoreWindowState, false);
+            LoadWindowSize(window, null, restoreWindowState, true);
         }
 
-        public static void LoadWindowSize(this Window window, string tag = null, bool restoreWindowState = false, bool restoreWindowPosition = false)
+        public static void LoadWindowSize(this Window window, string tag = null, bool restoreWindowState = false, bool restoreWindowPosition = true)
         {
             Argument.IsNotNull(() => window);
 
