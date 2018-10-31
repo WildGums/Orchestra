@@ -1,0 +1,43 @@
+﻿<catel:UserControl x:Class="Orchestra.Examples.Views.ControlsView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:local="using:Orchestra.Examples.Views"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   mc:Ignorable="d"
+                   xmlns:catel="http://schemas.catelproject.com"
+                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
+                   d:DesignHeight="300"
+                   d:DesignWidth="400">
+
+  <orccontrols:StackGrid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+
+    <Label>
+      <TextBlock TextWrapping="Wrap" Text="This view shows all the controls with the alignments updated with the style forwarders. The first row contains an alignment helper border." />
+    </Label>
+    
+    <Border BorderThickness="2" BorderBrush="Gray">
+      <WrapPanel Orientation="Horizontal">
+        <Button Content="Button" />
+        <CheckBox Content="CheckBox" />
+        <ComboBox Text="Combobox" IsEditable="true" />
+        <Label Content="Label" />
+        <RadioButton Content="RadioButton" />
+        <TextBlock Text="TextBlock" />
+        <TextBox Text="Text box" />
+      </WrapPanel>
+    </Border>
+  </orccontrols:StackGrid>
+</catel:UserControl>

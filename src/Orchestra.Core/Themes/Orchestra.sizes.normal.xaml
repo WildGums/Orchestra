@@ -3,7 +3,8 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
 	<!-- Sizes -->
-	<sys:Double x:Key="Size.MinHeight">23</sys:Double>
+	<sys:Double x:Key="Size.MinHeight">27</sys:Double>
+    <sys:Double x:Key="Size.Height">27</sys:Double>
 
 	<sys:Double x:Key="Size.Image.VerySmall">16</sys:Double>
 	<sys:Double x:Key="Size.Image.Small">23</sys:Double>
@@ -17,13 +18,13 @@
 	<sys:Double x:Key="MarginSize.Button.X">6</sys:Double>
 	<sys:Double x:Key="MarginSize.Button.Y">6</sys:Double>
 	<sys:Double x:Key="MarginSize.CheckBox.X">6</sys:Double>
-	<sys:Double x:Key="MarginSize.CheckBox.Y">2</sys:Double>
+	<sys:Double x:Key="MarginSize.CheckBox.Y">8</sys:Double>
 	<sys:Double x:Key="MarginSize.GroupBox.X">6</sys:Double>
 	<sys:Double x:Key="MarginSize.GroupBox.Y">0</sys:Double>
 	<sys:Double x:Key="MarginSize.Label.X">3</sys:Double>
 	<sys:Double x:Key="MarginSize.Label.Y">6</sys:Double>
 	<sys:Double x:Key="MarginSize.RadioButton.X">6</sys:Double>
-	<sys:Double x:Key="MarginSize.RadioButton.Y">2</sys:Double>
+	<sys:Double x:Key="MarginSize.RadioButton.Y">8</sys:Double>
 	<sys:Double x:Key="MarginSize.TextBlock.X">2</sys:Double>
 	<sys:Double x:Key="MarginSize.TextBlock.Y">2</sys:Double>
 

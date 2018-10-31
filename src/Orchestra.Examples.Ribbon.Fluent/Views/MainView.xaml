@@ -1,12 +1,13 @@
 ﻿<catel:UserControl x:Class="Orchestra.Examples.Ribbon.Views.MainView"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:catel="http://schemas.catelproject.com">
+                   xmlns:catel="http://schemas.catelproject.com"
+                   xmlns:views="clr-namespace:Orchestra.Examples.Views">
 
     <Grid>
         <TabControl>
             <TabItem Header="Plots" >
-                <TextBlock Text="IT WORKS!" />
+                <views:ControlsView />
             </TabItem>
 
             <TabItem Header="Aggregate">
