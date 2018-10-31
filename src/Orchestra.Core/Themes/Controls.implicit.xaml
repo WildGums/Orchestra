@@ -12,7 +12,6 @@
     </Style>
 
     <Style TargetType="{x:Type Button}">
-        <Setter Property="Margin" Value="{DynamicResource Margin.Button}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">
@@ -60,8 +59,7 @@
                 <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
             </ControlTemplate>
         </Style.Resources>
-        
-        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
@@ -214,7 +212,6 @@
     </Style>
 
     <Style TargetType="{x:Type CheckBox}">
-        <Setter Property="Margin" Value="{DynamicResource Margin.CheckBox}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="5,0,0,0"/>
         <Setter Property="Template">
@@ -369,6 +366,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style TargetType="{x:Type TabControl}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="Padding" Value="4,4,4,4"/>
@@ -444,7 +442,6 @@
     <SolidColorBrush x:Key="SliderTrackNormalBorder" Color="#D4D4D4"/>
 
     <Style x:Key="SliderRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
-        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="IsTabStop" Value="false"/>
         <Setter Property="Focusable" Value="false"/>
@@ -493,9 +490,8 @@
         <Setter Property="Foreground" Value="Gray"/>
         <Setter Property="Template" Value="{StaticResource ThumbControlTemplate}"/>
     </Style>
-    
+
     <Style TargetType="{x:Type Slider}">
-        <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="#FFC4C4C4"/>
@@ -659,7 +655,6 @@
     </Style>
 
     <Style TargetType="{x:Type RadioButton}">
-        <Setter Property="Margin" Value="{DynamicResource Margin.RadioButton}" />
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>

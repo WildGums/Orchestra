@@ -34,7 +34,9 @@
         <CheckBox Content="CheckBox" />
         <ComboBox Text="Combobox" IsEditable="true" />
         <Label Content="Label" />
+        <ProgressBar Minimum="0" Maximum="100" Value="50" Width="100" />
         <RadioButton Content="RadioButton" />
+        <Slider Minimum="0" Maximum="100" Value="50" Width="100" />
         <TextBlock Text="TextBlock" />
         <TextBox Text="Text box" />
       </WrapPanel>
