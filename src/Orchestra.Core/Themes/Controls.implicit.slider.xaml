@@ -63,7 +63,6 @@
                 <ControlTemplate TargetType="{x:Type Slider}">
                     <Border BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            Margin="{TemplateBinding Margin}"
                             VerticalAlignment="{TemplateBinding VerticalAlignment}"
                             Background="{TemplateBinding Background}"
                             SnapsToDevicePixels="true">
