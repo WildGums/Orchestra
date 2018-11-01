@@ -10,36 +10,68 @@
                    d:DesignHeight="300"
                    d:DesignWidth="400">
 
-  <orccontrols:StackGrid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-    </Grid.RowDefinitions>
+  <!--<ScrollViewer HorizontalScrollBarVisibility="Visible">-->
+    <orccontrols:StackGrid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
 
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto"/>
-    </Grid.ColumnDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
 
-    <Label>
-      <TextBlock TextWrapping="Wrap" Text="This view shows all the controls with the alignments updated with the style forwarders. The first row contains an alignment helper border." />
-    </Label>
-    
-    <Border BorderThickness="2" BorderBrush="Gray">
-      <WrapPanel Orientation="Horizontal">
-        <Button Content="Button" />
-        <CheckBox Content="CheckBox" />
-        <ComboBox Text="Combobox" IsEditable="true" />
-        <Label Content="Label" />
-        <ProgressBar Minimum="0" Maximum="100" Value="50" Width="100" />
-        <RadioButton Content="RadioButton" />
-        <Slider Minimum="0" Maximum="100" Value="50" Width="100" />
-        <TextBlock Text="TextBlock" />
-        <TextBox Text="Text box" />
-      </WrapPanel>
-    </Border>
-  </orccontrols:StackGrid>
+      <Label>
+        <TextBlock TextWrapping="Wrap" Text="This view shows all the controls with the alignments updated with the style forwarders. The first row contains an alignment helper border. All styles must also respect the current theme color." />
+      </Label>
+
+      <Border BorderThickness="2" BorderBrush="Gray">
+        <WrapPanel Orientation="Horizontal">
+          <Button Content="Button" ToolTip="Button" />
+          <CheckBox Content="CheckBox" ToolTip="CheckBox" />
+          <ComboBox Text="Combobox" IsEditable="true" ToolTip="ComboBox" />
+          <Label Content="Label" ToolTip="Label" />
+          <PasswordBox Width="100" ToolTip="PasswordBox" />
+          <ProgressBar Minimum="0" Maximum="100" Value="50" Width="100" ToolTip="ProgressBar" />
+          <RadioButton Content="RadioButton" ToolTip="RadioButton" />
+          <RepeatButton ToolTip="RepeatButton" />
+          <Slider Minimum="0" Maximum="100" Value="50" Width="100" ToolTip="Slider" />
+          <TextBlock Text="TextBlock" ToolTip="TextBlock" />
+          <TextBox Text="Text box" ToolTip="TextBox" />
+
+          <orccontrols:DatePicker ToolTip="Orc.Controls: DatePicker" />
+          <orccontrols:DateTimePicker ToolTip="Orc.Controls: DateTimePicker" />
+          <orccontrols:DropDownButton Width="40" ToolTip="Orc.Controls: DropDownButton" />
+          <orccontrols:FilterBox Width="100" ToolTip="Orc.Controls: FilterBox" />
+          <orccontrols:LinkLabel Content="LinkLabel" ToolTip="Orc.Controls: LinkLabel"/>
+          <orccontrols:NumericTextBox Width="100" ToolTip="Orc.Controls: NumericTextBox" />
+          <orccontrols:RangeSlider Width="100" Minimum="0" LowerValue="25" UpperValue="75" Maximum="100" ToolTip="Orc.Controls: RangeSlider" />
+          <orccontrols:TimeSpanPicker Width="100" ToolTip="Orc.Controls: TimeSpanPicker" />
+          <orccontrols:WatermarkTextBox Width="100" ToolTip="Orc.Controls: WatermarkTextBox" />
+        </WrapPanel>
+      </Border>
+
+      <Border BorderThickness="2" BorderBrush="Gray">
+        <StackPanel Orientation="Horizontal">
+          <GroupBox Header="GroupBox" />  
+          
+          <ListBox>
+            <ListBox.Items>
+              Item 1
+              Item 2
+              Item 3
+              Item 4
+            </ListBox.Items>
+          </ListBox>
+        
+          <ListView Width="100" />
+        </StackPanel>
+        
+      </Border>
+    </orccontrols:StackGrid>
+  <!--</ScrollViewer>-->
 </catel:UserControl>

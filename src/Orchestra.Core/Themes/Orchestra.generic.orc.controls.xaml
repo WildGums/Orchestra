@@ -1,0 +1,102 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:catel="http://schemas.catelproject.com"
+                    xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
+
+    <Style x:Key="DefaultAnimatedGifStyle" 
+           TargetType="{x:Type orccontrols:AnimatedGif}" 
+           BasedOn="{StaticResource {x:Type orccontrols:AnimatedGif}}">
+        <Style.Setters>
+            <Setter Property="Margin" Value="{DynamicResource Margin.Default}"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="DefaultDatePickerStyle" 
+           TargetType="{x:Type orccontrols:DatePicker}"
+           BasedOn="{StaticResource {x:Type orccontrols:DatePicker}}">
+        <Style.Setters>
+            <Setter Property="Margin" Value="{DynamicResource Margin.Default}"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="DefaultDateTimePickerStyle" 
+           TargetType="{x:Type orccontrols:DateTimePicker}"
+           BasedOn="{StaticResource {x:Type orccontrols:DateTimePicker}}">
+        <Style.Setters>
+            <Setter Property="Margin" Value="{DynamicResource Margin.Default}"/>
+        </Style.Setters>
+    </Style>
+
+    <!--<Style x:Key="DefaultDbProviderPickerStyle" 
+           TargetType="{x:Type orccontrols:DbProviderPicker}"
+           BasedOn="{StaticResource {x:Type orccontrols:DbProviderPicker}}">
+        <Style.Setters>
+            <Setter Property="Margin" Value="{DynamicResource Margin.Default}"/>
+        </Style.Setters>
+    </Style>-->
+
+    <Style x:Key="DefaultDropDownButtonStyle" 
+           TargetType="{x:Type orccontrols:DropDownButton}"
+           BasedOn="{StaticResource {x:Type orccontrols:DropDownButton}}">
+        <Style.Setters>
+            <Setter Property="Margin" Value="{DynamicResource Margin.Default}"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="DefaultFilterBoxStyle" 
+           TargetType="{x:Type orccontrols:FilterBox}"
+           BasedOn="{StaticResource {x:Type orccontrols:FilterBox}}">
+        <Style.Setters>
+            <Setter Property="Margin" Value="{DynamicResource Margin.Default}"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="DefaultLinkLabelStyle" 
+           TargetType="{x:Type orccontrols:LinkLabel}"
+           BasedOn="{StaticResource {x:Type orccontrols:LinkLabel}}">
+        <Style.Setters>
+            <Setter Property="Margin" Value="{DynamicResource Margin.Label}" />
+            <Setter Property="Padding" Value="{DynamicResource Padding.Label}" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="DefaultNumericTextBoxStyle" 
+           TargetType="{x:Type orccontrols:NumericTextBox}"
+           BasedOn="{StaticResource {x:Type orccontrols:NumericTextBox}}">
+        <Style.Setters>
+            <Setter Property="Margin" Value="{DynamicResource Margin.Default}"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="DefaultRangeSliderStyle" 
+           TargetType="{x:Type orccontrols:RangeSlider}"
+           BasedOn="{StaticResource {x:Type orccontrols:RangeSlider}}">
+        <Style.Setters>
+            <Setter Property="Height" Value="{DynamicResource Size.Height}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="DefaultTimeSpanPickerStyle" 
+           TargetType="{x:Type orccontrols:TimeSpanPicker}"
+           BasedOn="{StaticResource {x:Type orccontrols:TimeSpanPicker}}">
+        <Style.Setters>
+            <Setter Property="Margin" Value="{DynamicResource Margin.Default}"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="DefaultWatermarkTextBoxStyle" 
+           TargetType="{x:Type orccontrols:WatermarkTextBox}"
+           BasedOn="{StaticResource {x:Type orccontrols:WatermarkTextBox}}">
+        <Style.Setters>
+            <Setter Property="MinHeight" Value="{DynamicResource Size.MinHeight}" />
+            <Setter Property="Height" Value="{DynamicResource Size.Height}" />
+            <Setter Property="Padding" Value="{DynamicResource Padding.TextBox}" />
+            <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style.Setters>
+    </Style>
+
+</ResourceDictionary>
