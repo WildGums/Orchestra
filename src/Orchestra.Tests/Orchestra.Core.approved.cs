@@ -15,6 +15,8 @@ public class static ModuleInitializer
 }
 namespace Orchestra
 {
+    [System.ObsoleteAttribute("Use `Orc.Controls.AccentColorStyle` instead. Will be treated as an error from ver" +
+        "sion 5.2.0. Will be removed in version 6.0.0.", false)]
     public enum AccentColorStyle
     {
         AccentColor = 0,
@@ -157,8 +159,14 @@ namespace Orchestra
         public static System.Windows.ResourceDictionary CreateAccentColorResourceDictionary(System.Windows.Media.Color color) { }
         public static void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = False) { }
         public static void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = False) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.ThemeHelper` instead. Will be treated as an error from version " +
+            "5.2.0. Will be removed in version 6.0.0.", false)]
         public static System.Windows.Media.Color GetAccentColor(Orchestra.AccentColorStyle colorStyle = 0) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.ThemeHelper` instead. Will be treated as an error from version " +
+            "5.2.0. Will be removed in version 6.0.0.", false)]
         public static System.Windows.Media.SolidColorBrush GetAccentColorBrush(Orchestra.AccentColorStyle colorStyle) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.ThemeHelper` instead. Will be treated as an error from version " +
+            "5.2.0. Will be removed in version 6.0.0.", false)]
         public static System.Windows.Media.SolidColorBrush GetAccentColorBrush() { }
         public static System.Windows.ResourceDictionary GetAccentColorResourceDictionary() { }
     }
@@ -272,6 +280,16 @@ namespace Orchestra.Configuration
 }
 namespace Orchestra.Controls
 {
+    public class AlignmentGrid : System.Windows.Controls.ContentControl
+    {
+        public static readonly System.Windows.DependencyProperty HorizontalStepProperty;
+        public static readonly System.Windows.DependencyProperty LineBrushProperty;
+        public static readonly System.Windows.DependencyProperty VerticalStepProperty;
+        public AlignmentGrid() { }
+        public double HorizontalStep { get; set; }
+        public System.Windows.Media.Brush LineBrush { get; set; }
+        public double VerticalStep { get; set; }
+    }
     public class AnimatingTextBlock : System.Windows.Controls.UserControl, Orchestra.Services.IStatusRepresenter
     {
         public static readonly System.Windows.DependencyProperty HideStoryboardProperty;
@@ -614,6 +632,8 @@ namespace Orchestra.Services
         public AboutService(Catel.Services.IUIVisualizerService uiVisualizerService, Orchestra.Services.IAboutInfoService aboutInfoService) { }
         public virtual System.Threading.Tasks.Task ShowAboutAsync() { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.Services.AccentColorService` instead. Will be treated as an err" +
+        "or from version 5.2.0. Will be removed in version 6.0.0.", false)]
     public class AccentColorService : Orchestra.Services.IAccentColorService
     {
         public AccentColorService() { }
@@ -683,6 +703,8 @@ namespace Orchestra.Services
     {
         System.Threading.Tasks.Task ShowAboutAsync();
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.Services.IAccentColorService` instead. Will be treated as an er" +
+        "ror from version 5.2.0. Will be removed in version 6.0.0.", false)]
     public interface IAccentColorService
     {
         System.Windows.Media.Color GetAccentColor();
