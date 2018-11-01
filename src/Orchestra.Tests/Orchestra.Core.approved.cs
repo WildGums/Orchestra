@@ -159,17 +159,16 @@ namespace Orchestra
     public class static ThemeHelper
     {
         public static bool DynamicallyDetermineIdealTextColor { get; set; }
+        [System.ObsoleteAttribute("Only use AccentColor and AccentColorBrush markup extensions. Will be removed in v" +
+            "ersion 6.0.0.", true)]
         public static System.Windows.ResourceDictionary CreateAccentColorResourceDictionary(System.Windows.Media.Color color) { }
         public static void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = False) { }
         public static void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = False) { }
-        [System.ObsoleteAttribute("Use `Orc.Controls.ThemeHelper` instead. Will be treated as an error from version " +
-            "5.2.0. Will be removed in version 6.0.0.", false)]
+        [System.ObsoleteAttribute("Use `Orc.Controls.ThemeHelper` instead. Will be removed in version 6.0.0.", true)]
         public static System.Windows.Media.Color GetAccentColor(Orchestra.AccentColorStyle colorStyle = 0) { }
-        [System.ObsoleteAttribute("Use `Orc.Controls.ThemeHelper` instead. Will be treated as an error from version " +
-            "5.2.0. Will be removed in version 6.0.0.", false)]
+        [System.ObsoleteAttribute("Use `Orc.Controls.ThemeHelper` instead. Will be removed in version 6.0.0.", true)]
         public static System.Windows.Media.SolidColorBrush GetAccentColorBrush(Orchestra.AccentColorStyle colorStyle) { }
-        [System.ObsoleteAttribute("Use `Orc.Controls.ThemeHelper` instead. Will be treated as an error from version " +
-            "5.2.0. Will be removed in version 6.0.0.", false)]
+        [System.ObsoleteAttribute("Use `Orc.Controls.ThemeHelper` instead. Will be removed in version 6.0.0.", true)]
         public static System.Windows.Media.SolidColorBrush GetAccentColorBrush() { }
         public static System.Windows.ResourceDictionary GetAccentColorResourceDictionary() { }
     }
