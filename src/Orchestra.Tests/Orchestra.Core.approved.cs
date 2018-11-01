@@ -115,7 +115,10 @@ namespace Orchestra
     public class static LogHelper
     {
         public static void AddFileLogListener() { }
+        [System.ObsoleteAttribute("Use `AddLogListenerForUnhandledExceptionAsync` instead. Will be removed in versio" +
+            "n 6.0.0.", true)]
         public static void AddLogListenerForUnhandledException(System.Exception ex) { }
+        public static System.Threading.Tasks.Task AddLogListenerForUnhandledExceptionAsync(System.Exception ex) { }
         public static void CleanUpAllLogTypeFiles(bool keepCleanInRealTime = False) { }
         public static Catel.Logging.ILogListener CreateFileLogListener(string prefix) { }
     }
@@ -673,6 +676,7 @@ namespace Orchestra.Services
     {
         public CloseApplicationService(Orchestra.Services.IEnsureStartupService ensureStartupService) { }
         public void Close() { }
+        public System.Threading.Tasks.Task CloseAsync() { }
     }
     public class CommandInfoService : Orchestra.Services.ICommandInfoService
     {
@@ -740,7 +744,9 @@ namespace Orchestra.Services
     }
     public interface ICloseApplicationService
     {
+        [System.ObsoleteAttribute("Use `CloseAsync` instead. Will be removed in version 6.0.0.", true)]
         void Close();
+        System.Threading.Tasks.Task CloseAsync();
     }
     public interface ICommandInfoService
     {
@@ -994,7 +1000,7 @@ namespace Orchestra.ViewModels
         public KeyboardMappingsOverviewViewModel(Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ICommandInfoService commandInfoService, Catel.Services.IUIVisualizerService uiVisualizerService, Catel.Services.ILanguageService languageService, Catel.Services.IViewExportService viewExportService, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService) { }
         public Catel.MVVM.TaskCommand Customize { get; }
         public System.Collections.Generic.List<Orchestra.Models.KeyboardMappings> KeyboardMappings { get; }
-        public Catel.MVVM.Command Print { get; }
+        public Catel.MVVM.TaskCommand Print { get; }
         protected override System.Threading.Tasks.Task InitializeAsync() { }
     }
     public class MessageBoxViewModel : Catel.MVVM.ViewModelBase
