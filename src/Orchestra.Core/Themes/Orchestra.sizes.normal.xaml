@@ -26,7 +26,7 @@
 	<sys:Double x:Key="MarginSize.RadioButton.X">6</sys:Double>
 	<sys:Double x:Key="MarginSize.RadioButton.Y">8</sys:Double>
     <sys:Double x:Key="MarginSize.Slider.X">8</sys:Double>
-    <sys:Double x:Key="MarginSize.Slider.Y">8</sys:Double>
+    <sys:Double x:Key="MarginSize.Slider.Y">6</sys:Double>
 	<sys:Double x:Key="MarginSize.TextBlock.X">2</sys:Double>
 	<sys:Double x:Key="MarginSize.TextBlock.Y">2</sys:Double>
     <sys:Double x:Key="MarginSize.TextBox.X">6</sys:Double>
