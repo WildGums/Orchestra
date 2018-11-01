@@ -214,15 +214,6 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to execute ApplicationWatcher action.
-        /// </summary>
-        internal static string Orchestra_FailedToExecuteAppWatcherAction {
-            get {
-                return ResourceManager.GetString("Orchestra_FailedToExecuteAppWatcherAction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Input gesture.
         /// </summary>
         internal static string Orchestra_InputGesture {

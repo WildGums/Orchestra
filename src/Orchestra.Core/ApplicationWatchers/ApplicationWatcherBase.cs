@@ -99,7 +99,7 @@ namespace Orchestra
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(ex, LanguageHelper.GetString("Orchestra_FailedToExecuteAppWatcherAction"));
+                        Log.Error(ex, LanguageHelper.GetString("Failed to execute ApplicationWatcher action"));
                     }
                 }
             }
