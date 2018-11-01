@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
     <Style TargetType="{x:Type CheckBox}">
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -36,8 +37,8 @@
                             <Setter Property="Foreground" Value="#FFADADAD"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="CheckBoxBorder" Value="{StaticResource AccentColorBrush4}"/>
-                            <Setter Property="BorderBrush" TargetName="CheckBoxBorder" Value="{StaticResource AccentColorBrush}"/>
+                            <Setter Property="Background" TargetName="CheckBoxBorder" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor4}"/>
+                            <Setter Property="BorderBrush" TargetName="CheckBoxBorder" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="False">
                             <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>

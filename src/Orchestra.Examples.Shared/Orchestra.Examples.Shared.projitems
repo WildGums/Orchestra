@@ -9,6 +9,8 @@
     <Import_RootNamespace>Orchestra.Examples</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IUpdatableAccentColorService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\UpdatableAccentColorService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ControlsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ControlsView.xaml.cs">
       <DependentUpon>ControlsView.xaml</DependentUpon>

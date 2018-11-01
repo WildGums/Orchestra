@@ -5,6 +5,7 @@
                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                   xmlns:behaviors="clr-namespace:Orchestra.Behaviors"
                   xmlns:orclogviewer="http://schemas.wildgums.com/orc/logviewer"
+                  xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
                   ShowInTaskbar="True" MinWidth="625" MinHeight="625" Width="625" Height="625"
                   SizeToContent="Manual" ResizeMode="CanResizeWithGrip" UseLayoutRounding="True">
 
@@ -52,7 +53,10 @@
         </Expander>
 
         <GroupBox Grid.Row="2" Header="Results">
-            <orclogviewer:AdvancedLogViewerControl x:Name="traceOutputControl" AccentColorBrush="{StaticResource AccentColorBrush}" ShowFilterBox="False" ShowTypeNames="False"/>
+            <orclogviewer:AdvancedLogViewerControl x:Name="traceOutputControl" 
+                                                   AccentColorBrush="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" 
+                                                   ShowFilterBox="False" 
+                                                   ShowTypeNames="False"/>
         </GroupBox>
     </Grid>
 

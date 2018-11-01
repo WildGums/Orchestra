@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
     <Style TargetType="{x:Type ComboBox}">
         <Style.Resources>
@@ -61,15 +62,15 @@
                                                 </Border>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" TargetName="PathGrid" Value="{StaticResource AccentColorBrush}" />
-                                                        <Setter Property="BorderBrush" TargetName="Chrome" Value="{StaticResource AccentColorBrush}" />
+                                                        <Setter Property="Background" TargetName="PathGrid" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" />
+                                                        <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" />
                                                         <Setter Property="Fill" TargetName="Arrow" Value="White" />
                                                     </Trigger>
                                                     <Trigger Property="IsChecked" Value="True">
-                                                        <Setter Property="Background" TargetName="PathGrid" Value="{StaticResource AccentColorBrush}" />
+                                                        <Setter Property="Background" TargetName="PathGrid" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" />
                                                         <Setter Property="Background" TargetName="Chrome" Value="White" />
                                                         <Setter Property="Fill" TargetName="Arrow" Value="White" />
-                                                        <Setter Property="BorderBrush" TargetName="Chrome" Value="{StaticResource AccentColorBrush}" />
+                                                        <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" />
                                                     </Trigger>
                                                     <Trigger Property="IsEnabled" Value="False">
                                                         <Setter Property="Fill" TargetName="Arrow" Value="#FFAFAFAF"/>
@@ -144,7 +145,7 @@
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsHighlighted" Value="true">
-                                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource AccentColorBrush4}"/>
+                                                <Setter Property="Background" TargetName="Bd" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor4}"/>
                                             </Trigger>
                                             <Trigger Property="IsEnabled" Value="false">
                                                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>

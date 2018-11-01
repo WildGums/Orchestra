@@ -36,7 +36,7 @@
 
     <Style x:Key="LinkLabelWithAccentColorStyle" TargetType="{x:Type orccontrols:LinkLabel}" BasedOn="{StaticResource {x:Type Label}}">
         <Setter Property="Foreground" Value="#575757"/>
-        <Setter Property="HoverForeground" Value="{StaticResource AccentColorBrush}"/>
+        <Setter Property="HoverForeground" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
 
         <Setter Property="HyperlinkStyle">
             <Setter.Value>

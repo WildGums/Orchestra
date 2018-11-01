@@ -1,12 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
-    <SolidColorBrush x:Key="Item.MouseOver.Background" Color="{DynamicResource AccentColor4}"/>
-    <SolidColorBrush x:Key="Item.MouseOver.Border" Color="{DynamicResource AccentColor}"/>
-    <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="{DynamicResource AccentColor4}"/>
-    <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="{DynamicResource AccentColor2}"/>
-    <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="{DynamicResource AccentColor3}"/>
-    <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="{DynamicResource AccentColor}" />
+    <SolidColorBrush x:Key="Item.MouseOver.Background" Color="{orccontrols:AccentColor AccentColorStyle=AccentColor4}"/>
+    <SolidColorBrush x:Key="Item.MouseOver.Border" Color="{orccontrols:AccentColor AccentColorStyle=AccentColor}"/>
+    <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="{orccontrols:AccentColor AccentColorStyle=AccentColor4}"/>
+    <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="{orccontrols:AccentColor AccentColorStyle=AccentColor2}"/>
+    <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="{orccontrols:AccentColor AccentColorStyle=AccentColor3}"/>
+    <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="{orccontrols:AccentColor AccentColorStyle=AccentColor}" />
 
     <Style TargetType="{x:Type ListBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>

@@ -32,9 +32,6 @@ namespace Orchestra
 
     public static class ThemeHelper
     {
-        /// <summary>
-        /// The log.
-        /// </summary>
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private static ResourceDictionary _accentColorResourceDictionary;
@@ -138,6 +135,9 @@ namespace Orchestra
             Log.Debug("Creating runtime accent resource dictionary");
 
             var resourceDictionary = new ResourceDictionary();
+
+            // TODO: Replace by orccontrols:AccentColor and orccontrols:AccentColorBrush markup extensions so
+            // the styles can be updated at runtime
 
             resourceDictionary.Add("HighlightColor", color);
             resourceDictionary.Add("HighlightBrush", ((Color)resourceDictionary["HighlightColor"]).GetSolidColorBrush());

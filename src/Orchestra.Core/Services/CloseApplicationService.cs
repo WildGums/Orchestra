@@ -9,6 +9,7 @@ namespace Orchestra.Services
 {
     using System.Diagnostics;
     using System.Threading;
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
 
@@ -28,11 +29,16 @@ namespace Orchestra.Services
         #endregion
 
         #region Methods
-        public void Close()
+        public async void Close()
+        {
+            await CloseAsync();
+        }
+
+        public async Task CloseAsync()
         {
             _ensureStartupService.ConfirmApplicationStartedSuccessfully();
 
-            LogManager.FlushAll();
+            await LogManager.FlushAllAsync();
 
             // Very dirty, but allow app to write the file
             Thread.Sleep(50);

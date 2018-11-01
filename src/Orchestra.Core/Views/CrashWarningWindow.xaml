@@ -42,12 +42,12 @@
                         
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource ControlsHighlightBrush}"/>
+                                <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=Highlight}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource AccentColorBrush}"/>
+                                <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
                                 <Setter Property="Foreground" Value="White"/>
-                                <Setter Property="BorderBrush" TargetName="Chrome" Value="{DynamicResource AccentColorBrush}"/>
+                                <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Foreground" Value="#FFADADAD"/>

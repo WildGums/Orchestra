@@ -4,6 +4,7 @@
                       xmlns:orchestra="http://schemas.wildgums.com/orchestra"
                       xmlns:catel="http://schemas.catelproject.com"
                       xmlns:windows="clr-namespace:Orchestra.Windows"
+                      xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
                       ShowInTaskbar="True" ResizeMode="CanResize" WindowState="Maximized"
                       Title="{Binding ElementName=ribbonContentControl, Path=Content.ViewModel.Title}">
 
@@ -34,7 +35,7 @@
             <ProgressBar.Style>
                 <Style TargetType="{x:Type ProgressBar}">
                     <Setter Property="Margin" Value="0"/>
-                    <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"/>
+                    <Setter Property="Foreground" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
                     <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="Template">

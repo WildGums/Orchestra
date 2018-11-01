@@ -10,10 +10,12 @@ namespace Orchestra.Examples.MahApps.Services
     using System;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Catel;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
     using global::MahApps.Metro.Controls;
+    using Orchestra.Examples.Services;
     using Orchestra.Services;
     using Views;
     using InputGesture = Catel.Windows.Input.InputGesture;
@@ -24,9 +26,19 @@ namespace Orchestra.Examples.MahApps.Services
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
         #endregion
 
+        private readonly IServiceLocator _serviceLocator;
+
+        public ApplicationInitializationService(IServiceLocator serviceLocator)
+        {
+            Argument.IsNotNull(() => serviceLocator);
+
+            _serviceLocator = serviceLocator;
+        }
+
         public override async Task InitializeBeforeCreatingShellAsync()
         {
             // Non-async first
+            await RegisterTypesAsync();
             await InitializeCommandsAsync();
 
             await RunAndWaitAsync(new Func<Task>[]
@@ -39,6 +51,13 @@ namespace Orchestra.Examples.MahApps.Services
             var dependencyResolver = this.GetDependencyResolver();
             var flyoutService = dependencyResolver.Resolve<IFlyoutService>();
             flyoutService.AddFlyout<PersonView>(ExampleEnvironment.PersonFlyoutName, Position.Right, flyoutTheme: FlyoutTheme.Accent);
+        }
+
+        private async Task RegisterTypesAsync()
+        {
+            var serviceLocator = _serviceLocator;
+
+            serviceLocator.RegisterType<IUpdatableAccentColorService, UpdatableAccentColorService>();
         }
 
         private async Task InitializeCommandsAsync()
