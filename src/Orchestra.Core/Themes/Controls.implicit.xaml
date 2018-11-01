@@ -9,9 +9,6 @@
         <Setter Property="MinHeight" Value="23" />
     </Style>
 
-    <SolidColorBrush x:Key="SliderTrackNormalBackground" Color="#D4D4D4"/>
-    <SolidColorBrush x:Key="SliderTrackNormalBorder" Color="#D4D4D4"/>
-
     <Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -21,27 +18,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Orchestra.sizes.normal.xaml" />
-        <!--<ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic/catel.sizes.large.xaml" />-->
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Orchestra.generic.xaml" />
-        
-        <!-- All controls -->
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.button.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.checkbox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.combobox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.groupbox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.listbox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.listview.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.passwordbox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.progressbar.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.radiobutton.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.repeatbutton.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.slider.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.tabcontrol.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.textblock.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.textbox.xaml" />
-    </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

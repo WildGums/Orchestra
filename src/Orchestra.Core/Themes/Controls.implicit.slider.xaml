@@ -1,11 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Orchestra.sizes.normal.xaml" />
-        <!--<ResourceDictionary Source="/Catel.Extensions.Controls;component/themes/generic/catel.sizes.large.xaml" />-->
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Orchestra.generic.xaml" />
-    </ResourceDictionary.MergedDictionaries>
+    <SolidColorBrush x:Key="SliderTrackNormalBackground" Color="#D4D4D4"/>
+    <SolidColorBrush x:Key="SliderTrackNormalBorder" Color="#D4D4D4"/>
 
     <Style x:Key="SliderRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>

@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.windows.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.implicit.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.wpf.defaultstyles.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.wpf.xaml" />
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.orc.controls.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
