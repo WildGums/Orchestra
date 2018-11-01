@@ -16,7 +16,6 @@ namespace Orchestra.Examples.Ribbon.Services
     using Catel.Logging;
     using Catel.MVVM;
     using Models;
-    using Orchestra.Examples.Services;
     using Orchestra.Services;
     using InputGesture = Catel.Windows.Input.InputGesture;
 
@@ -92,7 +91,6 @@ namespace Orchestra.Examples.Ribbon.Services
             var serviceLocator = _serviceLocator;
 
             serviceLocator.RegisterType<IAboutInfoService, AboutInfoService>();
-            serviceLocator.RegisterType<IUpdatableAccentColorService, UpdatableAccentColorService>();
 
             //throw new Exception("this is a test exception");
         }

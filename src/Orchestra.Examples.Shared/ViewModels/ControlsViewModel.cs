@@ -6,17 +6,17 @@
     using Catel;
     using Catel.MVVM;
     using Catel.Reflection;
-    using Orchestra.Examples.Services;
+    using Orc.Controls.Services;
 
     public class ControlsViewModel : ViewModelBase
     {
-        private IUpdatableAccentColorService _updatableAccentColorService;
+        private IAccentColorService _accentColorService;
 
-        public ControlsViewModel(IUpdatableAccentColorService updatableAccentColorService)
+        public ControlsViewModel(IAccentColorService accentColorService)
         {
-            Argument.IsNotNull(() => updatableAccentColorService);
+            Argument.IsNotNull(() => accentColorService);
 
-            _updatableAccentColorService = updatableAccentColorService;
+            _accentColorService = accentColorService;
 
             AccentColors = typeof(Colors).GetPropertiesEx(true, true).Where(x => x.PropertyType.IsAssignableFromEx(typeof(Color))).Select(x => (Color)x.GetValue(null)).ToList();
             SelectedAccentColor = Colors.Orange;
@@ -31,7 +31,7 @@
         #region Methods
         private void OnSelectedAccentColorChanged()
         {
-            _updatableAccentColorService.SetAccentColor(SelectedAccentColor);
+            _accentColorService.SetAccentColor(SelectedAccentColor);
         }
         #endregion
     }

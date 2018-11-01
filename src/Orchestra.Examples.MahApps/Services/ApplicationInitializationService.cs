@@ -15,7 +15,6 @@ namespace Orchestra.Examples.MahApps.Services
     using Catel.Logging;
     using Catel.MVVM;
     using global::MahApps.Metro.Controls;
-    using Orchestra.Examples.Services;
     using Orchestra.Services;
     using Views;
     using InputGesture = Catel.Windows.Input.InputGesture;
@@ -57,7 +56,7 @@ namespace Orchestra.Examples.MahApps.Services
         {
             var serviceLocator = _serviceLocator;
 
-            serviceLocator.RegisterType<IUpdatableAccentColorService, UpdatableAccentColorService>();
+            
         }
 
         private async Task InitializeCommandsAsync()
