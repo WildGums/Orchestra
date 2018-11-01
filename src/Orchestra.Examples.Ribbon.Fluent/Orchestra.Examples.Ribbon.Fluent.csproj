@@ -39,6 +39,8 @@
     <ProjectReference Include="..\Orchestra.Core\Orchestra.Core.csproj" />
     <ProjectReference Include="..\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.csproj" />
   </ItemGroup>
+
+  <Import Project="..\Orchestra.Examples.Shared\Orchestra.Examples.Shared.projitems" Label="Shared" />
   
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -56,7 +58,5 @@
   </ItemGroup>
   
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-  
-  <Import Project="..\Orchestra.Examples.Shared\Orchestra.Examples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props')" />
 </Project>

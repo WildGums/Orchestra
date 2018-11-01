@@ -166,29 +166,29 @@ namespace Orchestra
                 resourceDictionary.Add(SystemColors.HighlightColorKey, resourceDictionary["AccentColor"]);
                 resourceDictionary.Add(SystemColors.HighlightBrushKey, resourceDictionary["AccentColorBrush"]);
 
-                // MahApps styles (we should in an ideal situation move this to the MahApps shell code)
-                //#region MahApps
-                //resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
-                //{
-                //    new GradientStop((Color)resourceDictionary["HighlightColor"], 0),
-                //    new GradientStop((Color)resourceDictionary["AccentColor3"], 1)
-                //}), new Point(0.001, 0.5), new Point(1.002, 0.5)));
+                // MahApps styles(we should in an ideal situation move this to the MahApps shell code)
+                #region MahApps
+                resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
+                {
+                    new GradientStop(Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor), 0),
+                    new GradientStop(Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor3), 1)
+                }), new Point(0.001, 0.5), new Point(1.002, 0.5)));
 
-                //resourceDictionary.Add("CheckmarkFill", resourceDictionary["AccentColorBrush"])
-                //resourceDictionary.Add("RightArrowFill", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("CheckmarkFill", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("RightArrowFill", resourceDictionary["AccentColorBrush"]);
 
-                //resourceDictionary.Add("IdealForegroundColor", Colors.White);
-                //resourceDictionary.Add("IdealForegroundColorBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
-                //resourceDictionary.Add("IdealForegroundDisabledBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush(0.4d));
-                //resourceDictionary.Add("AccentSelectedColorBrush", (Colors.White).GetSolidColorBrush());
+                resourceDictionary.Add("IdealForegroundColor", Colors.White);
+                resourceDictionary.Add("IdealForegroundColorBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
+                resourceDictionary.Add("IdealForegroundDisabledBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush(0.4d));
+                resourceDictionary.Add("AccentSelectedColorBrush", (Colors.White).GetSolidColorBrush());
 
-                //resourceDictionary.Add("MetroDataGrid.HighlightBrush", ((Color)resourceDictionary["AccentColor"]).GetSolidColorBrush());
-                //resourceDictionary.Add("MetroDataGrid.HighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
-                //resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", ((Color)resourceDictionary["AccentColor3"]).GetSolidColorBrush());
-                //resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", ((Color)resourceDictionary["AccentColor"]).GetSolidColorBrush());
-                //resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", ((Color)resourceDictionary["AccentColor2"]).GetSolidColorBrush());
-                //resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
-                //#endregion
+                resourceDictionary.Add("MetroDataGrid.HighlightBrush", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("MetroDataGrid.HighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
+                resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", resourceDictionary["AccentColorBrush3"]);
+                resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", resourceDictionary["AccentColorBrush2"]);
+                resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
+                #endregion
 
                 // Fluent.Ribbon styles (we should in an ideal situation move this to the Fluent.Ribbon shell code)
                 #region Fluent.Ribbon
