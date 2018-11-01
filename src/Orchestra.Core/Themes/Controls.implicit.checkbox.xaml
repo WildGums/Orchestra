@@ -6,7 +6,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
-                    <BulletDecorator Background="Transparent" SnapsToDevicePixels="true">
+                    <BulletDecorator Background="Transparent" SnapsToDevicePixels="true"
+                                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
                         <BulletDecorator.Bullet>
                             <Border x:Name="CheckBoxBorder"
                                     Height="12"

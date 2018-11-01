@@ -16,10 +16,13 @@
 
     <Style TargetType="{x:Type RadioButton}">
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
-                    <BulletDecorator Background="Transparent">
+                    <BulletDecorator Background="Transparent"
+                                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
                         <BulletDecorator.Bullet>
                             <Border x:Name="RadioButtonBorder"
                                         Width="12"
