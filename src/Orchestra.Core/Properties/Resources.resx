@@ -168,6 +168,9 @@
   <data name="Orchestra_FailedToCreateBackup" xml:space="preserve">
     <value>Failed to created a backup. To prevent data loss, the application will now exit and not delete any files. Please contact support so they can guide you through the process.</value>
   </data>
+  <data name="Orchestra_FailedToExecuteAppWatcherAction" xml:space="preserve">
+    <value>Failed to execute ApplicationWatcher action</value>
+  </data>
   <data name="Orchestra_InputGesture" xml:space="preserve">
     <value>Input gesture</value>
   </data>
