@@ -216,7 +216,6 @@
     <!-- RichTextBox -->
     <Style x:Key="DefaultRichTextBoxStyle" TargetType="{x:Type RichTextBox}">
         <Setter Property="MinHeight" Value="{DynamicResource Size.MinHeight}" />
-        <Setter Property="Height" Value="{DynamicResource Size.Height}" />
         <Setter Property="Padding" Value="{DynamicResource Padding.TextBox}" />
         <Setter Property="Margin" Value="{DynamicResource Margin.TextBox}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
