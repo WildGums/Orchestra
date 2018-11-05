@@ -47,7 +47,12 @@
            TargetType="{x:Type orccontrols:FilterBox}"
            BasedOn="{StaticResource {x:Type orccontrols:FilterBox}}">
         <Style.Setters>
+            <Setter Property="MinHeight" Value="{DynamicResource Size.MinHeight}" />
+            <Setter Property="Height" Value="{DynamicResource Size.Height}" />
+            <Setter Property="Padding" Value="{DynamicResource Padding.TextBox}" />
             <Setter Property="Margin" Value="{DynamicResource Margin.Default}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
         </Style.Setters>
     </Style>
 
