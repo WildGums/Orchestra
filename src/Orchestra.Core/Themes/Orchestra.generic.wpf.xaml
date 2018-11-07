@@ -8,6 +8,154 @@
     <catel:BooleanToHidingVisibilityConverter x:Key="BooleanToHidingVisibilityConverter" />
     <catel:GetFirstValidationErrorConverter x:Key="GetFirstValidationErrorConverter" />
 
+    <!-- Very large image buttons -->
+    <Style x:Key="VeryLargeImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButtonStyle}">
+        <Setter Property="Width" Value="{DynamicResource Size.Image.VeryLarge}" />
+        <Setter Property="Height" Value="{DynamicResource Size.Image.VeryLarge}" />
+    </Style>
+
+    <Style x:Key="VeryLargeRightAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource VeryLargeImageButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.RightAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <!-- Large image buttons -->
+    <Style x:Key="LargeImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButtonStyle}">
+        <Setter Property="Width" Value="{DynamicResource Size.Image.Large}" />
+        <Setter Property="Height" Value="{DynamicResource Size.Image.Large}" />
+    </Style>
+
+    <Style x:Key="LargeRightAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource LargeImageButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.RightAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="LargeSideImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource LargeImageButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button}" />
+    </Style>
+
+    <!-- Medium image buttons -->
+    <Style x:Key="MediumImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButtonStyle}">
+        <Setter Property="Width" Value="{DynamicResource Size.Image.Medium}" />
+        <Setter Property="Height" Value="{DynamicResource Size.Image.Medium}" />
+    </Style>
+
+    <Style x:Key="ImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MediumImageButtonStyle}" />
+
+    <Style x:Key="MediumRightAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MediumImageButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.RightAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="MediumTopRightAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MediumRightAlignedImageButtonStyle}">
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+
+    <Style x:Key="RightAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MediumRightAlignedImageButtonStyle}">
+    </Style>
+
+    <Style x:Key="TopRightAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MediumTopRightAlignedImageButtonStyle}">
+    </Style>
+
+    <Style x:Key="MediumLeftAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MediumImageButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.LeftAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <Style x:Key="MediumTopLeftAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MediumLeftAlignedImageButtonStyle}">
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+
+    <Style x:Key="LeftAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MediumLeftAlignedImageButtonStyle}">
+    </Style>
+
+    <Style x:Key="TopLeftAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MediumTopLeftAlignedImageButtonStyle}">
+    </Style>
+
+    <!-- Toolbar image buttons (small) -->
+    <Style x:Key="ToolBarImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButtonStyle}">
+        <Setter Property="Width" Value="{DynamicResource Size.Image.Small}" />
+        <Setter Property="Height" Value="{DynamicResource Size.Image.Small}" />
+    </Style>
+
+    <Style x:Key="RightAlignedToolBarImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ToolBarImageButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.RightAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="TopRightAlignedToolBarImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource RightAlignedToolBarImageButtonStyle}">
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+
+    <Style x:Key="LeftAlignedToolBarImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ToolBarImageButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.LeftAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <!-- Small image buttons -->
+    <Style x:Key="SmallImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ToolBarImageButtonStyle}" />
+
+    <Style x:Key="SmallRightAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SmallImageButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.RightAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="SmallLeftAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SmallImageButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.LeftAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <!-- Very small image buttons -->
+    <Style x:Key="VerySmallImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButtonStyle}">
+        <Setter Property="Width" Value="{DynamicResource Size.Image.VerySmall}" />
+        <Setter Property="Height" Value="{DynamicResource Size.Image.VerySmall}" />
+    </Style>
+
+    <Style x:Key="VerySmallRightAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource VerySmallImageButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.RightAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="VerySmallLeftAlignedImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource VerySmallImageButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.LeftAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <!-- Fixed size buttons -->
+    <Style x:Key="LargeFixedSizeButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButtonStyle}">
+        <Setter Property="MinWidth" Value="125" />
+        <Setter Property="MinHeight" Value="{DynamicResource Size.MinHeight}" />
+    </Style>
+
+    <Style x:Key="FixedSizeButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButtonStyle}">
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="MinHeight" Value="{DynamicResource Size.MinHeight}" />
+    </Style>
+
+    <Style x:Key="LeftAlignedLargeFixedSizeButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource LargeFixedSizeButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.LeftAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <Style x:Key="LeftAlignedFixedSizeButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource FixedSizeButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.LeftAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <Style x:Key="RightAlignedLargeFixedSizeButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource LargeFixedSizeButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.RightAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="RightAlignedFixedSizeButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource FixedSizeButtonStyle}">
+        <Setter Property="Margin" Value="{DynamicResource Margin.Button.RightAligned}" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="BottomRightAlignedFixedSizeButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource RightAlignedFixedSizeButtonStyle}">
+        <Setter Property="Button.VerticalAlignment" Value="Bottom" />
+    </Style>
+
     <!-- Grid -->
     <Style x:Key="WindowGridStyle" TargetType="{x:Type Grid}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
