@@ -242,7 +242,7 @@
 
     <!-- TextBox -->
     <Style x:Key="DefaultTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-        <Setter Property="MinHeight" Value="{DynamicResource Size.MinHeight}" />
+        <!--<Setter Property="MinHeight" Value="{DynamicResource Size.MinHeight}" />-->
         <Setter Property="Height" Value="{DynamicResource Size.Height}" />
         <Setter Property="Padding" Value="{DynamicResource Padding.TextBox}" />
         <Setter Property="Margin" Value="{DynamicResource Margin.TextBox}" />
