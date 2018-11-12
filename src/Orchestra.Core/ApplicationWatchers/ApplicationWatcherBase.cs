@@ -12,12 +12,16 @@ namespace Orchestra
     using System.Linq;
     using System.Windows;
     using System.Windows.Threading;
+    using Catel;
     using Catel.IoC;
+    using Catel.Logging;
     using Catel.Services;
     using ViewModels;
 
     public abstract class ApplicationWatcherBase
     {
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         protected static readonly IDispatcherService DispatcherService;
 
         private static readonly DispatcherTimer DispatcherTimer;
@@ -88,7 +92,15 @@ namespace Orchestra
                 while (_shellActivatedActions.Any())
                 {
                     var action = _shellActivatedActions.Dequeue();
-                    action(mainWindow);
+
+                    try
+                    {
+                        action(mainWindow);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, LanguageHelper.GetString("Failed to execute ApplicationWatcher action"));
+                    }
                 }
             }
         }

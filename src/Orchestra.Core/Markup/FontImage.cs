@@ -48,6 +48,7 @@ namespace Orchestra.Markup
         /// </summary>
         public FontImage()
         {
+            AllowUpdatableStyleSetters = true;
             FontFamily = DefaultFontFamily;
             Brush = DefaultBrush;
         }

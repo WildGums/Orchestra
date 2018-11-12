@@ -30,6 +30,7 @@ namespace Orchestra.Markup
 
         public CanvasViewbox()
         {
+            AllowUpdatableStyleSetters = true;
             Foreground = Brushes.Transparent;
         }
 

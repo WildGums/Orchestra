@@ -6,14 +6,35 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Catel.MVVM;component/Themes/Generic.xaml" />
         <ResourceDictionary Source="/Orc.Controls;component/Themes/Generic.xaml" />
-        
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.implicit.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.explicit.xaml" />
-        
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.listbox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.messagebox.xaml" />
 
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.normal.xaml" />
+
+        <!-- All wpf controls restyled with accent colors -->
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.implicit.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.button.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.checkbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.combobox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.gridsplitter.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.groupbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.listbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.listview.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.passwordbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.progressbar.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.radiobutton.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.repeatbutton.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.richtextbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.slider.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.tabcontrol.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.textblock.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.textbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.treeview.xaml" />
+        
+        <!-- Explicit control templates -->
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.explicit.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.messagebox.xaml" />
+
+        <!-- Default overrides (with margins -->
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

@@ -10,7 +10,7 @@
 
 namespace Orchestra.Properties {
     using System;
-    using Catel.Reflection;
+    
     
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
@@ -39,7 +39,7 @@ namespace Orchestra.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Orchestra.Properties.Resources", typeof(Resources).GetAssemblyEx());
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Orchestra.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -399,6 +399,33 @@ namespace Orchestra.Properties {
         internal static string Orchestra_SystemInfo {
             get {
                 return ResourceManager.GetString("Orchestra_SystemInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Third Party Notices.
+        /// </summary>
+        internal static string Orchestra_ThirdPartyNotices {
+            get {
+                return ResourceManager.GetString("Orchestra_ThirdPartyNotices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This software is based on or incorporates material from the projects listed below (collectively, Third Party Code). {0} might not be the original author of the Third Party Code. The original copyright notice and the license under which {0} received such Third Party Code, are set forth below. Such licenses and notices are provided for informational purposes only. {0} licenses the Third Party Code to you under the terms set forth in the EULA for {1}. {0} reserves all other rights not expressly grated under th [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Orchestra_ThirdPartyNotices_Explanation {
+            get {
+                return ResourceManager.GetString("Orchestra_ThirdPartyNotices_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Third Party Notices.
+        /// </summary>
+        internal static string Orchestra_ThirdPartyNotices_Title {
+            get {
+                return ResourceManager.GetString("Orchestra_ThirdPartyNotices_Title", resourceCulture);
             }
         }
         

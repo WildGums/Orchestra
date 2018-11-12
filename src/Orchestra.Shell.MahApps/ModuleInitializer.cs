@@ -9,6 +9,7 @@ using System.Windows.Input;
 using Catel.IoC;
 using Catel.MVVM;
 using Catel.Services;
+using Orchestra;
 using Orchestra.Services;
 using InputGesture = Catel.Windows.Input.InputGesture;
 
@@ -30,5 +31,9 @@ public static partial class ModuleInitializer
 
         commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
         commandManager.CreateCommand("Close", new InputGesture(Key.Escape), throwExceptionWhenCommandIsAlreadyCreated: false);
+
+        var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx", "Orchestra.Shell.MahApps", "Orchestra.Orchestra.Shell.MahApps", "Resources.ThirdPartyNotices.controlzex.txt"));
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("MahApps", "https://mahapps.com/", "Orchestra.Shell.MahApps", "Orchestra.Orchestra.Shell.MahApps", "Resources.ThirdPartyNotices.mahapps.txt"));
     }
 }

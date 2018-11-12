@@ -1,13 +1,30 @@
 #l "buildserver.cake"
 
 // Generic
-var DeploymentsShare = GetBuildServerVariable("DeploymentsShare", string.Empty);
-var Channel = GetBuildServerVariable("Channel", string.Empty);
+var DeploymentsShare = GetBuildServerVariable("DeploymentsShare");
+var Channel = GetBuildServerVariable("Channel");
 var UpdateDeploymentsShare = bool.Parse(GetBuildServerVariable("UpdateDeploymentsShare", "true"));
 
 // Inno Setup
 
 // Squirrel
 
+// Azure sync
+var AzureDeploymentsStorageConnectionString = GetBuildServerVariable("AzureDeploymentsStorageConnectionString");
 
-var WpfApps = WpfAppsToBuild ?? new string[] { };
+//-------------------------------------------------------------
+
+List<string> _wpfApps;
+
+public List<string> WpfApps
+{
+    get 
+    {
+        if (_wpfApps is null)
+        {
+            _wpfApps = new List<string>();
+        }
+
+        return _wpfApps;
+    }
+}

@@ -5,6 +5,7 @@
                   xmlns:controls="clr-namespace:Orchestra.Controls"
                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                   xmlns:behaviors="clr-namespace:Orchestra.Behaviors"
+                  xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
                   ResizeMode="NoResize" 
                   WindowStyle="None"
                   MinWidth="400"
@@ -53,7 +54,7 @@
             <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="15"
                 Visibility="{Binding IsSystemInformationLoaded, Converter={catel:BooleanToCollapsingVisibilityConverter}, ConverterParameter=True}">
                 <Label Content="{catel:LanguageBinding Orchestra_RetrievingSystemInfo}" FontSize="14" HorizontalAlignment="Center" />
-                <controls:BusyIndicator Foreground="{DynamicResource AccentColorBrush}" Margin="8" IgnoreUnloadedEventCount="1" />
+                <controls:BusyIndicator Foreground="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" Margin="8" IgnoreUnloadedEventCount="1" />
             </StackPanel>
         </Grid>
 

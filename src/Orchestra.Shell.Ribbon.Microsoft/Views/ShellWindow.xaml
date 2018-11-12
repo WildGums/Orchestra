@@ -3,6 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:orchestra="http://schemas.wildgums.com/orchestra"
                       xmlns:windows="clr-namespace:Orchestra.Windows"
+                      xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
                       ShowInTaskbar="True" ResizeMode="CanResize" WindowState="Maximized">
 
     <Grid>
@@ -24,7 +25,7 @@
             <ProgressBar.Style>
                 <Style TargetType="{x:Type ProgressBar}">
                     <Setter Property="Margin" Value="0"/>
-                    <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"/>
+                    <Setter Property="Foreground" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
                     <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="Template">

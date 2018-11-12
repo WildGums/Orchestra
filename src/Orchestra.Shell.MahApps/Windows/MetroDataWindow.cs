@@ -128,7 +128,7 @@ namespace Orchestra.Windows
             ResizeMode = ResizeMode.NoResize;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             BorderThickness = new Thickness(1d);
-            BorderBrush = Orchestra.ThemeHelper.GetAccentColorBrush();
+            BorderBrush = Orc.Controls.ThemeHelper.GetAccentColorBrush();
 
             this.ApplyIconFromApplication();
 
@@ -139,8 +139,8 @@ namespace Orchestra.Windows
             {
                 // Do not call this for ActualWidth and ActualHeight WPF, will cause problems with NET 40
                 // on systems where NET45 is *not* installed
-                if (!string.Equals(e.PropertyName, "ActualWidth", StringComparison.InvariantCulture) &&
-                    !string.Equals(e.PropertyName, "ActualHeight", StringComparison.InvariantCulture))
+                if (!string.Equals(e.PropertyName, nameof(ActualWidth), StringComparison.InvariantCulture) &&
+                    !string.Equals(e.PropertyName, nameof(ActualHeight), StringComparison.InvariantCulture))
                 {
                     PropertyChanged.SafeInvoke(this, e);
                 }
@@ -170,7 +170,7 @@ namespace Orchestra.Windows
                 OnUnloaded(e);
             };
 
-            SetBinding(TitleProperty, new Binding("Title"));
+            SetBinding(TitleProperty, new Binding(nameof(ViewModelBase.Title)));
 
             if (additionalButtons != null)
             {
@@ -835,7 +835,7 @@ namespace Orchestra.Windows
 
             vm.Validate();
 
-            return vm.ValidationContext.HasErrors;
+            return !vm.ValidationContext.HasErrors;
         }
 
         /// <summary>

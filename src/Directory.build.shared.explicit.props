@@ -22,6 +22,12 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <None Update="**\*.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
     <Compile Remove="Platforms\**\*.cs;Resources\**\*.cs" />
     <Page Remove="Platforms\**\*.xaml" />
     <!-- This is here so that the conditionally included files below are all visible in VS -->
@@ -30,6 +36,9 @@
     <Resource Include="Resources\Fonts\**\*.ttf" />
     <Resource Include="Resources\Images\**\*.png" />
     <Resource Include="Resources\Images\**\*.gif" />
+    <Resource Include="Resources\Images\**\*.jpg" />
+    <Resource Include="Resources\Images\**\*.jpeg" />
+    <EmbeddedResource Include="Resources\ThirdPartyNotices\**\*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +58,11 @@
     </Compile>
   </ItemGroup>
 
+  <!-- .NET Core app 2.1 -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
+    <DefineConstants>$(DefineConstants);NETCORE;NETCORE2_1;NETCOREAPP;NETCOREAPP2_1</DefineConstants>
+  </PropertyGroup>
+  
   <!-- .NET Standard 2.0 -->
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD2_0;NS;NS20</DefineConstants>

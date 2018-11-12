@@ -201,6 +201,24 @@
           <target state="needs-review-translation">User data settings</target>
           <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
         </trans-unit>
+        <trans-unit id="Orchestra_ThirdPartyNotices_Explanation" translate="yes" xml:space="preserve">
+          <source>This software is based on or incorporates material from the projects listed below (collectively, Third Party Code). {0} might not be the original author of the Third Party Code. The original copyright notice and the license under which {0} received such Third Party Code, are set forth below. Such licenses and notices are provided for informational purposes only. {0} licenses the Third Party Code to you under the terms set forth in the EULA for {1}. {0} reserves all other rights not expressly grated under this agreement, whether by implication, estoppel or otherwhise.
+
+These (alphabetically ordered) Third Party Notices have been put together with care. In the event that a Third Party Notice is missing or incorrectly listed, please let us know so we can update the notices accordingly.</source>
+          <target state="new">This software is based on or incorporates material from the projects listed below (collectively, Third Party Code). {0} might not be the original author of the Third Party Code. The original copyright notice and the license under which {0} received such Third Party Code, are set forth below. Such licenses and notices are provided for informational purposes only. {0} licenses the Third Party Code to you under the terms set forth in the EULA for {1}. {0} reserves all other rights not expressly grated under this agreement, whether by implication, estoppel or otherwhise.
+
+These (alphabetically ordered) Third Party Notices have been put together with care. In the event that a Third Party Notice is missing or incorrectly listed, please let us know so we can update the notices accordingly.</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">{0} = company name
+{1} = product name</note>
+        </trans-unit>
+        <trans-unit id="Orchestra_ThirdPartyNotices_Title" translate="yes" xml:space="preserve">
+          <source>Third Party Notices</source>
+          <target state="new">Third Party Notices</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ThirdPartyNotices" translate="yes" xml:space="preserve">
+          <source>Third Party Notices</source>
+          <target state="new">Third Party Notices</target>
+        </trans-unit>
       </group>
     </body>
   </file>

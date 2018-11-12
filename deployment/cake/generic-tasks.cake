@@ -7,22 +7,21 @@
 
 //-------------------------------------------------------------
 
-private void LogSeparator(string messageFormat, params object[] args)
+private void ValidateRequiredInput(string parameterName)
 {
-    Information("");
-    Information("----------------------------------------");
-    Information(messageFormat, args);
-    Information("----------------------------------------");
-    Information("");
+    if (!Parameters.ContainsKey(parameterName))
+    {
+        throw new Exception(string.Format("Parameter '{0}' is required but not defined", parameterName));
+    }
 }
 
 //-------------------------------------------------------------
 
-private void LogSeparator()
+private void ValidateGenericInput()
 {
-    Information("");
-    Information("----------------------------------------");
-    Information("");
+    ValidateRequiredInput("SolutionName");
+    ValidateRequiredInput("Company");
+    ValidateRequiredInput("RepositoryUrl");
 }
 
 //-------------------------------------------------------------
@@ -85,22 +84,6 @@ private void UpdateSolutionAssemblyInfo()
 
 //-------------------------------------------------------------
 
-private string GetProjectDirectory(string projectName)
-{
-    var projectDirectory = string.Format("./src/{0}/", projectName);
-    return projectDirectory;
-}
-
-//-------------------------------------------------------------
-
-private string GetProjectFileName(string projectName)
-{
-    var fileName = string.Format("{0}{1}.csproj", GetProjectDirectory(projectName), projectName);
-    return fileName;
-}
-
-//-------------------------------------------------------------
-
 Task("UpdateNuGet")
     .ContinueOnError()
     .Does(() => 
@@ -122,32 +105,47 @@ Task("UpdateNuGet")
 
 Task("RestorePackages")
     .IsDependentOn("UpdateNuGet")
+    .ContinueOnError()
     .Does(() =>
 {
+    var projects = GetFiles("./**/*.csproj");
     var solutions = GetFiles("./**/*.sln");
     
-    foreach(var solution in solutions)
+    var allFiles = new List<FilePath>();
+    //allFiles.AddRange(projects);
+    allFiles.AddRange(solutions);
+
+    foreach(var file in allFiles)
     {
-        Information("Restoring packages for {0}", solution);
+        Information("Restoring packages for {0}", file);
         
-        var nuGetRestoreSettings = new NuGetRestoreSettings();
-
-        if (!string.IsNullOrWhiteSpace(NuGetPackageSources))
+        try
         {
-            var sources = new List<string>();
+            var nuGetRestoreSettings = new NuGetRestoreSettings
+            {
+            };
 
-            foreach (var splitted in NuGetPackageSources.Split(new [] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+            if (!string.IsNullOrWhiteSpace(NuGetPackageSources))
             {
-                sources.Add(splitted);
+                var sources = new List<string>();
+
+                foreach (var splitted in NuGetPackageSources.Split(new [] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    sources.Add(splitted);
+                }
+                
+                if (sources.Count > 0)
+                {
+                    nuGetRestoreSettings.Source = sources;
+                }
             }
-            
-            if (sources.Count > 0)
-            {
-                nuGetRestoreSettings.Source = sources;
-            }
+
+            NuGetRestore(file, nuGetRestoreSettings);
         }
-
-        NuGetRestore(solution, nuGetRestoreSettings);
+        catch (Exception)
+        {
+            // Ignore
+        }
     }
 });
 
@@ -233,21 +231,34 @@ Task("CodeSign")
 
     foreach (var projectToCodeSign in projectsToCodeSign)
     {
+        var codeSignWildCard = CodeSignWildCard;
+        if (string.IsNullOrWhiteSpace(codeSignWildCard))
+        {
+            // Empty, we need to override with project name for valid default value
+            codeSignWildCard = projectToCodeSign;
+        }
+    
         var projectFilesToSign = new List<FilePath>();
 
         var outputDirectory = string.Format("{0}/{1}", OutputRootDirectory, projectToCodeSign);
 
-        var exeSignFilesSearchPattern = string.Format("{0}/**/*{1}*.exe", outputDirectory, CodeSignWildCard);
+        var exeSignFilesSearchPattern = string.Format("{0}/**/*{1}*.exe", outputDirectory, codeSignWildCard);
         Information(exeSignFilesSearchPattern);
         projectFilesToSign.AddRange(GetFiles(exeSignFilesSearchPattern));
 
-        var dllSignFilesSearchPattern = string.Format("{0}/**/*{1}*.dll", outputDirectory, CodeSignWildCard);
+        var dllSignFilesSearchPattern = string.Format("{0}/**/*{1}*.dll", outputDirectory, codeSignWildCard);
         Information(dllSignFilesSearchPattern);
         projectFilesToSign.AddRange(GetFiles(dllSignFilesSearchPattern));
 
         Information("Found '{0}' files to code sign for '{1}'", projectFilesToSign.Count, projectToCodeSign);
 
         filesToSign.AddRange(projectFilesToSign);
+    }
+
+    if (filesToSign.Count == 0)
+    {
+        Information("Found no files to sign, skipping code signing process...");
+        return;
     }
 
     Information("Found '{0}' files to code sign, this can take a few minutes...", filesToSign.Count);

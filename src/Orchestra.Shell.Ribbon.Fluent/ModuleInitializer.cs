@@ -1,4 +1,6 @@
 ﻿using Catel.IoC;
+using Orchestra;
+using Orchestra.Services;
 
 /// <summary>
 /// Used by the ModuleInit. All code inside the Initialize method is ran as soon as the assembly is loaded.
@@ -9,6 +11,8 @@ public static partial class ModuleInitializer
     {
         var serviceLocator = ServiceLocator.Default;
 
-        // TODO: Write services
+        var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx", "Orchestra.Shell.Ribbon.Fluent", "Orchestra.Orchestra.Shell.Ribbon.Fluent", "Resources.ThirdPartyNotices.controlzex.txt"));
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Fluent.Ribbon", "https://github.com/fluentribbon/Fluent.Ribbon", "Orchestra.Shell.Ribbon.Fluent", "Orchestra.Orchestra.Shell.Ribbon.Fluent", "Resources.ThirdPartyNotices.fluent.ribbon.txt"));
     }
 }

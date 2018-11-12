@@ -1,7 +1,11 @@
+#l "lib-generic.cake"
 #l "generic-tasks.cake"
 #l "apps-uwp-tasks.cake"
+#l "apps-web-tasks.cake"
 #l "apps-wpf-tasks.cake"
 #l "components-tasks.cake"
+#l "docker-tasks.cake"
+#l "tests.cake"
 
 #addin "nuget:?package=System.Net.Http&version=4.3.3"
 #addin "nuget:?package=Newtonsoft.Json&version=11.0.2"
@@ -10,10 +14,21 @@
 #tool "nuget:?package=MSBuild.SonarQube.Runner.Tool&version=4.3.0"
 #tool "nuget:?package=GitVersion.CommandLine&version=4.0.0-beta0012"
 
-var Target = GetBuildServerVariable("Target", "Default");
+//-------------------------------------------------------------
 
 Information("Running target '{0}'", Target);
 Information("Using output directory '{0}'", OutputRootDirectory);
+
+//-------------------------------------------------------------
+
+Information("Validating input");
+
+ValidateGenericInput();
+ValidateUwpAppsInput();
+ValidateWebAppsInput();
+ValidateWpfAppsInput();
+ValidateComponentsInput();
+ValidateDockerImagesInput();
 
 //-------------------------------------------------------------
 
@@ -21,7 +36,7 @@ private void BuildTestProjects()
 {
     foreach (var testProject in TestProjects)
     {
-        Information("Building test project '{0}'", testProject);
+        LogSeparator("Building test project '{0}'", testProject);
 
         var projectFileName = GetProjectFileName(testProject);
         
@@ -51,14 +66,29 @@ private void BuildTestProjects()
 
 //-------------------------------------------------------------
 
+Task("Prepare")
+    .Does(async () =>
+{
+    await PrepareForComponentsAsync();
+    await PrepareForUwpAppsAsync();
+    await PrepareForWebAppsAsync();
+    await PrepareForWpfAppsAsync();
+    await PrepareForDockerImagesAsync();
+});
+
+//-------------------------------------------------------------
+
 Task("UpdateInfo")
+    .IsDependentOn("Prepare")
     .Does(() =>
 {
     UpdateSolutionAssemblyInfo();
     
     UpdateInfoForComponents();
     UpdateInfoForUwpApps();
+    UpdateInfoForWebApps();
     UpdateInfoForWpfApps();
+    UpdateInfoForDockerImages();
 });
 
 //-------------------------------------------------------------
@@ -97,7 +127,9 @@ Task("Build")
 
     BuildComponents();
     BuildUwpApps();
+    BuildWebApps();
     BuildWpfApps();
+    BuildDockerImages();
 
     if (!string.IsNullOrWhiteSpace(SonarUrl))
     {
@@ -151,7 +183,6 @@ Task("Build")
         {
             case "error":
                 throw new Exception(string.Format("The SonarQube gateway for '{0}' returned ERROR, please check the error(s) at {1}/dashboard?id={0}", SonarProject, SonarUrl));
-                break;
 
             case "warn":
                 Warning("The SonarQube gateway for '{0}' returned WARNING, please check the warning(s) at {1}/dashboard?id={0}", SonarProject, SonarUrl);
@@ -167,7 +198,6 @@ Task("Build")
 
             default:
                 throw new Exception(string.Format("Unexpected SonarQube gateway status '{0}' for project '{1}'", status, SonarProject));
-                break;
         }
     }
 
@@ -176,7 +206,22 @@ Task("Build")
 
 //-------------------------------------------------------------
 
+Task("Test")
+    // Note: no dependency on 'build' since we might have already built the solution
+    .Does(() =>
+{
+    foreach (var testProject in TestProjects)
+    {
+        LogSeparator("Running tests for '{0}'", testProject);
+
+        RunUnitTests(testProject);
+    }
+});
+
+//-------------------------------------------------------------
+
 Task("Package")
+    // Note: no dependency on 'build' since we might have already built the solution
     // Make sure we have the temporary "project.assets.json" in case we need to package with Visual Studio
     .IsDependentOn("RestorePackages")
     // Make sure to update if we are running on a new agent so we can sign nuget packages
@@ -186,7 +231,9 @@ Task("Package")
 {
     PackageComponents();
     PackageUwpApps();
+    PackageWebApps();
     PackageWpfApps();
+    PackageDockerImages();
 });
 
 //-------------------------------------------------------------
@@ -209,24 +256,24 @@ Task("PackageLocal")
     {
         Information("Copying build artifact for '{0}'", component);
     
-        var cacheDirectory = Environment.ExpandEnvironmentVariables(string.Format("%userprofile%/.nuget/packages/{0}/{1}", component, VersionNuGet));
-
-        Information("Checking for existing local NuGet cached version at '{0}'", cacheDirectory);
-
-        if (DirectoryExists(cacheDirectory))
-        {
-            Information("Deleting already existing NuGet cached version from '{0}'", cacheDirectory);
-            
-            DeleteDirectory(cacheDirectory, new DeleteDirectorySettings()
-            {
-                Force = true,
-                Recursive = true
-            });
-        }
-        
         var sourceFile = string.Format("{0}/{1}.{2}.nupkg", OutputRootDirectory, component, VersionNuGet);
         CopyFiles(new [] { sourceFile }, NuGetLocalPackagesDirectory);
     }
+});
+
+//-------------------------------------------------------------
+
+Task("Deploy")
+    // Note: no dependency on 'package' since we might have already packaged the solution
+    // Make sure we have the temporary "project.assets.json" in case we need to package with Visual Studio
+    .IsDependentOn("RestorePackages")
+    .Does(() =>
+{
+    DeployComponents();
+    DeployUwpApps();
+    DeployWebApps();
+    DeployWpfApps();
+    DeployDockerImages();
 });
 
 //-------------------------------------------------------------
@@ -235,15 +282,31 @@ Task("PackageLocal")
 // stages
 //-------------------------------------------------------------
 
+Task("BuildAndTest")
+    .IsDependentOn("Build")
+    .IsDependentOn("Test");
+
+//-------------------------------------------------------------
+
 Task("BuildAndPackage")
     .IsDependentOn("Build")
+    .IsDependentOn("Test")
     .IsDependentOn("Package");
 
 //-------------------------------------------------------------
 
 Task("BuildAndPackageLocal")
     .IsDependentOn("Build")
+    //.IsDependentOn("Test") // Note: don't test for performance on local builds
     .IsDependentOn("PackageLocal");
+
+//-------------------------------------------------------------
+
+Task("BuildAndDeploy")
+    .IsDependentOn("Build")
+    .IsDependentOn("Test")
+    .IsDependentOn("Package")
+    .IsDependentOn("Deploy");
 
 //-------------------------------------------------------------
 

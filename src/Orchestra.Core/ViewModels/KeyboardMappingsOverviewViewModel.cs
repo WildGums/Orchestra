@@ -50,7 +50,7 @@ namespace Orchestra.ViewModels
             _viewExportService = viewExportService;
             _keyboardMappingsService = keyboardMappingsService;
 
-            Print = new Command(OnPrintExecute);
+            Print = new TaskCommand(OnPrintExecuteAsync);
             Customize = new TaskCommand(OnCustomizeExecuteAsync);
         }
 
@@ -64,14 +64,14 @@ namespace Orchestra.ViewModels
         /// <summary>
         /// Gets the Print command.
         /// </summary>
-        public Command Print { get; private set; }
+        public TaskCommand Print { get; private set; }
 
         /// <summary>
         /// Method to invoke when the Print command is executed.
         /// </summary>
-        private void OnPrintExecute()
+        private async Task OnPrintExecuteAsync()
         {
-            _viewExportService.Export(this);
+            await _viewExportService.ExportAsync(this);
         }
 
         /// <summary>

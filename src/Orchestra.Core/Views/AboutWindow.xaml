@@ -24,13 +24,14 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="360" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0" Grid.RowSpan="12" BorderThickness="1" BorderBrush="#D3D3D3" />
+        <Border Grid.Row="0" Grid.RowSpan="13" BorderThickness="1" BorderBrush="#D3D3D3" />
 
         <Image Grid.Row="1" Source="{Binding AppIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0 0 0 5" Height="135"
                Visibility="{Binding AppIcon, Converter={catel:ReferenceToCollapsingVisibilityConverter}}">
@@ -52,26 +53,28 @@
                Visibility="{Binding CompanyLogoUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
 
         <orccontrols:LinkLabel Grid.Row="7" FontSize="13" HorizontalAlignment="Center" LinkLabelBehavior="AlwaysUnderline"
-                       Url="{Binding UriInfo.Uri}" Content="{Binding UriInfo.DisplayText}" Command="{Binding OpenUrl}"
-                       Style="{StaticResource LinkLabelWithAccentColorStyle}" Margin="0"
+                       Url="{Binding UriInfo.Uri}" Content="{Binding UriInfo.DisplayText}" Command="{Binding OpenUrl}" Margin="0"
                        Visibility="{Binding UriInfo, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
 
         <TextBlock Grid.Row="8" FontSize="13" HorizontalAlignment="Center" Text="{Binding Copyright}"
                    Visibility="{Binding CopyrightUrl, Converter={catel:BooleanToCollapsingVisibilityConverter Link={catel:BooleanToOppositeBooleanConverter Link={catel:ReferenceToBooleanConverter}}}}"/>
 
         <orccontrols:LinkLabel Grid.Row="8" FontSize="13" HorizontalAlignment="Center" LinkLabelBehavior="AlwaysUnderline"
-                       Url="{Binding CopyrightUrl}" Content="{Binding Copyright}" Command="{Binding OpenCopyrightUrl}"
-                       Style="{StaticResource LinkLabelWithAccentColorStyle}" Margin="0"
+                       Url="{Binding CopyrightUrl}" Content="{Binding Copyright}" Command="{Binding OpenCopyrightUrl}" Margin="0"
                        Visibility="{Binding CopyrightUrl, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
 
-        <TextBlock Grid.Row="9" FontSize="13" HorizontalAlignment="Center" Text="{catel:LanguageBinding Orchestra_AllRightsReserved}" />
+        <orccontrols:LinkLabel Grid.Row="9" FontSize="13" HorizontalAlignment="Center" LinkLabelBehavior="AlwaysUnderline"
+                       Command="{Binding ShowThirdPartyNotices}" Content="{catel:LanguageBinding Orchestra_ThirdPartyNotices}"
+                       Margin="0" />
 
-        <TextBlock Grid.Row="10" FontSize="13" HorizontalAlignment="Center" Margin="0 15 0 0" 
+        <TextBlock Grid.Row="10" FontSize="13" HorizontalAlignment="Center" Text="{catel:LanguageBinding Orchestra_AllRightsReserved}" />
+
+        <TextBlock Grid.Row="11" FontSize="13" HorizontalAlignment="Center" Margin="0 15 0 0" 
                    Text="{catel:LanguageBinding Orchestra_DebugLoggingIsEnabled}" 
                    Foreground="Gray" FontStyle="Italic"
                    Visibility="{Binding IsDebugLoggingEnabled, Converter={catel:BooleanToCollapsingVisibilityConverter}}" />
 
-        <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20 0 20 0">
+        <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20 0 20 0">
             <Button Content="{catel:LanguageBinding Orchestra_ShowLog}" Width="80" Margin="0 20 15 30" Command="{Binding OpenLog}"
                     Visibility="{Binding ShowLogButton, Converter={StaticResource BooleanToCollapsingVisibilityConverter}}" />
             <Button Content="{catel:LanguageBinding Orchestra_Close}" Width="80" Margin="0 20 0 30" Click="Close_OnClick" />

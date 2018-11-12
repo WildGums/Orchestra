@@ -53,6 +53,7 @@ namespace Orchestra.ViewModels
             AppIcon = aboutInfo.AppIcon;
             OpenUrl = new Command(OnOpenUrlExecute, OnOpenUrlCanExecute);
             OpenCopyrightUrl = new Command(OnOpenCopyrightUrlExecute, OnOpenCopyrightUrlCanExecute);
+            ShowThirdPartyNotices = new TaskCommand(OnShowThirdPartyNoticesExecuteAsync);
             OpenLog = new TaskCommand(OnOpenLogExecuteAsync);
             ShowSystemInfo = new TaskCommand(OnShowSystemInfoExecuteAsync);
             EnableDetailedLogging = new Command(OnEnableDetailedLoggingExecute);
@@ -111,6 +112,13 @@ namespace Orchestra.ViewModels
         private void OnOpenCopyrightUrlExecute()
         {
             _processService.StartProcess(CopyrightUrl);
+        }
+
+        public TaskCommand ShowThirdPartyNotices { get; private set; }
+
+        private async Task OnShowThirdPartyNoticesExecuteAsync()
+        {
+            await _uiVisualizerService.ShowDialogAsync<ThirdPartyNoticesViewModel>();
         }
 
         public TaskCommand OpenLog { get; private set; }

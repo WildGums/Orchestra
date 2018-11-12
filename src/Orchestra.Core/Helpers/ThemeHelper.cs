@@ -17,7 +17,10 @@ namespace Orchestra
     using Catel.IoC;
     using Catel.Logging;
     using Orchestra.Services;
+    using Orc.Controls;
+    using System.Collections.Generic;
 
+    [ObsoleteEx(TreatAsErrorFromVersion = "5.2", RemoveInVersion = "6.0", ReplacementTypeOrMember = "Orc.Controls.AccentColorStyle")]
     public enum AccentColorStyle
     {
         AccentColor,
@@ -30,18 +33,10 @@ namespace Orchestra
 
     public static class ThemeHelper
     {
-        /// <summary>
-        /// The log.
-        /// </summary>
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
-        private static ResourceDictionary _accentColorResourceDictionary;
+        private static readonly Dictionary<Color, ResourceDictionary> _accentColorResourceDictionary = new Dictionary<Color, ResourceDictionary>();
 
         private static bool _ensuredOrchestraThemes;
-        private static SolidColorBrush _accentColorBrushCache;
-
-        private static readonly CacheStorage<AccentColorStyle, Color> _accentColorsCache = new CacheStorage<AccentColorStyle, Color>();
-        private static readonly CacheStorage<AccentColorStyle, SolidColorBrush> _accentColorBrushesCache = new CacheStorage<AccentColorStyle, SolidColorBrush>();
 
         static ThemeHelper()
         {
@@ -57,70 +52,48 @@ namespace Orchestra
         /// </value>
         public static bool DynamicallyDetermineIdealTextColor { get; set; }
 
+        [ObsoleteEx(TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0", ReplacementTypeOrMember = "Orc.Controls.ThemeHelper")]
         public static Color GetAccentColor(AccentColorStyle colorStyle = AccentColorStyle.AccentColor)
         {
-            return _accentColorsCache.GetFromCacheOrFetch(colorStyle, () =>
-            {
-                var color = GetAccentColorBrush().Color;
-
-                switch (colorStyle)
-                {
-                    case AccentColorStyle.AccentColor:
-                        return Color.FromArgb(255, color.R, color.G, color.B);
-
-                    case AccentColorStyle.AccentColor1:
-                        return Color.FromArgb(204, color.R, color.G, color.B);
-
-                    case AccentColorStyle.AccentColor2:
-                        return Color.FromArgb(153, color.R, color.G, color.B);
-
-                    case AccentColorStyle.AccentColor3:
-                        return Color.FromArgb(102, color.R, color.G, color.B);
-
-                    case AccentColorStyle.AccentColor4:
-                        return Color.FromArgb(51, color.R, color.G, color.B);
-
-                    case AccentColorStyle.AccentColor5:
-                        return Color.FromArgb(20, color.R, color.G, color.B);
-
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(colorStyle));
-                }
-            });
+            return Orc.Controls.ThemeHelper.GetAccentColor(colorStyle.GetOrcControlsAccentColor());
         }
 
+        [ObsoleteEx(TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0", ReplacementTypeOrMember = "Orc.Controls.ThemeHelper")]
         public static SolidColorBrush GetAccentColorBrush(AccentColorStyle colorStyle)
         {
-            return _accentColorBrushesCache.GetFromCacheOrFetch(colorStyle, () =>
-            {
-                var color = GetAccentColor(colorStyle);
-                return GetSolidColorBrush(color);
-            });
+            return Orc.Controls.ThemeHelper.GetAccentColorBrush(colorStyle.GetOrcControlsAccentColor());
         }
 
+        [ObsoleteEx(TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0", ReplacementTypeOrMember = "Orc.Controls.ThemeHelper")]
         public static SolidColorBrush GetAccentColorBrush()
         {
-            if (_accentColorBrushCache != null)
-            {
-                return _accentColorBrushCache;
-            }
-
-            var accentColorService = ServiceLocator.Default.ResolveType<IAccentColorService>();
-            _accentColorBrushCache = GetSolidColorBrush(accentColorService.GetAccentColor());
-
-            return _accentColorBrushCache;
+            return Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor);
         }
 
-        private static SolidColorBrush GetSolidColorBrush(Color color, double opacity = 1d)
+        private static Orc.Controls.AccentColorStyle GetOrcControlsAccentColor(this AccentColorStyle accentColor)
         {
-            var brush = new SolidColorBrush(color)
+            switch (accentColor)
             {
-                Opacity = opacity
-            };
+                case AccentColorStyle.AccentColor:
+                    return Orc.Controls.AccentColorStyle.AccentColor;
 
-            brush.Freeze();
+                case AccentColorStyle.AccentColor1:
+                    return Orc.Controls.AccentColorStyle.AccentColor1;
 
-            return brush;
+                case AccentColorStyle.AccentColor2:
+                    return Orc.Controls.AccentColorStyle.AccentColor2;
+
+                case AccentColorStyle.AccentColor3:
+                    return Orc.Controls.AccentColorStyle.AccentColor3;
+
+                case AccentColorStyle.AccentColor4:
+                    return Orc.Controls.AccentColorStyle.AccentColor4;
+
+                case AccentColorStyle.AccentColor5:
+                    return Orc.Controls.AccentColorStyle.AccentColor5;
+            }
+
+            return Orc.Controls.AccentColorStyle.AccentColor;
         }
 
         /// <summary>
@@ -143,132 +116,140 @@ namespace Orchestra
         /// <returns>ResourceDictionary.</returns>
         public static ResourceDictionary GetAccentColorResourceDictionary()
         {
-            return _accentColorResourceDictionary;
+            // Note: for v6, move the CreateAccentColorResourceDictionary(Color color) content here
+
+            var accentColor = GetAccentColor();
+            return CreateAccentColorResourceDictionary(accentColor);
         }
 
         /// <summary>
         /// Creates the accent color resource dictionary and automatically adds it to the application resources.
         /// </summary>
         /// <returns>ResourceDictionary.</returns>
+        [ObsoleteEx(TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0", Message = "Only use AccentColor and AccentColorBrush markup extensions")]
         public static ResourceDictionary CreateAccentColorResourceDictionary(Color color)
         {
-            if (_accentColorResourceDictionary != null)
+            if (!_accentColorResourceDictionary.TryGetValue(color, out var resourceDictionary))
             {
-                return _accentColorResourceDictionary;
-            }
+                Log.Info($"Setting theme to '{color}'");
 
-            Log.Info("Setting theme to '{0}'", color.ToString());
+                Log.Debug($"Creating runtime accent resource dictionary for accent color '{color}'");
 
-            Log.Debug("Creating runtime accent resource dictionary");
+                // TODO: Replace by orccontrols:AccentColor and orccontrols:AccentColorBrush markup extensions so
+                // the styles can be updated at runtime
 
-            var resourceDictionary = new ResourceDictionary();
+                resourceDictionary = new ResourceDictionary();
 
-            resourceDictionary.Add("HighlightColor", color);
-            resourceDictionary.Add("HighlightBrush", GetSolidColorBrush((Color)resourceDictionary["HighlightColor"]));
+                resourceDictionary.Add("HighlightColor", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
+                resourceDictionary.Add("HighlightBrush", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
 
-            resourceDictionary.Add("AccentColor", GetAccentColor(AccentColorStyle.AccentColor1));
-            resourceDictionary.Add("AccentColor2", GetAccentColor(AccentColorStyle.AccentColor2));
-            resourceDictionary.Add("AccentColor3", GetAccentColor(AccentColorStyle.AccentColor3));
-            resourceDictionary.Add("AccentColor4", GetAccentColor(AccentColorStyle.AccentColor4));
-            resourceDictionary.Add("AccentColor5", GetAccentColor(AccentColorStyle.AccentColor5));
+                resourceDictionary.Add("AccentColor", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
+                resourceDictionary.Add("AccentColor1", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor1));
+                resourceDictionary.Add("AccentColor2", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor2));
+                resourceDictionary.Add("AccentColor3", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor3));
+                resourceDictionary.Add("AccentColor4", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor4));
+                resourceDictionary.Add("AccentColor5", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor5));
 
-            resourceDictionary.Add("AccentBaseColor", (Color)resourceDictionary["AccentColor"]);
-            resourceDictionary.Add("AccentBaseColorBrush", new SolidColorBrush((Color)resourceDictionary["AccentColor"]));
+                resourceDictionary.Add("AccentBaseColor", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
+                resourceDictionary.Add("AccentBaseColorBrush", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
 
-            resourceDictionary.Add("AccentColorBrush", GetSolidColorBrush((Color)resourceDictionary["AccentColor"]));
-            resourceDictionary.Add("AccentColorBrush2", GetSolidColorBrush((Color)resourceDictionary["AccentColor2"]));
-            resourceDictionary.Add("AccentColorBrush3", GetSolidColorBrush((Color)resourceDictionary["AccentColor3"]));
-            resourceDictionary.Add("AccentColorBrush4", GetSolidColorBrush((Color)resourceDictionary["AccentColor4"]));
-            resourceDictionary.Add("AccentColorBrush5", GetSolidColorBrush((Color)resourceDictionary["AccentColor5"]));
-            resourceDictionary.Add("WindowTitleColorBrush", GetSolidColorBrush((Color)resourceDictionary["AccentColor"]));
+                resourceDictionary.Add("AccentColorBrush", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
+                resourceDictionary.Add("AccentColorBrush1", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor1));
+                resourceDictionary.Add("AccentColorBrush2", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor2));
+                resourceDictionary.Add("AccentColorBrush3", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor3));
+                resourceDictionary.Add("AccentColorBrush4", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor4));
+                resourceDictionary.Add("AccentColorBrush5", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor5));
 
-            // Wpf styles
-            resourceDictionary.Add(SystemColors.HighlightColorKey, (Color)resourceDictionary["AccentColor"]);
-            resourceDictionary.Add(SystemColors.HighlightBrushKey, GetSolidColorBrush((Color)resourceDictionary["AccentColor"]));
+                resourceDictionary.Add("WindowTitleColorBrush", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
 
-            // MahApps styles (we should in an ideal situation move this to the MahApps shell code)
-            #region MahApps
-            resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
+                // Wpf styles
+                resourceDictionary.Add(SystemColors.HighlightColorKey, resourceDictionary["AccentColor"]);
+                resourceDictionary.Add(SystemColors.HighlightBrushKey, resourceDictionary["AccentColorBrush"]);
+
+                // MahApps styles(we should in an ideal situation move this to the MahApps shell code)
+                #region MahApps
+                resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
                 {
-                    new GradientStop((Color)resourceDictionary["HighlightColor"], 0),
-                    new GradientStop((Color)resourceDictionary["AccentColor3"], 1)
+                    new GradientStop(Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor), 0),
+                    new GradientStop(Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor3), 1)
                 }), new Point(0.001, 0.5), new Point(1.002, 0.5)));
 
-            resourceDictionary.Add("CheckmarkFill", GetSolidColorBrush((Color)resourceDictionary["AccentColor"]));
-            resourceDictionary.Add("RightArrowFill", GetSolidColorBrush((Color)resourceDictionary["AccentColor"]));
+                resourceDictionary.Add("CheckmarkFill", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("RightArrowFill", resourceDictionary["AccentColorBrush"]);
 
-            resourceDictionary.Add("IdealForegroundColor", Colors.White);
-            resourceDictionary.Add("IdealForegroundColorBrush", GetSolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
-            resourceDictionary.Add("IdealForegroundDisabledBrush", GetSolidColorBrush((Color)resourceDictionary["IdealForegroundColor"], 0.4d));
-            resourceDictionary.Add("AccentSelectedColorBrush", GetSolidColorBrush(Colors.White));
+                resourceDictionary.Add("IdealForegroundColor", Colors.White);
+                resourceDictionary.Add("IdealForegroundColorBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
+                resourceDictionary.Add("IdealForegroundDisabledBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush(0.4d));
+                resourceDictionary.Add("AccentSelectedColorBrush", (Colors.White).GetSolidColorBrush());
 
-            resourceDictionary.Add("MetroDataGrid.HighlightBrush", GetSolidColorBrush((Color)resourceDictionary["AccentColor"]));
-            resourceDictionary.Add("MetroDataGrid.HighlightTextBrush", GetSolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
-            resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", GetSolidColorBrush((Color)resourceDictionary["AccentColor3"]));
-            resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", GetSolidColorBrush((Color)resourceDictionary["AccentColor"]));
-            resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", GetSolidColorBrush((Color)resourceDictionary["AccentColor2"]));
-            resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightTextBrush", GetSolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
-            #endregion
+                resourceDictionary.Add("MetroDataGrid.HighlightBrush", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("MetroDataGrid.HighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
+                resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", resourceDictionary["AccentColorBrush3"]);
+                resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", resourceDictionary["AccentColorBrush2"]);
+                resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
+                #endregion
 
-            // Fluent.Ribbon styles (we should in an ideal situation move this to the Fluent.Ribbon shell code)
-            #region Fluent.Ribbon
-            resourceDictionary.Add("Fluent.Ribbon.Colors.HighlightColor", color);
-            resourceDictionary.Add("Fluent.Ribbon.Colors.AccentBaseColor", color);
-            resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor80", Color.FromArgb(204, color.R, color.G, color.B));
-            resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor60", Color.FromArgb(153, color.R, color.G, color.B));
-            resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor40", Color.FromArgb(102, color.R, color.G, color.B));
-            resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor20", Color.FromArgb(51, color.R, color.G, color.B));
+                // Fluent.Ribbon styles (we should in an ideal situation move this to the Fluent.Ribbon shell code)
+                #region Fluent.Ribbon
+                resourceDictionary.Add("Fluent.Ribbon.Colors.HighlightColor", resourceDictionary["AccentColor"]);
+                resourceDictionary.Add("Fluent.Ribbon.Colors.AccentBaseColor", resourceDictionary["AccentColor"]);
+                resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor80", resourceDictionary["AccentColor1"]);
+                resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor60", resourceDictionary["AccentColor2"]);
+                resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor40", resourceDictionary["AccentColor3"]);
+                resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor20", resourceDictionary["AccentColor4"]);
 
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.HighlightBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.HighlightColor"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentBaseColorBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentBaseColor"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush80", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor80"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush60", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor60"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush40", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush20", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.HighlightBrush", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentBaseColorBrush", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush80", resourceDictionary["AccentColor1"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush60", resourceDictionary["AccentColor2"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush40", resourceDictionary["AccentColor3"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush20", resourceDictionary["AccentColor4"]);
 
-            if (DynamicallyDetermineIdealTextColor)
-            {
-                resourceDictionary.Add("Fluent.Ribbon.Colors.IdealForegroundColor", GetIdealTextColor(color));
+                if (DynamicallyDetermineIdealTextColor)
+                {
+                    resourceDictionary.Add("Fluent.Ribbon.Colors.IdealForegroundColor", GetIdealTextColor(color));
+                }
+                else
+                {
+                    // White since we use the light them
+                    resourceDictionary.Add("Fluent.Ribbon.Colors.IdealForegroundColor", Colors.White);
+                }
+
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.IdealForegroundColorBrush", ((Color)resourceDictionary["Fluent.Ribbon.Colors.IdealForegroundColor"]).GetSolidColorBrush());
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.IdealForegroundDisabledBrush", ((Color)resourceDictionary["Fluent.Ribbon.Colors.IdealForegroundColor"]).GetSolidColorBrush(0.4d));
+
+                // Button
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush", resourceDictionary["AccentColorBrush3"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.MouseOver.Background", resourceDictionary["AccentColorBrush4"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush", resourceDictionary["AccentColorBrush2"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.Pressed.Background", resourceDictionary["AccentColorBrush3"]);
+
+                // ToggleButton
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.Checked.Background", resourceDictionary["AccentColorBrush4"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.Background", resourceDictionary["AccentColorBrush4"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.BorderBrush", resourceDictionary["AccentColorBrush2"]);
+
+                // GalleryItem
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.MouseOver", resourceDictionary["AccentColorBrush4"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.Selected", resourceDictionary["AccentColorBrush3"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.Pressed", resourceDictionary["AccentColorBrush2"]);
+
+                // WindowCommands
+                resourceDictionary.Add("FFluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background", resourceDictionary["AccentColorBrush4"]);
+                resourceDictionary.Add("Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background", resourceDictionary["AccentColorBrush3"]);
+                #endregion
+
+                var application = Application.Current;
+                var applicationResources = application.Resources;
+
+                applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
+
+                _accentColorResourceDictionary[color] = resourceDictionary;
             }
-            else
-            {
-                // White since we use the light them
-                resourceDictionary.Add("Fluent.Ribbon.Colors.IdealForegroundColor", Colors.White);
-            }
 
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.IdealForegroundColorBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.IdealForegroundColor"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.IdealForegroundDisabledBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.IdealForegroundColor"], 0.4));
-
-            // Button
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.MouseOver.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor60"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.Pressed.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
-
-            // ToggleButton
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.Checked.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.HighlightColor"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.BorderBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor60"]));
-
-            // GalleryItem
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.MouseOver", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.Selected", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.Pressed", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor60"]));
-
-            // WindowCommands
-            resourceDictionary.Add("FFluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
-            #endregion
-
-            var application = Application.Current;
-            var applicationResources = application.Resources;
-
-            applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
-
-            _accentColorResourceDictionary = resourceDictionary;
-
-            return applicationResources;
+            return resourceDictionary;
         }
 
         /// <summary>

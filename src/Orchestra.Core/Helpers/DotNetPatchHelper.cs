@@ -13,6 +13,7 @@ namespace Orchestra
     using System.IO;
     using System.Linq;
     using System.Runtime.ExceptionServices;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Threading;
     using Catel.Logging;
@@ -68,7 +69,7 @@ namespace Orchestra
             }
         }
 
-        private static void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static async void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Log.Debug("AppDomain unhandled exception");
 
@@ -78,7 +79,7 @@ namespace Orchestra
                 return;
             }
 
-            if (!HandleException((Exception)e.ExceptionObject))
+            if (!await HandleExceptionAsync((Exception)e.ExceptionObject))
             {
                 _handledException = true;
                 Process.GetCurrentProcess().Kill();
@@ -101,7 +102,7 @@ namespace Orchestra
             }
         }
 
-        private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        private static async void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             Log.Debug("Dispatcher unhandled exception");
 
@@ -111,16 +112,16 @@ namespace Orchestra
                 return;
             }
 
-            if (!HandleException(e.Exception))
+            if (!await HandleExceptionAsync(e.Exception))
             {
                 _handledException = true;
                 Process.GetCurrentProcess().Kill();
             }
         }
 
-        private static bool HandleException(Exception ex)
+        private static async Task<bool> HandleExceptionAsync(Exception ex)
         {
-            LogHelper.AddLogListenerForUnhandledException(ex);
+            await LogHelper.AddLogListenerForUnhandledExceptionAsync(ex);
 
             Log.Info("An unhandled exception occurred, checking if it is a known KB issue: {0}", ex.Message);
 
@@ -135,7 +136,7 @@ namespace Orchestra
 
                     ShowMessage(message);
 
-                    LogManager.FlushAll();
+                    await LogManager.FlushAllAsync();
 
                     return false;
                 }
@@ -156,7 +157,7 @@ namespace Orchestra
                 }
             }
 
-            LogManager.FlushAll();
+            await LogManager.FlushAllAsync();
 
             return true;
         }
