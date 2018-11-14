@@ -218,7 +218,7 @@
         <Setter Property="MinHeight" Value="{DynamicResource Size.MinHeight}" />
         <Setter Property="Padding" Value="{DynamicResource Padding.TextBox}" />
         <Setter Property="Margin" Value="{DynamicResource Margin.TextBox}" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <!--<Setter Property="VerticalContentAlignment" Value="Center" />-->
         <Setter Property="HorizontalAlignment" Value="Stretch" />
     </Style>
 
@@ -246,7 +246,7 @@
         <!--<Setter Property="Height" Value="{DynamicResource Size.Height}" />-->
         <Setter Property="Padding" Value="{DynamicResource Padding.TextBox}" />
         <Setter Property="Margin" Value="{DynamicResource Margin.TextBox}" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <!--<Setter Property="VerticalContentAlignment" Value="Center" />-->
         <Setter Property="HorizontalAlignment" Value="Stretch" />
 
         <!-- Due to a bug, adjust the error template (see http://stackoverflow.com/questions/321327/how-do-i-get-rid-of-the-red-rectangle-when-my-wpf-binding-validation-has-failed-a) -->

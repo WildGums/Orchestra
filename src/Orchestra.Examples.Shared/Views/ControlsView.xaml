@@ -48,6 +48,7 @@
         <RowDefinition Height="Auto" />
         <RowDefinition Height="Auto" />
         <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
       </Grid.RowDefinitions>
 
       <Grid.ColumnDefinitions>
@@ -64,16 +65,16 @@
         </StackPanel>
       </GroupBox>
 
-      <orchestra:AlignmentGrid Grid.RowSpan="5"
+      <orchestra:AlignmentGrid Grid.RowSpan="6"
                                Visibility="{Binding ElementName=alignmentCheckBox, Path=IsChecked, Converter={catel:BooleanToHidingVisibilityConverter}}"/>
 
       <GroupBox Header="WPF controls">
         <WrapPanel Orientation="Horizontal">
           <Button Content="Button" ToolTip="Button" />
           <CheckBox Content="CheckBox" ToolTip="CheckBox" />
-          <ComboBox Text="Combobox" IsEditable="true" ToolTip="ComboBox" />
+          <ComboBox Text="ComboBox" IsEditable="true" ToolTip="ComboBox" />
           <Label Content="Label" ToolTip="Label" />
-          <PasswordBox Width="100" ToolTip="PasswordBox" />
+          <PasswordBox Width="100" ToolTip="PasswordBox" Password="123" />
           <ProgressBar Minimum="0" Maximum="100" Value="50" Width="100" ToolTip="ProgressBar" />
           <RadioButton Content="RadioButton" ToolTip="RadioButton" />
           <RepeatButton ToolTip="RepeatButton" Width="16" />
@@ -89,22 +90,22 @@
           <orccontrols:DatePicker ToolTip="Orc.Controls: DatePicker" />
           <orccontrols:DateTimePicker ToolTip="Orc.Controls: DateTimePicker" />
           <orccontrols:DropDownButton Width="40" ToolTip="Orc.Controls: DropDownButton" />
-          <orccontrols:FilterBox Width="100" ToolTip="Orc.Controls: FilterBox" />
+          <orccontrols:FilterBox Width="100" ToolTip="Orc.Controls: FilterBox" Text="Filter box" />
           <orccontrols:LinkLabel Content="LinkLabel" ToolTip="Orc.Controls: LinkLabel"/>
-          <orccontrols:NumericTextBox Width="100" ToolTip="Orc.Controls: NumericTextBox" />
+          <orccontrols:NumericTextBox Width="100" ToolTip="Orc.Controls: NumericTextBox" Value="123" />
           <orccontrols:RangeSlider Width="100" Minimum="0" LowerValue="25" UpperValue="75" Maximum="100" ToolTip="Orc.Controls: RangeSlider" />
           <orccontrols:TimeSpanPicker Width="100" ToolTip="Orc.Controls: TimeSpanPicker" />
-          <orccontrols:WatermarkTextBox Width="100" ToolTip="Orc.Controls: WatermarkTextBox" />
+          <orccontrols:WatermarkTextBox Width="100" ToolTip="Orc.Controls: WatermarkTextBox" Watermark="This is a watermark" />
         </WrapPanel>
       </GroupBox>
 
       <GroupBox Header="Other controls">
-        <WrapPanel>
-          <GroupBox Header="GroupBox" ToolTip="GroupBox" />
+        <WrapPanel Orientation="Horizontal">
+          <GroupBox Header="GroupBox" Height="200" ToolTip="GroupBox" />
 
           <GridSplitter Width="5" Height="5" ToolTip="GridSplitter" />
 
-          <ListBox ToolTip="ListBox">
+          <ListBox Height="200" ToolTip="ListBox">
             <ListBox.Items>
               Item 1
               Item 2
@@ -113,9 +114,21 @@
             </ListBox.Items>
           </ListBox>
 
-          <ListView Width="100" ToolTip="ListView" />
+          <ListView Width="100" Height="200" ToolTip="ListView" />
 
-          <TreeView Width="100" ToolTip="TreeView" />
+          <TreeView Width="100" Height="200" ToolTip="TreeView" />
+        </WrapPanel>
+      </GroupBox>
+      
+      <GroupBox Header="Multi-line controls">
+        <WrapPanel Orientation="Horizontal">
+          <GroupBox Header="TextBox" Height="200" Width="200">
+            <TextBox AcceptsReturn="true" Text="this is a \r\nmultiline\r\ntexbox" />
+          </GroupBox>
+
+          <GroupBox Header="RichTextBox" Height="200" Width="200">
+            <RichTextBox />
+          </GroupBox>
         </WrapPanel>
       </GroupBox>
     </orccontrols:StackGrid>
