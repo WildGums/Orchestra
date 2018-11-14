@@ -37,8 +37,8 @@
 
 	<sys:Double x:Key="PaddingSize.Label.X">0</sys:Double>
 	<sys:Double x:Key="PaddingSize.Label.Y">2</sys:Double>
-	<sys:Double x:Key="PaddingSize.TextBox.X">2</sys:Double>
-	<sys:Double x:Key="PaddingSize.TextBox.Y">2</sys:Double>
+    <sys:Double x:Key="PaddingSize.TextBox.X">2</sys:Double>
+    <sys:Double x:Key="PaddingSize.TextBox.Y">4</sys:Double>
 	
 	<!-- 
 	

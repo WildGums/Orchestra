@@ -9,7 +9,8 @@
                     <Border x:Name="Chrome" BorderBrush="LightGray" BorderThickness="1" 
                             Background="#FFF4F4F4" SnapsToDevicePixels="True">
                         <Grid>
-                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"
+                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                              Content="{TemplateBinding Content}"
                                               ContentStringFormat="{TemplateBinding ContentStringFormat}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               Margin="{TemplateBinding Padding}"
