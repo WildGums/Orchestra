@@ -49,6 +49,7 @@
         <RowDefinition Height="Auto" />
         <RowDefinition Height="Auto" />
         <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
       </Grid.RowDefinitions>
 
       <Grid.ColumnDefinitions>
@@ -65,7 +66,7 @@
         </StackPanel>
       </GroupBox>
 
-      <orchestra:AlignmentGrid Grid.RowSpan="6"
+      <orchestra:AlignmentGrid Grid.RowSpan="7"
                                Visibility="{Binding ElementName=alignmentCheckBox, Path=IsChecked, Converter={catel:BooleanToHidingVisibilityConverter}}"/>
 
       <GroupBox Header="WPF controls">
@@ -86,7 +87,7 @@
       </GroupBox>
 
       <GroupBox Header="Orc.Controls controls">
-        <WrapPanel>
+        <WrapPanel Orientation="Horizontal">
           <orccontrols:DatePicker ToolTip="Orc.Controls: DatePicker" />
           <orccontrols:DateTimePicker ToolTip="Orc.Controls: DateTimePicker" />
           <orccontrols:DropDownButton Width="40" ToolTip="Orc.Controls: DropDownButton" />
@@ -96,6 +97,13 @@
           <orccontrols:RangeSlider Width="100" Minimum="0" LowerValue="25" UpperValue="75" Maximum="100" ToolTip="Orc.Controls: RangeSlider" />
           <orccontrols:TimeSpanPicker Width="100" ToolTip="Orc.Controls: TimeSpanPicker" />
           <orccontrols:WatermarkTextBox Width="100" ToolTip="Orc.Controls: WatermarkTextBox" Watermark="This is a watermark" />
+        </WrapPanel>
+      </GroupBox>
+
+      <GroupBox Header="Orchestra controls">
+        <WrapPanel>
+          <orchestra:BusyIndicator ToolTip="Orchestra: BusyIndicator" Width="100" Height="12" />
+          <orchestra:FluidProgressBar ToolTip="Orchestra: FluidProgressBar" Width="100" Height="12" />
         </WrapPanel>
       </GroupBox>
 
@@ -119,7 +127,7 @@
           <TreeView Width="100" Height="200" ToolTip="TreeView" />
         </WrapPanel>
       </GroupBox>
-      
+
       <GroupBox Header="Multi-line controls">
         <WrapPanel Orientation="Horizontal">
           <GroupBox Header="TextBox" Height="200" Width="200">
