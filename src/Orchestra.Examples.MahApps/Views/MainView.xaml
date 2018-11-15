@@ -5,6 +5,7 @@
                    xmlns:views="clr-namespace:Orchestra.Examples.MahApps.Views"
                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                    xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
+                   xmlns:localcontrols="clr-namespace:Orchestra.Examples.Views"
                    MinWidth="600" MinHeight="400">
 
     <UserControl.Resources>
@@ -15,14 +16,19 @@
 
     <Grid>
         <orccontrols:TabControl>
+            <TabItem IsSelected="True" Header="Controls" controls:ControlsHelper.HeaderFontSize="32"
+                     VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <localcontrols:ControlsView />
+            </TabItem>
+
+            <TabItem IsSelected="True" Header="MahApps Controls" controls:ControlsHelper.HeaderFontSize="32"
+                     VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <views:MahAppsControlsView />
+            </TabItem>
+
             <TabItem IsSelected="True" Header="Persons" controls:ControlsHelper.HeaderFontSize="32"
                      VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <views:PersonsView />
-            </TabItem>
-
-            <TabItem IsSelected="True" Header="Controls" controls:ControlsHelper.HeaderFontSize="32"
-                     VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                <views:ControlsView />
             </TabItem>
         </orccontrols:TabControl>
     </Grid>

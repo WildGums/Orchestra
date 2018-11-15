@@ -135,36 +135,52 @@ namespace Orchestra
 
                 Log.Debug($"Creating runtime accent resource dictionary for accent color '{color}'");
 
-                // TODO: Replace by orccontrols:AccentColor and orccontrols:AccentColorBrush markup extensions so
-                // the styles can be updated at runtime
+                // NOTE: Do not use the markup extensions here, MahApps can't deal with that
 
                 resourceDictionary = new ResourceDictionary();
 
-                resourceDictionary.Add("HighlightColor", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
-                resourceDictionary.Add("HighlightBrush", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
+                //resourceDictionary.Add("AccentColor",  new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
+                //resourceDictionary.Add("AccentColor1", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor1));
+                //resourceDictionary.Add("AccentColor2", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor2));
+                //resourceDictionary.Add("AccentColor3", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor3));
+                //resourceDictionary.Add("AccentColor4", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor4));
+                //resourceDictionary.Add("AccentColor5", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor5));
 
-                resourceDictionary.Add("AccentColor", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
-                resourceDictionary.Add("AccentColor1", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor1));
-                resourceDictionary.Add("AccentColor2", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor2));
-                resourceDictionary.Add("AccentColor3", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor3));
-                resourceDictionary.Add("AccentColor4", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor4));
-                resourceDictionary.Add("AccentColor5", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor5));
+                //resourceDictionary.Add("AccentBaseColor", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
+                //resourceDictionary.Add("AccentBaseColorBrush", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
 
-                resourceDictionary.Add("AccentBaseColor", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
-                resourceDictionary.Add("AccentBaseColorBrush", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
+                //resourceDictionary.Add("AccentColorBrush", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
+                //resourceDictionary.Add("AccentColorBrush1", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor1));
+                //resourceDictionary.Add("AccentColorBrush2", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor2));
+                //resourceDictionary.Add("AccentColorBrush3", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor3));
+                //resourceDictionary.Add("AccentColorBrush4", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor4));
+                //resourceDictionary.Add("AccentColorBrush5", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor5));
 
-                resourceDictionary.Add("AccentColorBrush", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
-                resourceDictionary.Add("AccentColorBrush1", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor1));
-                resourceDictionary.Add("AccentColorBrush2", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor2));
-                resourceDictionary.Add("AccentColorBrush3", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor3));
-                resourceDictionary.Add("AccentColorBrush4", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor4));
-                resourceDictionary.Add("AccentColorBrush5", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor5));
+                resourceDictionary.Add("AccentColor", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor));
+                resourceDictionary.Add("AccentColor1", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor1));
+                resourceDictionary.Add("AccentColor2", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor2));
+                resourceDictionary.Add("AccentColor3", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor3));
+                resourceDictionary.Add("AccentColor4", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor4));
+                resourceDictionary.Add("AccentColor5", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor5));
 
-                resourceDictionary.Add("WindowTitleColorBrush", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
+                resourceDictionary.Add("AccentBaseColor", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor));
+                resourceDictionary.Add("AccentBaseColorBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
+
+                resourceDictionary.Add("AccentColorBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
+                resourceDictionary.Add("AccentColorBrush1", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor1));
+                resourceDictionary.Add("AccentColorBrush2", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor2));
+                resourceDictionary.Add("AccentColorBrush3", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor3));
+                resourceDictionary.Add("AccentColorBrush4", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor4));
+                resourceDictionary.Add("AccentColorBrush5", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor5));
+
+                resourceDictionary.Add("WindowTitleColorBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush());
 
                 // Wpf styles
-                resourceDictionary.Add(SystemColors.HighlightColorKey, resourceDictionary["AccentColor"]);
-                resourceDictionary.Add(SystemColors.HighlightBrushKey, resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add(SystemColors.HighlightColorKey, Orc.Controls.ThemeHelper.GetAccentColor());
+                resourceDictionary.Add(SystemColors.HighlightBrushKey, Orc.Controls.ThemeHelper.GetAccentColorBrush());
+                resourceDictionary.Add("HighlightColor", Orc.Controls.ThemeHelper.GetAccentColor());
+                // Note: this causes invalid cast exception, disable for now
+                //resourceDictionary.Add("HighlightBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush());
 
                 // MahApps styles(we should in an ideal situation move this to the MahApps shell code)
                 #region MahApps
@@ -174,19 +190,19 @@ namespace Orchestra
                     new GradientStop(Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor3), 1)
                 }), new Point(0.001, 0.5), new Point(1.002, 0.5)));
 
-                resourceDictionary.Add("CheckmarkFill", resourceDictionary["AccentColorBrush"]);
-                resourceDictionary.Add("RightArrowFill", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("CheckmarkFill", Orc.Controls.ThemeHelper.GetAccentColorBrush());
+                resourceDictionary.Add("RightArrowFill", Orc.Controls.ThemeHelper.GetAccentColorBrush());
 
                 resourceDictionary.Add("IdealForegroundColor", Colors.White);
                 resourceDictionary.Add("IdealForegroundColorBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
                 resourceDictionary.Add("IdealForegroundDisabledBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush(0.4d));
-                resourceDictionary.Add("AccentSelectedColorBrush", (Colors.White).GetSolidColorBrush());
+                resourceDictionary.Add("AccentSelectedColorBrush", Colors.White.GetSolidColorBrush());
 
-                resourceDictionary.Add("MetroDataGrid.HighlightBrush", resourceDictionary["AccentColorBrush"]);
+                resourceDictionary.Add("MetroDataGrid.HighlightBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush());
                 resourceDictionary.Add("MetroDataGrid.HighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
-                resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", resourceDictionary["AccentColorBrush3"]);
-                resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", resourceDictionary["AccentColorBrush"]);
-                resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", resourceDictionary["AccentColorBrush2"]);
+                resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor3));
+                resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush());
+                resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor2));
                 resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
                 #endregion
 
