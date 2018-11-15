@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net462</TargetFrameworks>
+    <TargetFrameworks>net46</TargetFrameworks>
     <AssemblyName>Orchestra.Examples.MahApps</AssemblyName>
     <RootNamespace>Orchestra.Examples.MahApps</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
@@ -54,7 +54,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  
+
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props')" />
 </Project>
