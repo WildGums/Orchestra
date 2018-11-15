@@ -77,8 +77,9 @@
            TargetType="{x:Type orccontrols:RangeSlider}"
            BasedOn="{StaticResource {x:Type orccontrols:RangeSlider}}">
         <Style.Setters>
-            <Setter Property="Height" Value="{DynamicResource Size.Height}" />
-            <Setter Property="VerticalAlignment" Value="Center" />
+            <!-- Note: don't set height since this slider supports both horizontal and vertical modes -->
+            <!--<Setter Property="Height" Value="{DynamicResource Size.Height}" />-->
+            <!--<Setter Property="VerticalAlignment" Value="Center" />-->
             <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
         </Style.Setters>
     </Style>

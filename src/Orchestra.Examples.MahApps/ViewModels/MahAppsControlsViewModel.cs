@@ -5,12 +5,12 @@
     using Catel.MVVM;
     using Catel.Services;
 
-    public class ControlsViewModel : ViewModelBase
+    public class MahAppsControlsViewModel : ViewModelBase
     {
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IMessageService _messageService;
 
-        public ControlsViewModel(IUIVisualizerService uiVisualizerService, IMessageService messageService)
+        public MahAppsControlsViewModel(IUIVisualizerService uiVisualizerService, IMessageService messageService)
         {
             Argument.IsNotNull(() => uiVisualizerService);
             Argument.IsNotNull(() => messageService);
