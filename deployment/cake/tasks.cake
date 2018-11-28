@@ -34,6 +34,13 @@ ValidateDockerImagesInput();
 
 private void BuildTestProjects()
 {
+    // In case of a local build and we have included / excluded anything, skip tests
+    if (IsLocalBuild && (Include.Length > 0 || Exclude.Length > 0))
+    {
+        Information("Skipping test project because this is a local build with specific includes / excludes");
+        return;
+    }
+
     foreach (var testProject in TestProjects)
     {
         LogSeparator("Building test project '{0}'", testProject);
@@ -43,11 +50,17 @@ private void BuildTestProjects()
         var msBuildSettings = new MSBuildSettings
         {
             Verbosity = Verbosity.Quiet, // Verbosity.Diagnostic
-            ToolVersion = MSBuildToolVersion.VS2017,
+            ToolVersion = MSBuildToolVersion.Default,
             Configuration = ConfigurationName,
             MSBuildPlatform = MSBuildPlatform.x86, // Always require x86, see platform for actual target platform
             PlatformTarget = PlatformTarget.MSIL
         };
+
+        var toolPath = GetVisualStudioPath(msBuildSettings.ToolVersion);
+        if (!string.IsNullOrWhiteSpace(toolPath))
+        {
+            msBuildSettings.ToolPath = toolPath;
+        }
 
         // Force disable SonarQube
         msBuildSettings.WithProperty("SonarQubeExclude", "true");
