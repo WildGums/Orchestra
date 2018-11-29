@@ -74,7 +74,7 @@ namespace Orchestra.Services
             _applicationInitializationService = applicationInitializationService;
             _dependencyResolver = dependencyResolver;
 
-            var entryAssembly = AssemblyHelper.GetEntryAssembly();
+            var entryAssembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
 
             Log.Info("Starting {0} v{1} ({2})", entryAssembly.Title(), entryAssembly.Version(), entryAssembly.InformationalVersion());
 

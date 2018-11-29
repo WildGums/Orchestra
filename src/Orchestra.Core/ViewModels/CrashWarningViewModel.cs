@@ -15,7 +15,6 @@ namespace Orchestra.Views
     using Catel.Reflection;
     using Catel.Services;
     using Services;
-    using AssemblyHelper = Orchestra.AssemblyHelper;
 
     public class CrashWarningViewModel : ViewModelBase
     {
@@ -47,7 +46,7 @@ namespace Orchestra.Views
             _navigationService = navigationService;
             _languageService = languageService;
 
-            _assembly = AssemblyHelper.GetEntryAssembly();
+            _assembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
 
             Continue = new TaskCommand(OnContinueExecuteAsync);
             ResetUserSettings = new TaskCommand(OnResetUserSettingsExecuteAsync);
