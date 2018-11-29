@@ -41,6 +41,7 @@ namespace Orchestra
         public static System.Drawing.Icon ExtractAssemblyIcon(this System.Reflection.Assembly assembly) { }
         public static System.Windows.Media.Imaging.BitmapImage ExtractLargestIcon(this System.Reflection.Assembly assembly) { }
     }
+    [System.ObsoleteAttribute("Use `Catel.Reflection.AssemblyHelper` instead. Will be removed in version 6.0.0.", true)]
     public class static AssemblyHelper
     {
         public static System.Reflection.Assembly GetEntryAssembly() { }
@@ -612,14 +613,6 @@ namespace Orchestra.Models
         public UriInfo(string uri, string displayText = null) { }
         public string DisplayText { get; set; }
         public string Uri { get; set; }
-    }
-}
-namespace Orchestra.Reflection
-{
-    public class EntryAssemblyResolver : Catel.Reflection.IEntryAssemblyResolver
-    {
-        public EntryAssemblyResolver() { }
-        public System.Reflection.Assembly Resolve() { }
     }
 }
 namespace Orchestra.Services

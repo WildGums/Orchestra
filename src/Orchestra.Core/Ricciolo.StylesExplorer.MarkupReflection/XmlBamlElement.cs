@@ -1,4 +1,4 @@
-// Copyright (c) Cristian Civera (cristian@aspitalia.com)
+﻿// Copyright (c) Cristian Civera (cristian@aspitalia.com)
 // This code is distributed under the MS-PL (for details please see \doc\MS-PL.txt)
 
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	class XmlBamlElement : XmlBamlNode
+    internal class XmlBamlElement : XmlBamlNode
 	{
 		public XmlBamlElement()
 		{

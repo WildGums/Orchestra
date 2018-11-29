@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	class XmlBamlSimpleProperty : XmlBamlNode
+    internal class XmlBamlSimpleProperty : XmlBamlNode
 	{
 		public string NamespaceName { get; private set; }
 		public string LocalName { get; private set; }

@@ -14,7 +14,7 @@ using System.Windows.Media;
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	public class XmlBamlReader : XmlReader, IXmlNamespaceResolver
+    internal class XmlBamlReader : XmlReader, IXmlNamespaceResolver
 	{
 		BamlBinaryReader reader;
 		Dictionary<short, string> assemblyTable = new Dictionary<short, string>();

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	class NodesCollection : List<XmlBamlNode>
+    internal class NodesCollection : List<XmlBamlNode>
 	{
 		public XmlBamlNode Last
 		{

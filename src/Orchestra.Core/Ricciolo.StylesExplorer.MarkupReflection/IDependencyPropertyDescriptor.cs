@@ -4,12 +4,12 @@
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	public interface IDependencyPropertyDescriptor
+	internal interface IDependencyPropertyDescriptor
 	{
 		bool IsAttached { get; }
 	}
-	
-	public class UnresolvableDependencyPropertyDescriptor : IDependencyPropertyDescriptor
+
+    internal class UnresolvableDependencyPropertyDescriptor : IDependencyPropertyDescriptor
 	{
 		public bool IsAttached {
 			get {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	public class KnownInfo
+    internal class KnownInfo
 	{
 		internal TypeDeclaration[] KnownTypeTable = null;
 		internal PropertyDeclaration[] KnownPropertyTable = null;

@@ -1,14 +1,14 @@
-// Copyright (c) Cristian Civera (cristian@aspitalia.com)
+﻿// Copyright (c) Cristian Civera (cristian@aspitalia.com)
 // This code is distributed under the MS-PL (for details please see \doc\MS-PL.txt)
 
 using System;
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	/// <summary>
-	/// Represents a mapping between an XML namespace and a CLR namespace and assembly.
-	/// </summary>
-	public class XmlToClrNamespaceMapping
+    /// <summary>
+    /// Represents a mapping between an XML namespace and a CLR namespace and assembly.
+    /// </summary>
+    internal class XmlToClrNamespaceMapping
 	{
 		public const string XamlNamespace = "http://schemas.microsoft.com/winfx/2006/xaml";
 		public const string PresentationNamespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";

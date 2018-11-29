@@ -1,10 +1,10 @@
-// Copyright (c) Cristian Civera (cristian@aspitalia.com)
+﻿// Copyright (c) Cristian Civera (cristian@aspitalia.com)
 // This code is distributed under the MS-PL (for details please see \doc\MS-PL.txt)
 
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	public class ResourceName
+    internal class ResourceName
 	{
 		private string name;
 

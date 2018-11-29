@@ -5,7 +5,7 @@ using System;
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	class TypeDeclaration
+    internal class TypeDeclaration
 	{
 		readonly XmlBamlReader reader;
 		readonly bool _isExtension;

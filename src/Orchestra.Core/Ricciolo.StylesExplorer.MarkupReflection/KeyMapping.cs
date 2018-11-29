@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	public class KeyMapping
+    internal class KeyMapping
 	{
 		List<object> staticResources;
 		

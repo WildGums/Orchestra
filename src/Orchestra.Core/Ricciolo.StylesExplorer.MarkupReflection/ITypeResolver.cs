@@ -4,7 +4,7 @@
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	public interface IDotNetTypeResolver
+    internal interface IDotNetTypeResolver
 	{
 		//ICSharpCode.Decompiler.Metadata.TargetRuntime RuntimeVersion { get; }
 		bool IsLocalAssembly(string name);

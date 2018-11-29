@@ -4,10 +4,10 @@
 
 namespace Ricciolo.StylesExplorer.MarkupReflection
 {
-	/// <summary>
-	/// Interface representing a DotNet type
-	/// </summary>
-	public interface IDotNetType
+    /// <summary>
+    /// Interface representing a DotNet type
+    /// </summary>
+    internal interface IDotNetType
 	{
 		IDotNetType BaseType { get; }
 		string AssemblyQualifiedName { get; }
@@ -15,7 +15,7 @@ namespace Ricciolo.StylesExplorer.MarkupReflection
 		bool Equals(IDotNetType type);
 	}
 
-	public class UnresolvableType : IDotNetType
+    internal class UnresolvableType : IDotNetType
 	{
 		public UnresolvableType(string assemblyQualifiedName)
 		{
