@@ -9,6 +9,7 @@
     <Description></Description>
     <PackageTags></PackageTags>
     <SonarQubeExclude>true</SonarQubeExclude>
+    <UseWpf>true</UseWpf>
   </PropertyGroup>
 
   <ItemGroup>

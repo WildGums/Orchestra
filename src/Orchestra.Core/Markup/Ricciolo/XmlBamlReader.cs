@@ -1,4 +1,4 @@
-#if NET
+ï»¿#if NET || NETCORE
 
 #pragma warning disable 1591 // 1591 = missing xml
 
@@ -56,7 +56,8 @@ namespace Orchestra.StylesExplorer.MarkupReflection
 
         #endregion
 
-        public XmlBamlReader(Stream stream) : this (stream, AppDomainTypeResolver.GetIntoNewAppDomain(Environment.CurrentDirectory))
+        public XmlBamlReader(Stream stream) 
+            : this (stream, AppDomainTypeResolver.GetIntoNewAppDomain(Environment.CurrentDirectory))
         {
             
         }
@@ -71,7 +72,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
             _resolver = resolver;
             reader = new BamlBinaryReader(stream);
 
-            XamlTypeDeclaration = new TypeDeclaration(this.Resolver, "", "System.Windows.Markup", 0);
+            XamlTypeDeclaration = new TypeDeclaration(Resolver, string.Empty, "System.Windows.Markup", 0);
             KnownInfo = new KnownInfo(resolver);
         }
 
@@ -931,13 +932,13 @@ namespace Orchestra.StylesExplorer.MarkupReflection
         private void AddDefKey(long position, string text)
         {
             // Guardo se la dichiarazione delle chiavi risulta chiusa
-            // Se è aperta c'è un sotto ResourceDictionary oppure è il root ResourceDictionary
+            // Se Ã¨ aperta c'Ã¨ un sotto ResourceDictionary oppure Ã¨ il root ResourceDictionary
             if (isDefKeysClosed)
             {
                 keysResources.Push(new KeysResourcesCollection());
             }
 
-            // Guardo se è stata chiusa la dichiarazione parziale (mediante dichiarazione OptimizedStaticResource)
+            // Guardo se Ã¨ stata chiusa la dichiarazione parziale (mediante dichiarazione OptimizedStaticResource)
             // Si chiude il ciclo di chiavi
             if (isPartialDefKeysClosed)
             {
@@ -988,7 +989,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
             CloseElement();
 
             // Provvedo all'eliminazione del gruppo di chiavi se sono sul root ResourceDictionary
-            // e si è chiuso uno degli elementi di primo livello e tutte le chiavi sono state usate
+            // e si Ã¨ chiuso uno degli elementi di primo livello e tutte le chiavi sono state usate
             // Passo alla prossima lista
             KeysResource keysResource = (elements.Count == 1 && keysResources.Count > 0) ? keysResources.Peek().First : null;
             if (keysResource != null && keysResource.Keys.Count == 0)
@@ -1182,7 +1183,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
                 if (keysResource != null && keysResource.Keys.HasKey(position))
                 {
                     string key = keysResource.Keys[position];
-                    // Rimuovo la chiave perché è stata usata
+                    // Rimuovo la chiave perchÃ© Ã¨ stata usata
                     keysResource.Keys.Remove(position);
 
                     AddKeyToElement(key);
@@ -1233,7 +1234,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
         {
             reader.ReadInt16();
 
-            // Non serve aprire niente, è il default
+            // Non serve aprire niente, Ã¨ il default
         }
 
         private static void ReadConstructorParametersStart()

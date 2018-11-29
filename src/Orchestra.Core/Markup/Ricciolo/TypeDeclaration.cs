@@ -1,4 +1,4 @@
-﻿#if NET
+﻿#if NET || NETCORE
 
 #pragma warning disable 0659    // 0659 = implements equals but not gethashcode
 #pragma warning disable 1591    // 1591 = missing xml

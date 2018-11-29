@@ -18,12 +18,7 @@ namespace Orchestra.Windows
     using Catel.MVVM.Providers;
     using Catel.MVVM.Views;
     using Catel.Windows;
-
-#if NET40
-    using MsRibbonWindow = Microsoft.Windows.Controls.Ribbon.RibbonWindow;
-#else
     using MsRibbonWindow = System.Windows.Controls.Ribbon.RibbonWindow;
-#endif
 
 
     public class RibbonWindow : MsRibbonWindow, IDataWindow

@@ -1,4 +1,4 @@
-﻿#if NET
+﻿#if NET || NETCORE
 
 #pragma warning disable 1591 // 1591 = missing xml
 

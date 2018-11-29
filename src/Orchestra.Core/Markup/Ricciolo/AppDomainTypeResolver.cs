@@ -1,4 +1,4 @@
-﻿#if NET
+﻿#if NET || NETCORE
 
 #pragma warning disable 1591 // 1591 = missing xml
 
@@ -18,28 +18,28 @@ namespace Orchestra.StylesExplorer.MarkupReflection
     internal class AppDomainTypeResolver : MarshalByRefObject, ITypeResolver
     {
         private readonly AppDomain _domain;
-        private string baseDir;
+        private readonly string _baseDir;
 
         public event AssemblyResolveEventHandler AssemblyResolve;
 
-        public static AppDomainTypeResolver GetIntoNewAppDomain(string baseDir)
-        {
-            var info = new AppDomainSetup();
-            info.ApplicationBase = Environment.CurrentDirectory;
-            var domain = AppDomain.CreateDomain("AppDomainTypeResolver", null, info, new PermissionSet(PermissionState.Unrestricted));
+        //public static AppDomainTypeResolver GetIntoNewAppDomain(string baseDir)
+        //{
+        //    var info = new AppDomainSetup();
+        //    info.ApplicationBase = Environment.CurrentDirectory;
+        //    var domain = AppDomain.CreateDomain("AppDomainTypeResolver", null, info, new PermissionSet(PermissionState.Unrestricted));
 
-            var resolver = (AppDomainTypeResolver)domain.CreateInstanceAndUnwrap(typeof(AppDomainTypeResolver).Assembly.FullName,
-                typeof(AppDomainTypeResolver).FullName, false, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.CreateInstance, null, new object[] { domain, baseDir }, null, null);
-            return resolver;
-        }
+        //    var resolver = (AppDomainTypeResolver)domain.CreateInstanceAndUnwrap(typeof(AppDomainTypeResolver).Assembly.FullName,
+        //        typeof(AppDomainTypeResolver).FullName, false, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.CreateInstance, null, new object[] { domain, baseDir }, null, null);
+        //    return resolver;
+        //}
 
-        Assembly domain_AssemblyResolve(object sender, ResolveEventArgs args)
+        private Assembly OnAppDomainAssemblyResolve(object sender, ResolveEventArgs args)
         {
             // Cerco di risolvere automaticamente
             AssemblyName name = new AssemblyName(args.Name);
-            string fileName = Path.Combine(this.baseDir, name.Name + ".exe");
+            string fileName = Path.Combine(_baseDir, name.Name + ".exe");
             if (!File.Exists(fileName))
-                fileName = Path.Combine(this.baseDir, name.Name + ".dll");
+                fileName = Path.Combine(_baseDir, name.Name + ".dll");
 
             // Carico il percorso autocalcolato
             if (File.Exists(fileName))
@@ -47,7 +47,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
 
             if (AssemblyResolve != null)
             {
-                AssemblyResolveEventArgs e = new AssemblyResolveEventArgs(args.Name, this.baseDir);
+                AssemblyResolveEventArgs e = new AssemblyResolveEventArgs(args.Name, _baseDir);
                 AssemblyResolve(this, e);
                 if (!String.IsNullOrEmpty(e.Location) && File.Exists(e.Location))
                     return Assembly.LoadFile(e.Location);
@@ -72,9 +72,9 @@ namespace Orchestra.StylesExplorer.MarkupReflection
         protected AppDomainTypeResolver(AppDomain domain, string baseDir)
         {
             _domain = domain;
-            this.baseDir = baseDir;
+            _baseDir = baseDir;
 
-            domain.AssemblyResolve += new ResolveEventHandler(domain_AssemblyResolve);
+            domain.AssemblyResolve += OnAppDomainAssemblyResolve;
         }
 
         public BamlAssembly LoadAssembly(AssemblyName asm)
@@ -96,7 +96,7 @@ namespace Orchestra.StylesExplorer.MarkupReflection
             AssemblyName[] list = asm.Assembly.GetReferencedAssemblies();
 
             return (from an in list
-                    select this.LoadAssembly(an)).ToArray();
+                    select LoadAssembly(an)).ToArray();
         }
 
         public AppDomain Domain
@@ -145,8 +145,8 @@ namespace Orchestra.StylesExplorer.MarkupReflection
     {
 
         private string _location;
-        private string _name;
-        private string _baseDir;
+        private readonly string _name;
+        private readonly string _baseDir;
 
         public AssemblyResolveEventArgs(string name, string baseDir)
         {

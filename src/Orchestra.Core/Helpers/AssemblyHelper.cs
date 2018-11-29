@@ -45,13 +45,7 @@ namespace Orchestra
 
                 if (assembly == null)
                 {
-                    var appDomain = AppDomain.CurrentDomain;
-                    var setupInfo = appDomain.SetupInformation;
-                    var assemblyPath = Path.Combine(setupInfo.ApplicationBase, setupInfo.ApplicationName);
-
-                    assembly = (from x in appDomain.GetLoadedAssemblies(true)
-                                where !x.IsDynamic && string.Equals(x.Location, assemblyPath)
-                                select x).FirstOrDefault();
+                    throw new NotSupportedException("AppDomains without an entry assembly are not supported");
                 }
             }
             catch (Exception ex)
