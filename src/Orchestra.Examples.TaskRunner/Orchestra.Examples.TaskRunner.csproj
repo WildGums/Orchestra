@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net462</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
     <AssemblyName>Orchestra.Examples.TaskRunner</AssemblyName>
     <RootNamespace>Orchestra.Examples.TaskRunner</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>

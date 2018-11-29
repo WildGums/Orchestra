@@ -3,24 +3,25 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:catel="http://schemas.catelproject.com"
                    xmlns:converters="clr-namespace:Orchestra.Converters;assembly=Orchestra.Core"
-                   xmlns:views="clr-namespace:Orchestra.Views;assembly=Orchestra.Core">
+                   xmlns:views="clr-namespace:Orchestra.Views;assembly=Orchestra.Core"
+                   xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon">
     
-    <Ribbon x:Name="ribbon">
+    <ribbon:Ribbon x:Name="ribbon">
         <!-- Application Menu, located at the left-hand side (down arrow) -->
-        <Ribbon.ApplicationMenu>
-            <RibbonApplicationMenu KeyTip="F" Label="File" SmallImageSource="/Resources/Images/file_menu.png">
-                <RibbonApplicationMenu.AuxiliaryPaneContent>
-                    <RibbonGallery x:Name="recentlyUsedItemsRibbonGallery" CanUserFilter="False" ColumnsStretchToFill="True">
-                        <RibbonGalleryCategory Header="Pinned documents" Background="Transparent"
+        <ribbon:Ribbon.ApplicationMenu>
+            <ribbon:RibbonApplicationMenu KeyTip="F" Label="File" SmallImageSource="/Resources/Images/file_menu.png">
+                <ribbon:RibbonApplicationMenu.AuxiliaryPaneContent>
+                    <ribbon:RibbonGallery x:Name="recentlyUsedItemsRibbonGallery" CanUserFilter="False" ColumnsStretchToFill="True">
+                        <ribbon:RibbonGalleryCategory Header="Pinned documents" Background="Transparent"
                                                       ItemsSource="{Binding PinnedItems}"
                                                       Visibility="{Binding PinnedItems, Converter={catel:CollectionToCollapsingVisibilityConverter}}">
-                            <RibbonGalleryCategory.ItemsPanel>
+                            <ribbon:RibbonGalleryCategory.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Vertical" IsItemsHost="True" />
                                 </ItemsPanelTemplate>
-                            </RibbonGalleryCategory.ItemsPanel>
+                            </ribbon:RibbonGalleryCategory.ItemsPanel>
 
-                            <RibbonGalleryCategory.ItemTemplate>
+                            <ribbon:RibbonGalleryCategory.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -34,7 +35,7 @@
                                             <Image Source="pack://application:,,,/Orchestra.Core;component/Resources/Images/Pinned.png" />
                                         </Button>
 
-                                        <RibbonApplicationMenuItem Grid.Column="1" Header="{Binding Name, Converter={converters:PathToStringConverter}}" 
+                                        <ribbon:RibbonApplicationMenuItem Grid.Column="1" Header="{Binding Name, Converter={converters:PathToStringConverter}}" 
                                                                           Command="{Binding ElementName=recentlyUsedItemsRibbonGallery, Path=DataContext.OpenRecentlyUsedItem}" 
                                                                           CommandParameter="{Binding Name}" ToolTip="{Binding Name}" HorizontalContentAlignment="Left" />
 
@@ -46,18 +47,18 @@
 
                                     </Grid>
                                 </DataTemplate>
-                            </RibbonGalleryCategory.ItemTemplate>
-                        </RibbonGalleryCategory>
+                            </ribbon:RibbonGalleryCategory.ItemTemplate>
+                        </ribbon:RibbonGalleryCategory>
 
-                        <RibbonGalleryCategory Header="Recent documents" Background="Transparent"
+                        <ribbon:RibbonGalleryCategory Header="Recent documents" Background="Transparent"
                                                           ItemsSource="{Binding RecentlyUsedItems}">
-                            <RibbonGalleryCategory.ItemsPanel>
+                            <ribbon:RibbonGalleryCategory.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Vertical" IsItemsHost="True" />
                                 </ItemsPanelTemplate>
-                            </RibbonGalleryCategory.ItemsPanel>
+                            </ribbon:RibbonGalleryCategory.ItemsPanel>
 
-                            <RibbonGalleryCategory.ItemTemplate>
+                            <ribbon:RibbonGalleryCategory.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -72,7 +73,7 @@
                                                 <Style TargetType="{x:Type Button}">
                                                     <Setter Property="Visibility" Value="Hidden" />
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type RibbonGalleryItem}}, Path=IsMouseOver}" Value="true">
+                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type ribbon:RibbonGalleryItem}}, Path=IsMouseOver}" Value="true">
                                                             <Setter Property="Visibility" Value="Visible" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
@@ -82,7 +83,7 @@
                                             <Image Source="pack://application:,,,/Orchestra.Core;component/Resources/Images/Unpinned.png" />
                                         </Button>
 
-                                        <RibbonApplicationMenuItem Grid.Column="1" Header="{Binding Name, Converter={converters:PathToStringConverter}}" 
+                                        <ribbon:RibbonApplicationMenuItem Grid.Column="1" Header="{Binding Name, Converter={converters:PathToStringConverter}}" 
                                                                           Command="{Binding ElementName=recentlyUsedItemsRibbonGallery, Path=DataContext.OpenRecentlyUsedItem}" 
                                                                           CommandParameter="{Binding Name}" ToolTip="{Binding Name}" HorizontalContentAlignment="Left" />
 
@@ -93,35 +94,35 @@
                                         </Button>
                                     </Grid>
                                 </DataTemplate>
-                            </RibbonGalleryCategory.ItemTemplate>
-                        </RibbonGalleryCategory>
-                    </RibbonGallery>
-                </RibbonApplicationMenu.AuxiliaryPaneContent>
+                            </ribbon:RibbonGalleryCategory.ItemTemplate>
+                        </ribbon:RibbonGalleryCategory>
+                    </ribbon:RibbonGallery>
+                </ribbon:RibbonApplicationMenu.AuxiliaryPaneContent>
 
-                <RibbonApplicationMenuItem Header="Open..." ImageSource="/Resources/Images/open.png" Command="{catel:CommandManagerBinding File.Open}" />
-                <RibbonSeparator />
-                <RibbonApplicationMenuItem Header="Print..." ImageSource="/Resources/Images/print.png" Command="{catel:CommandManagerBinding File.Print}" />
-                <RibbonSeparator />
-                <RibbonApplicationMenuItem Header="Exit" ImageSource="/Resources/Images/exit.png" Command="{catel:CommandManagerBinding File.Exit}" />
-            </RibbonApplicationMenu>
-        </Ribbon.ApplicationMenu>
+                <ribbon:RibbonApplicationMenuItem Header="Open..." ImageSource="/Resources/Images/open.png" Command="{catel:CommandManagerBinding File.Open}" />
+                <ribbon:RibbonSeparator />
+                <ribbon:RibbonApplicationMenuItem Header="Print..." ImageSource="/Resources/Images/print.png" Command="{catel:CommandManagerBinding File.Print}" />
+                <ribbon:RibbonSeparator />
+                <ribbon:RibbonApplicationMenuItem Header="Exit" ImageSource="/Resources/Images/exit.png" Command="{catel:CommandManagerBinding File.Exit}" />
+            </ribbon:RibbonApplicationMenu>
+        </ribbon:Ribbon.ApplicationMenu>
 
-        <RibbonTab Header="View">
+        <ribbon:RibbonTab Header="View">
 
-            <RibbonGroup Header="Workspace">
-                <RibbonButton Label="Refresh" LargeImageSource="/Resources/Images/refresh.png" 
+            <ribbon:RibbonGroup Header="Workspace">
+                <ribbon:RibbonButton Label="Refresh" LargeImageSource="/Resources/Images/refresh.png" 
                                      Command="{Binding RefreshWorkspace}" />
-            </RibbonGroup>
+            </ribbon:RibbonGroup>
 
-            <RibbonGroup Header="Keyboard">
-                <RibbonSplitButton Label="Shortcuts" LargeImageSource="/Resources/Images/keyboard.png"
+            <ribbon:RibbonGroup Header="Keyboard">
+                <ribbon:RibbonSplitButton Label="Shortcuts" LargeImageSource="/Resources/Images/keyboard.png"
                                           Command="{Binding ShowKeyboardMappings}" IsCheckable="False">
-                    <RibbonGallery ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                        <RibbonGallery.Resources>
-                            <Style TargetType="RibbonGalleryItem">
+                    <ribbon:RibbonGallery ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ribbon:RibbonGallery.Resources>
+                            <Style TargetType="ribbon:RibbonGalleryItem">
                                 <Setter Property="Template">
                                     <Setter.Value>
-                                        <ControlTemplate TargetType="RibbonGalleryItem">
+                                        <ControlTemplate TargetType="ribbon:RibbonGalleryItem">
                                             <Grid Background="Transparent">
                                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Grid>
@@ -129,15 +130,15 @@
                                     </Setter.Value>
                                 </Setter>
                             </Style>
-                        </RibbonGallery.Resources>
+                        </ribbon:RibbonGallery.Resources>
 
-                        <RibbonGalleryItem IsSelected="False" >
+                        <ribbon:RibbonGalleryItem IsSelected="False" >
                             <views:KeyboardMappingsOverviewView />
-                        </RibbonGalleryItem>
-                    </RibbonGallery>
-                </RibbonSplitButton>
-            </RibbonGroup>
+                        </ribbon:RibbonGalleryItem>
+                    </ribbon:RibbonGallery>
+                </ribbon:RibbonSplitButton>
+            </ribbon:RibbonGroup>
 
-        </RibbonTab>
-    </Ribbon>
+        </ribbon:RibbonTab>
+    </ribbon:Ribbon>
 </catel:UserControl>

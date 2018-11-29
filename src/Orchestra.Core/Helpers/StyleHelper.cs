@@ -16,7 +16,8 @@ namespace Orchestra
     using Catel;
     using Catel.Caching;
     using Catel.Logging;
-    using StylesExplorer.MarkupReflection;
+    using Ricciolo.StylesExplorer.MarkupReflection;
+    using Ricciolo.StylesExplorer.MarkupReflection.Implementations;
     using XmlNamespaceManager = System.Xml.XmlNamespaceManager;
 
     /// <summary>
@@ -567,7 +568,7 @@ namespace Orchestra
             return _resourceDictionaryCache.GetFromCacheOrFetch(resourceDictionaryUri, () =>
             {
                 var streamResourceInfo = Application.GetResourceStream(resourceDictionaryUri);
-                var reader = new XmlBamlReader(streamResourceInfo.Stream);
+                var reader = new XmlBamlReader(streamResourceInfo.Stream, new RuntimeTypeResolver());
 
                 var doc = new XmlDocument();
                 doc.Load(reader);

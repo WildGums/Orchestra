@@ -37,7 +37,7 @@ Note: if you feel an item is missing in this list, please let us know!
 
 * ControlzEx
   https://github.com/controlzex/controlzex
-  Original license: MIT  
+  Original license: MIT
   
 * DotNetZip
   https://dotnetzip.codeplex.com/
@@ -45,7 +45,7 @@ Note: if you feel an item is missing in this list, please let us know!
 
 * Fluent.Ribbon
   https://github.com/fluentribbon/fluent.ribbon
-  Original license: MIT    
+  Original license: MIT
   
 * MahApps.Metro
   https://github.com/mahapps/mahapps.metro
@@ -57,12 +57,13 @@ Note: if you feel an item is missing in this list, please let us know!
   
 * Orc.LogViewer
   https://github.com/wildgums/orc.logviewer
-  Original license: MIT  
+  Original license: MIT
   
 * Orc.SystemInfo
   https://github.com/wildgums/orc.systeminfo
   Original license: MIT
   
 * Internal Style Helper based on Styles Explorer (Ricciolo)
+  https://github.com/icsharpcode/ILSpy/tree/master/ILSpy.BamlDecompiler/Ricciolo.StylesExplorer.MarkupReflection
   http://stylesexplorer.codeplex.com/license
   Original license: Ms-PL (compatible with MIT)
