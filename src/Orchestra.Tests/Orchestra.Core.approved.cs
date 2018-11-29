@@ -15,8 +15,7 @@ public class static ModuleInitializer
 }
 namespace Orchestra
 {
-    [System.ObsoleteAttribute("Use `Orc.Controls.AccentColorStyle` instead. Will be treated as an error from ver" +
-        "sion 5.2.0. Will be removed in version 6.0.0.", false)]
+    [System.ObsoleteAttribute("Use `Orc.Controls.AccentColorStyle` instead. Will be removed in version 6.0.0.", true)]
     public enum AccentColorStyle
     {
         AccentColor = 0,
@@ -627,8 +626,8 @@ namespace Orchestra.Services
         public AboutService(Catel.Services.IUIVisualizerService uiVisualizerService, Orchestra.Services.IAboutInfoService aboutInfoService) { }
         public virtual System.Threading.Tasks.Task ShowAboutAsync() { }
     }
-    [System.ObsoleteAttribute("Use `Orc.Controls.Services.AccentColorService` instead. Will be treated as an err" +
-        "or from version 5.2.0. Will be removed in version 6.0.0.", false)]
+    [System.ObsoleteAttribute("Use `Orc.Controls.Services.AccentColorService` instead. Will be removed in versio" +
+        "n 6.0.0.", true)]
     public class AccentColorService : Orchestra.Services.IAccentColorService
     {
         public AccentColorService() { }
@@ -699,8 +698,8 @@ namespace Orchestra.Services
     {
         System.Threading.Tasks.Task ShowAboutAsync();
     }
-    [System.ObsoleteAttribute("Use `Orc.Controls.Services.IAccentColorService` instead. Will be treated as an er" +
-        "ror from version 5.2.0. Will be removed in version 6.0.0.", false)]
+    [System.ObsoleteAttribute("Use `Orc.Controls.Services.IAccentColorService` instead. Will be removed in versi" +
+        "on 6.0.0.", true)]
     public interface IAccentColorService
     {
         System.Windows.Media.Color GetAccentColor();
