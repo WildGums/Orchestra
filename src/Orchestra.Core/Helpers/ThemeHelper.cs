@@ -306,7 +306,7 @@ namespace Orchestra
                 var uri = new Uri(resourceDictionaryUri, UriKind.RelativeOrAbsolute);
 
                 var application = Application.Current;
-                if (application == null)
+                if (application is null)
                 {
                     throw Log.ErrorAndCreateException<OrchestraException>("Application.Current is null, cannot ensure application themes");
                 }
@@ -314,7 +314,7 @@ namespace Orchestra
                 var existingDictionary = (from dic in application.Resources.MergedDictionaries
                                           where dic.Source != null && dic.Source == uri
                                           select dic).FirstOrDefault();
-                if (existingDictionary == null)
+                if (existingDictionary is null)
                 {
                     existingDictionary = new ResourceDictionary
                     {

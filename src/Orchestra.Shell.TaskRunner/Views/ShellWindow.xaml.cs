@@ -77,8 +77,6 @@ namespace Orchestra.Views
                 AddCustomButton(new DataWindowButton("About", commandManager.GetCommand("Help.About")));
             }
 
-            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, true);
-
             InitializeComponent();
             serviceLocator.RegisterInstance<ILogControlService>(new LogControlService(traceOutputControl));
 
