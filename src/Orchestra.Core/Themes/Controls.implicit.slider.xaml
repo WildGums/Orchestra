@@ -25,11 +25,11 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Fill" TargetName="ThumbEllipse" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor4}"/>
+                <Setter Property="Fill" TargetName="ThumbEllipse" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
             </Trigger>
             <Trigger Property="IsDragging" Value="true">
-                <Setter Property="Fill" TargetName="ThumbEllipse" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
-                <Setter Property="Stroke" TargetName="ThumbEllipse" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                <Setter Property="Fill" TargetName="ThumbEllipse" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
+                <Setter Property="Stroke" TargetName="ThumbEllipse" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Fill" TargetName="ThumbEllipse" Value="#FFF4F4F4"/>

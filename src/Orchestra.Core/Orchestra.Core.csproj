@@ -29,7 +29,7 @@
     </PackageReference>
     <PackageReference Include="ModuleInit.Fody" Version="1.8.3" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="4.4.3" PrivateAssets="all" />
-    <PackageReference Include="Orc.Controls" Version="3.2.0-alpha0007" />
+    <PackageReference Include="Orc.Controls" Version="3.2.0-alpha0008" />
     <PackageReference Include="Orc.FileSystem" Version="3.1.0-alpha0007" />
     <PackageReference Include="Orc.SystemInfo" Version="3.1.0-alpha0007" />
     <PackageReference Include="WpfAnalyzers" Version="2.2.0.2" PrivateAssets="all" />

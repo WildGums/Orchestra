@@ -14,7 +14,7 @@
                             <Border x:Name="CheckBoxBorder"
                                     Height="12"
                                     Width="12"
-                                    BorderBrush="LightGray"
+                                    BorderBrush="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderColor}"
                                     BorderThickness="1"
                                     Background="White">
                                 <Path x:Name="CheckMark"
@@ -37,8 +37,8 @@
                             <Setter Property="Foreground" Value="#FFADADAD"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="CheckBoxBorder" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor4}"/>
-                            <Setter Property="BorderBrush" TargetName="CheckBoxBorder" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="CheckBoxBorder" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
+                            <Setter Property="BorderBrush" TargetName="CheckBoxBorder" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="False">
                             <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>

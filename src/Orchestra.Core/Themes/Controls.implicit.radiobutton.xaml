@@ -30,7 +30,7 @@
 										Height="12"
 										CornerRadius="6" 
 										BorderThickness="{TemplateBinding BorderThickness}"
-										BorderBrush="LightGray" 
+										BorderBrush="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderColor}" 
 										Background="White">
                                 <Border x:Name="RadioMark"
                                         Width="6" 
@@ -54,8 +54,8 @@
                             <Setter Property="Foreground" Value="#FFADADAD"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="RadioButtonBorder" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor4}"/>
-                            <Setter Property="BorderBrush" TargetName="RadioButtonBorder" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="RadioButtonBorder" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
+                            <Setter Property="BorderBrush" TargetName="RadioButtonBorder" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="false">
                             <Setter TargetName="RadioMark" Property="Visibility" Value="Collapsed"/>

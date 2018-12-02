@@ -54,7 +54,7 @@
 
         <GroupBox Grid.Row="2" Header="Results">
             <orclogviewer:AdvancedLogViewerControl x:Name="traceOutputControl" 
-                                                   AccentColorBrush="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" 
+                                                   AccentColorBrush="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}" 
                                                    ShowFilterBox="False" 
                                                    ShowFilterGroups="True" />
         </GroupBox>

@@ -35,7 +35,7 @@
             <ProgressBar.Style>
                 <Style TargetType="{x:Type ProgressBar}">
                     <Setter Property="Margin" Value="0"/>
-                    <Setter Property="Foreground" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                    <Setter Property="Foreground" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
                     <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="Template">

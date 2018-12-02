@@ -117,7 +117,7 @@ namespace Orchestra
 
             // Note: important to add the resources dictionary *after* changing the app style, but then insert at the top 
             // so theme detection performance is best
-            applicationResources.MergedDictionaries.Insert(1, resourceDictionary);
+            applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
         }
         #endregion
     }

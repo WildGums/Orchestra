@@ -27,7 +27,7 @@ namespace Orchestra.Views
 
             var application = Application.Current;
 
-            Background = (application != null) ? ThemeHelper.GetAccentColorBrush() : Brushes.DodgerBlue;
+            Background = (application != null) ? Orc.Controls.ThemeHelper.GetThemeColorBrush() : Brushes.DodgerBlue;
         }
         #endregion
     }

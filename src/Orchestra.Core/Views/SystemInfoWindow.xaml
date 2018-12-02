@@ -54,7 +54,7 @@
             <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="15"
                 Visibility="{Binding IsSystemInformationLoaded, Converter={catel:BooleanToCollapsingVisibilityConverter}, ConverterParameter=True}">
                 <Label Content="{catel:LanguageBinding Orchestra_RetrievingSystemInfo}" FontSize="14" HorizontalAlignment="Center" />
-                <controls:BusyIndicator Foreground="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" Margin="8" IgnoreUnloadedEventCount="1" />
+                <controls:BusyIndicator Foreground="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}" Margin="8" IgnoreUnloadedEventCount="1" />
             </StackPanel>
         </Grid>
 

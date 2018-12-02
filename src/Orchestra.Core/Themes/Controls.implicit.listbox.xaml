@@ -27,24 +27,24 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor4}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
+                            <Setter Property="BorderBrush" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="Selector.IsSelectionActive" Value="False"/>
                                 <Condition Property="IsSelected" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor4}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor2}"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
+                            <Setter Property="BorderBrush" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor2}"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="Selector.IsSelectionActive" Value="True"/>
                                 <Condition Property="IsSelected" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor3}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor3}"/>
+                            <Setter Property="BorderBrush" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>

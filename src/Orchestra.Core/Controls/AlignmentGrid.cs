@@ -5,6 +5,7 @@
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Shapes;
+    using Orc.Controls;
 
     /// <summary>
     /// 
@@ -87,7 +88,7 @@
 
             var horizontalStep = HorizontalStep;
             var verticalStep = VerticalStep;
-            var brush = LineBrush ?? ThemeHelper.GetAccentColorBrush(AccentColorStyle.AccentColor4);
+            var brush = LineBrush ?? Orc.Controls.ThemeHelper.GetThemeColorBrush(ThemeColorStyle.AccentColor4);
 
             for (double x = 0; x < ActualWidth; x += horizontalStep)
             {
