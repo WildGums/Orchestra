@@ -82,9 +82,9 @@
                                         CornerRadius="1" Height="3.0" Margin="5,0" Grid.Row="1" VerticalAlignment="center">
                                 <Canvas Margin="-6,-1">
                                     <Rectangle x:Name="PART_SelectionRange"
-                                                   Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
-                                                   Height="3.0" Stroke="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
-                                                   StrokeThickness="1.0" Visibility="Hidden"/>
+                                               Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
+                                               Height="3.0" Stroke="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
+                                               StrokeThickness="1.0" Visibility="Hidden"/>
                                 </Canvas>
                             </Border>
                             <Track x:Name="PART_Track" Grid.Row="1">

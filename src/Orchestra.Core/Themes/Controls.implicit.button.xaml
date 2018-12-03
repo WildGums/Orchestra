@@ -22,12 +22,14 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
+                            <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundMouseOver}"/>
+                            <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderMouseOver}"/>
+                            <Setter Property="Foreground" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=ForegroundMouseOver}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundPressed}"/>
+                            <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderPressed}"/>
+                            <Setter Property="Foreground" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=ForegroundPressed}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" TargetName="Filter" Value="WhiteSmoke"/>

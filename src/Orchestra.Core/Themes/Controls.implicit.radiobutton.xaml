@@ -51,11 +51,11 @@
                             <Setter Property="Padding" Value="4,0,0,0"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="#FFADADAD"/>
+                            <Setter Property="Foreground" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=ForegroundDisabled}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="RadioButtonBorder" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
-                            <Setter Property="BorderBrush" TargetName="RadioButtonBorder" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="RadioButtonBorder" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundMouseOver}"/>
+                            <Setter Property="BorderBrush" TargetName="RadioButtonBorder" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderMouseOver}"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="false">
                             <Setter TargetName="RadioMark" Property="Visibility" Value="Collapsed"/>

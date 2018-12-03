@@ -47,7 +47,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundMouseOver}"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
                             <Setter Property="Panel.ZIndex" Value="1"/>
