@@ -117,35 +117,7 @@ Task("RestorePackages")
 
     foreach(var file in allFiles)
     {
-        Information("Restoring packages for {0}", file);
-        
-        try
-        {
-            var nuGetRestoreSettings = new NuGetRestoreSettings
-            {
-            };
-
-            if (!string.IsNullOrWhiteSpace(NuGetPackageSources))
-            {
-                var sources = new List<string>();
-
-                foreach (var splitted in NuGetPackageSources.Split(new [] { ';' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    sources.Add(splitted);
-                }
-                
-                if (sources.Count > 0)
-                {
-                    nuGetRestoreSettings.Source = sources;
-                }
-            }
-
-            NuGetRestore(file, nuGetRestoreSettings);
-        }
-        catch (Exception)
-        {
-            // Ignore
-        }
+        RestoreNuGetPackages(file);
     }
 });
 
@@ -272,7 +244,7 @@ Task("CodeSign")
         return;
     }
 
-    Information("Found '{0}' files to code sign, this can take a few minutes...", filesToSign.Count);
+    Information("Found '{0}' files to code sign using subject name '{1}', this can take a few minutes...", filesToSign.Count, CodeSignCertificateSubjectName);
 
     var signToolSignSettings = new SignToolSignSettings 
     {
