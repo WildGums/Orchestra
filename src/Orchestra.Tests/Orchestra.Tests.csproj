@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ApiApprover" Version="7.1.0" PrivateAssets="all" />
+    <PackageReference Include="ApiApprover" Version="8.0.1" PrivateAssets="all" />
     <PackageReference Include="ApprovalTests" Version="3.0.15" PrivateAssets="all" />
     <PackageReference Include="ApprovalUtilities" Version="3.0.15" PrivateAssets="all" />
     <PackageReference Include="Catel.Core" Version="5.9.0-alpha0017" />
