@@ -118,6 +118,20 @@ namespace Orchestra
 
                     Log.Debug($"Restoring window position for '{windowName}' to '{left} (x) / {top} (y)'");
 
+                    var virtualScreenLeft = SystemParameters.VirtualScreenLeft;
+                    var virtualScreenTop = SystemParameters.VirtualScreenTop;
+                    var virtualScreenWidth = SystemParameters.VirtualScreenWidth;
+                    var virtualScreenHeight = SystemParameters.VirtualScreenHeight;
+
+                    if (left < virtualScreenLeft ||
+                        left + width > virtualScreenWidth ||
+                        top < virtualScreenTop ||
+                        top + height > virtualScreenHeight)
+                    {
+                        window.CenterWindowToParent();
+                        return;
+                    }
+
                     window.SetCurrentValue(Window.LeftProperty, left);
                     window.SetCurrentValue(Window.TopProperty, top);
                 }
