@@ -7,7 +7,7 @@
     <Authors>wildgums</Authors>
     <PackageIconUrl>https://github.com/WildGums/Assets/raw/master/packages/logo.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/WildGums/Orchestra</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/WildGums/Orchestra/blob/develop/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/WildGums/Orchestra</RepositoryUrl>
   </PropertyGroup>
    
