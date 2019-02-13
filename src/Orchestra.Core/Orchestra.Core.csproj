@@ -22,7 +22,7 @@
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="MethodTimer.Fody" Version="2.2.2" PrivateAssets="all" />
     <PackageReference Include="Catel.Core" Version="5.10.0-alpha0018" />
-    <PackageReference Include="Catel.Fody" Version="3.8.0" PrivateAssets="all" />
+    <PackageReference Include="Catel.Fody" Version="3.9.0" PrivateAssets="all" />
     <PackageReference Include="Catel.MVVM" Version="5.9.0" />
     <PackageReference Include="Fody" Version="3.3.3" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
