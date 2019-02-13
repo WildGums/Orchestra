@@ -30,7 +30,7 @@ namespace Orchestra.Examples.TaskRunner.Services
             set
             {
                 _title = value;
-                TitleChanged.SafeInvoke(this);
+                TitleChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 

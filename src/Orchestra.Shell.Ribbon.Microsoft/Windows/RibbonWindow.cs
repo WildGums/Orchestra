@@ -42,12 +42,12 @@ namespace Orchestra.Windows
         public RibbonWindow(IViewModel viewModel)
         {
             _logic = new WindowLogic(this, null, viewModel);
-            _logic.ViewModelChanged += (sender, e) => ViewModelChanged.SafeInvoke(this, e);
-            _logic.PropertyChanged += (sender, e) => PropertyChanged.SafeInvoke(this, e);
+            _logic.ViewModelChanged += (sender, e) => ViewModelChanged?.Invoke(this, e);
+            _logic.PropertyChanged += (sender, e) => PropertyChanged?.Invoke(this, e);
 
-            Loaded += (sender, e) => _viewLoaded.SafeInvoke(this);
-            Unloaded += (sender, e) => _viewUnloaded.SafeInvoke(this);
-            DataContextChanged += (sender, e) => _viewDataContextChanged.SafeInvoke(this, new DataContextChangedEventArgs(e.OldValue, e.NewValue));
+            Loaded += (sender, e) => _viewLoaded?.Invoke(this, EventArgs.Empty);
+            Unloaded += (sender, e) => _viewUnloaded?.Invoke(this, EventArgs.Empty);
+            DataContextChanged += (sender, e) => _viewDataContextChanged?.Invoke(this, new DataContextChangedEventArgs(e.OldValue, e.NewValue));
 
             // Because the RadWindow does not close when DialogResult is set, the following code is required
             ViewModelChanged += (sender, e) => OnViewModelChanged();

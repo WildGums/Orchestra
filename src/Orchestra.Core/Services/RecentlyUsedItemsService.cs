@@ -92,7 +92,7 @@ namespace Orchestra.Services
 
             AddSorted(_items.Items, item);
 
-            Updated.SafeInvoke(this);
+            Updated?.Invoke(this, EventArgs.Empty);
 
             Save();
         }
@@ -111,7 +111,7 @@ namespace Orchestra.Services
             RemoveItemFromCollection(_items.PinnedItems, item.Name);
             RemoveItemFromCollection(_items.Items, item.Name);
 
-            Updated.SafeInvoke(this);
+            Updated?.Invoke(this, EventArgs.Empty);
 
             Save();
         }
@@ -150,7 +150,7 @@ namespace Orchestra.Services
                 }
             }
 
-            Updated.SafeInvoke(this);
+            Updated?.Invoke(this, EventArgs.Empty);
 
             Save();
         }
@@ -176,7 +176,7 @@ namespace Orchestra.Services
                 }
             }
 
-            Updated.SafeInvoke(this);
+            Updated?.Invoke(this, EventArgs.Empty);
 
             Save();
         }
