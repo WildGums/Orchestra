@@ -19,15 +19,15 @@
   
   <ItemGroup>
     <PackageReference Include="Ionic.Zip" Version="1.9.1.8" />
-    <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="2.1.0" PrivateAssets="all" />
-    <PackageReference Include="MethodTimer.Fody" Version="2.2.2" PrivateAssets="all" />
+    <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="3.0.3" PrivateAssets="all" />
+    <PackageReference Include="MethodTimer.Fody" Version="2.3.0" PrivateAssets="all" />
     <PackageReference Include="Catel.Core" Version="5.10.0-alpha0018" />
     <PackageReference Include="Catel.Fody" Version="3.9.0" PrivateAssets="all" />
     <PackageReference Include="Catel.MVVM" Version="5.9.0" />
-    <PackageReference Include="Fody" Version="3.3.3" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="4.0.2" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="ModuleInit.Fody" Version="1.8.3" PrivateAssets="all" />
+    <PackageReference Include="ModuleInit.Fody" Version="1.9.0" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="4.4.3" PrivateAssets="all" />
     <PackageReference Include="Orc.Controls" Version="3.2.0-alpha0017" />
     <PackageReference Include="Orc.FileSystem" Version="3.1.0-alpha0009" />
