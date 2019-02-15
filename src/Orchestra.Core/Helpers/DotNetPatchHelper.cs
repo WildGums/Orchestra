@@ -36,16 +36,29 @@ namespace Orchestra
         /// </summary>
         public static void Initialize()
         {
-            InitializeAppDomain();
-            InitializeApplication();
+            Attach();
+        }
+        
+        public static void Attach()
+        {
+            AttachToAppDomain();
+            AttachToApplication();
         }
 
-        private static void InitializeAppDomain()
+        public static void Detach()
+        {
+            DetachFromAppDomain();
+            DetachFromApplication();
+        }
+
+        private static void AttachToAppDomain()
         {
             if (_isAppDomainInitialized)
             {
                 return;
             }
+
+            Log.Debug("Attaching from AppDomain");
 
             _isAppDomainInitialized = true;
 
@@ -54,7 +67,23 @@ namespace Orchestra
             appDomain.FirstChanceException += OnAppDomainFirstChanceException;
         }
 
-        private static void InitializeApplication()
+        private static void DetachFromAppDomain()
+        {
+            if (!_isAppDomainInitialized)
+            {
+                return;
+            }
+
+            Log.Debug("Detaching from AppDomain");
+
+            var appDomain = AppDomain.CurrentDomain;
+            appDomain.UnhandledException -= OnAppDomainUnhandledException;
+            appDomain.FirstChanceException -= OnAppDomainFirstChanceException;
+
+            _isAppDomainInitialized = false;
+        }
+
+        private static void AttachToApplication()
         {
             if (_isApplicationInitialized)
             {
@@ -64,8 +93,27 @@ namespace Orchestra
             var application = Application.Current;
             if (application != null)
             {
+                Log.Debug("Attaching to Application");
+
                 application.DispatcherUnhandledException += OnDispatcherUnhandledException;
                 _isApplicationInitialized = true;
+            }
+        }
+
+        private static void DetachFromApplication()
+        {
+            if (!_isApplicationInitialized)
+            {
+                return;
+            }
+
+            var application = Application.Current;
+            if (application != null)
+            {
+                Log.Debug("Detaching from Application");
+
+                application.DispatcherUnhandledException -= OnDispatcherUnhandledException;
+                _isApplicationInitialized = false;
             }
         }
 

@@ -60,6 +60,8 @@ namespace Orchestra
     }
     public class static DotNetPatchHelper
     {
+        public static void Attach() { }
+        public static void Detach() { }
         public static void Initialize() { }
     }
     public class FileBasedThirdPartyNotice : Orchestra.ThirdPartyNotice
