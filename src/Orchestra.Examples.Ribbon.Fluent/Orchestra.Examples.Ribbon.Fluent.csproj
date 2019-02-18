@@ -18,7 +18,7 @@
   <ItemGroup>
     <PackageReference Include="ControlzEx" Version="3.0.2.4" />
     <PackageReference Include="Fluent.Ribbon" Version="6.1.0.326" />
-    <PackageReference Include="Catel.Core" Version="5.10.0-alpha0018" />
+    <PackageReference Include="Catel.Core" Version="5.10.0-alpha0027" />
     <PackageReference Include="Catel.MVVM" Version="5.9.0" />
     <PackageReference Include="Catel.Fody" Version="3.9.0" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="4.0.2" PrivateAssets="all">

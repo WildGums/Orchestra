@@ -20,7 +20,7 @@
     <PackageReference Include="ControlzEx" Version="3.0.2.4" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="MethodTimer.Fody" Version="2.3.0" PrivateAssets="all" />
-    <PackageReference Include="Catel.Core" Version="5.10.0-alpha0018" />
+    <PackageReference Include="Catel.Core" Version="5.10.0-alpha0027" />
     <PackageReference Include="Catel.Fody" Version="3.9.0" PrivateAssets="all" />
     <PackageReference Include="Catel.MVVM" Version="5.9.0" />
     <PackageReference Include="Fody" Version="4.0.2" PrivateAssets="all">
