@@ -21,7 +21,7 @@
     <PackageReference Include="Ionic.Zip" Version="1.9.1.8" />
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="3.0.3" PrivateAssets="all" />
     <PackageReference Include="MethodTimer.Fody" Version="2.3.0" PrivateAssets="all" />
-    <PackageReference Include="Catel.Core" Version="5.10.0-alpha0035" />
+    <PackageReference Include="Catel.Core" Version="5.10.0-alpha0038" />
     <PackageReference Include="Catel.Fody" Version="3.9.0" PrivateAssets="all" />
     <PackageReference Include="Catel.MVVM" Version="5.9.0" />
     <PackageReference Include="Fody" Version="4.0.2" PrivateAssets="all">
