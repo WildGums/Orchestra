@@ -1,10 +1,12 @@
+#pragma warning disable 1998
+
 #l "apps-wpf-variables.cake"
 
 #addin "nuget:?package=Cake.Squirrel&version=0.13.0"
 #addin "nuget:?package=MagicChunks&version=2.0.0.119"
 //#addin "nuget:?Cake.AzureStorage&version=0.14.0"
 
-#tool "nuget:?package=Squirrel.Windows&version=1.8.0"
+#tool "nuget:?package=Squirrel.Windows&version=1.9.1"
 #tool "nuget:?package=AzureStorageSync&version=2.0.0-alpha0028&prerelease"
 
 //-------------------------------------------------------------
@@ -70,11 +72,16 @@ private void BuildWpfApps()
         
         var msBuildSettings = new MSBuildSettings {
             Verbosity = Verbosity.Quiet, // Verbosity.Diagnostic
-            ToolVersion = MSBuildToolVersion.VS2017,
+            ToolVersion = MSBuildToolVersion.Default,
             Configuration = ConfigurationName,
             MSBuildPlatform = MSBuildPlatform.x86, // Always require x86, see platform for actual target platform
             PlatformTarget = PlatformTarget.MSIL
         };
+
+        ConfigureMsBuild(msBuildSettings, wpfApp);
+
+        // Always disable SourceLink
+        msBuildSettings.WithProperty("EnableSourceLink", "false");
 
         // Note: we need to set OverridableOutputPath because we need to be able to respect
         // AppendTargetFrameworkToOutputPath which isn't possible for global properties (which

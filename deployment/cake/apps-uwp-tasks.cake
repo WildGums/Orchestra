@@ -1,7 +1,10 @@
+#pragma warning disable 1998
+
 #l "apps-uwp-variables.cake"
 
 #addin "nuget:?package=MagicChunks&version=2.0.0.119"
 #addin "nuget:?package=Newtonsoft.Json&version=11.0.2"
+#addin "nuget:?package=Microsoft.Azure.KeyVault.Core&version=1.0.0"
 #addin "nuget:?package=WindowsAzure.Storage&version=9.1.1"
 #addin "nuget:?package=Cake.WindowsAppStore&version=1.4.0"
 
@@ -134,11 +137,16 @@ private void BuildUwpApps()
 
         var msBuildSettings = new MSBuildSettings {
             Verbosity = Verbosity.Quiet, // Verbosity.Diagnostic
-            ToolVersion = MSBuildToolVersion.VS2017,
+            ToolVersion = MSBuildToolVersion.Default,
             Configuration = ConfigurationName,
             MSBuildPlatform = MSBuildPlatform.x86, // Always require x86, see platform for actual target platform
             PlatformTarget = platform.Value
         };
+
+        ConfigureMsBuild(msBuildSettings, uwpApp);
+
+        // Always disable SourceLink
+        msBuildSettings.WithProperty("EnableSourceLink", "false");
 
         // See https://docs.microsoft.com/en-us/windows/uwp/packaging/auto-build-package-uwp-apps for all the details
         //msBuildSettings.Properties["UseDotNetNativeToolchain"] = new List<string>(new [] { "false" });
@@ -198,8 +206,18 @@ private void DeployUwpApps()
 
         LogSeparator("Deploying UWP app '{0}'", uwpApp);
 
-        // TODO: How to Deploy?
-        Warning("Deploying of UWP apps is not yet implemented, please deploy '{0}' manually", uwpApp);
+        var artifactsDirectory = GetArtifactsDirectory(OutputRootDirectory);
+        var appxUploadFileName = GetAppxUploadFileName(artifactsDirectory, uwpApp, VersionMajorMinorPatch);
+
+        Information("Creating Windows Store app submission");
+
+        CreateWindowsStoreAppSubmission(appxUploadFileName, new WindowsStoreAppSubmissionSettings
+        {
+            ApplicationId = WindowsStoreAppId,
+            ClientId = WindowsStoreClientId,
+            ClientSecret = WindowsStoreClientSecret,
+            TenantId = WindowsStoreTenantId
+        });        
     }
 }
 

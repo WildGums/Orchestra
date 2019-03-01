@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>net46</TargetFrameworks>
     <AssemblyName>Orchestra.Tests</AssemblyName>
@@ -9,6 +9,7 @@
     <Description></Description>
     <PackageTags></PackageTags>
     <SonarQubeExclude>true</SonarQubeExclude>
+    <UseWpf>true</UseWpf>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +26,6 @@
     <PackageReference Include="ModuleInit.Fody" Version="1.8.3" PrivateAssets="all" />
     <PackageReference Include="Mono.Cecil" Version="0.10.0" PrivateAssets="all" />
     <PackageReference Include="NUnit" Version="3.11.0" PrivateAssets="all" />
-    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.5.4" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="4.4.3" PrivateAssets="all" />
     <PackageReference Include="PublicApiGenerator" Version="7.1.0" PrivateAssets="all" />    
     <PackageReference Include="WpfAnalyzers" Version="2.2.0.2" PrivateAssets="all" />
@@ -61,6 +61,5 @@
     </EmbeddedResource>
   </ItemGroup>
   
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props')" />
 </Project>
