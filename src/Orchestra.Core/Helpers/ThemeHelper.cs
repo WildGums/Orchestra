@@ -36,9 +36,9 @@ namespace Orchestra
     public static class ThemeHelper
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        private static readonly Dictionary<Color, ResourceDictionary> _accentColorResourceDictionary = new Dictionary<Color, ResourceDictionary>();
+        private static readonly Dictionary<Color, ResourceDictionary> AccentColorResourceDictionary = new Dictionary<Color, ResourceDictionary>();
 
-        private static bool _ensuredOrchestraThemes;
+        private static bool EnsuredOrchestraThemes;
 
         static ThemeHelper()
         {
@@ -131,7 +131,7 @@ namespace Orchestra
         [ObsoleteEx(TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0", Message = "Only use AccentColor and AccentColorBrush markup extensions")]
         public static ResourceDictionary CreateAccentColorResourceDictionary(Color color)
         {
-            if (!_accentColorResourceDictionary.TryGetValue(color, out var resourceDictionary))
+            if (!AccentColorResourceDictionary.TryGetValue(color, out var resourceDictionary))
             {
                 Log.Info($"Setting theme to '{color}'");
 
@@ -247,7 +247,7 @@ namespace Orchestra
 
                 applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
 
-                _accentColorResourceDictionary[color] = resourceDictionary;
+                AccentColorResourceDictionary[color] = resourceDictionary;
             }
 
             return resourceDictionary;
@@ -278,7 +278,7 @@ namespace Orchestra
         {
             Argument.IsNotNullOrWhitespace(() => resourceDictionaryUri);
 
-            if (_accentColorResourceDictionary == null)
+            if (AccentColorResourceDictionary == null)
             {
                 var accentColor = GetAccentColor();
                 CreateAccentColorResourceDictionary(accentColor);
@@ -326,12 +326,12 @@ namespace Orchestra
         /// <param name="createStyleForwarders">if set to <c>true</c>, create style forwarders.</param>
         private static void EnsureOrchestraTheme(bool createStyleForwarders)
         {
-            if (_ensuredOrchestraThemes)
+            if (EnsuredOrchestraThemes)
             {
                 return;
             }
 
-            _ensuredOrchestraThemes = true;
+            EnsuredOrchestraThemes = true;
 
             EnsureApplicationThemes(typeof(ThemeHelper).Assembly, createStyleForwarders);
         }
