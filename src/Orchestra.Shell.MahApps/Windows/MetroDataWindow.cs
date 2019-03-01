@@ -537,7 +537,7 @@ namespace Orchestra.Windows
             OnViewModelChanged();
 
             ViewModelChanged?.Invoke(this, EventArgs.Empty);
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ViewModel"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ViewModel)));
         }
 
         /// <summary>

@@ -284,7 +284,7 @@ namespace Orchestra.Windows
 
             vm.Validate();
 
-            return vm.ValidationContext.HasErrors;
+            return !vm.ValidationContext.HasErrors;
         }
 
         /// <summary>
