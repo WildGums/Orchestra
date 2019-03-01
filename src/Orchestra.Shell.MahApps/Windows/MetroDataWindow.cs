@@ -142,7 +142,7 @@ namespace Orchestra.Windows
                 if (!string.Equals(e.PropertyName, nameof(ActualWidth), StringComparison.InvariantCulture) &&
                     !string.Equals(e.PropertyName, nameof(ActualHeight), StringComparison.InvariantCulture))
                 {
-                    PropertyChanged.SafeInvoke(this, e);
+                    PropertyChanged?.Invoke(this, e);
                 }
             };
 
@@ -153,19 +153,19 @@ namespace Orchestra.Windows
             {
                 OnViewModelPropertyChanged(sender, e);
 
-                ViewModelPropertyChanged.SafeInvoke(this, e);
+                ViewModelPropertyChanged?.Invoke(this, e);
             };
 
             Loaded += (sender, e) =>
             {
-                _viewLoaded.SafeInvoke(this);
+                _viewLoaded?.Invoke(this, EventArgs.Empty);
 
                 OnLoaded(e);
             };
 
             Unloaded += (sender, e) =>
             {
-                _viewUnloaded.SafeInvoke(this);
+                _viewUnloaded?.Invoke(this, EventArgs.Empty);
 
                 OnUnloaded(e);
             };
@@ -185,7 +185,7 @@ namespace Orchestra.Windows
 
             Loaded += (sender, e) => Initialize();
             Closing += OnDataWindowClosing;
-            DataContextChanged += (sender, e) => _viewDataContextChanged.SafeInvoke(this, new DataContextChangedEventArgs(e.OldValue, e.NewValue));
+            DataContextChanged += (sender, e) => _viewDataContextChanged?.Invoke(this, new DataContextChangedEventArgs(e.OldValue, e.NewValue));
 
             if (setOwnerAndFocus)
             {
@@ -536,8 +536,8 @@ namespace Orchestra.Windows
         {
             OnViewModelChanged();
 
-            ViewModelChanged.SafeInvoke(this);
-            PropertyChanged.SafeInvoke(this, new PropertyChangedEventArgs("ViewModel"));
+            ViewModelChanged?.Invoke(this, EventArgs.Empty);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ViewModel)));
         }
 
         /// <summary>
