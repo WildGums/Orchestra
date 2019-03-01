@@ -70,13 +70,13 @@ namespace Orchestra.Windows
             ThemeHelper.EnsureCatelMvvmThemeIsLoaded();
 
             _logic = new WindowLogic(this, null, viewModel);
-            _logic.PropertyChanged += (sender, e) => PropertyChanged.SafeInvoke(this, e);
-            _logic.ViewModelChanged += (sender, e) => ViewModelChanged.SafeInvoke(this, e);
-            _logic.ViewModelPropertyChanged += (sender, e) => ViewModelPropertyChanged.SafeInvoke(this, e);
+            _logic.PropertyChanged += (sender, e) => PropertyChanged?.Invoke(this, e);
+            _logic.ViewModelChanged += (sender, e) => ViewModelChanged?.Invoke(this, e);
+            _logic.ViewModelPropertyChanged += (sender, e) => ViewModelPropertyChanged?.Invoke(this, e);
 
-            Loaded += (sender, e) => _viewLoaded.SafeInvoke(this);
-            Unloaded += (sender, e) => _viewUnloaded.SafeInvoke(this);
-            DataContextChanged += (sender, e) => _viewDataContextChanged.SafeInvoke(this, new DataContextChangedEventArgs(e.OldValue, e.NewValue));
+            Loaded += (sender, e) => _viewLoaded?.Invoke(this, EventArgs.Empty);
+            Unloaded += (sender, e) => _viewUnloaded?.Invoke(this, EventArgs.Empty);
+            DataContextChanged += (sender, e) => _viewDataContextChanged?.Invoke(this, new DataContextChangedEventArgs(e.OldValue, e.NewValue));
 
             if (additionalButtons != null)
             {
@@ -284,7 +284,7 @@ namespace Orchestra.Windows
 
             vm.Validate();
 
-            return vm.ValidationContext.HasErrors;
+            return !vm.ValidationContext.HasErrors;
         }
 
         /// <summary>
