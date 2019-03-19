@@ -19,8 +19,8 @@
     <PackageReference Include="Fody" Version="4.0.2" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="3.0.6" PrivateAssets="all" />
-    <PackageReference Include="MethodTimer.Fody" Version="2.3.0" PrivateAssets="all" />
+    <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="3.0.8" PrivateAssets="all" />
+    <PackageReference Include="MethodTimer.Fody" Version="2.3.2" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="1.9.0" PrivateAssets="all" />
     <PackageReference Include="NUnit" Version="3.11.0" PrivateAssets="all" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
