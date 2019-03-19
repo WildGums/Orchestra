@@ -70,7 +70,8 @@
     <Compile Remove="Platforms\**\*.cs;Resources\**\*.cs" />
     <Page Remove="Platforms\**\*.xaml" />
     <!-- This is here so that the conditionally included files below are all visible in VS -->
-    <None Include="Platforms\**\*.*;Resources\**\*.*" />
+    <None Include="Platforms\**\*.*" />
+    <None Include="Resources\**\*.*" Exclude="Resources\**\*.xaml" />
     <EmbeddedResource Include="Resources\Files\**\*.*" />
     <Resource Include="Resources\Fonts\**\*.ttf" />
     <Resource Include="Resources\Images\**\*.png" />
