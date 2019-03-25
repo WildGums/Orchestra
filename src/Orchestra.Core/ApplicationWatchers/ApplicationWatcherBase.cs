@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ApplicationWatcherBase.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System;
     using System.Collections.Generic;
@@ -25,8 +18,8 @@ namespace Orchestra
         protected static readonly IDispatcherService DispatcherService;
 
         private static readonly DispatcherTimer DispatcherTimer;
-        private static Queue<Action<Window>> _shellActivatedActions;
-        private static readonly object _lock = new object();
+        private static Queue<Action<Window>> ShellActivatedActions;
+        private static readonly object Lock = new object();
 
         static ApplicationWatcherBase()
         {
@@ -46,9 +39,9 @@ namespace Orchestra
         {
             EnsureSubscribesInitialized();
 
-            lock (_lock)
+            lock (Lock)
             {
-                _shellActivatedActions.Enqueue(action);
+                ShellActivatedActions.Enqueue(action);
             }
 
             DispatcherTimer.Start();
@@ -56,11 +49,11 @@ namespace Orchestra
 
         private static void EnsureSubscribesInitialized()
         {
-            if (_shellActivatedActions == null)
+            if (ShellActivatedActions == null)
             {
-                lock (_lock)
+                lock (Lock)
                 {
-                    _shellActivatedActions = new Queue<Action<Window>>();
+                    ShellActivatedActions = new Queue<Action<Window>>();
                 }
             }
         }
@@ -81,17 +74,17 @@ namespace Orchestra
                 return;
             }
 
-            if (_shellActivatedActions == null)
+            if (ShellActivatedActions == null)
             {
                 DispatcherTimer.Start();
                 return;
             }
 
-            lock (_lock)
+            lock (Lock)
             {
-                while (_shellActivatedActions.Any())
+                while (ShellActivatedActions.Any())
                 {
-                    var action = _shellActivatedActions.Dequeue();
+                    var action = ShellActivatedActions.Dequeue();
 
                     try
                     {

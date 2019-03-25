@@ -72,12 +72,6 @@ namespace Orchestra.Windows
         {
             get { return _logic.ViewModel; }
         }
-
-        public bool PreventViewModelCreation
-        {
-            get { return _logic.PreventViewModelCreation; }
-            set { _logic.PreventViewModelCreation = value; }
-        }
         #endregion
 
         #region Events
