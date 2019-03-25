@@ -163,7 +163,6 @@ namespace Orchestra.Windows
         protected System.Collections.ObjectModel.ReadOnlyCollection<System.Windows.Input.ICommand> Commands { get; }
         protected Catel.Windows.DataWindowDefaultButton DefaultButton { get; }
         protected Catel.Windows.DataWindowMode Mode { get; }
-        public bool PreventViewModelCreation { get; set; }
         public Catel.MVVM.IViewModel ViewModel { get; }
         public System.Type ViewModelType { get; }
         public event System.EventHandler<Catel.MVVM.Views.DataContextChangedEventArgs> _viewDataContextChanged;
