@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Catel.Core" Version="5.10.0-beta0015" />
+    <PackageReference Include="Catel.Core" Version="5.10.0-beta0016" />
     <PackageReference Include="Catel.MVVM" Version="5.10.0-beta0016" />
     <PackageReference Include="Catel.Fody" Version="3.9.0" PrivateAssets="all" />
     <PackageReference Include="ControlzEx" Version="3.0.2.4" />
