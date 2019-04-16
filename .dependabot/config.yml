@@ -5,6 +5,12 @@ update_configs:
     update_schedule: "daily"
     automerged_updates:
     - match:
+        dependency_name: "Fody"
+        update_type: "all"
+    - match:
+        dependency_name: "*.Fody"
+        update_type: "all"
+    - match:
         dependency_name: "Catel.*"
         update_type: "all"
     - match:
