@@ -42,7 +42,7 @@ namespace Orchestra.Models
         {
             ShowLogButton = true;
 
-            Assembly = assembly ?? AssemblyHelper.GetEntryAssembly();
+            Assembly = assembly ?? Catel.Reflection.AssemblyHelper.GetEntryAssembly();
 
             CompanyLogoForSplashScreenUri = companyLogoForSplashScreenUri;
             CompanyLogoUri = companyLogoUri;

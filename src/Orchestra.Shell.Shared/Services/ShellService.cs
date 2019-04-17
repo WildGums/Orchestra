@@ -74,7 +74,7 @@ namespace Orchestra.Services
             _applicationInitializationService = applicationInitializationService;
             _dependencyResolver = dependencyResolver;
 
-            var entryAssembly = AssemblyHelper.GetEntryAssembly();
+            var entryAssembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
 
             Log.Info("Starting {0} v{1} ({2})", entryAssembly.Title(), entryAssembly.Version(), entryAssembly.InformationalVersion());
 
@@ -206,7 +206,7 @@ namespace Orchestra.Services
 
             if (!successfullyStarted)
             {
-                var entryAssembly = AssemblyHelper.GetEntryAssembly();
+                var entryAssembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
                 var assemblyTitle = entryAssembly.Title();
 
                 // Late resolve so user might change the message service

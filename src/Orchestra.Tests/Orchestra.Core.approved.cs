@@ -15,8 +15,7 @@ public class static ModuleInitializer
 }
 namespace Orchestra
 {
-    [System.ObsoleteAttribute("Use `Orc.Controls.AccentColorStyle` instead. Will be treated as an error from ver" +
-        "sion 5.2.0. Will be removed in version 6.0.0.", false)]
+    [System.ObsoleteAttribute("Use `Orc.Controls.AccentColorStyle` instead. Will be removed in version 6.0.0.", true)]
     public enum AccentColorStyle
     {
         AccentColor = 0,
@@ -41,6 +40,7 @@ namespace Orchestra
         public static System.Drawing.Icon ExtractAssemblyIcon(this System.Reflection.Assembly assembly) { }
         public static System.Windows.Media.Imaging.BitmapImage ExtractLargestIcon(this System.Reflection.Assembly assembly) { }
     }
+    [System.ObsoleteAttribute("Use `Catel.Reflection.AssemblyHelper` instead. Will be removed in version 6.0.0.", true)]
     public class static AssemblyHelper
     {
         public static System.Reflection.Assembly GetEntryAssembly() { }
@@ -60,6 +60,8 @@ namespace Orchestra
     }
     public class static DotNetPatchHelper
     {
+        public static void Attach() { }
+        public static void Detach() { }
         public static void Initialize() { }
     }
     public class FileBasedThirdPartyNotice : Orchestra.ThirdPartyNotice
@@ -614,14 +616,6 @@ namespace Orchestra.Models
         public string Uri { get; set; }
     }
 }
-namespace Orchestra.Reflection
-{
-    public class EntryAssemblyResolver : Catel.Reflection.IEntryAssemblyResolver
-    {
-        public EntryAssemblyResolver() { }
-        public System.Reflection.Assembly Resolve() { }
-    }
-}
 namespace Orchestra.Services
 {
     public class AboutInfoService : Orchestra.Services.IAboutInfoService
@@ -634,8 +628,8 @@ namespace Orchestra.Services
         public AboutService(Catel.Services.IUIVisualizerService uiVisualizerService, Orchestra.Services.IAboutInfoService aboutInfoService) { }
         public virtual System.Threading.Tasks.Task ShowAboutAsync() { }
     }
-    [System.ObsoleteAttribute("Use `Orc.Controls.Services.AccentColorService` instead. Will be treated as an err" +
-        "or from version 5.2.0. Will be removed in version 6.0.0.", false)]
+    [System.ObsoleteAttribute("Use `Orc.Controls.Services.AccentColorService` instead. Will be removed in versio" +
+        "n 6.0.0.", true)]
     public class AccentColorService : Orchestra.Services.IAccentColorService
     {
         public AccentColorService() { }
@@ -706,8 +700,8 @@ namespace Orchestra.Services
     {
         System.Threading.Tasks.Task ShowAboutAsync();
     }
-    [System.ObsoleteAttribute("Use `Orc.Controls.Services.IAccentColorService` instead. Will be treated as an er" +
-        "ror from version 5.2.0. Will be removed in version 6.0.0.", false)]
+    [System.ObsoleteAttribute("Use `Orc.Controls.Services.IAccentColorService` instead. Will be removed in versi" +
+        "on 6.0.0.", true)]
     public interface IAccentColorService
     {
         System.Windows.Media.Color GetAccentColor();

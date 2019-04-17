@@ -16,7 +16,9 @@ namespace Orchestra
     using Catel;
     using Catel.Caching;
     using Catel.Logging;
-    using StylesExplorer.MarkupReflection;
+    using MethodTimer;
+    using Ricciolo.StylesExplorer.MarkupReflection;
+    using Ricciolo.StylesExplorer.MarkupReflection.Implementations;
     using XmlNamespaceManager = System.Xml.XmlNamespaceManager;
 
     /// <summary>
@@ -566,11 +568,7 @@ namespace Orchestra
         {
             return _resourceDictionaryCache.GetFromCacheOrFetch(resourceDictionaryUri, () =>
             {
-                var streamResourceInfo = Application.GetResourceStream(resourceDictionaryUri);
-                var reader = new XmlBamlReader(streamResourceInfo.Stream);
-
-                var doc = new XmlDocument();
-                doc.Load(reader);
+                var doc = ReadResourceDictionaryBaml(resourceDictionaryUri);
 
                 // Create namespace manager (all namespaces are required)
                 var xmlNamespaceManager = new XmlNamespaceManager(doc.NameTable);
@@ -587,6 +585,18 @@ namespace Orchestra
 
                 return new Tuple<XmlDocument, XmlNamespaceManager>(doc, xmlNamespaceManager);
             });
+        }
+
+        [Time]
+        private static XmlDocument ReadResourceDictionaryBaml(Uri resourceDictionaryUri)
+        {
+            var streamResourceInfo = Application.GetResourceStream(resourceDictionaryUri);
+            var reader = new XmlBamlReader(streamResourceInfo.Stream, new RuntimeTypeResolver());
+
+            var doc = new XmlDocument();
+            doc.Load(reader);
+
+            return doc;
         }
     }
 }

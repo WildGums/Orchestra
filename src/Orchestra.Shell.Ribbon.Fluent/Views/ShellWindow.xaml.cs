@@ -23,9 +23,6 @@ namespace Orchestra.Views
         {
             var serviceLocator = ServiceLocator.Default;
 
-            var themeService = serviceLocator.ResolveType<IThemeService>();
-            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, themeService.ShouldCreateStyleForwarders());
-
             InitializeComponent();
 
             serviceLocator.RegisterInstance(pleaseWaitProgressBar, "pleaseWaitService");

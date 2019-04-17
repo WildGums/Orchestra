@@ -4,6 +4,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+// This is becoming obsolete anyway
+#pragma warning disable CS0619, 619
 
 namespace Orchestra
 {
@@ -34,9 +36,9 @@ namespace Orchestra
     public static class ThemeHelper
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        private static readonly Dictionary<Color, ResourceDictionary> _accentColorResourceDictionary = new Dictionary<Color, ResourceDictionary>();
+        private static readonly Dictionary<Color, ResourceDictionary> AccentColorResourceDictionary = new Dictionary<Color, ResourceDictionary>();
 
-        private static bool _ensuredOrchestraThemes;
+        private static bool EnsuredOrchestraThemes;
 
         static ThemeHelper()
         {
@@ -55,45 +57,45 @@ namespace Orchestra
         [ObsoleteEx(TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0", ReplacementTypeOrMember = "Orc.Controls.ThemeHelper")]
         public static Color GetAccentColor(AccentColorStyle colorStyle = AccentColorStyle.AccentColor)
         {
-            return Orc.Controls.ThemeHelper.GetAccentColor(colorStyle.GetOrcControlsAccentColor());
+            return Orc.Controls.ThemeHelper.GetThemeColor(colorStyle.GetOrcControlsThemeColor());
         }
 
         [ObsoleteEx(TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0", ReplacementTypeOrMember = "Orc.Controls.ThemeHelper")]
         public static SolidColorBrush GetAccentColorBrush(AccentColorStyle colorStyle)
         {
-            return Orc.Controls.ThemeHelper.GetAccentColorBrush(colorStyle.GetOrcControlsAccentColor());
+            return Orc.Controls.ThemeHelper.GetThemeColorBrush(colorStyle.GetOrcControlsThemeColor());
         }
 
         [ObsoleteEx(TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0", ReplacementTypeOrMember = "Orc.Controls.ThemeHelper")]
         public static SolidColorBrush GetAccentColorBrush()
         {
-            return Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor);
+            return Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor);
         }
 
-        private static Orc.Controls.AccentColorStyle GetOrcControlsAccentColor(this AccentColorStyle accentColor)
+        private static Orc.Controls.ThemeColorStyle GetOrcControlsThemeColor(this AccentColorStyle accentColor)
         {
             switch (accentColor)
             {
                 case AccentColorStyle.AccentColor:
-                    return Orc.Controls.AccentColorStyle.AccentColor;
+                    return Orc.Controls.ThemeColorStyle.AccentColor;
 
                 case AccentColorStyle.AccentColor1:
-                    return Orc.Controls.AccentColorStyle.AccentColor1;
+                    return Orc.Controls.ThemeColorStyle.AccentColor1;
 
                 case AccentColorStyle.AccentColor2:
-                    return Orc.Controls.AccentColorStyle.AccentColor2;
+                    return Orc.Controls.ThemeColorStyle.AccentColor2;
 
                 case AccentColorStyle.AccentColor3:
-                    return Orc.Controls.AccentColorStyle.AccentColor3;
+                    return Orc.Controls.ThemeColorStyle.AccentColor3;
 
                 case AccentColorStyle.AccentColor4:
-                    return Orc.Controls.AccentColorStyle.AccentColor4;
+                    return Orc.Controls.ThemeColorStyle.AccentColor4;
 
                 case AccentColorStyle.AccentColor5:
-                    return Orc.Controls.AccentColorStyle.AccentColor5;
+                    return Orc.Controls.ThemeColorStyle.AccentColor5;
             }
 
-            return Orc.Controls.AccentColorStyle.AccentColor;
+            return Orc.Controls.ThemeColorStyle.AccentColor;
         }
 
         /// <summary>
@@ -129,7 +131,7 @@ namespace Orchestra
         [ObsoleteEx(TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0", Message = "Only use AccentColor and AccentColorBrush markup extensions")]
         public static ResourceDictionary CreateAccentColorResourceDictionary(Color color)
         {
-            if (!_accentColorResourceDictionary.TryGetValue(color, out var resourceDictionary))
+            if (!AccentColorResourceDictionary.TryGetValue(color, out var resourceDictionary))
             {
                 Log.Info($"Setting theme to '{color}'");
 
@@ -139,70 +141,53 @@ namespace Orchestra
 
                 resourceDictionary = new ResourceDictionary();
 
-                //resourceDictionary.Add("AccentColor",  new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
-                //resourceDictionary.Add("AccentColor1", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor1));
-                //resourceDictionary.Add("AccentColor2", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor2));
-                //resourceDictionary.Add("AccentColor3", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor3));
-                //resourceDictionary.Add("AccentColor4", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor4));
-                //resourceDictionary.Add("AccentColor5", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor5));
+                resourceDictionary.Add("AccentColor", Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor));
+                resourceDictionary.Add("AccentColor1", Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor1));
+                resourceDictionary.Add("AccentColor2", Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor2));
+                resourceDictionary.Add("AccentColor3", Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor3));
+                resourceDictionary.Add("AccentColor4", Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor4));
+                resourceDictionary.Add("AccentColor5", Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor5));
 
-                //resourceDictionary.Add("AccentBaseColor", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
-                //resourceDictionary.Add("AccentBaseColorBrush", new AccentColor(Orc.Controls.AccentColorStyle.AccentColor));
+                resourceDictionary.Add("AccentBaseColor", Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor));
+                resourceDictionary.Add("AccentBaseColorBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor));
 
-                //resourceDictionary.Add("AccentColorBrush", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
-                //resourceDictionary.Add("AccentColorBrush1", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor1));
-                //resourceDictionary.Add("AccentColorBrush2", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor2));
-                //resourceDictionary.Add("AccentColorBrush3", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor3));
-                //resourceDictionary.Add("AccentColorBrush4", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor4));
-                //resourceDictionary.Add("AccentColorBrush5", new AccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor5));
+                resourceDictionary.Add("AccentColorBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor));
+                resourceDictionary.Add("AccentColorBrush1", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor1));
+                resourceDictionary.Add("AccentColorBrush2", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor2));
+                resourceDictionary.Add("AccentColorBrush3", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor3));
+                resourceDictionary.Add("AccentColorBrush4", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor4));
+                resourceDictionary.Add("AccentColorBrush5", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor5));
 
-                resourceDictionary.Add("AccentColor", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor));
-                resourceDictionary.Add("AccentColor1", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor1));
-                resourceDictionary.Add("AccentColor2", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor2));
-                resourceDictionary.Add("AccentColor3", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor3));
-                resourceDictionary.Add("AccentColor4", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor4));
-                resourceDictionary.Add("AccentColor5", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor5));
-
-                resourceDictionary.Add("AccentBaseColor", Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor));
-                resourceDictionary.Add("AccentBaseColorBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
-
-                resourceDictionary.Add("AccentColorBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor));
-                resourceDictionary.Add("AccentColorBrush1", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor1));
-                resourceDictionary.Add("AccentColorBrush2", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor2));
-                resourceDictionary.Add("AccentColorBrush3", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor3));
-                resourceDictionary.Add("AccentColorBrush4", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor4));
-                resourceDictionary.Add("AccentColorBrush5", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor5));
-
-                resourceDictionary.Add("WindowTitleColorBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush());
+                resourceDictionary.Add("WindowTitleColorBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush());
 
                 // Wpf styles
-                resourceDictionary.Add(SystemColors.HighlightColorKey, Orc.Controls.ThemeHelper.GetAccentColor());
-                resourceDictionary.Add(SystemColors.HighlightBrushKey, Orc.Controls.ThemeHelper.GetAccentColorBrush());
-                resourceDictionary.Add("HighlightColor", Orc.Controls.ThemeHelper.GetAccentColor());
+                resourceDictionary.Add(SystemColors.HighlightColorKey, Orc.Controls.ThemeHelper.GetThemeColor());
+                resourceDictionary.Add(SystemColors.HighlightBrushKey, Orc.Controls.ThemeHelper.GetThemeColorBrush());
+                resourceDictionary.Add("HighlightColor", Orc.Controls.ThemeHelper.GetThemeColor());
                 // Note: this causes invalid cast exception, disable for now
-                //resourceDictionary.Add("HighlightBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush());
+                //resourceDictionary.Add("HighlightBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush());
 
                 // MahApps styles(we should in an ideal situation move this to the MahApps shell code)
                 #region MahApps
                 resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
                 {
-                    new GradientStop(Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor), 0),
-                    new GradientStop(Orc.Controls.ThemeHelper.GetAccentColor(Orc.Controls.AccentColorStyle.AccentColor3), 1)
+                    new GradientStop(Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor), 0),
+                    new GradientStop(Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor3), 1)
                 }), new Point(0.001, 0.5), new Point(1.002, 0.5)));
 
-                resourceDictionary.Add("CheckmarkFill", Orc.Controls.ThemeHelper.GetAccentColorBrush());
-                resourceDictionary.Add("RightArrowFill", Orc.Controls.ThemeHelper.GetAccentColorBrush());
+                resourceDictionary.Add("CheckmarkFill", Orc.Controls.ThemeHelper.GetThemeColorBrush());
+                resourceDictionary.Add("RightArrowFill", Orc.Controls.ThemeHelper.GetThemeColorBrush());
 
                 resourceDictionary.Add("IdealForegroundColor", Colors.White);
                 resourceDictionary.Add("IdealForegroundColorBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
                 resourceDictionary.Add("IdealForegroundDisabledBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush(0.4d));
                 resourceDictionary.Add("AccentSelectedColorBrush", Colors.White.GetSolidColorBrush());
 
-                resourceDictionary.Add("MetroDataGrid.HighlightBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush());
+                resourceDictionary.Add("MetroDataGrid.HighlightBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush());
                 resourceDictionary.Add("MetroDataGrid.HighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
-                resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor3));
-                resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush());
-                resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", Orc.Controls.ThemeHelper.GetAccentColorBrush(Orc.Controls.AccentColorStyle.AccentColor2));
+                resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor3));
+                resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush());
+                resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor2));
                 resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
                 #endregion
 
@@ -262,7 +247,7 @@ namespace Orchestra
 
                 applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
 
-                _accentColorResourceDictionary[color] = resourceDictionary;
+                AccentColorResourceDictionary[color] = resourceDictionary;
             }
 
             return resourceDictionary;
@@ -293,7 +278,7 @@ namespace Orchestra
         {
             Argument.IsNotNullOrWhitespace(() => resourceDictionaryUri);
 
-            if (_accentColorResourceDictionary == null)
+            if (AccentColorResourceDictionary == null)
             {
                 var accentColor = GetAccentColor();
                 CreateAccentColorResourceDictionary(accentColor);
@@ -306,7 +291,7 @@ namespace Orchestra
                 var uri = new Uri(resourceDictionaryUri, UriKind.RelativeOrAbsolute);
 
                 var application = Application.Current;
-                if (application == null)
+                if (application is null)
                 {
                     throw Log.ErrorAndCreateException<OrchestraException>("Application.Current is null, cannot ensure application themes");
                 }
@@ -314,7 +299,7 @@ namespace Orchestra
                 var existingDictionary = (from dic in application.Resources.MergedDictionaries
                                           where dic.Source != null && dic.Source == uri
                                           select dic).FirstOrDefault();
-                if (existingDictionary == null)
+                if (existingDictionary is null)
                 {
                     existingDictionary = new ResourceDictionary
                     {
@@ -341,12 +326,12 @@ namespace Orchestra
         /// <param name="createStyleForwarders">if set to <c>true</c>, create style forwarders.</param>
         private static void EnsureOrchestraTheme(bool createStyleForwarders)
         {
-            if (_ensuredOrchestraThemes)
+            if (EnsuredOrchestraThemes)
             {
                 return;
             }
 
-            _ensuredOrchestraThemes = true;
+            EnsuredOrchestraThemes = true;
 
             EnsureApplicationThemes(typeof(ThemeHelper).Assembly, createStyleForwarders);
         }

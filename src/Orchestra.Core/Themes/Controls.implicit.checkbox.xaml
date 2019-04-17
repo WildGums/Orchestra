@@ -14,7 +14,7 @@
                             <Border x:Name="CheckBoxBorder"
                                     Height="12"
                                     Width="12"
-                                    BorderBrush="LightGray"
+                                    BorderBrush="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderColor}"
                                     BorderThickness="1"
                                     Background="White">
                                 <Path x:Name="CheckMark"
@@ -34,11 +34,11 @@
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="#FFADADAD"/>
+                            <Setter Property="Foreground" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=ForegroundDisabled}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="CheckBoxBorder" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor4}"/>
-                            <Setter Property="BorderBrush" TargetName="CheckBoxBorder" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="CheckBoxBorder" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundMouseOver}"/>
+                            <Setter Property="BorderBrush" TargetName="CheckBoxBorder" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderMouseOver}"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="False">
                             <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>

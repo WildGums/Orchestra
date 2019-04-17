@@ -21,8 +21,8 @@
     <Style TargetType="{x:Type RepeatButton}">
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource RepeatButtonFocusVisual}"/>
-        <Setter Property="Background" Value="#FFF4F4F4"/>
-        <Setter Property="BorderBrush" Value="LightGray"/>
+        <Setter Property="Background" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderColor}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -45,15 +45,15 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor4}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="border" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundMouseOver}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderMouseOver}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="border" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundPressed}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderPressed}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource RepeatButton.Disabled.Foreground}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=ForegroundDisabled}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

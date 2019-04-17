@@ -15,7 +15,6 @@ using Catel.Services;
 using Orchestra;
 using Orchestra.Collections;
 using Orchestra.Layers;
-using Orchestra.Reflection;
 using Orchestra.Services;
 using Orchestra.Tooltips;
 using Orchestra.ViewModels;
@@ -32,9 +31,6 @@ public static class ModuleInitializer
     public static void Initialize()
     {
         var serviceLocator = ServiceLocator.Default;
-
-        // Fix for https://github.com/Catel/Catel/issues/1208
-        serviceLocator.RegisterType<IEntryAssemblyResolver, EntryAssemblyResolver>();
 
         InitializeLogging();
 

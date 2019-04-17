@@ -18,12 +18,7 @@ namespace Orchestra.Windows
     using Catel.MVVM.Providers;
     using Catel.MVVM.Views;
     using Catel.Windows;
-
-#if NET40
-    using MsRibbonWindow = Microsoft.Windows.Controls.Ribbon.RibbonWindow;
-#else
     using MsRibbonWindow = System.Windows.Controls.Ribbon.RibbonWindow;
-#endif
 
 
     public class RibbonWindow : MsRibbonWindow, IDataWindow
@@ -76,12 +71,6 @@ namespace Orchestra.Windows
         public IViewModel ViewModel
         {
             get { return _logic.ViewModel; }
-        }
-
-        public bool PreventViewModelCreation
-        {
-            get { return _logic.PreventViewModelCreation; }
-            set { _logic.PreventViewModelCreation = value; }
         }
         #endregion
 

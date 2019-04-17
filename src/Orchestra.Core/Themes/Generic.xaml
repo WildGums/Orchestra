@@ -28,7 +28,7 @@
         <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.textblock.xaml" />
         <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.textbox.xaml" />
         <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.treeview.xaml" />
-        
+
         <!-- Explicit control templates -->
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.explicit.xaml" />
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.messagebox.xaml" />
@@ -36,5 +36,13 @@
         <!-- Default overrides (with margins -->
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <!-- Controls that use BasedOn need to be defined on this level -->
+    <Style x:Key="DataWindowButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Margin" Value="6, 6, 0, 0" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="MinHeight" Value="23" />
+    </Style>
 
 </ResourceDictionary>

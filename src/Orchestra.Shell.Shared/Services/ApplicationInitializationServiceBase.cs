@@ -24,8 +24,14 @@ namespace Orchestra.Services
             var serviceLocator = this.GetServiceLocator();
             var themeService = serviceLocator.ResolveType<IThemeService>();
 
-            ThemeHelper.EnsureApplicationThemes(typeof(ApplicationInitializationServiceBase).Assembly, themeService.ShouldCreateStyleForwarders());
-            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, themeService.ShouldCreateStyleForwarders());
+            // Note: we only have to create style forwarders once
+            ThemeHelper.EnsureApplicationThemes(typeof(ApplicationInitializationServiceBase).Assembly, false);
+            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, false);
+
+            if (themeService.ShouldCreateStyleForwarders())
+            {
+                StyleHelper.CreateStyleForwardersForDefaultStyles();
+            }
         }
 
         public virtual async Task InitializeBeforeCreatingShellAsync()

@@ -6,7 +6,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">
-                    <Border x:Name="Chrome" BorderBrush="LightGray" BorderThickness="1" 
+                    <Border x:Name="Chrome" BorderBrush="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderColor}" BorderThickness="1" 
                             Background="#FFF4F4F4" SnapsToDevicePixels="True">
                         <Grid>
                             <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" 
@@ -22,12 +22,14 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor4}"/>
+                            <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundMouseOver}"/>
+                            <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderMouseOver}"/>
+                            <Setter Property="Foreground" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=ForegroundMouseOver}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundPressed}"/>
+                            <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderPressed}"/>
+                            <Setter Property="Foreground" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=ForegroundPressed}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" TargetName="Filter" Value="WhiteSmoke"/>

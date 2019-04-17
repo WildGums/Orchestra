@@ -40,9 +40,9 @@
                             </Border>
                         </Popup>
                         <ToggleButton Grid.ColumnSpan="2"
-                                              BorderBrush="{TemplateBinding BorderBrush}"
-                                              Background="{TemplateBinding Background}"
-                                              IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      Background="{TemplateBinding Background}"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -53,24 +53,24 @@
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                                <Border x:Name="Chrome" BorderBrush="LightGray" BorderThickness="1"
-                                                                Background="White" SnapsToDevicePixels="True">
+                                                <Border x:Name="Chrome" BorderBrush="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderColor}" BorderThickness="1"
+                                                        Background="White" SnapsToDevicePixels="True">
                                                     <Grid x:Name="PathGrid" HorizontalAlignment="Right" Width="12">
                                                         <Path x:Name="Arrow" Data="M0,0L3.5,4 7,0z" Fill="Black"
-                                                                      HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Center"/>
+                                                              HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Center"/>
                                                     </Grid>
                                                 </Border>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" TargetName="PathGrid" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" />
-                                                        <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" />
-                                                        <Setter Property="Fill" TargetName="Arrow" Value="White" />
+                                                        <Setter Property="Background" TargetName="PathGrid" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundMouseOver}" />
+                                                        <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderMouseOver}" />
+                                                        <Setter Property="Fill" TargetName="Arrow" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=ForegroundMouseOver}" />
                                                     </Trigger>
                                                     <Trigger Property="IsChecked" Value="True">
-                                                        <Setter Property="Background" TargetName="PathGrid" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" />
-                                                        <Setter Property="Background" TargetName="Chrome" Value="White" />
-                                                        <Setter Property="Fill" TargetName="Arrow" Value="White" />
-                                                        <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}" />
+                                                        <Setter Property="Background" TargetName="PathGrid" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundChecked}" />
+                                                        <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderChecked}" />
+                                                        <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=ForegroundChecked}" />
+                                                        <Setter Property="Fill" TargetName="Arrow" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=ForegroundChecked}" />
                                                     </Trigger>
                                                     <Trigger Property="IsEnabled" Value="False">
                                                         <Setter Property="Fill" TargetName="Arrow" Value="#FFAFAFAF"/>
@@ -145,7 +145,7 @@
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsHighlighted" Value="true">
-                                                <Setter Property="Background" TargetName="Bd" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor4}"/>
+                                                <Setter Property="Background" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
                                             </Trigger>
                                             <Trigger Property="IsEnabled" Value="false">
                                                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>

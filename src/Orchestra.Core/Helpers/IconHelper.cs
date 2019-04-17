@@ -32,6 +32,11 @@ namespace Orchestra
             try
             {
                 var extractor = new IconExtractor(filePath);
+                if (extractor.Count == 0)
+                {
+                    return null;
+                }
+
                 var icon = extractor.GetIcon(0);
                 return icon;
             }
@@ -44,6 +49,10 @@ namespace Orchestra
         public static BitmapImage ExtractLargestIconFromFile(string filePath)
         {
             var icon = ExtractIconFromFile(filePath);
+            if (icon is null)
+            {
+                return null;
+            }
 
             var vistaIcon = ExtractVistaIcon(icon);
             if (vistaIcon == null)
@@ -64,7 +73,7 @@ namespace Orchestra
         {
             Bitmap extractedIcon = null;
 
-            if (icon == null)
+            if (icon is null)
             {
                 return extractedIcon;
             }
@@ -114,13 +123,13 @@ namespace Orchestra
 
         private static Bitmap ExtractIcon(Icon icon)
         {
-            if (icon == null)
+            if (icon is null)
             {
                 return null;
             }
 
             var bitmapSource = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            if (bitmapSource == null)
+            if (bitmapSource is null)
             {
                 return null;
             }
@@ -139,7 +148,7 @@ namespace Orchestra
 
         private static BitmapImage ToBitmapImageWithTransparency(Bitmap bitmap)
         {
-            using (MemoryStream stream = new MemoryStream())
+            using (var stream = new MemoryStream())
             {
                 bitmap.Save(stream, ImageFormat.Png); // Was .Bmp, but this did not show a transparent background.
 

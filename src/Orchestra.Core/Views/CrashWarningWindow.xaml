@@ -7,7 +7,6 @@
               WindowStartupLocation="CenterOwner">
 
     <catel:Window.Resources>
-
         <Geometry x:Key="TriangleGeometry">M2,21.9997L12,2.00026L20.6247,19.2199L20.6291,19.2199L22,21.9997L22,21.9997L22,21.9997L2,21.9997ZM5.0287,19.9997L18.9638,19.9997L12,6.11526L5.0287,19.9997ZM12.9376,16.5456L11.2947,16.5456L11.2947,18.2081L12.9376,18.2081L12.9376,16.5456ZM12.9376,11.5581L11.2947,11.5581L11.2947,14.8831L12.9376,14.8831L12.9376,11.5581Z</Geometry>
 
         <Style x:Key="CrashWarningWindowLabelStyle" TargetType="{x:Type Label}">
@@ -30,7 +29,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ButtonBase}">
-                        <Border x:Name="Chrome" BorderBrush="LightGray" BorderThickness="1" Background="#FFF4F4F4" SnapsToDevicePixels="True">
+                        <Border x:Name="Chrome" BorderBrush="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderColor}" BorderThickness="1" Background="#FFF4F4F4" SnapsToDevicePixels="True">
                             <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"
                                                   ContentStringFormat="{TemplateBinding ContentStringFormat}"
                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -42,12 +41,12 @@
                         
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=Highlight}"/>
+                                <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=Highlight}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                                <Setter Property="Background" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
                                 <Setter Property="Foreground" Value="White"/>
-                                <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:AccentColorBrush AccentColorStyle=AccentColor}"/>
+                                <Setter Property="BorderBrush" TargetName="Chrome" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Foreground" Value="#FFADADAD"/>

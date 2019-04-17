@@ -71,7 +71,8 @@ namespace Orchestra
 
             var applicationTheme = ThemeManager.AppThemes.First(x => string.Equals(x.Name, "BaseLight"));
 
-            // Create theme
+            // Create theme, note we need to write this to a file since
+            // ThemeManager.AddAccent requires a resource uri
             var resDictName = $"ApplicationAccentColors.xaml";
             var fileName = Path.Combine(Catel.IO.Path.GetApplicationDataDirectory(), resDictName);
 
@@ -84,8 +85,19 @@ namespace Orchestra
             }))
             {
                 XamlWriter.Save(resourceDictionary, writer);
-                writer.Close();
+                writer.Flush();
             }
+
+#if NETCORE
+            // Note: because .NET Core can't read IsReadonly="False", we need to remove it
+            var fileContents = File.ReadAllText(fileName);
+            if (!string.IsNullOrWhiteSpace(fileContents))
+            {
+                fileContents = fileContents.Replace("IsReadOnly=\"False\"", string.Empty);
+
+                File.WriteAllText(fileName, fileContents);
+            }
+#endif
 
             resourceDictionary = new ResourceDictionary
             {
@@ -105,7 +117,7 @@ namespace Orchestra
 
             // Note: important to add the resources dictionary *after* changing the app style, but then insert at the top 
             // so theme detection performance is best
-            applicationResources.MergedDictionaries.Insert(1, resourceDictionary);
+            applicationResources.MergedDictionaries.Insert(0, resourceDictionary);
         }
         #endregion
     }
