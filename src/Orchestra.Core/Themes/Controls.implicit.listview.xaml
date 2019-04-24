@@ -264,7 +264,7 @@
                             Background="{TemplateBinding Background}" 
                             Padding="{TemplateBinding Padding}" 
                             SnapsToDevicePixels="true">
-                        <GridViewRowPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
