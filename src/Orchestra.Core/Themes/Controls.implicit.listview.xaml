@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
+                    xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
+                    xmlns:catel="http://schemas.catelproject.com">
 
     <Style x:Key="{x:Static GridView.GridViewScrollViewerStyleKey}"
            TargetType="ScrollViewer">
@@ -25,6 +26,7 @@
                                           Focusable="false">
                                 <GridViewHeaderRowPresenter Margin="2,0,2,0"
                                                             Columns="{Binding Path=TemplatedParent.View.Columns, RelativeSource={RelativeSource TemplatedParent}}"
+                                                            Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Columns, Converter={catel:CollectionToCollapsingVisibilityConverter}}"
                                                             ColumnHeaderContainerStyle="{Binding Path=TemplatedParent.View.ColumnHeaderContainerStyle, RelativeSource={RelativeSource TemplatedParent}}"
                                                             ColumnHeaderTemplate="{Binding Path=TemplatedParent.View.ColumnHeaderTemplate, RelativeSource={RelativeSource TemplatedParent}}"
                                                             ColumnHeaderTemplateSelector="{Binding Path=TemplatedParent.View.ColumnHeaderTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}"
