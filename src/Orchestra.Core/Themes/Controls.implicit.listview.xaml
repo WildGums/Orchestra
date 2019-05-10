@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
-                    xmlns:catel="http://schemas.catelproject.com">
+                    xmlns:catel="http://schemas.catelproject.com" 
+                    xmlns:converters="clr-namespace:Orchestra.Converters">
 
     <Style x:Key="{x:Static GridView.GridViewScrollViewerStyleKey}"
            TargetType="ScrollViewer">
@@ -248,6 +249,7 @@
         </Setter>
     </Style>
 
+
     <Style TargetType="{x:Type ListViewItem}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Padding" Value="4,1"/>
@@ -260,42 +262,57 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
-                    <Border x:Name="Bd" 
+                  
+                    <Border x:Name="Border" 
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}" 
                             Background="{TemplateBinding Background}" 
                             Padding="{TemplateBinding Padding}" 
                             SnapsToDevicePixels="true">
-                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+
+                        <Grid>
+                            <GridViewRowPresenter x:Name="GridViewRowPresenter"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Visibility="{Binding RelativeSource={RelativeSource FindAncestor,
+                                                    AncestorType={x:Type ListView}}, Path=View.Columns, Converter={catel:CollectionToCollapsingVisibilityConverter}}"/>
+
+                            <ContentPresenter x:Name="ContentPresenter"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Visibility="{Binding RelativeSource={RelativeSource FindAncestor,
+                                                    AncestorType={x:Type ListView}}, Path=View.Columns, Converter={catel:CollectionToCollapsingVisibilityConverter SupportInversionUsingCommandParameter=True}, ConverterParameter=True}"/>
+                        </Grid>
                     </Border>
+            
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="Border" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="Selector.IsSelectionActive" Value="False"/>
                                 <Condition Property="IsSelected" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor2}"/>
+                            <Setter Property="Background" TargetName="Border" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor4}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor2}"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="Selector.IsSelectionActive" Value="True"/>
                                 <Condition Property="IsSelected" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor3}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
+                            <Setter Property="Background" TargetName="Border" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor3}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="Border" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
