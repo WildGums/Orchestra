@@ -8,7 +8,9 @@
     <Grid>
         <orccontrols:TabControl LoadTabItems="LazyLoading">
             <TabItem Header="Controls" >
-                <views:ControlsView />
+                <ScrollViewer>
+                    <views:ControlsView />
+                </ScrollViewer>
             </TabItem>
 
             <TabItem Header="Aggregate">

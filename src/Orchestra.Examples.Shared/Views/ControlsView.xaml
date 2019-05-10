@@ -122,7 +122,17 @@
             </ListBox.Items>
           </ListBox>
 
-          <ListView Width="100" Height="200" ToolTip="ListView" />
+          <ListView Width="100"
+                    Height="200" 
+                    ToolTip="ListView">
+
+              <ListView.Items>
+                  Item 11
+                  Item 21
+                  Item 31
+                  Item 41
+              </ListView.Items>
+          </ListView>
 
           <TreeView Width="100" Height="200" ToolTip="TreeView" />
         </WrapPanel>
