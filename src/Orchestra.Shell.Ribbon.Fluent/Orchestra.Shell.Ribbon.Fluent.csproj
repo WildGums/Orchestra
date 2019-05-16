@@ -28,7 +28,7 @@
     <PackageReference Include="Catel.MVVM" Version="5.10.0" />
     <PackageReference Include="ControlzEx" Version="3.0.2.4" />
     <PackageReference Include="Fluent.Ribbon" Version="6.1.0.326" />
-    <PackageReference Include="Fody" Version="5.0.5" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="5.0.6" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.0.0" PrivateAssets="all" />
