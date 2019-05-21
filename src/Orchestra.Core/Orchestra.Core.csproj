@@ -31,7 +31,7 @@
     </PackageReference>
     <PackageReference Include="Ionic.Zip" Version="1.9.1.8" />
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.0.0" PrivateAssets="all" />
-    <PackageReference Include="MethodTimer.Fody" Version="2.3.3" PrivateAssets="all" />
+    <PackageReference Include="MethodTimer.Fody" Version="3.0.0" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.0.0" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="4.4.3" PrivateAssets="all" />
     <PackageReference Include="Orc.Controls" Version="3.2.3" />
