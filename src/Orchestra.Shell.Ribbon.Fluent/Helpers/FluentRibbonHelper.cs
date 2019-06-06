@@ -88,17 +88,6 @@ namespace Orchestra
                 writer.Flush();
             }
 
-#if NETCORE
-            // Note: because .NET Core can't read IsReadonly="False", we need to remove it
-            var fileContents = File.ReadAllText(fileName);
-            if (!string.IsNullOrWhiteSpace(fileContents))
-            {
-                fileContents = fileContents.Replace("IsReadOnly=\"False\"", string.Empty);
-
-                File.WriteAllText(fileName, fileContents);
-            }
-#endif
-
             resourceDictionary = new ResourceDictionary
             {
                 Source = new Uri(fileName, UriKind.Absolute)
