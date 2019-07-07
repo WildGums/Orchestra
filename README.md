@@ -3,7 +3,7 @@ Orchestra
 
 Name|Badge
 ---|---
-Chat|[![Join the chat at https://gitter.im/WildGums/Orchestra](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/WildGums/Orchestra?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Chat|[![Financial Contributors on Open Collective](https://opencollective.com/wildgums-oss/all/badge.svg?label=financial+contributors)](https://opencollective.com/wildgums-oss) [![Join the chat at https://gitter.im/WildGums/Orchestra](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/WildGums/Orchestra?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Downloads|![NuGet downloads](https://img.shields.io/nuget/dt/orchestra.core.svg)
 Stable version|![Version](https://img.shields.io/nuget/v/orchestra.core.svg)
 Unstable version|![Pre-release version](https://img.shields.io/nuget/vpre/orchestra.core.svg)
@@ -84,3 +84,32 @@ You can find the full list [here](https://github.com/WildGums).
 - [Wide](https://github.com/chandramouleswaran/Wide/ "Wide")
 
 For documentation, please visit the [documentation portal](http://opensource.wildgums.com)
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/WildGums/Orchestra/graphs/contributors"><img src="https://opencollective.com/wildgums-oss/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/wildgums-oss/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/wildgums-oss"><img src="https://opencollective.com/wildgums-oss/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/wildgums-oss/contribute)]
+
+<a href="https://opencollective.com/wildgums-oss/organization/0/website"><img src="https://opencollective.com/wildgums-oss/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/wildgums-oss/organization/1/website"><img src="https://opencollective.com/wildgums-oss/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/wildgums-oss/organization/2/website"><img src="https://opencollective.com/wildgums-oss/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/wildgums-oss/organization/3/website"><img src="https://opencollective.com/wildgums-oss/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/wildgums-oss/organization/4/website"><img src="https://opencollective.com/wildgums-oss/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/wildgums-oss/organization/5/website"><img src="https://opencollective.com/wildgums-oss/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/wildgums-oss/organization/6/website"><img src="https://opencollective.com/wildgums-oss/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/wildgums-oss/organization/7/website"><img src="https://opencollective.com/wildgums-oss/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/wildgums-oss/organization/8/website"><img src="https://opencollective.com/wildgums-oss/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/wildgums-oss/organization/9/website"><img src="https://opencollective.com/wildgums-oss/organization/9/avatar.svg"></a>
