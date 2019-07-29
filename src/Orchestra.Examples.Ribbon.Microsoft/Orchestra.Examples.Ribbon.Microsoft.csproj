@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <PackageReference Include="Catel.Core" Version="5.10.0" />
-    <PackageReference Include="Catel.MVVM" Version="5.10.0" />
+    <PackageReference Include="Catel.MVVM" Version="5.11.0" />
     <PackageReference Include="Catel.Fody" Version="4.1.0" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="5.1.1" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
