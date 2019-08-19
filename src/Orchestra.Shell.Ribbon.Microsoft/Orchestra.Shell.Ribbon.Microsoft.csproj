@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net46;net47;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>net46;net47</TargetFrameworks>
     <AssemblyName>Orchestra.Shell.Ribbon.Microsoft</AssemblyName>
     <RootNamespace>Orchestra</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
