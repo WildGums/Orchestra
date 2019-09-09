@@ -108,5 +108,12 @@ namespace Orchestra.Views
             await CloseViewModelAsync(false);
         }
         #endregion
+
+        protected override Task<bool> CancelAsync()
+        {
+            Log.Info("User choose NOT to delete any data and continue (living on the edge)");
+
+            return base.CancelAsync();
+        }
     }
 }

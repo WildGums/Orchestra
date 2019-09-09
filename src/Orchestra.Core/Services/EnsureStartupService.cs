@@ -78,8 +78,6 @@ namespace Orchestra.Services
 
             Log.Info("Application was not successfully started previously, starting application in fail-safe mode");
 
-            Log.Debug("Showing CrashWarningWindow dialog");
-
             await _uiVisualizerService.ShowDialogAsync<CrashWarningViewModel>();
         }
         #endregion
