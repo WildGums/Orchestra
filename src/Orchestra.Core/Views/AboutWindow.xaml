@@ -9,7 +9,7 @@
         <catel:BooleanToCollapsingVisibilityConverter x:Key="BooleanToCollapsingVisibilityConverter" />
     </Window.Resources>
 
-    <Grid>
+    <Grid Margin="-6">
         <Grid.RowDefinitions>
             <RowDefinition Height="15" />
             <RowDefinition Height="*" />
