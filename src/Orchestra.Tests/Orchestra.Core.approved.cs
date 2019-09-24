@@ -684,6 +684,7 @@ namespace Orchestra.Services
         public bool SuccessfullyStarted { get; }
         public virtual void ConfirmApplicationStartedSuccessfully() { }
         public virtual System.Threading.Tasks.Task EnsureFailSafeStartupAsync() { }
+        protected bool IsFileLocked(string fileName) { }
     }
     public class HintsProvider : Orchestra.Services.IHintsProvider
     {
@@ -1066,6 +1067,7 @@ namespace Orchestra.Views
         public Catel.MVVM.TaskCommand Continue { get; set; }
         public Catel.MVVM.TaskCommand ResetUserSettings { get; set; }
         public override string Title { get; }
+        protected override System.Threading.Tasks.Task<bool> CancelAsync() { }
     }
     public class CrashWarningWindow : Catel.Windows.Window, System.Windows.Markup.IComponentConnector
     {
