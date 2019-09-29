@@ -46,6 +46,5 @@
         <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedCommandNewInputGesture, Converter={converters:InputGestureToStringConverter}}" 
                  KeyDown="OnNewInputGestureTextBoxKeyDown" />
         <Button Grid.Row="4" Grid.Column="2" Content="{catel:LanguageBinding Orchestra_Assign}" Command="{Binding Assign}" />
-
     </Grid>
 </catel:UserControl>

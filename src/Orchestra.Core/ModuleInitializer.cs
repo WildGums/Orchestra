@@ -73,21 +73,10 @@ public static class ModuleInitializer
         serviceLocator.RegisterType<IAdorneredTooltipFactory, AdorneredTooltipFactory>(RegistrationType.Transient);
         serviceLocator.RegisterType<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>(RegistrationType.Transient);
 
+        // Custom views (sharing same view model)
         var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
-
-        // Can be replaced by this in the future:
-        //uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
-        //uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
-
-        if (!uiVisualizerService.IsRegistered(typeof(KeyboardMappingsCustomizationViewModel)))
-        {
-            uiVisualizerService.Register(typeof(KeyboardMappingsCustomizationViewModel).FullName, typeof(KeyboardMappingsCustomizationWindow));
-        }
-
-        if (!uiVisualizerService.IsRegistered(typeof(KeyboardMappingsOverviewViewModel)))
-        {
-            uiVisualizerService.Register(typeof(KeyboardMappingsOverviewViewModel).FullName, typeof(KeyboardMappingsOverviewWindow));
-        }
+        uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
+        uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
 
         var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Catel", "https://www.catelproject.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.catel.txt"));
