@@ -140,6 +140,7 @@ namespace Orchestra
         public ResourceBasedThirdPartyNotice(string title, string url, System.Reflection.Assembly assembly, string relativeResourceName) { }
         public ResourceBasedThirdPartyNotice(string title, string url, System.Reflection.Assembly assembly, string rootNamespace, string relativeResourceName) { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.ScreenHelper` instead. Will be removed in version 6.0.0.", true)]
     public class static ScreenHelper
     {
         public static System.Windows.Size GetDpi() { }
@@ -284,6 +285,7 @@ namespace Orchestra.Configuration
 }
 namespace Orchestra.Controls
 {
+    [System.ObsoleteAttribute("Use `Orc.Controls.AlignmentGrid` instead. Will be removed in version 6.0.0.", true)]
     public class AlignmentGrid : System.Windows.Controls.ContentControl
     {
         public static readonly System.Windows.DependencyProperty HorizontalStepProperty;
@@ -294,7 +296,8 @@ namespace Orchestra.Controls
         public System.Windows.Media.Brush LineBrush { get; set; }
         public double VerticalStep { get; set; }
     }
-    public class AnimatingTextBlock : System.Windows.Controls.UserControl, Orchestra.Services.IStatusRepresenter
+    [System.ObsoleteAttribute("Use `Orc.Controls.AnimatingTextBlock` instead. Will be removed in version 6.0.0.", true)]
+    public class AnimatingTextBlock : System.Windows.Controls.UserControl, Orc.Controls.Services.IStatusRepresenter, Orchestra.Services.IStatusRepresenter
     {
         public static readonly System.Windows.DependencyProperty HideStoryboardProperty;
         public static readonly System.Windows.DependencyProperty ShowStoryboardProperty;
@@ -306,6 +309,7 @@ namespace Orchestra.Controls
         public override void OnApplyTemplate() { }
         public void UpdateStatus(string status) { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.BusyIndicator` instead. Will be removed in version 6.0.0.", true)]
     public class BusyIndicator : Orchestra.Controls.VisualWrapper, System.Windows.Markup.IComponentConnector
     {
         public static readonly System.Windows.DependencyProperty ForegroundProperty;
@@ -316,6 +320,7 @@ namespace Orchestra.Controls
         public void InitializeComponent() { }
         protected override void OnRenderSizeChanged(System.Windows.SizeChangedInfo sizeInfo) { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.FluidProgressBar` instead. Will be removed in version 6.0.0.", true)]
     public class FluidProgressBar : System.Windows.Controls.UserControl, System.IDisposable, System.Windows.Markup.IComponentConnector
     {
         public static readonly System.Windows.DependencyProperty DelayProperty;
@@ -368,10 +373,14 @@ namespace Orchestra.Controls
         public KeyboardMappingControl() { }
         public void InitializeComponent() { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.MediaElementThreadFactory` instead. Will be removed in version " +
+        "6.0.0.", true)]
     public class static MediaElementThreadFactory
     {
         public static Orchestra.Controls.MediaElementThreadInfo CreateMediaElementsOnWorkerThread(System.Func<System.Windows.Media.Visual> createVisual) { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.MediaElementThreadInfo` instead. Will be removed in version 6.0" +
+        ".0.", true)]
     public class MediaElementThreadInfo : Catel.Disposable
     {
         public MediaElementThreadInfo(System.Windows.Media.HostVisual hostVisual, System.Threading.Thread thread) { }
@@ -379,6 +388,8 @@ namespace Orchestra.Controls
         public System.Threading.Thread Thread { get; }
         protected override void DisposeManaged() { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.VisualTargetPresentationSource` instead. Will be removed in ver" +
+        "sion 6.0.0.", true)]
     public class VisualTargetPresentationSource : System.Windows.PresentationSource
     {
         public VisualTargetPresentationSource(System.Windows.Media.HostVisual hostVisual) { }
@@ -386,6 +397,7 @@ namespace Orchestra.Controls
         public override System.Windows.Media.Visual RootVisual { get; set; }
         protected override System.Windows.Media.CompositionTarget GetCompositionTargetCore() { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.VisualWrapper` instead. Will be removed in version 6.0.0.", true)]
     [System.Windows.Markup.ContentPropertyAttribute("Child")]
     public class VisualWrapper : System.Windows.FrameworkElement
     {
@@ -474,6 +486,7 @@ namespace Orchestra.Markup
         public string PathName { get; set; }
         protected override object ProvideDynamicValue(System.IServiceProvider serviceProvider) { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.Markup.FontImage` instead. Will be removed in version 6.0.0.", true)]
     public class FontImage : Catel.Windows.Markup.UpdatableMarkupExtension
     {
         public FontImage() { }
@@ -794,12 +807,14 @@ namespace Orchestra.Services
         bool IsSuspended { get; set; }
         string GetStatus(string status);
     }
-    public interface IStatusRepresenter
-    {
-        void UpdateStatus(string status);
-    }
+    [System.ObsoleteAttribute("Use `Orc.Controls.Services.IStatusRepresenter` instead. Will be removed in versio" +
+        "n 6.0.0.", true)]
+    public interface IStatusRepresenter : Orc.Controls.Services.IStatusRepresenter { }
     public interface IStatusService
     {
+        void Initialize(Orc.Controls.Services.IStatusRepresenter statusRepresenter);
+        [System.ObsoleteAttribute("Use `Initialize(Orc.Controls.Services.IStatusRepresenter)` instead. Will be remov" +
+            "ed in version 6.0.0.", true)]
         void Initialize(Orchestra.Services.IStatusRepresenter statusRepresenter);
         void UpdateStatus(string status);
     }
@@ -884,6 +899,7 @@ namespace Orchestra.Services
     public class StatusService : Orchestra.Services.IStatusService
     {
         public StatusService(Orchestra.Services.IStatusFilterService statusFilterService) { }
+        public void Initialize(Orc.Controls.Services.IStatusRepresenter statusRepresenter) { }
         public void Initialize(Orchestra.Services.IStatusRepresenter statusRepresenter) { }
         public void UpdateStatus(string status) { }
     }
