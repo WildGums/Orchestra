@@ -39,12 +39,7 @@ namespace Orchestra.Converters
                 return true;
             }
 
-            if (parameter.Equals("Cancel") && (button == MessageButton.OKCancel || button == MessageButton.YesNoCancel))
-            {
-                return true;
-            }
-
-            return false;
+            return parameter.Equals("Cancel") && (button == MessageButton.OKCancel || button == MessageButton.YesNoCancel);
         }
     }
 }

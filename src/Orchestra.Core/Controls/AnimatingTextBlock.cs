@@ -18,6 +18,7 @@ namespace Orchestra.Controls
     /// <summary>
     /// Animating text block.
     /// </summary>
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.AnimatingTextBlock", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     public class AnimatingTextBlock : UserControl, IStatusRepresenter
     {
         private int _currentIndex = 0;

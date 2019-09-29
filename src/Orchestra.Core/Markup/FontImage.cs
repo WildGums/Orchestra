@@ -26,6 +26,7 @@ namespace Orchestra.Markup
     /// <remarks>
     /// Original idea comes from http://www.codeproject.com/Tips/634540/Using-Font-Icons
     /// </remarks>
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.Markup.FontImage", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     public class FontImage : UpdatableMarkupExtension
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();

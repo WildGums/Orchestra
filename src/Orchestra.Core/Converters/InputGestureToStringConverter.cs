@@ -9,6 +9,7 @@ namespace Orchestra.Converters
 {
     using System;
     using Catel.MVVM.Converters;
+    using Catel.Windows.Input;
 
     /// <summary>
     /// Converts an input gesture to a string.
@@ -24,13 +25,7 @@ namespace Orchestra.Converters
         /// <returns>The value to be passed to the target dependency property.</returns>
         protected override object Convert(object value, Type targetType, object parameter)
         {
-            var inputGesture = value as Catel.Windows.Input.InputGesture;
-            if (inputGesture != null)
-            {
-                return inputGesture.ToString();
-            }
-
-            return string.Empty;
+            return value is InputGesture inputGesture ? inputGesture.ToString() : string.Empty;
         }
     }
 }

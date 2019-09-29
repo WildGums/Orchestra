@@ -17,6 +17,7 @@ namespace Orchestra.Controls
     /// <summary>
     /// Media element thread info.
     /// </summary>
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.MediaElementThreadInfo", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     public class MediaElementThreadInfo : Disposable
     {
         #region Constructors

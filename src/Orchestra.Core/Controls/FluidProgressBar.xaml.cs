@@ -16,6 +16,7 @@ namespace Orchestra.Controls
     /// <summary>
     /// Interaction logic for FluidProgressBar.xaml
     /// </summary>
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.FluidProgressBar", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     public partial class FluidProgressBar : UserControl, IDisposable
     {
         #region Fields

@@ -13,6 +13,7 @@
     /// <remarks>
     /// This code originally comes from the WindowsCommunityToolkit (MIT license)
     /// </remarks>
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.AlignmentGrid", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     public class AlignmentGrid : ContentControl
     {
         private readonly Canvas _containerCanvas = new Canvas();

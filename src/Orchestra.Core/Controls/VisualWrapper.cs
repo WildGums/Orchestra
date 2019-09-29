@@ -30,6 +30,7 @@ namespace Orchestra.Controls
 #else
     [ContentProperty("Child")]
 #endif
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.VisualWrapper", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     public class VisualWrapper : FrameworkElement
     {
         private Visual _child;

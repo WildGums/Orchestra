@@ -15,6 +15,7 @@ namespace Orchestra.Controls
     /// <summary>
     /// Interaction logic for BusyIndicator.xaml
     /// </summary>
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.BusyIndicator", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     public partial class BusyIndicator : VisualWrapper
     {
         #region Fields
