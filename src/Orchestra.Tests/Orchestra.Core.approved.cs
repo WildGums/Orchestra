@@ -203,13 +203,25 @@ namespace Orchestra
     public class static WindowExtensions
     {
         public static void BringWindowToTop(this System.Windows.FrameworkElement frameworkElement) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.CenterWindowToParent` instead. Will be treated" +
+            " as an error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void CenterWindowToParent(this System.Windows.Window window) { }
         public static void CenterWindowToScreen(this System.Windows.Window window) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.CenterWindowToSize` instead. Will be treated a" +
+            "s an error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void CenterWindowToSize(this System.Windows.Window window, System.Windows.Rect parentRect) { }
         public static void DisableCloseButton(this System.Windows.Window window) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.LoadWindowSize` instead. Will be treated as an" +
+            " error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void LoadWindowSize(this System.Windows.Window window, bool restoreWindowState) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.LoadWindowSize` instead. Will be treated as an" +
+            " error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void LoadWindowSize(this System.Windows.Window window, string tag = null, bool restoreWindowState = False, bool restoreWindowPosition = True) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.SaveWindowSize` instead. Will be treated as an" +
+            " error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void SaveWindowSize(this System.Windows.Window window) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.SaveWindowSize` instead. Will be treated as an" +
+            " error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void SaveWindowSize(this System.Windows.Window window, string tag) { }
         public static void SetMaximumHeight(this System.Windows.Window window) { }
         public static void SetMaximumWidth(this System.Windows.Window window) { }
