@@ -37,6 +37,7 @@ namespace Orchestra.Services
         private readonly IEnsureStartupService _ensureStartupService;
         private readonly IApplicationInitializationService _applicationInitializationService;
         private readonly IDependencyResolver _dependencyResolver;
+        private readonly IServiceLocator _serviceLocator;
         #endregion
 
         #region Constructors
@@ -50,15 +51,18 @@ namespace Orchestra.Services
         /// <param name="ensureStartupService">The ensure startup service.</param>
         /// <param name="applicationInitializationService">The application initialization service.</param>
         /// <param name="dependencyResolver">The dependency resolver.</param>
+        /// <param name="serviceLocator">The service locator.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="typeFactory" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="keyboardMappingsService" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="commandManager" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="splashScreenService" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="applicationInitializationService" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="dependencyResolver" /> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="serviceLocator" /> is <c>null</c>.</exception>
         public ShellService(ITypeFactory typeFactory, IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
             ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService, 
-            IApplicationInitializationService applicationInitializationService, IDependencyResolver dependencyResolver)
+            IApplicationInitializationService applicationInitializationService, IDependencyResolver dependencyResolver,
+            IServiceLocator serviceLocator)
         {
             Argument.IsNotNull(() => typeFactory);
             Argument.IsNotNull(() => keyboardMappingsService);
@@ -67,6 +71,7 @@ namespace Orchestra.Services
             Argument.IsNotNull(() => ensureStartupService);
             Argument.IsNotNull(() => applicationInitializationService);
             Argument.IsNotNull(() => dependencyResolver);
+            Argument.IsNotNull(() => serviceLocator);
 
             _typeFactory = typeFactory;
             _keyboardMappingsService = keyboardMappingsService;
@@ -75,6 +80,7 @@ namespace Orchestra.Services
             _ensureStartupService = ensureStartupService;
             _applicationInitializationService = applicationInitializationService;
             _dependencyResolver = dependencyResolver;
+            _serviceLocator = serviceLocator;
 
             var entryAssembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
 
@@ -255,7 +261,11 @@ namespace Orchestra.Services
             {
                 Log.Debug($"Creating shell theme using '{shellThemeType.FullName}'");
 
-                var instance = (IShellTheme)TypeFactory.Default.CreateInstance(shellThemeType);
+                var instance = (IShellTheme)_typeFactory.CreateInstance(shellThemeType);
+
+                // Register so it stays alive and can subscribe to events
+                _serviceLocator.RegisterInstance(instance);
+
                 instance.ApplyTheme(themeInfo);
             }
 

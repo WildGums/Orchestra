@@ -4,11 +4,21 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-
 namespace Orchestra.Services
 {
+    using Catel;
+
     public class ThemeService : IThemeService
     {
+        private readonly Orc.Controls.Services.IAccentColorService _accentColorService;
+
+        public ThemeService(Orc.Controls.Services.IAccentColorService accentColorService)
+        {
+            Argument.IsNotNull(() => accentColorService);
+
+            _accentColorService = accentColorService;
+        }
+
         public virtual bool ShouldCreateStyleForwarders()
         {
             return true;
@@ -16,7 +26,7 @@ namespace Orchestra.Services
 
         public virtual ThemeInfo CreateThemeInfo()
         {
-            var accentColor = ThemeHelper.GetAccentColor();
+            var accentColor = _accentColorService.GetAccentColor();
 
             var themeInfo = new ThemeInfo
             {

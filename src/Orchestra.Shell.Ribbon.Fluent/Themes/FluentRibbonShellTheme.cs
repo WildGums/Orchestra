@@ -7,12 +7,34 @@
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Xml;
+    using Catel;
     using Catel.Logging;
     using Fluent;
+    using Orchestra.Services;
 
     public class FluentRibbonShellTheme : IShellTheme
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        private readonly Orc.Controls.Services.IAccentColorService _accentColorService;
+        private readonly IThemeService _themeService;
+
+        public FluentRibbonShellTheme(Orc.Controls.Services.IAccentColorService accentColorService,
+            IThemeService themeService)
+        {
+            Argument.IsNotNull(() => accentColorService);
+            Argument.IsNotNull(() => themeService);
+
+            _accentColorService = accentColorService;
+            _themeService = themeService;
+
+            _accentColorService.AccentColorChanged += OnAccentColorServiceAccentColorChanged;
+        }
+
+        private void OnAccentColorServiceAccentColorChanged(object sender, EventArgs e)
+        {
+            ApplyTheme(_themeService.CreateThemeInfo());
+        }
 
         public ResourceDictionary CreateResourceDictionary(ThemeInfo themeInfo)
         {
