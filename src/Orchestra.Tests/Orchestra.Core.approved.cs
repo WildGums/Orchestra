@@ -486,7 +486,8 @@ namespace Orchestra.Markup
         public string PathName { get; set; }
         protected override object ProvideDynamicValue(System.IServiceProvider serviceProvider) { }
     }
-    [System.ObsoleteAttribute("Use `Orc.Controls.Markup.FontImage` instead. Will be removed in version 6.0.0.", true)]
+    [System.ObsoleteAttribute("Use `Orc.Controls.FontImage` instead. Will be treated as an error from version 6." +
+        "0.0. Will be removed in version 7.0.0.", false)]
     public class FontImage : Catel.Windows.Markup.UpdatableMarkupExtension
     {
         public FontImage() { }
