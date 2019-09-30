@@ -13,5 +13,19 @@ namespace Orchestra.Services
         {
             return true;
         }
+
+        public virtual ThemeInfo CreateThemeInfo()
+        {
+            var accentColor = ThemeHelper.GetAccentColor();
+
+            var themeInfo = new ThemeInfo
+            {
+                BaseColorScheme = "Light",
+                AccentBaseColor = accentColor,
+                HighlightColor = accentColor
+            };
+
+            return themeInfo;
+        }
     }
 }

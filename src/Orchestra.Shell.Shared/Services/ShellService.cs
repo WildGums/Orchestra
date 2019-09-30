@@ -18,6 +18,7 @@ namespace Orchestra.Services
     using Catel.Services;
     using Catel.Threading;
     using MethodTimer;
+    using Orchestra.Themes;
     using Views;
     using AssemblyHelper = Orchestra.AssemblyHelper;
 
@@ -56,7 +57,8 @@ namespace Orchestra.Services
         /// <exception cref="ArgumentNullException">The <paramref name="applicationInitializationService" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="dependencyResolver" /> is <c>null</c>.</exception>
         public ShellService(ITypeFactory typeFactory, IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
-            ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService, IApplicationInitializationService applicationInitializationService, IDependencyResolver dependencyResolver)
+            ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService, 
+            IApplicationInitializationService applicationInitializationService, IDependencyResolver dependencyResolver)
         {
             Argument.IsNotNull(() => typeFactory);
             Argument.IsNotNull(() => keyboardMappingsService);
@@ -242,6 +244,20 @@ namespace Orchestra.Services
             where TShell : IShell
         {
             Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName(false));
+
+            // Late resolve so user might change the message service
+            var themeService = _dependencyResolver.Resolve<IThemeService>();
+            var themeInfo = themeService.CreateThemeInfo();
+
+            var shellThemeTypes = TypeCache.GetTypesImplementingInterface(typeof(IShellTheme));
+
+            foreach (var shellThemeType in shellThemeTypes)
+            {
+                Log.Debug($"Creating shell theme using '{shellThemeType.FullName}'");
+
+                var instance = (IShellTheme)TypeFactory.Default.CreateInstance(shellThemeType);
+                instance.ApplyTheme(themeInfo);
+            }
 
             OnCreatingShell();
 

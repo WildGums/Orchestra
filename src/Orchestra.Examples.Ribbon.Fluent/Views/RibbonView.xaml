@@ -59,7 +59,7 @@
 
                                                                 <orchestra:RibbonBackstageButton Grid.Column="2" Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenInExplorer}"
                                                                                              CommandParameter="{Binding Name}" Width="24" Height="24" ToolTip="Open in explorer" ShowBorder="False">
-                                                                    <Image Source="/Resources/Images/explorer.png" />
+                                                                    <Image Source="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/explorer.png" />
                                                                 </orchestra:RibbonBackstageButton>
                                                             </Grid>
                                                         </orchestra:RibbonBackstageButton>
@@ -91,7 +91,7 @@
 
                                                                 <orchestra:RibbonBackstageButton Grid.Column="2" Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenInExplorer}"
                                                                                              CommandParameter="{Binding Name}" Width="24" Height="24" ToolTip="Open in explorer" ShowBorder="False">
-                                                                    <Image Source="pack://application:,,,/Orchestra.Examples.Ribbon;component/Resources/Images/explorer.png" />
+                                                                    <Image Source="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/explorer.png" />
                                                                 </orchestra:RibbonBackstageButton>
                                                             </Grid>
                                                         </orchestra:RibbonBackstageButton>
@@ -111,7 +111,7 @@
                                             <orchestra:RibbonBackstageTabItemHeader Grid.Row="0" HeaderText="Computer" 
                                                                                  HeaderTextStyleKey="RibbonBackstageSubHeaderLabelStyle" />
 
-                                            <fluent:Button Grid.Row="1" Header="Open..." LargeIcon="pack://application:,,,/Orchestra.Examples.Ribbon;component/Resources/Images/open.png" 
+                                            <fluent:Button Grid.Row="1" Header="Open..." LargeIcon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/open.png" 
                                                Command="{catel:CommandManagerBinding File.Open}" Style="{DynamicResource ButtonBackstageStyle}" 
                                                HorizontalAlignment="Left" />
                                         </Grid>
@@ -122,10 +122,10 @@
                         </fluent:BackstageTabItem>
 
                         <!--<fluent:RibbonApplicationMenuItem Header="Save to pdf..." ImageSource="/Resources/Images/save_pdf.png" Command="{catel:CommandManagerBinding File.SaveToPdf}" />-->
-                        <fluent:Button Header="Save to image..." Icon="/Resources/Images/save.png" Command="{catel:CommandManagerBinding File.SaveToImage}" />
-                        <fluent:Button Header="Print..." Icon="/Resources/Images/print.png" Command="{catel:CommandManagerBinding File.Print}" />
+                        <fluent:Button Header="Save to image..." Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/save.png" Command="{catel:CommandManagerBinding File.SaveToImage}" />
+                        <fluent:Button Header="Print..." Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/print.png" Command="{catel:CommandManagerBinding File.Print}" />
                         <fluent:SeparatorTabItem />
-                        <fluent:Button Header="Exit" Icon="/Resources/Images/exit.png" Command="{catel:CommandManagerBinding Application.Exit}" />
+                        <fluent:Button Header="Exit" Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/exit.png" Command="{catel:CommandManagerBinding Application.Exit}" />
                     </fluent:BackstageTabControl>
                 </fluent:Backstage>
             </fluent:Ribbon.Menu>

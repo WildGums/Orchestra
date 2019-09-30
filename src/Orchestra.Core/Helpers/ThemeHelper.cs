@@ -21,6 +21,8 @@ namespace Orchestra
     using Orchestra.Services;
     using Orc.Controls;
     using System.Collections.Generic;
+    using Catel.Reflection;
+    using Orchestra.Themes;
 
     [ObsoleteEx(TreatAsErrorFromVersion = "5.2", RemoveInVersion = "6.0", ReplacementTypeOrMember = "Orc.Controls.AccentColorStyle")]
     public enum AccentColorStyle
@@ -167,81 +169,6 @@ namespace Orchestra
                 // Note: this causes invalid cast exception, disable for now
                 //resourceDictionary.Add("HighlightBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush());
 
-                // MahApps styles(we should in an ideal situation move this to the MahApps shell code)
-                #region MahApps
-                resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
-                {
-                    new GradientStop(Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor), 0),
-                    new GradientStop(Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor3), 1)
-                }), new Point(0.001, 0.5), new Point(1.002, 0.5)));
-
-                resourceDictionary.Add("CheckmarkFill", Orc.Controls.ThemeHelper.GetThemeColorBrush());
-                resourceDictionary.Add("RightArrowFill", Orc.Controls.ThemeHelper.GetThemeColorBrush());
-
-                resourceDictionary.Add("IdealForegroundColor", Colors.White);
-                resourceDictionary.Add("IdealForegroundColorBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
-                resourceDictionary.Add("IdealForegroundDisabledBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush(0.4d));
-                resourceDictionary.Add("AccentSelectedColorBrush", Colors.White.GetSolidColorBrush());
-
-                resourceDictionary.Add("MetroDataGrid.HighlightBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush());
-                resourceDictionary.Add("MetroDataGrid.HighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
-                resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor3));
-                resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush());
-                resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor2));
-                resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
-                #endregion
-
-                // Fluent.Ribbon styles (we should in an ideal situation move this to the Fluent.Ribbon shell code)
-                #region Fluent.Ribbon
-                resourceDictionary.Add("Fluent.Ribbon.Colors.HighlightColor", resourceDictionary["AccentColor"]);
-                resourceDictionary.Add("Fluent.Ribbon.Colors.AccentBaseColor", resourceDictionary["AccentColor"]);
-                resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor80", resourceDictionary["AccentColor1"]);
-                resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor60", resourceDictionary["AccentColor2"]);
-                resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor40", resourceDictionary["AccentColor3"]);
-                resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor20", resourceDictionary["AccentColor4"]);
-
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.HighlightBrush", resourceDictionary["AccentColorBrush"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentBaseColorBrush", resourceDictionary["AccentColorBrush"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush80", resourceDictionary["AccentColor1"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush60", resourceDictionary["AccentColor2"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush40", resourceDictionary["AccentColor3"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush20", resourceDictionary["AccentColor4"]);
-
-                if (DynamicallyDetermineIdealTextColor)
-                {
-                    resourceDictionary.Add("Fluent.Ribbon.Colors.IdealForegroundColor", GetIdealTextColor(color));
-                }
-                else
-                {
-                    // White since we use the light them
-                    resourceDictionary.Add("Fluent.Ribbon.Colors.IdealForegroundColor", Colors.White);
-                }
-
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.IdealForegroundColorBrush", ((Color)resourceDictionary["Fluent.Ribbon.Colors.IdealForegroundColor"]).GetSolidColorBrush());
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.IdealForegroundDisabledBrush", ((Color)resourceDictionary["Fluent.Ribbon.Colors.IdealForegroundColor"]).GetSolidColorBrush(0.4d));
-
-                // Button
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush", resourceDictionary["AccentColorBrush3"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.MouseOver.Background", resourceDictionary["AccentColorBrush4"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush", resourceDictionary["AccentColorBrush2"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.Pressed.Background", resourceDictionary["AccentColorBrush3"]);
-
-                // ToggleButton
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.Checked.Background", resourceDictionary["AccentColorBrush4"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush", resourceDictionary["AccentColorBrush"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.Background", resourceDictionary["AccentColorBrush4"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.BorderBrush", resourceDictionary["AccentColorBrush2"]);
-
-                // GalleryItem
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.MouseOver", resourceDictionary["AccentColorBrush4"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.Selected", resourceDictionary["AccentColorBrush3"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.Pressed", resourceDictionary["AccentColorBrush2"]);
-
-                // WindowCommands
-                resourceDictionary.Add("FFluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background", resourceDictionary["AccentColorBrush4"]);
-                resourceDictionary.Add("Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background", resourceDictionary["AccentColorBrush3"]);
-                #endregion
-
                 var application = Application.Current;
                 var applicationResources = application.Resources;
 
@@ -278,9 +205,9 @@ namespace Orchestra
         {
             Argument.IsNotNullOrWhitespace(() => resourceDictionaryUri);
 
-            if (AccentColorResourceDictionary == null)
+            var accentColor = GetAccentColor();
+            if (!AccentColorResourceDictionary.ContainsKey(accentColor))
             {
-                var accentColor = GetAccentColor();
                 CreateAccentColorResourceDictionary(accentColor);
             }
 

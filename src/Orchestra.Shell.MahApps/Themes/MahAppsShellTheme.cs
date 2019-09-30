@@ -1,26 +1,45 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MahAppsHelper.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra.Themes
 {
     using System.Linq;
     using System.Windows;
+    using System.Windows.Media;
     using Catel.Logging;
     using MahApps.Metro;
+    using Orc.Controls;
 
-    public static class MahAppsHelper
+    public class MahAppsShellTheme : IShellTheme
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        /// <summary>
-        /// Sets the theme color of the application. This method dynamically creates an in-memory resource
-        /// dictionary containing the accent colors used by MahApps.
-        /// </summary>
-        public static void ApplyTheme()
+        public ResourceDictionary CreateResourceDictionary(ThemeInfo themeInfo)
+        {
+            var resourceDictionary = new ResourceDictionary();
+
+            resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(new GradientStopCollection(new[]
+            {
+                    new GradientStop(Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor), 0),
+                    new GradientStop(Orc.Controls.ThemeHelper.GetThemeColor(Orc.Controls.ThemeColorStyle.AccentColor3), 1)
+            }), new Point(0.001, 0.5), new Point(1.002, 0.5)));
+
+            resourceDictionary.Add("CheckmarkFill", Orc.Controls.ThemeHelper.GetThemeColorBrush());
+            resourceDictionary.Add("RightArrowFill", Orc.Controls.ThemeHelper.GetThemeColorBrush());
+
+            resourceDictionary.Add("IdealForegroundColor", Colors.White);
+            resourceDictionary.Add("IdealForegroundColorBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
+            resourceDictionary.Add("IdealForegroundDisabledBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush(0.4d));
+            resourceDictionary.Add("AccentSelectedColorBrush", Colors.White.GetSolidColorBrush());
+
+            resourceDictionary.Add("MetroDataGrid.HighlightBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush());
+            resourceDictionary.Add("MetroDataGrid.HighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
+            resourceDictionary.Add("MetroDataGrid.MouseOverHighlightBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor3));
+            resourceDictionary.Add("MetroDataGrid.FocusBorderBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush());
+            resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightBrush", Orc.Controls.ThemeHelper.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor2));
+            resourceDictionary.Add("MetroDataGrid.InactiveSelectionHighlightTextBrush", ((Color)resourceDictionary["IdealForegroundColor"]).GetSolidColorBrush());
+
+            return resourceDictionary;
+        }
+
+        public void ApplyTheme(ThemeInfo themeInfo)
         {
             //<Color x:Key="HighlightColor">
             //    #800080
@@ -60,7 +79,7 @@ namespace Orchestra
             // Theme is always the 0-index of the resources
             var application = Application.Current;
             var applicationResources = application.Resources;
-            var resourceDictionary = ThemeHelper.GetAccentColorResourceDictionary();
+            var resourceDictionary = CreateResourceDictionary(themeInfo);
 
             var applicationTheme = ThemeManager.AppThemes.First(x => string.Equals(x.Name, "BaseLight"));
 
