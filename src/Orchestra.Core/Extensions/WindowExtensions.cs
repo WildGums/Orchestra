@@ -114,6 +114,7 @@ namespace Orchestra
             window.CenterWindowToSize(new Rect(0, 0, screenWidth, screenHeight));
         }
 
+        [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.WindowExtensions.CenterWindowToParent", TreatAsErrorFromVersion = "6.0", RemoveInVersion = "7.0")]
         public static void CenterWindowToParent(this Window window)
         {
             Argument.IsNotNull(() => window);
@@ -132,6 +133,7 @@ namespace Orchestra
             }
         }
 
+        [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.WindowExtensions.CenterWindowToSize", TreatAsErrorFromVersion = "6.0", RemoveInVersion = "7.0")]
         public static void CenterWindowToSize(this Window window, Rect parentRect)
         {
             Argument.IsNotNull(() => window);

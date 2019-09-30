@@ -19,11 +19,13 @@ namespace Orchestra
     {
         private const string SizeSeparator = "|";
 
+        [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.WindowExtensions.SaveWindowSize", TreatAsErrorFromVersion = "6.0", RemoveInVersion = "7.0")]
         public static void SaveWindowSize(this Window window)
         {
             SaveWindowSize(window, null);
         }
 
+        [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.WindowExtensions.SaveWindowSize", TreatAsErrorFromVersion = "6.0", RemoveInVersion = "7.0")]
         public static void SaveWindowSize(this Window window, string tag)
         {
             Argument.IsNotNull(() => window);
@@ -54,11 +56,13 @@ namespace Orchestra
             }
         }
 
+        [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.WindowExtensions.LoadWindowSize", TreatAsErrorFromVersion = "6.0", RemoveInVersion = "7.0")]
         public static void LoadWindowSize(this Window window, bool restoreWindowState)
         {
             LoadWindowSize(window, null, restoreWindowState, true);
         }
 
+        [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.WindowExtensions.LoadWindowSize", TreatAsErrorFromVersion = "6.0", RemoveInVersion = "7.0")]
         public static void LoadWindowSize(this Window window, string tag = null, bool restoreWindowState = false, bool restoreWindowPosition = true)
         {
             Argument.IsNotNull(() => window);
