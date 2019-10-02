@@ -253,7 +253,7 @@ namespace Orchestra.Services
 
             // Late resolve so user might change the message service
             var themeService = _dependencyResolver.Resolve<IThemeService>();
-            var themeInfo = themeService.CreateThemeInfo();
+            var themeInfo = themeService.GetThemeInfo();
 
             var shellThemeTypes = TypeCache.GetTypesImplementingInterface(typeof(IShellTheme));
 

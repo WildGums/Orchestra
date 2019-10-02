@@ -31,7 +31,7 @@
 
         private void OnAccentColorServiceAccentColorChanged(object sender, EventArgs e)
         {
-            ApplyTheme(_themeService.CreateThemeInfo());
+            ApplyTheme(_themeService.GetThemeInfo());
         }
 
         public ResourceDictionary CreateResourceDictionary(ThemeInfo themeInfo)

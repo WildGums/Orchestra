@@ -24,7 +24,7 @@ namespace Orchestra.Services
             return true;
         }
 
-        public virtual ThemeInfo CreateThemeInfo()
+        public virtual ThemeInfo GetThemeInfo()
         {
             var accentColor = _accentColorService.GetAccentColor();
 

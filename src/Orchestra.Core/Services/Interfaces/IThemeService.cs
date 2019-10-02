@@ -10,6 +10,6 @@ namespace Orchestra.Services
     public interface IThemeService
     {
         bool ShouldCreateStyleForwarders();
-        ThemeInfo CreateThemeInfo();
+        ThemeInfo GetThemeInfo();
     }
 }
