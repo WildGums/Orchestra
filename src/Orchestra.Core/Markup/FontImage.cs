@@ -192,6 +192,8 @@ namespace Orchestra.Markup
             Argument.IsNotNull(() => fontFamily);
 
             RegisteredFontFamilies[name] = fontFamily;
+
+            Orc.Controls.FontImage.RegisterFont(name, fontFamily);
         }
 
         public static IEnumerable<string> GetRegisteredFonts()
