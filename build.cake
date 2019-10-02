@@ -27,7 +27,6 @@ Parameters["UseVisualStudioPrerelease"] = "true";
 Components.Add("Orchestra.Core");
 Components.Add("Orchestra.Shell.MahApps");
 Components.Add("Orchestra.Shell.Ribbon.Fluent");
-Components.Add("Orchestra.Shell.Ribbon.Microsoft");
 Components.Add("Orchestra.Shell.TaskRunner");
 
 TestProjects.Add(string.Format("{0}.Tests", GetBuildServerVariable("SolutionName")));
