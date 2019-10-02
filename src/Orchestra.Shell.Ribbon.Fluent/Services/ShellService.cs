@@ -11,7 +11,7 @@ namespace Orchestra.Services
     {
         partial void OnCreatingShell()
         {
-            FluentRibbonHelper.ApplyTheme();
+            
         }
     }
 }
