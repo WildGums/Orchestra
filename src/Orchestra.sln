@@ -29,8 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Core", "Orchestra
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Shared", "Orchestra.Shell.Shared\Orchestra.Shell.Shared.shproj", "{BC10FCE0-C843-4592-802D-BB800A514CA0}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Ribbon.Shared", "Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.shproj", "{09D9C5AF-1D17-4C77-A5D4-CFDF278DF4A3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Shell.MahApps", "Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.csproj", "{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Shell.Ribbon.Fluent", "Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.csproj", "{BD65929C-36C0-4935-8D03-9AB82684C56D}"
@@ -49,7 +47,6 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Examples.Shared",
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{09d9c5af-1d17-4c77-a5d4-cfdf278df4a3}*SharedItemsImports = 13
 		Orchestra.Examples.Shared\Orchestra.Examples.Shared.projitems*{0f4ee33d-8e27-43ba-bcf7-1c61cdca09ec}*SharedItemsImports = 13
 		Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{bc10fce0-c843-4592-802d-bb800a514ca0}*SharedItemsImports = 13
 	EndGlobalSection
@@ -202,7 +199,6 @@ Global
 		{90FDC9B8-335D-49AF-99F2-E826E2A40F69} = {E502625D-7CC7-401B-ACDF-678B68F59005}
 		{C7049E9C-D258-4E3F-8DE3-17D8C50145CA} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{BC10FCE0-C843-4592-802D-BB800A514CA0} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
-		{09D9C5AF-1D17-4C77-A5D4-CFDF278DF4A3} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{BD65929C-36C0-4935-8D03-9AB82684C56D} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{D93A4322-36E1-4F2E-851A-FF2C7F6373C7} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
