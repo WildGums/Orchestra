@@ -175,6 +175,13 @@ namespace Orchestra
         public static System.Windows.Media.SolidColorBrush GetAccentColorBrush() { }
         public static System.Windows.ResourceDictionary GetAccentColorResourceDictionary() { }
     }
+    public class ThemeInfo
+    {
+        public ThemeInfo() { }
+        public System.Windows.Media.Color AccentBaseColor { get; set; }
+        public string BaseColorScheme { get; set; }
+        public System.Windows.Media.Color HighlightColor { get; set; }
+    }
     public class ThirdPartyNotice
     {
         public ThirdPartyNotice() { }
@@ -837,6 +844,7 @@ namespace Orchestra.Services
     }
     public interface IThemeService
     {
+        Orchestra.ThemeInfo GetThemeInfo();
         bool ShouldCreateStyleForwarders();
     }
     public interface IThirdPartyNoticesService
@@ -918,7 +926,8 @@ namespace Orchestra.Services
     }
     public class ThemeService : Orchestra.Services.IThemeService
     {
-        public ThemeService() { }
+        public ThemeService(Orc.Controls.Services.IAccentColorService accentColorService) { }
+        public virtual Orchestra.ThemeInfo GetThemeInfo() { }
         public virtual bool ShouldCreateStyleForwarders() { }
     }
     public class ThirdPartyNoticesService : Orchestra.Services.IThirdPartyNoticesService
@@ -932,6 +941,14 @@ namespace Orchestra.Services
         public ViewActivationService(Catel.MVVM.Views.IViewManager viewManager) { }
         public bool Activate(Catel.MVVM.IViewModel viewModel) { }
         public bool Activate(System.Type viewModelType) { }
+    }
+}
+namespace Orchestra.Themes
+{
+    public interface IShellTheme
+    {
+        void ApplyTheme(Orchestra.ThemeInfo themeInfo);
+        System.Windows.ResourceDictionary CreateResourceDictionary(Orchestra.ThemeInfo themeInfo);
     }
 }
 namespace Orchestra.Tooltips

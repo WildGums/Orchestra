@@ -23,7 +23,7 @@ namespace Orchestra.Behaviors
             set { SetValue(MakeWindowResizableProperty, value); }
         }
 
-        public static readonly DependencyProperty MakeWindowResizableProperty = DependencyProperty.Register("MakeWindowResizable", 
+        public static readonly DependencyProperty MakeWindowResizableProperty = DependencyProperty.Register(nameof(MakeWindowResizable), 
             typeof(bool), typeof(RememberWindowSize), new PropertyMetadata(true));
 
 
@@ -33,7 +33,7 @@ namespace Orchestra.Behaviors
             set { SetValue(RememberWindowStateProperty, value); }
         }
 
-        public static readonly DependencyProperty RememberWindowStateProperty = DependencyProperty.Register("RememberWindowState", 
+        public static readonly DependencyProperty RememberWindowStateProperty = DependencyProperty.Register(nameof(RememberWindowState), 
             typeof(bool), typeof(RememberWindowSize), new PropertyMetadata(true));
         #endregion
 

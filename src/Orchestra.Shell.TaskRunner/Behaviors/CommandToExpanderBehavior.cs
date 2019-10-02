@@ -21,7 +21,7 @@ namespace Orchestra.Behaviors
             set { SetValue(CommandProperty, value); }
         }
 
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand),
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand),
             typeof(CommandToExpanderBehavior), new PropertyMetadata((sender, e) => ((CommandToExpanderBehavior)sender).OnCommandChanged(e)));
 
         private void OnCommandChanged(DependencyPropertyChangedEventArgs e)

@@ -61,7 +61,7 @@ namespace Orchestra.Controls
         /// Delay Dependency Property
         /// </summary>
         public static readonly DependencyProperty DelayProperty =
-            DependencyProperty.Register("Delay", typeof(Duration), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(Delay), typeof(Duration), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(new Duration(TimeSpan.FromMilliseconds(100)), new PropertyChangedCallback(OnDelayChanged)));
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Orchestra.Controls
         /// DotWidth Dependency Property
         /// </summary>
         public static readonly DependencyProperty DotWidthProperty =
-            DependencyProperty.Register("DotWidth", typeof(double), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(DotWidth), typeof(double), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(4.0, new PropertyChangedCallback(OnDotWidthChanged)));
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Orchestra.Controls
         /// DotHeight Dependency Property
         /// </summary>
         public static readonly DependencyProperty DotHeightProperty =
-            DependencyProperty.Register("DotHeight", typeof(double), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(DotHeight), typeof(double), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(4.0, new PropertyChangedCallback(OnDotHeightChanged)));
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace Orchestra.Controls
         /// DotRadiusX Dependency Property
         /// </summary>
         public static readonly DependencyProperty DotRadiusXProperty =
-            DependencyProperty.Register("DotRadiusX", typeof(double), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(DotRadiusX), typeof(double), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(0.0, new PropertyChangedCallback(OnDotRadiusXChanged)));
 
         /// <summary>
@@ -249,7 +249,7 @@ namespace Orchestra.Controls
         /// DotRadiusY Dependency Property
         /// </summary>
         public static readonly DependencyProperty DotRadiusYProperty =
-            DependencyProperty.Register("DotRadiusY", typeof(double), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(DotRadiusY), typeof(double), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(0.0, new PropertyChangedCallback(OnDotRadiusYChanged)));
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace Orchestra.Controls
         /// DurationA Dependency Property
         /// </summary>
         public static readonly DependencyProperty DurationAProperty =
-            DependencyProperty.Register("DurationA", typeof(Duration), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(DurationA), typeof(Duration), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(new Duration(TimeSpan.FromSeconds(0.5)), new PropertyChangedCallback(OnDurationAChanged)));
 
         /// <summary>
@@ -347,7 +347,7 @@ namespace Orchestra.Controls
         /// DurationB Dependency Property
         /// </summary>
         public static readonly DependencyProperty DurationBProperty =
-            DependencyProperty.Register("DurationB", typeof(Duration), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(DurationB), typeof(Duration), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(new Duration(TimeSpan.FromSeconds(1.5)), new PropertyChangedCallback(OnDurationBChanged)));
 
         /// <summary>
@@ -400,7 +400,7 @@ namespace Orchestra.Controls
         /// DurationC Dependency Property
         /// </summary>
         public static readonly DependencyProperty DurationCProperty =
-            DependencyProperty.Register("DurationC", typeof(Duration), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(DurationC), typeof(Duration), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(new Duration(TimeSpan.FromSeconds(0.5)), new PropertyChangedCallback(OnDurationCChanged)));
 
         /// <summary>
@@ -453,7 +453,7 @@ namespace Orchestra.Controls
         /// KeyFrameA Dependency Property
         /// </summary>
         public static readonly DependencyProperty KeyFrameAProperty =
-            DependencyProperty.Register("KeyFrameA", typeof(double), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(KeyFrameA), typeof(double), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(0.33, new PropertyChangedCallback(OnKeyFrameAChanged)));
 
         /// <summary>
@@ -495,7 +495,7 @@ namespace Orchestra.Controls
         /// KeyFrameB Dependency Property
         /// </summary>
         public static readonly DependencyProperty KeyFrameBProperty =
-            DependencyProperty.Register("KeyFrameB", typeof(double), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(KeyFrameB), typeof(double), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(0.63, new PropertyChangedCallback(OnKeyFrameBChanged)));
 
         /// <summary>
@@ -537,7 +537,7 @@ namespace Orchestra.Controls
         /// Oscillate Dependency Property
         /// </summary>
         public static readonly DependencyProperty OscillateProperty =
-            DependencyProperty.Register("Oscillate", typeof(bool), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(Oscillate), typeof(bool), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(false, new PropertyChangedCallback(OnOscillateChanged)));
 
         /// <summary>
@@ -587,7 +587,7 @@ namespace Orchestra.Controls
         /// ReverseDuration Dependency Property
         /// </summary>
         public static readonly DependencyProperty ReverseDurationProperty =
-            DependencyProperty.Register("ReverseDuration", typeof(Duration), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(ReverseDuration), typeof(Duration), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(new Duration(TimeSpan.FromSeconds(2.9)), new PropertyChangedCallback(OnReverseDurationChanged)));
 
         /// <summary>
@@ -634,7 +634,7 @@ namespace Orchestra.Controls
         /// TotalDuration Dependency Property
         /// </summary>
         public static readonly DependencyProperty TotalDurationProperty =
-            DependencyProperty.Register("TotalDuration", typeof(Duration), typeof(FluidProgressBar),
+            DependencyProperty.Register(nameof(TotalDuration), typeof(Duration), typeof(FluidProgressBar),
                 new FrameworkPropertyMetadata(new Duration(TimeSpan.FromSeconds(4.4)), new PropertyChangedCallback(OnTotalDurationChanged)));
 
         /// <summary>
@@ -1008,9 +1008,9 @@ namespace Orchestra.Controls
             if (disposing)
             {
                 // free managed resources here
-                this.SizeChanged -= OnSizeChanged;
-                this.Loaded -= OnLoaded;
-                this.IsVisibleChanged -= OnIsVisibleChanged;
+                SizeChanged -= OnSizeChanged;
+                Loaded -= OnLoaded;
+                IsVisibleChanged -= OnIsVisibleChanged;
             }
 
             // free native resources if there are any.			

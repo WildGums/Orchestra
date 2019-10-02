@@ -26,7 +26,7 @@ namespace Orchestra.Tests
         [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public void Orchestra_Shell_MahApps_HasNoBreakingChanges()
         {
-            var assembly = typeof(MahAppsHelper).Assembly;
+            var assembly = typeof(MahAppsThemeHelper).Assembly;
 
             PublicApiApprover.ApprovePublicApi(assembly);
         }

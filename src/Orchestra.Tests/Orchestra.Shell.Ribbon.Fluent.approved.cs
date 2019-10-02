@@ -48,9 +48,11 @@ namespace Orchestra.Controls
 }
 namespace Orchestra
 {
-    public class static FluentRibbonHelper
+    public class static FluentRibbonThemeHelper
     {
-        public static void ApplyTheme() { }
+        public static System.Tuple<string, System.Windows.ResourceDictionary> CreateTheme(string baseColorScheme, System.Windows.Media.Color accentBaseColor, System.Windows.Media.Color highlightColor, string name = null, bool changeImmediately = False) { }
+        public static string GenerateThemeName(string baseColorScheme, System.Windows.Media.Color accentBaseColor, System.Windows.Media.Color highlightColor) { }
+        public static string GetResourceDictionaryContent(System.Windows.ResourceDictionary resourceDictionary) { }
     }
     public class static RibbonExtensions
     {
@@ -104,7 +106,7 @@ namespace Orchestra.Services
     }
     public class ShellService : Orchestra.Services.IShellService
     {
-        public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver) { }
+        public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver, Catel.IoC.IServiceLocator serviceLocator) { }
         public Orchestra.Views.IShell Shell { get; }
         public System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }
@@ -112,6 +114,15 @@ namespace Orchestra.Services
             "Splash = false. Will be removed in version 6.0.0.", true)]
         public System.Threading.Tasks.Task<TShell> CreateWithSplashAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }
+    }
+}
+namespace Orchestra.Themes
+{
+    public class FluentRibbonShellTheme : Orchestra.Themes.IShellTheme
+    {
+        public FluentRibbonShellTheme(Orc.Controls.Services.IAccentColorService accentColorService, Orchestra.Services.IThemeService themeService) { }
+        public void ApplyTheme(Orchestra.ThemeInfo themeInfo) { }
+        public System.Windows.ResourceDictionary CreateResourceDictionary(Orchestra.ThemeInfo themeInfo) { }
     }
 }
 namespace Orchestra.ViewModels

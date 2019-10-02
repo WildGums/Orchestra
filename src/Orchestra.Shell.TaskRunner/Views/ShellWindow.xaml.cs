@@ -132,7 +132,7 @@ namespace Orchestra.Views
             set { SetValue(ConfigurationContextProperty, value); }
         }
 
-        public static readonly DependencyProperty ConfigurationContextProperty = DependencyProperty.Register("ConfigurationContext", typeof(object), 
+        public static readonly DependencyProperty ConfigurationContextProperty = DependencyProperty.Register(nameof(ConfigurationContext), typeof(object), 
             typeof(ShellWindow), new PropertyMetadata(null));
         #endregion
 
