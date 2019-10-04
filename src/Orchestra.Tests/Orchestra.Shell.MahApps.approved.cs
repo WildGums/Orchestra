@@ -26,7 +26,13 @@ namespace Orchestra
     }
     public class static WindowCommandHelper
     {
+        public static System.Windows.Controls.Button CreateWindowCommandButton(MahApps.Metro.IconPacks.PackIconBase packIcon, string label) { }
+        public static System.Windows.Controls.Button CreateWindowCommandButton(System.Windows.FrameworkElement content, string label) { }
+        [System.ObsoleteAttribute("Use `CreateWindowCommandButton(FrameworkElement, string)` instead. Will be remove" +
+            "d in version 6.0.0.", true)]
         public static System.Windows.Controls.Button CreateWindowCommandButton(string style, string label) { }
+        [System.ObsoleteAttribute("Use `Use MahApps.Metro.IconPacks, see https://mahapps.com/guides/icons-and-resour" +
+            "ces.html` instead. Will be removed in version 6.0.0.", true)]
         public static System.Windows.Shapes.Rectangle CreateWindowCommandRectangle(System.Windows.Controls.Button parentButton, string style) { }
     }
 }
