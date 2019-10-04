@@ -33,13 +33,9 @@
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.3.0" PrivateAssets="all" />
     <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0490" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0223" />
     <PackageReference Include="MethodTimer.Fody" Version="3.1.0" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
-    <PackageReference Include="Orc.Controls" Version="3.3.0-alpha0303" />
-    <PackageReference Include="Obsolete.Fody" Version="5.1.0" PrivateAssets="all" />
-    <PackageReference Include="MethodTimer.Fody" Version="3.1.0" PrivateAssets="all" />
-    <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
-    <PackageReference Include="Orc.Controls" Version="3.3.0-alpha0303" />
     <PackageReference Include="Orc.Controls" Version="3.3.0-alpha0303" />
     <PackageReference Include="Obsolete.Fody" Version="5.1.0" PrivateAssets="all" />
     <PackageReference Include="WpfAnalyzers" Version="2.4.0" PrivateAssets="all" />

@@ -20,9 +20,50 @@ namespace Orchestra
         /// <summary>
         /// Creates the window command button.
         /// </summary>
+        /// <param name="packIcon">The content of the button.</param>
+        /// <param name="label">The label.</param>
+        /// <returns>The right button.</returns>
+        public static Button CreateWindowCommandButton(MahApps.Metro.IconPacks.PackIconBase packIcon, string label)
+        {
+            var button = CreateWindowCommandButton((FrameworkElement)packIcon, label);
+
+            packIcon.SetBinding(MahApps.Metro.IconPacks.PackIconBase.ForegroundProperty, new Binding(nameof(Button.Foreground))
+            {
+                Source = button,
+                Mode = BindingMode.OneWay
+            });
+
+            return button;
+        }
+
+        /// <summary>
+        /// Creates the window command button.
+        /// </summary>
+        /// <param name="content">The content of the button.</param>
+        /// <param name="label">The label.</param>
+        /// <returns>The right button.</returns>
+        public static Button CreateWindowCommandButton(FrameworkElement content, string label)
+        {
+            Argument.IsNotNull(() => content);
+
+            var button = new Button();
+            button.Content = content;
+
+            if (!string.IsNullOrEmpty(label))
+            {
+                button.ToolTip = label;
+            }
+
+            return button;
+        }
+
+        /// <summary>
+        /// Creates the window command button.
+        /// </summary>
         /// <param name="style">The style.</param>
         /// <param name="label">The label.</param>
         /// <returns>The right button.</returns>
+        [ObsoleteEx(ReplacementTypeOrMember = "CreateWindowCommandButton(FrameworkElement, string)", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
         public static Button CreateWindowCommandButton(string style, string label)
         {
             Argument.IsNotNullOrWhitespace(() => style);
@@ -44,6 +85,7 @@ namespace Orchestra
         /// <param name="parentButton">The parent button.</param>
         /// <param name="style">The style.</param>
         /// <returns>Rectangle.</returns>
+        [ObsoleteEx(ReplacementTypeOrMember = "Use MahApps.Metro.IconPacks, see https://mahapps.com/guides/icons-and-resources.html", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
         public static Rectangle CreateWindowCommandRectangle(Button parentButton, string style)
         {
             Argument.IsNotNull(() => parentButton);
@@ -58,9 +100,10 @@ namespace Orchestra
                 Stretch = Stretch.UniformToFill
             };
 
-            rectangle.SetBinding(Rectangle.FillProperty, new Binding("Foreground")
+            rectangle.SetBinding(Rectangle.FillProperty, new Binding(nameof(Button.Foreground))
             {
-                Source = parentButton
+                Source = parentButton,
+                Mode = BindingMode.OneWay
             });
 
             var application = Application.Current;

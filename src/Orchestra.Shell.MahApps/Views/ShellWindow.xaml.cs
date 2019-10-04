@@ -13,6 +13,7 @@ namespace Orchestra.Views
     using Catel.MVVM;
     using Catel.Windows;
     using MahApps.Metro.Controls;
+    using MahApps.Metro.IconPacks;
     using Services;
 
     /// <summary>
@@ -56,7 +57,7 @@ namespace Orchestra.Views
 
             if (mahAppsService.GetAboutInfo() != null)
             {
-                var aboutWindowCommand = WindowCommandHelper.CreateWindowCommandButton("appbar_information", "about");
+                var aboutWindowCommand = WindowCommandHelper.CreateWindowCommandButton(new PackIconMaterial { Kind = PackIconMaterialKind.Information }, "About");
 
                 var aboutService = serviceLocator.ResolveType<IAboutService>();
 #pragma warning disable AvoidAsyncVoid // Avoid async void
