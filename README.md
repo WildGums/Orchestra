@@ -33,6 +33,18 @@ Orchestra provides support for two different shells:
 | ![Fluent Ribbon 01](doc/images/shell_fluentribbon_01.png)  | ![MahApps 01](doc/images/shell_mahapps_01.png)  |
 | ![Fluent Ribbon 02](doc/images/shell_fluentribbon_02.png)  |                                                 |
 
+## Project Templates
+
+Want to get up and running fast? Grab the project templates from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/search?term=orchestra&target=VS&category=All%20categories&vsVersion=&sortBy=Relevance):
+
+![](doc/images/templates_project_marketplace.png)
+
+You can pick either the Fluent.Ribbon or MahApps shell and have a fully running project within seconds:
+
+![](doc/images/templates_project_fluentribbon.png)
+
+![](doc/images/templates_project_mahapps.png)
+
 ## Sample Applications
 
 Here are some examples of applications built with Orchestra and other Orc.* libraries:
