@@ -62,11 +62,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\Orchestra.Shell.Shared\**\*.*">
+    <Compile Include="..\Orchestra.Shell.Shared\**\*.cs">
       <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
-    <Compile Remove="..\Orchestra.Shell.Shared\*.shproj"/>
-    <Compile Remove="..\Orchestra.Shell.Shared\*.projitems"/>
     <Compile Remove="..\Orchestra.Shell.Shared\Properties\**"/>
   </ItemGroup>
   

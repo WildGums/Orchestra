@@ -51,8 +51,6 @@
     <Page Include="..\Orchestra.Examples.Shared\**\*.xaml">
       <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Page>
-    <Compile Remove="..\Orchestra.Examples.Shared\*.shproj"/>
-    <Compile Remove="..\Orchestra.Examples.Shared\*.projitems"/>
   </ItemGroup>
   
   <ItemGroup>
