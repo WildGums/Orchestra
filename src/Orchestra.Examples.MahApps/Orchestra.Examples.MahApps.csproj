@@ -44,7 +44,16 @@
     <ProjectReference Include="..\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.csproj" />
   </ItemGroup>
 
-  <Import Project="..\Orchestra.Examples.Shared\Orchestra.Examples.Shared.projitems" Label="Shared" />
+  <ItemGroup>
+    <Compile Include="..\Orchestra.Examples.Shared\**\*.cs">
+      <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+    <Page Include="..\Orchestra.Examples.Shared\**\*.xaml">
+      <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Page>
+    <Compile Remove="..\Orchestra.Examples.Shared\*.shproj"/>
+    <Compile Remove="..\Orchestra.Examples.Shared\*.projitems"/>
+  </ItemGroup>
   
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
