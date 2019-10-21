@@ -26,14 +26,14 @@
     <PackageReference Include="Catel.Analyzers" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="Catel.Fody" Version="4.3.0" PrivateAssets="all" />
     <PackageReference Include="Catel.MVVM" Version="5.11.2" />
-    <PackageReference Include="ControlzEx" Version="4.1.0" />
+    <PackageReference Include="ControlzEx" Version="4.1.1" />
     <PackageReference Include="Costura.Fody" Version="4.1.0" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="6.0.2" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.3.0" PrivateAssets="all" />
-    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0490" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0223" />
+    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0531" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0245" />
     <PackageReference Include="MethodTimer.Fody" Version="3.1.0" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Orc.Controls" Version="3.3.0-alpha0329" />
@@ -69,7 +69,7 @@
     <Compile Include="..\Orchestra.Shell.Shared\**\*.cs">
       <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>    
-    <Compile Remove="..\Orchestra.Shell.Shared\Properties\**"/>
+    <Compile Remove="..\Orchestra.Shell.Shared\Properties\**" />
   </ItemGroup>  
   
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props')" />
