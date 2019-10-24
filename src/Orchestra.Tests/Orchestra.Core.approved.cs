@@ -885,8 +885,12 @@ namespace Orchestra.Services
     {
         protected readonly Catel.Services.IDispatcherService _dispatcherService;
         public PleaseWaitService(Catel.Services.IDispatcherService dispatcherService) { }
+        protected int CurrentItem { get; }
+        protected bool ReachedTotalItems { get; }
         public int ShowCounter { get; }
+        protected int TotalItems { get; }
         public virtual void Hide() { }
+        protected virtual void HideIfRequired() { }
         public virtual void Pop() { }
         public virtual void Push(string status = "") { }
         public virtual void Show(string status = "") { }

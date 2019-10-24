@@ -47,7 +47,7 @@ namespace Orchestra.Services
             base.Hide();
 
             _hidingTimer.Start();
-        }        
+        }
 
         public override void UpdateStatus(int currentItem, int totalItems, string statusFormat = "")
         {
@@ -85,7 +85,7 @@ namespace Orchestra.Services
             _hidingTimer.Stop();
 
             var progressBar = InitializeProgressBar();
-            if (progressBar == null)
+            if (progressBar is null)
             {
                 return;
             }
@@ -102,7 +102,7 @@ namespace Orchestra.Services
 
         private ProgressBar InitializeProgressBar()
         {
-            if (_progressBar == null)
+            if (_progressBar is null)
             {
                 _progressBar = _dependencyResolver.TryResolve<ProgressBar>("pleaseWaitService");
 
@@ -117,7 +117,7 @@ namespace Orchestra.Services
 
         private Storyboard GetHideProgressBarStoryboard()
         {
-            if (_resourceDictionary == null)
+            if (_resourceDictionary is null)
             {
                 _resourceDictionary = new ResourceDictionary
                 {
