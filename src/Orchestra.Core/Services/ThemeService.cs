@@ -11,12 +11,15 @@ namespace Orchestra.Services
     public class ThemeService : IThemeService
     {
         private readonly Orc.Controls.Services.IAccentColorService _accentColorService;
+        private readonly IBaseColorService _baseColorService;
 
-        public ThemeService(Orc.Controls.Services.IAccentColorService accentColorService)
+        public ThemeService(Orc.Controls.Services.IAccentColorService accentColorService,IBaseColorService baseColorService)
         {
             Argument.IsNotNull(() => accentColorService);
+            Argument.IsNotNull(() => baseColorService);
 
             _accentColorService = accentColorService;
+            _baseColorService = baseColorService;
         }
 
         public virtual bool ShouldCreateStyleForwarders()
@@ -30,7 +33,7 @@ namespace Orchestra.Services
 
             var themeInfo = new ThemeInfo
             {
-                BaseColorScheme = "Light",
+                BaseColorScheme = _baseColorService.GetBaseColor(),
                 AccentBaseColor = accentColor,
                 HighlightColor = accentColor
             };
