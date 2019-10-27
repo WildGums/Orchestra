@@ -46,7 +46,7 @@
 
       <StackPanel Grid.Column="1" Orientation="Horizontal">
         <Label Content="Select the base color" />
-        <ComboBox ItemsSource="{Binding BaseColors}" SelectedItem="{Binding SelectedBaseColor}">
+        <ComboBox ItemsSource="{Binding BaseColorSchemes}" SelectedItem="{Binding SelectedBaseColorScheme}">
           <ComboBox.ItemTemplate>
             <DataTemplate>
               <Grid>

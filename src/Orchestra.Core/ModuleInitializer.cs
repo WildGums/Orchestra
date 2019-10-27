@@ -58,7 +58,7 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutInfoService, AboutInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IClipboardService, ClipboardService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<IBaseColorService, BaseColorService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IBaseColorSchemeService, BaseColorSchemeService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IThemeService, ThemeService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();
 

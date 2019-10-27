@@ -1,11 +1,11 @@
 ﻿namespace Orchestra.Services
 {
     using System.Collections.Generic;
-    public class MahAppsBaseColorService : BaseColorService
+    public class MahAppsBaseColorSchemeService : BaseColorSchemeService
     {
-        public override IReadOnlyList<string> GetAvailableBaseColors()
+        public override IReadOnlyList<string> GetAvailableBaseColorSchemes()
         {
-            return new List<string>() { OrchestraEnvironment.DefaultBaseColor, "Dark" }.AsReadOnly();
+            return new List<string>() { OrchestraEnvironment.LightBaseColorScheme, OrchestraEnvironment.DarkBaseColorScheme }.AsReadOnly();
         }
     }
 }

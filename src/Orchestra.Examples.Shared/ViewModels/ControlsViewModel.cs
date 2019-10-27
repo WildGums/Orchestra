@@ -12,29 +12,29 @@
     public class ControlsViewModel : ViewModelBase
     {
         private readonly Orc.Controls.Services.IAccentColorService _accentColorService;
-        private readonly IBaseColorService _baseColorService;
+        private readonly IBaseColorSchemeService _baseColorSchemeService;
 
-        public ControlsViewModel(Orc.Controls.Services.IAccentColorService accentColorService, IBaseColorService baseColorService)
+        public ControlsViewModel(Orc.Controls.Services.IAccentColorService accentColorService, IBaseColorSchemeService baseColorSchemeService)
         {
             Argument.IsNotNull(() => accentColorService);
-            Argument.IsNotNull(() => baseColorService);
+            Argument.IsNotNull(() => baseColorSchemeService);
 
             _accentColorService = accentColorService;
-            _baseColorService = baseColorService;
+            _baseColorSchemeService = baseColorSchemeService;
 
             AccentColors = typeof(Colors).GetPropertiesEx(true, true).Where(x => x.PropertyType.IsAssignableFromEx(typeof(Color))).Select(x => (Color)x.GetValue(null)).ToList();
             SelectedAccentColor = Colors.Orange;
 
-            BaseColors = _baseColorService.GetAvailableBaseColors();
-            SelectedBaseColor = BaseColors[0];
+            BaseColorSchemes = _baseColorSchemeService.GetAvailableBaseColorSchemes();
+            SelectedBaseColorScheme = BaseColorSchemes[0];
         }
 
         #region
         public List<Color> AccentColors { get; private set; }
-        public IReadOnlyList<string> BaseColors { get; private set; }
+        public IReadOnlyList<string> BaseColorSchemes { get; private set; }
 
         public Color SelectedAccentColor { get; set; }
-        public string SelectedBaseColor { get; set; }
+        public string SelectedBaseColorScheme { get; set; }
         #endregion
 
         #region Methods
@@ -42,9 +42,10 @@
         {
             _accentColorService.SetAccentColor(SelectedAccentColor);
         }
-        private void OnSelectedBaseColorChanged()
+
+        private void OnSelectedBaseColorSchemeChanged()
         {
-            _baseColorService.SetBaseColor(SelectedBaseColor);
+            _baseColorSchemeService.SetBaseColorScheme(SelectedBaseColorScheme);
         }
         #endregion
     }

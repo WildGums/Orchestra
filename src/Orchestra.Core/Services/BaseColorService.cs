@@ -7,24 +7,28 @@
     using System.Threading.Tasks;
     using Catel;
 
-    public class BaseColorService : IBaseColorService
+    public class BaseColorSchemeService : IBaseColorSchemeService
     {
-        public event EventHandler<EventArgs> BaseColorChanged;
-        
-        private string _baseColor = null;
-        public string GetBaseColor() => _baseColor ?? (_baseColor = GetAvailableBaseColors()[0]);
-        public bool SetBaseColor(string color)
+        public event EventHandler<EventArgs> BaseColorSchemeChanged;
+
+        private string _baseColorScheme = null;
+
+        public string GetBaseColorScheme() => _baseColorScheme ?? (_baseColorScheme = GetAvailableBaseColorSchemes()[0]);
+
+        public bool SetBaseColorScheme(string color)
         {
-            if (_baseColor == color || !GetAvailableBaseColors().Contains(color))
-                return false;
-            _baseColor = color;
-            BaseColorChanged?.Invoke(this, EventArgs.Empty);
+            if (_baseColorScheme.EqualsIgnoreCase(color) || !GetAvailableBaseColorSchemes().Contains(color))
+            { 
+                return false; 
+            }
+            _baseColorScheme = color;
+            BaseColorSchemeChanged?.Invoke(this, EventArgs.Empty);
             return true;
         }
-       
-        public virtual IReadOnlyList<string> GetAvailableBaseColors()
+
+        public virtual IReadOnlyList<string> GetAvailableBaseColorSchemes()
         {
-            return new List<string>() { OrchestraEnvironment.DefaultBaseColor }.AsReadOnly();
+            return new List<string>() { OrchestraEnvironment.LightBaseColorScheme }.AsReadOnly();
         }
     }
 }

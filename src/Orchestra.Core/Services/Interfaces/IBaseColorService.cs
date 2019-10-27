@@ -4,17 +4,17 @@
     using System.Collections.Generic;
     using System.Windows.Media;
 
-    public interface IBaseColorService
+    public interface IBaseColorSchemeService
     {
-        event EventHandler<EventArgs> BaseColorChanged;
+        event EventHandler<EventArgs> BaseColorSchemeChanged;
 
         /// <summary>
         /// returns the available base colors (at least one)
         /// </summary>
         /// <returns>at least one base color, otherwise GetBaseColor will throw an exception</returns>
-        IReadOnlyList<string> GetAvailableBaseColors();
+        IReadOnlyList<string> GetAvailableBaseColorSchemes();
 
-        string GetBaseColor();
-        bool SetBaseColor(string color);
+        string GetBaseColorScheme();
+        bool SetBaseColorScheme(string color);
     }
 }
