@@ -5,21 +5,26 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Catel;
 
     public class BaseColorService : IBaseColorService
     {
         public event EventHandler<EventArgs> BaseColorChanged;
-
-        public string BaseColor = null;
-        public string GetBaseColor() => BaseColor ?? (BaseColor = "Light");
-
-
-        public void SetBaseColor(string color)
+        
+        private string _baseColor = null;
+        public string GetBaseColor() => _baseColor ?? (_baseColor = GetAvailableBaseColors()[0]);
+        public bool SetBaseColor(string color)
         {
-            if (BaseColor == color)
-                return;
-            BaseColor = color;
+            if (_baseColor == color || !GetAvailableBaseColors().Contains(color))
+                return false;
+            _baseColor = color;
             BaseColorChanged?.Invoke(this, EventArgs.Empty);
+            return true;
+        }
+       
+        public virtual IReadOnlyList<string> GetAvailableBaseColors()
+        {
+            return new List<string>() { OrchestraEnvironment.DefaultBaseColor }.AsReadOnly();
         }
     }
 }

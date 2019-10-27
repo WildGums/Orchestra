@@ -12,6 +12,7 @@ namespace Orchestra
     public static class OrchestraEnvironment
     {
         #region Constants
+        public const string DefaultBaseColor = "Light";
         public static readonly SolidColorBrush DefaultAccentColorBrush = new SolidColorBrush(Colors.Orange);
         #endregion
     }
