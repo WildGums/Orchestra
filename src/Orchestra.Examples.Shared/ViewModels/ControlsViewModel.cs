@@ -29,7 +29,7 @@
             SelectedBaseColorScheme = BaseColorSchemes[0];
         }
 
-        #region
+        #region Properties
         public List<Color> AccentColors { get; private set; }
         public IReadOnlyList<string> BaseColorSchemes { get; private set; }
 

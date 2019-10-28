@@ -18,20 +18,22 @@
 
         private readonly Orc.Controls.Services.IAccentColorService _accentColorService;
         private readonly IThemeService _themeService;
+        private readonly IBaseColorSchemeService _baseColorSchemeService;
 
         public FluentRibbonShellTheme(Orc.Controls.Services.IAccentColorService accentColorService,
-            IThemeService themeService)
+            IThemeService themeService, IBaseColorSchemeService baseColorSchemeService)
         {
             Argument.IsNotNull(() => accentColorService);
             Argument.IsNotNull(() => themeService);
 
             _accentColorService = accentColorService;
             _themeService = themeService;
-
-            _accentColorService.AccentColorChanged += OnAccentColorServiceAccentColorChanged;
+            _baseColorSchemeService = baseColorSchemeService;
+            _accentColorService.AccentColorChanged += OnAccentBaseSchemeColorChanged;
+            _baseColorSchemeService.BaseColorSchemeChanged += OnAccentBaseSchemeColorChanged;
         }
 
-        private void OnAccentColorServiceAccentColorChanged(object sender, EventArgs e)
+        private void OnAccentBaseSchemeColorChanged(object sender, EventArgs e)
         {
             ApplyTheme(_themeService.GetThemeInfo());
         }

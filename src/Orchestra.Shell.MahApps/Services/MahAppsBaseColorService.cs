@@ -5,7 +5,11 @@
     {
         public override IReadOnlyList<string> GetAvailableBaseColorSchemes()
         {
-            return new List<string>() { OrchestraEnvironment.LightBaseColorScheme, OrchestraEnvironment.DarkBaseColorScheme }.AsReadOnly();
+            return new List<string>()
+            {
+                OrchestraEnvironment.LightBaseColorScheme,
+                OrchestraEnvironment.DarkBaseColorScheme
+            }.AsReadOnly();
         }
     }
 }
