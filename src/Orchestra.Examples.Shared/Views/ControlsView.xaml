@@ -15,29 +15,48 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <StackPanel Grid.Row="0" Orientation="Horizontal">
-      <Label Content="Select the accent color" />
-      <ComboBox ItemsSource="{Binding AccentColors}" SelectedItem="{Binding SelectedAccentColor}">
-        <ComboBox.ItemTemplate>
-          <DataTemplate>
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-              </Grid.ColumnDefinitions>
+    <Grid Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <StackPanel Orientation="Horizontal">
+        <Label Content="Select the accent color" />
+        <ComboBox ItemsSource="{Binding AccentColors}" SelectedItem="{Binding SelectedAccentColor}">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-              <Rectangle Grid.Column="0" Width="20" Height="12" VerticalAlignment="Center" Margin="4,2,8,2">
-                <Rectangle.Fill>
-                  <SolidColorBrush Color="{Binding }" />
-                </Rectangle.Fill>
-              </Rectangle>
+                <Rectangle Grid.Column="0" Width="20" Height="12" VerticalAlignment="Center" Margin="4,2,8,2">
+                  <Rectangle.Fill>
+                    <SolidColorBrush Color="{Binding }" />
+                  </Rectangle.Fill>
+                </Rectangle>
 
-              <TextBlock Grid.Column="1" Text="{Binding }" VerticalAlignment="Center" />
-            </Grid>
-          </DataTemplate>
-        </ComboBox.ItemTemplate>
-      </ComboBox>
-    </StackPanel>
+                <TextBlock Grid.Column="1" Text="{Binding }" VerticalAlignment="Center" />
+              </Grid>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+      </StackPanel>
+
+      <StackPanel Grid.Column="1" Orientation="Horizontal">
+        <Label Content="Select the base color" />
+        <ComboBox ItemsSource="{Binding BaseColorSchemes}" SelectedItem="{Binding SelectedBaseColorScheme}">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <Grid>
+                <TextBlock Grid.Column="1" Text="{Binding }" VerticalAlignment="Center" />
+              </Grid>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+      </StackPanel>
+    </Grid>
 
     <orccontrols:StackGrid Grid.Row="1">
       <Grid.RowDefinitions>
@@ -101,8 +120,8 @@
 
       <GroupBox Header="Orc controls">
         <WrapPanel>
-            <orccontrols:BusyIndicator ToolTip="Orchestra: BusyIndicator" Width="100" Height="12" />
-            <orccontrols:FluidProgressBar ToolTip="Orchestra: FluidProgressBar" Width="100" Height="12" />
+          <orccontrols:BusyIndicator ToolTip="Orchestra: BusyIndicator" Width="100" Height="12" />
+          <orccontrols:FluidProgressBar ToolTip="Orchestra: FluidProgressBar" Width="100" Height="12" />
         </WrapPanel>
       </GroupBox>
 
@@ -125,12 +144,12 @@
                     Height="200" 
                     ToolTip="ListView">
 
-              <ListView.Items>
-                  Item 11
+            <ListView.Items>
+              Item 11
                   Item 21
                   Item 31
                   Item 41
-              </ListView.Items>
+            </ListView.Items>
           </ListView>
 
           <TreeView Width="100" Height="200" ToolTip="TreeView" />

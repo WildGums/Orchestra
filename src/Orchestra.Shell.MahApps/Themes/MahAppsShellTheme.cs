@@ -16,20 +16,25 @@
 
         private readonly Orc.Controls.Services.IAccentColorService _accentColorService;
         private readonly IThemeService _themeService;
+        private readonly IBaseColorSchemeService _baseColorSchemeService;
 
-        public MahAppsShellTheme(Orc.Controls.Services.IAccentColorService accentColorService,
-            IThemeService themeService)
+        public MahAppsShellTheme(Orc.Controls.Services.IAccentColorService accentColorService,            
+            IThemeService themeService,
+            IBaseColorSchemeService baseColorSchemeService)
         {
             Argument.IsNotNull(() => accentColorService);
             Argument.IsNotNull(() => themeService);
+            Argument.IsNotNull(() => baseColorSchemeService);
 
             _accentColorService = accentColorService;
             _themeService = themeService;
+            _baseColorSchemeService = baseColorSchemeService;
 
-            _accentColorService.AccentColorChanged += OnAccentColorServiceAccentColorChanged;
+            _accentColorService.AccentColorChanged += OnAccentBaseSchemeColorChanged;
+            _baseColorSchemeService.BaseColorSchemeChanged += OnAccentBaseSchemeColorChanged;            
         }
 
-        private void OnAccentColorServiceAccentColorChanged(object sender, EventArgs e)
+        private void OnAccentBaseSchemeColorChanged(object sender, EventArgs e)
         {
             ApplyTheme(_themeService.GetThemeInfo());
         }
