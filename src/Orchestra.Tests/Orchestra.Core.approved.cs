@@ -126,7 +126,10 @@ namespace Orchestra
     }
     public class static OrchestraEnvironment
     {
+        public const string DarkBaseColorScheme = "Dark";
         public static readonly System.Windows.Media.SolidColorBrush DefaultAccentColorBrush;
+        public const string DefaultBaseColorSchema = "Light";
+        public const string LightBaseColorScheme = "Light";
     }
     public class OrchestraException : System.Exception
     {
@@ -693,6 +696,14 @@ namespace Orchestra.Services
         protected virtual bool MatchesFilters(System.Collections.Generic.IEnumerable<string> filters, string fileName) { }
         public bool OpenApplicationDataDirectory() { }
     }
+    public class BaseColorSchemeService : Orchestra.Services.IBaseColorSchemeService
+    {
+        public BaseColorSchemeService() { }
+        public event System.EventHandler<System.EventArgs> BaseColorSchemeChanged;
+        public virtual System.Collections.Generic.IReadOnlyList<string> GetAvailableBaseColorSchemes() { }
+        public string GetBaseColorScheme() { }
+        public bool SetBaseColorScheme(string color) { }
+    }
     public class ClipboardService : Orchestra.Services.IClipboardService
     {
         public ClipboardService() { }
@@ -764,6 +775,13 @@ namespace Orchestra.Services
         System.Threading.Tasks.Task<bool> BackupUserDataAsync();
         System.Threading.Tasks.Task DeleteUserDataAsync();
         bool OpenApplicationDataDirectory();
+    }
+    public interface IBaseColorSchemeService
+    {
+        public event System.EventHandler<System.EventArgs> BaseColorSchemeChanged;
+        System.Collections.Generic.IReadOnlyList<string> GetAvailableBaseColorSchemes();
+        string GetBaseColorScheme();
+        bool SetBaseColorScheme(string color);
     }
     public interface IClipboardService
     {
@@ -930,7 +948,7 @@ namespace Orchestra.Services
     }
     public class ThemeService : Orchestra.Services.IThemeService
     {
-        public ThemeService(Orc.Controls.Services.IAccentColorService accentColorService) { }
+        public ThemeService(Orc.Controls.Services.IAccentColorService accentColorService, Orchestra.Services.IBaseColorSchemeService baseColorSchemeService) { }
         public virtual Orchestra.ThemeInfo GetThemeInfo() { }
         public virtual bool ShouldCreateStyleForwarders() { }
     }

@@ -120,7 +120,7 @@ namespace Orchestra.Themes
 {
     public class FluentRibbonShellTheme : Orchestra.Themes.IShellTheme
     {
-        public FluentRibbonShellTheme(Orc.Controls.Services.IAccentColorService accentColorService, Orchestra.Services.IThemeService themeService) { }
+        public FluentRibbonShellTheme(Orc.Controls.Services.IAccentColorService accentColorService, Orchestra.Services.IThemeService themeService, Orchestra.Services.IBaseColorSchemeService baseColorSchemeService) { }
         public void ApplyTheme(Orchestra.ThemeInfo themeInfo) { }
         public System.Windows.ResourceDictionary CreateResourceDictionary(Orchestra.ThemeInfo themeInfo) { }
     }

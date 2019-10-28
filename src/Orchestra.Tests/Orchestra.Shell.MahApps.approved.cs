@@ -111,6 +111,11 @@ namespace Orchestra.Services
     {
         public MahAppsAboutService(Catel.Services.IUIVisualizerService uiVisualizerService, Orchestra.Services.IAboutInfoService aboutInfoService) { }
     }
+    public class MahAppsBaseColorSchemeService : Orchestra.Services.BaseColorSchemeService
+    {
+        public MahAppsBaseColorSchemeService() { }
+        public override System.Collections.Generic.IReadOnlyList<string> GetAvailableBaseColorSchemes() { }
+    }
     public class MahAppsMessageService : Catel.Services.MessageService
     {
         public MahAppsMessageService(Catel.Services.IDispatcherService dispatcherService, Catel.Services.ILanguageService languageService) { }
@@ -137,7 +142,7 @@ namespace Orchestra.Themes
 {
     public class MahAppsShellTheme : Orchestra.Themes.IShellTheme
     {
-        public MahAppsShellTheme(Orc.Controls.Services.IAccentColorService accentColorService, Orchestra.Services.IThemeService themeService) { }
+        public MahAppsShellTheme(Orc.Controls.Services.IAccentColorService accentColorService, Orchestra.Services.IThemeService themeService, Orchestra.Services.IBaseColorSchemeService baseColorSchemeService) { }
         public void ApplyTheme(Orchestra.ThemeInfo themeInfo) { }
         public System.Windows.ResourceDictionary CreateResourceDictionary(Orchestra.ThemeInfo themeInfo) { }
     }
