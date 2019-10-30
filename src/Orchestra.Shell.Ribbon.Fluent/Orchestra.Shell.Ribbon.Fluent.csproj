@@ -29,7 +29,7 @@
     <PackageReference Include="ControlzEx" Version="4.1.1" />
     <PackageReference Include="Costura.Fody" Version="4.1.0" PrivateAssets="all" />
     <PackageReference Include="Fluent.Ribbon" Version="7.0.0" />
-    <PackageReference Include="Fody" Version="6.0.2" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="6.0.3" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.3.0" PrivateAssets="all" />
