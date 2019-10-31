@@ -18,12 +18,9 @@
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
-                    <ControlTemplate.Resources>
-                        <catel:BooleanToHidingVisibilityConverter x:Key="BooleanToHidingVisibilityConverter" />
-                    </ControlTemplate.Resources>
                     <DockPanel LastChildFill="True">
                         <Border BorderThickness="1" BorderBrush="Red" 
-								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={StaticResource BooleanToHidingVisibilityConverter}}">
+								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={catel:BooleanToHidingVisibilityConverter}}">
                             <AdornedElementPlaceholder x:Name="placeholder" />
                         </Border>
                     </DockPanel>
@@ -34,7 +31,7 @@
         <!-- Grayscale effect when disabled -->
         <!--<Setter Property="Effect">
             <Setter.Value>
-                <effects:GrayscaleEffect DesaturationFactor="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, Converter={StaticResource BooleanToGrayscaleConverter}}" />
+                <effects:GrayscaleEffect DesaturationFactor="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, Converter={catel:BooleanToGrayscaleConverter}}" />
             </Setter.Value>
         </Setter>-->
     </Style>
@@ -51,12 +48,9 @@
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
-                    <ControlTemplate.Resources>
-                        <catel:BooleanToHidingVisibilityConverter x:Key="BooleanToHidingVisibilityConverter" />
-                    </ControlTemplate.Resources>
                     <DockPanel LastChildFill="True">
                         <Border BorderThickness="1" BorderBrush="Red" 
-								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={StaticResource BooleanToHidingVisibilityConverter}}">
+								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={catel:BooleanToHidingVisibilityConverter}}">
                             <AdornedElementPlaceholder x:Name="placeholder" />
                         </Border>
                     </DockPanel>
@@ -67,7 +61,7 @@
         <!-- Show errors as tooltip -->
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors), Converter={StaticResource GetFirstValidationErrorConverter}}" />
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors), Converter={catel:GetFirstValidationErrorConverter}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -84,12 +78,9 @@
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
-                    <ControlTemplate.Resources>
-                        <catel:BooleanToHidingVisibilityConverter x:Key="BooleanToHidingVisibilityConverter" />
-                    </ControlTemplate.Resources>
                     <DockPanel LastChildFill="True">
                         <Border BorderThickness="1" BorderBrush="Red" 
-								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={StaticResource BooleanToHidingVisibilityConverter}}">
+								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={catel:BooleanToHidingVisibilityConverter}}">
                             <AdornedElementPlaceholder x:Name="placeholder" />
                         </Border>
                     </DockPanel>
@@ -100,7 +91,7 @@
         <!-- Show errors as tooltip -->
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors), Converter={StaticResource GetFirstValidationErrorConverter}}" />
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors), Converter={catel:GetFirstValidationErrorConverter}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -147,12 +138,9 @@
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
-                    <ControlTemplate.Resources>
-                        <catel:BooleanToHidingVisibilityConverter x:Key="BooleanToHidingVisibilityConverter" />
-                    </ControlTemplate.Resources>
                     <DockPanel LastChildFill="True">
                         <Border BorderThickness="1" BorderBrush="Red" 
-								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={StaticResource BooleanToHidingVisibilityConverter}}">
+								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={catel:BooleanToHidingVisibilityConverter}}">
                             <AdornedElementPlaceholder x:Name="placeholder" />
                         </Border>
                     </DockPanel>
@@ -163,7 +151,7 @@
         <!-- Show errors as tooltip -->
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors), Converter={StaticResource GetFirstValidationErrorConverter}}" />
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors), Converter={catel:GetFirstValidationErrorConverter}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -185,12 +173,9 @@
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
-                    <ControlTemplate.Resources>
-                        <catel:BooleanToHidingVisibilityConverter x:Key="BooleanToHidingVisibilityConverter" />
-                    </ControlTemplate.Resources>
                     <DockPanel LastChildFill="True">
                         <Border BorderThickness="1" BorderBrush="Red" 
-								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={StaticResource BooleanToHidingVisibilityConverter}}">
+								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={catel:BooleanToHidingVisibilityConverter}}">
                             <AdornedElementPlaceholder x:Name="placeholder" />
                         </Border>
                     </DockPanel>
@@ -201,7 +186,7 @@
         <!-- Show errors as tooltip -->
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors), Converter={StaticResource GetFirstValidationErrorConverter}}" />
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors), Converter={catel:GetFirstValidationErrorConverter}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -253,12 +238,9 @@
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
-                    <ControlTemplate.Resources>
-                        <catel:BooleanToHidingVisibilityConverter x:Key="BooleanToHidingVisibilityConverter" />
-                    </ControlTemplate.Resources>
                     <DockPanel LastChildFill="True">
                         <Border BorderThickness="1" BorderBrush="Red" 
-								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={StaticResource BooleanToHidingVisibilityConverter}}">
+								Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={catel:BooleanToHidingVisibilityConverter}}">
                             <AdornedElementPlaceholder x:Name="placeholder" />
                         </Border>
                     </DockPanel>
@@ -269,7 +251,7 @@
         <!-- Show errors as tooltip -->
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors), Converter={StaticResource GetFirstValidationErrorConverter}}" />
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors), Converter={catel:GetFirstValidationErrorConverter}}" />
             </Trigger>
         </Style.Triggers>
     </Style>

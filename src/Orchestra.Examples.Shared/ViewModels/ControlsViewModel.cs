@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Windows.Media;
     using Catel;
+    using Catel.Data;
     using Catel.MVVM;
     using Catel.Reflection;
     using Orc.Controls.Services;
@@ -35,6 +36,8 @@
 
         public Color SelectedAccentColor { get; set; }
         public string SelectedBaseColorScheme { get; set; }
+
+        public string Text { get; set; }
         #endregion
 
         #region Methods
@@ -46,6 +49,16 @@
         private void OnSelectedBaseColorSchemeChanged()
         {
             _baseColorSchemeService.SetBaseColorScheme(SelectedBaseColorScheme);
+        }
+
+        protected override void ValidateFields(List<IFieldValidationResult> validationResults)
+        {
+            if (string.IsNullOrEmpty(Text))
+            {
+                validationResults.Add(new FieldValidationResult(nameof(Text), ValidationResultType.Error, "Text cannot be empty"));
+            }
+
+            base.ValidateFields(validationResults);
         }
         #endregion
     }

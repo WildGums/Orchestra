@@ -9,165 +9,165 @@
                    d:DesignHeight="300"
                    d:DesignWidth="400">
 
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <Grid Grid.Row="0">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
-      <StackPanel Orientation="Horizontal">
-        <Label Content="Select the accent color" />
-        <ComboBox ItemsSource="{Binding AccentColors}" SelectedItem="{Binding SelectedAccentColor}">
-          <ComboBox.ItemTemplate>
-            <DataTemplate>
-              <Grid>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="Auto" />
-                  <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Select the accent color" />
+                <ComboBox ItemsSource="{Binding AccentColors}" SelectedItem="{Binding SelectedAccentColor}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                <Rectangle Grid.Column="0" Width="20" Height="12" VerticalAlignment="Center" Margin="4,2,8,2">
-                  <Rectangle.Fill>
-                    <SolidColorBrush Color="{Binding }" />
-                  </Rectangle.Fill>
-                </Rectangle>
+                                <Rectangle Grid.Column="0" Width="20" Height="12" VerticalAlignment="Center" Margin="4,2,8,2">
+                                    <Rectangle.Fill>
+                                        <SolidColorBrush Color="{Binding }" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
 
-                <TextBlock Grid.Column="1" Text="{Binding }" VerticalAlignment="Center" />
-              </Grid>
-            </DataTemplate>
-          </ComboBox.ItemTemplate>
-        </ComboBox>
-      </StackPanel>
+                                <TextBlock Grid.Column="1" Text="{Binding }" VerticalAlignment="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
 
-      <StackPanel Grid.Column="1" Orientation="Horizontal">
-        <Label Content="Select the base color" />
-        <ComboBox ItemsSource="{Binding BaseColorSchemes}" SelectedItem="{Binding SelectedBaseColorScheme}">
-          <ComboBox.ItemTemplate>
-            <DataTemplate>
-              <Grid>
-                <TextBlock Grid.Column="1" Text="{Binding }" VerticalAlignment="Center" />
-              </Grid>
-            </DataTemplate>
-          </ComboBox.ItemTemplate>
-        </ComboBox>
-      </StackPanel>
-    </Grid>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Label Content="Select the base color" />
+                <ComboBox ItemsSource="{Binding BaseColorSchemes}" SelectedItem="{Binding SelectedBaseColorScheme}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Grid.Column="1" Text="{Binding }" VerticalAlignment="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
 
-    <orccontrols:StackGrid Grid.Row="1">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-      </Grid.RowDefinitions>
+        <orccontrols:StackGrid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-      <GroupBox>
-        <StackPanel>
-          <Label>
-            <TextBlock TextWrapping="Wrap" Text="This view shows all the controls with the alignments updated with the style forwarders. The first row contains an alignment helper border. All styles must also respect the current theme color." />
-          </Label>
+            <GroupBox>
+                <StackPanel>
+                    <Label>
+                        <TextBlock TextWrapping="Wrap" Text="This view shows all the controls with the alignments updated with the style forwarders. The first row contains an alignment helper border. All styles must also respect the current theme color." />
+                    </Label>
 
-          <CheckBox x:Name="alignmentCheckBox" Content="Enable alignment grid" IsChecked="True" />
-        </StackPanel>
-      </GroupBox>
+                    <CheckBox x:Name="alignmentCheckBox" Content="Enable alignment grid" IsChecked="True" />
+                </StackPanel>
+            </GroupBox>
 
-      <orccontrols:AlignmentGrid Grid.RowSpan="7"
+            <orccontrols:AlignmentGrid Grid.RowSpan="7"
                                Visibility="{Binding ElementName=alignmentCheckBox, Path=IsChecked, Converter={catel:BooleanToHidingVisibilityConverter}}"/>
 
-      <GroupBox Header="WPF controls">
-        <WrapPanel Orientation="Horizontal">
-          <Button Content="Button" ToolTip="Button" />
-          <CheckBox Content="CheckBox" ToolTip="CheckBox" />
-          <ComboBox Text="ComboBox" IsEditable="true" ToolTip="ComboBox" />
-          <Label Content="Label" ToolTip="Label" />
-          <PasswordBox Width="100" ToolTip="PasswordBox" Password="123" />
-          <ProgressBar Minimum="0" Maximum="100" Value="50" Width="100" ToolTip="ProgressBar" />
-          <RadioButton Content="RadioButton" ToolTip="RadioButton" />
-          <RepeatButton ToolTip="RepeatButton" Width="16" />
-          <RichTextBox ToolTip="RichTextBox" />
-          <Slider Minimum="0" Maximum="100" Value="50" Width="100" ToolTip="Slider" />
-          <TextBlock Text="TextBlock" ToolTip="TextBlock" />
-          <TextBox Text="Text box" ToolTip="TextBox" />
-        </WrapPanel>
-      </GroupBox>
+            <GroupBox Header="WPF controls">
+                <WrapPanel Orientation="Horizontal">
+                    <Button Content="Button" ToolTip="Button" />
+                    <CheckBox Content="CheckBox" ToolTip="CheckBox" />
+                    <ComboBox Text="ComboBox" IsEditable="true" ToolTip="ComboBox" />
+                    <Label Content="Label" ToolTip="Label" />
+                    <PasswordBox Width="100" ToolTip="PasswordBox" Password="123" />
+                    <ProgressBar Minimum="0" Maximum="100" Value="50" Width="100" ToolTip="ProgressBar" />
+                    <RadioButton Content="RadioButton" ToolTip="RadioButton" />
+                    <RepeatButton ToolTip="RepeatButton" Width="16" />
+                    <RichTextBox ToolTip="RichTextBox" />
+                    <Slider Minimum="0" Maximum="100" Value="50" Width="100" ToolTip="Slider" />
+                    <TextBlock Text="TextBlock" ToolTip="TextBlock" />
+                    <TextBox Text="{Binding Text, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" ToolTip="TextBox" Width="100" />
+                </WrapPanel>
+            </GroupBox>
 
-      <GroupBox Header="Orc.Controls controls">
-        <WrapPanel Orientation="Horizontal">
-          <orccontrols:DatePicker ToolTip="Orc.Controls: DatePicker" />
-          <orccontrols:DateTimePicker ToolTip="Orc.Controls: DateTimePicker" />
-          <orccontrols:DropDownButton Width="40" ToolTip="Orc.Controls: DropDownButton" />
-          <orccontrols:FilterBox Width="100" ToolTip="Orc.Controls: FilterBox" Text="Filter box" />
-          <orccontrols:LinkLabel Content="LinkLabel" ToolTip="Orc.Controls: LinkLabel"/>
-          <orccontrols:NumericTextBox Width="100" ToolTip="Orc.Controls: NumericTextBox" Value="123" />
-          <orccontrols:RangeSlider Width="100" Minimum="0" LowerValue="25" UpperValue="75" Maximum="100" ToolTip="Orc.Controls: RangeSlider" />
-          <orccontrols:TimeSpanPicker Width="100" ToolTip="Orc.Controls: TimeSpanPicker" />
-          <orccontrols:WatermarkTextBox Width="100" ToolTip="Orc.Controls: WatermarkTextBox" Watermark="This is a watermark" />
-        </WrapPanel>
-      </GroupBox>
+            <GroupBox Header="Orc.Controls controls">
+                <WrapPanel Orientation="Horizontal">
+                    <orccontrols:DatePicker ToolTip="Orc.Controls: DatePicker" />
+                    <orccontrols:DateTimePicker ToolTip="Orc.Controls: DateTimePicker" />
+                    <orccontrols:DropDownButton Width="40" ToolTip="Orc.Controls: DropDownButton" />
+                    <orccontrols:FilterBox Width="100" ToolTip="Orc.Controls: FilterBox" Text="Filter box" />
+                    <orccontrols:LinkLabel Content="LinkLabel" ToolTip="Orc.Controls: LinkLabel"/>
+                    <orccontrols:NumericTextBox Width="100" ToolTip="Orc.Controls: NumericTextBox" Value="123" />
+                    <orccontrols:RangeSlider Width="100" Minimum="0" LowerValue="25" UpperValue="75" Maximum="100" ToolTip="Orc.Controls: RangeSlider" />
+                    <orccontrols:TimeSpanPicker Width="100" ToolTip="Orc.Controls: TimeSpanPicker" />
+                    <orccontrols:WatermarkTextBox Width="100" ToolTip="Orc.Controls: WatermarkTextBox" Watermark="This is a watermark" />
+                </WrapPanel>
+            </GroupBox>
 
-      <GroupBox Header="Orc controls">
-        <WrapPanel>
-          <orccontrols:BusyIndicator ToolTip="Orchestra: BusyIndicator" Width="100" Height="12" />
-          <orccontrols:FluidProgressBar ToolTip="Orchestra: FluidProgressBar" Width="100" Height="12" />
-        </WrapPanel>
-      </GroupBox>
+            <GroupBox Header="Orc controls">
+                <WrapPanel>
+                    <orccontrols:BusyIndicator ToolTip="Orchestra: BusyIndicator" Width="100" Height="12" />
+                    <orccontrols:FluidProgressBar ToolTip="Orchestra: FluidProgressBar" Width="100" Height="12" />
+                </WrapPanel>
+            </GroupBox>
 
-      <GroupBox Header="Other controls">
-        <WrapPanel Orientation="Horizontal">
-          <GroupBox Header="GroupBox" Height="200" ToolTip="GroupBox" />
+            <GroupBox Header="Other controls">
+                <WrapPanel Orientation="Horizontal">
+                    <GroupBox Header="GroupBox" Height="200" ToolTip="GroupBox" />
 
-          <GridSplitter Width="5" Height="5" ToolTip="GridSplitter" />
+                    <GridSplitter Width="5" Height="5" ToolTip="GridSplitter" />
 
-          <ListBox Height="200" ToolTip="ListBox">
-            <ListBox.Items>
-              Item 1
+                    <ListBox Height="200" ToolTip="ListBox">
+                        <ListBox.Items>
+                            Item 1
               Item 2
               Item 3
               Item 4
-            </ListBox.Items>
-          </ListBox>
+                        </ListBox.Items>
+                    </ListBox>
 
-          <ListView Width="100"
+                    <ListView Width="100"
                     Height="200" 
                     ToolTip="ListView">
 
-            <ListView.Items>
-              Item 11
+                        <ListView.Items>
+                            Item 11
                   Item 21
                   Item 31
                   Item 41
-            </ListView.Items>
-          </ListView>
+                        </ListView.Items>
+                    </ListView>
 
-          <TreeView Width="100" Height="200" ToolTip="TreeView" />
-        </WrapPanel>
-      </GroupBox>
+                    <TreeView Width="100" Height="200" ToolTip="TreeView" />
+                </WrapPanel>
+            </GroupBox>
 
-      <GroupBox Header="Multi-line controls">
-        <WrapPanel Orientation="Horizontal">
-          <GroupBox Header="TextBox" Height="200" Width="200">
-            <TextBox AcceptsReturn="true" Text="this is a \r\nmultiline\r\ntexbox" />
-          </GroupBox>
+            <GroupBox Header="Multi-line controls">
+                <WrapPanel Orientation="Horizontal">
+                    <GroupBox Header="TextBox" Height="200" Width="200">
+                        <TextBox AcceptsReturn="true" Text="this is a \r\nmultiline\r\ntexbox" />
+                    </GroupBox>
 
-          <GroupBox Header="RichTextBox" Height="200" Width="200">
-            <RichTextBox />
-          </GroupBox>
-        </WrapPanel>
-      </GroupBox>
-    </orccontrols:StackGrid>
-  </Grid>
+                    <GroupBox Header="RichTextBox" Height="200" Width="200">
+                        <RichTextBox />
+                    </GroupBox>
+                </WrapPanel>
+            </GroupBox>
+        </orccontrols:StackGrid>
+    </Grid>
 
 </catel:UserControl>
