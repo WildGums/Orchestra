@@ -3,6 +3,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://schemas.catelproject.com"
                   xmlns:orccontrols="clr-namespace:Orc.Controls;assembly=Orc.Controls"
+                  xmlns:converters="clr-namespace:Orchestra.Converters"
                   WindowStartupLocation="CenterScreen" WindowStyle="None" SnapsToDevicePixels="True"
                   SizeToContent="WidthAndHeight" Background="{x:Null}" ResizeMode="NoResize" AllowsTransparency="True"
                   ShowInTaskbar="True" Margin="0" UseLayoutRounding="True">
@@ -55,7 +56,9 @@
                    HorizontalAlignment="Left" Style="{StaticResource SplashTextBlockStyle}"
                    Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}, ConverterParameter=True}" />
 
-        <Image Grid.Row="3" Grid.Column="0" Source="{Binding CompanyLogoForSplashScreenUri}" HorizontalAlignment="Left"
+        <Image Grid.Row="3" Grid.Column="0" 
+               Source="{Binding CompanyLogoForSplashScreenUri, Converter={converters:NullImageSourceConverter}}" 
+               HorizontalAlignment="Left"
                Margin="10" VerticalAlignment="Bottom" Stretch="Uniform" Opacity="0.7"
                Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
 
