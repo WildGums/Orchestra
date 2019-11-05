@@ -451,6 +451,11 @@ namespace Orchestra.Converters
         public KeyboardMappingToStringConverter() { }
         protected override object Convert(object value, System.Type targetType, object parameter) { }
     }
+    public class NullImageSourceConverter : Catel.MVVM.Converters.ValueConverterBase
+    {
+        public NullImageSourceConverter() { }
+        protected override object Convert(object value, System.Type targetType, object parameter) { }
+    }
     public class PathToStringConverter : Catel.MVVM.Converters.ValueConverterBase<string>
     {
         public PathToStringConverter() { }
