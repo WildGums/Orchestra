@@ -33,8 +33,10 @@
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.explicit.xaml" />
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.messagebox.xaml" />
 
-        <!-- Default overrides (with margins -->
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.xaml" />
+        <!-- Generic overrides (with margins) -->
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.wpf.defaultstyles.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.wpf.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.orc.controls.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Controls that use BasedOn need to be defined on this level -->

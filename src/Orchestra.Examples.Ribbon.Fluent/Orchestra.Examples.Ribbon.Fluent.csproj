@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>net462;netcoreapp3.0</TargetFrameworks>
     <AssemblyName>Orchestra.Examples.Ribbon.Fluent</AssemblyName>
     <RootNamespace>Orchestra.Examples.Ribbon</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>

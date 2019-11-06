@@ -3,6 +3,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://schemas.catelproject.com"
                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
+                  xmlns:converters="clr-namespace:Orchestra.Converters"
                   ResizeMode="NoResize" WindowStyle="None">
 
     <Window.Resources>
@@ -33,7 +34,7 @@
 
         <Border Grid.Row="0" Grid.RowSpan="13" BorderThickness="1" BorderBrush="#D3D3D3" />
 
-        <Image Grid.Row="1" Source="{Binding AppIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0 0 0 5" Height="135"
+        <Image Grid.Row="1" Source="{Binding AppIcon, Converter={converters:NullImageSourceConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0 0 0 5" Height="135"
                Visibility="{Binding AppIcon, Converter={catel:ReferenceToCollapsingVisibilityConverter}}">
             <Image.ContextMenu>
                 <ContextMenu>
@@ -48,7 +49,7 @@
         <TextBlock Grid.Row="4" FontSize="13" HorizontalAlignment="Center" Text="{Binding Version}" />
         <TextBlock Grid.Row="5" FontSize="13" HorizontalAlignment="Center" Text="{Binding BuildDateTime}" />
 
-        <Image Grid.Row="6" Source="{Binding CompanyLogoUri}" HorizontalAlignment="Center" 
+        <Image Grid.Row="6" Source="{Binding CompanyLogoUri, Converter={converters:NullImageSourceConverter}}" HorizontalAlignment="Center" 
                MaxHeight="60" Margin="0 5 0 0" VerticalAlignment="Center" Stretch="Uniform"
                Visibility="{Binding CompanyLogoUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
 
