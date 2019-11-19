@@ -10,15 +10,14 @@ namespace Orchestra.Services
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface IAppDataService
+    public interface IManageAppDataService
     {
         #region Methods
-        Task<bool> BackupUserDataAsync();
-        bool OpenApplicationDataDirectory();
+        Task<bool> BackupUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget);
+        bool OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget applicationDataTarget);
         #endregion
 
-        Task DeleteUserDataAsync();
+        Task DeleteUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget);
         List<string> ExclusionFilters { get; }
-        string ApplicationDataDirectory { get; }
     }
 }

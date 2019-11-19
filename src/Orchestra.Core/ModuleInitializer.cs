@@ -8,6 +8,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
+using Catel.Configuration;
 using Catel.IoC;
 using Catel.Logging;
 using Catel.Reflection;
@@ -52,7 +53,7 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<Orchestra.Services.ISplashScreenService, Orchestra.Services.SplashScreenService>();
 
         serviceLocator.RegisterTypeIfNotYetRegistered<ICommandInfoService, CommandInfoService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<IAppDataService, AppDataService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IManageAppDataService, ManageAppDataService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IEnsureStartupService, EnsureStartupService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAccentColorService, AccentColorService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutInfoService, AboutInfoService>();

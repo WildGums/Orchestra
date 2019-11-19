@@ -691,16 +691,6 @@ namespace Orchestra.Services
         public AdorneredTooltipsManagerFactory(Catel.IoC.IServiceLocator serviceLocator, Catel.IoC.ITypeFactory typeFactory) { }
         public Orchestra.Services.IAdorneredTooltipsManager Create(System.Windows.Documents.AdornerLayer adornerLayer) { }
     }
-    public class AppDataService : Orchestra.Services.IAppDataService
-    {
-        public AppDataService(Catel.Services.ISaveFileService saveFileService, Catel.Services.IProcessService processService, Orc.FileSystem.IDirectoryService directoryService, Orc.FileSystem.IFileService fileService) { }
-        public string ApplicationDataDirectory { get; }
-        public System.Collections.Generic.List<string> ExclusionFilters { get; }
-        public System.Threading.Tasks.Task<bool> BackupUserDataAsync() { }
-        public System.Threading.Tasks.Task DeleteUserDataAsync() { }
-        protected virtual bool MatchesFilters(System.Collections.Generic.IEnumerable<string> filters, string fileName) { }
-        public bool OpenApplicationDataDirectory() { }
-    }
     public class BaseColorSchemeService : Orchestra.Services.IBaseColorSchemeService
     {
         public BaseColorSchemeService() { }
@@ -729,7 +719,7 @@ namespace Orchestra.Services
     }
     public class EnsureStartupService : Orchestra.Services.IEnsureStartupService
     {
-        public EnsureStartupService(Orchestra.Services.IAppDataService appDataService, Catel.Services.IUIVisualizerService uiVisualizerService, Orc.FileSystem.IFileService fileService) { }
+        public EnsureStartupService(Catel.Services.IAppDataService appDataService, Catel.Services.IUIVisualizerService uiVisualizerService, Orc.FileSystem.IFileService fileService) { }
         public bool SuccessfullyStarted { get; }
         public virtual void ConfirmApplicationStartedSuccessfully() { }
         public virtual System.Threading.Tasks.Task EnsureFailSafeStartupAsync() { }
@@ -772,14 +762,6 @@ namespace Orchestra.Services
     public interface IAdornerTooltipGenerator
     {
         System.Windows.Documents.Adorner GetAdornerTooltip(Orchestra.Models.IHint hint, System.Windows.UIElement adornedElement);
-    }
-    public interface IAppDataService
-    {
-        string ApplicationDataDirectory { get; }
-        System.Collections.Generic.List<string> ExclusionFilters { get; }
-        System.Threading.Tasks.Task<bool> BackupUserDataAsync();
-        System.Threading.Tasks.Task DeleteUserDataAsync();
-        bool OpenApplicationDataDirectory();
     }
     public interface IBaseColorSchemeService
     {
@@ -824,6 +806,13 @@ namespace Orchestra.Services
         void Load();
         void Reset();
         void Save();
+    }
+    public interface IManageAppDataService
+    {
+        System.Collections.Generic.List<string> ExclusionFilters { get; }
+        System.Threading.Tasks.Task<bool> BackupUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget);
+        System.Threading.Tasks.Task DeleteUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget);
+        bool OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget applicationDataTarget);
     }
     public class static IMessageServiceExtensions
     {
@@ -898,6 +887,15 @@ namespace Orchestra.Services
         public void Load() { }
         public void Reset() { }
         public void Save() { }
+    }
+    public class ManageAppDataService : Orchestra.Services.IManageAppDataService
+    {
+        public ManageAppDataService(Catel.Services.ISaveFileService saveFileService, Catel.Services.IProcessService processService, Orc.FileSystem.IDirectoryService directoryService, Orc.FileSystem.IFileService fileService, Catel.Services.IAppDataService appDataService) { }
+        public System.Collections.Generic.List<string> ExclusionFilters { get; }
+        public System.Threading.Tasks.Task<bool> BackupUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget) { }
+        public System.Threading.Tasks.Task DeleteUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget) { }
+        protected virtual bool MatchesFilters(System.Collections.Generic.IEnumerable<string> filters, string fileName) { }
+        public bool OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget applicationDataTarget) { }
     }
     public class MessageService : Catel.Services.MessageService
     {
@@ -1135,7 +1133,7 @@ namespace Orchestra.Views
     }
     public class CrashWarningViewModel : Catel.MVVM.ViewModelBase
     {
-        public CrashWarningViewModel(Orchestra.Services.IAppDataService appDataService, Catel.Services.IMessageService messageService, Catel.Services.INavigationService navigationService, Catel.Services.ILanguageService languageService) { }
+        public CrashWarningViewModel(Orchestra.Services.IManageAppDataService manageAppDataService, Catel.Services.IMessageService messageService, Catel.Services.INavigationService navigationService, Catel.Services.ILanguageService languageService) { }
         public Catel.MVVM.TaskCommand BackupAndReset { get; set; }
         public Catel.MVVM.TaskCommand Continue { get; set; }
         public Catel.MVVM.TaskCommand ResetUserSettings { get; set; }

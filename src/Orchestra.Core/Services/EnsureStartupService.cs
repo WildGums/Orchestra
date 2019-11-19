@@ -122,7 +122,7 @@ namespace Orchestra.Services
 
         private string GetCheckFileName()
         {
-            var applicationDataDirectory = _appDataService.ApplicationDataDirectory;
+            var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming);
             var checkFile = Path.Combine(applicationDataDirectory, EnsureStartupCheckFile);
 
             return checkFile;

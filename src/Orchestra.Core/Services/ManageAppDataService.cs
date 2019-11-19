@@ -19,7 +19,7 @@ namespace Orchestra.Services
     using Ionic.Zip;
     using Orc.FileSystem;
 
-    public class AppDataService : IAppDataService
+    public class ManageAppDataService : Orchestra.Services.IManageAppDataService
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
@@ -27,42 +27,37 @@ namespace Orchestra.Services
         private readonly IProcessService _processService;
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
+        private readonly IAppDataService _appDataService;
 
-        public AppDataService(ISaveFileService saveFileService, 
-            IProcessService processService, IDirectoryService directoryService, IFileService fileService)
+        public ManageAppDataService(ISaveFileService saveFileService, IProcessService processService, 
+            IDirectoryService directoryService, IFileService fileService, IAppDataService appDataService)
         {
             Argument.IsNotNull(() => saveFileService);
             Argument.IsNotNull(() => processService);
             Argument.IsNotNull(() => directoryService);
             Argument.IsNotNull(() => fileService);
+            Argument.IsNotNull(() => appDataService);
 
             _saveFileService = saveFileService;
             _processService = processService;
             _directoryService = directoryService;
             _fileService = fileService;
+            _appDataService = appDataService;
 
             ExclusionFilters = new List<string>(new []
             {
                 "licenseinfo.xml",
                 "*.log"
             });
-
-            var applicationDataDirectory = Catel.IO.Path.GetApplicationDataDirectory();
-
-            _directoryService.Create(applicationDataDirectory);
-
-            ApplicationDataDirectory = applicationDataDirectory;
         }
-
-        public string ApplicationDataDirectory { get; private set; }
 
         public List<string> ExclusionFilters { get; private set; }
 
-        public bool OpenApplicationDataDirectory()
+        public bool OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget applicationDataTarget)
         {
             Log.Info("Opening data directory");
 
-            var applicationDataDirectory = ApplicationDataDirectory;
+            var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
             _processService.StartProcess(applicationDataDirectory);
 
             return true;
@@ -73,9 +68,9 @@ namespace Orchestra.Services
             return FilterHelper.MatchesFilters(filters, fileName);
         }
 
-        public async Task DeleteUserDataAsync()
+        public async Task DeleteUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget)
         {
-            var applicationDataDirectory = ApplicationDataDirectory;
+            var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
 
             Log.Debug("Deleting user data from '{0}'", applicationDataDirectory);
 
@@ -91,10 +86,10 @@ namespace Orchestra.Services
             }
         }
 
-        public async Task<bool> BackupUserDataAsync()
+        public async Task<bool> BackupUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget)
         {
             var assembly = AssemblyHelper.GetEntryAssembly();
-            var applicationDataDirectory = Catel.IO.Path.GetApplicationDataDirectory();
+            var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
 
             _saveFileService.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             _saveFileService.FileName = string.Format("{0} backup {1}.zip", assembly.Title(), DateTime.Now.ToString("yyyyMMdd hhmmss"));

@@ -24,7 +24,7 @@ namespace Orchestra.Views
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
         #endregion
 
-        private readonly IAppDataService _appDataService;
+        private readonly IManageAppDataService _manageAppDataService;
         private readonly Assembly _assembly;
         private readonly IMessageService _messageService;
         private readonly INavigationService _navigationService;
@@ -32,16 +32,16 @@ namespace Orchestra.Views
         #endregion
 
         #region Constructors
-        public CrashWarningViewModel(IAppDataService appDataService, IMessageService messageService, INavigationService navigationService,
+        public CrashWarningViewModel(IManageAppDataService manageAppDataService, IMessageService messageService, INavigationService navigationService,
             ILanguageService languageService)
         {
             Argument.IsNotNull(() => messageService);
             Argument.IsNotNull(() => navigationService);
             Argument.IsNotNull(() => navigationService);
-            Argument.IsNotNull(() => appDataService);
+            Argument.IsNotNull(() => manageAppDataService);
             Argument.IsNotNull(() => languageService);
 
-            _appDataService = appDataService;
+            _manageAppDataService = manageAppDataService;
             _messageService = messageService;
             _navigationService = navigationService;
             _languageService = languageService;
@@ -68,7 +68,7 @@ namespace Orchestra.Views
         {
             Log.Info("User choose to create a backup");
 
-            if (!await _appDataService.BackupUserDataAsync())
+            if (!await _manageAppDataService.BackupUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming))
             {
                 Log.Warning("User canceled the backup, exit application");
 
@@ -79,7 +79,7 @@ namespace Orchestra.Views
                 return;
             }
 
-            await _appDataService.DeleteUserDataAsync();
+            await _manageAppDataService.DeleteUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming);
 
             await _messageService.ShowInformationAsync(_languageService.GetString("Orchestra_BackupCreated"), _assembly.Title());
 
@@ -92,7 +92,7 @@ namespace Orchestra.Views
         {
             Log.Info("User choose NOT to create a backup");
 
-            await _appDataService.DeleteUserDataAsync();
+            await _manageAppDataService.DeleteUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming);
 
             await _messageService.ShowInformationAsync(_languageService.GetString("Orchestra_DeletedUserDataSettings"), _assembly.Title());
 
