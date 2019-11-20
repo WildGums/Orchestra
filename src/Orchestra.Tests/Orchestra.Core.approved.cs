@@ -882,7 +882,7 @@ namespace Orchestra.Services
     }
     public class KeyboardMappingsService : Orchestra.Services.IKeyboardMappingsService
     {
-        public KeyboardMappingsService(Catel.MVVM.ICommandManager commandManager, Catel.Runtime.Serialization.Xml.IXmlSerializer xmlSerializer, Orc.FileSystem.IFileService fileService) { }
+        public KeyboardMappingsService(Catel.MVVM.ICommandManager commandManager, Catel.Runtime.Serialization.Xml.IXmlSerializer xmlSerializer, Orc.FileSystem.IFileService fileService, Catel.Services.IAppDataService appDataService) { }
         public System.Collections.Generic.List<Orchestra.Models.KeyboardMapping> AdditionalKeyboardMappings { get; }
         public void Load() { }
         public void Reset() { }
@@ -921,7 +921,7 @@ namespace Orchestra.Services
     }
     public class RecentlyUsedItemsService : Orchestra.Services.IRecentlyUsedItemsService
     {
-        public RecentlyUsedItemsService(Catel.Runtime.Serialization.Xml.IXmlSerializer xmlSerializer, Orc.FileSystem.IFileService fileService) { }
+        public RecentlyUsedItemsService(Catel.Runtime.Serialization.Xml.IXmlSerializer xmlSerializer, Orc.FileSystem.IFileService fileService, Catel.Services.IAppDataService appDataService) { }
         public System.Collections.Generic.IEnumerable<Orchestra.Models.RecentlyUsedItem> Items { get; }
         public int MaximumItemCount { get; set; }
         public System.Collections.Generic.IEnumerable<Orchestra.Models.RecentlyUsedItem> PinnedItems { get; }

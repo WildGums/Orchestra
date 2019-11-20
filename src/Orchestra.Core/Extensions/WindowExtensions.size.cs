@@ -12,7 +12,9 @@ namespace Orchestra
     using System.IO;
     using System.Windows;
     using Catel;
+    using Catel.IoC;
     using Catel.Logging;
+    using Catel.Services;
     using Path = Catel.IO.Path;
 
     public static partial class WindowExtensions
@@ -150,7 +152,9 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => window);
 
-            var appData = Catel.IO.Path.GetApplicationDataDirectory();
+            var appDataService = ServiceLocator.Default.ResolveType<IAppDataService>();
+
+            var appData = appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming);
             var directory = Path.Combine(appData, "windows");
 
             Directory.CreateDirectory(directory);

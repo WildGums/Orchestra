@@ -12,7 +12,9 @@ namespace Orchestra
     using System.Linq;
     using System.Threading.Tasks;
     using Catel;
+    using Catel.IoC;
     using Catel.Logging;
+    using Catel.Services;
     using Path = Catel.IO.Path;
 
     public static class LogFilePrefixes
@@ -80,7 +82,8 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => prefix);
 
-            var directory = Path.Combine(Path.GetApplicationDataDirectory(), "log");
+            var directory = GetLogDirectory();
+
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
@@ -94,7 +97,8 @@ namespace Orchestra
 
         public static void CleanUpAllLogTypeFiles(bool keepCleanInRealTime = false)
         {
-            var directory = Path.Combine(Path.GetApplicationDataDirectory(), "log");
+            var directory = GetLogDirectory();
+
             foreach (var prefix in LogFilePrefixes.All)
             {
                 var filter = prefix + "*.log";
@@ -104,6 +108,12 @@ namespace Orchestra
                     ConfigureFileSystemWatcher(directory, filter);
                 }
             }
+        }
+
+        private static string GetLogDirectory()
+        {
+            var appDataService = ServiceLocator.Default.ResolveType<IAppDataService>();
+            return Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "log");
         }
 
         private static void AddFileLogListener(string prefix)

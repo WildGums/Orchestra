@@ -33,8 +33,6 @@ public static class ModuleInitializer
     {
         var serviceLocator = ServiceLocator.Default;
 
-        InitializeLogging();
-
         // Ensure that we are using the right culture
 #pragma warning disable WPF0011 // Containing type should be used as registered owner.
         FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
@@ -90,19 +88,5 @@ public static class ModuleInitializer
         languageService.RegisterLanguageSource(new LanguageResourceSource("Orchestra.Core", "Orchestra.Properties", "Resources"));
 
         DotNetPatchHelper.Initialize();
-    }
-
-    private static void InitializeLogging()
-    {
-        LogHelper.CleanUpAllLogTypeFiles();
-
-        var fileLogListener = LogHelper.CreateFileLogListener(LogFilePrefixes.EntryAssemblyName);
-
-        fileLogListener.IsDebugEnabled = false;
-        fileLogListener.IsInfoEnabled = true;
-        fileLogListener.IsWarningEnabled = true;
-        fileLogListener.IsErrorEnabled = true;
-
-        LogManager.AddListener(fileLogListener);
     }
 }
