@@ -113,7 +113,12 @@ namespace Orchestra
         private static string GetLogDirectory()
         {
             var appDataService = ServiceLocator.Default.ResolveType<IAppDataService>();
-            return Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "log");
+
+            var directory = Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "log");
+
+            Directory.CreateDirectory(directory);
+
+            return directory;
         }
 
         private static void AddFileLogListener(string prefix)
