@@ -73,6 +73,7 @@ namespace Orchestra.Services
         public virtual System.Threading.Tasks.Task InitializeBeforeCreatingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingSplashScreenAsync() { }
+        protected virtual void InitializeLogging() { }
         protected static System.Threading.Tasks.Task RunAndWaitAsync(params System.Func<>[] actions) { }
     }
     public interface IApplicationInitializationService
