@@ -50,7 +50,7 @@
                    VerticalAlignment="Center" TextAlignment="Center" FontSize="36" TextWrapping="Wrap" Margin="70 0 70 0"
                    Style="{StaticResource SplashTextBlockStyle}" />
 
-        <orccontrols:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="8" IgnoreUnloadedEventCount="1" />
+        <orccontrols:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="8" IgnoreUnloadedEventCount="0" />
 
         <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding ProducedBy}"
                    HorizontalAlignment="Left" Style="{StaticResource SplashTextBlockStyle}"
