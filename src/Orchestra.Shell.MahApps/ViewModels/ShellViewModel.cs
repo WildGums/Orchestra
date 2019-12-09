@@ -7,9 +7,17 @@
 
 namespace Orchestra.ViewModels
 {
+    using Catel;
     using Catel.MVVM;
+    using Orchestra.Services;
 
     public class ShellViewModel : ViewModelBase
     {
+        public ShellViewModel(IShellValidationDefferingService shellValidationDefferingService)
+        {
+            Argument.IsNotNull(() => shellValidationDefferingService);
+
+            DeferValidationUntilFirstSaveCall = shellValidationDefferingService.DeferValidationUntilFirstSaveCall;
+        }
     }
 }
