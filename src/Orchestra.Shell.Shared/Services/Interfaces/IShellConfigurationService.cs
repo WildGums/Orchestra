@@ -1,6 +1,6 @@
 ﻿namespace Orchestra.Services
 {
-    public interface IShellValidationDefferingService
+    public interface IShellConfigurationService
     {
         public bool DeferValidationUntilFirstSaveCall { get; set; }
     }

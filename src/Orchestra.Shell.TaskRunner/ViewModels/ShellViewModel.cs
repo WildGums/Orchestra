@@ -21,11 +21,11 @@ namespace Orchestra.ViewModels
 
         private readonly ITaskRunnerService _taskRunnerService;
 
-        public ShellViewModel(ITaskRunnerService taskRunnerService, ICommandManager commandManager, IShellValidationDefferingService shellValidationDefferingService)
+        public ShellViewModel(ITaskRunnerService taskRunnerService, ICommandManager commandManager, IShellConfigurationService shellConfigurationService)
         {
             Argument.IsNotNull(() => taskRunnerService);
             Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => shellValidationDefferingService);
+            Argument.IsNotNull(() => shellConfigurationService);
 
             _taskRunnerService = taskRunnerService;
 
@@ -33,7 +33,7 @@ namespace Orchestra.ViewModels
 
             commandManager.RegisterCommand("Runner.Run", Run, this);
 
-            DeferValidationUntilFirstSaveCall = shellValidationDefferingService.DeferValidationUntilFirstSaveCall;
+            DeferValidationUntilFirstSaveCall = shellConfigurationService.DeferValidationUntilFirstSaveCall;
 
             Title = taskRunnerService.Title;
             taskRunnerService.TitleChanged += (sender, args) => Title = taskRunnerService.Title;

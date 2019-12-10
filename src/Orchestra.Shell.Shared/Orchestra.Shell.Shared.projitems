@@ -22,10 +22,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IApplicationInitializationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IShellContentService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IShellService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IShellValidationDefferingService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IShellConfigurationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ProgressPleaseWaitService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ShellService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\ShellValidationDefferingService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ShellConfigurationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Interfaces\IShell.cs" />
   </ItemGroup>
 </Project>

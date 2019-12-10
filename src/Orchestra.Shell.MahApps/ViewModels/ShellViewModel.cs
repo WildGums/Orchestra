@@ -13,11 +13,11 @@ namespace Orchestra.ViewModels
 
     public class ShellViewModel : ViewModelBase
     {
-        public ShellViewModel(IShellValidationDefferingService shellValidationDefferingService)
+        public ShellViewModel(IShellConfigurationService shellConfigurationService)
         {
-            Argument.IsNotNull(() => shellValidationDefferingService);
+            Argument.IsNotNull(() => shellConfigurationService);
 
-            DeferValidationUntilFirstSaveCall = shellValidationDefferingService.DeferValidationUntilFirstSaveCall;
+            DeferValidationUntilFirstSaveCall = shellConfigurationService.DeferValidationUntilFirstSaveCall;
         }
     }
 }
