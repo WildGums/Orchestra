@@ -90,6 +90,10 @@ namespace Orchestra.Services
     {
         System.Windows.FrameworkElement GetRibbon();
     }
+    public interface IShellConfigurationService
+    {
+        bool DeferValidationUntilFirstSaveCall { get; set; }
+    }
     public interface IShellContentService
     {
         System.Windows.FrameworkElement GetMainView();
@@ -104,6 +108,11 @@ namespace Orchestra.Services
             "Splash = false. Will be removed in version 6.0.0.", true)]
         System.Threading.Tasks.Task<TShell> CreateWithSplashAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell;
+    }
+    public class ShellConfigurationService : Orchestra.Services.IShellConfigurationService
+    {
+        public ShellConfigurationService() { }
+        public virtual bool DeferValidationUntilFirstSaveCall { get; set; }
     }
     public class ShellService : Orchestra.Services.IShellService
     {
@@ -130,7 +139,7 @@ namespace Orchestra.ViewModels
 {
     public class ShellViewModel : Catel.MVVM.ViewModelBase
     {
-        public ShellViewModel() { }
+        public ShellViewModel(Orchestra.Services.IShellConfigurationService shellConfigurationService) { }
     }
 }
 namespace Orchestra.Views

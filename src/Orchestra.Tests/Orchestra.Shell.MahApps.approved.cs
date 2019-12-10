@@ -93,6 +93,10 @@ namespace Orchestra.Services
     {
         MahApps.Metro.Controls.WindowCommands GetRightWindowCommands();
     }
+    public interface IShellConfigurationService
+    {
+        bool DeferValidationUntilFirstSaveCall { get; set; }
+    }
     public interface IShellContentService
     {
         System.Windows.FrameworkElement GetMainView();
@@ -127,6 +131,11 @@ namespace Orchestra.Services
         public MahAppsUIVisualizerService(Catel.MVVM.IViewLocator viewLocator) { }
         protected override System.Threading.Tasks.Task<System.Nullable<bool>> ShowWindowAsync(System.Windows.FrameworkElement window, object data, bool showModal) { }
     }
+    public class ShellConfigurationService : Orchestra.Services.IShellConfigurationService
+    {
+        public ShellConfigurationService() { }
+        public virtual bool DeferValidationUntilFirstSaveCall { get; set; }
+    }
     public class ShellService : Orchestra.Services.IShellService
     {
         public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver, Catel.IoC.IServiceLocator serviceLocator) { }
@@ -152,7 +161,7 @@ namespace Orchestra.ViewModels
 {
     public class ShellViewModel : Catel.MVVM.ViewModelBase
     {
-        public ShellViewModel() { }
+        public ShellViewModel(Orchestra.Services.IShellConfigurationService shellConfigurationService) { }
     }
 }
 namespace Orchestra.Views
