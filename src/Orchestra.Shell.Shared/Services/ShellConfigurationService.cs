@@ -2,6 +2,6 @@
 {
     public class ShellConfigurationService : IShellConfigurationService
     {
-        public virtual bool DeferValidationUntilFirstSaveCall { get; set; } = true;
+        public virtual bool DeferValidationUntilFirstSaveCall { get; set; }
     }
 }
