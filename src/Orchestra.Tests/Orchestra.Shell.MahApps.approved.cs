@@ -18,13 +18,21 @@ namespace Orchestra
         public static void Show(this MahApps.Metro.Controls.Dialogs.BaseMetroDialog dialog) { }
         public static void ShowModal(this MahApps.Metro.Controls.Dialogs.BaseMetroDialog dialog) { }
     }
-    public class static MahAppsHelper
+    public class static MahAppsThemeHelper
     {
-        public static void ApplyTheme() { }
+        public static System.Windows.ResourceDictionary CreateTheme(string baseColorScheme, System.Windows.Media.Color accentBaseColor, string name = null, bool changeImmediately = False) { }
+        public static string GenerateThemeName(string baseColorScheme, System.Windows.Media.Color accentBaseColor, System.Windows.Media.Color highlightColor) { }
+        public static string GetResourceDictionaryContent(System.Windows.ResourceDictionary resourceDictionary) { }
     }
     public class static WindowCommandHelper
     {
+        public static System.Windows.Controls.Button CreateWindowCommandButton(MahApps.Metro.IconPacks.PackIconBase packIcon, string label) { }
+        public static System.Windows.Controls.Button CreateWindowCommandButton(System.Windows.FrameworkElement content, string label) { }
+        [System.ObsoleteAttribute("Use `CreateWindowCommandButton(FrameworkElement, string)` instead. Will be remove" +
+            "d in version 6.0.0.", true)]
         public static System.Windows.Controls.Button CreateWindowCommandButton(string style, string label) { }
+        [System.ObsoleteAttribute("Use `Use MahApps.Metro.IconPacks, see https://mahapps.com/guides/icons-and-resour" +
+            "ces.html` instead. Will be removed in version 6.0.0.", true)]
         public static System.Windows.Shapes.Rectangle CreateWindowCommandRectangle(System.Windows.Controls.Button parentButton, string style) { }
     }
 }
@@ -49,6 +57,7 @@ namespace Orchestra.Services
         public virtual System.Threading.Tasks.Task InitializeBeforeCreatingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingSplashScreenAsync() { }
+        protected virtual void InitializeLogging() { }
         protected static System.Threading.Tasks.Task RunAndWaitAsync(params System.Func<>[] actions) { }
     }
     public class FlyoutService : Orchestra.Services.IFlyoutService
@@ -84,6 +93,10 @@ namespace Orchestra.Services
     {
         MahApps.Metro.Controls.WindowCommands GetRightWindowCommands();
     }
+    public interface IShellConfigurationService
+    {
+        bool DeferValidationUntilFirstSaveCall { get; set; }
+    }
     public interface IShellContentService
     {
         System.Windows.FrameworkElement GetMainView();
@@ -103,6 +116,11 @@ namespace Orchestra.Services
     {
         public MahAppsAboutService(Catel.Services.IUIVisualizerService uiVisualizerService, Orchestra.Services.IAboutInfoService aboutInfoService) { }
     }
+    public class MahAppsBaseColorSchemeService : Orchestra.Services.BaseColorSchemeService
+    {
+        public MahAppsBaseColorSchemeService() { }
+        public override System.Collections.Generic.IReadOnlyList<string> GetAvailableBaseColorSchemes() { }
+    }
     public class MahAppsMessageService : Catel.Services.MessageService
     {
         public MahAppsMessageService(Catel.Services.IDispatcherService dispatcherService, Catel.Services.ILanguageService languageService) { }
@@ -113,9 +131,14 @@ namespace Orchestra.Services
         public MahAppsUIVisualizerService(Catel.MVVM.IViewLocator viewLocator) { }
         protected override System.Threading.Tasks.Task<System.Nullable<bool>> ShowWindowAsync(System.Windows.FrameworkElement window, object data, bool showModal) { }
     }
+    public class ShellConfigurationService : Orchestra.Services.IShellConfigurationService
+    {
+        public ShellConfigurationService() { }
+        public virtual bool DeferValidationUntilFirstSaveCall { get; set; }
+    }
     public class ShellService : Orchestra.Services.IShellService
     {
-        public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver) { }
+        public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver, Catel.IoC.IServiceLocator serviceLocator) { }
         public Orchestra.Views.IShell Shell { get; }
         public System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }
@@ -125,11 +148,20 @@ namespace Orchestra.Services
             where TShell :  class, Orchestra.Views.IShell { }
     }
 }
+namespace Orchestra.Themes
+{
+    public class MahAppsShellTheme : Orchestra.Themes.IShellTheme
+    {
+        public MahAppsShellTheme(Orc.Controls.Services.IAccentColorService accentColorService, Orchestra.Services.IThemeService themeService, Orchestra.Services.IBaseColorSchemeService baseColorSchemeService) { }
+        public void ApplyTheme(Orchestra.ThemeInfo themeInfo) { }
+        public System.Windows.ResourceDictionary CreateResourceDictionary(Orchestra.ThemeInfo themeInfo) { }
+    }
+}
 namespace Orchestra.ViewModels
 {
     public class ShellViewModel : Catel.MVVM.ViewModelBase
     {
-        public ShellViewModel() { }
+        public ShellViewModel(Orchestra.Services.IShellConfigurationService shellConfigurationService) { }
     }
 }
 namespace Orchestra.Views

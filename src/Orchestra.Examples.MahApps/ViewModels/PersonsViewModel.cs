@@ -101,11 +101,11 @@ namespace Orchestra.Examples.MahApps.ViewModels
             {
                 Log.Info("Removing person '{0}'", selectedPerson);
 
-                _dispatcherService.Invoke(() =>
+                await _dispatcherService.InvokeAsync(() =>
                 {
                     Persons.Remove(selectedPerson);
                     SelectedPerson = Persons.FirstOrDefault();
-                }, true);
+                });
             }
         }
         #endregion

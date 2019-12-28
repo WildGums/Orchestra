@@ -39,7 +39,7 @@ namespace Orchestra.Behaviors
             set { SetValue(AdornerProperty, value); }
         }
 
-        public static readonly DependencyProperty AdornerProperty = DependencyProperty.Register("Adorner", typeof(Visual), 
+        public static readonly DependencyProperty AdornerProperty = DependencyProperty.Register(nameof(Adorner), typeof(Visual), 
             typeof(HintsBehavior), new PropertyMetadata(null));
         #endregion
 

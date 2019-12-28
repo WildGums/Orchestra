@@ -24,7 +24,7 @@ namespace Orchestra.Controls
         }
 
         // Using a DependencyProperty as the backing store for KeepIconSizeWithoutIcon.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty KeepIconSizeWithoutIconProperty = DependencyProperty.Register("KeepIconSizeWithoutIcon", typeof(bool), typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(false, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
+        public static readonly DependencyProperty KeepIconSizeWithoutIconProperty = DependencyProperty.Register(nameof(KeepIconSizeWithoutIcon), typeof(bool), typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(false, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
 
         public ImageSource Icon
         {
@@ -32,7 +32,7 @@ namespace Orchestra.Controls
             set { SetValue(IconProperty, value); }
         }
 
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(ImageSource),
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource),
             typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(null, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
 
         public string HeaderText
@@ -42,7 +42,7 @@ namespace Orchestra.Controls
         }
 
         // Using a DependencyProperty as the backing store for HeaderText.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.Register("HeaderText", typeof(string),
+        public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.Register(nameof(HeaderText), typeof(string),
             typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(string.Empty, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
 
         public string HeaderTextStyleKey
@@ -52,7 +52,7 @@ namespace Orchestra.Controls
         }
 
         // Using a DependencyProperty as the backing store for HeaderTextStyle.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty HeaderTextStyleKeyProperty = DependencyProperty.Register("HeaderTextStyleKey", typeof(string),
+        public static readonly DependencyProperty HeaderTextStyleKeyProperty = DependencyProperty.Register(nameof(HeaderTextStyleKey), typeof(string),
             typeof(RibbonBackstageTabItemHeader), new PropertyMetadata("RibbonBackstageTabItemHeaderLabelStyle",
                 (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
 

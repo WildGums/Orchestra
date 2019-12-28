@@ -2,7 +2,8 @@
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://schemas.catelproject.com"
-                  xmlns:controls="clr-namespace:Orchestra.Controls"
+                  xmlns:orccontrols="clr-namespace:Orc.Controls;assembly=Orc.Controls"
+                  xmlns:converters="clr-namespace:Orchestra.Converters"
                   WindowStartupLocation="CenterScreen" WindowStyle="None" SnapsToDevicePixels="True"
                   SizeToContent="WidthAndHeight" Background="{x:Null}" ResizeMode="NoResize" AllowsTransparency="True"
                   ShowInTaskbar="True" Margin="0" UseLayoutRounding="True">
@@ -49,13 +50,15 @@
                    VerticalAlignment="Center" TextAlignment="Center" FontSize="36" TextWrapping="Wrap" Margin="70 0 70 0"
                    Style="{StaticResource SplashTextBlockStyle}" />
 
-        <controls:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="8" IgnoreUnloadedEventCount="1" />
+        <orccontrols:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" Margin="8" IgnoreUnloadedEventCount="0" />
 
         <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding ProducedBy}"
                    HorizontalAlignment="Left" Style="{StaticResource SplashTextBlockStyle}"
                    Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}, ConverterParameter=True}" />
 
-        <Image Grid.Row="3" Grid.Column="0" Source="{Binding CompanyLogoForSplashScreenUri}" HorizontalAlignment="Left"
+        <Image Grid.Row="3" Grid.Column="0" 
+               Source="{Binding CompanyLogoForSplashScreenUri, Converter={converters:NullImageSourceConverter}}" 
+               HorizontalAlignment="Left"
                Margin="10" VerticalAlignment="Bottom" Stretch="Uniform" Opacity="0.7"
                Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
 

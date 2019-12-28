@@ -19,6 +19,7 @@ TestResult.xml
 [Rr]elease/
 [Oo]utput*/
 [Pp]ackages*/
+[Tt]emp/
 bin
 obj
 [Ll]ib/*
@@ -43,6 +44,7 @@ obj
 *.vspscc
 *.xap
 .builds
+*.log
 
 # Visual C++ cache files
 ipch/

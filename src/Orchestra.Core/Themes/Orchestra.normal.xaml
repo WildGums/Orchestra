@@ -5,8 +5,5 @@
         <!-- Normal size -->
         <ResourceDictionary Source="/Orchestra.Core;component/themes/Orchestra.sizes.normal.xaml" />
 
-        <!-- Generic -->
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Orchestra.generic.xaml" />
-
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -7,6 +7,7 @@ Chat|[![Join the chat at https://gitter.im/WildGums/Orchestra](https://badges.gi
 Downloads|![NuGet downloads](https://img.shields.io/nuget/dt/orchestra.core.svg)
 Stable version|![Version](https://img.shields.io/nuget/v/orchestra.core.svg)
 Unstable version|![Pre-release version](https://img.shields.io/nuget/vpre/orchestra.core.svg)
+Open Collective|[![Backers on Open Collective](https://opencollective.com/WildGums-oss/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/WildGums-oss/sponsors/badge.svg)](#sponsors)
 
 Orchestra is a mature, composable WPF shell and framework built on top of [Catel](http://www.catelproject.com).
 
@@ -31,6 +32,18 @@ Orchestra provides support for two different shells:
 |------------------------------------------------------------|-------------------------------------------------|
 | ![Fluent Ribbon 01](doc/images/shell_fluentribbon_01.png)  | ![MahApps 01](doc/images/shell_mahapps_01.png)  |
 | ![Fluent Ribbon 02](doc/images/shell_fluentribbon_02.png)  |                                                 |
+
+## Project Templates
+
+Want to get up and running fast? Grab the project templates from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/search?term=orchestra&target=VS&category=All%20categories&vsVersion=&sortBy=Relevance):
+
+![](doc/images/templates_project_marketplace.png)
+
+You can pick either the Fluent.Ribbon or MahApps shell and have a fully running project within seconds:
+
+![](doc/images/templates_project_fluentribbon.png)
+
+![](doc/images/templates_project_mahapps.png)
 
 ## Sample Applications
 
@@ -83,4 +96,14 @@ You can find the full list [here](https://github.com/WildGums).
 - [Gemini](https://github.com/tgjones/gemini "Gemini")
 - [Wide](https://github.com/chandramouleswaran/Wide/ "Wide")
 
-For documentation, please visit the [documentation portal](http://opensource.wildgums.com)
+For documentation, please visit the [documentation portal](https://opensource.wildgums.com)
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/WildGums-oss#backer)]
+
+<a href="https://opencollective.com/WildGums-oss#backers" target="_blank"><img src="https://opencollective.com/WildGums-oss/backers.svg?width=890"></a>
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/WildGums-oss#sponsor)]

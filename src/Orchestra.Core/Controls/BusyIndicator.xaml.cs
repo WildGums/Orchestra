@@ -15,6 +15,7 @@ namespace Orchestra.Controls
     /// <summary>
     /// Interaction logic for BusyIndicator.xaml
     /// </summary>
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.BusyIndicator", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     public partial class BusyIndicator : VisualWrapper
     {
         #region Fields
@@ -47,7 +48,7 @@ namespace Orchestra.Controls
             set { SetValue(ForegroundProperty, value); }
         }
 
-        public static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register("Foreground", typeof(Brush),
+        public static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register(nameof(Foreground), typeof(Brush),
             typeof(BusyIndicator), new PropertyMetadata(Brushes.White, (sender, e) => ((BusyIndicator)sender)._foreground = e.NewValue as Brush));
 
 
@@ -58,7 +59,7 @@ namespace Orchestra.Controls
         }
 
         // Using a DependencyProperty as the backing store for IgnoreUnloadedEventCount.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IgnoreUnloadedEventCountProperty = DependencyProperty.Register("IgnoreUnloadedEventCount",
+        public static readonly DependencyProperty IgnoreUnloadedEventCountProperty = DependencyProperty.Register(nameof(IgnoreUnloadedEventCount),
             typeof(int), typeof(BusyIndicator), new PropertyMetadata(0, (sender, e) => ((BusyIndicator)sender).OnIgnoreUnloadedEventCountChanged()));
         #endregion
 

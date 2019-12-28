@@ -18,6 +18,7 @@ namespace Orchestra.Controls
     /// <summary>
     /// Animating text block.
     /// </summary>
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.AnimatingTextBlock", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     public class AnimatingTextBlock : UserControl, IStatusRepresenter
     {
         private int _currentIndex = 0;
@@ -52,7 +53,7 @@ namespace Orchestra.Controls
         /// <summary>
         /// The text property.
         /// </summary>
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(AnimatingTextBlock), 
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(AnimatingTextBlock), 
             new PropertyMetadata(string.Empty, (sender, e) => ((AnimatingTextBlock)sender).OnTextChanged()));
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace Orchestra.Controls
         /// The hide storyboard property.
         /// </summary>
         public static readonly DependencyProperty HideStoryboardProperty =
-            DependencyProperty.Register("HideStoryboard", typeof(Storyboard), typeof(AnimatingTextBlock), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(HideStoryboard), typeof(Storyboard), typeof(AnimatingTextBlock), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the show storyboard.
@@ -85,7 +86,7 @@ namespace Orchestra.Controls
         /// The show storyboard property.
         /// </summary>
         public static readonly DependencyProperty ShowStoryboardProperty =
-            DependencyProperty.Register("ShowStoryboard", typeof(Storyboard), typeof(AnimatingTextBlock), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ShowStoryboard), typeof(Storyboard), typeof(AnimatingTextBlock), new PropertyMetadata(null));
 
         private void OnTextChanged()
         {

@@ -22,6 +22,7 @@ public static partial class ModuleInitializer
     {
         var serviceLocator = ServiceLocator.Default;
 
+        serviceLocator.RegisterType<IBaseColorSchemeService, MahAppsBaseColorSchemeService>();
         serviceLocator.RegisterType<IFlyoutService, FlyoutService>();
         serviceLocator.RegisterType<IAboutService, MahAppsAboutService>();
         serviceLocator.RegisterType<IMessageService, MahAppsMessageService>();

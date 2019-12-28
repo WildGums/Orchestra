@@ -12,14 +12,13 @@ namespace Orchestra.Services
     using System.Windows.Threading;
     using Catel;
     using Catel.Logging;
-    using Orchestra.Logging;
 
     public class StatusService : IStatusService
     {
         #region Fields
         private readonly IStatusFilterService _statusFilterService;
 
-        private IStatusRepresenter _statusRepresenter;
+        private Orc.Controls.Services.IStatusRepresenter _statusRepresenter;
         private string _lastStatus;
         #endregion
 
@@ -49,8 +48,10 @@ namespace Orchestra.Services
 
             _lastStatus = finalStatus;
 
-            var resetTimer = new DispatcherTimer();
-            resetTimer.Interval = TimeSpan.FromSeconds(8);
+            var resetTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(8)
+            };
             resetTimer.Tick += OnResetTimerTick;
             resetTimer.Tag = finalStatus;
             resetTimer.Start();
@@ -58,6 +59,13 @@ namespace Orchestra.Services
         #endregion
 
         #region Methods
+        public void Initialize(Orc.Controls.Services.IStatusRepresenter statusRepresenter)
+        {
+            Argument.IsNotNull(() => statusRepresenter);
+
+            _statusRepresenter = statusRepresenter;
+        }
+
         public void Initialize(IStatusRepresenter statusRepresenter)
         {
             Argument.IsNotNull(() => statusRepresenter);
@@ -69,7 +77,7 @@ namespace Orchestra.Services
         {
             var timer = (DispatcherTimer)sender;
 
-            string finalStatus = (string)timer.Tag;
+            var finalStatus = (string)timer.Tag;
 
             timer.Stop();
             timer.Tick -= OnResetTimerTick;

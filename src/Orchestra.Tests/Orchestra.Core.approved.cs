@@ -126,7 +126,10 @@ namespace Orchestra
     }
     public class static OrchestraEnvironment
     {
+        public const string DarkBaseColorScheme = "Dark";
         public static readonly System.Windows.Media.SolidColorBrush DefaultAccentColorBrush;
+        public const string DefaultBaseColorSchema = "Light";
+        public const string LightBaseColorScheme = "Light";
     }
     public class OrchestraException : System.Exception
     {
@@ -140,6 +143,7 @@ namespace Orchestra
         public ResourceBasedThirdPartyNotice(string title, string url, System.Reflection.Assembly assembly, string relativeResourceName) { }
         public ResourceBasedThirdPartyNotice(string title, string url, System.Reflection.Assembly assembly, string rootNamespace, string relativeResourceName) { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.ScreenHelper` instead. Will be removed in version 6.0.0.", true)]
     public class static ScreenHelper
     {
         public static System.Windows.Size GetDpi() { }
@@ -174,6 +178,13 @@ namespace Orchestra
         public static System.Windows.Media.SolidColorBrush GetAccentColorBrush() { }
         public static System.Windows.ResourceDictionary GetAccentColorResourceDictionary() { }
     }
+    public class ThemeInfo
+    {
+        public ThemeInfo() { }
+        public System.Windows.Media.Color AccentBaseColor { get; set; }
+        public string BaseColorScheme { get; set; }
+        public System.Windows.Media.Color HighlightColor { get; set; }
+    }
     public class ThirdPartyNotice
     {
         public ThirdPartyNotice() { }
@@ -202,13 +213,25 @@ namespace Orchestra
     public class static WindowExtensions
     {
         public static void BringWindowToTop(this System.Windows.FrameworkElement frameworkElement) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.CenterWindowToParent` instead. Will be treated" +
+            " as an error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void CenterWindowToParent(this System.Windows.Window window) { }
         public static void CenterWindowToScreen(this System.Windows.Window window) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.CenterWindowToSize` instead. Will be treated a" +
+            "s an error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void CenterWindowToSize(this System.Windows.Window window, System.Windows.Rect parentRect) { }
         public static void DisableCloseButton(this System.Windows.Window window) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.LoadWindowSize` instead. Will be treated as an" +
+            " error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void LoadWindowSize(this System.Windows.Window window, bool restoreWindowState) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.LoadWindowSize` instead. Will be treated as an" +
+            " error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void LoadWindowSize(this System.Windows.Window window, string tag = null, bool restoreWindowState = False, bool restoreWindowPosition = True) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.SaveWindowSize` instead. Will be treated as an" +
+            " error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void SaveWindowSize(this System.Windows.Window window) { }
+        [System.ObsoleteAttribute("Use `Orc.Controls.WindowExtensions.SaveWindowSize` instead. Will be treated as an" +
+            " error from version 6.0.0. Will be removed in version 7.0.0.", false)]
         public static void SaveWindowSize(this System.Windows.Window window, string tag) { }
         public static void SetMaximumHeight(this System.Windows.Window window) { }
         public static void SetMaximumWidth(this System.Windows.Window window) { }
@@ -284,6 +307,7 @@ namespace Orchestra.Configuration
 }
 namespace Orchestra.Controls
 {
+    [System.ObsoleteAttribute("Use `Orc.Controls.AlignmentGrid` instead. Will be removed in version 6.0.0.", true)]
     public class AlignmentGrid : System.Windows.Controls.ContentControl
     {
         public static readonly System.Windows.DependencyProperty HorizontalStepProperty;
@@ -294,7 +318,8 @@ namespace Orchestra.Controls
         public System.Windows.Media.Brush LineBrush { get; set; }
         public double VerticalStep { get; set; }
     }
-    public class AnimatingTextBlock : System.Windows.Controls.UserControl, Orchestra.Services.IStatusRepresenter
+    [System.ObsoleteAttribute("Use `Orc.Controls.AnimatingTextBlock` instead. Will be removed in version 6.0.0.", true)]
+    public class AnimatingTextBlock : System.Windows.Controls.UserControl, Orc.Controls.Services.IStatusRepresenter, Orchestra.Services.IStatusRepresenter
     {
         public static readonly System.Windows.DependencyProperty HideStoryboardProperty;
         public static readonly System.Windows.DependencyProperty ShowStoryboardProperty;
@@ -306,6 +331,7 @@ namespace Orchestra.Controls
         public override void OnApplyTemplate() { }
         public void UpdateStatus(string status) { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.BusyIndicator` instead. Will be removed in version 6.0.0.", true)]
     public class BusyIndicator : Orchestra.Controls.VisualWrapper, System.Windows.Markup.IComponentConnector
     {
         public static readonly System.Windows.DependencyProperty ForegroundProperty;
@@ -316,6 +342,7 @@ namespace Orchestra.Controls
         public void InitializeComponent() { }
         protected override void OnRenderSizeChanged(System.Windows.SizeChangedInfo sizeInfo) { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.FluidProgressBar` instead. Will be removed in version 6.0.0.", true)]
     public class FluidProgressBar : System.Windows.Controls.UserControl, System.IDisposable, System.Windows.Markup.IComponentConnector
     {
         public static readonly System.Windows.DependencyProperty DelayProperty;
@@ -368,10 +395,14 @@ namespace Orchestra.Controls
         public KeyboardMappingControl() { }
         public void InitializeComponent() { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.MediaElementThreadFactory` instead. Will be removed in version " +
+        "6.0.0.", true)]
     public class static MediaElementThreadFactory
     {
         public static Orchestra.Controls.MediaElementThreadInfo CreateMediaElementsOnWorkerThread(System.Func<System.Windows.Media.Visual> createVisual) { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.MediaElementThreadInfo` instead. Will be removed in version 6.0" +
+        ".0.", true)]
     public class MediaElementThreadInfo : Catel.Disposable
     {
         public MediaElementThreadInfo(System.Windows.Media.HostVisual hostVisual, System.Threading.Thread thread) { }
@@ -379,6 +410,8 @@ namespace Orchestra.Controls
         public System.Threading.Thread Thread { get; }
         protected override void DisposeManaged() { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.VisualTargetPresentationSource` instead. Will be removed in ver" +
+        "sion 6.0.0.", true)]
     public class VisualTargetPresentationSource : System.Windows.PresentationSource
     {
         public VisualTargetPresentationSource(System.Windows.Media.HostVisual hostVisual) { }
@@ -386,6 +419,7 @@ namespace Orchestra.Controls
         public override System.Windows.Media.Visual RootVisual { get; set; }
         protected override System.Windows.Media.CompositionTarget GetCompositionTargetCore() { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.VisualWrapper` instead. Will be removed in version 6.0.0.", true)]
     [System.Windows.Markup.ContentPropertyAttribute("Child")]
     public class VisualWrapper : System.Windows.FrameworkElement
     {
@@ -415,6 +449,11 @@ namespace Orchestra.Converters
     public class KeyboardMappingToStringConverter : Catel.MVVM.Converters.ValueConverterBase
     {
         public KeyboardMappingToStringConverter() { }
+        protected override object Convert(object value, System.Type targetType, object parameter) { }
+    }
+    public class NullImageSourceConverter : Catel.MVVM.Converters.ValueConverterBase
+    {
+        public NullImageSourceConverter() { }
         protected override object Convert(object value, System.Type targetType, object parameter) { }
     }
     public class PathToStringConverter : Catel.MVVM.Converters.ValueConverterBase<string>
@@ -474,6 +513,8 @@ namespace Orchestra.Markup
         public string PathName { get; set; }
         protected override object ProvideDynamicValue(System.IServiceProvider serviceProvider) { }
     }
+    [System.ObsoleteAttribute("Use `Orc.Controls.FontImage` instead. Will be treated as an error from version 6." +
+        "0.0. Will be removed in version 7.0.0.", false)]
     public class FontImage : Catel.Windows.Markup.UpdatableMarkupExtension
     {
         public FontImage() { }
@@ -650,15 +691,13 @@ namespace Orchestra.Services
         public AdorneredTooltipsManagerFactory(Catel.IoC.IServiceLocator serviceLocator, Catel.IoC.ITypeFactory typeFactory) { }
         public Orchestra.Services.IAdorneredTooltipsManager Create(System.Windows.Documents.AdornerLayer adornerLayer) { }
     }
-    public class AppDataService : Orchestra.Services.IAppDataService
+    public class BaseColorSchemeService : Orchestra.Services.IBaseColorSchemeService
     {
-        public AppDataService(Catel.Services.ISaveFileService saveFileService, Catel.Services.IProcessService processService, Orc.FileSystem.IDirectoryService directoryService, Orc.FileSystem.IFileService fileService) { }
-        public string ApplicationDataDirectory { get; }
-        public System.Collections.Generic.List<string> ExclusionFilters { get; }
-        public System.Threading.Tasks.Task<bool> BackupUserDataAsync() { }
-        public System.Threading.Tasks.Task DeleteUserDataAsync() { }
-        protected virtual bool MatchesFilters(System.Collections.Generic.IEnumerable<string> filters, string fileName) { }
-        public bool OpenApplicationDataDirectory() { }
+        public BaseColorSchemeService() { }
+        public event System.EventHandler<System.EventArgs> BaseColorSchemeChanged;
+        public virtual System.Collections.Generic.IReadOnlyList<string> GetAvailableBaseColorSchemes() { }
+        public string GetBaseColorScheme() { }
+        public bool SetBaseColorScheme(string color) { }
     }
     public class ClipboardService : Orchestra.Services.IClipboardService
     {
@@ -680,10 +719,11 @@ namespace Orchestra.Services
     }
     public class EnsureStartupService : Orchestra.Services.IEnsureStartupService
     {
-        public EnsureStartupService(Orchestra.Services.IAppDataService appDataService, Catel.Services.IUIVisualizerService uiVisualizerService, Orc.FileSystem.IFileService fileService) { }
+        public EnsureStartupService(Catel.Services.IAppDataService appDataService, Catel.Services.IUIVisualizerService uiVisualizerService, Orc.FileSystem.IFileService fileService) { }
         public bool SuccessfullyStarted { get; }
         public virtual void ConfirmApplicationStartedSuccessfully() { }
         public virtual System.Threading.Tasks.Task EnsureFailSafeStartupAsync() { }
+        protected bool IsFileLocked(string fileName) { }
     }
     public class HintsProvider : Orchestra.Services.IHintsProvider
     {
@@ -723,13 +763,12 @@ namespace Orchestra.Services
     {
         System.Windows.Documents.Adorner GetAdornerTooltip(Orchestra.Models.IHint hint, System.Windows.UIElement adornedElement);
     }
-    public interface IAppDataService
+    public interface IBaseColorSchemeService
     {
-        string ApplicationDataDirectory { get; }
-        System.Collections.Generic.List<string> ExclusionFilters { get; }
-        System.Threading.Tasks.Task<bool> BackupUserDataAsync();
-        System.Threading.Tasks.Task DeleteUserDataAsync();
-        bool OpenApplicationDataDirectory();
+        public event System.EventHandler<System.EventArgs> BaseColorSchemeChanged;
+        System.Collections.Generic.IReadOnlyList<string> GetAvailableBaseColorSchemes();
+        string GetBaseColorScheme();
+        bool SetBaseColorScheme(string color);
     }
     public interface IClipboardService
     {
@@ -768,6 +807,13 @@ namespace Orchestra.Services
         void Reset();
         void Save();
     }
+    public interface IManageAppDataService
+    {
+        System.Collections.Generic.List<string> ExclusionFilters { get; }
+        System.Threading.Tasks.Task<bool> BackupUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget);
+        System.Threading.Tasks.Task DeleteUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget);
+        bool OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget applicationDataTarget);
+    }
     public class static IMessageServiceExtensions
     {
         public static string GetAsText(this Catel.Services.IMessageService messageService, string message, Catel.Services.MessageButton messageButton) { }
@@ -793,12 +839,14 @@ namespace Orchestra.Services
         bool IsSuspended { get; set; }
         string GetStatus(string status);
     }
-    public interface IStatusRepresenter
-    {
-        void UpdateStatus(string status);
-    }
+    [System.ObsoleteAttribute("Use `Orc.Controls.Services.IStatusRepresenter` instead. Will be removed in versio" +
+        "n 6.0.0.", true)]
+    public interface IStatusRepresenter : Orc.Controls.Services.IStatusRepresenter { }
     public interface IStatusService
     {
+        void Initialize(Orc.Controls.Services.IStatusRepresenter statusRepresenter);
+        [System.ObsoleteAttribute("Use `Initialize(Orc.Controls.Services.IStatusRepresenter)` instead. Will be remov" +
+            "ed in version 6.0.0.", true)]
         void Initialize(Orchestra.Services.IStatusRepresenter statusRepresenter);
         void UpdateStatus(string status);
     }
@@ -808,6 +856,7 @@ namespace Orchestra.Services
     }
     public interface IThemeService
     {
+        Orchestra.ThemeInfo GetThemeInfo();
         bool ShouldCreateStyleForwarders();
     }
     public interface IThirdPartyNoticesService
@@ -833,11 +882,20 @@ namespace Orchestra.Services
     }
     public class KeyboardMappingsService : Orchestra.Services.IKeyboardMappingsService
     {
-        public KeyboardMappingsService(Catel.MVVM.ICommandManager commandManager, Catel.Runtime.Serialization.Xml.IXmlSerializer xmlSerializer, Orc.FileSystem.IFileService fileService) { }
+        public KeyboardMappingsService(Catel.MVVM.ICommandManager commandManager, Catel.Runtime.Serialization.Xml.IXmlSerializer xmlSerializer, Orc.FileSystem.IFileService fileService, Catel.Services.IAppDataService appDataService) { }
         public System.Collections.Generic.List<Orchestra.Models.KeyboardMapping> AdditionalKeyboardMappings { get; }
         public void Load() { }
         public void Reset() { }
         public void Save() { }
+    }
+    public class ManageAppDataService : Orchestra.Services.IManageAppDataService
+    {
+        public ManageAppDataService(Catel.Services.ISaveFileService saveFileService, Catel.Services.IProcessService processService, Orc.FileSystem.IDirectoryService directoryService, Orc.FileSystem.IFileService fileService, Catel.Services.IAppDataService appDataService) { }
+        public System.Collections.Generic.List<string> ExclusionFilters { get; }
+        public System.Threading.Tasks.Task<bool> BackupUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget) { }
+        public System.Threading.Tasks.Task DeleteUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget) { }
+        protected virtual bool MatchesFilters(System.Collections.Generic.IEnumerable<string> filters, string fileName) { }
+        public bool OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget applicationDataTarget) { }
     }
     public class MessageService : Catel.Services.MessageService
     {
@@ -848,8 +906,12 @@ namespace Orchestra.Services
     {
         protected readonly Catel.Services.IDispatcherService _dispatcherService;
         public PleaseWaitService(Catel.Services.IDispatcherService dispatcherService) { }
+        protected int CurrentItem { get; }
+        protected bool ReachedTotalItems { get; }
         public int ShowCounter { get; }
+        protected int TotalItems { get; }
         public virtual void Hide() { }
+        protected virtual void HideIfRequired() { }
         public virtual void Pop() { }
         public virtual void Push(string status = "") { }
         public virtual void Show(string status = "") { }
@@ -859,7 +921,7 @@ namespace Orchestra.Services
     }
     public class RecentlyUsedItemsService : Orchestra.Services.IRecentlyUsedItemsService
     {
-        public RecentlyUsedItemsService(Catel.Runtime.Serialization.Xml.IXmlSerializer xmlSerializer, Orc.FileSystem.IFileService fileService) { }
+        public RecentlyUsedItemsService(Catel.Runtime.Serialization.Xml.IXmlSerializer xmlSerializer, Orc.FileSystem.IFileService fileService, Catel.Services.IAppDataService appDataService) { }
         public System.Collections.Generic.IEnumerable<Orchestra.Models.RecentlyUsedItem> Items { get; }
         public int MaximumItemCount { get; set; }
         public System.Collections.Generic.IEnumerable<Orchestra.Models.RecentlyUsedItem> PinnedItems { get; }
@@ -883,12 +945,14 @@ namespace Orchestra.Services
     public class StatusService : Orchestra.Services.IStatusService
     {
         public StatusService(Orchestra.Services.IStatusFilterService statusFilterService) { }
+        public void Initialize(Orc.Controls.Services.IStatusRepresenter statusRepresenter) { }
         public void Initialize(Orchestra.Services.IStatusRepresenter statusRepresenter) { }
         public void UpdateStatus(string status) { }
     }
     public class ThemeService : Orchestra.Services.IThemeService
     {
-        public ThemeService() { }
+        public ThemeService(Orc.Controls.Services.IAccentColorService accentColorService, Orchestra.Services.IBaseColorSchemeService baseColorSchemeService) { }
+        public virtual Orchestra.ThemeInfo GetThemeInfo() { }
         public virtual bool ShouldCreateStyleForwarders() { }
     }
     public class ThirdPartyNoticesService : Orchestra.Services.IThirdPartyNoticesService
@@ -902,6 +966,14 @@ namespace Orchestra.Services
         public ViewActivationService(Catel.MVVM.Views.IViewManager viewManager) { }
         public bool Activate(Catel.MVVM.IViewModel viewModel) { }
         public bool Activate(System.Type viewModelType) { }
+    }
+}
+namespace Orchestra.Themes
+{
+    public interface IShellTheme
+    {
+        void ApplyTheme(Orchestra.ThemeInfo themeInfo);
+        System.Windows.ResourceDictionary CreateResourceDictionary(Orchestra.ThemeInfo themeInfo);
     }
 }
 namespace Orchestra.Tooltips
@@ -1061,11 +1133,12 @@ namespace Orchestra.Views
     }
     public class CrashWarningViewModel : Catel.MVVM.ViewModelBase
     {
-        public CrashWarningViewModel(Orchestra.Services.IAppDataService appDataService, Catel.Services.IMessageService messageService, Catel.Services.INavigationService navigationService, Catel.Services.ILanguageService languageService) { }
+        public CrashWarningViewModel(Orchestra.Services.IManageAppDataService manageAppDataService, Catel.Services.IMessageService messageService, Catel.Services.INavigationService navigationService, Catel.Services.ILanguageService languageService) { }
         public Catel.MVVM.TaskCommand BackupAndReset { get; set; }
         public Catel.MVVM.TaskCommand Continue { get; set; }
         public Catel.MVVM.TaskCommand ResetUserSettings { get; set; }
         public override string Title { get; }
+        protected override System.Threading.Tasks.Task<bool> CancelAsync() { }
     }
     public class CrashWarningWindow : Catel.Windows.Window, System.Windows.Markup.IComponentConnector
     {

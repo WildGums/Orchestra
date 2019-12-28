@@ -23,7 +23,7 @@ namespace Orchestra.Controls
             set { SetValue(IconProperty, value); }
         }
 
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(ImageSource),
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource),
             typeof(RibbonBackstageTabItem), new PropertyMetadata(null, (sender, e) => ((RibbonBackstageTabItem)sender).BuildHeader()));
 
 
@@ -33,7 +33,7 @@ namespace Orchestra.Controls
             set { SetValue(HeaderTextProperty, value); }
         }
 
-        public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.Register("HeaderText", typeof(string),
+        public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.Register(nameof(HeaderText), typeof(string),
             typeof(RibbonBackstageTabItem), new PropertyMetadata(string.Empty, (sender, e) => ((RibbonBackstageTabItem)sender).BuildHeader()));
 
         private void BuildHeader()

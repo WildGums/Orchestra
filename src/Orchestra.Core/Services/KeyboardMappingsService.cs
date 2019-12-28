@@ -14,6 +14,7 @@ namespace Orchestra.Services
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Runtime.Serialization.Xml;
+    using Catel.Services;
     using Orc.FileSystem;
     using Orchestra.Models;
     using Path = Catel.IO.Path;
@@ -25,19 +26,23 @@ namespace Orchestra.Services
         private readonly ICommandManager _commandManager;
         private readonly IXmlSerializer _xmlSerializer;
         private readonly IFileService _fileService;
-
+        private readonly IAppDataService _appDataService;
         private readonly string _fileName;
 
-        public KeyboardMappingsService(ICommandManager commandManager, IXmlSerializer xmlSerializer, IFileService fileService)
+        public KeyboardMappingsService(ICommandManager commandManager, IXmlSerializer xmlSerializer, 
+            IFileService fileService, IAppDataService appDataService)
         {
             Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => xmlSerializer);
             Argument.IsNotNull(() => fileService);
+            Argument.IsNotNull(() => appDataService);
 
             _commandManager = commandManager;
             _xmlSerializer = xmlSerializer;
             _fileService = fileService;
-            _fileName = Path.Combine(Path.GetApplicationDataDirectory(), "keyboardmappings.xml");
+            _appDataService = appDataService;
+
+            _fileName = Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "keyboardmappings.xml");
 
             AdditionalKeyboardMappings = new List<KeyboardMapping>();
         }

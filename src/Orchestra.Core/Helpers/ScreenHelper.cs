@@ -7,10 +7,10 @@
 
 namespace Orchestra
 {
-    using System;
     using System.Reflection;
     using System.Windows;
 
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.ScreenHelper", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     public static class ScreenHelper
     {
         #region Constants

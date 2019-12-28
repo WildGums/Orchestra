@@ -36,6 +36,32 @@ namespace Orchestra.Services
 
         public int ShowCounter { get; private set; }
 
+        /// <summary>
+        /// Gets the last set current item.
+        /// </summary>
+        protected int CurrentItem { get; private set; }
+
+        /// <summary>
+        /// Gets the last set total items.
+        /// </summary>
+        protected int TotalItems { get; private set; }
+
+        /// <summary>
+        /// Gets whether the <see cref="CurrentItem"/> equals the <see cref="TotalItems"/>.
+        /// </summary>
+        protected bool ReachedTotalItems
+        {
+            get
+            {
+                if (CurrentItem < 0)
+                {
+                    return true;
+                }
+
+                return CurrentItem >= TotalItems;
+            }
+        }
+
         #region IPleaseWaitService Members
         public virtual void Show(string status = "")
         {
@@ -50,7 +76,7 @@ namespace Orchestra.Services
 
             _dispatcherService.BeginInvokeIfRequired(() =>
             {
-                if (_previousCursor == null)
+                if (_previousCursor is null)
                 {
                     _previousCursor = Mouse.OverrideCursor;
                 }
@@ -83,13 +109,28 @@ namespace Orchestra.Services
 
         public virtual void UpdateStatus(int currentItem, int totalItems, string statusFormat = "")
         {
-            // not required
+            CurrentItem = currentItem;
+            TotalItems = totalItems;
+
+            if (currentItem >= 0 && ShowCounter <= 0)
+            {
+                Show();
+            }
+
+            // If we reached the end, count 1 down
+            if (currentItem > 0 && ReachedTotalItems)
+            {
+                ShowCounter--;
+            }
+
+            HideIfRequired();
         }
 
         public virtual void Hide()
         {
             Log.Debug("Hiding busy indicator");
 
+            CurrentItem = -1;
             ShowCounter = 0;
 
             _dispatcherService.BeginInvokeIfRequired(() =>
@@ -120,11 +161,16 @@ namespace Orchestra.Services
 
             Log.Debug($"Popped busy indicator, counter is '{ShowCounter}'");
 
-            if (ShowCounter <= 0)
+            HideIfRequired();
+        }
+
+        protected virtual void HideIfRequired()
+        {
+            // If we are popping, we should respect the total items (of the progress) as well
+            if (ShowCounter <= 0 && ReachedTotalItems)
             {
                 Hide();
             }
-
         }
         #endregion
     }

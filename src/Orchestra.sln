@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29319.158
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E502625D-7CC7-401B-ACDF-678B68F59005}"
 EndProject
@@ -19,7 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{2FFC28B3-0
 		Directory.build.targets = Directory.build.targets
 		GlobalSuppressions.cs = GlobalSuppressions.cs
 		MethodTimeLogger.cs = MethodTimeLogger.cs
-		Orchestra.sln.DotSettings = Orchestra.sln.DotSettings
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
 	EndProjectSection
 EndProject
@@ -29,21 +28,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Core", "Orchestra
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Shared", "Orchestra.Shell.Shared\Orchestra.Shell.Shared.shproj", "{BC10FCE0-C843-4592-802D-BB800A514CA0}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Ribbon.Shared", "Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.shproj", "{09D9C5AF-1D17-4C77-A5D4-CFDF278DF4A3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Shell.MahApps", "Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.csproj", "{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Shell.Ribbon.Fluent", "Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.csproj", "{BD65929C-36C0-4935-8D03-9AB82684C56D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Shell.Ribbon.Microsoft", "Orchestra.Shell.Ribbon.Microsoft\Orchestra.Shell.Ribbon.Microsoft.csproj", "{42512A08-C1DE-495D-B242-97DBB5E2A664}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Shell.TaskRunner", "Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.csproj", "{D93A4322-36E1-4F2E-851A-FF2C7F6373C7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Examples.MahApps", "Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.csproj", "{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Examples.Ribbon.Fluent", "Orchestra.Examples.Ribbon.Fluent\Orchestra.Examples.Ribbon.Fluent.csproj", "{E1584C1C-2434-480D-A98E-617E42ED8021}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Examples.Ribbon.Microsoft", "Orchestra.Examples.Ribbon.Microsoft\Orchestra.Examples.Ribbon.Microsoft.csproj", "{05269080-B7D0-487C-83EB-38474D08B8A1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Examples.TaskRunner", "Orchestra.Examples.TaskRunner\Orchestra.Examples.TaskRunner.csproj", "{E291C61C-F854-42FD-90DF-A1BA53B6E24B}"
 EndProject
@@ -53,7 +46,6 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Examples.Shared",
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Orchestra.Shell.Ribbon.Shared\Orchestra.Shell.Ribbon.Shared.projitems*{09d9c5af-1d17-4c77-a5d4-cfdf278df4a3}*SharedItemsImports = 13
 		Orchestra.Examples.Shared\Orchestra.Examples.Shared.projitems*{0f4ee33d-8e27-43ba-bcf7-1c61cdca09ec}*SharedItemsImports = 13
 		Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{bc10fce0-c843-4592-802d-bb800a514ca0}*SharedItemsImports = 13
 	EndGlobalSection
@@ -116,22 +108,6 @@ Global
 		{BD65929C-36C0-4935-8D03-9AB82684C56D}.Release|x64.Build.0 = Release|Any CPU
 		{BD65929C-36C0-4935-8D03-9AB82684C56D}.Release|x86.ActiveCfg = Release|Any CPU
 		{BD65929C-36C0-4935-8D03-9AB82684C56D}.Release|x86.Build.0 = Release|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Debug|ARM.Build.0 = Debug|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Debug|x64.Build.0 = Debug|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Debug|x86.Build.0 = Debug|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Release|ARM.ActiveCfg = Release|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Release|ARM.Build.0 = Release|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Release|x64.ActiveCfg = Release|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Release|x64.Build.0 = Release|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Release|x86.ActiveCfg = Release|Any CPU
-		{42512A08-C1DE-495D-B242-97DBB5E2A664}.Release|x86.Build.0 = Release|Any CPU
 		{D93A4322-36E1-4F2E-851A-FF2C7F6373C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D93A4322-36E1-4F2E-851A-FF2C7F6373C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D93A4322-36E1-4F2E-851A-FF2C7F6373C7}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -180,22 +156,6 @@ Global
 		{E1584C1C-2434-480D-A98E-617E42ED8021}.Release|x64.Build.0 = Release|Any CPU
 		{E1584C1C-2434-480D-A98E-617E42ED8021}.Release|x86.ActiveCfg = Release|Any CPU
 		{E1584C1C-2434-480D-A98E-617E42ED8021}.Release|x86.Build.0 = Release|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Debug|ARM.Build.0 = Debug|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Debug|x64.Build.0 = Debug|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Debug|x86.Build.0 = Debug|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Release|ARM.ActiveCfg = Release|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Release|ARM.Build.0 = Release|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Release|x64.ActiveCfg = Release|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Release|x64.Build.0 = Release|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Release|x86.ActiveCfg = Release|Any CPU
-		{05269080-B7D0-487C-83EB-38474D08B8A1}.Release|x86.Build.0 = Release|Any CPU
 		{E291C61C-F854-42FD-90DF-A1BA53B6E24B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E291C61C-F854-42FD-90DF-A1BA53B6E24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E291C61C-F854-42FD-90DF-A1BA53B6E24B}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -238,14 +198,11 @@ Global
 		{90FDC9B8-335D-49AF-99F2-E826E2A40F69} = {E502625D-7CC7-401B-ACDF-678B68F59005}
 		{C7049E9C-D258-4E3F-8DE3-17D8C50145CA} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{BC10FCE0-C843-4592-802D-BB800A514CA0} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
-		{09D9C5AF-1D17-4C77-A5D4-CFDF278DF4A3} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{BD65929C-36C0-4935-8D03-9AB82684C56D} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
-		{42512A08-C1DE-495D-B242-97DBB5E2A664} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{D93A4322-36E1-4F2E-851A-FF2C7F6373C7} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
 		{E1584C1C-2434-480D-A98E-617E42ED8021} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
-		{05269080-B7D0-487C-83EB-38474D08B8A1} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
 		{E291C61C-F854-42FD-90DF-A1BA53B6E24B} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
 		{46EE84D7-0EF8-46CD-8E0D-31C8BFBA06FF} = {250CAB0E-A7F8-495B-B090-DB0AF1D51514}
 		{0F4EE33D-8E27-43BA-BCF7-1C61CDCA09EC} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}

@@ -4,9 +4,6 @@
 
         <!-- Large size -->
         <ResourceDictionary Source="/Orchestra.Core;component/themes/Orchestra.sizes.large.xaml" />
-        
-        <!-- Generic -->
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Orchestra.generic.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -55,9 +55,9 @@ namespace Orchestra.Examples.Ribbon
             languageService.PreferredCulture = CultureInfo.CurrentCulture;
             languageService.FallbackCulture = new CultureInfo("en-US");
 
-            FontImage.RegisterFont("FontAwesome", new FontFamily(new Uri("pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Fonts/", UriKind.RelativeOrAbsolute), "./#FontAwesome"));
+            Orc.Controls.FontImage.RegisterFont("FontAwesome", new FontFamily(new Uri("pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Fonts/", UriKind.RelativeOrAbsolute), "./#FontAwesome"));
 
-            FontImage.DefaultFontFamily = "FontAwesome";
+            Orc.Controls.FontImage.DefaultFontFamily = "FontAwesome";
 
             var serviceLocator = ServiceLocator.Default;
             var shellService = serviceLocator.ResolveType<IShellService>();

@@ -13,6 +13,7 @@ namespace Orchestra.Services
     using Catel;
     using Catel.Logging;
     using Catel.Runtime.Serialization.Xml;
+    using Catel.Services;
     using Orc.FileSystem;
     using Orchestra.Models;
     using Path = Catel.IO.Path;
@@ -21,20 +22,23 @@ namespace Orchestra.Services
     {
         private readonly IXmlSerializer _xmlSerializer;
         private readonly IFileService _fileService;
+        private readonly IAppDataService _appDataService;
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly string _fileName;
         private readonly RecentlyUsedItems _items;
 
-        public RecentlyUsedItemsService(IXmlSerializer xmlSerializer, IFileService fileService)
+        public RecentlyUsedItemsService(IXmlSerializer xmlSerializer, IFileService fileService, IAppDataService appDataService)
         {
             Argument.IsNotNull(() => xmlSerializer);
             Argument.IsNotNull(() => fileService);
+            Argument.IsNotNull(() => appDataService);
 
             _xmlSerializer = xmlSerializer;
             _fileService = fileService;
+            _appDataService = appDataService;
 
-            _fileName = Path.Combine(Path.GetApplicationDataDirectory(), "recentlyused.xml");
+            _fileName = Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "recentlyused.xml");
             _items = new RecentlyUsedItems();
 
             MaximumItemCount = 10;

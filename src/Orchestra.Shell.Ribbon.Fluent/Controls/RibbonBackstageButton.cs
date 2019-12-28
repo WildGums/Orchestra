@@ -19,7 +19,7 @@ namespace Orchestra.Controls
             set { SetValue(ShowBorderProperty, value); }
         }
 
-        public static readonly DependencyProperty ShowBorderProperty = DependencyProperty.Register("ShowBorder", typeof(bool),
+        public static readonly DependencyProperty ShowBorderProperty = DependencyProperty.Register(nameof(ShowBorder), typeof(bool),
             typeof(RibbonBackstageButton), new PropertyMetadata(true));
 
 
@@ -29,7 +29,7 @@ namespace Orchestra.Controls
             set { SetValue(IsDefinitiveProperty, value); }
         }
 
-        public static readonly DependencyProperty IsDefinitiveProperty = DependencyProperty.Register("IsDefinitive", typeof(bool), 
+        public static readonly DependencyProperty IsDefinitiveProperty = DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), 
             typeof(RibbonBackstageButton), new UIPropertyMetadata(true));
 
 

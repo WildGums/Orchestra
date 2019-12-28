@@ -8,6 +8,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
+using Catel.Configuration;
 using Catel.IoC;
 using Catel.Logging;
 using Catel.Reflection;
@@ -32,8 +33,6 @@ public static class ModuleInitializer
     {
         var serviceLocator = ServiceLocator.Default;
 
-        InitializeLogging();
-
         // Ensure that we are using the right culture
 #pragma warning disable WPF0011 // Containing type should be used as registered owner.
         FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
@@ -52,12 +51,13 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<Orchestra.Services.ISplashScreenService, Orchestra.Services.SplashScreenService>();
 
         serviceLocator.RegisterTypeIfNotYetRegistered<ICommandInfoService, CommandInfoService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<IAppDataService, AppDataService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IManageAppDataService, ManageAppDataService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IEnsureStartupService, EnsureStartupService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAccentColorService, AccentColorService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutInfoService, AboutInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IClipboardService, ClipboardService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IBaseColorSchemeService, BaseColorSchemeService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IThemeService, ThemeService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();
 
@@ -73,21 +73,10 @@ public static class ModuleInitializer
         serviceLocator.RegisterType<IAdorneredTooltipFactory, AdorneredTooltipFactory>(RegistrationType.Transient);
         serviceLocator.RegisterType<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>(RegistrationType.Transient);
 
+        // Custom views (sharing same view model)
         var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
-
-        // Can be replaced by this in the future:
-        //uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
-        //uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
-
-        if (!uiVisualizerService.IsRegistered(typeof(KeyboardMappingsCustomizationViewModel)))
-        {
-            uiVisualizerService.Register(typeof(KeyboardMappingsCustomizationViewModel).FullName, typeof(KeyboardMappingsCustomizationWindow));
-        }
-
-        if (!uiVisualizerService.IsRegistered(typeof(KeyboardMappingsOverviewViewModel)))
-        {
-            uiVisualizerService.Register(typeof(KeyboardMappingsOverviewViewModel).FullName, typeof(KeyboardMappingsOverviewWindow));
-        }
+        uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
+        uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
 
         var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Catel", "https://www.catelproject.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.catel.txt"));
@@ -99,19 +88,5 @@ public static class ModuleInitializer
         languageService.RegisterLanguageSource(new LanguageResourceSource("Orchestra.Core", "Orchestra.Properties", "Resources"));
 
         DotNetPatchHelper.Initialize();
-    }
-
-    private static void InitializeLogging()
-    {
-        LogHelper.CleanUpAllLogTypeFiles();
-
-        var fileLogListener = LogHelper.CreateFileLogListener(LogFilePrefixes.EntryAssemblyName);
-
-        fileLogListener.IsDebugEnabled = false;
-        fileLogListener.IsInfoEnabled = true;
-        fileLogListener.IsWarningEnabled = true;
-        fileLogListener.IsErrorEnabled = true;
-
-        LogManager.AddListener(fileLogListener);
     }
 }

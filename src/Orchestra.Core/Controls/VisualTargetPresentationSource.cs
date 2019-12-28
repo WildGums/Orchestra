@@ -21,6 +21,7 @@ namespace Orchestra.Controls
     /// <remarks>
     /// The original code can be found here: http://blogs.msdn.com/b/dwayneneed/archive/2007/04/26/multithreaded-ui-hostvisual.aspx.
     /// </remarks>
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.VisualTargetPresentationSource", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     [UIPermission(SecurityAction.LinkDemand, Window = UIPermissionWindow.AllWindows)]
     [UIPermission(SecurityAction.InheritanceDemand, Window = UIPermissionWindow.AllWindows)]
     public class VisualTargetPresentationSource : PresentationSource

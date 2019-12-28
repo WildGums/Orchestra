@@ -36,13 +36,7 @@ namespace Orchestra
         /// <returns>Reference to partent window or null when not exists.</returns>
         public static System.Windows.Window GetParentWindow(this DependencyObject visualObject)
         {
-            if (visualObject == null)
-            {
-                return null;
-            }
-
-            return visualObject.FindLogicalOrVisualAncestorByType<System.Windows.Window>();
+            return visualObject?.FindLogicalOrVisualAncestorByType<System.Windows.Window>();
         }
-
     }
 }

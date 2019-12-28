@@ -19,6 +19,7 @@ namespace Orchestra.Controls
     /// <summary>
     /// Factory that allows the creation of media elements on a worker thread.
     /// </summary>
+    [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.MediaElementThreadFactory", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
     public static class MediaElementThreadFactory
     {
         #region Fields

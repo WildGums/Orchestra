@@ -25,8 +25,7 @@ namespace Orchestra.Converters
         /// <returns>The value to be passed to the target dependency property.</returns>
         protected override object Convert(object value, Type targetType, object parameter)
         {
-            var keyboardMapping = value as KeyboardMapping;
-            if (keyboardMapping == null)
+            if (!(value is KeyboardMapping keyboardMapping))
             {
                 return string.Empty;
             }

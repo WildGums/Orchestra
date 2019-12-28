@@ -300,6 +300,9 @@ private static void ConfigureMsBuild(BuildContext buildContext, MSBuildSettings 
         msBuildSettings.ToolPath = toolPath;
     }
 
+    // No NuGet restore (should already be done)
+    msBuildSettings.WithProperty("ResolveNuGetPackages", "false");
+
     // Use as much CPU as possible
     msBuildSettings.MaxCpuCount = 0;
     
@@ -397,6 +400,13 @@ private static string GetVisualStudioDirectory(BuildContext buildContext, bool? 
        buildContext.CakeContext.Information("Using Visual Studio 2019");
        return pathFor2019;
     }
+	
+	var pathFor2019Community = @"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\";
+    if (System.IO.Directory.Exists(pathFor2019Community))
+    {
+       buildContext.CakeContext.Information("Using Visual Studio 2019 CE");
+       return pathFor2019Community;
+    }
 
     buildContext.CakeContext.Debug("Checking for installation of Visual Studio 2017");
 
@@ -437,6 +447,13 @@ private static string GetVisualStudioPath(BuildContext buildContext, bool? allow
 
 //-------------------------------------------------------------
 
+private static bool IsCppProject(string projectName)
+{
+    return projectName.EndsWith(".vcxproj");
+}
+
+//-------------------------------------------------------------
+
 private static string GetProjectDirectory(string projectName)
 {
     var projectDirectory = string.Format("./src/{0}/", projectName);
@@ -453,10 +470,29 @@ private static string GetProjectOutputDirectory(BuildContext buildContext, strin
 
 //-------------------------------------------------------------
 
-private static string GetProjectFileName(string projectName)
+private static string GetProjectFileName(BuildContext buildContext, string projectName)
 {
-    var fileName = string.Format("{0}{1}.csproj", GetProjectDirectory(projectName), projectName);
-    return fileName;
+    var allowedExtensions = new [] 
+    {
+        "csproj",
+        "vcxproj"
+    };
+
+    foreach (var allowedExtension in allowedExtensions)
+    {
+        var fileName = string.Format("{0}{1}.{2}", GetProjectDirectory(projectName), projectName, allowedExtension);
+
+        //buildContext.CakeContext.Information(fileName);
+
+        if (buildContext.CakeContext.FileExists(fileName))
+        {
+            return fileName;
+        }
+    }
+
+    // Old behavior
+    var fallbackFileName = string.Format("{0}{1}.{2}", GetProjectDirectory(projectName), projectName, allowedExtensions[0]);
+    return fallbackFileName;
 }
 
 //-------------------------------------------------------------
@@ -492,9 +528,9 @@ private static string GetProjectSpecificConfigurationValue(BuildContext buildCon
 
 //-------------------------------------------------------------
 
-private static bool IsDotNetCoreProject(string projectName)
+private static bool IsDotNetCoreProject(BuildContext buildContext, string projectName)
 {
-    var projectFileName = GetProjectFileName(projectName);
+    var projectFileName = GetProjectFileName(buildContext, projectName);
 
     if (!_dotNetCoreCache.TryGetValue(projectFileName, out var isDotNetCore))
     {
