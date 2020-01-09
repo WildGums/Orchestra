@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <PackageReference Include="Catel.Analyzers" Version="1.0.0" PrivateAssets="all" />
-    <PackageReference Include="Catel.MVVM" Version="5.12.0" />
+    <PackageReference Include="Catel.MVVM" Version="5.12.1" />
     <PackageReference Include="Catel.Fody" Version="4.3.0" PrivateAssets="all" />
     <PackageReference Include="ControlzEx" Version="4.2.0" />
     <PackageReference Include="Fluent.Ribbon" Version="7.0.1" />
