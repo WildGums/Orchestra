@@ -24,6 +24,7 @@ public static partial class ModuleInitializer
 
         serviceLocator.RegisterType<IShellService, ShellService>();
         serviceLocator.RegisterType<IApplicationInitializationService, ApplicationInitializationServiceBase>();
+        serviceLocator.RegisterType<IShellConfigurationService, ShellConfigurationService>();
         serviceLocator.RegisterType<IPleaseWaitService, ProgressPleaseWaitService>();
 
         var languageService = serviceLocator.ResolveType<ILanguageService>();
