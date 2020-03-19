@@ -83,9 +83,14 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// </summary>
         private async Task OnOpenProjectExecuteAsync()
         {
-            if (await _selectDirectoryService.DetermineDirectoryAsync())
+            var result = await _selectDirectoryService.DetermineDirectoryAsync(new DetermineDirectoryContext
             {
-                await _messageService.ShowAsync("You have chosen " + _selectDirectoryService.DirectoryName);
+                Title = "Select a project directory"
+            });
+
+            if (result.Result)
+            {
+                await _messageService.ShowAsync("You have chosen " + result.DirectoryName);
             }
         }
 

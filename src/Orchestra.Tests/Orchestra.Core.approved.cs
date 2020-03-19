@@ -902,6 +902,18 @@ namespace Orchestra.Services
         public MessageService(Catel.Services.IDispatcherService dispatcherService, Catel.Services.IUIVisualizerService uiVisualizerService, Catel.MVVM.IViewModelFactory viewModelFactory, Catel.Services.ILanguageService languageService) { }
         public override System.Threading.Tasks.Task<Catel.Services.MessageResult> ShowAsync(string message, string caption = "", Catel.Services.MessageButton button = 1, Catel.Services.MessageImage icon = 0) { }
     }
+    public class MicrosoftApiSelectDirectoryService : Catel.Services.ISelectDirectoryService
+    {
+        public MicrosoftApiSelectDirectoryService() { }
+        public string DirectoryName { get; }
+        public string FileName { get; set; }
+        public string Filter { get; set; }
+        public string InitialDirectory { get; set; }
+        public bool ShowNewFolderButton { get; set; }
+        public string Title { get; set; }
+        public System.Threading.Tasks.Task<bool> DetermineDirectoryAsync() { }
+        public System.Threading.Tasks.Task<Catel.Services.DetermineDirectoryResult> DetermineDirectoryAsync(Catel.Services.DetermineDirectoryContext context) { }
+    }
     public class PleaseWaitService : Catel.Services.IPleaseWaitService
     {
         protected readonly Catel.Services.IDispatcherService _dispatcherService;

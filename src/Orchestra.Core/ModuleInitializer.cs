@@ -42,6 +42,9 @@ public static class ModuleInitializer
         // Overide style of Catel please wait service
         serviceLocator.RegisterType<IPleaseWaitService, Orchestra.Services.PleaseWaitService>();
 
+        // Override Catel.SelectDirectoryService with Orchestra.Services.SelectDirectoryService
+        serviceLocator.RegisterType<ISelectDirectoryService, MicrosoftApiSelectDirectoryService>();
+
         serviceLocator.RegisterTypeIfNotYetRegistered<IThirdPartyNoticesService, ThirdPartyNoticesService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<ICloseApplicationService, CloseApplicationService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IRecentlyUsedItemsService, RecentlyUsedItemsService>();

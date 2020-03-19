@@ -42,7 +42,11 @@ namespace Orchestra
             values.Add("MahApps.Colors.Highlight", accentBaseColor.ToString());
             values.Add("MahApps.Colors.IdealForeground", IdealTextColor(accentBaseColor).ToString());
 
-            var xamlContent = new ColorSchemeGenerator().GenerateColorSchemeFileContent(generatorParameters, variant, colorScheme, themeTemplateContent, name, name);
+            var colorSchemeGenerator = new ColorSchemeGenerator();
+            var xamlContent = colorSchemeGenerator.GenerateColorSchemeFileContent(generatorParameters, variant, colorScheme, themeTemplateContent, name, name);
+
+            // Special fix for shortened namespaces
+            xamlContent = xamlContent.Replace("\"clr-namespace:MahApps.Metro.Markup\"", "\"clr-namespace:MahApps.Metro.Markup;assembly=MahApps.Metro\"");
 
             var resourceDictionary = (ResourceDictionary)XamlReader.Parse(xamlContent);
 

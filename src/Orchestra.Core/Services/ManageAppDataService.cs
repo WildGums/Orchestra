@@ -29,7 +29,7 @@ namespace Orchestra.Services
         private readonly IFileService _fileService;
         private readonly IAppDataService _appDataService;
 
-        public ManageAppDataService(ISaveFileService saveFileService, IProcessService processService, 
+        public ManageAppDataService(ISaveFileService saveFileService, IProcessService processService,
             IDirectoryService directoryService, IFileService fileService, IAppDataService appDataService)
         {
             Argument.IsNotNull(() => saveFileService);
@@ -44,7 +44,7 @@ namespace Orchestra.Services
             _fileService = fileService;
             _appDataService = appDataService;
 
-            ExclusionFilters = new List<string>(new []
+            ExclusionFilters = new List<string>(new[]
             {
                 "licenseinfo.xml",
                 "*.log"
@@ -91,16 +91,19 @@ namespace Orchestra.Services
             var assembly = AssemblyHelper.GetEntryAssembly();
             var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
 
-            _saveFileService.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            _saveFileService.FileName = string.Format("{0} backup {1}.zip", assembly.Title(), DateTime.Now.ToString("yyyyMMdd hhmmss"));
-            _saveFileService.Filter = "Zip files|*.zip";
+            var result = await _saveFileService.DetermineFileAsync(new DetermineSaveFileContext
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                FileName = string.Format("{0} backup {1}.zip", assembly.Title(), DateTime.Now.ToString("yyyyMMdd hhmmss")),
+                Filter = "Zip files|*.zip"
+            });
 
-            if (!await _saveFileService.DetermineFileAsync())
+            if (!result.Result)
             {
                 return false;
             }
 
-            var zipFileName = _saveFileService.FileName;
+            var zipFileName = result.FileName;
 
             Log.Debug("Writing zip file to '{0}'", zipFileName);
 
