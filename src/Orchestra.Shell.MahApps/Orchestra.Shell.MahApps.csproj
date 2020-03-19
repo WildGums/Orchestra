@@ -33,7 +33,7 @@
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.4.0" PrivateAssets="all" />
     <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0531" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0245" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.4.0" />
     <PackageReference Include="MethodTimer.Fody" Version="3.1.2" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Orc.Controls" Version="3.3.0" />
