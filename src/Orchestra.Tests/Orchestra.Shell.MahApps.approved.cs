@@ -128,7 +128,7 @@ namespace Orchestra.Services
     }
     public class MahAppsUIVisualizerService : Catel.Services.UIVisualizerService
     {
-        public MahAppsUIVisualizerService(Catel.MVVM.IViewLocator viewLocator) { }
+        public MahAppsUIVisualizerService(Catel.MVVM.IViewLocator viewLocator, Catel.Services.IDispatcherService dispatcherService) { }
         protected override System.Threading.Tasks.Task<System.Nullable<bool>> ShowWindowAsync(System.Windows.FrameworkElement window, object data, bool showModal) { }
     }
     public class ShellConfigurationService : Orchestra.Services.IShellConfigurationService
