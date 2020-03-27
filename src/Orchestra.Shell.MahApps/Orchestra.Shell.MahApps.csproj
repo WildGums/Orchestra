@@ -25,7 +25,7 @@
   <ItemGroup>
     <PackageReference Include="Catel.Analyzers" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="Catel.Fody" Version="4.3.0" PrivateAssets="all" />
-    <PackageReference Include="Catel.MVVM" Version="5.12.4-beta0014" />
+    <PackageReference Include="Catel.MVVM" Version="5.12.4" />
     <PackageReference Include="ControlzEx" Version="4.2.2" />
     <PackageReference Include="Costura.Fody" Version="4.1.0" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="6.1.1" PrivateAssets="all">
@@ -33,7 +33,7 @@
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.4.0" PrivateAssets="all" />
     <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0748" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.4.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.5.0" />
     <PackageReference Include="MethodTimer.Fody" Version="3.1.2" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Orc.Controls" Version="3.4.0-alpha0317" />
