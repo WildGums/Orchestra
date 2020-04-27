@@ -71,8 +71,8 @@
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                     <LinearGradientBrush.GradientStops>
                         <GradientStopCollection>
-                            <GradientStop Color="{orccontrols:AccentColor AccentColorStyle=AccentColor5}" Offset="0.0" />
-                            <GradientStop Color="{orccontrols:AccentColor AccentColorStyle=AccentColor4}" Offset="1.0" />
+                            <GradientStop Color="{orccontrols:ThemeColor ThemeColorStyle=AccentColor20}" Offset="0.0" />
+                            <GradientStop Color="{orccontrols:ThemeColor ThemeColorStyle=AccentColor40}" Offset="1.0" />
                         </GradientStopCollection>
                     </LinearGradientBrush.GradientStops>
                 </LinearGradientBrush>
@@ -113,7 +113,7 @@
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"
                                                                       Storyboard.TargetName="HeaderBorder">
-                                            <EasingColorKeyFrame KeyTime="0" Value="{orccontrols:AccentColor AccentColorStyle=AccentColor3}" />
+                                            <EasingColorKeyFrame KeyTime="0" Value="{orccontrols:ThemeColor ThemeColorStyle=AccentColor40}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -130,9 +130,9 @@
                                                      EndPoint="0,1">
                                     <LinearGradientBrush.GradientStops>
                                         <GradientStopCollection>
-                                            <GradientStop Color="{orccontrols:AccentColor AccentColorStyle=AccentColor3}"
+                                            <GradientStop Color="{orccontrols:ThemeColor ThemeColorStyle=AccentColor40}"
                                                           Offset="0.0" />
-                                            <GradientStop Color="{orccontrols:AccentColor AccentColorStyle=AccentColor}"
+                                            <GradientStop Color="{orccontrols:ThemeColor ThemeColorStyle=AccentColor}"
                                                           Offset="1.0" />
                                         </GradientStopCollection>
                                     </LinearGradientBrush.GradientStops>
@@ -144,9 +144,9 @@
                                                      EndPoint="0,1">
                                     <LinearGradientBrush.GradientStops>
                                         <GradientStopCollection>
-                                            <GradientStop Color="{orccontrols:AccentColor AccentColorStyle=AccentColor3}"
+                                            <GradientStop Color="{orccontrols:ThemeColor ThemeColorStyle=AccentColor40}"
                                                           Offset="0.0" />
-                                            <GradientStop Color="{orccontrols:AccentColor AccentColorStyle=AccentColor2}"
+                                            <GradientStop Color="{orccontrols:ThemeColor ThemeColorStyle=AccentColor60}"
                                                           Offset="1.0" />
                                         </GradientStopCollection>
                                     </LinearGradientBrush.GradientStops>
@@ -193,16 +193,16 @@
                             <Border Name="HeaderBorder"
                                     BorderThickness="0,1,0,1">
                                 <Border.Background>
-                                    <SolidColorBrush Color="{orccontrols:AccentColor AccentColorStyle=AccentColor3}" />
+                                    <SolidColorBrush Color="{orccontrols:ThemeColor ThemeColorStyle=AccentColor40}" />
                                 </Border.Background>
                                 <Border.BorderBrush>
                                     <LinearGradientBrush StartPoint="0,0"
                                                          EndPoint="0,1">
                                         <LinearGradientBrush.GradientStops>
                                             <GradientStopCollection>
-                                                <GradientStop Color="{orccontrols:AccentColor AccentColorStyle=AccentColor3}"
+                                                <GradientStop Color="{orccontrols:ThemeColor ThemeColorStyle=AccentColor40}"
                                                               Offset="0.0" />
-                                                <GradientStop Color="{orccontrols:AccentColor AccentColorStyle=AccentColor}"
+                                                <GradientStop Color="{orccontrols:ThemeColor ThemeColorStyle=AccentColor}"
                                                               Offset="1.0" />
                                             </GradientStopCollection>
                                         </LinearGradientBrush.GradientStops>

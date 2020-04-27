@@ -17,6 +17,7 @@ using Orchestra;
 using Orchestra.Collections;
 using Orchestra.Layers;
 using Orchestra.Services;
+using Orchestra.Theming;
 using Orchestra.Tooltips;
 using Orchestra.ViewModels;
 using Orchestra.Views;
@@ -56,15 +57,17 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<ICommandInfoService, CommandInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IManageAppDataService, ManageAppDataService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IEnsureStartupService, EnsureStartupService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<IAccentColorService, AccentColorService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutInfoService, AboutInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IClipboardService, ClipboardService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();
+        serviceLocator.RegisterType<IMessageService, Orchestra.Services.MessageService>();
+
+        // Theming
+        serviceLocator.RegisterTypeIfNotYetRegistered<IAccentColorService, AccentColorService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IBaseColorSchemeService, BaseColorSchemeService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IThemeService, ThemeService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();
-
-        serviceLocator.RegisterType<IMessageService, Orchestra.Services.MessageService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IThemeManager, ThemeManager>();
 
         // Hints system
         serviceLocator.RegisterType<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>();
@@ -83,6 +86,7 @@ public static class ModuleInitializer
 
         var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Catel", "https://www.catelproject.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.catel.txt"));
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx/", "ControlzEx", "ControlzEx", "Resources.ThirdPartyNotices.controlzex.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("DotNetZip", string.Empty, "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.dotnetzip.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Orchestra", "https://opensource.wildgums.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.orchestra.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Ricciolo", string.Empty, "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.ricciolo.txt"));

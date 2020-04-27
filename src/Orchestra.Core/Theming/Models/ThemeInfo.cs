@@ -1,4 +1,4 @@
-﻿namespace Orchestra
+﻿namespace Orchestra.Theming
 {
     using System.Windows.Media;
 

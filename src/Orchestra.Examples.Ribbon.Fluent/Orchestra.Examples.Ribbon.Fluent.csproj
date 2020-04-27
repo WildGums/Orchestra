@@ -25,12 +25,10 @@
     <PackageReference Include="Catel.Analyzers" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="Catel.MVVM" Version="5.12.5" />
     <PackageReference Include="Catel.Fody" Version="4.3.0" PrivateAssets="all" />
-    <PackageReference Include="ControlzEx" Version="4.2.2" />
-    <PackageReference Include="Fluent.Ribbon" Version="7.1.0" />
+    <PackageReference Include="Fluent.Ribbon" Version="7.2.0-alpha0024" />
     <PackageReference Include="Fody" Version="6.1.1" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Orc.Controls" Version="3.4.0-alpha0330" />
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.4.0" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="5.2.1" PrivateAssets="all" />

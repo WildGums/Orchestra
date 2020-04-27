@@ -3,6 +3,10 @@
                     xmlns:catel="http://schemas.catelproject.com"
                     xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.wpf.defaultstyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
     <!-- Converters -->
     <catel:BooleanToGrayscaleConverter x:Key="BooleanToGrayscaleConverter" />
     <catel:BooleanToHidingVisibilityConverter x:Key="BooleanToHidingVisibilityConverter" />

@@ -7,15 +7,14 @@
     using Catel.Data;
     using Catel.MVVM;
     using Catel.Reflection;
-    using Orc.Controls.Services;
-    using Orchestra.Services;
+    using Orchestra.Theming;
 
     public class ControlsViewModel : ViewModelBase
     {
-        private readonly Orc.Controls.Services.IAccentColorService _accentColorService;
+        private readonly IAccentColorService _accentColorService;
         private readonly IBaseColorSchemeService _baseColorSchemeService;
 
-        public ControlsViewModel(Orc.Controls.Services.IAccentColorService accentColorService, IBaseColorSchemeService baseColorSchemeService)
+        public ControlsViewModel(IAccentColorService accentColorService, IBaseColorSchemeService baseColorSchemeService)
         {
             Argument.IsNotNull(() => accentColorService);
             Argument.IsNotNull(() => baseColorSchemeService);

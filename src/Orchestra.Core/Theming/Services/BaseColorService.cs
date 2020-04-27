@@ -1,15 +1,20 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra.Theming
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Catel;
 
     public class BaseColorSchemeService : IBaseColorSchemeService
     {
+        private readonly ControlzEx.Theming.ThemeManager _themeManager;
+
         private string _baseColorScheme = null;
+
+        public BaseColorSchemeService()
+        {
+            _themeManager = ControlzEx.Theming.ThemeManager.Current;
+        }
 
         public string GetBaseColorScheme() => _baseColorScheme ?? (_baseColorScheme = GetAvailableBaseColorSchemes()[0]);
 
@@ -31,11 +36,13 @@
 
         public virtual IReadOnlyList<string> GetAvailableBaseColorSchemes()
         {
-            return new List<string>()
+            var baseColors = _themeManager.BaseColors;
+            if (baseColors.Count > 0)
             {
-                OrchestraEnvironment.LightBaseColorScheme,
-                OrchestraEnvironment.DarkBaseColorScheme
-            }.AsReadOnly();
+                return baseColors;
+            }
+
+            return new[] { "Light", "Dark" }; 
         }
     }
 }

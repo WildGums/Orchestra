@@ -1,0 +1,1 @@
+﻿Note: try to use as much from the ControlzEx ThemeManager as possible, see https://github.com/WildGums/Orchestra/issues/273

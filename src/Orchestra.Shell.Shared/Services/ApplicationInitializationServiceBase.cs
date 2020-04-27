@@ -13,6 +13,7 @@ namespace Orchestra.Services
     using Catel.Logging;
     using Catel.Threading;
     using MethodTimer;
+    using Orchestra.Theming;
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService
     {
@@ -26,10 +27,11 @@ namespace Orchestra.Services
 
             var serviceLocator = this.GetServiceLocator();
             var themeService = serviceLocator.ResolveType<IThemeService>();
+            var themeManager = serviceLocator.ResolveType<IThemeManager>();
 
             // Note: we only have to create style forwarders once
-            ThemeHelper.EnsureApplicationThemes(typeof(ApplicationInitializationServiceBase).Assembly, false);
-            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, false);
+            themeManager.EnsureApplicationThemes(typeof(ApplicationInitializationServiceBase).Assembly, false);
+            themeManager.EnsureApplicationThemes(GetType().Assembly, false);
 
             if (themeService.ShouldCreateStyleForwarders())
             {

@@ -1,4 +1,4 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra.Theming
 {
     using System;
     using System.Collections.Generic;

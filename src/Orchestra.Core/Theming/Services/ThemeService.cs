@@ -1,19 +1,13 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ThemeService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Theming
 {
     using Catel;
 
     public class ThemeService : IThemeService
     {
-        private readonly Orc.Controls.Services.IAccentColorService _accentColorService;
+        private readonly IAccentColorService _accentColorService;
         private readonly IBaseColorSchemeService _baseColorSchemeService;
 
-        public ThemeService(Orc.Controls.Services.IAccentColorService accentColorService,IBaseColorSchemeService baseColorSchemeService)
+        public ThemeService(IAccentColorService accentColorService, IBaseColorSchemeService baseColorSchemeService)
         {
             Argument.IsNotNull(() => accentColorService);
             Argument.IsNotNull(() => baseColorSchemeService);
