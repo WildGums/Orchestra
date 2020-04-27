@@ -56,68 +56,6 @@ namespace Orchestra
 
             return button;
         }
-
-        /// <summary>
-        /// Creates the window command button.
-        /// </summary>
-        /// <param name="style">The style.</param>
-        /// <param name="label">The label.</param>
-        /// <returns>The right button.</returns>
-        [ObsoleteEx(ReplacementTypeOrMember = "CreateWindowCommandButton(FrameworkElement, string)", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
-        public static Button CreateWindowCommandButton(string style, string label)
-        {
-            Argument.IsNotNullOrWhitespace(() => style);
-
-            var button = new Button();
-            button.Content = CreateWindowCommandRectangle(button, style);
-
-            if (!string.IsNullOrEmpty(label))
-            {
-                button.ToolTip = label;
-            }
-
-            return button;
-        }
-
-        /// <summary>
-        /// Creates the window command rectangle.
-        /// </summary>
-        /// <param name="parentButton">The parent button.</param>
-        /// <param name="style">The style.</param>
-        /// <returns>Rectangle.</returns>
-        [ObsoleteEx(ReplacementTypeOrMember = "Use MahApps.Metro.IconPacks, see https://mahapps.com/guides/icons-and-resources.html", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
-        public static Rectangle CreateWindowCommandRectangle(Button parentButton, string style)
-        {
-            Argument.IsNotNull(() => parentButton);
-            Argument.IsNotNullOrWhitespace(() => style);
-
-            var rectangle = new Rectangle
-            {
-                Width = 16d,
-                Height = 16d,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Stretch = Stretch.UniformToFill
-            };
-
-            rectangle.SetBinding(Rectangle.FillProperty, new Binding(nameof(Button.Foreground))
-            {
-                Source = parentButton,
-                Mode = BindingMode.OneWay
-            });
-
-            var application = Application.Current;
-            if (application != null)
-            {
-                rectangle.OpacityMask = new VisualBrush
-                {
-                    //Stretch = Stretch.Fill,
-                    Visual = application.FindResource(style) as Visual
-                };
-            }
-
-            return rectangle;
-        }
         #endregion
     }
 }

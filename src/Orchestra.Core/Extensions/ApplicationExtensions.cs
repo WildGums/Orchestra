@@ -9,7 +9,9 @@ namespace Orchestra
 {
     using System.Windows;
     using Catel;
+    using Catel.IoC;
     using Catel.Reflection;
+    using Orchestra.Theming;
 
     public static class ApplicationExtensions
     {
@@ -17,7 +19,9 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => application);
 
-            ThemeHelper.EnsureApplicationThemes(application.GetType().GetAssemblyEx(), createStyleForwarders);
+            var serviceLocator = ServiceLocator.Default;
+            var themeManager = serviceLocator.ResolveType<IThemeManager>();
+            themeManager.EnsureApplicationThemes(application.GetType().GetAssemblyEx(), createStyleForwarders);
         }
     }
 }
