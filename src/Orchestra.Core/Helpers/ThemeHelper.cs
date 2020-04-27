@@ -23,6 +23,8 @@ namespace Orchestra
     using System.Collections.Generic;
     using Catel.Reflection;
     using Orchestra.Themes;
+    using Catel.Windows;
+    using System.Collections;
 
     [ObsoleteEx(TreatAsErrorFromVersion = "5.2", RemoveInVersion = "6.0", ReplacementTypeOrMember = "Orc.Controls.AccentColorStyle")]
     public enum AccentColorStyle
@@ -98,20 +100,6 @@ namespace Orchestra
             }
 
             return Orc.Controls.ThemeColorStyle.AccentColor;
-        }
-
-        /// <summary>
-        ///     Determining Ideal Text Color Based on Specified Background Color
-        ///     http://www.codeproject.com/KB/GDI-plus/IdealTextColor.aspx
-        /// </summary>
-        /// <param name="color">The bg.</param>
-        /// <returns></returns>
-        private static Color GetIdealTextColor(Color color)
-        {
-            const int nThreshold = 105;
-            var bgDelta = Convert.ToInt32((color.R * 0.299) + (color.G * 0.587) + (color.B * 0.114));
-            var foreColor = (255 - bgDelta < nThreshold) ? Colors.Black : Colors.White;
-            return foreColor;
         }
 
         /// <summary>
@@ -215,25 +203,30 @@ namespace Orchestra
 
             try
             {
-                var uri = new Uri(resourceDictionaryUri, UriKind.RelativeOrAbsolute);
-
-                var application = Application.Current;
-                if (application is null)
+                // Check whether this uri exists in order to prevent first chance exceptions
+                var resourceExists = IsResourceDictionaryAvailable(resourceDictionaryUri);
+                if (resourceExists)
                 {
-                    throw Log.ErrorAndCreateException<OrchestraException>("Application.Current is null, cannot ensure application themes");
-                }
+                    var uri = new Uri(resourceDictionaryUri, UriKind.RelativeOrAbsolute);
 
-                var existingDictionary = (from dic in application.Resources.MergedDictionaries
-                                          where dic.Source != null && dic.Source == uri
-                                          select dic).FirstOrDefault();
-                if (existingDictionary is null)
-                {
-                    existingDictionary = new ResourceDictionary
+                    var application = Application.Current;
+                    if (application is null)
                     {
-                        Source = uri
-                    };
+                        throw Log.ErrorAndCreateException<OrchestraException>("Application.Current is null, cannot ensure application themes");
+                    }
 
-                    application.Resources.MergedDictionaries.Add(existingDictionary);
+                    var existingDictionary = (from dic in application.Resources.MergedDictionaries
+                                              where dic.Source != null && dic.Source == uri
+                                              select dic).FirstOrDefault();
+                    if (existingDictionary is null)
+                    {
+                        existingDictionary = new ResourceDictionary
+                        {
+                            Source = uri
+                        };
+
+                        application.Resources.MergedDictionaries.Add(existingDictionary);
+                    }
                 }
 
                 if (createStyleForwarders)
@@ -245,6 +238,56 @@ namespace Orchestra
             {
                 Log.Warning(ex, "Failed to add application theme '{0}'", resourceDictionaryUri);
             }
+        }
+
+        /// <summary>
+        /// Checks whether the specified resource dictionary is available as resource.
+        /// </summary>
+        /// <param name="resourceDictionaryUri">The resource dictionary uri.</param>
+        /// <returns></returns>
+        public static bool IsResourceDictionaryAvailable(string resourceDictionaryUri)
+        {
+            var expectedResourceNames = resourceDictionaryUri.Split(new[] { ";component/" }, StringSplitOptions.RemoveEmptyEntries);
+            if (expectedResourceNames.Length == 2)
+            {
+                // Part 1 is assembly
+                var assemblyName = expectedResourceNames[0].Replace("/", string.Empty);
+                var assembly = (from x in AppDomain.CurrentDomain.GetAssemblies()
+                                where x.GetName().Name.EqualsIgnoreCase(assemblyName)
+                                select x).FirstOrDefault();
+                if (assembly != null)
+                {
+                    // Orchestra.Core.g.resources
+                    var generatedResourceName = $"{assembly.GetName().Name}.g.resources";
+
+                    using (var resourceStream = assembly.GetManifestResourceStream(generatedResourceName))
+                    {
+                        if (resourceStream is null)
+                        {
+                            Log.Debug($"Could not find generated resources @ '{generatedResourceName}', assuming the resource dictionary '{resourceDictionaryUri}' does not exist");
+                            return false;
+                        }
+
+                        var relativeResourceName = expectedResourceNames[1].Replace(".xaml", ".baml");
+
+                        using (var reader = new System.Resources.ResourceReader(resourceStream))
+                        {
+                            var exists = (from x in reader.Cast<DictionaryEntry>()
+                                          where ((string)x.Key).EqualsIgnoreCase(relativeResourceName)
+                                          select x).Any();
+                            if (exists)
+                            {
+                                Log.Debug($"Resource '{resourceDictionaryUri}' exists");
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            Log.Debug($"Failed to confirm that resource '{resourceDictionaryUri}' exists");
+
+            return false;
         }
 
         /// <summary>

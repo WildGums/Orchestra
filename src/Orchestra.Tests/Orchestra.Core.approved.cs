@@ -177,6 +177,7 @@ namespace Orchestra
         [System.ObsoleteAttribute("Use `Orc.Controls.ThemeHelper` instead. Will be removed in version 6.0.0.", true)]
         public static System.Windows.Media.SolidColorBrush GetAccentColorBrush() { }
         public static System.Windows.ResourceDictionary GetAccentColorResourceDictionary() { }
+        public static bool IsResourceDictionaryAvailable(string resourceDictionaryUri) { }
     }
     public class ThemeInfo
     {
