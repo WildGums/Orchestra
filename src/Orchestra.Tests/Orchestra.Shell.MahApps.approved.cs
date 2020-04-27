@@ -18,22 +18,10 @@ namespace Orchestra
         public static void Show(this MahApps.Metro.Controls.Dialogs.BaseMetroDialog dialog) { }
         public static void ShowModal(this MahApps.Metro.Controls.Dialogs.BaseMetroDialog dialog) { }
     }
-    public class static MahAppsThemeHelper
-    {
-        public static System.Windows.ResourceDictionary CreateTheme(string baseColorScheme, System.Windows.Media.Color accentBaseColor, string name = null, bool changeImmediately = False) { }
-        public static string GenerateThemeName(string baseColorScheme, System.Windows.Media.Color accentBaseColor, System.Windows.Media.Color highlightColor) { }
-        public static string GetResourceDictionaryContent(System.Windows.ResourceDictionary resourceDictionary) { }
-    }
     public class static WindowCommandHelper
     {
         public static System.Windows.Controls.Button CreateWindowCommandButton(MahApps.Metro.IconPacks.PackIconBase packIcon, string label) { }
         public static System.Windows.Controls.Button CreateWindowCommandButton(System.Windows.FrameworkElement content, string label) { }
-        [System.ObsoleteAttribute("Use `CreateWindowCommandButton(FrameworkElement, string)` instead. Will be remove" +
-            "d in version 6.0.0.", true)]
-        public static System.Windows.Controls.Button CreateWindowCommandButton(string style, string label) { }
-        [System.ObsoleteAttribute("Use `Use MahApps.Metro.IconPacks, see https://mahapps.com/guides/icons-and-resour" +
-            "ces.html` instead. Will be removed in version 6.0.0.", true)]
-        public static System.Windows.Shapes.Rectangle CreateWindowCommandRectangle(System.Windows.Controls.Button parentButton, string style) { }
     }
 }
 namespace Orchestra.Models
@@ -107,19 +95,10 @@ namespace Orchestra.Services
         Orchestra.Views.IShell Shell { get; }
         System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell;
-        [System.ObsoleteAttribute("App is now constructed with splash by default. Splash can be hidden by using Show" +
-            "Splash = false. Will be removed in version 6.0.0.", true)]
-        System.Threading.Tasks.Task<TShell> CreateWithSplashAsync<TShell>()
-            where TShell :  class, Orchestra.Views.IShell;
     }
     public class MahAppsAboutService : Orchestra.Services.AboutService
     {
         public MahAppsAboutService(Catel.Services.IUIVisualizerService uiVisualizerService, Orchestra.Services.IAboutInfoService aboutInfoService) { }
-    }
-    public class MahAppsBaseColorSchemeService : Orchestra.Services.BaseColorSchemeService
-    {
-        public MahAppsBaseColorSchemeService() { }
-        public override System.Collections.Generic.IReadOnlyList<string> GetAvailableBaseColorSchemes() { }
     }
     public class MahAppsMessageService : Catel.Services.MessageService
     {
@@ -142,19 +121,6 @@ namespace Orchestra.Services
         public Orchestra.Views.IShell Shell { get; }
         public System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }
-        [System.ObsoleteAttribute("App is now constructed with splash by default. Splash can be hidden by using Show" +
-            "Splash = false. Will be removed in version 6.0.0.", true)]
-        public System.Threading.Tasks.Task<TShell> CreateWithSplashAsync<TShell>()
-            where TShell :  class, Orchestra.Views.IShell { }
-    }
-}
-namespace Orchestra.Themes
-{
-    public class MahAppsShellTheme : Orchestra.Themes.IShellTheme
-    {
-        public MahAppsShellTheme(Orc.Controls.Services.IAccentColorService accentColorService, Orchestra.Services.IThemeService themeService, Orchestra.Services.IBaseColorSchemeService baseColorSchemeService) { }
-        public void ApplyTheme(Orchestra.ThemeInfo themeInfo) { }
-        public System.Windows.ResourceDictionary CreateResourceDictionary(Orchestra.ThemeInfo themeInfo) { }
     }
 }
 namespace Orchestra.ViewModels
