@@ -802,13 +802,6 @@ namespace Orchestra.Theming
         public virtual bool ShouldCreateStyleForwarders() { }
     }
 }
-namespace Orchestra.Theming.Watchers
-{
-    public class ThemeSynchronizationWatcher
-    {
-        public ThemeSynchronizationWatcher() { }
-    }
-}
 namespace Orchestra.Tooltips
 {
     public class AdorneredTooltip : Orchestra.Tooltips.IAdorneredTooltip
