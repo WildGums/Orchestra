@@ -7,6 +7,8 @@
     using Catel;
     using Catel.Logging;
     using System.Collections;
+    using ControlzEx.Theming;
+    using MethodTimer;
 
     public class ThemeManager : IThemeManager
     {
@@ -47,7 +49,6 @@
 
             EnsureOrchestraTheme(false);
 
-            var application = Application.Current;
             var themeGenerator = ControlzEx.Theming.RuntimeThemeGenerator.Current;
 
             var generatedTheme = themeGenerator.GenerateRuntimeTheme(_baseColorSchemeService.GetBaseColorScheme(), _accentColorService.GetAccentColor());
@@ -56,7 +57,13 @@
                 throw Log.ErrorAndCreateException<InvalidOperationException>($"Failed to generate runtime theme");
             }
 
-            _themeManager.ChangeTheme(application, generatedTheme);
+            ChangeTheme(generatedTheme);
+        }
+
+        [Time]
+        private void ChangeTheme(Theme generatedTheme)
+        {
+            _themeManager.ChangeTheme(Application.Current, generatedTheme);
         }
 
         /// <summary>
