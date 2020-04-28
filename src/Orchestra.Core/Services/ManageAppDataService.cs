@@ -10,7 +10,6 @@ namespace Orchestra.Services
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
