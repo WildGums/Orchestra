@@ -3,13 +3,37 @@
                     xmlns:catel="http://schemas.catelproject.com"
                     xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
+    <ResourceDictionary.MergedDictionaries>
+        <!-- All wpf controls restyled with accent colors -->
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.implicit.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.button.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.checkbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.combobox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.gridsplitter.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.groupbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.label.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.listbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.listview.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.passwordbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.progressbar.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.radiobutton.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.repeatbutton.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.richtextbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.slider.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.tabcontrol.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.textblock.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.textbox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.togglebutton.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.treeview.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
     <!-- Converters -->
     <catel:BooleanToGrayscaleConverter x:Key="BooleanToGrayscaleConverter" />
     <catel:BooleanToHidingVisibilityConverter x:Key="BooleanToHidingVisibilityConverter" />
     <catel:GetFirstValidationErrorConverter x:Key="GetFirstValidationErrorConverter" />
 
     <!-- Buttons -->
-    <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+    <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource Orchestra.Styles.Button}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Button}" />
         <Setter Property="Height" Value="{DynamicResource Size.Height}" />
         <Setter Property="UseLayoutRounding" Value="True" />
@@ -37,7 +61,7 @@
     </Style>
 
     <!-- CheckBox -->
-    <Style x:Key="DefaultCheckBoxStyle" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource {x:Type CheckBox}}">
+    <Style x:Key="DefaultCheckBoxStyle" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource Orchestra.Styles.CheckBox}">
         <Setter Property="Margin" Value="{DynamicResource Margin.CheckBox}" />
         <Setter Property="Height" Value="{DynamicResource Size.Height}" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -67,7 +91,7 @@
     </Style>
 
     <!-- ComboBox -->
-    <Style x:Key="DefaultComboBoxStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+    <Style x:Key="DefaultComboBoxStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource Orchestra.Styles.ComboBox}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
         <Setter Property="Height" Value="{DynamicResource Size.Height}" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -96,40 +120,43 @@
         </Style.Triggers>
     </Style>
 
-    <!-- DocumentViewer -->
-    <Style x:Key="DefaultDocumentViewerStyle" TargetType="{x:Type DocumentViewer}" BasedOn="{StaticResource {x:Type DocumentViewer}}">
-        <!--<Setter Property="Background" Value="AliceBlue" />-->
-    </Style>    
-
     <!-- GroupBox -->
-    <Style x:Key="DefaultGroupBoxStyle" TargetType="{x:Type GroupBox}" BasedOn="{StaticResource {x:Type GroupBox}}">
+    <Style x:Key="DefaultGroupBoxStyle" TargetType="{x:Type GroupBox}" BasedOn="{StaticResource Orchestra.Styles.GroupBox}">
         <Setter Property="BorderBrush" Value="#888" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Margin" Value="{DynamicResource Margin.GroupBox}" />
     </Style>
 
     <!-- Label -->
-    <Style x:Key="DefaultLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+    <Style x:Key="DefaultLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource Orchestra.Styles.Label}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Label}" />
         <Setter Property="Padding" Value="{DynamicResource Padding.Label}" />
     </Style>
 
     <!-- ListBox -->
-    <Style x:Key="DefaultListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource {x:Type ListBox}}">
+    <Style x:Key="DefaultListBoxStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource Orchestra.Styles.ListBox}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
+    </Style>
+
+    <!-- ListBox item -->
+    <Style x:Key="DefaultListBoxItemStyle" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource Orchestra.Styles.ListBoxItem}">
     </Style>
 
     <!-- ListView -->
-    <Style x:Key="DefaultListViewStyle" TargetType="{x:Type ListView}">
+    <Style x:Key="DefaultListViewStyle" TargetType="{x:Type ListView}" BasedOn="{StaticResource Orchestra.Styles.ListView}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
     </Style>
 
-    <!-- Menu item -->
-    <Style x:Key="DefaultMenuItemStyle" TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
+    <!-- ListView item -->
+    <Style x:Key="DefaultListViewItemStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource Orchestra.Styles.ListViewItem}">
     </Style>
+    
+    <!-- Menu item -->
+    <!--<Style x:Key="DefaultMenuItemStyle" TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
+    </Style>-->
 
     <!-- PasswordBox -->
-    <Style x:Key="DefaultPasswordBoxStyle" TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource {x:Type PasswordBox}}">
+    <Style x:Key="DefaultPasswordBoxStyle" TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource Orchestra.Styles.PasswordBox}">
         <Setter Property="Height" Value="{DynamicResource Size.Height}" />
         <Setter Property="Padding" Value="{DynamicResource Padding.TextBox}" />
         <Setter Property="Margin" Value="{DynamicResource Margin.TextBox}" />
@@ -157,14 +184,14 @@
     </Style>
 
     <!-- Progress bar -->
-    <Style x:Key="DefaultProgressBarStyle" TargetType="{x:Type ProgressBar}" BasedOn="{StaticResource {x:Type ProgressBar}}">
+    <Style x:Key="DefaultProgressBarStyle" TargetType="{x:Type ProgressBar}" BasedOn="{StaticResource Orchestra.Styles.ProgressBar}">
         <Setter Property="Height" Value="{DynamicResource Size.Height}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
     </Style>
 
     <!-- RadioButton -->
-    <Style x:Key="DefaultRadioButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type RadioButton}}">
+    <Style x:Key="DefaultRadioButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource Orchestra.Styles.RadioButton}">
         <Setter Property="Margin" Value="{DynamicResource Margin.RadioButton}" />
         <Setter Property="Height" Value="{DynamicResource Size.Height}" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -192,14 +219,14 @@
     </Style>
 
     <!-- RepeatButton -->
-    <Style x:Key="DefaultRepeatButtonStyle" TargetType="{x:Type RepeatButton}" BasedOn="{StaticResource {x:Type RepeatButton}}">
+    <Style x:Key="DefaultRepeatButtonStyle" TargetType="{x:Type RepeatButton}" BasedOn="{StaticResource Orchestra.Styles.RepeatButton}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Button}" />
         <Setter Property="Height" Value="{DynamicResource Size.Height}" />
         <Setter Property="UseLayoutRounding" Value="True" />
     </Style>
 
     <!-- RichTextBox -->
-    <Style x:Key="DefaultRichTextBoxStyle" TargetType="{x:Type RichTextBox}">
+    <Style x:Key="DefaultRichTextBoxStyle" TargetType="{x:Type RichTextBox}" BasedOn="{StaticResource Orchestra.Styles.RichTextBox}">
         <Setter Property="MinHeight" Value="{DynamicResource Size.MinHeight}" />
         <Setter Property="Padding" Value="{DynamicResource Padding.TextBox}" />
         <Setter Property="Margin" Value="{DynamicResource Margin.TextBox}" />
@@ -208,25 +235,29 @@
     </Style>
 
     <!-- Slider -->
-    <Style x:Key="DefaultSliderStyle" TargetType="{x:Type Slider}" BasedOn="{StaticResource {x:Type Slider}}">
+    <Style x:Key="DefaultSliderStyle" TargetType="{x:Type Slider}" BasedOn="{StaticResource Orchestra.Styles.Slider}">
         <Setter Property="Height" Value="{DynamicResource Size.Height}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Margin" Value="{DynamicResource Margin.Slider}" />
     </Style>
 
     <!-- TabControl -->
-    <Style x:Key="DefaultTabControlStyle" TargetType="{x:Type TabControl}" BasedOn="{StaticResource {x:Type TabControl}}">
+    <Style x:Key="DefaultTabControlStyle" TargetType="{x:Type TabControl}" BasedOn="{StaticResource Orchestra.Styles.TabControl}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
-    </Style>    
-    
+    </Style>
+
+    <!-- TabItem -->
+    <Style x:Key="DefaultTabItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource Orchestra.Styles.TabItem}">
+    </Style>
+
     <!-- TextBlock -->
-    <Style x:Key="DefaultTextBlockStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+    <Style x:Key="DefaultTextBlockStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource Orchestra.Styles.TextBlock}">
         <Setter Property="Margin" Value="{DynamicResource Margin.TextBlock}" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
     <!-- TextBox -->
-    <Style x:Key="DefaultTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+    <Style x:Key="DefaultTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource Orchestra.Styles.TextBox}">
         <Setter Property="MinHeight" Value="{DynamicResource Size.MinHeight}" />
         <!--<Setter Property="Height" Value="{DynamicResource Size.Height}" />-->
         <Setter Property="Padding" Value="{DynamicResource Padding.TextBox}" />
@@ -257,12 +288,12 @@
     </Style>
 
     <!-- TreeView -->
-    <Style x:Key="DefaultTreeViewStyle" TargetType="{x:Type TreeView}" BasedOn="{StaticResource {x:Type TreeView}}">
+    <Style x:Key="DefaultTreeViewStyle" TargetType="{x:Type TreeView}" BasedOn="{StaticResource Orchestra.Styles.TreeView}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
     </Style>
     
     <!-- ToggleButton -->
-    <Style x:Key="DefaultToggleButtonStyle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}">
+    <Style x:Key="DefaultToggleButtonStyle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource Orchestra.Styles.ToggleButton}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Button}" />
         <Setter Property="Height" Value="{DynamicResource Size.Height}" />
     </Style>

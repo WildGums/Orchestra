@@ -58,7 +58,7 @@ namespace Orchestra
             Argument.IsNotNull("applicationResourceDictionary", applicationResourceDictionary);
             Argument.IsNotNullOrWhitespace("defaultPrefix", defaultPrefix);
 
-            if (Application.Current == null)
+            if (Application.Current is null)
             {
                 try
                 {
@@ -147,6 +147,7 @@ namespace Orchestra
         /// <exception cref="ArgumentNullException">The <paramref name="sourceResources" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="targetResources" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">The <paramref name="defaultPrefix" /> is <c>null</c> or whitespace.</exception>
+        [Time]
         public static void CreateStyleForwardersForDefaultStyles(ResourceDictionary rootResourceDictionary, ResourceDictionary sourceResources,
             ResourceDictionary targetResources, string defaultPrefix = DefaultKeyPrefix, bool recreateStylesBasedOnTheme = false)
         {
@@ -155,45 +156,41 @@ namespace Orchestra
             Argument.IsNotNull("targetResources", targetResources);
             Argument.IsNotNullOrWhitespace("defaultPrefix", defaultPrefix);
 
-            var defaultStyles = FindDefaultStyles(sourceResources, defaultPrefix).ToList();
+            var foundDefaultStyles = FindDefaultStyles(sourceResources, defaultPrefix).ToList();
 
-            for (var i = 0; i < defaultStyles.Count; i++)
+            // Important: invert order and skip duplicates
+            var defaultStylesDictionary = new Dictionary<string, StyleInfo>();
+
+            for (var i = foundDefaultStyles.Count - 1; i >= 0; i--)
             {
-                var defaultStyle = defaultStyles[i];
+                var styleInfo = foundDefaultStyles[i];
+
+                if (defaultStylesDictionary.TryGetValue(styleInfo.SourceKey, out var existingStyleInfo))
+                {
+                    Log.Debug($"Default style for '{styleInfo.TargetType.Name}' already coming from '{existingStyleInfo.SourceDictionary}', ignoring registration from '{styleInfo.SourceDictionary}'");
+                    continue;
+                }
+
+                defaultStylesDictionary[styleInfo.SourceKey] = styleInfo;
+            }
+
+            // Important note: Styles are coming from Orchestra.Core (implicit) by default. In some cases (such as MahApps, or any other UI lib) 
+            // we need to override these styles and ignore them (remove them).
+            // 
+            // Option A: [Orchestra.Core | Style with {x:Type Button}]                ===\
+            //                                                                            ===> [Orchestra.Core | DefaultStyles.xaml with margins] ===> [Final style with key {x:Type Button}]
+            // Option B: [Orchestra.Shell.MahApps | Style with "DefaultButtonStyle"]  ===/
+
+            foreach (var styleInfoKeyValuePair in defaultStylesDictionary)
+            {
+                var defaultStyle = styleInfoKeyValuePair.Value.Style;
 
                 try
                 {
-                    var baseStyle = defaultStyle;
-
                     var targetType = defaultStyle.TargetType;
                     if (targetType != null)
                     {
-                        // Step 1: if already defined in the target resources, we need to update it
-                        var resourceDictionaryDefiningStyle = FindResourceDictionaryDeclaringType(targetResources, targetType, 2);
-                        if (resourceDictionaryDefiningStyle != null)
-                        {
-                            var existingStyle = resourceDictionaryDefiningStyle[targetType] as Style;
-                            if (existingStyle != null)
-                            {
-                                // Double check whether the style is not sealed, if so, use it as a base style instead
-                                if (!existingStyle.IsSealed)
-                                {
-                                    resourceDictionaryDefiningStyle[targetType] = CompleteStyleWithAdditionalInfo(existingStyle, defaultStyle, false);
-                                    continue;
-                                }
-
-                                // Create a new style with the style forwarders based on the source file
-                                baseStyle = existingStyle;
-                            }
-                        }
-
-                        var style = new Style(targetType, baseStyle);
-
-                        if (!ReferenceEquals(baseStyle, defaultStyle))
-                        {
-                            // Copy the default style stuff
-                            CompleteStyleWithAdditionalInfo(style, defaultStyle, true);
-                        }
+                        var style = new Style(targetType, defaultStyle);
 
                         // Always overwrite
                         targetResources[targetType] = style;
@@ -215,47 +212,6 @@ namespace Orchestra
         }
 
         /// <summary>
-        /// Finds the <see cref="ResourceDictionary"/> declaring the real style for the target type.
-        /// </summary>
-        /// <param name="rootResourceDictionary">The root resource dictionary.</param>
-        /// <param name="targetType">Type of the target.</param>
-        /// <param name="maxDepth">The max depth to search.</param>
-        /// <returns><see cref="ResourceDictionary"/> in which the style is defined, or <c>null</c> if not found.</returns>
-        /// <exception cref="ArgumentNullException">The <paramref name="rootResourceDictionary"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="targetType"/> is <c>null</c>.</exception>
-        private static ResourceDictionary FindResourceDictionaryDeclaringType(ResourceDictionary rootResourceDictionary, Type targetType,
-            int maxDepth = int.MaxValue)
-        {
-            Argument.IsNotNull("rootResourceDictionary", rootResourceDictionary);
-            Argument.IsNotNull("targetType", targetType);
-
-            var styleKey = (from key in rootResourceDictionary.Keys as ICollection<object>
-                            let typeKey = key as Type
-                            where typeKey != null && typeKey == targetType
-                            select typeKey).FirstOrDefault();
-            if (styleKey != null)
-            {
-                return rootResourceDictionary;
-            }
-
-            if (maxDepth > 0)
-            {
-                maxDepth--;
-
-                foreach (var mergedResourceDictionary in rootResourceDictionary.MergedDictionaries)
-                {
-                    var foundResourceDictionary = FindResourceDictionaryDeclaringType(mergedResourceDictionary, targetType, maxDepth);
-                    if (foundResourceDictionary != null)
-                    {
-                        return foundResourceDictionary;
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Finds all the the default styles definitions
         /// </summary>
         /// <param name="sourceResources">The source resources.</param>
@@ -263,12 +219,12 @@ namespace Orchestra
         /// <returns>An enumerable of default styles.</returns>
         /// <exception cref="ArgumentNullException">The <paramref name="sourceResources"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">The <paramref name="defaultPrefix"/> is <c>null</c> or whitespace.</exception>
-        private static IEnumerable<Style> FindDefaultStyles(ResourceDictionary sourceResources, string defaultPrefix)
+        private static IEnumerable<StyleInfo> FindDefaultStyles(ResourceDictionary sourceResources, string defaultPrefix)
         {
             Argument.IsNotNull("sourceResources", sourceResources);
             Argument.IsNotNullOrWhitespace("defaultPrefix", defaultPrefix);
 
-            var styles = new List<Style>();
+            var styles = new List<StyleInfo>();
 
             var keys = (from key in sourceResources.Keys as ICollection<object>
                         let stringKey = key as string
@@ -284,7 +240,13 @@ namespace Orchestra
                     var style = sourceResources[key] as Style;
                     if (style != null)
                     {
-                        styles.Add(style);
+                        styles.Add(new StyleInfo
+                        {
+                            Style = style,
+                            SourceDictionary = sourceResources,
+                            SourceKey = key,
+                            TargetType = style.TargetType,
+                        });
                     }
                 }
                 catch (Exception ex)
@@ -299,63 +261,6 @@ namespace Orchestra
             }
 
             return styles;
-        }
-
-        /// <summary>
-        /// Completes a style with additional info.
-        /// </summary>
-        /// <param name="style">The style.</param>
-        /// <param name="styleWithAdditionalInfo">The style with additional info.</param>
-        /// <param name="updateExistingStyle">If <c>true</c>, the existing style will be updated; otherwise a new style will be created. </param>
-        /// <returns>New completed style.</returns>
-        /// <exception cref="ArgumentNullException">The <paramref name="style"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="styleWithAdditionalInfo"/> is <c>null</c>.</exception>
-        private static Style CompleteStyleWithAdditionalInfo(Style style, Style styleWithAdditionalInfo, bool updateExistingStyle)
-        {
-            Argument.IsNotNull("style", style);
-            Argument.IsNotNull("styleWithAdditionalInfo", styleWithAdditionalInfo);
-
-            var newStyle = style;
-
-            if (!updateExistingStyle)
-            {
-                newStyle = new Style(style.TargetType);
-            }
-
-            #region Copy style with additional info
-            foreach (var setter in styleWithAdditionalInfo.Setters)
-            {
-                newStyle.Setters.Add(setter);
-            }
-
-            foreach (var trigger in styleWithAdditionalInfo.Triggers)
-            {
-                newStyle.Triggers.Add(trigger);
-            }
-            #endregion
-
-            #region Copy original style
-            if (!updateExistingStyle)
-            {
-                foreach (var setter in style.Setters)
-                {
-                    var exists = (from styleSetter in newStyle.Setters
-                                  where setter is Setter && ((Setter)styleSetter).Property == ((Setter)setter).Property
-                                  select styleSetter).Any();
-                    if (!exists)
-                    {
-                        newStyle.Setters.Add(setter);
-                    }
-                }
-
-                foreach (var trigger in style.Triggers)
-                {
-                    newStyle.Triggers.Add(trigger);
-                }
-            }
-            #endregion
-
-            return newStyle;
         }
 
         /// <summary>
@@ -387,13 +292,13 @@ namespace Orchestra
             foreach (var key in keys)
             {
                 var style = resources[key] as Style;
-                if (style == null)
+                if (style is null)
                 {
                     continue;
                 }
 
                 var basedOnType = FindFrameworkElementStyleIsBasedOn(resources.Source, key);
-                if (basedOnType == null)
+                if (basedOnType is null)
                 {
                     continue;
                 }
@@ -597,6 +502,55 @@ namespace Orchestra
             doc.Load(reader);
 
             return doc;
+        }
+
+        private class StyleInfo : IEquatable<StyleInfo>
+        {
+            public StyleInfo()
+            {
+                //Order = UniqueIdentifierHelper.GetUniqueIdentifier(typeof(StyleInfo));
+            }
+
+            //public int Order { get; private set; }
+
+            public Type TargetType { get; set; }
+
+            public ResourceDictionary SourceDictionary { get; set; }
+
+            public string SourceKey { get; set; }
+
+            public Style Style { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                return Equals(obj as StyleInfo);
+            }
+
+            public bool Equals(StyleInfo other)
+            {
+                return other != null &&
+                       SourceKey == other.SourceKey;
+            }
+
+            public override int GetHashCode()
+            {
+                return -1913166433 + EqualityComparer<string>.Default.GetHashCode(SourceKey);
+            }
+
+            public override string ToString()
+            {
+                return $"{TargetType} ({SourceKey} @ {SourceDictionary.Source})";
+            }
+
+            public static bool operator ==(StyleInfo left, StyleInfo right)
+            {
+                return EqualityComparer<StyleInfo>.Default.Equals(left, right);
+            }
+
+            public static bool operator !=(StyleInfo left, StyleInfo right)
+            {
+                return !(left == right);
+            }
         }
     }
 }

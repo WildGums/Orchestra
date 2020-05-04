@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
-    <Style x:Key="Orchestra.Styles.TextBlock" TargetType="{x:Type TextBlock}">
+    <Style x:Key="Orchestra.Styles.Label" TargetType="{x:Type Label}">
 
     </Style>
 

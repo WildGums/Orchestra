@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
-    <Style x:Key="RadioFocusVisual">
+    <Style x:Key="Orchestra.Styles.RadioButton.FocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -15,7 +15,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type RadioButton}">
+    <Style x:Key="Orchestra.Styles.RadioButton" TargetType="{x:Type RadioButton}">
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Template">
@@ -47,7 +47,7 @@
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasContent" Value="true">
-                            <Setter Property="FocusVisualStyle" Value="{StaticResource RadioFocusVisual}"/>
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource Orchestra.Styles.RadioButton.FocusVisual}"/>
                             <Setter Property="Padding" Value="4,0,0,0"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">

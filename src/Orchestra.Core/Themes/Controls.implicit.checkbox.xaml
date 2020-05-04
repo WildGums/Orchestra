@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
-    <Style TargetType="{x:Type CheckBox}">
+    <Style x:Key="Orchestra.Styles.CheckBox" TargetType="{x:Type CheckBox}">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>

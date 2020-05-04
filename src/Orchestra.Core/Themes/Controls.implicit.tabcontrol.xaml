@@ -21,7 +21,7 @@
     <SolidColorBrush x:Key="TabItemDisabledBackground" Color="#F4F4F4"/>
     <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="#FFC9C7BA"/>
 
-    <Style TargetType="{x:Type TabItem}">
+    <Style x:Key="Orchestra.Styles.TabItem" TargetType="{x:Type TabItem}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource TabItemFocusVisual}"/>
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Padding" Value="6,1,6,1"/>
@@ -112,7 +112,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type TabControl}">
+    <Style x:Key="Orchestra.Styles.TabControl" TargetType="{x:Type TabControl}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="Padding" Value="4,4,4,4"/>
         <Setter Property="BorderThickness" Value="1"/>

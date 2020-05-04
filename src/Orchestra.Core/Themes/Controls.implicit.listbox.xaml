@@ -2,7 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
-    <Style TargetType="{x:Type ListBoxItem}">
+    <Style x:Key="Orchestra.Styles.ListBox" TargetType="{x:Type ListBox}">
+        
+    </Style>
+
+    <Style x:Key="Orchestra.Styles.ListBoxItem" TargetType="{x:Type ListBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Padding" Value="4,1"/>
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>

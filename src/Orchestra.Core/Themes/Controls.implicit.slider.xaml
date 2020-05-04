@@ -2,10 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
-    <SolidColorBrush x:Key="SliderTrackNormalBackground" Color="#D4D4D4"/>
-    <SolidColorBrush x:Key="SliderTrackNormalBorder" Color="#D4D4D4"/>
+    <SolidColorBrush x:Key="Orchestra.Styles.Slider.TrackNormalBackground" Color="#D4D4D4"/>
+    <SolidColorBrush x:Key="Orchestra.Styles.Slider.TrackNormalBorder" Color="#D4D4D4"/>
 
-    <Style x:Key="SliderRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
+    <Style x:Key="Orchestra.Styles.Slider.RepeatButtonStyle" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="IsTabStop" Value="false"/>
         <Setter Property="Focusable" Value="false"/>
@@ -18,7 +18,7 @@
         </Setter>
     </Style>
 
-    <ControlTemplate x:Key="ThumbControlTemplate" TargetType="{x:Type Thumb}">
+    <ControlTemplate x:Key="Orchestra.Styles.Slider.ThumbControlTemplate" TargetType="{x:Type Thumb}">
         <Grid>
             <Ellipse x:Name="BackEllipse" Width="13" Height="13" Stroke="#D4D4D4" Fill="#F4F4F4" StrokeThickness="1"/>
             <Ellipse x:Name="ThumbEllipse" Width="13" Height="13" Stroke="#D4D4D4" Fill="#F4F4F4" StrokeThickness="1"/>
@@ -38,24 +38,24 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="VerticalSliderThumbStyle" TargetType="{x:Type Thumb}">
+    <Style x:Key="Orchestra.Styles.Slider.Vertical.ThumbStyle" TargetType="{x:Type Thumb}">
         <Setter Property="Focusable" Value="false"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="Height" Value="15"/>
         <Setter Property="Width" Value="15"/>
-        <Setter Property="Template" Value="{StaticResource ThumbControlTemplate}"/>
+        <Setter Property="Template" Value="{StaticResource Orchestra.Styles.Slider.ThumbControlTemplate}"/>
     </Style>
 
-    <Style x:Key="HorizontalSliderThumbStyle" TargetType="{x:Type Thumb}">
+    <Style x:Key="Orchestra.Styles.Slider.Horizontal.ThumbStyle" TargetType="{x:Type Thumb}">
         <Setter Property="Focusable" Value="false"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="Height" Value="15"/>
         <Setter Property="Width" Value="15"/>
         <Setter Property="Foreground" Value="Gray"/>
-        <Setter Property="Template" Value="{StaticResource ThumbControlTemplate}"/>
+        <Setter Property="Template" Value="{StaticResource Orchestra.Styles.Slider.ThumbControlTemplate}"/>
     </Style>
 
-    <Style TargetType="{x:Type Slider}">
+    <Style x:Key="Orchestra.Styles.Slider" TargetType="{x:Type Slider}">
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="#FFC4C4C4"/>
@@ -77,8 +77,8 @@
                                          Height="4" Placement="Top" Grid.Row="0" Visibility="Collapsed"/>
                             <TickBar x:Name="BottomTick" Fill="{TemplateBinding Foreground}"
                                          Height="4" Placement="Bottom" Grid.Row="2" Visibility="Collapsed"/>
-                            <Border x:Name="TrackBackground" BorderBrush="{StaticResource SliderTrackNormalBorder}"
-                                        BorderThickness="1" Background="{StaticResource SliderTrackNormalBackground}"
+                            <Border x:Name="TrackBackground" BorderBrush="{StaticResource Orchestra.Styles.Slider.TrackNormalBorder}"
+                                        BorderThickness="1" Background="{StaticResource Orchestra.Styles.Slider.TrackNormalBackground}"
                                         CornerRadius="1" Height="3.0" Margin="5,0" Grid.Row="1" VerticalAlignment="center">
                                 <Canvas Margin="-6,-1">
                                     <Rectangle x:Name="PART_SelectionRange"
@@ -89,13 +89,13 @@
                             </Border>
                             <Track x:Name="PART_Track" Grid.Row="1">
                                 <Track.DecreaseRepeatButton>
-                                    <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+                                    <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource Orchestra.Styles.Slider.RepeatButtonStyle}"/>
                                 </Track.DecreaseRepeatButton>
                                 <Track.IncreaseRepeatButton>
-                                    <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+                                    <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource Orchestra.Styles.Slider.RepeatButtonStyle}"/>
                                 </Track.IncreaseRepeatButton>
                                 <Track.Thumb>
-                                    <Thumb x:Name="Thumb" Style="{StaticResource HorizontalSliderThumbStyle}"/>
+                                    <Thumb x:Name="Thumb" Style="{StaticResource Orchestra.Styles.Slider.Horizontal.ThumbStyle}"/>
                                 </Track.Thumb>
                             </Track>
                         </Grid>
@@ -103,12 +103,12 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="TickPlacement" Value="TopLeft">
                             <Setter Property="Visibility" TargetName="TopTick" Value="Visible"/>
-                            <Setter Property="Style" TargetName="Thumb" Value="{StaticResource HorizontalSliderThumbStyle}"/>
+                            <Setter Property="Style" TargetName="Thumb" Value="{StaticResource Orchestra.Styles.Slider.Horizontal.ThumbStyle}"/>
                             <Setter Property="Margin" TargetName="TrackBackground" Value="5,2,5,0"/>
                         </Trigger>
                         <Trigger Property="TickPlacement" Value="BottomRight">
                             <Setter Property="Visibility" TargetName="BottomTick" Value="Visible"/>
-                            <Setter Property="Style" TargetName="Thumb" Value="{StaticResource HorizontalSliderThumbStyle}"/>
+                            <Setter Property="Style" TargetName="Thumb" Value="{StaticResource Orchestra.Styles.Slider.Horizontal.ThumbStyle}"/>
                             <Setter Property="Margin" TargetName="TrackBackground" Value="5,0,5,2"/>
                         </Trigger>
                         <Trigger Property="TickPlacement" Value="Both">
@@ -151,9 +151,9 @@
 												Visibility="Collapsed"
 												Width="4"/>
                                     <Border x:Name="TrackBackground"
-												BorderBrush="{StaticResource SliderTrackNormalBorder}"
+												BorderBrush="{StaticResource Orchestra.Styles.Slider.TrackNormalBorder}"
 												BorderThickness="1"
-												Background="{StaticResource SliderTrackNormalBackground}"
+												Background="{StaticResource Orchestra.Styles.Slider.TrackNormalBackground}"
 												Grid.Column="1" CornerRadius="1" HorizontalAlignment="center"
 												Margin="0,5" Width="3.0">
                                         <Canvas Margin="-1,-6">
@@ -165,13 +165,13 @@
                                     </Border>
                                     <Track x:Name="PART_Track" Grid.Column="1">
                                         <Track.DecreaseRepeatButton>
-                                            <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+                                            <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource Orchestra.Styles.Slider.RepeatButtonStyle}"/>
                                         </Track.DecreaseRepeatButton>
                                         <Track.IncreaseRepeatButton>
-                                            <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+                                            <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource Orchestra.Styles.Slider.RepeatButtonStyle}"/>
                                         </Track.IncreaseRepeatButton>
                                         <Track.Thumb>
-                                            <Thumb x:Name="Thumb" Style="{StaticResource VerticalSliderThumbStyle}"/>
+                                            <Thumb x:Name="Thumb" Style="{StaticResource Orchestra.Styles.Slider.Horizontal.ThumbStyle}"/>
                                         </Track.Thumb>
                                     </Track>
                                 </Grid>
@@ -179,12 +179,12 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="TickPlacement" Value="TopLeft">
                                     <Setter Property="Visibility" TargetName="TopTick" Value="Visible"/>
-                                    <Setter Property="Style" TargetName="Thumb" Value="{StaticResource VerticalSliderThumbStyle}"/>
+                                    <Setter Property="Style" TargetName="Thumb" Value="{StaticResource Orchestra.Styles.Slider.Vertical.ThumbStyle}"/>
                                     <Setter Property="Margin" TargetName="TrackBackground" Value="2,5,0,5"/>
                                 </Trigger>
                                 <Trigger Property="TickPlacement" Value="BottomRight">
                                     <Setter Property="Visibility" TargetName="BottomTick" Value="Visible"/>
-                                    <Setter Property="Style" TargetName="Thumb" Value="{StaticResource VerticalSliderThumbStyle}"/>
+                                    <Setter Property="Style" TargetName="Thumb" Value="{StaticResource Orchestra.Styles.Slider.Vertical.ThumbStyle}"/>
                                     <Setter Property="Margin" TargetName="TrackBackground" Value="0,5,2,5"/>
                                 </Trigger>
                                 <Trigger Property="TickPlacement" Value="Both">

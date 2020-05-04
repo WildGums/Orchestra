@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
-    <Style x:Key="RepeatButtonFocusVisual">
+    <Style x:Key="Orchestra.Styles.RepeatButton.FocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -16,11 +16,9 @@
         </Setter>
     </Style>
 
-    <SolidColorBrush x:Key="RepeatButton.Disabled.Foreground" Color="#FF838383"/>
-    
-    <Style TargetType="{x:Type RepeatButton}">
+    <Style x:Key="Orchestra.Styles.RepeatButton" TargetType="{x:Type RepeatButton}">
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
-        <Setter Property="FocusVisualStyle" Value="{StaticResource RepeatButtonFocusVisual}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Orchestra.Styles.RepeatButton.FocusVisual}"/>
         <Setter Property="Background" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BackgroundColor}"/>
         <Setter Property="BorderBrush" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderColor}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
