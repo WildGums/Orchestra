@@ -11,15 +11,9 @@ namespace Orchestra
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
-    using System.Windows.Markup;
-    using System.Xml;
     using Catel;
-    using Catel.Caching;
     using Catel.Logging;
     using MethodTimer;
-    using Ricciolo.StylesExplorer.MarkupReflection;
-    using Ricciolo.StylesExplorer.MarkupReflection.Implementations;
-    using XmlNamespaceManager = System.Xml.XmlNamespaceManager;
 
     /// <summary>
     /// Helper class for WPF styles and themes.
@@ -126,8 +120,7 @@ namespace Orchestra
         /// <exception cref="ArgumentNullException">The <paramref name="sourceResources"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="targetResources"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">The <paramref name="defaultPrefix"/> is <c>null</c> or whitespace.</exception>
-        public static void CreateStyleForwardersForDefaultStyles(ResourceDictionary sourceResources, ResourceDictionary targetResources,
-            string defaultPrefix = DefaultKeyPrefix)
+        public static void CreateStyleForwardersForDefaultStyles(ResourceDictionary sourceResources, ResourceDictionary targetResources, string defaultPrefix = DefaultKeyPrefix)
         {
             CreateStyleForwardersForDefaultStyles(sourceResources, sourceResources, targetResources, defaultPrefix);
         }
@@ -142,14 +135,13 @@ namespace Orchestra
         /// <param name="sourceResources">Resource dictionary to read the keys from (thus that contains the default styles).</param>
         /// <param name="targetResources">Resource dictionary where the forwarders will be written to.</param>
         /// <param name="defaultPrefix">The default prefix, uses to determine the styles as base for other styles.</param>
-        /// <param name="recreateStylesBasedOnTheme">if set to <c>true</c>, the styles will be recreated with BasedOn on the current theme.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="rootResourceDictionary" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="sourceResources" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="targetResources" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">The <paramref name="defaultPrefix" /> is <c>null</c> or whitespace.</exception>
         [Time]
         public static void CreateStyleForwardersForDefaultStyles(ResourceDictionary rootResourceDictionary, ResourceDictionary sourceResources,
-            ResourceDictionary targetResources, string defaultPrefix = DefaultKeyPrefix, bool recreateStylesBasedOnTheme = false)
+            ResourceDictionary targetResources, string defaultPrefix = DefaultKeyPrefix)
         {
             Argument.IsNotNull("rootResourceDictionary", rootResourceDictionary);
             Argument.IsNotNull("sourceResources", sourceResources);
@@ -201,11 +193,6 @@ namespace Orchestra
                     var tag = defaultStyle?.TargetType?.ToString() ?? defaultStyle?.ToString();
                     Log.Warning(ex, "Failed to complete the style for '{0}'", tag);
                 }
-            }
-
-            if (recreateStylesBasedOnTheme)
-            {
-                RecreateDefaultStylesBasedOnTheme(rootResourceDictionary, targetResources, defaultPrefix);
             }
 
             IsStyleForwardingEnabled = true;
@@ -264,55 +251,6 @@ namespace Orchestra
         }
 
         /// <summary>
-        /// Recreates the default styles based on theme.
-        /// </summary>
-        /// <param name="rootResourceDictionary">The root resource dictionary.</param>
-        /// <param name="resources">The resources to fix.</param>
-        /// <param name="defaultPrefix">The default prefix.</param>
-        /// <remarks>
-        /// This method is introduced due to the lack of the ability to use DynamicResource for the BasedOn property when
-        /// defining styles inside a derived theme.
-        /// </remarks>
-        /// <exception cref="ArgumentNullException">The <paramref name="rootResourceDictionary"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="resources"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">The <paramref name="defaultPrefix"/> is <c>null</c> or whitespace.</exception>
-        private static void RecreateDefaultStylesBasedOnTheme(ResourceDictionary rootResourceDictionary, ResourceDictionary resources, string defaultPrefix)
-        {
-            Argument.IsNotNull("rootResourceDictionary", rootResourceDictionary);
-            Argument.IsNotNull("resources", resources);
-            Argument.IsNotNull("defaultPrefix", defaultPrefix);
-
-            var keys = (from key in resources.Keys as ICollection<object>
-                        let stringKey = key as string
-                        where stringKey != null &&
-                              (stringKey).StartsWith(defaultPrefix, StringComparison.InvariantCulture) &&
-                              (stringKey).EndsWith(DefaultKeyPostfix, StringComparison.InvariantCulture)
-                        select stringKey).ToList();
-
-            foreach (var key in keys)
-            {
-                var style = resources[key] as Style;
-                if (style is null)
-                {
-                    continue;
-                }
-
-                var basedOnType = FindFrameworkElementStyleIsBasedOn(resources.Source, key);
-                if (basedOnType is null)
-                {
-                    continue;
-                }
-
-                resources[key] = CloneStyleIfBasedOnControl(rootResourceDictionary, style, basedOnType);
-            }
-
-            foreach (var resourceDictionary in resources.MergedDictionaries)
-            {
-                RecreateDefaultStylesBasedOnTheme(rootResourceDictionary, resourceDictionary, defaultPrefix);
-            }
-        }
-
-        /// <summary>
         /// Clones a style when the style is based on a control.
         /// </summary>
         /// <param name="rootResourceDictionary">The root resource dictionary.</param>
@@ -361,148 +299,6 @@ namespace Orchestra
         /// </summary>
         private const string DefaultKeyPostfix = "Style";
         #endregion
-
-        /// <summary>
-        /// Cached decompiled XAML resource dictionaries.
-        /// </summary>
-        private static readonly CacheStorage<Uri, Tuple<XmlDocument, XmlNamespaceManager>> _resourceDictionaryCache = new CacheStorage<Uri, Tuple<XmlDocument, XmlNamespaceManager>>();
-
-        /// <summary>
-        /// Cached types of <see cref="FrameworkElement"/> belonging to the string representation of the type.
-        /// </summary>
-        private static readonly CacheStorage<string, Type> _styleToFrameworkElementTypeCache = new CacheStorage<string, Type>();
-
-        /// <summary>
-        /// Finds the <see cref="FrameworkElement"/> a specific style is based on.
-        /// </summary>
-        /// <param name="resourceDictionaryUri">The resource dictionary URI.</param>
-        /// <param name="styleKey">The style key.</param>
-        /// <returns>
-        /// <see cref="Type"/> or <c>null</c> if the style is not based on a <see cref="FrameworkElement"/>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">The <paramref name="resourceDictionaryUri"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="styleKey"/> is <c>null</c>.</exception>
-        /// <remarks>
-        /// This method is introduced due to the lack of the ability to use DynamicResource for the BasedOn property when
-        /// defining styles inside a derived theme.
-        /// Should be used in combination with the <see cref="RecreateDefaultStylesBasedOnTheme"/> method.
-        /// </remarks>
-        private static Type FindFrameworkElementStyleIsBasedOn(Uri resourceDictionaryUri, string styleKey)
-        {
-            Argument.IsNotNull("resourceDictionaryUri", resourceDictionaryUri);
-            Argument.IsNotNull("styleKey", styleKey);
-
-            return _styleToFrameworkElementTypeCache.GetFromCacheOrFetch(styleKey, () =>
-            {
-                try
-                {
-                    var xmlDocInfo = GetResourceXmlDocument(resourceDictionaryUri);
-                    var doc = xmlDocInfo.Item1;
-                    var xmlNamespaceManager = xmlDocInfo.Item2;
-
-                    var xpath = string.Format("/ctl:ResourceDictionary/ctl:Style[@x:Key='{0}']/@BasedOn", styleKey);
-                    var xmlAttribute = doc.SelectSingleNode(xpath, xmlNamespaceManager) as XmlAttribute;
-                    if (xmlAttribute == null)
-                    {
-                        Log.Warning("Style '{0}' does not have the 'BasedOn' attribute defined", styleKey);
-                        return null;
-                    }
-
-                    var basedOnValue = xmlAttribute.Value;
-                    basedOnValue = basedOnValue.Replace("StaticResource", string.Empty);
-                    basedOnValue = basedOnValue.Replace("x:Type", string.Empty).Trim(' ', '{', '}');
-
-                    #region Create xml type mapper
-                    var xamlTypeMapper = new XamlTypeMapper(new[] { "PresentationFramework" });
-                    foreach (XmlAttribute namespaceAttribute in doc.DocumentElement.Attributes)
-                    {
-                        var xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(':');
-
-                        var value = namespaceAttribute.Value;
-                        var clrNamespace = value;
-                        var assemblyName = string.Empty;
-
-                        if (clrNamespace.StartsWith("clr-namespace:"))
-                        {
-                            // We have a hit (formatting is normally one of the 2 below):
-                            // * clr-namespace:[NAMESPACE]
-                            // * clr-namespace:[NAMESPACE];assembly=[ASSEMBLY]
-                            if (clrNamespace.Contains(";"))
-                            {
-                                clrNamespace = clrNamespace.Split(';')[0];
-                            }
-                            clrNamespace = clrNamespace.Replace("clr-namespace:", string.Empty);
-
-                            if (value.Contains(";"))
-                            {
-                                assemblyName = value.Split(';')[1].Replace("assembly:", string.Empty);
-                            }
-
-                            xamlTypeMapper.AddMappingProcessingInstruction(xmlNamespace, clrNamespace, assemblyName);
-                        }
-                    }
-                    #endregion
-
-                    var splittedType = basedOnValue.Split(':');
-                    var typeNamespace = (splittedType.Length == 2) ? splittedType[0] : "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
-                    var typeName = (splittedType.Length == 2) ? splittedType[1] : splittedType[0];
-                    var type = xamlTypeMapper.GetType(typeNamespace, typeName);
-                    if (type == null)
-                    {
-                        return null;
-                    }
-
-                    Log.Debug("Style '{0}' is based on type '{1}'", styleKey, type);
-
-                    if ((type == typeof(FrameworkElement)) || type.IsSubclassOf(typeof(FrameworkElement)))
-                    {
-                        return type;
-                    }
-
-                    return null;
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex, "Failed to find the framework element where style '{0}' is based on", styleKey);
-                    return null;
-                }
-            });
-        }
-
-        private static Tuple<XmlDocument, XmlNamespaceManager> GetResourceXmlDocument(Uri resourceDictionaryUri)
-        {
-            return _resourceDictionaryCache.GetFromCacheOrFetch(resourceDictionaryUri, () =>
-            {
-                var doc = ReadResourceDictionaryBaml(resourceDictionaryUri);
-
-                // Create namespace manager (all namespaces are required)
-                var xmlNamespaceManager = new XmlNamespaceManager(doc.NameTable);
-                foreach (XmlAttribute namespaceAttribute in doc.DocumentElement.Attributes)
-                {
-                    // Clean up namespace (remove xmlns prefix)
-                    var xmlNamespace = namespaceAttribute.Name.Replace("xmlns", string.Empty).TrimStart(':');
-                    xmlNamespaceManager.AddNamespace(xmlNamespace, namespaceAttribute.Value);
-                }
-
-                // Add a dummy node
-                xmlNamespaceManager.AddNamespace("x", "http://schemas.microsoft.com/winfx/2006/xaml");
-                xmlNamespaceManager.AddNamespace("ctl", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
-
-                return new Tuple<XmlDocument, XmlNamespaceManager>(doc, xmlNamespaceManager);
-            });
-        }
-
-        [Time]
-        private static XmlDocument ReadResourceDictionaryBaml(Uri resourceDictionaryUri)
-        {
-            var streamResourceInfo = Application.GetResourceStream(resourceDictionaryUri);
-            var reader = new XmlBamlReader(streamResourceInfo.Stream, new RuntimeTypeResolver());
-
-            var doc = new XmlDocument();
-            doc.Load(reader);
-
-            return doc;
-        }
 
         private class StyleInfo : IEquatable<StyleInfo>
         {

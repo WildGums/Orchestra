@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:catel="http://schemas.catelproject.com"
-                    xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
+                    xmlns:catel="http://schemas.catelproject.com">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.wpf.defaultstyles.xaml" />
