@@ -86,7 +86,7 @@ public static class ModuleInitializer
 
         var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Catel", "https://www.catelproject.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.catel.txt"));
-        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx/", "ControlzEx", "ControlzEx", "Resources.ThirdPartyNotices.controlzex.txt"));
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx/", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.controlzex.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("DotNetZip", string.Empty, "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.dotnetzip.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Orchestra", "https://opensource.wildgums.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.orchestra.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Ricciolo", string.Empty, "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.ricciolo.txt"));

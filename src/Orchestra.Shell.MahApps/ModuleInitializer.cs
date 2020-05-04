@@ -33,6 +33,6 @@ public static partial class ModuleInitializer
         commandManager.CreateCommand("Close", new InputGesture(Key.Escape), throwExceptionWhenCommandIsAlreadyCreated: false);
 
         var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
-        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("MahApps", "https://mahapps.com/", "Orchestra.Shell.MahApps", "Orchestra.Orchestra.Shell.MahApps", "Resources.ThirdPartyNotices.mahapps.txt"));
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("MahApps", "https://mahapps.com/", "Orchestra.Shell.MahApps", "Orchestra", "Resources.ThirdPartyNotices.mahapps.txt"));
     }
 }
