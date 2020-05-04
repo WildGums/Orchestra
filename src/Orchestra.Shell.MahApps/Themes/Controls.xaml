@@ -172,7 +172,7 @@
 
     <!-- note: default style for textblock is now in MetroWindow !!! -->
 
-    <Style TargetType="{x:Type mahapps:CustomValidationPopup}" BasedOn="{StaticResource MahApps.Styles.ValidationPopup}" />
+    <Style TargetType="{x:Type mahapps:CustomValidationPopup}" BasedOn="{StaticResource MahApps.Styles.CustomValidationPopup}" />
     <Style TargetType="ToolTip" BasedOn="{StaticResource MahApps.Styles.ToolTip}" />
     <!--<Style TargetType="Button" BasedOn="{StaticResource MetroButton}" />-->
     <!--<Style TargetType="ToggleButton" BasedOn="{StaticResource MetroToggleButton}" />-->
