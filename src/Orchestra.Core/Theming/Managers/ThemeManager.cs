@@ -9,6 +9,7 @@
     using System.Collections;
     using ControlzEx.Theming;
     using MethodTimer;
+    using Orc.Theming;
 
     public class ThemeManager : IThemeManager
     {

@@ -128,7 +128,7 @@ namespace Orchestra.Windows
             ResizeMode = ResizeMode.NoResize;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             BorderThickness = new Thickness(1d);
-            BorderBrush = Orc.Controls.Theming.ThemeManager.Current.GetAccentColorBrush();
+            BorderBrush = Orc.Theming.ThemeManager.Current.GetAccentColorBrush();
 
             this.ApplyIconFromApplication();
 

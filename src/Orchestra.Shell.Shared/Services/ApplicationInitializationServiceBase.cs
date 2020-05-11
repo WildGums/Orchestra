@@ -12,7 +12,7 @@ namespace Orchestra.Services
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Threading;
-    using MethodTimer;
+    using Orc.Theming;
     using Orchestra.Theming;
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService

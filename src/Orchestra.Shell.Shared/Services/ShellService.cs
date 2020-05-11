@@ -17,6 +17,7 @@ namespace Orchestra.Services
     using Catel.Reflection;
     using Catel.Services;
     using MethodTimer;
+    using Orc.Theming;
     using Orchestra.Theming;
     using Views;
 

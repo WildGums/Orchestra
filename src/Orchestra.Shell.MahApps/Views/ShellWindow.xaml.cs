@@ -32,7 +32,7 @@ namespace Orchestra.Views
 
             InitializeComponent();
 
-            statusBar.Background = Orc.Controls.Theming.ThemeManager.Current.GetThemeColorBrush(Orc.Controls.ThemeColorStyle.AccentColor20);
+            statusBar.Background = Orc.Theming.ThemeManager.Current.GetThemeColorBrush(Orc.Theming.ThemeColorStyle.AccentColor20);
 
             serviceLocator.RegisterInstance(pleaseWaitProgressBar, "pleaseWaitService");
 

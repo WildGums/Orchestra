@@ -1,24 +1,24 @@
-﻿[assembly: System.Resources.NeutralResourcesLanguageAttribute("en-US")]
-[assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.6", FrameworkDisplayName=".NET Framework 4.6")]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("http://schemas.wildgums.com/orchestra", "Orchestra.Views")]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("http://schemas.wildgums.com/orchestra", "Orchestra.Windows")]
-[assembly: System.Windows.Markup.XmlnsPrefixAttribute("http://schemas.wildgums.com/orchestra", "orchestra")]
-[assembly: System.Windows.ThemeInfoAttribute(System.Windows.ResourceDictionaryLocation.None, System.Windows.ResourceDictionaryLocation.SourceAssembly)]
-public class static LoadAssembliesOnStartup { }
-public class static ModuleInitializer
+﻿[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v3.1", FrameworkDisplayName="")]
+[assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Views")]
+[assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Windows")]
+[assembly: System.Windows.Markup.XmlnsPrefix("http://schemas.wildgums.com/orchestra", "orchestra")]
+[assembly: System.Windows.ThemeInfo(System.Windows.ResourceDictionaryLocation.None, System.Windows.ResourceDictionaryLocation.SourceAssembly)]
+public static class LoadAssembliesOnStartup { }
+public static class ModuleInitializer
 {
     public static void Initialize() { }
 }
 namespace Orchestra
 {
-    public class static MahAppsExtensions
+    public static class MahAppsExtensions
     {
         public static void Close(this MahApps.Metro.Controls.Dialogs.BaseMetroDialog dialog, System.Windows.Window parentDialogWindow = null) { }
         public static MahApps.Metro.Controls.MetroWindow GetMainWindow(this System.Windows.Application application) { }
         public static void Show(this MahApps.Metro.Controls.Dialogs.BaseMetroDialog dialog) { }
         public static void ShowModal(this MahApps.Metro.Controls.Dialogs.BaseMetroDialog dialog) { }
     }
-    public class static WindowCommandHelper
+    public static class WindowCommandHelper
     {
         public static System.Windows.Controls.Button CreateWindowCommandButton(MahApps.Metro.IconPacks.PackIconBase packIcon, string label) { }
         public static System.Windows.Controls.Button CreateWindowCommandButton(System.Windows.FrameworkElement content, string label) { }
@@ -56,7 +56,7 @@ namespace Orchestra.Services
         public void HideFlyout(string name) { }
         public void ShowFlyout(string name, object dataContext) { }
     }
-    public class static FlyoutServiceExtensions
+    public static class FlyoutServiceExtensions
     {
         public static void AddFlyout<TView>(this Orchestra.Services.IFlyoutService flyoutService, string name, MahApps.Metro.Controls.Position position, Catel.MVVM.Providers.UnloadBehavior unloadBehavior = 1, MahApps.Metro.Controls.FlyoutTheme flyoutTheme = 0) { }
     }
@@ -108,7 +108,7 @@ namespace Orchestra.Services
     public class MahAppsUIVisualizerService : Catel.Services.UIVisualizerService
     {
         public MahAppsUIVisualizerService(Catel.MVVM.IViewLocator viewLocator, Catel.Services.IDispatcherService dispatcherService) { }
-        protected override System.Threading.Tasks.Task<System.Nullable<bool>> ShowWindowAsync(System.Windows.FrameworkElement window, object data, bool showModal) { }
+        protected override System.Threading.Tasks.Task<bool?> ShowWindowAsync(System.Windows.FrameworkElement window, object data, bool showModal) { }
     }
     public class ShellConfigurationService : Orchestra.Services.IShellConfigurationService
     {
@@ -153,9 +153,9 @@ namespace Orchestra.Windows
     public class MetroDataWindow : MahApps.Metro.Controls.MetroWindow, Catel.MVVM.IViewModelContainer, Catel.MVVM.Views.IDataWindow, Catel.MVVM.Views.IView, System.ComponentModel.INotifyPropertyChanged
     {
         public MetroDataWindow() { }
-        public MetroDataWindow(Catel.Windows.DataWindowMode mode, System.Collections.Generic.IEnumerable<Catel.Windows.DataWindowButton> additionalButtons = null, Catel.Windows.DataWindowDefaultButton defaultButton = 0, bool setOwnerAndFocus = True, Catel.Windows.InfoBarMessageControlGenerationMode infoBarMessageControlGenerationMode = 1) { }
         public MetroDataWindow(Catel.MVVM.IViewModel viewModel) { }
-        public MetroDataWindow(Catel.MVVM.IViewModel viewModel, Catel.Windows.DataWindowMode mode, System.Collections.Generic.IEnumerable<Catel.Windows.DataWindowButton> additionalButtons = null, Catel.Windows.DataWindowDefaultButton defaultButton = 0, bool setOwnerAndFocus = True, Catel.Windows.InfoBarMessageControlGenerationMode infoBarMessageControlGenerationMode = 1) { }
+        public MetroDataWindow(Catel.Windows.DataWindowMode mode, System.Collections.Generic.IEnumerable<Catel.Windows.DataWindowButton> additionalButtons = null, Catel.Windows.DataWindowDefaultButton defaultButton = 0, bool setOwnerAndFocus = true, Catel.Windows.InfoBarMessageControlGenerationMode infoBarMessageControlGenerationMode = 1) { }
+        public MetroDataWindow(Catel.MVVM.IViewModel viewModel, Catel.Windows.DataWindowMode mode, System.Collections.Generic.IEnumerable<Catel.Windows.DataWindowButton> additionalButtons = null, Catel.Windows.DataWindowDefaultButton defaultButton = 0, bool setOwnerAndFocus = true, Catel.Windows.InfoBarMessageControlGenerationMode infoBarMessageControlGenerationMode = 1) { }
         protected bool CanClose { get; set; }
         public bool CanCloseUsingEscape { get; set; }
         protected System.Collections.ObjectModel.ReadOnlyCollection<System.Windows.Input.ICommand> Commands { get; }
@@ -163,12 +163,6 @@ namespace Orchestra.Windows
         protected Catel.Windows.DataWindowMode Mode { get; }
         public Catel.MVVM.IViewModel ViewModel { get; }
         public System.Type ViewModelType { get; }
-        public event System.EventHandler<Catel.MVVM.Views.DataContextChangedEventArgs> _viewDataContextChanged;
-        public event System.EventHandler<System.EventArgs> _viewLoaded;
-        public event System.EventHandler<System.EventArgs> _viewUnloaded;
-        public event System.EventHandler<Catel.MVVM.Views.DataContextChangedEventArgs> Catel.MVVM.Views.IView.DataContextChanged;
-        public event System.EventHandler<System.EventArgs> Catel.MVVM.Views.IView.Loaded;
-        public event System.EventHandler<System.EventArgs> Catel.MVVM.Views.IView.Unloaded;
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         public event System.EventHandler<System.EventArgs> ViewModelChanged;
         public event System.EventHandler<System.ComponentModel.PropertyChangedEventArgs> ViewModelPropertyChanged;
@@ -205,14 +199,8 @@ namespace Orchestra.Windows
         protected SimpleDataWindow() { }
         protected SimpleDataWindow(Catel.Windows.DataWindowMode dataWindowMode) { }
         protected SimpleDataWindow(Catel.MVVM.IViewModel viewModel, Catel.Windows.DataWindowMode mode = 0, System.Collections.Generic.IEnumerable<Catel.Windows.DataWindowButton> additionalButtons = null) { }
-        public System.Nullable<bool> DialogResult { get; set; }
+        public bool? DialogResult { get; set; }
         public Catel.MVVM.IViewModel ViewModel { get; }
-        public event System.EventHandler<Catel.MVVM.Views.DataContextChangedEventArgs> _viewDataContextChanged;
-        public event System.EventHandler<System.EventArgs> _viewLoaded;
-        public event System.EventHandler<System.EventArgs> _viewUnloaded;
-        public event System.EventHandler<Catel.MVVM.Views.DataContextChangedEventArgs> Catel.MVVM.Views.IView.DataContextChanged;
-        public event System.EventHandler<System.EventArgs> Catel.MVVM.Views.IView.Loaded;
-        public event System.EventHandler<System.EventArgs> Catel.MVVM.Views.IView.Unloaded;
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         public event System.EventHandler<System.EventArgs> ViewModelChanged;
         public event System.EventHandler<System.ComponentModel.PropertyChangedEventArgs> ViewModelPropertyChanged;

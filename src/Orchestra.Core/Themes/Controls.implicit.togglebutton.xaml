@@ -1,9 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
-
-    <Style x:Key="Orchestra.Styles.ToggleButton" TargetType="{x:Type ToggleButton}">
-
-    </Style>
-
-</ResourceDictionary>

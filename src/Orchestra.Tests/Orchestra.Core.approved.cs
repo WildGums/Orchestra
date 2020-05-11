@@ -1,23 +1,23 @@
-﻿[assembly: System.Resources.NeutralResourcesLanguageAttribute("en-US")]
-[assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.6", FrameworkDisplayName=".NET Framework 4.6")]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("http://schemas.wildgums.com/orchestra", "Orchestra.Behaviors")]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("http://schemas.wildgums.com/orchestra", "Orchestra.Controls")]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("http://schemas.wildgums.com/orchestra", "Orchestra.Converters")]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("http://schemas.wildgums.com/orchestra", "Orchestra.Markup")]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("http://schemas.wildgums.com/orchestra", "Orchestra.Views")]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("http://schemas.wildgums.com/orchestra", "Orchestra.Windows")]
-[assembly: System.Windows.Markup.XmlnsPrefixAttribute("http://schemas.wildgums.com/orchestra", "orchestra")]
-[assembly: System.Windows.ThemeInfoAttribute(System.Windows.ResourceDictionaryLocation.None, System.Windows.ResourceDictionaryLocation.SourceAssembly)]
-public class static LoadAssembliesOnStartup { }
-public class static ModuleInitializer
+﻿[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v3.1", FrameworkDisplayName="")]
+[assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Behaviors")]
+[assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Controls")]
+[assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Converters")]
+[assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Markup")]
+[assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Views")]
+[assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Windows")]
+[assembly: System.Windows.Markup.XmlnsPrefix("http://schemas.wildgums.com/orchestra", "orchestra")]
+[assembly: System.Windows.ThemeInfo(System.Windows.ResourceDictionaryLocation.None, System.Windows.ResourceDictionaryLocation.SourceAssembly)]
+public static class LoadAssembliesOnStartup { }
+public static class ModuleInitializer
 {
     public static void Initialize() { }
 }
 namespace Orchestra
 {
-    public class static ApplicationExtensions
+    public static class ApplicationExtensions
     {
-        public static void ApplyTheme(this System.Windows.Application application, bool createStyleForwarders = True) { }
+        public static void ApplyTheme(this System.Windows.Application application, bool createStyleForwarders = true) { }
     }
     public abstract class ApplicationWatcherBase
     {
@@ -25,7 +25,7 @@ namespace Orchestra
         protected ApplicationWatcherBase() { }
         protected void EnqueueShellActivatedAction(System.Action<System.Windows.Window> action) { }
     }
-    public class static AssemblyExtensions
+    public static class AssemblyExtensions
     {
         public static System.Drawing.Icon ExtractAssemblyIcon(this System.Reflection.Assembly assembly) { }
         public static System.Windows.Media.Imaging.BitmapImage ExtractLargestIcon(this System.Reflection.Assembly assembly) { }
@@ -37,13 +37,13 @@ namespace Orchestra
         protected virtual void ClosingCanceled() { }
         protected virtual System.Threading.Tasks.Task<bool> PrepareClosingAsync() { }
     }
-    public class static DependencyObjectExtensions
+    public static class DependencyObjectExtensions
     {
         public static T Clone<T>(this T source)
             where T : System.Windows.DependencyObject { }
         public static System.Windows.Window GetParentWindow(this System.Windows.DependencyObject visualObject) { }
     }
-    public class static DotNetPatchHelper
+    public static class DotNetPatchHelper
     {
         public static void Attach() { }
         public static void Detach() { }
@@ -53,7 +53,7 @@ namespace Orchestra
     {
         public FileBasedThirdPartyNotice(string title, string url, string fileName) { }
     }
-    public class static FilterHelper
+    public static class FilterHelper
     {
         public static bool MatchesFilters(System.Collections.Generic.IEnumerable<string> filters, string fileName) { }
     }
@@ -61,12 +61,12 @@ namespace Orchestra
     {
         public FontThirdPartyNotice(string fontName, string fontUrl) { }
     }
-    public class static FrameworkElementExtensions
+    public static class FrameworkElementExtensions
     {
         public static TBehavior ApplyBehavior<TBehavior>(this System.Windows.DependencyObject dependencyObject)
             where TBehavior : System.Windows.Interactivity.Behavior { }
     }
-    public class static IconExtensions
+    public static class IconExtensions
     {
         public static System.Windows.Media.ImageSource ToImageSource(this System.Drawing.Icon icon, int requiredSize = 64) { }
     }
@@ -81,32 +81,32 @@ namespace Orchestra
     public class KeyPressWindowWatcher
     {
         public KeyPressWindowWatcher() { }
-        public static bool IsAltHeldDown() { }
-        public static bool IsCtrlHeldDown() { }
-        public static bool IsKeyHeldDown(System.Windows.Input.Key key) { }
-        public static bool IsShiftHeldDown() { }
         public void SetKeyDownHandler(System.Action<System.Windows.Input.KeyEventArgs> handler) { }
         public void SetKeyUpHandler(System.Action<System.Windows.Input.KeyEventArgs> handler) { }
         public void SetPreviewKeyDownHandler(System.Action<System.Windows.Input.KeyEventArgs> handler) { }
         public void SetPreviewKeyUpHandler(System.Action<System.Windows.Input.KeyEventArgs> handler) { }
         public void UnWatchWindow(System.Windows.Window window) { }
         public void WatchWindow(System.Windows.Window window) { }
+        public static bool IsAltHeldDown() { }
+        public static bool IsCtrlHeldDown() { }
+        public static bool IsKeyHeldDown(System.Windows.Input.Key key) { }
+        public static bool IsShiftHeldDown() { }
     }
-    public class static LogFilePrefixes
+    public static class LogFilePrefixes
     {
         public static readonly string[] All;
         public static readonly string CrashReport;
         public static readonly string EntryAssemblyName;
         public static readonly string Log;
     }
-    public class static LogHelper
+    public static class LogHelper
     {
         public static void AddFileLogListener() { }
         public static System.Threading.Tasks.Task AddLogListenerForUnhandledExceptionAsync(System.Exception ex) { }
-        public static void CleanUpAllLogTypeFiles(bool keepCleanInRealTime = False) { }
+        public static void CleanUpAllLogTypeFiles(bool keepCleanInRealTime = false) { }
         public static Catel.Logging.ILogListener CreateFileLogListener(string prefix) { }
     }
-    public class static OrchestraEnvironment
+    public static class OrchestraEnvironment
     {
         public static readonly System.Windows.Media.SolidColorBrush DefaultAccentColorBrush;
     }
@@ -117,24 +117,15 @@ namespace Orchestra
     }
     public class ResourceBasedThirdPartyNotice : Orchestra.ThirdPartyNotice
     {
-        public ResourceBasedThirdPartyNotice(string title, string url, string assemblyName, string relativeResourceName) { }
-        public ResourceBasedThirdPartyNotice(string title, string url, string assemblyName, string rootNamespace, string relativeResourceName) { }
         public ResourceBasedThirdPartyNotice(string title, string url, System.Reflection.Assembly assembly, string relativeResourceName) { }
+        public ResourceBasedThirdPartyNotice(string title, string url, string assemblyName, string relativeResourceName) { }
         public ResourceBasedThirdPartyNotice(string title, string url, System.Reflection.Assembly assembly, string rootNamespace, string relativeResourceName) { }
+        public ResourceBasedThirdPartyNotice(string title, string url, string assemblyName, string rootNamespace, string relativeResourceName) { }
     }
-    public class static StringExtensions
+    public static class StringExtensions
     {
         public static string GetCommandGroup(this string commandName) { }
         public static string GetCommandName(this string commandName) { }
-    }
-    public class static StyleHelper
-    {
-        public static bool IsStyleForwardingEnabled { get; }
-        public static void CreateStyleForwardersForDefaultStyles(string defaultPrefix = "Default") { }
-        public static void CreateStyleForwardersForDefaultStyles(System.Windows.ResourceDictionary sourceResources, string defaultPrefix = "Default") { }
-        public static void CreateStyleForwardersForDefaultStyles(System.Windows.ResourceDictionary sourceResources, System.Windows.ResourceDictionary targetResources, string defaultPrefix = "Default") { }
-        public static void CreateStyleForwardersForDefaultStyles(System.Windows.ResourceDictionary rootResourceDictionary, System.Windows.ResourceDictionary sourceResources, System.Windows.ResourceDictionary targetResources, string defaultPrefix = "Default") { }
-        public static void EnsureApplicationResourcesAndCreateStyleForwarders(System.Uri applicationResourceDictionary, string defaultPrefix = "Default") { }
     }
     public class ThirdPartyNotice
     {
@@ -157,11 +148,11 @@ namespace Orchestra
         protected Catel.Configuration.IConfigurationService ConfigurationService { get; }
         protected override System.Threading.Tasks.Task ExecuteAsync(TExecuteParameter parameter) { }
     }
-    public class static VersionHelper
+    public static class VersionHelper
     {
         public static string GetCurrentVersion(System.Reflection.Assembly assembly = null) { }
     }
-    public class static WindowExtensions
+    public static class WindowExtensions
     {
         public static void BringWindowToTop(this System.Windows.FrameworkElement frameworkElement) { }
         public static void CenterWindowToScreen(this System.Windows.Window window) { }
@@ -217,7 +208,7 @@ namespace Orchestra.Collections
 }
 namespace Orchestra.Configuration
 {
-    public class static ConfigurationExtensions
+    public static class ConfigurationExtensions
     {
         public static bool IsConfigurationKey(this Catel.Configuration.ConfigurationChangedEventArgs e, string expectedKey) { }
         public static bool IsConfigurationKey(this string key, string expectedKey) { }
@@ -326,7 +317,7 @@ namespace Orchestra.Markup
         public CanvasViewbox() { }
         public CanvasViewbox(string pathName) { }
         public System.Windows.Media.SolidColorBrush Foreground { get; set; }
-        [System.Windows.Markup.ConstructorArgumentAttribute("pathName")]
+        [System.Windows.Markup.ConstructorArgument("pathName")]
         public string PathName { get; set; }
         protected override object ProvideDynamicValue(System.IServiceProvider serviceProvider) { }
     }
@@ -353,25 +344,25 @@ namespace Orchestra.Models
         public static readonly Catel.Data.PropertyData UriInfoProperty;
         public static readonly Catel.Data.PropertyData VersionProperty;
         public AboutInfo(
-                    System.Uri companyLogoUri = null, 
-                    string logoImageSource = null, 
-                    Orchestra.Models.UriInfo uriInfo = null, 
-                    System.Reflection.Assembly assembly = null, 
-                    System.Uri companyLogoForSplashScreenUri = null, 
-                    System.Windows.Media.Imaging.BitmapSource appIcon = null, 
-                    System.Nullable<System.DateTime> buildDateTime = null, 
-                    string company = null, 
-                    string copyright = null, 
-                    System.Uri copyrightUri = null, 
-                    string description = null, 
-                    string displayVersion = null, 
-                    string informationalVersion = null, 
-                    string name = null, 
-                    string productName = null, 
+                    System.Uri companyLogoUri = null,
+                    string logoImageSource = null,
+                    Orchestra.Models.UriInfo uriInfo = null,
+                    System.Reflection.Assembly assembly = null,
+                    System.Uri companyLogoForSplashScreenUri = null,
+                    System.Windows.Media.Imaging.BitmapSource appIcon = null,
+                    System.DateTime? buildDateTime = default,
+                    string company = null,
+                    string copyright = null,
+                    System.Uri copyrightUri = null,
+                    string description = null,
+                    string displayVersion = null,
+                    string informationalVersion = null,
+                    string name = null,
+                    string productName = null,
                     string version = null) { }
         public System.Windows.Media.Imaging.BitmapSource AppIcon { get; }
         public System.Reflection.Assembly Assembly { get; }
-        public System.Nullable<System.DateTime> BuildDateTime { get; }
+        public System.DateTime? BuildDateTime { get; }
         public string Company { get; }
         public System.Uri CompanyLogoForSplashScreenUri { get; set; }
         public System.Uri CompanyLogoUri { get; }
@@ -512,8 +503,8 @@ namespace Orchestra.Services
     public class HintsProvider : Orchestra.Services.IHintsProvider
     {
         public HintsProvider() { }
-        public void AddHint<TControlType>(string hintText, System.Linq.Expressions.Expression<System.Func<object>> userControlName) { }
         public void AddHint<TControlType>(Orchestra.Models.IHint hint) { }
+        public void AddHint<TControlType>(string hintText, System.Linq.Expressions.Expression<System.Func<object>> userControlName) { }
         public Orchestra.Models.IHint[] GetHintsFor(System.Windows.FrameworkElement element) { }
     }
     public interface IAboutInfoService
@@ -523,6 +514,10 @@ namespace Orchestra.Services
     public interface IAboutService
     {
         System.Threading.Tasks.Task ShowAboutAsync();
+    }
+    public interface IAdornerTooltipGenerator
+    {
+        System.Windows.Documents.Adorner GetAdornerTooltip(Orchestra.Models.IHint hint, System.Windows.UIElement adornedElement);
     }
     public interface IAdorneredTooltipsManager
     {
@@ -536,10 +531,6 @@ namespace Orchestra.Services
     public interface IAdorneredTooltipsManagerFactory
     {
         Orchestra.Services.IAdorneredTooltipsManager Create(System.Windows.Documents.AdornerLayer adornerLayer);
-    }
-    public interface IAdornerTooltipGenerator
-    {
-        System.Windows.Documents.Adorner GetAdornerTooltip(Orchestra.Models.IHint hint, System.Windows.UIElement adornedElement);
     }
     public interface IClipboardService
     {
@@ -555,7 +546,7 @@ namespace Orchestra.Services
         void Invalidate();
         void UpdateCommandInfo(string commandName, Orchestra.Models.ICommandInfo commandInfo);
     }
-    public class static ICommandInfoServiceExtensions
+    public static class ICommandInfoServiceExtensions
     {
         public static void UpdateCommandInfo(this Orchestra.Services.ICommandInfoService commandInfoService, string commandName, System.Action<Orchestra.Models.ICommandInfo> commandInfoUpdateCallback) { }
     }
@@ -583,7 +574,7 @@ namespace Orchestra.Services
         System.Threading.Tasks.Task DeleteUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget);
         bool OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget applicationDataTarget);
     }
-    public class static IMessageServiceExtensions
+    public static class IMessageServiceExtensions
     {
         public static string GetAsText(this Catel.Services.IMessageService messageService, string message, Catel.Services.MessageButton messageButton) { }
         public static string GetAsText(this Catel.Services.IMessageService messageService, string message, string buttons) { }
@@ -593,7 +584,7 @@ namespace Orchestra.Services
         System.Collections.Generic.IEnumerable<Orchestra.Models.RecentlyUsedItem> Items { get; }
         int MaximumItemCount { get; set; }
         System.Collections.Generic.IEnumerable<Orchestra.Models.RecentlyUsedItem> PinnedItems { get; }
-        public event System.EventHandler<System.EventArgs> Updated;
+        event System.EventHandler<System.EventArgs> Updated;
         void AddItem(Orchestra.Models.RecentlyUsedItem item);
         void PinItem(string name);
         void RemoveItem(Orchestra.Models.RecentlyUsedItem item);
@@ -613,7 +604,7 @@ namespace Orchestra.Services
         void Initialize(Orc.Controls.Services.IStatusRepresenter statusRepresenter);
         void UpdateStatus(string status);
     }
-    public class static IStatusServiceExtensions
+    public static class IStatusServiceExtensions
     {
         public static void UpdateStatus(this Orchestra.Services.IStatusService statusService, string statusFormat, params object[] parameters) { }
     }
@@ -622,7 +613,7 @@ namespace Orchestra.Services
         void Add(Orchestra.ThirdPartyNotice thirdPartyNotice);
         System.Collections.Generic.List<Orchestra.ThirdPartyNotice> GetThirdPartyNotices();
     }
-    public class static IThirdPartyNoticesServiceExtensions
+    public static class IThirdPartyNoticesServiceExtensions
     {
         public static void AddWithTryCatch(this Orchestra.Services.IThirdPartyNoticesService thirdPartyNoticesService, System.Func<Orchestra.ThirdPartyNotice> func) { }
     }
@@ -631,12 +622,12 @@ namespace Orchestra.Services
         bool Activate(Catel.MVVM.IViewModel viewModel);
         bool Activate(System.Type viewModelType);
     }
-    public class static IViewActivationServiceExtensions
+    public static class IViewActivationServiceExtensions
     {
+        public static System.Threading.Tasks.Task ActivateOrShowAsync(this Orchestra.Services.IViewActivationService viewActivationService, Catel.MVVM.IViewModel viewModel) { }
+        public static System.Threading.Tasks.Task ActivateOrShowAsync(this Orchestra.Services.IViewActivationService viewActivationService, System.Type viewModelType) { }
         public static System.Threading.Tasks.Task ActivateOrShowAsync<TViewModel>(this Orchestra.Services.IViewActivationService viewActivationService)
             where TViewModel : Catel.MVVM.IViewModel { }
-        public static System.Threading.Tasks.Task ActivateOrShowAsync(this Orchestra.Services.IViewActivationService viewActivationService, System.Type viewModelType) { }
-        public static System.Threading.Tasks.Task ActivateOrShowAsync(this Orchestra.Services.IViewActivationService viewActivationService, Catel.MVVM.IViewModel viewModel) { }
     }
     public class KeyboardMappingsService : Orchestra.Services.IKeyboardMappingsService
     {
@@ -733,73 +724,26 @@ namespace Orchestra.Services
 }
 namespace Orchestra.Theming
 {
-    public class AccentColorService : Orchestra.Theming.IAccentColorService
-    {
-        public AccentColorService() { }
-        public event System.EventHandler<System.EventArgs> AccentColorChanged;
-        public virtual System.Windows.Media.Color GetAccentColor() { }
-        protected void RaiseAccentColorChanged() { }
-        public virtual void SetAccentColor(System.Windows.Media.Color color) { }
-    }
-    public class BaseColorSchemeService : Orchestra.Theming.IBaseColorSchemeService
-    {
-        public BaseColorSchemeService() { }
-        public event System.EventHandler<System.EventArgs> BaseColorSchemeChanged;
-        public virtual System.Collections.Generic.IReadOnlyList<string> GetAvailableBaseColorSchemes() { }
-        public string GetBaseColorScheme() { }
-        public bool SetBaseColorScheme(string color) { }
-    }
-    public interface IAccentColorService
-    {
-        public event System.EventHandler<System.EventArgs> AccentColorChanged;
-        System.Windows.Media.Color GetAccentColor();
-        void SetAccentColor(System.Windows.Media.Color color);
-    }
-    public interface IBaseColorSchemeService
-    {
-        public event System.EventHandler<System.EventArgs> BaseColorSchemeChanged;
-        System.Collections.Generic.IReadOnlyList<string> GetAvailableBaseColorSchemes();
-        string GetBaseColorScheme();
-        bool SetBaseColorScheme(string color);
-    }
     public interface IShellTheme
     {
-        void ApplyTheme(Orchestra.Theming.ThemeInfo themeInfo);
+        void ApplyTheme(Orc.Theming.ThemeInfo themeInfo);
     }
     public interface IThemeManager
     {
-        void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = False);
-        void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = False);
+        void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = false);
+        void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false);
         bool IsResourceDictionaryAvailable(string resourceDictionaryUri);
         void SynchronizeTheme();
-    }
-    public interface IThemeService
-    {
-        Orchestra.Theming.ThemeInfo GetThemeInfo();
-        bool ShouldCreateStyleForwarders();
-    }
-    public class ThemeInfo
-    {
-        public ThemeInfo() { }
-        public System.Windows.Media.Color AccentBaseColor { get; set; }
-        public string BaseColorScheme { get; set; }
-        public System.Windows.Media.Color HighlightColor { get; set; }
     }
     public class ThemeManager : Orchestra.Theming.IThemeManager
     {
         protected bool _ensuredOrchestraThemes;
-        public ThemeManager(Orchestra.Theming.IAccentColorService accentColorService, Orchestra.Theming.IBaseColorSchemeService baseColorSchemeService) { }
-        public virtual void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = False) { }
-        public virtual void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = False) { }
+        public ThemeManager(Orc.Theming.IAccentColorService accentColorService, Orc.Theming.IBaseColorSchemeService baseColorSchemeService) { }
+        public virtual void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = false) { }
+        public virtual void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false) { }
         protected virtual void EnsureOrchestraTheme(bool createStyleForwarders) { }
         public virtual bool IsResourceDictionaryAvailable(string resourceDictionaryUri) { }
         public virtual void SynchronizeTheme() { }
-    }
-    public class ThemeService : Orchestra.Theming.IThemeService
-    {
-        public ThemeService(Orchestra.Theming.IAccentColorService accentColorService, Orchestra.Theming.IBaseColorSchemeService baseColorSchemeService) { }
-        public virtual Orchestra.Theming.ThemeInfo GetThemeInfo() { }
-        public virtual bool ShouldCreateStyleForwarders() { }
     }
 }
 namespace Orchestra.Tooltips
@@ -923,11 +867,11 @@ namespace Orchestra.ViewModels
         public SplashScreenViewModel(Orchestra.Services.IAboutInfoService aboutInfoService, Catel.Services.ILanguageService languageService) { }
         public string Company { get; }
         public System.Uri CompanyLogoForSplashScreenUri { get; }
-        public static bool IsActive { get; }
         public string ProducedBy { get; }
         public string Version { get; }
+        public static bool IsActive { get; }
         protected override System.Threading.Tasks.Task InitializeAsync() { }
-        protected override System.Threading.Tasks.Task OnClosedAsync(System.Nullable<bool> result) { }
+        protected override System.Threading.Tasks.Task OnClosedAsync(bool? result) { }
     }
     public class SystemInfoViewModel : Catel.MVVM.ViewModelBase
     {
@@ -1043,7 +987,7 @@ namespace Orchestra.Windows
         Right = 2,
         Bottom = 3,
     }
-    public class static WindowExtensions
+    public static class WindowExtensions
     {
         public static void ApplyApplicationIcon(this System.Windows.Window window) { }
     }
@@ -1052,10 +996,10 @@ namespace Orchestra.Windows
         public System.Windows.Rect DeviceBounds { get; }
         public string DeviceName { get; }
         public bool IsPrimary { get; }
-        public static Orchestra.Windows.WpfScreen Primary { get; }
         public System.Windows.Rect WorkingArea { get; }
+        public static Orchestra.Windows.WpfScreen Primary { get; }
         public static System.Collections.Generic.IEnumerable<Orchestra.Windows.WpfScreen> AllScreens() { }
-        public static Orchestra.Windows.WpfScreen GetScreenFrom(System.Windows.Window window) { }
         public static Orchestra.Windows.WpfScreen GetScreenFrom(System.Windows.Point point) { }
+        public static Orchestra.Windows.WpfScreen GetScreenFrom(System.Windows.Window window) { }
     }
 }

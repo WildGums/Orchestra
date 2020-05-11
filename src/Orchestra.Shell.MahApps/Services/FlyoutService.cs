@@ -127,7 +127,7 @@ namespace Orchestra.Services
                 if (flyoutsControl != null)
                 {
                     flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderThicknessProperty, new Thickness(1));
-                    flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderBrushProperty, Orc.Controls.Theming.ThemeManager.Current.GetAccentColorBrush());
+                    flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderBrushProperty, Orc.Theming.ThemeManager.Current.GetAccentColorBrush());
                 }
 
                 var isOpen = flyout.IsOpen;

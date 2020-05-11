@@ -6,7 +6,8 @@
                    xmlns:fluent="urn:fluent-ribbon"
                    xmlns:ribbonexample="clr-namespace:Orchestra.Examples.Ribbon"
                    xmlns:orchestra="http://schemas.wildgums.com/orchestra"
-                   xmlns:orccontrols="clr-namespace:Orc.Controls;assembly=Orc.Controls">
+                   xmlns:orccontrols="clr-namespace:Orc.Controls;assembly=Orc.Controls" 
+                   xmlns:orctheming="http://schemas.wildgums.com/orc/theming">
 
     <Grid>
         <fluent:Ribbon x:Name="ribbon" IsQuickAccessToolBarVisible="False" CanCustomizeRibbon="False" AutomaticStateManagement="False">
@@ -134,77 +135,77 @@
                 <fluent:RibbonTabItem Header="View">
 
                     <fluent:RibbonGroupBox Header="Workspace">
-                        <fluent:Button Header="Refresh" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Refresh}}" 
+                        <fluent:Button Header="Refresh" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Refresh}}" 
                                    Command="{Binding RefreshWorkspace}" />
                     </fluent:RibbonGroupBox>
 
                     <fluent:RibbonGroupBox Header="Demo group">
-                        <fluent:Button Header="Windows" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Windows}}" />
+                        <fluent:Button Header="Windows" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Windows}}" />
 
-                        <fluent:Button Header="Progress demo" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Play}}" 
+                        <fluent:Button Header="Progress demo" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Play}}" 
                                    Command="{catel:CommandManagerBinding Demo.LongOperation}" />
 
-                        <fluent:SplitButton Header="Message box demo" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                        <fluent:SplitButton Header="Message box demo" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                         HorizontalContentAlignment="Stretch">
                             <StackPanel HorizontalAlignment="Stretch">
-                                <fluent:Button Header="Ok" Size="Middle" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                <fluent:Button Header="Ok" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                            Command="{catel:CommandManagerBinding Demo.ShowMessageBox}" 
                                            CommandParameter="{x:Static services:MessageButton.OK}" />
 
-                                <fluent:Button Header="Ok/Cancel" Size="Middle" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
+                                <fluent:Button Header="Ok/Cancel" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
                                            Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                            CommandParameter="{x:Static services:MessageButton.OKCancel}" />
 
-                                <fluent:Button Header="Yes/No" Size="Middle" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
+                                <fluent:Button Header="Yes/No" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
                                            Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                            CommandParameter="{x:Static services:MessageButton.YesNo}" />
 
-                                <fluent:Button Header="Yes/No/Cancel" Size="Middle" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
+                                <fluent:Button Header="Yes/No/Cancel" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
                                            Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                            CommandParameter="{x:Static services:MessageButton.YesNoCancel}" />
 
-                                <fluent:Button Header="Icons - Stop" Size="Middle" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
+                                <fluent:Button Header="Icons - Stop" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
                                            Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                            CommandParameter="{x:Static services:MessageImage.Stop}" />
 
-                                <fluent:Button Header="Icons - Exclamation" Size="Middle" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
+                                <fluent:Button Header="Icons - Exclamation" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
                                            Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                            CommandParameter="{x:Static services:MessageImage.Exclamation}" />
 
-                                <fluent:Button Header="Icons - Error" Size="Middle" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
+                                <fluent:Button Header="Icons - Error" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
                                            Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                            CommandParameter="{x:Static services:MessageImage.Error}" />
 
-                                <fluent:Button Header="Icons - Warning" Size="Middle" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
+                                <fluent:Button Header="Icons - Warning" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
                                            Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                            CommandParameter="{x:Static services:MessageImage.Warning}" />
 
-                                <fluent:Button Header="Icons - Information" Size="Middle" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
+                                <fluent:Button Header="Icons - Information" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
                                            Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                            CommandParameter="{x:Static services:MessageImage.Information}" />
 
-                                <fluent:Button Header="Icons - Question" Size="Middle" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
+                                <fluent:Button Header="Icons - Question" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
                                            Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                            CommandParameter="{x:Static services:MessageImage.Question}" />
                             </StackPanel>
                         </fluent:SplitButton>
-                        <fluent:ToggleButton Header="Toggle button" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Arrows}}"/>
+                        <fluent:ToggleButton Header="Toggle button" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Arrows}}"/>
                     </fluent:RibbonGroupBox>
 
                     <fluent:RibbonGroupBox Header="Keyboard">
-                        <fluent:SplitButton Header="Shortcuts" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.KeyboardO}}"
+                        <fluent:SplitButton Header="Shortcuts" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.KeyboardO}}"
                                         Command="{Binding ShowKeyboardMappings}" IsCheckable="False">
                             <orchestra:KeyboardMappingsOverviewView />
                         </fluent:SplitButton>
                     </fluent:RibbonGroupBox>
 
                     <fluent:RibbonGroupBox>
-                        <fluent:SplitButton Header="Grid" LargeIcon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Mobile}}"
+                        <fluent:SplitButton Header="Grid" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Mobile}}"
                                     IsCheckable="True" IsChecked="{Binding Settings.IsShowAllGridLines}" HorizontalContentAlignment="Stretch">
                             <StackPanel HorizontalAlignment="Stretch">
-                                <fluent:ToggleButton Header="Windows" Size="Middle" Icon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Windows}}"
+                                <fluent:ToggleButton Header="Windows" Size="Middle" Icon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Windows}}"
                                      IsChecked="{Binding Settings.IsShowVerticalGridLines}" />
-                                <fluent:ToggleButton Header="Apple" Size="Middle" Icon="{orccontrols:FontImage {x:Static ribbonexample:FontAwesome.Apple}}" 
+                                <fluent:ToggleButton Header="Apple" Size="Middle" Icon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Apple}}" 
                                      IsChecked="{Binding Settings.IsShowHorizontalGridLines}" />
                             </StackPanel>
                         </fluent:SplitButton>
