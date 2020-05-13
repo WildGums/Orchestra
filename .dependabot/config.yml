@@ -5,13 +5,28 @@ update_configs:
     update_schedule: "daily"
     automerged_updates:
     - match:
+        dependency_name: "ApprovalTests"
+        update_type: "all"
+    - match:
+        dependency_name: "Blorc.*"
+        update_type: "all"
+    - match:
+        dependency_name: "Catel.*"
+        update_type: "all"
+    - match:
         dependency_name: "Fody"
         update_type: "all"
     - match:
         dependency_name: "*.Fody"
         update_type: "all"
     - match:
-        dependency_name: "Catel.*"
+        dependency_name: "Microsoft.*"
+        update_type: "all"
+    - match:
+        dependency_name: "NUnit"
+        update_type: "all"
+    - match:
+        dependency_name: "NUnit3TestAdapter"
         update_type: "all"
     - match:
         dependency_name: "Orc.*"
@@ -20,5 +35,5 @@ update_configs:
         dependency_name: "Orchestra.*"
         update_type: "all"
     - match:
-        dependency_name: "Blorc.*"
+        dependency_name: "PublicApiGenerator"
         update_type: "all"
