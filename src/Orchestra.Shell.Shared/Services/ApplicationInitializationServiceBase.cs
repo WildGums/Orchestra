@@ -27,16 +27,19 @@ namespace Orchestra.Services
 
             var serviceLocator = this.GetServiceLocator();
             var themeService = serviceLocator.ResolveType<IThemeService>();
-            var themeManager = serviceLocator.ResolveType<IThemeManager>();
+            var orchestraThemeManager = serviceLocator.ResolveType<IThemeManager>();
+            var orcThemingThemeManager = serviceLocator.ResolveType<Orc.Theming.ThemeManager>();
 
             // Note: we only have to create style forwarders once
-            themeManager.EnsureApplicationThemes(typeof(ApplicationInitializationServiceBase).Assembly, false);
-            themeManager.EnsureApplicationThemes(GetType().Assembly, false);
+            orchestraThemeManager.EnsureApplicationThemes(typeof(ApplicationInitializationServiceBase).Assembly, false);
+            orchestraThemeManager.EnsureApplicationThemes(GetType().Assembly, false);
 
             if (themeService.ShouldCreateStyleForwarders())
             {
                 StyleHelper.CreateStyleForwardersForDefaultStyles();
             }
+
+            orcThemingThemeManager.SynchronizeTheme();
         }
 
         public virtual async Task InitializeBeforeCreatingShellAsync()
