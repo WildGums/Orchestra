@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net46;net47;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net46;net47;netcoreapp3.1</TargetFrameworks>
     <AssemblyName>Orchestra.Core</AssemblyName>
     <RootNamespace>Orchestra</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
