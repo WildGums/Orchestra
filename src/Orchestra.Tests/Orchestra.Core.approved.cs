@@ -61,11 +61,7 @@ namespace Orchestra
     {
         public FontThirdPartyNotice(string fontName, string fontUrl) { }
     }
-    public static class FrameworkElementExtensions
-    {
-        public static TBehavior ApplyBehavior<TBehavior>(this System.Windows.DependencyObject dependencyObject)
-            where TBehavior : System.Windows.Interactivity.Behavior { }
-    }
+    public static class FrameworkElementExtensions { }
     public static class IconExtensions
     {
         public static System.Windows.Media.ImageSource ToImageSource(this System.Drawing.Icon icon, int requiredSize = 64) { }

@@ -2,8 +2,8 @@
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:catel="http://schemas.catelproject.com"
-                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
+                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls" 
+                   xmlns:xamlbehaviors="http://schemas.microsoft.com/xaml/behaviors">
 
     <orccontrols:StackGrid>
         <Grid.RowDefinitions>
@@ -61,11 +61,11 @@
 
         <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Persons}" Margin="6,4,6,4"
                   SelectedItem="{Binding SelectedPerson}" SelectionMode="Single" CanUserAddRows="False">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
+            <xamlbehaviors:Interaction.Triggers>
+                <xamlbehaviors:EventTrigger EventName="MouseDoubleClick">
                     <catel:EventToCommand Command="{Binding Edit}" DisableAssociatedObjectOnCannotExecute="False" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+                </xamlbehaviors:EventTrigger>
+            </xamlbehaviors:Interaction.Triggers>
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First name"

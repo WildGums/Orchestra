@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <PackageReference Include="ApprovalTests" Version="5.2.4" />
-    <PackageReference Include="Catel.Core" Version="5.12.5" />
     <PackageReference Include="Catel.Fody" Version="4.4.2" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="6.1.1" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
