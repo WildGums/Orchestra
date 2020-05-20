@@ -23,7 +23,6 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Catel.Analyzers" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="Catel.Fody" Version="4.4.2" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="6.1.1" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -33,7 +32,6 @@
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="5.2.1" PrivateAssets="all" />
     <PackageReference Include="Orc.LogViewer" Version="3.4.0-alpha0285" />
-    <PackageReference Include="WpfAnalyzers" Version="3.1.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
