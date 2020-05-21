@@ -23,7 +23,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Catel.Fody" Version="4.4.2" PrivateAssets="all" />
+    <PackageReference Include="Catel.Fody" Version="4.4.4" PrivateAssets="all" />
     <PackageReference Include="Costura.Fody" Version="4.1.0" PrivateAssets="all" />
     <PackageReference Include="Fluent.Ribbon" Version="8.0.0-alpha0077" />
     <PackageReference Include="Fody" Version="6.1.1" PrivateAssets="all">
