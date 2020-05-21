@@ -33,9 +33,9 @@
     <PackageReference Include="MethodTimer.Fody" Version="3.1.2" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="5.2.1" PrivateAssets="all" />
-    <PackageReference Include="Orc.Controls" Version="4.0.0-alpha0162" />
-    <PackageReference Include="Orc.FileSystem" Version="3.2.0" />
-    <PackageReference Include="Orc.SystemInfo" Version="3.2.0" />
+    <PackageReference Include="Orc.Controls" Version="4.0.0-alpha0166" />
+    <PackageReference Include="Orc.FileSystem" Version="4.0.0-alpha0114" />
+    <PackageReference Include="Orc.SystemInfo" Version="4.0.0-alpha0120" />
     <PackageReference Include="Orc.Theming" Version="4.0.0-alpha0130" />
     <PackageReference Include="WindowsAPICodePack-Core" Version="1.1.2" PrivateAssets="all" />
     <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" PrivateAssets="all" />
