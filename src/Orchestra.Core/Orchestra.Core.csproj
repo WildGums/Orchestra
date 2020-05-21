@@ -36,7 +36,7 @@
     <PackageReference Include="Orc.Controls" Version="4.0.0-alpha0162" />
     <PackageReference Include="Orc.FileSystem" Version="3.2.0" />
     <PackageReference Include="Orc.SystemInfo" Version="3.2.0" />
-    <PackageReference Include="Orc.Theming" Version="4.0.0-alpha0122" />
+    <PackageReference Include="Orc.Theming" Version="4.0.0-alpha0130" />
     <PackageReference Include="WindowsAPICodePack-Core" Version="1.1.2" PrivateAssets="all" />
     <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" PrivateAssets="all" />
   </ItemGroup>
