@@ -37,7 +37,7 @@
     <PackageReference Include="Obsolete.Fody" Version="5.2.1" PrivateAssets="all" />
     <PackageReference Include="Orc.Controls" Version="4.0.0-alpha0167" />
     <PackageReference Include="Orc.FileSystem" Version="4.0.0-alpha0125" />
-    <PackageReference Include="Orc.SystemInfo" Version="4.0.0-alpha0120" />
+    <PackageReference Include="Orc.SystemInfo" Version="4.0.0-alpha0126" />
     <PackageReference Include="Orc.Theming" Version="4.0.0-alpha0145" />
   </ItemGroup>
 
