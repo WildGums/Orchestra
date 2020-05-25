@@ -18,6 +18,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
     using Catel.Services;
     using Models;
     using Orc.FileSystem;
+    using Orchestra.Examples.ViewModels;
     using Orchestra.Services;
     using Orchestra.ViewModels;
 
@@ -52,6 +53,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             _selectDirectoryService = selectDirectoryService;
             _directoryService = directoryService;
 
+            OpenWindow = new TaskCommand(OnOpenWindowExecuteAsync);
             OpenProject = new TaskCommand(OnOpenProjectExecuteAsync);
             OpenRecentlyUsedItem = new TaskCommand<string>(OnOpenRecentlyUsedItemExecuteAsync);
             OpenInExplorer = new TaskCommand<string>(OnOpenInExplorerExecuteAsync);
@@ -73,6 +75,13 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         #endregion
 
         #region Commands
+        public TaskCommand OpenWindow { get; private set; }
+
+        private async Task OnOpenWindowExecuteAsync()
+        {
+            await _uiVisualizerService.ShowDialogAsync<ExampleViewModel>();
+        }
+
         /// <summary>
         /// Gets the OpenProject command.
         /// </summary>
