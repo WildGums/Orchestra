@@ -3,7 +3,7 @@
                     xmlns:catel="http://schemas.catelproject.com">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.wpf.defaultstyles.xaml" />
+        <ResourceDictionary Source="/Orc.Theming;component/Themes/Generic.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
     <!-- Converters -->
