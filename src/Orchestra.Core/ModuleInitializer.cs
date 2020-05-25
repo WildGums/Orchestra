@@ -8,6 +8,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
+using Catel;
 using Catel.Configuration;
 using Catel.IoC;
 using Catel.Logging;
@@ -32,6 +33,11 @@ public static class ModuleInitializer
     /// </summary>
     public static void Initialize()
     {
+        if (EnvironmentHelper.IsProcessHostedByTool)
+        {
+            return;
+        }
+
         var serviceLocator = ServiceLocator.Default;
 
         // Ensure that we are using the right culture

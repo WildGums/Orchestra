@@ -1,4 +1,5 @@
-﻿using Catel.IoC;
+﻿using Catel;
+using Catel.IoC;
 using Orchestra;
 using Orchestra.Services;
 
@@ -9,6 +10,11 @@ public static partial class ModuleInitializer
 {
     static partial void InitializeSpecific()
     {
+        if (EnvironmentHelper.IsProcessHostedByTool)
+        {
+            return;
+        }
+
         var serviceLocator = ServiceLocator.Default;
 
         var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();

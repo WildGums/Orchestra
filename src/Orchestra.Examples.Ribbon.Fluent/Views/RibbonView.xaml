@@ -6,7 +6,6 @@
                    xmlns:fluent="urn:fluent-ribbon"
                    xmlns:ribbonexample="clr-namespace:Orchestra.Examples.Ribbon"
                    xmlns:orchestra="http://schemas.wildgums.com/orchestra"
-                   xmlns:orccontrols="clr-namespace:Orc.Controls;assembly=Orc.Controls" 
                    xmlns:orctheming="http://schemas.wildgums.com/orc/theming">
 
     <Grid>
