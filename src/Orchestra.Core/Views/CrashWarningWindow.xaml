@@ -81,7 +81,6 @@
 
                 <DockPanel Margin="0 20 0 0" LastChildFill="False" VerticalAlignment="Top">
                     <orccontrols:DropDownButton Header="{catel:LanguageBinding Orchestra_UserDataSettings}" DockPanel.Dock="Left" Height="26" MinWidth="140"
-                                                ShowDefaultButton="False"
                                                 Style="{StaticResource CrashWarningWindowDropDownButtonStyle}">
                         <orccontrols:DropDownButton.DropDown>
                             <ContextMenu>
