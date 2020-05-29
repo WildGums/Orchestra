@@ -35,7 +35,7 @@
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="5.2.1" PrivateAssets="all" />
-    <PackageReference Include="Orc.Controls" Version="4.0.0-alpha0195" />
+    <PackageReference Include="Orc.Controls" Version="4.0.0-alpha0196" />
     <PackageReference Include="Orc.FileSystem" Version="4.0.0-alpha0125" />
     <PackageReference Include="Orc.SystemInfo" Version="4.0.0-alpha0126" />
     <PackageReference Include="Orc.Theming" Version="4.0.0-alpha0174" />
