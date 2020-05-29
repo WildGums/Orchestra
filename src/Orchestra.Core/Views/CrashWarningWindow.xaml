@@ -3,7 +3,6 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:catel="http://schemas.catelproject.com"
               xmlns:orccontrols="http://schemas.wildgums.com/orc/controls" 
-              xmlns:orctheming="http://schemas.wildgums.com/orc/theming"
               SizeToContent="WidthAndHeight" ResizeMode="NoResize"
               WindowStartupLocation="CenterOwner">
 
@@ -30,7 +29,10 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ButtonBase}">
-                        <Border x:Name="Chrome" BorderBrush="{orctheming:ThemeColorBrush ThemeColorStyle=BorderColor}" BorderThickness="1" Background="#FFF4F4F4" SnapsToDevicePixels="True">
+                        <Border x:Name="Chrome" BorderBrush="{DynamicResource Orc.Brushes.Control.Default.Border}"
+                                BorderThickness="1" 
+                                Background="#FFF4F4F4"
+                                SnapsToDevicePixels="True">
                             <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"
                                                   ContentStringFormat="{TemplateBinding ContentStringFormat}"
                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -42,12 +44,12 @@
                         
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" TargetName="Chrome" Value="{orctheming:ThemeColorBrush ThemeColorStyle=AccentColor80}"/>
+                                <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource AccentColorBrush1}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" TargetName="Chrome" Value="{orctheming:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
+                                <Setter Property="Background" TargetName="Chrome" Value="{DynamicResource AccentColorBrush}"/>
                                 <Setter Property="Foreground" Value="White"/>
-                                <Setter Property="BorderBrush" TargetName="Chrome" Value="{orctheming:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
+                                <Setter Property="BorderBrush" TargetName="Chrome" Value="{DynamicResource AccentColorBrush}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Foreground" Value="#FFADADAD"/>
@@ -58,7 +60,9 @@
             </Setter>
         </Style>
 
-        <Style x:Key="CrashWarningWindowDropDownButtonStyle" TargetType="{x:Type orccontrols:DropDownButton}" BasedOn="{StaticResource {x:Type orccontrols:DropDownButton}}"/>
+        <Style x:Key="CrashWarningWindowDropDownButtonStyle" 
+               TargetType="{x:Type orccontrols:DropDownButton}" 
+               BasedOn="{StaticResource {x:Type orccontrols:DropDownButton}}"/>
     </catel:Window.Resources>
     
     <Grid>
