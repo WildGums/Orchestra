@@ -55,7 +55,10 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IThirdPartyNoticesService, ThirdPartyNoticesService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<ICloseApplicationService, CloseApplicationService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IRecentlyUsedItemsService, RecentlyUsedItemsService>();
+
+        serviceLocator.RegisterTypeIfNotYetRegistered<IKeyboardMappingsAllowedKeysService, KeyboardMappingsAllowedKeysService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IKeyboardMappingsService, KeyboardMappingsService>();
+
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusFilterService, StatusFilterService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusService, StatusService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<Orchestra.Services.ISplashScreenService, Orchestra.Services.SplashScreenService>();

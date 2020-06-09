@@ -556,6 +556,10 @@ namespace Orchestra.Services
     {
         Orchestra.Models.IHint[] GetHintsFor(System.Windows.FrameworkElement element);
     }
+    public interface IKeyboardMappingsAllowedKeysService
+    {
+        bool IsAllowed(System.Windows.Input.Key key);
+    }
     public interface IKeyboardMappingsService
     {
         System.Collections.Generic.List<Orchestra.Models.KeyboardMapping> AdditionalKeyboardMappings { get; }
@@ -624,6 +628,12 @@ namespace Orchestra.Services
         public static System.Threading.Tasks.Task ActivateOrShowAsync(this Orchestra.Services.IViewActivationService viewActivationService, System.Type viewModelType) { }
         public static System.Threading.Tasks.Task ActivateOrShowAsync<TViewModel>(this Orchestra.Services.IViewActivationService viewActivationService)
             where TViewModel : Catel.MVVM.IViewModel { }
+    }
+    public class KeyboardMappingsAllowedKeysService : Orchestra.Services.IKeyboardMappingsAllowedKeysService
+    {
+        protected readonly System.Collections.Generic.HashSet<System.Windows.Input.Key> IgnoredKeys;
+        public KeyboardMappingsAllowedKeysService() { }
+        public virtual bool IsAllowed(System.Windows.Input.Key key) { }
     }
     public class KeyboardMappingsService : Orchestra.Services.IKeyboardMappingsService
     {
