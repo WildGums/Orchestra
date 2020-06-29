@@ -9,7 +9,7 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <!--<Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Styles.Button}">
+    <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Styles.Button}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Button}" />
     </Style>
 
@@ -19,7 +19,7 @@
 
     <Style x:Key="DefaultComboBoxStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MahApps.Styles.ComboBox}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
-    </Style>-->
+    </Style>
 
     <!--<Style x:Key="DefaultDataGridStyle" TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MetroDataGrid}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
@@ -37,7 +37,7 @@
     <Style x:Key="DefaultDataGridRowHeaderStyle" TargetType="{x:Type DataGridRowHeader}" BasedOn="{StaticResource MetroDataGridRowHeader}">
     </Style>-->
 
-    <!--<Style x:Key="DefaultDatePickerStyle" TargetType="{x:Type DatePicker}" BasedOn="{StaticResource MahApps.Styles.DatePicker}">
+    <Style x:Key="DefaultDatePickerStyle" TargetType="{x:Type DatePicker}" BasedOn="{StaticResource MahApps.Styles.DatePicker}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Default}" />
     </Style>
 
@@ -71,13 +71,13 @@
 
     <Style x:Key="DefaultToggleButtonStyle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MahApps.Styles.ToggleButton}">
         <Setter Property="Margin" Value="{DynamicResource Margin.Button}" />
-    </Style>-->
+    </Style>
 
     <!-- Styles from https://github.com/Catel/Catel/blob/develop/src/Catel.MVVM/Catel.MVVM.NET40/Themes/DataWindow.generic.xaml -->
-    <!--<Style x:Key="DataWindowButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button}">
-        <Setter Property="Margin" Value="6, 0, 0, 0" />
+    <Style x:Key="DataWindowButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button}">
+        <Setter Property="Margin" Value="6, 6, 0, 0" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="MinWidth" Value="100" />
         <Setter Property="MinHeight" Value="23" />
-    </Style>-->
+    </Style>
 </ResourceDictionary>
