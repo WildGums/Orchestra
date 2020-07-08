@@ -10,6 +10,7 @@
     using ControlzEx.Theming;
     using MethodTimer;
     using Orc.Theming;
+    using System.Collections.Generic;
 
     public class ThemeManager : IThemeManager
     {
@@ -18,6 +19,8 @@
         private readonly IAccentColorService _accentColorService;
         private readonly IBaseColorSchemeService _baseColorSchemeService;
         private readonly ControlzEx.Theming.ThemeManager _themeManager;
+
+        private readonly Dictionary<string, bool> _resourceDictionaryExists = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
 
         protected bool _ensuredOrchestraThemes;
 
@@ -88,6 +91,7 @@
         /// <param name="resourceDictionaryUri">The resource dictionary.</param>
         /// <param name="createStyleForwarders">if set to <c>true</c>, style forwarders will be created.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="resourceDictionaryUri" /> is <c>null</c> or whitespace.</exception>
+        [Time("{resourceDictionaryUri}")]
         public virtual void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false)
         {
             Argument.IsNotNullOrWhitespace(() => resourceDictionaryUri);
@@ -108,7 +112,30 @@
                         throw Log.ErrorAndCreateException<OrchestraException>("Application.Current is null, cannot ensure application themes");
                     }
 
-                    var existingDictionary = (from dic in application.Resources.MergedDictionaries
+                    // Convenience fix. *If* the only merged dictionary is /themes/generic.xaml, we
+                    // will use that instead
+                    var applicationResourcesDictionary = application.Resources;
+                    if (applicationResourcesDictionary.MergedDictionaries.Count == 1)
+                    {
+                        var singleMergedDictionary = applicationResourcesDictionary.MergedDictionaries[0];
+                        if (singleMergedDictionary.Source?.ToString().EqualsIgnoreCase("/themes/generic.xaml") ?? false)
+                        {
+                            applicationResourcesDictionary = singleMergedDictionary;
+
+                            // Are we currently merging the apps own /themes/generic.xaml?
+                            var appGenericThemesDictionaryName = $"/{application.GetType().Assembly.GetName().Name};component/themes/generic.xaml";
+                            if (appGenericThemesDictionaryName.EqualsIgnoreCase(resourceDictionaryUri))
+                            {
+                                // Already included
+                                Log.Debug($"No need to merge '{appGenericThemesDictionaryName}', already merged");
+                                return;
+                            }
+
+                            Log.Debug($"Falling back to '/themes/generic.xaml' instead of app resource dictionary");
+                        }
+                    }
+
+                    var existingDictionary = (from dic in applicationResourcesDictionary.MergedDictionaries
                                               where dic.Source != null && dic.Source == uri
                                               select dic).FirstOrDefault();
                     if (existingDictionary is null)
@@ -118,13 +145,15 @@
                             Source = uri
                         };
 
-                        application.Resources.MergedDictionaries.Add(existingDictionary);
+                        applicationResourcesDictionary.MergedDictionaries.Add(existingDictionary);
                     }
-                }
 
-                if (createStyleForwarders)
-                {
-                    StyleHelper.CreateStyleForwardersForDefaultStyles();
+                    // Style forwarders only make sense once something actually changed. If it's a cascaded
+                    // call, callers should explicitly call CreateStyleForwarders manually
+                    if (createStyleForwarders)
+                    {
+                        StyleHelper.CreateStyleForwardersForDefaultStyles(applicationResourcesDictionary);
+                    }
                 }
             }
             catch (Exception ex)
@@ -138,8 +167,14 @@
         /// </summary>
         /// <param name="resourceDictionaryUri">The resource dictionary uri.</param>
         /// <returns></returns>
+        [Time("{resourceDictionaryUri}")]
         public virtual bool IsResourceDictionaryAvailable(string resourceDictionaryUri)
         {
+            if (_resourceDictionaryExists.TryGetValue(resourceDictionaryUri, out var existingValue))
+            {
+                return existingValue;
+            }
+
             var expectedResourceNames = resourceDictionaryUri.Split(new[] { ";component/" }, StringSplitOptions.RemoveEmptyEntries);
             if (expectedResourceNames.Length == 2)
             {
@@ -158,6 +193,8 @@
                         if (resourceStream is null)
                         {
                             Log.Debug($"Could not find generated resources @ '{generatedResourceName}', assuming the resource dictionary '{resourceDictionaryUri}' does not exist");
+
+                            _resourceDictionaryExists[resourceDictionaryUri] = false;
                             return false;
                         }
 
@@ -171,6 +208,8 @@
                             if (exists)
                             {
                                 Log.Debug($"Resource '{resourceDictionaryUri}' exists");
+
+                                _resourceDictionaryExists[resourceDictionaryUri] = true;
                                 return true;
                             }
                         }
@@ -180,6 +219,7 @@
 
             Log.Debug($"Failed to confirm that resource '{resourceDictionaryUri}' exists");
 
+            _resourceDictionaryExists[resourceDictionaryUri] = false;
             return false;
         }
 

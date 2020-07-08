@@ -13,5 +13,7 @@
   <Costura>
     <IncludeAssemblies>
     </IncludeAssemblies>
+    <IncludeRuntimeAssemblies>
+    </IncludeRuntimeAssemblies>
   </Costura>
 </Weavers>
