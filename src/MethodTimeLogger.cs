@@ -1,6 +1,7 @@
 using System.Reflection;
 using Catel.Logging;
 using System;
+using System.Globalization;
 
 /// <summary>
 /// Note: do not rename this class or put it inside a namespace.
@@ -26,7 +27,7 @@ internal static class MethodTimeLogger
             return;
         }
 
-        var finalMessage = $"[METHODTIMER] {type.Name}.{methodName} took '{milliseconds.ToString()}' ms";
+        var finalMessage = $"[METHODTIMER] {type.Name}.{methodName} took '{milliseconds.ToString(CultureInfo.InvariantCulture)}' ms";
 
         if (!string.IsNullOrWhiteSpace(message))
         {
