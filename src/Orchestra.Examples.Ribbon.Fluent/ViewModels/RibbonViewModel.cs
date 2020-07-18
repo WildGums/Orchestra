@@ -21,6 +21,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
     using Orchestra.Examples.ViewModels;
     using Orchestra.Services;
     using Orchestra.ViewModels;
+    using Orchestra.Windows;
 
     public class RibbonViewModel : ViewModelBase
     {
@@ -59,6 +60,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             OpenInExplorer = new TaskCommand<string>(OnOpenInExplorerExecuteAsync);
             UnpinItem = new Command<string>(OnUnpinItemExecute);
             PinItem = new Command<string>(OnPinItemExecute);
+            ShowAllMonitorInfo = new TaskCommand(OnShowAllMonitorInfoExecuteAsync);
 
             ShowKeyboardMappings = new TaskCommand(OnShowKeyboardMappingsExecuteAsync);
 
@@ -172,6 +174,20 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         private async Task OnShowKeyboardMappingsExecuteAsync()
         {
             await _uiVisualizerService.ShowDialogAsync<KeyboardMappingsCustomizationViewModel>();
+        }
+
+        public TaskCommand ShowAllMonitorInfo { get; private set; }
+
+        private async Task OnShowAllMonitorInfoExecuteAsync()
+        {
+            var monitorInfos = MonitorInfo.GetAllMonitors();
+
+            var monitorInfoMessage = string.Join<string>("\n\n", monitorInfos.Select(x => 
+                    $"{x.DeviceNameFull}\nResolution: {x.ScreenWidth}x{x.ScreenHeight}\n" +
+                    $"Working Area: {x.WorkingArea}\nDpi Scale: {x.DpiScale?.ToString() ?? "Undefined"}" 
+            ));
+            
+            await _messageService.ShowAsync(monitorInfoMessage);
         }
         #endregion
 

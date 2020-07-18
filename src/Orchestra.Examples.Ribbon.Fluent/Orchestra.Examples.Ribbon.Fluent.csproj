@@ -19,6 +19,7 @@
     <StartupObject />
     <NoWarn>$(NoWarn);SA1652</NoWarn>
     <ApplicationIcon>Resources\Icons\Logo.ico</ApplicationIcon>
+    <ApplicationManifest>.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
