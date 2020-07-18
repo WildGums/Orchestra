@@ -9,11 +9,20 @@
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Interop;
+    using Catel;
 
     public class DpiScale
     {
+        private const int BasicAbsoluteDpi = 96;
+
         public double X { get; set; }
         public double Y { get; set; }
+
+        public void SetScaleFromAbsolute(uint absoluteDpiX, uint absoluteDpiY)
+        {
+            X = absoluteDpiX / (double)BasicAbsoluteDpi;
+            Y = absoluteDpiY / (double)BasicAbsoluteDpi;
+        }
 
         public override string ToString()
         {
@@ -47,14 +56,14 @@
 
         public DpiScale DpiScale { get; set; }
 
-        public int GetDpiAwareResolution()
+        public Rect GetDpiAwareResolution()
         {
-            throw new NotImplementedException();
+            return new Rect(MonitorArea.X, MonitorArea.Y, MonitorArea.Width * DpiScale.X, MonitorArea.Height * DpiScale.Y);
         }
 
-        public int GetDpiAwareWorkingArea()
+        public Rect GetDpiAwareWorkingArea()
         {
-            throw new NotImplementedException();
+            return new Rect(WorkingArea.X * DpiScale.X, WorkingArea.Y * DpiScale.Y, (int)(WorkingArea.Width * DpiScale.X), (int)(WorkingArea.Height * DpiScale.Y));
         }
 
         public static MonitorInfo[] GetAllMonitors(bool throwErrorsForWrongAppManifest = true)
@@ -77,11 +86,10 @@
                 //GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness);
             }
 
-            List<MonitorInfo> col = new List<MonitorInfo>();
+            var monitorInfos = new List<MonitorInfo>();
+            var videoAdapters = new List<DisplayDevice>();
 
             var adapterIndex = -1;
-
-            List<DisplayDevice> videoAdapter = new List<DisplayDevice>();
 
             // Step 3: Go through Video Adapters Outputs
             while (true)
@@ -94,13 +102,13 @@
                     break;
                 }
 
-                videoAdapter.Add(adapter);
+                videoAdapters.Add(adapter);
             }
 
             Dictionary<DisplayDevice, string> displayDevicesToAdapter = new Dictionary<DisplayDevice, string>();
 
             // Step 4: Step into each device attached to every output and find out monitor devices
-            foreach (var adapter in videoAdapter)
+            foreach (var adapter in videoAdapters)
             {
                 var displayIndex = -1;
 
@@ -119,48 +127,61 @@
                 }
             }
 
-            List<NativeMonitorInfoEx> nativeMonitorInfos = new List<NativeMonitorInfoEx>();
+            Dictionary<NativeMonitorInfoEx, IntPtr> nativeMonitorInfos = new Dictionary<NativeMonitorInfoEx, IntPtr>();
 
             // Step 5: Enumerate available monitors
             NativeMethods.EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, delegate (IntPtr hMonitor, IntPtr hdcMonitor, ref Rect lprcMonitor, IntPtr dwData)
             {
-                var mi = new NativeMonitorInfoEx();
-                var success = NativeMethods.GetMonitorInfo(hMonitor, mi);
+                var monitorInfo = NativeMonitorInfoEx.Initialize();
+                var success = NativeMethods.GetMonitorInfo(hMonitor, ref monitorInfo);
 
                 if (success)
                 {
-                    nativeMonitorInfos.Add(mi);
+                    nativeMonitorInfos.Add(monitorInfo, hMonitor); // add handle, we can use it later to get dpi
                 }
 
                 return true;
             }, IntPtr.Zero);
 
             // Step 6: Compare native infos from GetMonitorInfo with display devices
-            foreach (var key in displayDevicesToAdapter.Keys)
+            foreach (var keyValuePair in displayDevicesToAdapter)
             {
-                var displayDevice = key;
-                var adapterDeviceName = displayDevicesToAdapter[displayDevice];
+                var displayDevice = keyValuePair.Key;
+                var adapterDeviceName = keyValuePair.Value;
 
-                var nativeInfo = nativeMonitorInfos.FirstOrDefault(x => string.Equals(x.GetDeviceName(), adapterDeviceName));
+                var nativeMonitorInfoAndHandle = nativeMonitorInfos.FirstOrDefault(x => string.Equals(x.Key.GetDeviceName(), adapterDeviceName));
+                var nativeMonitorInfo = nativeMonitorInfoAndHandle.Key;
+                var monitorHandle = nativeMonitorInfoAndHandle.Value;
+
+                // Get dpi
+                var dpiScale = new DpiScale();
+
+                NativeMethods.GetDpiForMonitor(monitorHandle, DpiType.Effective, out var dpiScaleX, out var dpiScaleY);
+
+                if (dpiScaleX > 0 && dpiScaleY > 0)
+                {
+                    dpiScale.SetScaleFromAbsolute(dpiScaleX, dpiScaleY);
+                }
 
                 var di = new MonitorInfo
                 {
-                    DeviceName = nativeInfo.GetDeviceName(),
-                    ScreenWidth = nativeInfo.Monitor.GetWidth().ToString(),
-                    ScreenHeight = nativeInfo.Monitor.GetHeight().ToString(),
-                    MonitorArea = nativeInfo.Monitor.ToInt32Rect(),
-                    WorkingArea = nativeInfo.Work.ToInt32Rect(),
-                    Availability = nativeInfo.Flags.ToString(),
-                    IsPrimary = nativeInfo.Flags == 1,
+                    DeviceName = nativeMonitorInfo.GetDeviceName(),
+                    ScreenWidth = nativeMonitorInfo.Monitor.GetWidth().ToString(),
+                    ScreenHeight = nativeMonitorInfo.Monitor.GetHeight().ToString(),
+                    MonitorArea = nativeMonitorInfo.Monitor.ToInt32Rect(),
+                    WorkingArea = nativeMonitorInfo.Work.ToInt32Rect(),
+                    Availability = nativeMonitorInfo.Flags.ToString(),
+                    IsPrimary = nativeMonitorInfo.Flags == 1,
                     FriendlyName = displayDevice.DeviceString,
                     DeviceNameFull = displayDevice.DeviceName,
-                    AdapterDeviceName = adapterDeviceName
+                    AdapterDeviceName = adapterDeviceName,
+                    DpiScale = dpiScale
                 };
 
-                col.Add(di);
+                monitorInfos.Add(di);
             }
 
-            return col.ToArray();
+            return monitorInfos.ToArray();
         }
 
         public static MonitorInfo GetPrimaryMonitor()
@@ -170,6 +191,7 @@
 
         public static MonitorInfo GetMonitorFromWindow(Window window)
         {
+            Argument.IsNotNull(() => window);
             // Get screen from window
             var windowInteropHelper = new WindowInteropHelper(window);
             return GetMonitorFromWindowHandle(windowInteropHelper.Handle);
@@ -177,20 +199,39 @@
 
         public static MonitorInfo GetMonitorFromWindowHandle(IntPtr handle)
         {
+            if (handle == IntPtr.Zero)
+            {
+                throw new ArgumentException("Pointer has been initialized to zero", nameof(handle));
+            }
             // Get screen from window handle
             var monitorHandle = NativeMethods.MonitorFromWindow(handle, 0);
 
-            var nativeInfo = new NativeMonitorInfoEx();
-           
-            var success = NativeMethods.GetMonitorInfo(monitorHandle, nativeInfo);
+            var nativeInfo = NativeMonitorInfoEx.Initialize();
 
-            if(!success)
+            var success = NativeMethods.GetMonitorInfo(monitorHandle, ref nativeInfo);
+
+            if (!success)
             {
                 return null;
             }
 
             // note: can this cause issues when monitor mirror, probably need to check DisplayDeviceStateFlag?
-            var outputDevice = GetOutputDevicesForDevice(nativeInfo.GetDeviceName()).FirstOrDefault();
+            var outputDevice = GetOutputDevicesForDevice(nativeInfo.GetDeviceName())?.FirstOrDefault();
+
+            if (outputDevice is null || outputDevice.Value.Size == 0)
+            {
+                return null;
+            }
+
+            // Get dpi
+            var dpiScale = new DpiScale();
+
+            NativeMethods.GetDpiForMonitor(monitorHandle, DpiType.Effective, out var dpiScaleX, out var dpiScaleY);
+
+            if (dpiScaleX > 0 && dpiScaleY > 0)
+            {
+                dpiScale.SetScaleFromAbsolute(dpiScaleX, dpiScaleY);
+            }
 
             var di = new MonitorInfo
             {
@@ -201,9 +242,10 @@
                 WorkingArea = nativeInfo.Work.ToInt32Rect(),
                 Availability = nativeInfo.Flags.ToString(),
                 IsPrimary = nativeInfo.Flags == 1,
-                FriendlyName = outputDevice.DeviceString,
-                DeviceNameFull = outputDevice.DeviceName,
-                AdapterDeviceName = nativeInfo.GetDeviceName()
+                FriendlyName = outputDevice.Value.DeviceString,
+                DeviceNameFull = outputDevice.Value.DeviceName,
+                AdapterDeviceName = nativeInfo.GetDeviceName(),
+                DpiScale = dpiScale
             };
 
             return di;
@@ -234,7 +276,7 @@
         internal static class NativeMethods
         {
             [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-            public static extern bool GetMonitorInfo(IntPtr hmonitor, [In, Out] NativeMonitorInfoEx info);
+            public static extern bool GetMonitorInfo(IntPtr hmonitor, ref NativeMonitorInfoEx info);
 
             [DllImport("user32.dll", CharSet = CharSet.Unicode)]
             public static extern bool EnumDisplayDevices(string deviceName, uint deviceNumber, ref DisplayDevice displayDevice, uint flags);
@@ -248,7 +290,7 @@
             public static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
 
             [DllImport("shcore.dll")]
-            private static extern IntPtr GetDpiForMonitor([In] IntPtr hmonitor, [In] DpiType dpiType, [Out] out uint dpiX, [Out] out uint dpiY);
+            public static extern bool GetDpiForMonitor([In] IntPtr hmonitor, [In] DpiType dpiType, [Out] out uint dpiX, [Out] out uint dpiY);
 
             [DllImport("shcore.dll", SetLastError = true)]
             public static extern bool SetProcessDpiAwareness(DpiAwareness awareness);
@@ -258,14 +300,27 @@
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
-        internal class NativeMonitorInfoEx
+        internal struct NativeMonitorInfoEx
         {
-            public int Size = Marshal.SizeOf(typeof(NativeMonitorInfoEx));
-            public NativeRectangle Monitor = new NativeRectangle();
-            public NativeRectangle Work = new NativeRectangle();
-            public int Flags = 0;
+            public uint Size;
+            public NativeRectangle Monitor;
+            public NativeRectangle Work;
+            public int Flags;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
-            public char[] Device = new char[32];
+            public char[] Device;
+
+            public static NativeMonitorInfoEx Initialize()
+            {
+                return new NativeMonitorInfoEx()
+                {
+                    Size = (uint)Marshal.SizeOf(typeof(NativeMonitorInfoEx)),
+                    Monitor = new NativeRectangle(),
+                    Work = new NativeRectangle(),
+                    Flags = 0,
+                    Device = new char[32]
+                };
+            }
 
             public string GetDeviceName()
             {
