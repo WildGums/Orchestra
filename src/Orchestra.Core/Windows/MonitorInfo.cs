@@ -10,18 +10,19 @@
     using System.Windows;
     using System.Windows.Interop;
     using Catel;
+    using Catel.Logging;
 
     public class DpiScale
     {
-        private const int BasicAbsoluteDpi = 96;
+        private const double BasicAbsoluteDpi = 96;
 
         public double X { get; set; }
         public double Y { get; set; }
 
         public void SetScaleFromAbsolute(uint absoluteDpiX, uint absoluteDpiY)
         {
-            X = absoluteDpiX / (double)BasicAbsoluteDpi;
-            Y = absoluteDpiY / (double)BasicAbsoluteDpi;
+            X = absoluteDpiX / BasicAbsoluteDpi;
+            Y = absoluteDpiY / BasicAbsoluteDpi;
         }
 
         public override string ToString()
@@ -32,6 +33,8 @@
 
     public class MonitorInfo
     {
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         public string Id { get; set; }
 
         public bool IsPrimary { get; set; }
@@ -71,11 +74,11 @@
             if (throwErrorsForWrongAppManifest)
             {
                 // Step 1: check DPI awareness, must be PerMonitor
-                NativeMethods.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out DpiAwareness awareness);
+                NativeMethods.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out var awareness);
 
                 if (awareness != DpiAwareness.ProcessPerMonitor)
                 {
-                    throw new NotSupportedException("Application manifest is incorrect to retrieve reliable monitor info, see https://github.com/wildgums/orchestra/364 for more info");
+                    throw Log.ErrorAndCreateException<NotSupportedException>("Application manifest is incorrect to retrieve reliable monitor info, see https://github.com/wildgums/orchestra/364 for more info");
                 }
 
                 // Step 2: check whether app is dpi-aware (should be false)
@@ -105,7 +108,7 @@
                 videoAdapters.Add(adapter);
             }
 
-            Dictionary<DisplayDevice, string> displayDevicesToAdapter = new Dictionary<DisplayDevice, string>();
+            var displayDevicesToAdapter = new Dictionary<DisplayDevice, string>();
 
             // Step 4: Step into each device attached to every output and find out monitor devices
             foreach (var adapter in videoAdapters)
@@ -123,11 +126,11 @@
                         break;
                     }
 
-                    displayDevicesToAdapter.Add(display, adapter.DeviceName);
+                    displayDevicesToAdapter[display] = adapter.DeviceName;
                 }
             }
 
-            Dictionary<NativeMonitorInfoEx, IntPtr> nativeMonitorInfos = new Dictionary<NativeMonitorInfoEx, IntPtr>();
+            var nativeMonitorInfos = new Dictionary<NativeMonitorInfoEx, IntPtr>();
 
             // Step 5: Enumerate available monitors
             NativeMethods.EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, delegate (IntPtr hMonitor, IntPtr hdcMonitor, ref Rect lprcMonitor, IntPtr dwData)
@@ -192,7 +195,7 @@
         public static MonitorInfo GetMonitorFromWindow(Window window)
         {
             Argument.IsNotNull(() => window);
-            // Get screen from window
+
             var windowInteropHelper = new WindowInteropHelper(window);
             return GetMonitorFromWindowHandle(windowInteropHelper.Handle);
         }
@@ -201,7 +204,7 @@
         {
             if (handle == IntPtr.Zero)
             {
-                throw new ArgumentException("Pointer has been initialized to zero", nameof(handle));
+                Log.ErrorAndCreateException((string errorMessage) => new ArgumentException(errorMessage, nameof(handle)), "Pointer has been initialized to zero");
             }
             // Get screen from window handle
             var monitorHandle = NativeMethods.MonitorFromWindow(handle, 0);
@@ -253,6 +256,8 @@
 
         private static DisplayDevice[] GetOutputDevicesForDevice(string adapterDeviceName)
         {
+            Argument.IsNotNullOrEmpty(() => adapterDeviceName);
+
             var displayIndex = -1;
             var outputDevices = new List<DisplayDevice>();
 
@@ -276,7 +281,7 @@
         internal static class NativeMethods
         {
             [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-            public static extern bool GetMonitorInfo(IntPtr hmonitor, ref NativeMonitorInfoEx info);
+            public static extern bool GetMonitorInfo(IntPtr hMonitor, ref NativeMonitorInfoEx info);
 
             [DllImport("user32.dll", CharSet = CharSet.Unicode)]
             public static extern bool EnumDisplayDevices(string deviceName, uint deviceNumber, ref DisplayDevice displayDevice, uint flags);
@@ -290,13 +295,13 @@
             public static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
 
             [DllImport("shcore.dll")]
-            public static extern bool GetDpiForMonitor([In] IntPtr hmonitor, [In] DpiType dpiType, [Out] out uint dpiX, [Out] out uint dpiY);
+            public static extern bool GetDpiForMonitor([In] IntPtr hMonitor, [In] DpiType dpiType, [Out] out uint dpiX, [Out] out uint dpiY);
 
             [DllImport("shcore.dll", SetLastError = true)]
             public static extern bool SetProcessDpiAwareness(DpiAwareness awareness);
 
             [DllImport("shcore.dll", SetLastError = true)]
-            public static extern void GetProcessDpiAwareness(IntPtr hprocess, out DpiAwareness awareness);
+            public static extern void GetProcessDpiAwareness(IntPtr hProcess, out DpiAwareness awareness);
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
