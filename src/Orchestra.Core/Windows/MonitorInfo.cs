@@ -204,7 +204,7 @@
         {
             if (handle == IntPtr.Zero)
             {
-                Log.ErrorAndCreateException((string errorMessage) => new ArgumentException(errorMessage, nameof(handle)), "Pointer has been initialized to zero");
+                throw Log.ErrorAndCreateException((string errorMessage) => new ArgumentException(errorMessage, nameof(handle)), "Pointer has been initialized to zero");
             }
             // Get screen from window handle
             var monitorHandle = NativeMethods.MonitorFromWindow(handle, 0);
