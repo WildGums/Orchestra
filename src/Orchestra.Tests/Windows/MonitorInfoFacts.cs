@@ -12,6 +12,7 @@
     [TestFixture]
     public class MonitorInfoFacts
     {
+        [Explicit]
         [TestCase(false)]
         [TestCase(true)]
         public void GetMonitorInfoManifestHandled(bool manifestCheck)
