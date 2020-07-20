@@ -124,14 +124,14 @@ namespace Orchestra.Windows
         private static Size GetWindowSize(IntPtr hWnd)
         {
             var window = (Window)HwndSource.FromHwnd(hWnd).RootVisual;
-            var screen = WpfScreen.GetScreenFrom(window);
+            var screen = MonitorInfo.GetMonitorFromWindow(window);
 
             var size = new Size(screen.WorkingArea.Width + 8, screen.WorkingArea.Height + 8);
             return size;
         }
 
         [DllImport("user32.dll")]
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 
         [DllImport("user32.dll")]
         private static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);

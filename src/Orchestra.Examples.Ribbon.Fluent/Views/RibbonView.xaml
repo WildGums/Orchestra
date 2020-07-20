@@ -192,6 +192,10 @@
                                            CommandParameter="{x:Static services:MessageImage.Question}" />
                             </StackPanel>
                         </fluent:SplitButton>
+
+                        <fluent:Button Header="Show Screen Devices" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Desktop}}"
+                                       Command="{Binding ShowAllMonitorInfo}"/>
+
                         <fluent:ToggleButton Header="Toggle button" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Arrows}}"/>
                     </fluent:RibbonGroupBox>
 

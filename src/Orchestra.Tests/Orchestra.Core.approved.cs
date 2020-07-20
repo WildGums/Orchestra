@@ -968,12 +968,64 @@ namespace Orchestra.Views
 }
 namespace Orchestra.Windows
 {
+    public class DpiScale
+    {
+        public DpiScale() { }
+        public double X { get; set; }
+        public double Y { get; set; }
+        public void SetScaleFromAbsolute(uint absoluteDpiX, uint absoluteDpiY) { }
+        public override string ToString() { }
+    }
     public class FixMaximize : System.Windows.DependencyObject
     {
         public static readonly System.Windows.DependencyProperty FixMaximizeProperty;
         public FixMaximize() { }
         public static bool GetFixMaximize(System.Windows.Window ribbonWindow) { }
         public static void SetFixMaximize(System.Windows.Window ribbonWindow, bool value) { }
+    }
+    public class MonitorInfo
+    {
+        public MonitorInfo() { }
+        public string AdapterDeviceName { get; set; }
+        public string Availability { get; set; }
+        public string DeviceName { get; set; }
+        public string DeviceNameFull { get; set; }
+        public Orchestra.Windows.DpiScale DpiScale { get; set; }
+        public string FriendlyName { get; set; }
+        public string Id { get; set; }
+        public bool IsPrimary { get; set; }
+        public System.Windows.Int32Rect MonitorArea { get; set; }
+        public string ScreenHeight { get; set; }
+        public string ScreenWidth { get; set; }
+        public System.Windows.Int32Rect WorkingArea { get; set; }
+        public System.Windows.Rect GetDpiAwareResolution() { }
+        public System.Windows.Rect GetDpiAwareWorkingArea() { }
+        public static Orchestra.Windows.MonitorInfo[] GetAllMonitors(bool throwErrorsForWrongAppManifest = true) { }
+        public static Orchestra.Windows.MonitorInfo GetMonitorFromWindow(System.Windows.Window window) { }
+        public static Orchestra.Windows.MonitorInfo GetMonitorFromWindowHandle(System.IntPtr handle) { }
+        public static Orchestra.Windows.MonitorInfo GetPrimaryMonitor() { }
+        [System.Flags]
+        public enum DpiAwareness
+        {
+            Unaware = 0,
+            System = 1,
+            ProcessPerMonitor = 2,
+        }
+        [System.Flags]
+        public enum DpiAwarenessContext
+        {
+            Unaware = 0,
+            System = 1,
+            ProcessPerMonitor = 2,
+            ProcessPerMonitorV2 = 3,
+            UnawareGdiScaled = 4,
+        }
+        public enum DpiType
+        {
+            Effective = 0,
+            Angular = 1,
+            Raw = 2,
+        }
     }
     public sealed class Taskbar
     {
@@ -996,16 +1048,5 @@ namespace Orchestra.Windows
     public static class WindowExtensions
     {
         public static void ApplyApplicationIcon(this System.Windows.Window window) { }
-    }
-    public class WpfScreen
-    {
-        public System.Windows.Rect DeviceBounds { get; }
-        public string DeviceName { get; }
-        public bool IsPrimary { get; }
-        public System.Windows.Rect WorkingArea { get; }
-        public static Orchestra.Windows.WpfScreen Primary { get; }
-        public static System.Collections.Generic.IEnumerable<Orchestra.Windows.WpfScreen> AllScreens() { }
-        public static Orchestra.Windows.WpfScreen GetScreenFrom(System.Windows.Point point) { }
-        public static Orchestra.Windows.WpfScreen GetScreenFrom(System.Windows.Window window) { }
     }
 }
