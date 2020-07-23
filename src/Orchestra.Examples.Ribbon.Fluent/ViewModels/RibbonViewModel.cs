@@ -183,7 +183,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             var monitorInfos = MonitorInfo.GetAllMonitors();
 
             var monitorInfoMessage = string.Join<string>("\n\n", monitorInfos.Select(x => 
-                    $"{x.DeviceNameFull}\nResolution: {x.ScreenWidth}x{x.ScreenHeight}\n" +
+                    $"{x.DeviceNameFull}\n{x.FriendlyName}\nResolution: {x.ScreenWidth}x{x.ScreenHeight}\n" +
                     $"Working Area: {x.WorkingArea}\nDpi Scale: {x.DpiScale?.ToString() ?? "Undefined"}" 
             ));
             

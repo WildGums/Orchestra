@@ -5,7 +5,6 @@
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Linq;
-    using System.Management;
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Interop;
@@ -132,6 +131,8 @@
 
             var nativeMonitorInfos = new Dictionary<NativeMonitorInfoEx, IntPtr>();
 
+            var displayConfigs = GetDisplayConfigs();
+
             // Step 5: Enumerate available monitors
             NativeMethods.EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, delegate (IntPtr hMonitor, IntPtr hdcMonitor, ref Rect lprcMonitor, IntPtr dwData)
             {
@@ -175,7 +176,7 @@
                     WorkingArea = nativeMonitorInfo.Work.ToInt32Rect(),
                     Availability = nativeMonitorInfo.Flags.ToString(),
                     IsPrimary = nativeMonitorInfo.Flags == 1,
-                    FriendlyName = displayDevice.DeviceString,
+                    FriendlyName = displayConfigs.FirstOrDefault(c => string.Equals(c.MonitorDevicePath, displayDevice.DeviceId)).MonitorFriendDeviceName,
                     DeviceNameFull = displayDevice.DeviceName,
                     AdapterDeviceName = adapterDeviceName,
                     DpiScale = dpiScale
@@ -278,10 +279,73 @@
             return outputDevices.ToArray();
         }
 
+        private static DisplayConfigTargetDeviceName[] GetDisplayConfigs()
+        {
+            var error = NativeMethods.GetDisplayConfigBufferSizes(QueryDeviceConfigFlags.QdcOnlyActivePaths, out var pathInfoElementsCount, out var modeInfoElementsCount);
+
+            if (error != 0)
+            {
+                throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(NativeMethods.GetDisplayConfigBufferSizes)} returns error code '{error}'");
+            }
+
+            var displayConfigs = new List<DisplayConfigTargetDeviceName>();
+
+            var displayConfigPathInfos = new DisplayConfigPathInfo[pathInfoElementsCount];
+            var displayConfigModeInfos = new DisplayConfigModeInfo[modeInfoElementsCount];
+
+            error = NativeMethods.QueryDisplayConfig(QueryDeviceConfigFlags.QdcOnlyActivePaths, ref pathInfoElementsCount, displayConfigPathInfos, ref modeInfoElementsCount,
+                displayConfigModeInfos, IntPtr.Zero);
+
+            if (error != 0)
+            {
+                throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(NativeMethods.QueryDisplayConfig)} returns error code '{error}'");
+            }
+
+            foreach (var pathInfo in displayConfigPathInfos)
+            {
+                var adapterName = new DisplayConfigAdapterName(pathInfo.TargetInfo.AdapterId, DisplayConfigDeviceInfoType.DISPLAYCONFIG_DEVICE_INFO_GET_ADAPTER_NAME);
+
+                var targetDeviceName = new DisplayConfigTargetDeviceName()
+                {
+                    Header = DisplayConfigDeviceInfoHeader.Initialize(pathInfo.TargetInfo.AdapterId,
+                    pathInfo.TargetInfo.Id,
+                    DisplayConfigDeviceInfoType.DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME,
+                    (uint)Marshal.SizeOf<DisplayConfigTargetDeviceName>())
+                };
+
+                error = (int)NativeMethods.DisplayConfigGetDeviceInfo(ref targetDeviceName);
+
+                try
+                {
+                    if (error != 0)
+                    {
+                        throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(NativeMethods.DisplayConfigGetDeviceInfo)} returns error code '{error}'");
+                    }
+
+                    displayConfigs.Add(targetDeviceName);
+                }
+                catch (Win32Exception ex)
+                {
+                    Log.Error(ex);
+                }
+            }
+
+            return displayConfigs.ToArray();
+        }
+
         internal static class NativeMethods
         {
+            [DllImport("user32.dll")]
+            public static extern int GetDisplayConfigBufferSizes(QueryDeviceConfigFlags flags, out uint numPathArrayElements, out uint numModeInfoArrayElements);
+
             [DllImport("user32.dll", CharSet = CharSet.Unicode)]
             public static extern bool GetMonitorInfo(IntPtr hMonitor, ref NativeMonitorInfoEx info);
+
+            [DllImport("user32")]
+            public static extern Win32Status DisplayConfigGetDeviceInfo(ref DisplayConfigAdapterName deviceName);
+
+            [DllImport("user32")]
+            public static extern Win32Status DisplayConfigGetDeviceInfo(ref DisplayConfigTargetDeviceName deviceName);
 
             [DllImport("user32.dll", CharSet = CharSet.Unicode)]
             public static extern bool EnumDisplayDevices(string deviceName, uint deviceNumber, ref DisplayDevice displayDevice, uint flags);
@@ -294,14 +358,18 @@
             [DllImport("user32.dll")]
             public static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
 
+            [DllImport("user32.dll")]
+            public static extern int QueryDisplayConfig([In] QueryDeviceConfigFlags flags, [In, Out] ref uint numPathArrayElements, [Out] DisplayConfigPathInfo[] pathInfoArray,
+            [In, Out] ref uint numModeInfoArrayElements, [Out] DisplayConfigModeInfo[] modeInfoArray, IntPtr currentTopologyId);
+
             [DllImport("shcore.dll")]
             public static extern bool GetDpiForMonitor([In] IntPtr hMonitor, [In] DpiType dpiType, [Out] out uint dpiX, [Out] out uint dpiY);
 
             [DllImport("shcore.dll", SetLastError = true)]
-            public static extern bool SetProcessDpiAwareness(DpiAwareness awareness);
+            public static extern void GetProcessDpiAwareness(IntPtr hProcess, out DpiAwareness awareness);
 
             [DllImport("shcore.dll", SetLastError = true)]
-            public static extern void GetProcessDpiAwareness(IntPtr hProcess, out DpiAwareness awareness);
+            public static extern bool SetProcessDpiAwareness(DpiAwareness awareness);
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
@@ -406,6 +474,194 @@
             }
         }
 
+        [StructLayout(LayoutKind.Explicit)]
+        internal struct DisplayConfigModeInfo
+        {
+            [MarshalAs(UnmanagedType.U4)]
+            [FieldOffset(0)]
+            public readonly DisplayConfigModeInfoType InfoType;
+
+            [MarshalAs(UnmanagedType.U4)]
+            [FieldOffset(4)]
+            public readonly uint Id;
+
+            [MarshalAs(UnmanagedType.Struct)]
+            [FieldOffset(8)]
+            public readonly LUID AdapterId;
+
+            [MarshalAs(UnmanagedType.Struct)]
+            [FieldOffset(16)]
+            public readonly DisplayConfigModeInfoUnion TargetMode;
+        }
+
+        [StructLayout(LayoutKind.Explicit)]
+        internal struct DisplayConfigModeInfoUnion
+        {
+            [FieldOffset(0)]
+            public DisplayConfigTargetMode TargetMode;
+            [FieldOffset(0)]
+            public DisplayConfigSourceMode SourceMode;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct DisplayConfigSourceMode
+        {
+            public uint Width;
+            public uint Height;
+            public DisplayConfigPixelFormat PixelFormat;
+            public PointL Position;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct DisplayConfigTargetMode
+        {
+            public DisplayConfigVideoSignalInfo TargetVideoSignalInfo;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct DisplayConfigVideoSignalInfo
+        {
+            public ulong PixelRate;
+            public DisplayConfigRational HSyncFreq;
+            public DisplayConfigRational VSyncFreq;
+            public DisplayConfig2DRegion ActiveSize;
+            public DisplayConfig2DRegion TotalSize;
+            public uint VideoStandard;
+            public DisplayConfigScanLineOrdering ScanLineOrdering;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct DisplayConfigRational
+        {
+            public uint Numerator;
+            public uint Denominator;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct DisplayConfig2DRegion
+        {
+            public uint Cx;
+            public uint Cy;
+        }
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        internal struct DisplayConfigAdapterName
+        {
+            // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+            [MarshalAs(UnmanagedType.Struct)]
+            private readonly DisplayConfigDeviceInfoHeader _header;
+
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+            public readonly string AdapterDevicePath;
+
+            public DisplayConfigAdapterName(LUID adapter, DisplayConfigDeviceInfoType deviceInfoType) : this()
+            {
+                _header = DisplayConfigDeviceInfoHeader.Initialize(adapter, deviceInfoType, (uint)Marshal.SizeOf<DisplayConfigAdapterName>());
+            }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct PointL
+        {
+            private readonly int _x;
+            private readonly int _y;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct DisplayConfigPathInfo
+        {
+            public DisplayConfigPathSourceInfo SourceInfo;
+            public DisplayConfigPathTargetInfo TargetInfo;
+            public uint Flags;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct DisplayConfigPathSourceInfo
+        {
+            public LUID AdapterId;
+            public uint Id;
+            public uint ModeInfoIdx;
+            public uint StatusFlags;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct DisplayConfigPathTargetInfo
+        {
+            public LUID AdapterId;
+            public uint Id;
+            public uint ModeInfoIdx;
+            private readonly DisplayConfigVideoOutputTechnology _outputTechnology;
+            private readonly DisplayConfigRotation _rotation;
+            private readonly DisplayConfigScaling _scaling;
+            private readonly DisplayConfigRational _refreshRate;
+            private readonly DisplayConfigScanLineOrdering _scanLineOrdering;
+            public bool TargetAvailable;
+            public uint StatusFlags;
+        }
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        internal struct DisplayConfigTargetDeviceName
+        {
+            public DisplayConfigDeviceInfoHeader Header;
+            public DisplayConfigTargetDeviceNameFlags Flags;
+            public DisplayConfigVideoOutputTechnology OutputTechnology;
+            public ushort EditManufactureId;
+            public ushort EditProductCodeId;
+            public uint ConnectorInstance;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
+            public string MonitorFriendDeviceName;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+            public string MonitorDevicePath;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct DisplayConfigDeviceInfoHeader
+        {
+            public DisplayConfigDeviceInfoType Type;
+            public uint Size;
+            public LUID AdapterId;
+            public uint Id;
+
+            public static DisplayConfigDeviceInfoHeader Initialize(LUID adapterId, DisplayConfigDeviceInfoType requestType, uint size)
+            {
+                return new DisplayConfigDeviceInfoHeader()
+                {
+                    AdapterId = adapterId,
+                    Type = requestType,
+                    Size = size
+                };
+            }
+
+            public static DisplayConfigDeviceInfoHeader Initialize(LUID adapterId, uint targetId, DisplayConfigDeviceInfoType requestType, uint size)
+            {
+                return new DisplayConfigDeviceInfoHeader()
+                {
+                    AdapterId = adapterId,
+                    Id = targetId,
+                    Type = requestType,
+                    Size = size
+                };
+            }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct LUID
+        {
+            public uint LowPart;
+            public int HighPart;
+
+            public override string ToString()
+            {
+                return string.Format("{0}{1}", LowPart, HighPart);
+            }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct DisplayConfigTargetDeviceNameFlags
+        {
+            public uint Value;
+        }
+
         [Flags]
         internal enum DisplayDeviceStateFlags : uint
         {
@@ -500,6 +756,105 @@
             ///     rendering quality of text and other GDI-based primitives when the window is displayed on a high-DPI monitor.
             /// </summary>
             UnawareGdiScaled = 4
+        }
+
+        [Flags]
+        internal enum QueryDeviceConfigFlags : uint
+        {
+            QdcAllPaths = 0x00000001,
+            QdcOnlyActivePaths = 0x00000002,
+            QdcDatabaseCurrent = 0x00000004
+        }
+
+        internal enum DisplayConfigModeInfoType : uint
+        {
+            DisplayConfigModeInfoTypeSource = 1,
+            DisplayConfigModeInfoTypeTarget = 2,
+            DisplayConfigModeInfoTypeForceUint32 = 0xFFFFFFFF
+        }
+
+        internal enum DisplayConfigVideoOutputTechnology : uint
+        {
+            DisplayConfigOutputTechnologyOther = 0xFFFFFFFF,
+            DisplayConfigOutputTechnologyHd15 = 0,
+            DisplayConfigOutputTechnologySvideo = 1,
+            DisplayConfigOutputTechnologyCompositeVideo = 2,
+            DisplayConfigOutputTechnologyComponentVideo = 3,
+            DisplayConfigOutputTechnologyDvi = 4,
+            DisplayConfigOutputTechnologyHdmi = 5,
+            DisplayConfigOutputTechnologyLvds = 6,
+            DisplayConfigOutputTechnologyDJpn = 8,
+            DisplayConfigOutputTechnologySdi = 9,
+            DisplayconfigOutputTechnologyDisplayportExternal = 10,
+            DisplayConfigOutputTechnologyDisplayportEmbedded = 11,
+            DisplayConfigOutputTechnologyUdiExternal = 12,
+            DisplayConfigOutputTechnologyUdiEmbedded = 13,
+            DisplayConfigOutputTechnologySdtvdongle = 14,
+            DisplayConfigOutputTechnologyMiracast = 15,
+            DisplayConfigOutputTechnologyInternal = 0x80000000,
+            DisplayConfigOutputTechnologyForceUint32 = 0xFFFFFFFF
+        }
+
+        internal enum DisplayConfigDeviceInfoType : uint
+        {
+            DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME = 1,
+            DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME = 2,
+            DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_PREFERRED_MODE = 3,
+            DISPLAYCONFIG_DEVICE_INFO_GET_ADAPTER_NAME = 4,
+            DISPLAYCONFIG_DEVICE_INFO_SET_TARGET_PERSISTENCE = 5,
+            DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_BASE_TYPE = 6,
+            DISPLAYCONFIG_DEVICE_INFO_GET_SUPPORT_VIRTUAL_RESOLUTION = 7,
+            DISPLAYCONFIG_DEVICE_INFO_SET_SUPPORT_VIRTUAL_RESOLUTION = 8,
+            DISPLAYCONFIG_DEVICE_INFO_GET_ADVANCED_COLOR_INFO = 9,
+            DISPLAYCONFIG_DEVICE_INFO_SET_ADVANCED_COLOR_STATE = 10,
+            DISPLAYCONFIG_DEVICE_INFO_GET_SDR_WHITE_LEVEL = 11,
+            DISPLAYCONFIG_DEVICE_INFO_FORCE_UINT32 = 0xFFFFFFFF
+        }
+
+        internal enum DisplayConfigPixelFormat : uint
+        {
+            DISPLAYCONFIG_PIXELFORMAT_8BPP = 1,
+            DISPLAYCONFIG_PIXELFORMAT_16BPP = 2,
+            DISPLAYCONFIG_PIXELFORMAT_24BPP = 3,
+            DISPLAYCONFIG_PIXELFORMAT_32BPP = 4,
+            DISPLAYCONFIG_PIXELFORMAT_NONGDI = 5,
+            DISPLAYCONFIG_PIXELFORMAT_FORCE_UINT32 = 0xffffffff
+        }
+
+        internal enum DisplayConfigScanLineOrdering : uint
+        {
+            DISPLAYCONFIG_SCANLINE_ORDERING_UNSPECIFIED = 0,
+            DISPLAYCONFIG_SCANLINE_ORDERING_PROGRESSIVE = 1,
+            DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED = 2,
+            DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_UPPERFIELDFIRST = DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED,
+            DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_LOWERFIELDFIRST = 3,
+            DISPLAYCONFIG_SCANLINE_ORDERING_FORCE_UINT32 = 0xFFFFFFFF
+        }
+
+        private enum DisplayConfigRotation : uint
+        {
+            DISPLAYCONFIG_ROTATION_IDENTITY = 1,
+            DISPLAYCONFIG_ROTATION_ROTATE90 = 2,
+            DISPLAYCONFIG_ROTATION_ROTATE180 = 3,
+            DISPLAYCONFIG_ROTATION_ROTATE270 = 4,
+            DISPLAYCONFIG_ROTATION_FORCE_UINT32 = 0xFFFFFFFF
+        }
+
+        private enum DisplayConfigScaling : uint
+        {
+            DISPLAYCONFIG_SCALING_IDENTITY = 1,
+            DISPLAYCONFIG_SCALING_CENTERED = 2,
+            DISPLAYCONFIG_SCALING_STRETCHED = 3,
+            DISPLAYCONFIG_SCALING_ASPECTRATIOCENTEREDMAX = 4,
+            DISPLAYCONFIG_SCALING_CUSTOM = 5,
+            DISPLAYCONFIG_SCALING_PREFERRED = 128,
+            DISPLAYCONFIG_SCALING_FORCE_UINT32 = 0xFFFFFFFF
+        }
+
+        internal enum Win32Status
+        {
+            Success = 0x0,
+            ErrorInsufficientBuffer = 0x7A
         }
 
         public enum DpiType
