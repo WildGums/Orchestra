@@ -968,6 +968,7 @@ namespace Orchestra.Views
 }
 namespace Orchestra.Windows
 {
+    public static class DisplayConfig { }
     public class DpiScale
     {
         public DpiScale() { }
