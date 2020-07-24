@@ -227,6 +227,8 @@
                 return null;
             }
 
+            var displayConfigs = GetDisplayConfigs();
+
             // Get dpi
             var dpiScale = new DpiScale();
 
@@ -246,7 +248,7 @@
                 WorkingArea = nativeInfo.Work.ToInt32Rect(),
                 Availability = nativeInfo.Flags.ToString(),
                 IsPrimary = nativeInfo.Flags == 1,
-                FriendlyName = outputDevice.Value.DeviceString,
+                FriendlyName = displayConfigs.FirstOrDefault(c => string.Equals(c.MonitorDevicePath, outputDevice.Value.DeviceId)).MonitorFriendDeviceName,
                 DeviceNameFull = outputDevice.Value.DeviceName,
                 AdapterDeviceName = nativeInfo.GetDeviceName(),
                 DpiScale = dpiScale
@@ -303,13 +305,13 @@
 
             foreach (var pathInfo in displayConfigPathInfos)
             {
-                var adapterName = new DisplayConfigAdapterName(pathInfo.TargetInfo.AdapterId, DisplayConfigDeviceInfoType.DISPLAYCONFIG_DEVICE_INFO_GET_ADAPTER_NAME);
+                var adapterName = new DisplayConfigAdapterName(pathInfo.TargetInfo.AdapterId, DisplayConfig.DeviceInfoType.DisplayConfigDeviceInfoGetAdapterName);
 
                 var targetDeviceName = new DisplayConfigTargetDeviceName()
                 {
                     Header = DisplayConfigDeviceInfoHeader.Initialize(pathInfo.TargetInfo.AdapterId,
                     pathInfo.TargetInfo.Id,
-                    DisplayConfigDeviceInfoType.DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME,
+                    DisplayConfig.DeviceInfoType.DisplayConfigDeviceInfoGetTargetName,
                     (uint)Marshal.SizeOf<DisplayConfigTargetDeviceName>())
                 };
 
@@ -479,7 +481,7 @@
         {
             [MarshalAs(UnmanagedType.U4)]
             [FieldOffset(0)]
-            public readonly DisplayConfigModeInfoType InfoType;
+            public readonly DisplayConfig.ModeInfoType InfoType;
 
             [MarshalAs(UnmanagedType.U4)]
             [FieldOffset(4)]
@@ -508,7 +510,7 @@
         {
             public uint Width;
             public uint Height;
-            public DisplayConfigPixelFormat PixelFormat;
+            public DisplayConfig.PixelFormat PixelFormat;
             public PointL Position;
         }
 
@@ -527,7 +529,7 @@
             public DisplayConfig2DRegion ActiveSize;
             public DisplayConfig2DRegion TotalSize;
             public uint VideoStandard;
-            public DisplayConfigScanLineOrdering ScanLineOrdering;
+            public DisplayConfig.ScanLineOrdering ScanLineOrdering;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -554,7 +556,7 @@
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
             public readonly string AdapterDevicePath;
 
-            public DisplayConfigAdapterName(LUID adapter, DisplayConfigDeviceInfoType deviceInfoType) : this()
+            public DisplayConfigAdapterName(LUID adapter, DisplayConfig.DeviceInfoType deviceInfoType) : this()
             {
                 _header = DisplayConfigDeviceInfoHeader.Initialize(adapter, deviceInfoType, (uint)Marshal.SizeOf<DisplayConfigAdapterName>());
             }
@@ -590,11 +592,11 @@
             public LUID AdapterId;
             public uint Id;
             public uint ModeInfoIdx;
-            private readonly DisplayConfigVideoOutputTechnology _outputTechnology;
-            private readonly DisplayConfigRotation _rotation;
-            private readonly DisplayConfigScaling _scaling;
+            private readonly DisplayConfig.VideoOutputTechnology _outputTechnology;
+            private readonly DisplayConfig.Rotation _rotation;
+            private readonly DisplayConfig.Scaling _scaling;
             private readonly DisplayConfigRational _refreshRate;
-            private readonly DisplayConfigScanLineOrdering _scanLineOrdering;
+            private readonly DisplayConfig.ScanLineOrdering _scanLineOrdering;
             public bool TargetAvailable;
             public uint StatusFlags;
         }
@@ -604,7 +606,7 @@
         {
             public DisplayConfigDeviceInfoHeader Header;
             public DisplayConfigTargetDeviceNameFlags Flags;
-            public DisplayConfigVideoOutputTechnology OutputTechnology;
+            public DisplayConfig.VideoOutputTechnology OutputTechnology;
             public ushort EditManufactureId;
             public ushort EditProductCodeId;
             public uint ConnectorInstance;
@@ -617,12 +619,12 @@
         [StructLayout(LayoutKind.Sequential)]
         internal struct DisplayConfigDeviceInfoHeader
         {
-            public DisplayConfigDeviceInfoType Type;
+            public DisplayConfig.DeviceInfoType Type;
             public uint Size;
             public LUID AdapterId;
             public uint Id;
 
-            public static DisplayConfigDeviceInfoHeader Initialize(LUID adapterId, DisplayConfigDeviceInfoType requestType, uint size)
+            public static DisplayConfigDeviceInfoHeader Initialize(LUID adapterId, DisplayConfig.DeviceInfoType requestType, uint size)
             {
                 return new DisplayConfigDeviceInfoHeader()
                 {
@@ -632,7 +634,7 @@
                 };
             }
 
-            public static DisplayConfigDeviceInfoHeader Initialize(LUID adapterId, uint targetId, DisplayConfigDeviceInfoType requestType, uint size)
+            public static DisplayConfigDeviceInfoHeader Initialize(LUID adapterId, uint targetId, DisplayConfig.DeviceInfoType requestType, uint size)
             {
                 return new DisplayConfigDeviceInfoHeader()
                 {
@@ -764,91 +766,6 @@
             QdcAllPaths = 0x00000001,
             QdcOnlyActivePaths = 0x00000002,
             QdcDatabaseCurrent = 0x00000004
-        }
-
-        internal enum DisplayConfigModeInfoType : uint
-        {
-            DisplayConfigModeInfoTypeSource = 1,
-            DisplayConfigModeInfoTypeTarget = 2,
-            DisplayConfigModeInfoTypeForceUint32 = 0xFFFFFFFF
-        }
-
-        internal enum DisplayConfigVideoOutputTechnology : uint
-        {
-            DisplayConfigOutputTechnologyOther = 0xFFFFFFFF,
-            DisplayConfigOutputTechnologyHd15 = 0,
-            DisplayConfigOutputTechnologySvideo = 1,
-            DisplayConfigOutputTechnologyCompositeVideo = 2,
-            DisplayConfigOutputTechnologyComponentVideo = 3,
-            DisplayConfigOutputTechnologyDvi = 4,
-            DisplayConfigOutputTechnologyHdmi = 5,
-            DisplayConfigOutputTechnologyLvds = 6,
-            DisplayConfigOutputTechnologyDJpn = 8,
-            DisplayConfigOutputTechnologySdi = 9,
-            DisplayconfigOutputTechnologyDisplayportExternal = 10,
-            DisplayConfigOutputTechnologyDisplayportEmbedded = 11,
-            DisplayConfigOutputTechnologyUdiExternal = 12,
-            DisplayConfigOutputTechnologyUdiEmbedded = 13,
-            DisplayConfigOutputTechnologySdtvdongle = 14,
-            DisplayConfigOutputTechnologyMiracast = 15,
-            DisplayConfigOutputTechnologyInternal = 0x80000000,
-            DisplayConfigOutputTechnologyForceUint32 = 0xFFFFFFFF
-        }
-
-        internal enum DisplayConfigDeviceInfoType : uint
-        {
-            DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME = 1,
-            DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME = 2,
-            DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_PREFERRED_MODE = 3,
-            DISPLAYCONFIG_DEVICE_INFO_GET_ADAPTER_NAME = 4,
-            DISPLAYCONFIG_DEVICE_INFO_SET_TARGET_PERSISTENCE = 5,
-            DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_BASE_TYPE = 6,
-            DISPLAYCONFIG_DEVICE_INFO_GET_SUPPORT_VIRTUAL_RESOLUTION = 7,
-            DISPLAYCONFIG_DEVICE_INFO_SET_SUPPORT_VIRTUAL_RESOLUTION = 8,
-            DISPLAYCONFIG_DEVICE_INFO_GET_ADVANCED_COLOR_INFO = 9,
-            DISPLAYCONFIG_DEVICE_INFO_SET_ADVANCED_COLOR_STATE = 10,
-            DISPLAYCONFIG_DEVICE_INFO_GET_SDR_WHITE_LEVEL = 11,
-            DISPLAYCONFIG_DEVICE_INFO_FORCE_UINT32 = 0xFFFFFFFF
-        }
-
-        internal enum DisplayConfigPixelFormat : uint
-        {
-            DISPLAYCONFIG_PIXELFORMAT_8BPP = 1,
-            DISPLAYCONFIG_PIXELFORMAT_16BPP = 2,
-            DISPLAYCONFIG_PIXELFORMAT_24BPP = 3,
-            DISPLAYCONFIG_PIXELFORMAT_32BPP = 4,
-            DISPLAYCONFIG_PIXELFORMAT_NONGDI = 5,
-            DISPLAYCONFIG_PIXELFORMAT_FORCE_UINT32 = 0xffffffff
-        }
-
-        internal enum DisplayConfigScanLineOrdering : uint
-        {
-            DISPLAYCONFIG_SCANLINE_ORDERING_UNSPECIFIED = 0,
-            DISPLAYCONFIG_SCANLINE_ORDERING_PROGRESSIVE = 1,
-            DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED = 2,
-            DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_UPPERFIELDFIRST = DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED,
-            DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_LOWERFIELDFIRST = 3,
-            DISPLAYCONFIG_SCANLINE_ORDERING_FORCE_UINT32 = 0xFFFFFFFF
-        }
-
-        private enum DisplayConfigRotation : uint
-        {
-            DISPLAYCONFIG_ROTATION_IDENTITY = 1,
-            DISPLAYCONFIG_ROTATION_ROTATE90 = 2,
-            DISPLAYCONFIG_ROTATION_ROTATE180 = 3,
-            DISPLAYCONFIG_ROTATION_ROTATE270 = 4,
-            DISPLAYCONFIG_ROTATION_FORCE_UINT32 = 0xFFFFFFFF
-        }
-
-        private enum DisplayConfigScaling : uint
-        {
-            DISPLAYCONFIG_SCALING_IDENTITY = 1,
-            DISPLAYCONFIG_SCALING_CENTERED = 2,
-            DISPLAYCONFIG_SCALING_STRETCHED = 3,
-            DISPLAYCONFIG_SCALING_ASPECTRATIOCENTEREDMAX = 4,
-            DISPLAYCONFIG_SCALING_CUSTOM = 5,
-            DISPLAYCONFIG_SCALING_PREFERRED = 128,
-            DISPLAYCONFIG_SCALING_FORCE_UINT32 = 0xFFFFFFFF
         }
 
         internal enum Win32Status
