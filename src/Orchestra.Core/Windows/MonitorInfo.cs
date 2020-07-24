@@ -167,6 +167,8 @@
                     dpiScale.SetScaleFromAbsolute(dpiScaleX, dpiScaleY);
                 }
 
+                var matchedDisplayConfig = displayConfigs.FirstOrDefault(c => string.Equals(c.MonitorDevicePath, displayDevice.DeviceId));
+
                 var di = new MonitorInfo
                 {
                     DeviceName = nativeMonitorInfo.GetDeviceName(),
@@ -176,7 +178,7 @@
                     WorkingArea = nativeMonitorInfo.Work.ToInt32Rect(),
                     Availability = nativeMonitorInfo.Flags.ToString(),
                     IsPrimary = nativeMonitorInfo.Flags == 1,
-                    FriendlyName = displayConfigs.FirstOrDefault(c => string.Equals(c.MonitorDevicePath, displayDevice.DeviceId)).MonitorFriendDeviceName,
+                    FriendlyName = string.IsNullOrEmpty(matchedDisplayConfig.MonitorFriendDeviceName) ? displayDevice.DeviceString : matchedDisplayConfig.MonitorFriendDeviceName,
                     DeviceNameFull = displayDevice.DeviceName,
                     AdapterDeviceName = adapterDeviceName,
                     DpiScale = dpiScale
@@ -239,6 +241,8 @@
                 dpiScale.SetScaleFromAbsolute(dpiScaleX, dpiScaleY);
             }
 
+            var matchedDisplayConfig = displayConfigs.FirstOrDefault(c => string.Equals(c.MonitorDevicePath, outputDevice.Value.DeviceId));
+
             var di = new MonitorInfo
             {
                 DeviceName = nativeInfo.GetDeviceName(),
@@ -248,7 +252,7 @@
                 WorkingArea = nativeInfo.Work.ToInt32Rect(),
                 Availability = nativeInfo.Flags.ToString(),
                 IsPrimary = nativeInfo.Flags == 1,
-                FriendlyName = displayConfigs.FirstOrDefault(c => string.Equals(c.MonitorDevicePath, outputDevice.Value.DeviceId)).MonitorFriendDeviceName,
+                FriendlyName = string.IsNullOrEmpty(matchedDisplayConfig.MonitorFriendDeviceName) ? outputDevice.Value.DeviceString : matchedDisplayConfig.MonitorFriendDeviceName,
                 DeviceNameFull = outputDevice.Value.DeviceName,
                 AdapterDeviceName = nativeInfo.GetDeviceName(),
                 DpiScale = dpiScale
