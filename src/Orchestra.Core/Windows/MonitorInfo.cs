@@ -58,6 +58,10 @@
 
         public DpiScale DpiScale { get; set; }
 
+        public string ManufactureCode { get; set; }
+
+        public ushort ProductCodeId { get; set; }
+
         public Rect GetDpiAwareResolution()
         {
             return new Rect(MonitorArea.X, MonitorArea.Y, MonitorArea.Width * DpiScale.X, MonitorArea.Height * DpiScale.Y);
@@ -181,7 +185,9 @@
                     FriendlyName = string.IsNullOrEmpty(matchedDisplayConfig.MonitorFriendDeviceName) ? displayDevice.DeviceString : matchedDisplayConfig.MonitorFriendDeviceName,
                     DeviceNameFull = displayDevice.DeviceName,
                     AdapterDeviceName = adapterDeviceName,
-                    DpiScale = dpiScale
+                    DpiScale = dpiScale,
+                    ProductCodeId = matchedDisplayConfig.EDIDProductCodeId,
+                    ManufactureCode = ConvertEDIDManufactureIdToCode(matchedDisplayConfig.EDIDManufactureId)
                 };
 
                 monitorInfos.Add(di);
@@ -337,6 +343,21 @@
             }
 
             return displayConfigs.ToArray();
+        }
+
+        private static string ConvertEDIDManufactureIdToCode(int manufactureEdid)
+        {
+            if (manufactureEdid == 0)
+            {
+                return string.Empty;
+            }
+
+            manufactureEdid = ((manufactureEdid & 0xff00) >> 8) | ((manufactureEdid & 0x00ff) << 8);
+            var char1 = Convert.ToChar((byte)'A' + (manufactureEdid & 0x1f) - 1);
+            var char2 = Convert.ToChar((byte)'A' + ((manufactureEdid >> 5) & 0x1f) - 1);
+            var char3 = Convert.ToChar((byte)'A' + ((manufactureEdid >> 10) & 0x1f) - 1);
+
+            return $"{char3}{char2}{char1}";
         }
 
         internal static class NativeMethods
@@ -611,8 +632,8 @@
             public DisplayConfigDeviceInfoHeader Header;
             public DisplayConfigTargetDeviceNameFlags Flags;
             public DisplayConfig.VideoOutputTechnology OutputTechnology;
-            public ushort EditManufactureId;
-            public ushort EditProductCodeId;
+            public ushort EDIDManufactureId;
+            public ushort EDIDProductCodeId;
             public uint ConnectorInstance;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
             public string MonitorFriendDeviceName;

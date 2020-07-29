@@ -182,9 +182,10 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         {
             var monitorInfos = MonitorInfo.GetAllMonitors();
 
-            var monitorInfoMessage = string.Join<string>("\n\n", monitorInfos.Select(x => 
+            var monitorInfoMessage = string.Join<string>("\n\n", monitorInfos.Select(x =>
                     $"{x.DeviceNameFull}\n{x.FriendlyName}\nResolution: {x.ScreenWidth}x{x.ScreenHeight}\n" +
-                    $"Working Area: {x.WorkingArea}\nDpi Scale: {x.DpiScale?.ToString() ?? "Undefined"}" 
+                    $"Working Area: {x.WorkingArea}\nDpi Scale: {x.DpiScale?.ToString() ?? "Undefined"}\n" +
+                    $"\nEDID: {x.ManufactureCode} {x.ProductCodeId}"
             ));
             
             await _messageService.ShowAsync(monitorInfoMessage);
