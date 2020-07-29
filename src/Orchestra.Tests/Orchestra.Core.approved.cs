@@ -995,7 +995,9 @@ namespace Orchestra.Windows
         public string FriendlyName { get; set; }
         public string Id { get; set; }
         public bool IsPrimary { get; set; }
+        public string ManufactureCode { get; set; }
         public System.Windows.Int32Rect MonitorArea { get; set; }
+        public ushort ProductCodeId { get; set; }
         public string ScreenHeight { get; set; }
         public string ScreenWidth { get; set; }
         public System.Windows.Int32Rect WorkingArea { get; set; }
