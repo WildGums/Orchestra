@@ -38,7 +38,7 @@
     <PackageReference Include="Orc.Controls" Version="4.0.3" />
     <PackageReference Include="Orc.FileSystem" Version="4.0.0" />
     <PackageReference Include="Orc.SystemInfo" Version="4.0.0" />
-    <PackageReference Include="Orc.Theming" Version="4.0.1" />
+    <PackageReference Include="Orc.Theming" Version="4.0.2" />
   </ItemGroup>
 
   <ItemGroup>
