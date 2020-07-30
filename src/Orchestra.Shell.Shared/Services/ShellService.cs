@@ -16,11 +16,10 @@ namespace Orchestra.Services
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
-    using Catel.Threading;
     using MethodTimer;
-    using Orchestra.Themes;
+    using Orc.Theming;
+    using Orchestra.Theming;
     using Views;
-    using AssemblyHelper = Orchestra.AssemblyHelper;
 
     public partial class ShellService : IShellService
     {
@@ -100,20 +99,6 @@ namespace Orchestra.Services
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Creates a new shell and shows a splash during the initialization.
-        /// </summary>
-        /// <typeparam name="TShell">The type of the shell.</typeparam>
-        /// <returns>The created shell.</returns>
-        /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        [ObsoleteEx(Message = "App is now constructed with splash by default. Splash can be hidden by using ShowSplash = false", TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0")]
-        [Time]
-        public Task<TShell> CreateWithSplashAsync<TShell>()
-            where TShell : class, IShell
-        {
-            return CreateAsync<TShell>();
-        }
-
         /// <summary>
         /// Creates a new shell.
         /// </summary>

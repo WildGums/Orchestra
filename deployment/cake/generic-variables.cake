@@ -1,5 +1,7 @@
 #l "buildserver.cake"
 
+#tool "nuget:?package=GitVersion.CommandLine&version=5.3.5"
+
 //-------------------------------------------------------------
 
 public class GeneralContext : BuildContextWithItemsBase
@@ -7,6 +9,7 @@ public class GeneralContext : BuildContextWithItemsBase
     public GeneralContext(IBuildContext parentBuildContext)
         : base(parentBuildContext)
     {
+        SkipComponentsThatAreNotDeployable = true;
     }
 
     public string Target { get; set; }
@@ -18,8 +21,10 @@ public class GeneralContext : BuildContextWithItemsBase
     public bool IsBetaBuild { get; set; }
     public bool IsOfficialBuild { get; set; }
     public bool IsLocalBuild { get; set; }
+    public bool MaximizePerformance { get; set; }
     public bool UseVisualStudioPrerelease { get; set; }
     public bool VerifyDependencies { get; set; }
+    public bool SkipComponentsThatAreNotDeployable { get; set; }
 
     public VersionContext Version { get; set; }
     public CopyrightContext Copyright { get; set; }
@@ -76,7 +81,7 @@ public class VersionContext : BuildContextBase
                     
                     // Make a *BIG* assumption that the solution name == repository name
                     var repositoryName = generalContext.Solution.Name;
-                    var tempDirectory = $"{System.IO.Path.GetTempPath()}\\{repositoryName}";
+                    var tempDirectory = System.IO.Path.Combine(System.IO.Path.GetTempPath(), repositoryName);
                     
                     if (CakeContext.DirectoryExists(tempDirectory))
                     {
@@ -88,6 +93,17 @@ public class VersionContext : BuildContextBase
                     }
                 }
           
+                // Validate first
+                if (string.IsNullOrWhiteSpace(generalContext.Repository.BranchName))
+                {
+                    throw new Exception("No local .git directory was found, but repository branch was not specified either. Make sure to specify the branch");
+                }
+
+                if (string.IsNullOrWhiteSpace(generalContext.Repository.Url))
+                {
+                    throw new Exception("No local .git directory was found, but repository url was not specified either. Make sure to specify the branch");
+                }
+
                 // Dynamic repository
                 gitVersionSettings.UserName = generalContext.Repository.Username;
                 gitVersionSettings.Password = generalContext.Repository.Password;
@@ -183,7 +199,23 @@ public class SolutionContext : BuildContextBase
     public string Name { get; set; }
     public string AssemblyInfoFileName { get; set; }
     public string FileName { get; set; }
+    public string Directory
+    {
+        get
+        {
+            var directory = System.IO.Directory.GetParent(FileName).FullName;
+            var separator = System.IO.Path.DirectorySeparatorChar.ToString();
 
+            if (!directory.EndsWith(separator))
+            {
+                directory += separator;
+            }
+
+            return directory;
+        }
+    }
+
+    public bool BuildSolution { get; set; }
     public string PublishType { get; set; }
     public string ConfigurationName { get; set; }
 
@@ -286,6 +318,7 @@ public class SonarQubeContext : BuildContextBase
     }
 
     public bool IsDisabled { get; set; }
+    public bool SupportBranches { get; set; }
     public string Url { get; set; }
     public string Username { get; set; }
     public string Password { get; set; }
@@ -341,7 +374,8 @@ private GeneralContext InitializeGeneralContext(BuildContext buildContext, IBuil
         AssemblyInfoFileName = "./src/SolutionAssemblyInfo.cs",
         FileName = string.Format("./src/{0}", string.Format("{0}.sln", solutionName)),
         PublishType = buildContext.BuildServer.GetVariable("PublishType", "Unknown", showValue: true),
-        ConfigurationName = buildContext.BuildServer.GetVariable("ConfigurationName", "Release", showValue: true)
+        ConfigurationName = buildContext.BuildServer.GetVariable("ConfigurationName", "Release", showValue: true),
+        BuildSolution = buildContext.BuildServer.GetVariableAsBool("BuildSolution", false, showValue: true)
     };
 
     data.IsCiBuild = buildContext.BuildServer.GetVariableAsBool("IsCiBuild", false, showValue: true);
@@ -349,8 +383,10 @@ private GeneralContext InitializeGeneralContext(BuildContext buildContext, IBuil
     data.IsBetaBuild = buildContext.BuildServer.GetVariableAsBool("IsBetaBuild", false, showValue: true);
     data.IsOfficialBuild = buildContext.BuildServer.GetVariableAsBool("IsOfficialBuild", false, showValue: true);
     data.IsLocalBuild = data.Target.ToLower().Contains("local");
+    data.MaximizePerformance = buildContext.BuildServer.GetVariableAsBool("MaximizePerformance", true, showValue: true);
     data.UseVisualStudioPrerelease = buildContext.BuildServer.GetVariableAsBool("UseVisualStudioPrerelease", false, showValue: true);
     data.VerifyDependencies = !buildContext.BuildServer.GetVariableAsBool("DependencyCheckDisabled", false, showValue: true);
+    data.SkipComponentsThatAreNotDeployable = buildContext.BuildServer.GetVariableAsBool("SkipComponentsThatAreNotDeployable", true, showValue: true);
 
     // If local, we want full pdb, so do a debug instead
     if (data.IsLocalBuild)
@@ -371,8 +407,8 @@ private GeneralContext InitializeGeneralContext(BuildContext buildContext, IBuil
     data.CodeSign = new CodeSignContext(data)
     {
         WildCard = buildContext.BuildServer.GetVariable("CodeSignWildcard", showValue: true),
-        CertificateSubjectName = buildContext.BuildServer.GetVariable("CodeSignCertificateSubjectName", data.Copyright.Company, showValue: true),
-        TimeStampUri = buildContext.BuildServer.GetVariable("CodeSignTimeStampUri", "http://timestamp.comodoca.com/authenticode", showValue: true)
+        CertificateSubjectName = buildContext.BuildServer.GetVariable("CodeSignCertificateSubjectName", showValue: true),
+        TimeStampUri = buildContext.BuildServer.GetVariable("CodeSignTimeStampUri", "http://timestamp.digicert.com", showValue: true)
     };
 
     data.Repository = new RepositoryContext(data)
@@ -387,6 +423,7 @@ private GeneralContext InitializeGeneralContext(BuildContext buildContext, IBuil
     data.SonarQube = new SonarQubeContext(data)
     {
         IsDisabled = buildContext.BuildServer.GetVariableAsBool("SonarDisabled", false, showValue: true),
+        SupportBranches = buildContext.BuildServer.GetVariableAsBool("SonarSupportBranches", true, showValue: true),
         Url = buildContext.BuildServer.GetVariable("SonarUrl", showValue: true),
         Username = buildContext.BuildServer.GetVariable("SonarUsername", showValue: false),
         Password = buildContext.BuildServer.GetVariable("SonarPassword", showValue: false),
@@ -420,7 +457,17 @@ private GeneralContext InitializeGeneralContext(BuildContext buildContext, IBuil
 
         var gitVersion = versionContext.GetGitVersionContext(data);
         
+        data.Repository.BranchName = gitVersion.BranchName;
         data.Repository.CommitId = gitVersion.Sha;
+    }
+
+    if (string.IsNullOrWhiteSpace(data.Repository.BranchName))
+    {
+        parentBuildContext.CakeContext.Information("No branch name specified, falling back to GitVersion");
+
+        var gitVersion = versionContext.GetGitVersionContext(data);
+        
+        data.Repository.BranchName = gitVersion.BranchName;
     }
 
     var versionToCheck = versionContext.FullSemVer;

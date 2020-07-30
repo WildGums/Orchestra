@@ -52,7 +52,10 @@
 
     <ControlTemplate x:Key="RibbonBackstageButtonControlTemplate" TargetType="{x:Type orchestra:RibbonBackstageButton}">
         <Grid x:Name="grid">
-            <Border x:Name="border" BorderThickness="{TemplateBinding ShowBorder, Converter={converters:BooleanToThicknessConverter}}" Margin="0" Background="Transparent" BorderBrush="{orccontrols:ThemeColorBrush ThemeColorStyle=BorderColor}">
+            <Border x:Name="border" 
+                    BorderThickness="{TemplateBinding ShowBorder, Converter={converters:BooleanToThicknessConverter}}" 
+                    Margin="0" Background="Transparent" 
+                    BorderBrush="{DynamicResource Orc.Brushes.Control.Default.Border}">
                 <ContentPresenter x:Name="contentPresenter" ContentSource="Content" SnapsToDevicePixels="True"/>
             </Border>
         </Grid>

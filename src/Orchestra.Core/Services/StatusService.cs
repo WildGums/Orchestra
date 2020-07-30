@@ -12,13 +12,14 @@ namespace Orchestra.Services
     using System.Windows.Threading;
     using Catel;
     using Catel.Logging;
+    using Orc.Controls.Services;
 
     public class StatusService : IStatusService
     {
         #region Fields
         private readonly IStatusFilterService _statusFilterService;
 
-        private Orc.Controls.Services.IStatusRepresenter _statusRepresenter;
+        private IStatusRepresenter _statusRepresenter;
         private string _lastStatus;
         #endregion
 
@@ -59,13 +60,6 @@ namespace Orchestra.Services
         #endregion
 
         #region Methods
-        public void Initialize(Orc.Controls.Services.IStatusRepresenter statusRepresenter)
-        {
-            Argument.IsNotNull(() => statusRepresenter);
-
-            _statusRepresenter = statusRepresenter;
-        }
-
         public void Initialize(IStatusRepresenter statusRepresenter)
         {
             Argument.IsNotNull(() => statusRepresenter);

@@ -11,6 +11,7 @@ namespace Orchestra.Behaviors
     using System.Windows;
     using Catel.Logging;
     using Catel.Windows.Interactivity;
+    using Orc.Controls;
 
     public class RememberWindowSize : BehaviorBase<Window>
     {

@@ -12,7 +12,8 @@ namespace Orchestra.Services
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Threading;
-    using MethodTimer;
+    using Orc.Theming;
+    using Orchestra.Theming;
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService
     {
@@ -26,15 +27,19 @@ namespace Orchestra.Services
 
             var serviceLocator = this.GetServiceLocator();
             var themeService = serviceLocator.ResolveType<IThemeService>();
+            var orchestraThemeManager = serviceLocator.ResolveType<IThemeManager>();
+            var orcThemingThemeManager = serviceLocator.ResolveType<Orc.Theming.ThemeManager>();
 
             // Note: we only have to create style forwarders once
-            ThemeHelper.EnsureApplicationThemes(typeof(ApplicationInitializationServiceBase).Assembly, false);
-            ThemeHelper.EnsureApplicationThemes(GetType().Assembly, false);
+            orchestraThemeManager.EnsureApplicationThemes(typeof(ApplicationInitializationServiceBase).Assembly, false);
+            orchestraThemeManager.EnsureApplicationThemes(GetType().Assembly, false);
 
             if (themeService.ShouldCreateStyleForwarders())
             {
                 StyleHelper.CreateStyleForwardersForDefaultStyles();
             }
+
+            orcThemingThemeManager.SynchronizeTheme();
         }
 
         public virtual async Task InitializeBeforeCreatingShellAsync()

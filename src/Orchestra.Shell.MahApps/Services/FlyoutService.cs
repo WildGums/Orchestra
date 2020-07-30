@@ -20,7 +20,6 @@ namespace Orchestra.Services
     using Catel.Windows.Threading;
     using MahApps.Metro.Controls;
     using Models;
-    using ThemeHelper = Orchestra.ThemeHelper;
 
     public class FlyoutService : IFlyoutService
     {
@@ -128,7 +127,7 @@ namespace Orchestra.Services
                 if (flyoutsControl != null)
                 {
                     flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderThicknessProperty, new Thickness(1));
-                    flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderBrushProperty, Orc.Controls.ThemeHelper.GetAccentColorBrush());
+                    flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderBrushProperty, Orc.Theming.ThemeManager.Current.GetAccentColorBrush());
                 }
 
                 var isOpen = flyout.IsOpen;

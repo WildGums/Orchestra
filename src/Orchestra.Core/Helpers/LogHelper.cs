@@ -59,16 +59,6 @@ namespace Orchestra
         /// Adds a file log listener for an unhandled exception.
         /// </summary>
         /// <param name="ex">The unhandled exception.</param>
-        [ObsoleteEx(TreatAsErrorFromVersion = "5.0", RemoveInVersion = "6.0", ReplacementTypeOrMember = "AddLogListenerForUnhandledExceptionAsync")]
-        public static async void AddLogListenerForUnhandledException(Exception ex)
-        {
-            await AddLogListenerForUnhandledExceptionAsync(ex);
-        }
-
-        /// <summary>
-        /// Adds a file log listener for an unhandled exception.
-        /// </summary>
-        /// <param name="ex">The unhandled exception.</param>
         public static async Task AddLogListenerForUnhandledExceptionAsync(Exception ex)
         {
             AddFileLogListener(LogFilePrefixes.CrashReport);

@@ -1,12 +1,12 @@
-﻿[assembly: System.Resources.NeutralResourcesLanguageAttribute("en-US")]
-[assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.6", FrameworkDisplayName=".NET Framework 4.6")]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("http://schemas.wildgums.com/orchestra", "Orchestra.Controls")]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("http://schemas.wildgums.com/orchestra", "Orchestra.Views")]
-[assembly: System.Windows.Markup.XmlnsDefinitionAttribute("http://schemas.wildgums.com/orchestra", "Orchestra.Windows")]
-[assembly: System.Windows.Markup.XmlnsPrefixAttribute("http://schemas.wildgums.com/orchestra", "orchestra")]
-[assembly: System.Windows.ThemeInfoAttribute(System.Windows.ResourceDictionaryLocation.None, System.Windows.ResourceDictionaryLocation.SourceAssembly)]
-public class static LoadAssembliesOnStartup { }
-public class static ModuleInitializer
+﻿[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v3.1", FrameworkDisplayName="")]
+[assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Controls")]
+[assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Views")]
+[assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Windows")]
+[assembly: System.Windows.Markup.XmlnsPrefix("http://schemas.wildgums.com/orchestra", "orchestra")]
+[assembly: System.Windows.ThemeInfo(System.Windows.ResourceDictionaryLocation.None, System.Windows.ResourceDictionaryLocation.SourceAssembly)]
+public static class LoadAssembliesOnStartup { }
+public static class ModuleInitializer
 {
     public static void Initialize() { }
 }
@@ -48,17 +48,11 @@ namespace Orchestra.Controls
 }
 namespace Orchestra
 {
-    public class static FluentRibbonThemeHelper
-    {
-        public static System.Tuple<string, System.Windows.ResourceDictionary> CreateTheme(string baseColorScheme, System.Windows.Media.Color accentBaseColor, System.Windows.Media.Color highlightColor, string name = null, bool changeImmediately = False) { }
-        public static string GenerateThemeName(string baseColorScheme, System.Windows.Media.Color accentBaseColor, System.Windows.Media.Color highlightColor) { }
-        public static string GetResourceDictionaryContent(System.Windows.ResourceDictionary resourceDictionary) { }
-    }
-    public class static RibbonExtensions
+    public static class RibbonExtensions
     {
         public static void AddAboutButton(this Fluent.Ribbon ribbon) { }
-        public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Windows.Media.ImageSource imageSource, System.Action action) { }
         public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Uri imageUri, System.Action action) { }
+        public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Windows.Media.ImageSource imageSource, System.Action action) { }
     }
 }
 namespace Orchestra.Services
@@ -104,10 +98,6 @@ namespace Orchestra.Services
         Orchestra.Views.IShell Shell { get; }
         System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell;
-        [System.ObsoleteAttribute("App is now constructed with splash by default. Splash can be hidden by using Show" +
-            "Splash = false. Will be removed in version 6.0.0.", true)]
-        System.Threading.Tasks.Task<TShell> CreateWithSplashAsync<TShell>()
-            where TShell :  class, Orchestra.Views.IShell;
     }
     public class ShellConfigurationService : Orchestra.Services.IShellConfigurationService
     {
@@ -120,19 +110,6 @@ namespace Orchestra.Services
         public Orchestra.Views.IShell Shell { get; }
         public System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }
-        [System.ObsoleteAttribute("App is now constructed with splash by default. Splash can be hidden by using Show" +
-            "Splash = false. Will be removed in version 6.0.0.", true)]
-        public System.Threading.Tasks.Task<TShell> CreateWithSplashAsync<TShell>()
-            where TShell :  class, Orchestra.Views.IShell { }
-    }
-}
-namespace Orchestra.Themes
-{
-    public class FluentRibbonShellTheme : Orchestra.Themes.IShellTheme
-    {
-        public FluentRibbonShellTheme(Orc.Controls.Services.IAccentColorService accentColorService, Orchestra.Services.IThemeService themeService, Orchestra.Services.IBaseColorSchemeService baseColorSchemeService) { }
-        public void ApplyTheme(Orchestra.ThemeInfo themeInfo) { }
-        public System.Windows.ResourceDictionary CreateResourceDictionary(Orchestra.ThemeInfo themeInfo) { }
     }
 }
 namespace Orchestra.ViewModels
@@ -161,12 +138,6 @@ namespace Orchestra.Windows
         public RibbonWindow() { }
         public RibbonWindow(Catel.MVVM.IViewModel viewModel) { }
         public Catel.MVVM.IViewModel ViewModel { get; }
-        public event System.EventHandler<Catel.MVVM.Views.DataContextChangedEventArgs> _viewDataContextChanged;
-        public event System.EventHandler<System.EventArgs> _viewLoaded;
-        public event System.EventHandler<System.EventArgs> _viewUnloaded;
-        public event System.EventHandler<Catel.MVVM.Views.DataContextChangedEventArgs> Catel.MVVM.Views.IView.DataContextChanged;
-        public event System.EventHandler<System.EventArgs> Catel.MVVM.Views.IView.Loaded;
-        public event System.EventHandler<System.EventArgs> Catel.MVVM.Views.IView.Unloaded;
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         public event System.EventHandler<System.EventArgs> ViewModelChanged;
     }

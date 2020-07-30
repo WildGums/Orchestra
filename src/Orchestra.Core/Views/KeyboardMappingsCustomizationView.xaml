@@ -2,8 +2,8 @@
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:catel="http://schemas.catelproject.com"
-                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   xmlns:converters="clr-namespace:Orchestra.Converters">
+                   xmlns:converters="clr-namespace:Orchestra.Converters" 
+                   xmlns:xamlbehaviors="http://schemas.microsoft.com/xaml/behaviors">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -24,9 +24,9 @@
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{catel:LanguageBinding Orchestra_ShowCommandsContaining}" />
         <Button Grid.Row="0" Grid.Column="2" Content="{catel:LanguageBinding Orchestra_Reset}" Command="{Binding Reset}" />
         <TextBox Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding CommandFilter}">
-            <i:Interaction.Behaviors>
+            <xamlbehaviors:Interaction.Behaviors>
                 <catel:UpdateBindingOnTextChanged UpdateDelay="500" />
-            </i:Interaction.Behaviors>
+            </xamlbehaviors:Interaction.Behaviors>
         </TextBox>
 
         <ListView Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding Commands}" SelectedValue="{Binding SelectedCommand}" SelectedValuePath="CommandName">

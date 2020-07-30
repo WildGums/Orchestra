@@ -18,8 +18,10 @@ namespace Orchestra.Examples.Ribbon.ViewModels
     using Catel.Services;
     using Models;
     using Orc.FileSystem;
+    using Orchestra.Examples.ViewModels;
     using Orchestra.Services;
     using Orchestra.ViewModels;
+    using Orchestra.Windows;
 
     public class RibbonViewModel : ViewModelBase
     {
@@ -52,11 +54,13 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             _selectDirectoryService = selectDirectoryService;
             _directoryService = directoryService;
 
+            OpenWindow = new TaskCommand(OnOpenWindowExecuteAsync);
             OpenProject = new TaskCommand(OnOpenProjectExecuteAsync);
             OpenRecentlyUsedItem = new TaskCommand<string>(OnOpenRecentlyUsedItemExecuteAsync);
             OpenInExplorer = new TaskCommand<string>(OnOpenInExplorerExecuteAsync);
             UnpinItem = new Command<string>(OnUnpinItemExecute);
             PinItem = new Command<string>(OnPinItemExecute);
+            ShowAllMonitorInfo = new TaskCommand(OnShowAllMonitorInfoExecuteAsync);
 
             ShowKeyboardMappings = new TaskCommand(OnShowKeyboardMappingsExecuteAsync);
 
@@ -73,6 +77,13 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         #endregion
 
         #region Commands
+        public TaskCommand OpenWindow { get; private set; }
+
+        private async Task OnOpenWindowExecuteAsync()
+        {
+            await _uiVisualizerService.ShowDialogAsync<ExampleViewModel>();
+        }
+
         /// <summary>
         /// Gets the OpenProject command.
         /// </summary>
@@ -83,9 +94,14 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// </summary>
         private async Task OnOpenProjectExecuteAsync()
         {
-            if (await _selectDirectoryService.DetermineDirectoryAsync())
+            var result = await _selectDirectoryService.DetermineDirectoryAsync(new DetermineDirectoryContext
             {
-                await _messageService.ShowAsync("You have chosen " + _selectDirectoryService.DirectoryName);
+                Title = "Select a project directory"
+            });
+
+            if (result.Result)
+            {
+                await _messageService.ShowAsync("You have chosen " + result.DirectoryName);
             }
         }
 
@@ -158,6 +174,21 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         private async Task OnShowKeyboardMappingsExecuteAsync()
         {
             await _uiVisualizerService.ShowDialogAsync<KeyboardMappingsCustomizationViewModel>();
+        }
+
+        public TaskCommand ShowAllMonitorInfo { get; private set; }
+
+        private async Task OnShowAllMonitorInfoExecuteAsync()
+        {
+            var monitorInfos = MonitorInfo.GetAllMonitors();
+
+            var monitorInfoMessage = string.Join<string>("\n\n", monitorInfos.Select(x =>
+                    $"{x.DeviceNameFull}\n{x.FriendlyName}\nResolution: {x.ScreenWidth}x{x.ScreenHeight}\n" +
+                    $"Working Area: {x.WorkingArea}\nDpi Scale: {x.DpiScale?.ToString() ?? "Undefined"}\n" +
+                    $"\nEDID: {x.ManufactureCode} {x.ProductCodeId}"
+            ));
+            
+            await _messageService.ShowAsync(monitorInfoMessage);
         }
         #endregion
 

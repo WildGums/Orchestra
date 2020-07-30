@@ -40,7 +40,7 @@ private static void BuildTestProjects(BuildContext buildContext)
         // Note: we need to set OverridableOutputPath because we need to be able to respect
         // AppendTargetFrameworkToOutputPath which isn't possible for global properties (which
         // are properties passed in using the command line)
-        var outputDirectory = string.Format("{0}/{1}/", buildContext.General.OutputRootDirectory, testProject);
+        var outputDirectory = GetProjectOutputDirectory(buildContext, testProject);
         buildContext.CakeContext.Information("Output directory: '{0}'", outputDirectory);
         msBuildSettings.WithProperty("OverridableOutputRootPath", buildContext.General.OutputRootDirectory);
         msBuildSettings.WithProperty("OverridableOutputPath", outputDirectory);
@@ -54,16 +54,18 @@ private static void BuildTestProjects(BuildContext buildContext)
 
 private static void RunUnitTests(BuildContext buildContext, string projectName)
 {
-    var testResultsDirectory = string.Format("{0}/testresults/{1}/", buildContext.General.OutputRootDirectory, projectName);
+    var testResultsDirectory = System.IO.Path.Combine(buildContext.General.OutputRootDirectory,
+        "testresults", projectName);
 
     buildContext.CakeContext.CreateDirectory(testResultsDirectory);
 
     var ranTests = false;
     var failed = false;
+    var testTargetFramework = GetTestTargetFramework(buildContext, projectName);
 
     try
     {
-        if (IsDotNetCoreProject(buildContext, projectName))
+        if (testTargetFramework.Contains("netcore") && IsDotNetCoreProject(buildContext, projectName))
         {
             buildContext.CakeContext.Information("Project '{0}' is a .NET core project, using 'dotnet test' to run the unit tests", projectName);
 
@@ -74,13 +76,13 @@ private static void RunUnitTests(BuildContext buildContext, string projectName)
                 Configuration = buildContext.General.Solution.ConfigurationName,
                 NoRestore = true,
                 NoBuild = true,
-                OutputDirectory = string.Format("{0}/{1}", GetProjectOutputDirectory(buildContext, projectName), buildContext.Tests.TargetFramework),
+                OutputDirectory = System.IO.Path.Combine(GetProjectOutputDirectory(buildContext, projectName), testTargetFramework),
                 ResultsDirectory = testResultsDirectory
             });
 
             // Information("Project '{0}' is a .NET core project, using 'dotnet vstest' to run the unit tests", projectName); 
 
-            // var testFile = string.Format("{0}/{1}/{2}.dll", GetProjectOutputDirectory(buildContext, projectName), TestTargetFramework, projectName);
+            // var testFile = string.Format("{0}/{1}/{2}.dll", GetProjectOutputDirectory(buildContext, projectName), testTargetFramework, projectName);
 
             // DotNetCoreVSTest(testFile, new DotNetCoreVSTestSettings
             // {
@@ -96,7 +98,7 @@ private static void RunUnitTests(BuildContext buildContext, string projectName)
 
             if (buildContext.Tests.Framework.ToLower().Equals("nunit"))
             {
-                RunTestsUsingNUnit(buildContext, projectName, buildContext.Tests.TargetFramework, testResultsDirectory);
+                RunTestsUsingNUnit(buildContext, projectName, testTargetFramework, testResultsDirectory);
 
                 ranTests = true;
             }
@@ -124,3 +126,29 @@ private static void RunUnitTests(BuildContext buildContext, string projectName)
 }
 
 //-------------------------------------------------------------
+
+private static string GetTestTargetFramework(BuildContext buildContext, string projectName)
+{
+    // Step 1: if defined, use defined value
+    var testTargetFramework = buildContext.Tests.TargetFramework;
+    if (!string.IsNullOrWhiteSpace(testTargetFramework))
+    {
+        buildContext.CakeContext.Information("Using test target framework '{0}', specified via the configuration", testTargetFramework);
+
+        return testTargetFramework;
+    }
+
+    buildContext.CakeContext.Information("Test target framework not specified, auto detecting test target framework");
+
+    var targetFrameworks = GetTargetFrameworks(buildContext, projectName);
+    testTargetFramework = targetFrameworks.FirstOrDefault();
+
+    buildContext.CakeContext.Information("Auto detected test target framework '{0}'", testTargetFramework);
+
+    if (string.IsNullOrWhiteSpace(testTargetFramework))
+    {
+        throw new Exception(string.Format("Test target framework could not automatically be detected for project '{0]'", projectName));
+    }
+
+    return testTargetFramework;
+}

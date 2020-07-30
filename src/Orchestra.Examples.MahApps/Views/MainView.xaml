@@ -16,17 +16,17 @@
 
     <Grid>
         <orccontrols:TabControl>
-            <TabItem IsSelected="True" Header="Controls" controls:ControlsHelper.HeaderFontSize="32"
+            <TabItem IsSelected="True" Header="Controls"
                      VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <localcontrols:ControlsView />
             </TabItem>
 
-            <TabItem IsSelected="True" Header="MahApps Controls" controls:ControlsHelper.HeaderFontSize="32"
+            <TabItem IsSelected="True" Header="MahApps Controls"
                      VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <views:MahAppsControlsView />
             </TabItem>
 
-            <TabItem IsSelected="True" Header="Persons" controls:ControlsHelper.HeaderFontSize="32"
+            <TabItem IsSelected="True" Header="Persons"
                      VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <views:PersonsView />
             </TabItem>

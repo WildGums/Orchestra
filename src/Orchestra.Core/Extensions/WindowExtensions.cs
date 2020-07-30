@@ -15,6 +15,7 @@ namespace Orchestra
     using Catel;
     using Catel.Logging;
     using Catel.Windows;
+    using Orc.Controls;
     using Window = System.Windows.Window;
     
     public static partial class WindowExtensions
@@ -40,7 +41,7 @@ namespace Orchestra
         private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
         [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, IntPtr ProcessId);
+        private static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, IntPtr processId);
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
@@ -112,37 +113,6 @@ namespace Orchestra
             var screenHeight = SystemParameters.PrimaryScreenHeight;
 
             window.CenterWindowToSize(new Rect(0, 0, screenWidth, screenHeight));
-        }
-
-        [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.WindowExtensions.CenterWindowToParent", TreatAsErrorFromVersion = "6.0", RemoveInVersion = "7.0")]
-        public static void CenterWindowToParent(this Window window)
-        {
-            Argument.IsNotNull(() => window);
-
-            var owner = window.Owner;
-            if (owner != null)
-            {
-                window.CenterWindowToSize(new Rect(owner.Left, owner.Top, owner.ActualWidth, owner.ActualHeight));
-                return;
-            }
-
-            var parentWindow = window.GetParentWindow();
-            if (parentWindow != null)
-            {
-                window.CenterWindowToSize(new Rect(parentWindow.Left, parentWindow.Top, parentWindow.ActualWidth, parentWindow.ActualHeight));
-            }
-        }
-
-        [ObsoleteEx(ReplacementTypeOrMember = "Orc.Controls.WindowExtensions.CenterWindowToSize", TreatAsErrorFromVersion = "6.0", RemoveInVersion = "7.0")]
-        public static void CenterWindowToSize(this Window window, Rect parentRect)
-        {
-            Argument.IsNotNull(() => window);
-
-            var windowWidth = window.Width;
-            var windowHeight = window.Height;
-
-            window.SetCurrentValue(Window.LeftProperty, parentRect.Left + (parentRect.Width / 2) - (windowWidth / 2));
-            window.SetCurrentValue(Window.TopProperty, parentRect.Top + (parentRect.Height / 2) - (windowHeight / 2));
         }
 
         /// <summary>
