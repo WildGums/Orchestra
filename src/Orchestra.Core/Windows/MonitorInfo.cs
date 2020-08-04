@@ -159,6 +159,13 @@
 
                 var nativeMonitorInfoAndHandle = nativeMonitorInfos.FirstOrDefault(x => string.Equals(x.Key.GetDeviceName(), adapterDeviceName));
                 var nativeMonitorInfo = nativeMonitorInfoAndHandle.Key;
+
+                if (nativeMonitorInfo == default)
+                {
+                    // then this monitor is disabled or in some invalid state
+                    continue;
+                }
+
                 var monitorHandle = nativeMonitorInfoAndHandle.Value;
 
                 // Get dpi
@@ -400,7 +407,7 @@
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
-        internal struct NativeMonitorInfoEx
+        internal struct NativeMonitorInfoEx : IEquatable<NativeMonitorInfoEx>
         {
             public uint Size;
             public NativeRectangle Monitor;
@@ -424,7 +431,37 @@
 
             public string GetDeviceName()
             {
-                return new string(Device.Where(c => c != '\0').ToArray());
+                if (Device is null)
+                {
+                    return null;
+                }
+
+                return new string(Device.Where(c => c != '\0')?.ToArray());
+            }
+
+            public bool Equals(NativeMonitorInfoEx other)
+            {
+                return Monitor.Equals(other.Monitor) && Work.Equals(other.Work) && Flags == other.Flags;
+            }
+
+            public override bool Equals(object obj)
+            {
+                return obj is NativeMonitorInfoEx m && m.Equals(this);
+            }
+
+            public override int GetHashCode()
+            {
+                return Device.GetHashCode() ^ Monitor.GetHashCode() ^ Work.GetHashCode();
+            }
+
+            public static bool operator ==(NativeMonitorInfoEx x, NativeMonitorInfoEx y)
+            {
+                return x.Equals(y);
+            }
+
+            public static bool operator !=(NativeMonitorInfoEx x, NativeMonitorInfoEx y)
+            {
+                return !(x == y);
             }
         }
 

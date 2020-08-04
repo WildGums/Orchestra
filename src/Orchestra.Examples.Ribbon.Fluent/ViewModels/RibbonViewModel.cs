@@ -13,6 +13,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
     using System.Linq;
     using System.Threading.Tasks;
     using Catel;
+    using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
@@ -25,6 +26,8 @@ namespace Orchestra.Examples.Ribbon.ViewModels
 
     public class RibbonViewModel : ViewModelBase
     {
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         private readonly INavigationService _navigationService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IRecentlyUsedItemsService _recentlyUsedItemsService;
@@ -180,15 +183,22 @@ namespace Orchestra.Examples.Ribbon.ViewModels
 
         private async Task OnShowAllMonitorInfoExecuteAsync()
         {
-            var monitorInfos = MonitorInfo.GetAllMonitors();
+            try
+            {
+                var monitorInfos = MonitorInfo.GetAllMonitors();
 
-            var monitorInfoMessage = string.Join<string>("\n\n", monitorInfos.Select(x =>
-                    $"{x.DeviceNameFull}\n{x.FriendlyName}\nResolution: {x.ScreenWidth}x{x.ScreenHeight}\n" +
-                    $"Working Area: {x.WorkingArea}\nDpi Scale: {x.DpiScale?.ToString() ?? "Undefined"}\n" +
-                    $"\nEDID: {x.ManufactureCode} {x.ProductCodeId}"
-            ));
-            
-            await _messageService.ShowAsync(monitorInfoMessage);
+                var monitorInfoMessage = string.Join<string>("\n\n", monitorInfos.Select(x =>
+                        $"{x.DeviceNameFull}\n{x.FriendlyName}\nResolution: {x.ScreenWidth}x{x.ScreenHeight}\n" +
+                        $"Working Area: {x.WorkingArea}\nDpi Scale: {x.DpiScale?.ToString() ?? "Undefined"}\n" +
+                        $"\nEDID: {x.ManufactureCode} {x.ProductCodeId}"
+                ));
+
+                await _messageService.ShowAsync(monitorInfoMessage);
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex);
+            }
         }
         #endregion
 
