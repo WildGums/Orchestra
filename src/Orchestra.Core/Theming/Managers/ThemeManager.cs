@@ -101,7 +101,9 @@
             if (resourceExists)
             {
                 var uri = new Uri(resourceDictionaryUri, UriKind.RelativeOrAbsolute);
+                var dict = new ResourceDictionary { Source = uri };
 
+                EnsureApplicationThemes(dict, createStyleForwarders);
             }
         }
 
