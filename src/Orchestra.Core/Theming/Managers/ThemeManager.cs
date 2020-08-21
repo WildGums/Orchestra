@@ -166,25 +166,25 @@
             // Convenience fix. *If* the only merged dictionary is /themes/generic.xaml, we
             // will use that instead
             var applicationResourcesDictionary = application.Resources;
-            if (applicationResourcesDictionary.MergedDictionaries.Count == 1)
-            {
-                var singleMergedDictionary = applicationResourcesDictionary.MergedDictionaries[0];
-                if (singleMergedDictionary.Source?.ToString().EqualsIgnoreCase("/themes/generic.xaml") ?? false)
-                {
-                    applicationResourcesDictionary = singleMergedDictionary;
+            //if (applicationResourcesDictionary.MergedDictionaries.Count == 1)
+            //{
+            //    var singleMergedDictionary = applicationResourcesDictionary.MergedDictionaries[0];
+            //    if (singleMergedDictionary.Source?.ToString().EqualsIgnoreCase("/themes/generic.xaml") ?? false)
+            //    {
+            //        applicationResourcesDictionary = singleMergedDictionary;
 
-                    //// Are we currently merging the apps own /themes/generic.xaml?
-                    //var appGenericThemesDictionaryName = $"/{application.GetType().Assembly.GetName().Name};component/themes/generic.xaml";
-                    //if (appGenericThemesDictionaryName.EqualsIgnoreCase(resourceDictionaryUri))
-                    //{
-                    //    // Already included
-                    //    Log.Debug($"No need to merge '{appGenericThemesDictionaryName}', already merged");
-                    //    return null;
-                    //}
+            //        //// Are we currently merging the apps own /themes/generic.xaml?
+            //        //var appGenericThemesDictionaryName = $"/{application.GetType().Assembly.GetName().Name};component/themes/generic.xaml";
+            //        //if (appGenericThemesDictionaryName.EqualsIgnoreCase(resourceDictionaryUri))
+            //        //{
+            //        //    // Already included
+            //        //    Log.Debug($"No need to merge '{appGenericThemesDictionaryName}', already merged");
+            //        //    return null;
+            //        //}
 
-                    Log.Debug($"Falling back to '/themes/generic.xaml' instead of app resource dictionary");
-                }
-            }
+            //        Log.Debug($"Falling back to '/themes/generic.xaml' instead of app resource dictionary");
+            //    }
+            //}
 
             return applicationResourcesDictionary;
         }
