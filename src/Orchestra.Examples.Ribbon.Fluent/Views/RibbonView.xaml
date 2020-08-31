@@ -141,6 +141,10 @@
                     <fluent:RibbonGroupBox Header="Demo group">
                         <fluent:Button Header="Windows" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Windows}}" />
 
+                        <fluent:Button Header="Open data directory..." 
+                                       Command="{Binding OpenDataDirectory}"
+                                       LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.ExternalLink}}" />
+
                         <fluent:Button Header="Window..." 
                                        Command="{Binding OpenWindow}"
                                        LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.ExternalLink}}" />

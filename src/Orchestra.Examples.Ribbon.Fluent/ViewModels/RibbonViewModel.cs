@@ -35,10 +35,12 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         private readonly IMessageService _messageService;
         private readonly ISelectDirectoryService _selectDirectoryService;
         private readonly IDirectoryService _directoryService;
+        private readonly IManageAppDataService _manageAppDataService;
 
         public RibbonViewModel(INavigationService navigationService, IUIVisualizerService uiVisualizerService,
             ICommandManager commandManager, IRecentlyUsedItemsService recentlyUsedItemsService, IProcessService processService,
-            IMessageService messageService, ISelectDirectoryService selectDirectoryService, IDirectoryService directoryService)
+            IMessageService messageService, ISelectDirectoryService selectDirectoryService, IDirectoryService directoryService,
+            IManageAppDataService manageAppDataService)
         {
             Argument.IsNotNull(() => navigationService);
             Argument.IsNotNull(() => uiVisualizerService);
@@ -48,6 +50,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             Argument.IsNotNull(() => messageService);
             Argument.IsNotNull(() => selectDirectoryService);
             Argument.IsNotNull(() => directoryService);
+            Argument.IsNotNull(() => manageAppDataService);
 
             _navigationService = navigationService;
             _uiVisualizerService = uiVisualizerService;
@@ -56,7 +59,9 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             _messageService = messageService;
             _selectDirectoryService = selectDirectoryService;
             _directoryService = directoryService;
+            _manageAppDataService = manageAppDataService;
 
+            OpenDataDirectory = new TaskCommand(OnOpenDataDirectoryExecuteAsync);
             OpenWindow = new TaskCommand(OnOpenWindowExecuteAsync);
             OpenProject = new TaskCommand(OnOpenProjectExecuteAsync);
             OpenRecentlyUsedItem = new TaskCommand<string>(OnOpenRecentlyUsedItemExecuteAsync);
@@ -80,6 +85,13 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         #endregion
 
         #region Commands
+        public TaskCommand OpenDataDirectory { get; private set; }
+
+        private async Task OnOpenDataDirectoryExecuteAsync()
+        {
+            _manageAppDataService.OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming);
+        }
+
         public TaskCommand OpenWindow { get; private set; }
 
         private async Task OnOpenWindowExecuteAsync()
