@@ -57,7 +57,12 @@ namespace Orchestra.Services
             Log.Info("Opening data directory");
 
             var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
-            _processService.StartProcess(applicationDataDirectory);
+
+            _processService.StartProcess(new ProcessContext
+            {
+                FileName = "explorer.exe",
+                Arguments = applicationDataDirectory
+            });
 
             return true;
         }
