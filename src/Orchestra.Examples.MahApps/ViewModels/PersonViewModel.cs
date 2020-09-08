@@ -36,7 +36,16 @@ namespace Orchestra.Examples.MahApps.ViewModels
         /// <value>The title.</value>
         public override string Title
         {
-            get { return Person.ToString(); }
+            get
+            {
+                var title = Person.ToString();
+                if (string.IsNullOrWhiteSpace(title))
+                {
+                    title = "New person";
+                }
+
+                return title;
+            }
         }
 
         [Model]
