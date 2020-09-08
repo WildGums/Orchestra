@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net462;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <AssemblyName>Orchestra.Examples.MahApps</AssemblyName>
     <RootNamespace>Orchestra.Examples.MahApps</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
