@@ -31,7 +31,7 @@
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Fluent.Ribbon" Version="8.0.0" />
-    <PackageReference Include="Fody" Version="6.2.5" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="6.2.6" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>build; native; contentfiles; analyzers</IncludeAssets>
