@@ -62,7 +62,7 @@
                     <RichTextBox ToolTip="RichTextBox" />
                     <Slider Minimum="0" Maximum="100" Value="50" Width="100" ToolTip="Slider" />
                     <TextBlock Text="TextBlock" ToolTip="TextBlock" />
-                    <TextBox Text="{Binding Text, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" ToolTip="TextBox" Width="100" />
+                    <TextBox Text="{Binding Text}" ToolTip="TextBox" Width="100" />
                 </WrapPanel>
             </GroupBox>
 
