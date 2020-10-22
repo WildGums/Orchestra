@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ModuleInitializer.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-using Catel.IoC;
+﻿using Catel.IoC;
 using Catel.Services;
 using Orchestra.Services;
 
@@ -14,7 +7,6 @@ using Orchestra.Services;
 /// </summary>
 public static partial class ModuleInitializer
 {
-    #region Methods
     /// <summary>
     /// Initializes the module.
     /// </summary>
@@ -26,6 +18,7 @@ public static partial class ModuleInitializer
         serviceLocator.RegisterType<IApplicationInitializationService, ApplicationInitializationServiceBase>();
         serviceLocator.RegisterType<IShellConfigurationService, ShellConfigurationService>();
         serviceLocator.RegisterType<IPleaseWaitService, ProgressPleaseWaitService>();
+        serviceLocator.RegisterType<IXamlResourceService, XamlResourceService>();
 
         var languageService = serviceLocator.ResolveType<ILanguageService>();
         languageService.RegisterLanguageSource(new LanguageResourceSource(typeof(ShellService).Assembly.GetName().Name, 
@@ -35,5 +28,4 @@ public static partial class ModuleInitializer
     }
 
     static partial void InitializeSpecific();
-    #endregion
 }

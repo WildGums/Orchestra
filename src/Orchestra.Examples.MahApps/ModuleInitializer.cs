@@ -16,5 +16,10 @@ public static class ModuleInitializer
 
         serviceLocator.RegisterType<IMahAppsService, MahAppsService>();
         serviceLocator.RegisterType<IApplicationInitializationService, ApplicationInitializationService>();
+
+        // Note for https://github.com/WildGums/Orchestra/issues/382, comment service registrations
+        // below to run example without material design
+        serviceLocator.RegisterType<IXamlResourceService, MaterialDesignXamlResourceService>();
+        serviceLocator.RegisterType<Orc.Theming.IThemeService, MaterialDesignThemeService>();
     }
 }

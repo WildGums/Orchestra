@@ -68,14 +68,14 @@
 
             <GroupBox Header="Orc.Controls controls">
                 <WrapPanel Orientation="Horizontal">
-                    <orccontrols:DatePicker ToolTip="Orc.Controls: DatePicker" />
-                    <orccontrols:DateTimePicker ToolTip="Orc.Controls: DateTimePicker" />
-                    <orccontrols:DropDownButton Width="40" ToolTip="Orc.Controls: DropDownButton" />
-                    <orccontrols:FilterBox Width="100" ToolTip="Orc.Controls: FilterBox" Text="Filter box" />
+                    <!--<orccontrols:DatePicker ToolTip="Orc.Controls: DatePicker" />
+                    <orccontrols:DateTimePicker ToolTip="Orc.Controls: DateTimePicker" />-->
+                    <!--<orccontrols:DropDownButton Width="40" ToolTip="Orc.Controls: DropDownButton" />-->
+                    <!--<orccontrols:FilterBox Width="100" ToolTip="Orc.Controls: FilterBox" Text="Filter box" />-->
                     <orccontrols:LinkLabel Content="LinkLabel" ToolTip="Orc.Controls: LinkLabel"/>
                     <orccontrols:NumericTextBox Width="100" ToolTip="Orc.Controls: NumericTextBox" Value="123" />
                     <orccontrols:RangeSlider Width="100" Minimum="0" LowerValue="25" UpperValue="75" Maximum="100" ToolTip="Orc.Controls: RangeSlider" />
-                    <orccontrols:TimeSpanPicker Width="100" ToolTip="Orc.Controls: TimeSpanPicker" />
+                    <!--<orccontrols:TimeSpanPicker Width="100" ToolTip="Orc.Controls: TimeSpanPicker" />-->
                     <orccontrols:WatermarkTextBox Width="100" ToolTip="Orc.Controls: WatermarkTextBox" Watermark="This is a watermark" />
                 </WrapPanel>
             </GroupBox>

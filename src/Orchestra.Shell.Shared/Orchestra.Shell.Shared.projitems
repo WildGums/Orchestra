@@ -26,6 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\ProgressPleaseWaitService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ShellService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ShellConfigurationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\XamlResourceService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Interfaces\IShell.cs" />
   </ItemGroup>
 </Project>

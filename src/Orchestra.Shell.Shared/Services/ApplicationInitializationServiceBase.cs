@@ -26,13 +26,18 @@ namespace Orchestra.Services
             InitializeLogging();
 
             var serviceLocator = this.GetServiceLocator();
+            var xamlResourceService = serviceLocator.ResolveType<IXamlResourceService>();
             var themeService = serviceLocator.ResolveType<IThemeService>();
             var orchestraThemeManager = serviceLocator.ResolveType<IThemeManager>();
             var orcThemingThemeManager = serviceLocator.ResolveType<Orc.Theming.ThemeManager>();
 
             // Note: we only have to create style forwarders once
-            orchestraThemeManager.EnsureApplicationThemes(typeof(ApplicationInitializationServiceBase).Assembly, false);
-            orchestraThemeManager.EnsureApplicationThemes(GetType().Assembly, false);
+            var xamlResourceDictionaries = xamlResourceService.GetApplicationResourceDictionaries();
+
+            foreach (var xamlResourceDictionary in xamlResourceDictionaries)
+            {
+                orchestraThemeManager.EnsureApplicationThemes(xamlResourceDictionary, false);
+            }
 
             if (themeService.ShouldCreateStyleForwarders())
             {

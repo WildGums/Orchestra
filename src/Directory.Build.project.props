@@ -5,7 +5,6 @@
 
   <PropertyGroup>
     <Authors>wildgums</Authors>
-    <PackageIconUrl>https://github.com/WildGums/Assets/raw/master/packages/logo.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/WildGums/Orchestra</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/WildGums/Orchestra</RepositoryUrl>

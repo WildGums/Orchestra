@@ -122,6 +122,13 @@ namespace Orchestra.Services
         public System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }
     }
+    public class XamlResourceService : Orchestra.Services.IXamlResourceService
+    {
+        public XamlResourceService() { }
+        public virtual System.Collections.Generic.IEnumerable<System.Windows.ResourceDictionary> GetApplicationResourceDictionaries() { }
+        protected virtual System.Windows.ResourceDictionary GetResourceDictionaryFromAssembly(System.Reflection.Assembly assembly) { }
+        protected virtual System.Uri GetResourceDictionaryUriFromAssembly(System.Reflection.Assembly assembly) { }
+    }
 }
 namespace Orchestra.ViewModels
 {

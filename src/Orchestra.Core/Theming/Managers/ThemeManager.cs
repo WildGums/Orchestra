@@ -1,16 +1,16 @@
 ﻿namespace Orchestra.Theming
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Windows;
     using Catel;
     using Catel.Logging;
-    using System.Collections;
     using ControlzEx.Theming;
     using MethodTimer;
     using Orc.Theming;
-    using System.Collections.Generic;
 
     public class ThemeManager : IThemeManager
     {
@@ -96,56 +96,49 @@
         {
             Argument.IsNotNullOrWhitespace(() => resourceDictionaryUri);
 
+            // Check whether this uri exists in order to prevent first chance exceptions
+            var resourceExists = IsResourceDictionaryAvailable(resourceDictionaryUri);
+            if (resourceExists)
+            {
+                var uri = new Uri(resourceDictionaryUri, UriKind.RelativeOrAbsolute);
+                var dict = new ResourceDictionary { Source = uri };
+
+                EnsureApplicationThemes(dict, createStyleForwarders);
+            }
+        }
+
+        [Time]
+        public virtual void EnsureApplicationThemes(ResourceDictionary resourceDictionary, bool createStyleForwarders = false)
+        {
+            Argument.IsNotNull(() => resourceDictionary);
+
             EnsureOrchestraTheme(createStyleForwarders);
 
             try
             {
-                // Check whether this uri exists in order to prevent first chance exceptions
-                var resourceExists = IsResourceDictionaryAvailable(resourceDictionaryUri);
-                if (resourceExists)
+                var applicationResourcesDictionary = GetTargetApplicationResourceDictionary();
+                if (applicationResourcesDictionary is null == false)
                 {
-                    var uri = new Uri(resourceDictionaryUri, UriKind.RelativeOrAbsolute);
+                    var alreadyAdded = false;
 
-                    var application = Application.Current;
-                    if (application is null)
+                    if (resourceDictionary.Source is null)
                     {
-                        throw Log.ErrorAndCreateException<OrchestraException>("Application.Current is null, cannot ensure application themes");
+                        // Runtime, check by instance
+                        alreadyAdded = (from dic in applicationResourcesDictionary.MergedDictionaries
+                                        where ReferenceEquals(dic, resourceDictionary)
+                                        select dic).Any();
+                    }
+                    else
+                    {
+                        // Defined, check by uri
+                        alreadyAdded = (from dic in applicationResourcesDictionary.MergedDictionaries
+                                        where dic.Source != null && dic.Source == resourceDictionary.Source
+                                        select dic).Any();
                     }
 
-                    // Convenience fix. *If* the only merged dictionary is /themes/generic.xaml, we
-                    // will use that instead
-                    var applicationResourcesDictionary = application.Resources;
-                    if (applicationResourcesDictionary.MergedDictionaries.Count == 1)
+                    if (!alreadyAdded)
                     {
-                        var singleMergedDictionary = applicationResourcesDictionary.MergedDictionaries[0];
-                        if (singleMergedDictionary.Source?.ToString().EqualsIgnoreCase("/themes/generic.xaml") ?? false)
-                        {
-                            applicationResourcesDictionary = singleMergedDictionary;
-
-                            // Are we currently merging the apps own /themes/generic.xaml?
-                            var appGenericThemesDictionaryName = $"/{application.GetType().Assembly.GetName().Name};component/themes/generic.xaml";
-                            if (appGenericThemesDictionaryName.EqualsIgnoreCase(resourceDictionaryUri))
-                            {
-                                // Already included
-                                Log.Debug($"No need to merge '{appGenericThemesDictionaryName}', already merged");
-                                return;
-                            }
-
-                            Log.Debug($"Falling back to '/themes/generic.xaml' instead of app resource dictionary");
-                        }
-                    }
-
-                    var existingDictionary = (from dic in applicationResourcesDictionary.MergedDictionaries
-                                              where dic.Source != null && dic.Source == uri
-                                              select dic).FirstOrDefault();
-                    if (existingDictionary is null)
-                    {
-                        existingDictionary = new ResourceDictionary
-                        {
-                            Source = uri
-                        };
-
-                        applicationResourcesDictionary.MergedDictionaries.Add(existingDictionary);
+                        applicationResourcesDictionary.MergedDictionaries.Add(resourceDictionary);
                     }
 
                     // Style forwarders only make sense once something actually changed. If it's a cascaded
@@ -158,8 +151,42 @@
             }
             catch (Exception ex)
             {
-                Log.Warning(ex, "Failed to add application theme '{0}'", resourceDictionaryUri);
+                Log.Warning(ex, $"Failed to add application theme '{resourceDictionary?.Source}'");
             }
+        }
+
+        protected virtual ResourceDictionary GetTargetApplicationResourceDictionary()
+        {
+            var application = Application.Current;
+            if (application is null)
+            {
+                throw Log.ErrorAndCreateException<OrchestraException>("Application.Current is null, cannot ensure application themes");
+            }
+
+            // Convenience fix. *If* the only merged dictionary is /themes/generic.xaml, we
+            // will use that instead
+            var applicationResourcesDictionary = application.Resources;
+            //if (applicationResourcesDictionary.MergedDictionaries.Count == 1)
+            //{
+            //    var singleMergedDictionary = applicationResourcesDictionary.MergedDictionaries[0];
+            //    if (singleMergedDictionary.Source?.ToString().EqualsIgnoreCase("/themes/generic.xaml") ?? false)
+            //    {
+            //        applicationResourcesDictionary = singleMergedDictionary;
+
+            //        //// Are we currently merging the apps own /themes/generic.xaml?
+            //        //var appGenericThemesDictionaryName = $"/{application.GetType().Assembly.GetName().Name};component/themes/generic.xaml";
+            //        //if (appGenericThemesDictionaryName.EqualsIgnoreCase(resourceDictionaryUri))
+            //        //{
+            //        //    // Already included
+            //        //    Log.Debug($"No need to merge '{appGenericThemesDictionaryName}', already merged");
+            //        //    return null;
+            //        //}
+
+            //        Log.Debug($"Falling back to '/themes/generic.xaml' instead of app resource dictionary");
+            //    }
+            //}
+
+            return applicationResourcesDictionary;
         }
 
         /// <summary>

@@ -629,6 +629,10 @@ namespace Orchestra.Services
         public static System.Threading.Tasks.Task ActivateOrShowAsync<TViewModel>(this Orchestra.Services.IViewActivationService viewActivationService)
             where TViewModel : Catel.MVVM.IViewModel { }
     }
+    public interface IXamlResourceService
+    {
+        System.Collections.Generic.IEnumerable<System.Windows.ResourceDictionary> GetApplicationResourceDictionaries();
+    }
     public class KeyboardMappingsAllowedKeysService : Orchestra.Services.IKeyboardMappingsAllowedKeysService
     {
         protected readonly System.Collections.Generic.HashSet<System.Windows.Input.Key> IgnoredKeys;
@@ -738,6 +742,7 @@ namespace Orchestra.Theming
     {
         void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = false);
         void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false);
+        void EnsureApplicationThemes(System.Windows.ResourceDictionary resourceDictionary, bool createStyleForwarders = false);
         bool IsResourceDictionaryAvailable(string resourceDictionaryUri);
         void SynchronizeTheme();
     }
@@ -747,7 +752,9 @@ namespace Orchestra.Theming
         public ThemeManager(Orc.Theming.IAccentColorService accentColorService, Orc.Theming.IBaseColorSchemeService baseColorSchemeService) { }
         public virtual void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = false) { }
         public virtual void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false) { }
+        public virtual void EnsureApplicationThemes(System.Windows.ResourceDictionary resourceDictionary, bool createStyleForwarders = false) { }
         protected virtual void EnsureOrchestraTheme(bool createStyleForwarders) { }
+        protected virtual System.Windows.ResourceDictionary GetTargetApplicationResourceDictionary() { }
         public virtual bool IsResourceDictionaryAvailable(string resourceDictionaryUri) { }
         public virtual void SynchronizeTheme() { }
     }
