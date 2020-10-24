@@ -149,7 +149,11 @@ namespace Orchestra.Examples.Ribbon.ViewModels
                 return;
             }
 
-            _processService.StartProcess(parameter);
+            _processService.StartProcess(new ProcessContext
+            {
+                UseShellExecute = true,
+                FileName = parameter
+            });
         }
 
         /// <summary>

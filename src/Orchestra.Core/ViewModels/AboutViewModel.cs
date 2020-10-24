@@ -51,6 +51,7 @@ namespace Orchestra.ViewModels
             ImageSourceUrl = aboutInfo.LogoImageSource;
             ShowLogButton = aboutInfo.ShowLogButton;
             AppIcon = aboutInfo.AppIcon;
+
             OpenUrl = new Command(OnOpenUrlExecute, OnOpenUrlCanExecute);
             OpenCopyrightUrl = new Command(OnOpenCopyrightUrlExecute, OnOpenCopyrightUrlCanExecute);
             ShowThirdPartyNotices = new TaskCommand(OnShowThirdPartyNoticesExecuteAsync);
@@ -91,7 +92,7 @@ namespace Orchestra.ViewModels
         private bool OnOpenUrlCanExecute()
         {
             var uriInfo = UriInfo;
-            if (uriInfo == null)
+            if (uriInfo is null)
             {
                 return false;
             }
@@ -106,12 +107,20 @@ namespace Orchestra.ViewModels
 
         private void OnOpenUrlExecute()
         {
-            _processService.StartProcess(UriInfo.Uri);
+            _processService.StartProcess(new ProcessContext
+            {
+                UseShellExecute = true,
+                FileName = UriInfo.Uri
+            });
         }
 
         private void OnOpenCopyrightUrlExecute()
         {
-            _processService.StartProcess(CopyrightUrl);
+            _processService.StartProcess(new ProcessContext
+            {
+                UseShellExecute = true,
+                FileName = CopyrightUrl
+            });
         }
 
         public TaskCommand ShowThirdPartyNotices { get; private set; }
@@ -132,7 +141,11 @@ namespace Orchestra.ViewModels
             {
                 var filePath = ((FileLogListener)fileLogListener).FilePath;
 
-                _processService.StartProcess(filePath);
+                _processService.StartProcess(new ProcessContext
+                {
+                    UseShellExecute = true,
+                    FileName = filePath
+                });
             }
             else
             {
