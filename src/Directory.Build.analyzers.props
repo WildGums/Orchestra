@@ -4,7 +4,7 @@
   -->
 
   <ItemGroup>
-    <PackageReference Include="Catel.Analyzers" Version="1.1.0-alpha0146" PrivateAssets="all">
+    <PackageReference Include="Catel.Analyzers" Version="1.1.0" PrivateAssets="all">
       <IncludeAssets>build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="CatenaLogic.Analyzers" Version="1.0.0" PrivateAssets="all">
