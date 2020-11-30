@@ -30,7 +30,7 @@
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Fluent.Ribbon" Version="8.0.1" />
+    <PackageReference Include="Fluent.Ribbon" Version="8.0.2" />
     <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
       <ExcludeAssets>runtime</ExcludeAssets>
