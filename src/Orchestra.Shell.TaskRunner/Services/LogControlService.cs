@@ -27,7 +27,9 @@ namespace Orchestra.Services
         public LogEvent SelectedLevel
         {
             get { return _traceOutputControl.Level; }
+#pragma warning disable WPF0035 // Use SetValue in setter.
             set { _traceOutputControl.SetCurrentValue(AdvancedLogViewerControl.LevelProperty, value); }
+#pragma warning restore WPF0035 // Use SetValue in setter.
         }
 
         public void Clear()

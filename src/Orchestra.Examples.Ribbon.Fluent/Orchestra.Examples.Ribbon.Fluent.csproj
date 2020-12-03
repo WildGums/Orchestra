@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net5.0-windows</TargetFrameworks>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <SelfContained>true</SelfContained>
@@ -30,7 +30,7 @@
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Fluent.Ribbon" Version="8.0.0" />
+    <PackageReference Include="Fluent.Ribbon" Version="8.0.2" />
     <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
       <ExcludeAssets>runtime</ExcludeAssets>
