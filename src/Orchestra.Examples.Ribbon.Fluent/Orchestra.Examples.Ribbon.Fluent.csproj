@@ -26,11 +26,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Catel.Fody" Version="4.5.0" PrivateAssets="all">
+    <PackageReference Include="Catel.Fody" Version="4.6.0" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Fluent.Ribbon" Version="8.0.2" />
+    <PackageReference Include="Fluent.Ribbon" Version="8.0.3" />
     <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
       <ExcludeAssets>runtime</ExcludeAssets>

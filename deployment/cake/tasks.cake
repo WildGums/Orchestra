@@ -1,4 +1,5 @@
 #l "lib-generic.cake"
+#l "lib-logging.cake"
 #l "lib-msbuild.cake"
 #l "lib-nuget.cake"
 #l "lib-signing.cake"
@@ -18,6 +19,7 @@
 #l "github-pages-tasks.cake"
 #l "vsextensions-tasks.cake"
 #l "tests.cake"
+#l "templates-tasks.cake"
 
 #addin "nuget:?package=System.Net.Http&version=4.3.3"
 #addin "nuget:?package=Newtonsoft.Json&version=11.0.2"
@@ -67,11 +69,13 @@ public class BuildContext : BuildContextBase
     {
         Processors = new List<IProcessor>();
         AllProjects = new List<string>();
+        Variables = new Dictionary<string, string>();  
     }
 
     public List<IProcessor> Processors { get; private set; }
     public Dictionary<string, object> Parameters { get; set; }
-
+    public Dictionary<string, string> Variables { get; private set; }
+    
     // Integrations
     public BuildServerIntegration BuildServer { get; set; }
     public IssueTrackerIntegration IssueTracker { get; set; }
@@ -88,6 +92,7 @@ public class BuildContext : BuildContextBase
     public DependenciesContext Dependencies { get; set; }
     public DockerImagesContext DockerImages { get; set; }
     public GitHubPagesContext GitHubPages { get; set; }
+    public TemplatesContext Templates { get; set; }
     public ToolsContext Tools { get; set; }
     public UwpContext Uwp { get; set; }
     public VsExtensionsContext VsExtensions { get; set; }
@@ -132,6 +137,7 @@ Setup<BuildContext>(setupContext =>
     buildContext.Dependencies = InitializeDependenciesContext(buildContext, buildContext);
     buildContext.DockerImages = InitializeDockerImagesContext(buildContext, buildContext);
     buildContext.GitHubPages = InitializeGitHubPagesContext(buildContext, buildContext);
+    buildContext.Templates = InitializeTemplatesContext(buildContext, buildContext);
     buildContext.Tools = InitializeToolsContext(buildContext, buildContext);
     buildContext.Uwp = InitializeUwpContext(buildContext, buildContext);
     buildContext.VsExtensions = InitializeVsExtensionsContext(buildContext, buildContext);
@@ -163,7 +169,8 @@ Setup<BuildContext>(setupContext =>
 
     setupContext.LogSeparator("Creating processors");
 
-    // Note: always put dependencies processor first (it's a dependency after all)
+    // Note: always put templates and dependencies processor first (it's a dependency after all)
+    buildContext.Processors.Add(new TemplatesProcessor(buildContext));
     buildContext.Processors.Add(new DependenciesProcessor(buildContext));
     buildContext.Processors.Add(new ComponentsProcessor(buildContext));
     buildContext.Processors.Add(new DockerImagesProcessor(buildContext));
@@ -173,6 +180,13 @@ Setup<BuildContext>(setupContext =>
     buildContext.Processors.Add(new VsExtensionsProcessor(buildContext));
     buildContext.Processors.Add(new WebProcessor(buildContext));
     buildContext.Processors.Add(new WpfProcessor(buildContext));
+
+    setupContext.LogSeparator("Registering variables for templates");
+
+    // Preparing variables for templates
+    buildContext.Variables["GitVersion_MajorMinorPatch"] = buildContext.General.Version.MajorMinorPatch;
+    buildContext.Variables["GitVersion_FullSemVer"] = buildContext.General.Version.FullSemVer;
+    buildContext.Variables["GitVersion_NuGetVersion"] = buildContext.General.Version.NuGet;
 
     setupContext.LogSeparator("Build context is ready, displaying state info");
 
