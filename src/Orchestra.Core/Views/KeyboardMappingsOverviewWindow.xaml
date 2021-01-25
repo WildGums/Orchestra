@@ -3,13 +3,13 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://schemas.catelproject.com"
                   xmlns:views="clr-namespace:Orchestra.Views"
-                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                  xmlns:behaviors="clr-namespace:Orchestra.Behaviors"
+                  xmlns:behaviors="clr-namespace:Orchestra.Behaviors" 
+                  xmlns:xamlbehaviors="http://schemas.microsoft.com/xaml/behaviors"
                   Width="700" SizeToContent="Height">
 
-    <i:Interaction.Behaviors>
+    <xamlbehaviors:Interaction.Behaviors>
         <behaviors:RememberWindowSize />
-    </i:Interaction.Behaviors>
+    </xamlbehaviors:Interaction.Behaviors>
     
     <views:KeyboardMappingsOverviewView />
     

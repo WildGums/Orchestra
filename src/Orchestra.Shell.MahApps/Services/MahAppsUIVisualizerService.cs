@@ -7,10 +7,8 @@
 
 namespace Orchestra.Services
 {
-    using System;
     using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Controls;
     using Windows;
     using Catel.MVVM;
     using Catel.Services;
@@ -19,8 +17,8 @@ namespace Orchestra.Services
 
     public class MahAppsUIVisualizerService : UIVisualizerService
     {
-        public MahAppsUIVisualizerService(IViewLocator viewLocator)
-            : base(viewLocator)
+        public MahAppsUIVisualizerService(IViewLocator viewLocator, IDispatcherService dispatcherService)
+            : base(viewLocator, dispatcherService)
         {
         }
         

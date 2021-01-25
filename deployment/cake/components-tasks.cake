@@ -52,7 +52,8 @@ public class ComponentsProcessor : ProcessorBase
         {
             foreach (var component in BuildContext.Components.Items)
             {
-                var cacheDirectory = Environment.ExpandEnvironmentVariables(string.Format("%userprofile%/.nuget/packages/{0}/{1}", component, BuildContext.General.Version.NuGet));
+                var expandableCacheDirectory = System.IO.Path.Combine("%userprofile%", ".nuget", "packages", component, BuildContext.General.Version.NuGet);
+                var cacheDirectory = Environment.ExpandEnvironmentVariables(expandableCacheDirectory);
 
                 CakeContext.Information("Checking for existing local NuGet cached version at '{0}'", cacheDirectory);
 
@@ -160,7 +161,7 @@ public class ComponentsProcessor : ProcessorBase
                 }
             }
 
-            CakeContext.MSBuild(projectFileName, msBuildSettings);
+            RunMsBuild(BuildContext, component, projectFileName, msBuildSettings);
         }        
     }
 
@@ -175,10 +176,19 @@ public class ComponentsProcessor : ProcessorBase
 
         foreach (var component in BuildContext.Components.Items)
         {
+            // Note: some projects, such as Catel.Fody, require packaging
+            // of non-deployable projects
+            if (BuildContext.General.SkipComponentsThatAreNotDeployable && 
+                !ShouldDeployProject(BuildContext, component))
+            {
+                CakeContext.Information("Component '{0}' should not be deployed", component);
+                continue;
+            }
+
             BuildContext.CakeContext.LogSeparator("Packaging component '{0}'", component);
 
-            var projectDirectory = string.Format("./src/{0}", component);
-            var projectFileName = string.Format("{0}/{1}.csproj", projectDirectory, component);
+            var projectDirectory = GetProjectDirectory(component);
+            var projectFileName = GetProjectFileName(BuildContext, component);
             var outputDirectory = GetProjectOutputDirectory(BuildContext, component);
             CakeContext.Information("Output directory: '{0}'", outputDirectory);
 
@@ -244,6 +254,9 @@ public class ComponentsProcessor : ProcessorBase
                 msBuildSettings.WithProperty("RevisionId", repositoryCommitId);
             }
             
+            // Disable Multilingual App Toolkit (MAT) during packaging
+            msBuildSettings.WithProperty("DisableMAT", "true");
+
             // Fix for .NET Core 3.0, see https://github.com/dotnet/core-sdk/issues/192, it
             // uses obj/release instead of [outputdirectory]
             msBuildSettings.WithProperty("DotNetPackIntermediateOutputPath", outputDirectory);
@@ -251,7 +264,7 @@ public class ComponentsProcessor : ProcessorBase
             msBuildSettings.WithProperty("NoBuild", "true");
             msBuildSettings.Targets.Add("Pack");
 
-            CakeContext.MSBuild(projectFileName, msBuildSettings);
+            RunMsBuild(BuildContext, component, projectFileName, msBuildSettings);
 
             BuildContext.CakeContext.LogSeparator();
         }
@@ -263,16 +276,15 @@ public class ComponentsProcessor : ProcessorBase
         {
             // For details, see https://docs.microsoft.com/en-us/nuget/create-packages/sign-a-package
             // nuget sign MyPackage.nupkg -CertificateSubjectName <MyCertSubjectName> -Timestamper <TimestampServiceURL>
-            var filesToSign = CakeContext.GetFiles(string.Format("{0}/*.nupkg", BuildContext.General.OutputRootDirectory));
-
+            var filesToSign = CakeContext.GetFiles($"{BuildContext.General.OutputRootDirectory}/*.nupkg");
+            
             foreach (var fileToSign in filesToSign)
             {
-                CakeContext.Information("Signing NuGet package '{0}' using certificate subject '{1}'", fileToSign, BuildContext.General.CodeSign.CertificateSubjectName);
+                CakeContext.Information($"Signing NuGet package '{fileToSign}' using certificate subject '{BuildContext.General.CodeSign.CertificateSubjectName}'");
 
                 var exitCode = CakeContext.StartProcess(BuildContext.General.NuGet.Executable, new ProcessSettings
                 {
-                    Arguments = string.Format("sign \"{0}\" -CertificateSubjectName \"{1}\" -Timestamper \"{2}\"", 
-                        fileToSign, BuildContext.General.CodeSign.CertificateSubjectName, BuildContext.General.CodeSign.TimeStampUri)
+                    Arguments = $"sign \"{fileToSign}\" -CertificateSubjectName \"{BuildContext.General.CodeSign.CertificateSubjectName}\" -Timestamper \"{BuildContext.General.CodeSign.TimeStampUri}\""
                 });
 
                 CakeContext.Information("Signing NuGet package exited with '{0}'", exitCode);
@@ -297,7 +309,7 @@ public class ComponentsProcessor : ProcessorBase
 
             BuildContext.CakeContext.LogSeparator("Deploying component '{0}'", component);
 
-            var packageToPush = string.Format("{0}/{1}.{2}.nupkg", BuildContext.General.OutputRootDirectory, component, BuildContext.General.Version.NuGet);
+            var packageToPush = System.IO.Path.Combine(BuildContext.General.OutputRootDirectory, $"{component}.{BuildContext.General.Version.NuGet}.nupkg");
             var nuGetRepositoryUrl = GetComponentNuGetRepositoryUrl(component);
             var nuGetRepositoryApiKey = GetComponentNuGetRepositoryApiKey(component);
 

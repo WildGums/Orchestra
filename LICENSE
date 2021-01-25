@@ -62,8 +62,3 @@ Note: if you feel an item is missing in this list, please let us know!
 * Orc.SystemInfo
   https://github.com/wildgums/orc.systeminfo
   Original license: MIT
-  
-* Internal Style Helper based on Styles Explorer (Ricciolo)
-  https://github.com/icsharpcode/ILSpy/tree/master/ILSpy.BamlDecompiler/Ricciolo.StylesExplorer.MarkupReflection
-  http://stylesexplorer.codeplex.com/license
-  Original license: Ms-PL (compatible with MIT)

@@ -5,46 +5,12 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Catel.MVVM;component/Themes/Generic.xaml" />
+        <ResourceDictionary Source="/Orc.Theming;component/Themes/Generic.xaml" />
         <ResourceDictionary Source="/Orc.Controls;component/Themes/Generic.xaml" />
-
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.normal.xaml" />
-
-        <!-- All wpf controls restyled with accent colors -->
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.implicit.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.button.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.checkbox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.combobox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.gridsplitter.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.groupbox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.listbox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.listview.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.passwordbox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.progressbar.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.radiobutton.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.repeatbutton.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.richtextbox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.slider.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.tabcontrol.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.textblock.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.textbox.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/themes/Controls.implicit.treeview.xaml" />
 
         <!-- Explicit control templates -->
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.explicit.xaml" />
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.messagebox.xaml" />
-
-        <!-- Generic overrides (with margins) -->
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.wpf.defaultstyles.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.wpf.xaml" />
-        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.orc.controls.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
-    <!-- Controls that use BasedOn need to be defined on this level -->
-    <Style x:Key="DataWindowButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Margin" Value="6, 6, 0, 0" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="MinWidth" Value="100" />
-        <Setter Property="MinHeight" Value="23" />
-    </Style>
 
 </ResourceDictionary>

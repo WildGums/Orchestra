@@ -5,7 +5,8 @@
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    mc:Ignorable="d"
                    xmlns:catel="http://schemas.catelproject.com"
-                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
+                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls" 
+                   xmlns:orctheming="http://schemas.wildgums.com/orc/theming"
                    d:DesignHeight="300"
                    d:DesignWidth="400">
 
@@ -16,46 +17,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Select the accent color" />
-                <ComboBox ItemsSource="{Binding AccentColors}" SelectedItem="{Binding SelectedAccentColor}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Rectangle Grid.Column="0" Width="20" Height="12" VerticalAlignment="Center" Margin="4,2,8,2">
-                                    <Rectangle.Fill>
-                                        <SolidColorBrush Color="{Binding }" />
-                                    </Rectangle.Fill>
-                                </Rectangle>
-
-                                <TextBlock Grid.Column="1" Text="{Binding }" VerticalAlignment="Center" />
-                            </Grid>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
-
-            <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <Label Content="Select the base color" />
-                <ComboBox ItemsSource="{Binding BaseColorSchemes}" SelectedItem="{Binding SelectedBaseColorScheme}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <TextBlock Grid.Column="1" Text="{Binding }" VerticalAlignment="Center" />
-                            </Grid>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
+            <orctheming:ThemeSwitcherView />
         </Grid>
 
         <orccontrols:StackGrid Grid.Row="1">
@@ -100,20 +62,20 @@
                     <RichTextBox ToolTip="RichTextBox" />
                     <Slider Minimum="0" Maximum="100" Value="50" Width="100" ToolTip="Slider" />
                     <TextBlock Text="TextBlock" ToolTip="TextBlock" />
-                    <TextBox Text="{Binding Text, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" ToolTip="TextBox" Width="100" />
+                    <TextBox Text="{Binding Text}" ToolTip="TextBox" Width="100" />
                 </WrapPanel>
             </GroupBox>
 
             <GroupBox Header="Orc.Controls controls">
                 <WrapPanel Orientation="Horizontal">
-                    <orccontrols:DatePicker ToolTip="Orc.Controls: DatePicker" />
-                    <orccontrols:DateTimePicker ToolTip="Orc.Controls: DateTimePicker" />
-                    <orccontrols:DropDownButton Width="40" ToolTip="Orc.Controls: DropDownButton" />
-                    <orccontrols:FilterBox Width="100" ToolTip="Orc.Controls: FilterBox" Text="Filter box" />
+                    <!--<orccontrols:DatePicker ToolTip="Orc.Controls: DatePicker" />
+                    <orccontrols:DateTimePicker ToolTip="Orc.Controls: DateTimePicker" />-->
+                    <!--<orccontrols:DropDownButton Width="40" ToolTip="Orc.Controls: DropDownButton" />-->
+                    <!--<orccontrols:FilterBox Width="100" ToolTip="Orc.Controls: FilterBox" Text="Filter box" />-->
                     <orccontrols:LinkLabel Content="LinkLabel" ToolTip="Orc.Controls: LinkLabel"/>
                     <orccontrols:NumericTextBox Width="100" ToolTip="Orc.Controls: NumericTextBox" Value="123" />
                     <orccontrols:RangeSlider Width="100" Minimum="0" LowerValue="25" UpperValue="75" Maximum="100" ToolTip="Orc.Controls: RangeSlider" />
-                    <orccontrols:TimeSpanPicker Width="100" ToolTip="Orc.Controls: TimeSpanPicker" />
+                    <!--<orccontrols:TimeSpanPicker Width="100" ToolTip="Orc.Controls: TimeSpanPicker" />-->
                     <orccontrols:WatermarkTextBox Width="100" ToolTip="Orc.Controls: WatermarkTextBox" Watermark="This is a watermark" />
                 </WrapPanel>
             </GroupBox>

@@ -7,9 +7,13 @@
 
 namespace Orchestra.Tests
 {
+    using System.IO;
+    using System.Reflection;
     using System.Runtime.CompilerServices;
-    using ApiApprover;
+    using ApprovalTests;
+    using ApprovalTests.Namers;
     using NUnit.Framework;
+    using PublicApiGenerator;
     using Services;
 
     [TestFixture]
@@ -26,7 +30,7 @@ namespace Orchestra.Tests
         [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public void Orchestra_Shell_MahApps_HasNoBreakingChanges()
         {
-            var assembly = typeof(MahAppsThemeHelper).Assembly;
+            var assembly = typeof(MahAppsAboutService).Assembly;
 
             PublicApiApprover.ApprovePublicApi(assembly);
         }
@@ -37,6 +41,32 @@ namespace Orchestra.Tests
             var assembly = typeof(RibbonExtensions).Assembly;
 
             PublicApiApprover.ApprovePublicApi(assembly);
+        }
+
+        internal static class PublicApiApprover
+        {
+            public static void ApprovePublicApi(Assembly assembly)
+            {
+                var publicApi = ApiGenerator.GeneratePublicApi(assembly, new ApiGeneratorOptions());
+                var writer = new ApprovalTextWriter(publicApi, "cs");
+                var approvalNamer = new AssemblyPathNamer(assembly.Location);
+                Approvals.Verify(writer, approvalNamer, Approvals.GetReporter());
+            }
+        }
+
+        internal class AssemblyPathNamer : UnitTestFrameworkNamer
+        {
+            private readonly string _name;
+
+            public AssemblyPathNamer(string assemblyPath)
+            {
+                _name = Path.GetFileNameWithoutExtension(assemblyPath);
+
+            }
+            public override string Name
+            {
+                get { return _name; }
+            }
         }
     }
 }

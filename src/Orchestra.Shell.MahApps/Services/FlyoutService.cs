@@ -11,7 +11,6 @@ namespace Orchestra.Services
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
-    using System.Windows.Data;
     using Catel;
     using Catel.IoC;
     using Catel.Logging;
@@ -20,7 +19,6 @@ namespace Orchestra.Services
     using Catel.Windows.Threading;
     using MahApps.Metro.Controls;
     using Models;
-    using ThemeHelper = Orchestra.ThemeHelper;
 
     public class FlyoutService : IFlyoutService
     {
@@ -47,7 +45,7 @@ namespace Orchestra.Services
         public IEnumerable<Flyout> GetFlyouts()
         {
             return (from flyout in _flyouts.Values
-                select flyout.Flyout);
+                    select flyout.Flyout);
         }
 
         public void AddFlyout(string name, Type viewType, Position position, UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel, FlyoutTheme flyoutTheme = FlyoutTheme.Adapt)
@@ -65,46 +63,69 @@ namespace Orchestra.Services
 
             var flyoutInfo = new FlyoutInfo(flyout, content);
 
-            flyout.SetBinding(Flyout.HeaderProperty, new Binding("ViewModel.Title") { Source = content });
+            // See https://github.com/WildGums/Orchestra/issues/278, we cannot bind this, use workaround for now, see workaround below as well!!!
+            //flyout.SetBinding(Flyout.HeaderProperty, new Binding("ViewModel.Title") { Source = content });
 
             ((ICompositeCommand)_commandManager.GetCommand("Close")).RegisterAction(() => { flyout.IsOpen = false; });
 
+            // ViewModelChanged handler (Workaround for https://github.com/WildGums/Orchestra/issues/278)
+            var vmContainer = content as IViewModelContainer;
+            EventHandler<EventArgs> viewModelChangedHandler = null;
+            viewModelChangedHandler = (sender, e) =>
+            {
+                var title = vmContainer?.ViewModel?.Title;
+                if (!string.IsNullOrWhiteSpace(title))
+                {
+                    flyout.Dispatcher.BeginInvoke(() =>
+                    {
+                        flyout.SetCurrentValue(Flyout.HeaderProperty, title);
+                    });
+                }
+            };
+
+            vmContainer.ViewModelChanged += viewModelChangedHandler;
+
+            // IsOpenChanged handler
+            RoutedEventHandler isOpenHandler = null;
 #pragma warning disable AvoidAsyncVoid
-            flyout.IsOpenChanged += async (sender, e) =>
+            isOpenHandler = async (sender, e) =>
 #pragma warning restore AvoidAsyncVoid
             {
+                var vmContainer = flyout.Content as IViewModelContainer;
+                var vm = vmContainer?.ViewModel;
+
                 if (!flyout.IsOpen)
                 {
-                    var vmContainer = flyout.Content as IViewModelContainer;
-                    if (vmContainer != null)
+                    if (vm != null)
                     {
-                        var vm = vmContainer.ViewModel;
-                        if (vm != null)
+                        switch (unloadBehavior)
                         {
-                            switch (unloadBehavior)
-                            {
-                                case UnloadBehavior.CloseViewModel:
-                                    await vm.CloseViewModelAsync(null);
-                                    break;
+                            case UnloadBehavior.CloseViewModel:
+                                await vm.CloseViewModelAsync(null);
+                                break;
 
-                                case UnloadBehavior.SaveAndCloseViewModel:
-                                    await vm.SaveAndCloseViewModelAsync();
-                                    break;
+                            case UnloadBehavior.SaveAndCloseViewModel:
+                                await vm.SaveAndCloseViewModelAsync();
+                                break;
 
-                                case UnloadBehavior.CancelAndCloseViewModel:
-                                    await vm.CancelAndCloseViewModelAsync();
-                                    break;
+                            case UnloadBehavior.CancelAndCloseViewModel:
+                                await vm.CancelAndCloseViewModelAsync();
+                                break;
 
-                                default:
-                                    throw new ArgumentOutOfRangeException(nameof(unloadBehavior));
-                            }
+                            default:
+                                throw new ArgumentOutOfRangeException(nameof(unloadBehavior));
                         }
                     }
 
                     flyout.Content = null;
                     flyout.DataContext = null;
+
+                    flyout.IsOpenChanged -= isOpenHandler;
+                    vmContainer.ViewModelChanged -= viewModelChangedHandler;
                 }
             };
+
+            flyout.IsOpenChanged += isOpenHandler;
 
             _flyouts[name] = flyoutInfo;
         }
@@ -128,7 +149,7 @@ namespace Orchestra.Services
                 if (flyoutsControl != null)
                 {
                     flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderThicknessProperty, new Thickness(1));
-                    flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderBrushProperty, Orc.Controls.ThemeHelper.GetAccentColorBrush());
+                    flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderBrushProperty, Orc.Theming.ThemeManager.Current.GetAccentColorBrush());
                 }
 
                 var isOpen = flyout.IsOpen;

@@ -2,7 +2,8 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:windows="clr-namespace:Orchestra.Windows"
-                      xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
+                      xmlns:orccontrols="http://schemas.wildgums.com/orc/controls" 
+                      xmlns:orctheming="http://schemas.wildgums.com/orc/theming"
                       ShowInTaskbar="True" ResizeMode="CanResize" WindowState="Maximized"
                       Title="{Binding ElementName=ribbonContentControl, Path=Content.ViewModel.Title}">
 
@@ -33,7 +34,7 @@
             <ProgressBar.Style>
                 <Style TargetType="{x:Type ProgressBar}">
                     <Setter Property="Margin" Value="0"/>
-                    <Setter Property="Foreground" Value="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Orc.Brushes.AccentColorBrush}"/>
                     <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="Template">
@@ -69,7 +70,7 @@
                     </Setter>
                     <Style.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="Gray" />
+                            <Setter Property="Foreground" Value="{DynamicResource Orc.Brushes.Control.Default.Disabled}" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>

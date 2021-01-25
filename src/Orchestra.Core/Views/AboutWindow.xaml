@@ -10,7 +10,7 @@
         <catel:BooleanToCollapsingVisibilityConverter x:Key="BooleanToCollapsingVisibilityConverter" />
     </Window.Resources>
 
-    <Grid Margin="-6">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="15" />
             <RowDefinition Height="*" />
@@ -76,9 +76,9 @@
                    Visibility="{Binding IsDebugLoggingEnabled, Converter={catel:BooleanToCollapsingVisibilityConverter}}" />
 
         <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20 0 20 0">
-            <Button Content="{catel:LanguageBinding Orchestra_ShowLog}" Width="80" Margin="0 20 15 30" Command="{Binding OpenLog}"
+            <Button Content="{catel:LanguageBinding Orchestra_ShowLog}" Width="80" Command="{Binding OpenLog}"
                     Visibility="{Binding ShowLogButton, Converter={StaticResource BooleanToCollapsingVisibilityConverter}}" />
-            <Button Content="{catel:LanguageBinding Orchestra_Close}" Width="80" Margin="0 20 0 30" Click="Close_OnClick" />
+            <Button Content="{catel:LanguageBinding Orchestra_Close}" Width="80" Click="Close_OnClick" />
         </StackPanel>
     </Grid>
 

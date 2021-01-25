@@ -13,16 +13,21 @@ namespace Orchestra.Examples.Ribbon.ViewModels
     using System.Linq;
     using System.Threading.Tasks;
     using Catel;
+    using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
     using Models;
     using Orc.FileSystem;
+    using Orchestra.Examples.ViewModels;
     using Orchestra.Services;
     using Orchestra.ViewModels;
+    using Orchestra.Windows;
 
     public class RibbonViewModel : ViewModelBase
     {
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         private readonly INavigationService _navigationService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IRecentlyUsedItemsService _recentlyUsedItemsService;
@@ -30,10 +35,12 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         private readonly IMessageService _messageService;
         private readonly ISelectDirectoryService _selectDirectoryService;
         private readonly IDirectoryService _directoryService;
+        private readonly IManageAppDataService _manageAppDataService;
 
         public RibbonViewModel(INavigationService navigationService, IUIVisualizerService uiVisualizerService,
             ICommandManager commandManager, IRecentlyUsedItemsService recentlyUsedItemsService, IProcessService processService,
-            IMessageService messageService, ISelectDirectoryService selectDirectoryService, IDirectoryService directoryService)
+            IMessageService messageService, ISelectDirectoryService selectDirectoryService, IDirectoryService directoryService,
+            IManageAppDataService manageAppDataService)
         {
             Argument.IsNotNull(() => navigationService);
             Argument.IsNotNull(() => uiVisualizerService);
@@ -43,6 +50,7 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             Argument.IsNotNull(() => messageService);
             Argument.IsNotNull(() => selectDirectoryService);
             Argument.IsNotNull(() => directoryService);
+            Argument.IsNotNull(() => manageAppDataService);
 
             _navigationService = navigationService;
             _uiVisualizerService = uiVisualizerService;
@@ -51,12 +59,16 @@ namespace Orchestra.Examples.Ribbon.ViewModels
             _messageService = messageService;
             _selectDirectoryService = selectDirectoryService;
             _directoryService = directoryService;
+            _manageAppDataService = manageAppDataService;
 
+            OpenDataDirectory = new TaskCommand(OnOpenDataDirectoryExecuteAsync);
+            OpenWindow = new TaskCommand(OnOpenWindowExecuteAsync);
             OpenProject = new TaskCommand(OnOpenProjectExecuteAsync);
             OpenRecentlyUsedItem = new TaskCommand<string>(OnOpenRecentlyUsedItemExecuteAsync);
             OpenInExplorer = new TaskCommand<string>(OnOpenInExplorerExecuteAsync);
             UnpinItem = new Command<string>(OnUnpinItemExecute);
             PinItem = new Command<string>(OnPinItemExecute);
+            ShowAllMonitorInfo = new TaskCommand(OnShowAllMonitorInfoExecuteAsync);
 
             ShowKeyboardMappings = new TaskCommand(OnShowKeyboardMappingsExecuteAsync);
 
@@ -73,6 +85,20 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         #endregion
 
         #region Commands
+        public TaskCommand OpenDataDirectory { get; private set; }
+
+        private async Task OnOpenDataDirectoryExecuteAsync()
+        {
+            _manageAppDataService.OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming);
+        }
+
+        public TaskCommand OpenWindow { get; private set; }
+
+        private async Task OnOpenWindowExecuteAsync()
+        {
+            await _uiVisualizerService.ShowDialogAsync<ExampleViewModel>();
+        }
+
         /// <summary>
         /// Gets the OpenProject command.
         /// </summary>
@@ -83,9 +109,14 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         /// </summary>
         private async Task OnOpenProjectExecuteAsync()
         {
-            if (await _selectDirectoryService.DetermineDirectoryAsync())
+            var result = await _selectDirectoryService.DetermineDirectoryAsync(new DetermineDirectoryContext
             {
-                await _messageService.ShowAsync("You have chosen " + _selectDirectoryService.DirectoryName);
+                Title = "Select a project directory"
+            });
+
+            if (result.Result)
+            {
+                await _messageService.ShowAsync("You have chosen " + result.DirectoryName);
             }
         }
 
@@ -118,7 +149,11 @@ namespace Orchestra.Examples.Ribbon.ViewModels
                 return;
             }
 
-            _processService.StartProcess(parameter);
+            _processService.StartProcess(new ProcessContext
+            {
+                UseShellExecute = true,
+                FileName = parameter
+            });
         }
 
         /// <summary>
@@ -158,6 +193,28 @@ namespace Orchestra.Examples.Ribbon.ViewModels
         private async Task OnShowKeyboardMappingsExecuteAsync()
         {
             await _uiVisualizerService.ShowDialogAsync<KeyboardMappingsCustomizationViewModel>();
+        }
+
+        public TaskCommand ShowAllMonitorInfo { get; private set; }
+
+        private async Task OnShowAllMonitorInfoExecuteAsync()
+        {
+            try
+            {
+                var monitorInfos = MonitorInfo.GetAllMonitors();
+
+                var monitorInfoMessage = string.Join<string>("\n\n", monitorInfos.Select(x =>
+                        $"{x.DeviceNameFull}\n{x.FriendlyName}\nResolution: {x.ScreenWidth}x{x.ScreenHeight}\n" +
+                        $"Working Area: {x.WorkingArea}\nDpi Scale: {x.DpiScale?.ToString() ?? "Undefined"}\n" +
+                        $"\nEDID: {x.ManufactureCode} {x.ProductCodeId}"
+                ));
+
+                await _messageService.ShowAsync(monitorInfoMessage);
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex);
+            }
         }
         #endregion
 

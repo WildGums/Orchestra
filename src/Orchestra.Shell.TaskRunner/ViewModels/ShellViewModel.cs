@@ -21,16 +21,19 @@ namespace Orchestra.ViewModels
 
         private readonly ITaskRunnerService _taskRunnerService;
 
-        public ShellViewModel(ITaskRunnerService taskRunnerService, ICommandManager commandManager)
+        public ShellViewModel(ITaskRunnerService taskRunnerService, ICommandManager commandManager, IShellConfigurationService shellConfigurationService)
         {
             Argument.IsNotNull(() => taskRunnerService);
             Argument.IsNotNull(() => commandManager);
+            Argument.IsNotNull(() => shellConfigurationService);
 
             _taskRunnerService = taskRunnerService;
 
             Run = new TaskCommand(OnRunExecuteAsync, OnRunCanExecute);
 
             commandManager.RegisterCommand("Runner.Run", Run, this);
+
+            DeferValidationUntilFirstSaveCall = shellConfigurationService.DeferValidationUntilFirstSaveCall;
 
             Title = taskRunnerService.Title;
             taskRunnerService.TitleChanged += (sender, args) => Title = taskRunnerService.Title;

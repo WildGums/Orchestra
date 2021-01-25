@@ -1,4 +1,5 @@
-﻿using Catel.IoC;
+﻿using Catel;
+using Catel.IoC;
 using Orchestra;
 using Orchestra.Services;
 
@@ -9,10 +10,14 @@ public static partial class ModuleInitializer
 {
     static partial void InitializeSpecific()
     {
+        if (EnvironmentHelper.IsProcessHostedByTool)
+        {
+            return;
+        }
+
         var serviceLocator = ServiceLocator.Default;
 
         var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
-        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx", "Orchestra.Shell.Ribbon.Fluent", "Orchestra.Orchestra.Shell.Ribbon.Fluent", "Resources.ThirdPartyNotices.controlzex.txt"));
-        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Fluent.Ribbon", "https://github.com/fluentribbon/Fluent.Ribbon", "Orchestra.Shell.Ribbon.Fluent", "Orchestra.Orchestra.Shell.Ribbon.Fluent", "Resources.ThirdPartyNotices.fluent.ribbon.txt"));
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Fluent.Ribbon", "https://github.com/fluentribbon/Fluent.Ribbon", "Orchestra.Shell.Ribbon.Fluent", "Orchestra", "Resources.ThirdPartyNotices.fluent.ribbon.txt"));
     }
 }

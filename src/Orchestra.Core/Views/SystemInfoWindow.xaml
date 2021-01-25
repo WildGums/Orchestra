@@ -2,9 +2,10 @@
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://schemas.catelproject.com"
-                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                   xmlns:behaviors="clr-namespace:Orchestra.Behaviors"
-                  xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
+                  xmlns:orccontrols="http://schemas.wildgums.com/orc/controls" 
+                  xmlns:orctheming="http://schemas.wildgums.com/orc/theming" 
+                  xmlns:xamlbehaviors="http://schemas.microsoft.com/xaml/behaviors"
                   ResizeMode="NoResize" 
                   WindowStyle="None"
                   MinWidth="400"
@@ -12,9 +13,9 @@
                   MaxWidth="450" 
                   MaxHeight="650">
 
-    <i:Interaction.Behaviors>
+    <xamlbehaviors:Interaction.Behaviors>
         <behaviors:RememberWindowSize />
-    </i:Interaction.Behaviors>
+    </xamlbehaviors:Interaction.Behaviors>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -53,7 +54,7 @@
             <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="15"
                 Visibility="{Binding IsSystemInformationLoaded, Converter={catel:BooleanToCollapsingVisibilityConverter}, ConverterParameter=True}">
                 <Label Content="{catel:LanguageBinding Orchestra_RetrievingSystemInfo}" FontSize="14" HorizontalAlignment="Center" />
-                <orccontrols:BusyIndicator Foreground="{orccontrols:ThemeColorBrush ThemeColorStyle=AccentColor}" Margin="8" IgnoreUnloadedEventCount="1" />
+                <orccontrols:BusyIndicator Foreground="{orctheming:ThemeColorBrush ThemeColorStyle=AccentColor}" Margin="8" IgnoreUnloadedEventCount="1" />
             </StackPanel>
         </Grid>
 

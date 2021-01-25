@@ -8,6 +8,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
+using Catel;
 using Catel.Configuration;
 using Catel.IoC;
 using Catel.Logging;
@@ -17,6 +18,7 @@ using Orchestra;
 using Orchestra.Collections;
 using Orchestra.Layers;
 using Orchestra.Services;
+using Orchestra.Theming;
 using Orchestra.Tooltips;
 using Orchestra.ViewModels;
 using Orchestra.Views;
@@ -31,6 +33,11 @@ public static class ModuleInitializer
     /// </summary>
     public static void Initialize()
     {
+        if (EnvironmentHelper.IsProcessHostedByTool)
+        {
+            return;
+        }
+
         var serviceLocator = ServiceLocator.Default;
 
         // Ensure that we are using the right culture
@@ -42,10 +49,16 @@ public static class ModuleInitializer
         // Overide style of Catel please wait service
         serviceLocator.RegisterType<IPleaseWaitService, Orchestra.Services.PleaseWaitService>();
 
+        // Override Catel.SelectDirectoryService with Orchestra.Services.SelectDirectoryService
+        serviceLocator.RegisterType<ISelectDirectoryService, MicrosoftApiSelectDirectoryService>();
+
         serviceLocator.RegisterTypeIfNotYetRegistered<IThirdPartyNoticesService, ThirdPartyNoticesService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<ICloseApplicationService, CloseApplicationService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IRecentlyUsedItemsService, RecentlyUsedItemsService>();
+
+        serviceLocator.RegisterTypeIfNotYetRegistered<IKeyboardMappingsAllowedKeysService, KeyboardMappingsAllowedKeysService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IKeyboardMappingsService, KeyboardMappingsService>();
+
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusFilterService, StatusFilterService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusService, StatusService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<Orchestra.Services.ISplashScreenService, Orchestra.Services.SplashScreenService>();
@@ -53,15 +66,14 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<ICommandInfoService, CommandInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IManageAppDataService, ManageAppDataService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IEnsureStartupService, EnsureStartupService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<IAccentColorService, AccentColorService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutInfoService, AboutInfoService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IClipboardService, ClipboardService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<IBaseColorSchemeService, BaseColorSchemeService>();
-        serviceLocator.RegisterTypeIfNotYetRegistered<IThemeService, ThemeService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();
-
         serviceLocator.RegisterType<IMessageService, Orchestra.Services.MessageService>();
+
+        // Theming
+        serviceLocator.RegisterTypeIfNotYetRegistered<IThemeManager, ThemeManager>();
 
         // Hints system
         serviceLocator.RegisterType<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>();
@@ -80,9 +92,9 @@ public static class ModuleInitializer
 
         var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Catel", "https://www.catelproject.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.catel.txt"));
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx/", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.controlzex.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("DotNetZip", string.Empty, "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.dotnetzip.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Orchestra", "https://opensource.wildgums.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.orchestra.txt"));
-        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Ricciolo", string.Empty, "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.ricciolo.txt"));
 
         var languageService = serviceLocator.ResolveType<ILanguageService>();
         languageService.RegisterLanguageSource(new LanguageResourceSource("Orchestra.Core", "Orchestra.Properties", "Resources"));

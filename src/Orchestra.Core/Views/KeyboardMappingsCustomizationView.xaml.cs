@@ -1,16 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingsCustomizationView.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
-    using System.Windows;
     using System.Windows.Input;
-    using Catel.Windows;
+    using Catel;
+    using Catel.IoC;
     using Catel.Windows.Controls;
+    using Catel.Windows.Input;
+    using Orchestra.Services;
     using ViewModels;
     using InputGesture = Catel.Windows.Input.InputGesture;
 
@@ -19,15 +14,14 @@ namespace Orchestra.Views
     /// </summary>
     public partial class KeyboardMappingsCustomizationView : UserControl
     {
-        #region Constructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardMappingsCustomizationView"/> class.
-        /// </summary>
+        private readonly IKeyboardMappingsAllowedKeysService _keyboardMappingsAllowedKeysService;
+
         public KeyboardMappingsCustomizationView()
         {
             InitializeComponent();
+
+            _keyboardMappingsAllowedKeysService = ServiceLocator.Default.ResolveType<IKeyboardMappingsAllowedKeysService>();
         }
-        #endregion
 
         private void OnNewInputGestureTextBoxKeyDown(object sender, KeyEventArgs e)
         {
@@ -36,32 +30,30 @@ namespace Orchestra.Views
             var vm = ViewModel as KeyboardMappingsCustomizationViewModel;
             if (vm != null)
             {
-                var modifiers = Keyboard.Modifiers;
-                if (modifiers == ModifierKeys.Shift)
+                var modifiers = KeyboardHelper.GetCurrentlyPressedModifiers();
+                if (modifiers.Count == 0 && modifiers[0] == ModifierKeys.Shift)
                 {
+                    // Only ignore just shift, control + shift is allowed
                     return;
                 }
 
                 var key = e.Key;
 
-                if (!IsValidKey(key))
+                if (!_keyboardMappingsAllowedKeysService.IsAllowed(key))
                 {
                     return;
                 }
 
-                var inputGesture = new InputGesture(key, modifiers);
+                var finalModifiers = ModifierKeys.None;
+
+                foreach (var modifier in modifiers)
+                {
+                    finalModifiers = Enum<ModifierKeys>.Flags.SetFlag(finalModifiers, modifier);
+                }
+
+                var inputGesture = new InputGesture(key, finalModifiers);
                 vm.SelectedCommandNewInputGesture = inputGesture;
             }
-        }
-
-        private bool IsValidKey(Key key)
-        {
-            if (key >= Key.A && key <= Key.Z)
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }
