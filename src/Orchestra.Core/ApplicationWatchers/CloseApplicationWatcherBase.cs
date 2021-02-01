@@ -12,13 +12,20 @@ namespace Orchestra
     using System.ComponentModel;
     using System.Threading.Tasks;
     using System.Windows;
+    using Catel;
+    using Catel.IoC;
+    using Catel.Logging;
     using Catel.Services;
     using Catel.Threading;
 
     public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
     {
-        private static bool _isClosingConfirmed;
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        private static bool IsClosingConfirmed;
+        private static Window SubscribedWindow;
         private static readonly IList<CloseApplicationWatcherBase> Watchers = new List<CloseApplicationWatcherBase>();
+        private static readonly IMessageService MessageService = ServiceLocator.Default.ResolveType<IMessageService>();
 
         protected CloseApplicationWatcherBase()
         {
@@ -42,7 +49,7 @@ namespace Orchestra
                 return;
             }
 
-            if (!_isClosingConfirmed)
+            if (!IsClosingConfirmed)
             {
                 e.Cancel = true;
                 await TaskHelper.Run(() => PerformClosingOperationsAsync(window), true);
@@ -51,21 +58,76 @@ namespace Orchestra
 
         private static async Task PerformClosingOperationsAsync(Window window)
         {
-            _isClosingConfirmed = await ExecuteClosingAsync(watcher => watcher.PrepareClosingAsync()).ConfigureAwait(false);
-            if (!_isClosingConfirmed)
+            try
+            {
+                IsClosingConfirmed = await ExecuteClosingAsync(watcher => watcher.PrepareClosingAsync()).ConfigureAwait(false);
+                if (!IsClosingConfirmed)
+                {
+                    return;
+                }
+
+                IsClosingConfirmed = await ExecuteClosingAsync(watcher => watcher.ClosingAsync()).ConfigureAwait(false);
+                if (IsClosingConfirmed)
+                {
+                    await CloseWindow(window).ConfigureAwait(false);
+                }
+                else
+                {
+                    NotifyClosingCanceled();
+                }
+            }
+            catch (Exception ex)
+            {
+                await HandleClosingErrorAsync(window, ex);
+            }
+        }
+
+        private static async Task HandleClosingErrorAsync(Window window, Exception ex)
+        {
+            Log.Error(ex, "Failed to correctly close the application");
+
+            var message = string.IsNullOrEmpty(ex.Message) ? ex.ToString() : ex.Message;
+
+            IsClosingConfirmed = false;
+
+            var closingDetails = new ClosingDetails
+            {
+                Window = window,
+                Exception = ex,
+                CanBeClosed = true,
+                CanKeepOpened = true,
+                Message = $"Error. The application will be forced to close:\n{message}"
+            };
+
+            foreach (var watcher in Watchers)
+            {
+                watcher.ClosingFailed(closingDetails);
+            }
+
+            if (string.IsNullOrEmpty(closingDetails.Message) &&
+                !closingDetails.CanBeClosed &&
+                closingDetails.CanKeepOpened)
             {
                 return;
             }
 
-            _isClosingConfirmed = await ExecuteClosingAsync(watcher => watcher.ClosingAsync()).ConfigureAwait(false);
-            if (_isClosingConfirmed)
+            var messageButton = MessageButton.OKCancel;
+
+            if (!closingDetails.CanKeepOpened)
             {
-                await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
+                messageButton = MessageButton.OK;
             }
-            else
+
+            if (await MessageService.ShowAsync(closingDetails.Message, "Error", messageButton, MessageImage.Error) == MessageResult.OK)
             {
-                NotifyClosingCanceled();
+                await CloseWindow(window).ConfigureAwait(false);
             }
+        }
+
+        private static async Task CloseWindow(Window window)
+        {
+            IsClosingConfirmed = true;
+            await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
         }
 
         private static void NotifyClosingCanceled()
@@ -91,9 +153,14 @@ namespace Orchestra
             return true;
         }
 
+        protected virtual void ClosingFailed(ClosingDetails appClosingFaultDetails)
+        {
+
+        }
+
         protected virtual void ClosingCanceled()
         {
-            
+
         }
 
         protected virtual Task<bool> PrepareClosingAsync()
@@ -108,7 +175,17 @@ namespace Orchestra
 
         private static void Subscribe(Window window)
         {
-            window.Closing += OnWindowClosing;
+            if (SubscribedWindow is not null && !SubscribedWindow.Equals(window))
+            {
+                SubscribedWindow.Closing -= OnWindowClosing;
+                SubscribedWindow = null;
+            }
+
+            if (SubscribedWindow is null)
+            {
+                window.Closing += OnWindowClosing;
+                SubscribedWindow = window;
+            }
         }
     }
 }
