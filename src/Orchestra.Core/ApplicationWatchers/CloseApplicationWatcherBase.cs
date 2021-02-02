@@ -38,19 +38,26 @@ namespace Orchestra
         private static async void OnWindowClosing(object sender, CancelEventArgs e)
 #pragma warning restore AvoidAsyncVoid
         {
+            Log.Debug("Closing main window");
+
             if (e.Cancel)
             {
+                Log.Debug("Closing is cancelled");
                 return;
             }
 
             var window = sender as Window;
             if (window == null)
             {
+                Log.Debug("Main window is null");
                 return;
             }
 
+
             if (!IsClosingConfirmed)
             {
+                Log.Debug("Closing is not confirmed yet, perform closing operations first");
+
                 e.Cancel = true;
                 await TaskHelper.Run(() => PerformClosingOperationsAsync(window), true);
             }
@@ -78,14 +85,14 @@ namespace Orchestra
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "Failed to perform closing operations");
+
                 await HandleClosingErrorAsync(window, ex);
             }
         }
 
         private static async Task HandleClosingErrorAsync(Window window, Exception ex)
         {
-            Log.Error(ex, "Failed to correctly close the application");
-
             var message = string.IsNullOrEmpty(ex.Message) ? ex.ToString() : ex.Message;
 
             IsClosingConfirmed = false;
