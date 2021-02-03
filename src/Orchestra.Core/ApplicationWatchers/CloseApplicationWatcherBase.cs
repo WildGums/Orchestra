@@ -69,14 +69,14 @@ namespace Orchestra
             {
                 Log.Debug("Prepare closing operations");
 
-                IsClosingConfirmed = await ExecuteClosingAsync(watcher => watcher.PrepareClosingAsync()).ConfigureAwait(false);
+                IsClosingConfirmed = await ExecuteClosingAsync(PrepareClosingAsync).ConfigureAwait(false);
                 if (!IsClosingConfirmed)
                 {
                     return;
                 }
 
                 Log.Debug("Performing closing operations");
-                IsClosingConfirmed = await ExecuteClosingAsync(watcher => watcher.ClosingAsync()).ConfigureAwait(false);
+                IsClosingConfirmed = await ExecuteClosingAsync(ClosingAsync).ConfigureAwait(false);
                 if (IsClosingConfirmed)
                 {
                     Log.Debug("Closing confirmed, request closing again");
@@ -95,6 +95,40 @@ namespace Orchestra
                 Log.Error(ex, "Failed to perform closing operations");
 
                 await HandleClosingErrorAsync(window, ex);
+            }
+        }
+
+        private static async Task<bool> PrepareClosingAsync(CloseApplicationWatcherBase watcher)
+        {
+            try
+            {
+                Log.Debug($"Executing PrepareClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
+
+                var result = await watcher.PrepareClosingAsync();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Failed to execute PrepareClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
+                throw;
+            }
+        }
+
+        private static async Task<bool> ClosingAsync(CloseApplicationWatcherBase watcher)
+        {
+            try
+            {
+                Log.Debug($"Executing ClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
+
+                var result = await watcher.ClosingAsync();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Failed to execute ClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
+                throw;
             }
         }
 
