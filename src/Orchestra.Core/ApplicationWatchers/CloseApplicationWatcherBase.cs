@@ -67,19 +67,26 @@ namespace Orchestra
         {
             try
             {
+                Log.Debug("Prepare closing operations");
+
                 IsClosingConfirmed = await ExecuteClosingAsync(watcher => watcher.PrepareClosingAsync()).ConfigureAwait(false);
                 if (!IsClosingConfirmed)
                 {
                     return;
                 }
 
+                Log.Debug("Performing closing operations");
                 IsClosingConfirmed = await ExecuteClosingAsync(watcher => watcher.ClosingAsync()).ConfigureAwait(false);
                 if (IsClosingConfirmed)
                 {
+                    Log.Debug("Closing confirmed, request closing again");
+
                     await CloseWindow(window).ConfigureAwait(false);
                 }
                 else
                 {
+                    Log.Debug("Closing cancelled, request closing again");
+
                     NotifyClosingCanceled();
                 }
             }
@@ -147,6 +154,8 @@ namespace Orchestra
 
         private static async Task<bool> ExecuteClosingAsync(Func<CloseApplicationWatcherBase, Task<bool>> operation)
         {
+            Log.Debug($"Execute operation for each of {Watchers.Count} watcher");
+
             foreach (var watcher in Watchers)
             {
                 if (!await operation(watcher).ConfigureAwait(false))
