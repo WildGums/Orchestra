@@ -79,25 +79,30 @@ namespace Orchestra.Markup
             var pathName = PathName;
             if (!string.IsNullOrWhiteSpace(pathName))
             {
-                canvas = System.Windows.Application.Current.FindResource(pathName) as Canvas;
-                if (canvas != null)
+                var currentApp = System.Windows.Application.Current;
+                if (currentApp is not null)
                 {
-                    // Clone to prevent the same instance to be used multiple times
-                    canvas = canvas.Clone();
-
-                    if (canvas != null && Foreground != Brushes.Transparent)
+                    canvas = currentApp.TryFindResource(pathName) as Canvas;
+                    if (canvas is not null)
                     {
-                        foreach (var child in canvas.Children)
+                        // Clone to prevent the same instance to be used multiple times
+                        canvas = canvas.Clone();
+
+                        if (canvas != null && Foreground != Brushes.Transparent)
                         {
-                            var path = child as Path;
-                            if (path != null)
+                            foreach (var child in canvas.Children)
                             {
-                                path.SetCurrentValue(Shape.FillProperty, Foreground);
+                                var path = child as Path;
+                                if (path is not null)
+                                {
+                                    path.SetCurrentValue(Shape.FillProperty, Foreground);
+                                }
                             }
                         }
                     }
                 }
-                else
+
+                if (canvas is null)
                 {
                     Log.Warning("Could not find a resource named '{0}'", pathName);
                 }

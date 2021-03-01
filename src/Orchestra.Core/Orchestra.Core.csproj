@@ -24,6 +24,7 @@
   
   <ItemGroup>
     <PackageReference Include="Catel.Fody" Version="4.7.0" PrivateAssets="all" />
+    <PackageReference Include="Catel.Fody" Version="4.6.0" PrivateAssets="all" />
     <PackageReference Include="Catel.MVVM" Version="5.12.12" />
     <PackageReference Include="DotNetZip" Version="1.15.0" />
     <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="all">
