@@ -159,4 +159,166 @@
         </Setter>
     </Style>
 
+    <ControlTemplate x:Key="BackstageTabItemControlTemplate"
+                     TargetType="{x:Type fluent:BackstageTabItem}">
+        <Grid x:Name="rootGrid" 
+              Background="Transparent">
+            <Border x:Name="selectedBorder"
+                    Margin="0"
+                    Visibility="Collapsed"
+                    Background="{TemplateBinding fluent:RibbonProperties.IsSelectedBackground}" />
+            <Border x:Name="hoverBorder"
+                    Margin="0,0,0,0"
+                    Visibility="Collapsed"
+                    Background="{TemplateBinding fluent:RibbonProperties.MouseOverBackground}" />
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="25,0,15,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                <ContentPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Width="16"
+                                  Height="16"
+                                  Margin="0 0 8 0"
+                                  Content="{fluent:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"                              
+                                  SnapsToDevicePixels="True" />
+
+                <ContentControl x:Name="PART_Header"
+                                Focusable="False"
+                                Foreground="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground}"
+                                Content="{TemplateBinding Header}">
+                    <ContentControl.Resources>
+                        <Style TargetType="{x:Type ContentPresenter}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Setter Property="TextWrapping" Value="NoWrap" />
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                    <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground}" />
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </StackPanel>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter TargetName="hoverBorder"
+                        Property="Visibility"
+                        Value="Hidden" />
+                <Setter TargetName="PART_Header"
+                        Property="Opacity"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="iconImage"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImage">
+                    <Setter.Value>
+                        <fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Selector.IsSelected"
+                     Value="True">
+                <Setter TargetName="selectedBorder"
+                        Property="Visibility"
+                        Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused"
+                     Value="True">
+                <Setter TargetName="hoverBorder"
+                        Property="Visibility"
+                        Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                     SourceName="rootGrid"
+                     Value="True">
+                <Setter TargetName="hoverBorder"
+                        Property="Visibility"
+                        Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.BackstageTabControl.Button"
+                     TargetType="{x:Type fluent:Button}">
+        <Grid Background="Transparent">
+            <Border x:Name="border"
+                    Visibility="Collapsed"
+                    Background="{TemplateBinding fluent:RibbonProperties.MouseOverBackground}" />
+            <StackPanel Orientation="Horizontal"
+                        Margin="25,0,15,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                <ContentPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Width="16"
+                                  Height="16"
+                                  Margin="0 0 8 0"
+                                  Content="{fluent:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"                              
+                                  SnapsToDevicePixels="True" />
+
+                <ContentControl x:Name="controlLabel"
+                                Focusable="False"
+                                Content="{TemplateBinding Header}">
+                    <ContentControl.Resources>
+                        <Style TargetType="{x:Type ContentPresenter}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Setter Property="TextWrapping" Value="NoWrap" />
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                    <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground}" />
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </StackPanel>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                    <Condition Property="IsEnabled"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="border"
+                        Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsKeyboardFocused"
+                               Value="True" />
+                    <Condition Property="IsEnabled"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="border"
+                        Value="Visible" />
+            </MultiTrigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Opacity"
+                        TargetName="controlLabel"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="iconImage"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImage">
+                    <Setter.Value>
+                        <fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
 </ResourceDictionary>
