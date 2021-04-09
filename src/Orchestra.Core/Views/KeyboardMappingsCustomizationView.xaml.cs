@@ -28,7 +28,7 @@
             e.Handled = true;
 
             var vm = ViewModel as KeyboardMappingsCustomizationViewModel;
-            if (vm != null)
+            if (vm is not null)
             {
                 var modifiers = KeyboardHelper.GetCurrentlyPressedModifiers();
                 if (modifiers.Count == 0 && modifiers[0] == ModifierKeys.Shift)

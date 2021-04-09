@@ -74,7 +74,7 @@ namespace Orchestra.Examples.MahApps.ViewModels
 
         private bool OnEditCanExecute()
         {
-            return SelectedPerson != null;
+            return SelectedPerson is not null;
         }
 
         private void OnEditExecute()
@@ -90,7 +90,7 @@ namespace Orchestra.Examples.MahApps.ViewModels
 
         private bool OnRemoveCanExecute()
         {
-            return SelectedPerson != null;
+            return SelectedPerson is not null;
         }
 
         private async Task OnRemoveExecuteAsync()

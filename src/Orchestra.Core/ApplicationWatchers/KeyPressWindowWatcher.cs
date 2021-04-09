@@ -67,13 +67,13 @@ namespace Orchestra
                 return;
             }
 
-            if (_keyUpHandler == null)
+            if (_keyUpHandler is null)
             {
                 return;
             }
 
             var window = sender as Window;
-            if (window == null)
+            if (window is null)
             {
                 return;
             }
@@ -88,13 +88,13 @@ namespace Orchestra
                 return;
             }
 
-            if (_previewKeyUpHandler == null)
+            if (_previewKeyUpHandler is null)
             {
                 return;
             }
 
             var window = sender as Window;
-            if (window == null)
+            if (window is null)
             {
                 return;
             }
@@ -109,13 +109,13 @@ namespace Orchestra
                 return;
             }
 
-            if (_keyDownHandler == null)
+            if (_keyDownHandler is null)
             {
                 return;
             }
 
             var window = sender as Window;
-            if (window == null)
+            if (window is null)
             {
                 return;
             }
@@ -133,13 +133,13 @@ namespace Orchestra
                 return;
             }
 
-            if (_previewKeyDownHandler == null)
+            if (_previewKeyDownHandler is null)
             {
                 return;
             }
 
             var window = sender as Window;
-            if (window == null)
+            if (window is null)
             {
                 return;
             }

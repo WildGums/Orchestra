@@ -34,19 +34,19 @@ namespace Orchestra.Views
             var ribbonService = dependencyResolver.Resolve<IRibbonService>();
 
             var ribbonContent = ribbonService.GetRibbon();
-            if (ribbonContent != null)
+            if (ribbonContent is not null)
             {
                 ribbonContentControl.SetCurrentValue(ContentProperty, ribbonContent);
 
                 var ribbon = ribbonContent.FindVisualDescendantByType<Fluent.Ribbon>();
-                if (ribbon != null)
+                if (ribbon is not null)
                 {
                     serviceLocator.RegisterInstance<Fluent.Ribbon>(ribbon);
                 }
             }
 
             var statusBarContent = ribbonService.GetStatusBar();
-            if (statusBarContent != null)
+            if (statusBarContent is not null)
             {
                 customStatusBarItem.SetCurrentValue(ContentProperty, statusBarContent);
             }

@@ -67,7 +67,7 @@ namespace Orchestra.Views
 
             serviceLocator.RegisterInstance<IAboutInfoService>(taskRunnerService);
 
-            if (taskRunnerService.GetAboutInfo() != null)
+            if (taskRunnerService.GetAboutInfo() is not null)
             {
                 var aboutService = serviceLocator.ResolveType<IAboutService>();
 #pragma warning disable AvoidAsyncVoid // Avoid async void
@@ -144,7 +144,7 @@ namespace Orchestra.Views
             // Let the shell create its view model first. Then the view model of the dynamic view model will
             // be created (which means the parent / child view models will work).
             var view = contentControl.Content as FrameworkElement;
-            if (view != null && !_hasUpdatedViewModel)
+            if (view is not null && !_hasUpdatedViewModel)
             {
                 _hasUpdatedViewModel = true;
 

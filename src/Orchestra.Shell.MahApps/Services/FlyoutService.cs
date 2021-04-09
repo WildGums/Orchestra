@@ -96,7 +96,7 @@ namespace Orchestra.Services
 
                 if (!flyout.IsOpen)
                 {
-                    if (vm != null)
+                    if (vm is not null)
                     {
                         switch (unloadBehavior)
                         {
@@ -146,7 +146,7 @@ namespace Orchestra.Services
             flyout.Dispatcher.BeginInvoke(() =>
             {
                 var flyoutsControl = flyout.Parent as FlyoutsControl;
-                if (flyoutsControl != null)
+                if (flyoutsControl is not null)
                 {
                     flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderThicknessProperty, new Thickness(1));
                     flyoutsControl.SetCurrentValue(System.Windows.Controls.Control.BorderBrushProperty, Orc.Theming.ThemeManager.Current.GetAccentColorBrush());

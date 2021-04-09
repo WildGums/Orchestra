@@ -88,7 +88,7 @@ namespace Orchestra.Markup
                         // Clone to prevent the same instance to be used multiple times
                         canvas = canvas.Clone();
 
-                        if (canvas != null && Foreground != Brushes.Transparent)
+                        if (canvas is not null && Foreground != Brushes.Transparent)
                         {
                             foreach (var child in canvas.Children)
                             {

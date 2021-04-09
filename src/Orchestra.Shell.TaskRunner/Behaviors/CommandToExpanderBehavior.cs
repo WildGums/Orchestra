@@ -27,13 +27,13 @@ namespace Orchestra.Behaviors
         private void OnCommandChanged(DependencyPropertyChangedEventArgs e)
         {
             var oldCommand = e.OldValue as ICatelCommand;
-            if (oldCommand != null)
+            if (oldCommand is not null)
             {
                 oldCommand.Executed -= OnCommandExecuted;
             }
 
             var newCommand = e.NewValue as ICatelCommand;
-            if (newCommand != null)
+            if (newCommand is not null)
             {
                 newCommand.Executed += OnCommandExecuted;
             }
@@ -42,7 +42,7 @@ namespace Orchestra.Behaviors
         private void OnCommandExecuted(object sender, CommandExecutedEventArgs e)
         {
             var expander = AssociatedObject;
-            if (expander != null)
+            if (expander is not null)
             {
                 expander.SetCurrentValue(Expander.IsExpandedProperty, !expander.IsExpanded);
             }

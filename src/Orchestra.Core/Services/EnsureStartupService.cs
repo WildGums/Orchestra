@@ -51,7 +51,7 @@ namespace Orchestra.Services
         {
             Log.Debug("Confirming application started successfully, deleting fail safe file check");
 
-            if (_fileStream != null)
+            if (_fileStream is not null)
             {
                 _fileStream.Dispose();
 

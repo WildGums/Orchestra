@@ -31,7 +31,7 @@ namespace Orchestra.Converters
             }
 
             var inputGesture = keyboardMapping.InputGesture;
-            if (inputGesture != null)
+            if (inputGesture is not null)
             {
                 return inputGesture.ToString();
             }

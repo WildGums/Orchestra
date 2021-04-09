@@ -124,7 +124,7 @@ namespace Orchestra.ViewModels
                 return false;
             }
 
-            if (SelectedCommandNewInputGesture == null)
+            if (SelectedCommandNewInputGesture is null)
             {
                 return false;
             }
@@ -219,7 +219,7 @@ namespace Orchestra.ViewModels
             }
 
             // restore selection
-            if (selectedCommand != null && Commands.FirstOrDefault(x => string.Equals(x.CommandName, selectedCommand)) != null)
+            if (selectedCommand is not null && Commands.FirstOrDefault(x => string.Equals(x.CommandName, selectedCommand)) is not null)
             {
                 SelectedCommand = selectedCommand;
             }

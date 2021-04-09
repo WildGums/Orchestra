@@ -46,7 +46,7 @@ namespace Orchestra.ViewModels
             BuildDateTime = string.Format(languageService.GetString("Orchestra_BuiltOn"), buildDateTime);
             UriInfo = aboutInfo.UriInfo;
             Copyright = aboutInfo.Copyright;
-            CopyrightUrl = aboutInfo.CopyrightUri == null ? null : aboutInfo.CopyrightUri.ToString();
+            CopyrightUrl = aboutInfo.CopyrightUri is null ? null : aboutInfo.CopyrightUri.ToString();
             CompanyLogoUri = aboutInfo.CompanyLogoUri;
             ImageSourceUrl = aboutInfo.LogoImageSource;
             ShowLogButton = aboutInfo.ShowLogButton;
@@ -137,7 +137,7 @@ namespace Orchestra.ViewModels
             var fileLogListener = (from logListener in LogManager.GetListeners()
                                    where logListener is FileLogListener
                                    select logListener).FirstOrDefault();
-            if (fileLogListener != null)
+            if (fileLogListener is not null)
             {
                 var filePath = ((FileLogListener)fileLogListener).FilePath;
 

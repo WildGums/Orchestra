@@ -54,7 +54,7 @@ namespace Orchestra.Services
             base.UpdateStatus(currentItem, totalItems, statusFormat);
 
             var progressBar = InitializeProgressBar();
-            if (progressBar != null)
+            if (progressBar is not null)
             {
                 _dispatcherService.BeginInvoke(() =>
                 {
@@ -106,7 +106,7 @@ namespace Orchestra.Services
             {
                 _progressBar = _dependencyResolver.TryResolve<ProgressBar>("pleaseWaitService");
 
-                if (_progressBar != null)
+                if (_progressBar is not null)
                 {
                     Log.Debug("Found progress bar that will represent progress inside the ProgressPleaseWaitService");
                 }

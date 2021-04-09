@@ -24,7 +24,7 @@ namespace Orchestra.Services
         public void AddHint<TControlType>(string hintText, Expression<Func<object>> userControlName)
         {
             string controlName = string.Empty;
-            if (userControlName != null)
+            if (userControlName is not null)
             {
                 controlName = ExpressionHelper.GetPropertyName(userControlName);
             }

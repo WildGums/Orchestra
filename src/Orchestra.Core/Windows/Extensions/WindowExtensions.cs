@@ -26,10 +26,10 @@ namespace Orchestra.Windows
             Argument.IsNotNull(() => window);
 
             var application = Application.Current;
-            if (application != null)
+            if (application is not null)
             {
                 var mainWindow = application.MainWindow;
-                if (mainWindow != null)
+                if (mainWindow is not null)
                 {
                     window.SetCurrentValue(Window.IconProperty, application.MainWindow.Icon);
                 }

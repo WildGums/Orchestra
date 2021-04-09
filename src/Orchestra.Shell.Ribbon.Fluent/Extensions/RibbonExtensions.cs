@@ -38,7 +38,7 @@ namespace Orchestra
 
             var button = AddRibbonButton(ribbon, action);
 
-            if (imageSource != null)
+            if (imageSource is not null)
             {
                 button.SetCurrentValue(FluentButton.IconProperty, imageSource);
             }
@@ -62,7 +62,7 @@ namespace Orchestra
             var ribbonButton = new Button();
             ribbonButton.Size = RibbonControlSize.Small;
 
-            if (action != null)
+            if (action is not null)
             {
                 ribbonButton.Click += (sender, e) => action();
             }

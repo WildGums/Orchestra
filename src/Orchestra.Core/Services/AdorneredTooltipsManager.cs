@@ -46,7 +46,7 @@ namespace Orchestra.Services
         public void AddHintsFor(FrameworkElement element)
         {
             var triggerHints = _hintsProvider.GetHintsFor(element);
-            if (triggerHints == null)
+            if (triggerHints is null)
             {
                 return;
             }
@@ -110,13 +110,13 @@ namespace Orchestra.Services
 
         private bool CanAddAdorner(UIElement adornedElement)
         {
-            if (adornedElement == null)
+            if (adornedElement is null)
             {
                 return false;
             }
 
             var adorners = _adornerLayer.GetAdorners(adornedElement);
-            if (adorners == null)
+            if (adorners is null)
             {
                 return true;
             }

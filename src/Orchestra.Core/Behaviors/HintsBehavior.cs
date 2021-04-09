@@ -49,7 +49,7 @@ namespace Orchestra.Behaviors
             base.Initialize();
 
             var adornerLayer = AdornerLayer.GetAdornerLayer(Adorner ?? AssociatedObject);
-            if (adornerLayer == null)
+            if (adornerLayer is null)
             {
                 Log.Error("Cannot find AdornerLayer. Use the Adorner property to specify a specific instance to use when searching for an adorner layer");
                 return;

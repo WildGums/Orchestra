@@ -150,7 +150,7 @@ namespace Orchestra.Services
         private async Task<TShell> CreateShellInternalAsync<TShell>(Action postShowShellCallback = null)
             where TShell : IShell
         {
-            if (Shell != null)
+            if (Shell is not null)
             {
                 throw Log.ErrorAndCreateException<OrchestraException>("The shell is already created and cannot be created again");
             }
@@ -183,7 +183,7 @@ namespace Orchestra.Services
 
                 ShowShell(shell);
 
-                if (postShowShellCallback != null)
+                if (postShowShellCallback is not null)
                 {
                     postShowShellCallback();
                 }
@@ -260,7 +260,7 @@ namespace Orchestra.Services
             Shell = shell;
 
             var shellAsWindow = Shell as Window;
-            if (shellAsWindow != null)
+            if (shellAsWindow is not null)
             {
                 Log.Debug("Setting the new shell as Application.MainWindow");
 
