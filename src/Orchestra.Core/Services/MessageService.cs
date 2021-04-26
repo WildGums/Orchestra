@@ -26,7 +26,7 @@ namespace Orchestra.Services
         #endregion
 
         #region Constructors
-        public MessageService(IDispatcherService dispatcherService, IUIVisualizerService uiVisualizerService, 
+        public MessageService(IDispatcherService dispatcherService, IUIVisualizerService uiVisualizerService,
             IViewModelFactory viewModelFactory, ILanguageService languageService)
             : base(dispatcherService, languageService)
         {
@@ -48,24 +48,30 @@ namespace Orchestra.Services
 
             var tcs = new TaskCompletionSource<MessageResult>();
 
-#pragma warning disable AvoidAsyncVoid
-            _dispatcherService.BeginInvoke(async () =>
-#pragma warning restore AvoidAsyncVoid
+            _dispatcherService.BeginInvokeIfRequired(async () =>
             {
-                var previousCursor = Mouse.OverrideCursor;
-                Mouse.OverrideCursor = null;
-
                 var vm = _viewModelFactory.CreateViewModel<MessageBoxViewModel>(null, null);
 
-                vm.Message = message;
-                vm.Button = button;
-                vm.Icon = icon;
+                using (new DisposableToken<CursorMemory>(new CursorMemory(),
+                    x =>
+                    {
+                        x.Instance.PreviousCursor = Mouse.OverrideCursor;
+                        Mouse.OverrideCursor = null;
+                    },
+                    x =>
+                    {
+                        Mouse.OverrideCursor = x.Instance.PreviousCursor;
+                    }))
+                {
 
-                vm.SetTitle(caption);
+                    vm.Message = message;
+                    vm.Button = button;
+                    vm.Icon = icon;
 
-                await _uiVisualizerService.ShowDialogAsync(vm);
+                    vm.SetTitle(caption);
 
-                Mouse.OverrideCursor = previousCursor;
+                    await _uiVisualizerService.ShowDialogAsync(vm);
+                }
 
                 Log.Info("Result of message: {0}", vm.Result);
 
@@ -73,6 +79,11 @@ namespace Orchestra.Services
             });
 
             return tcs.Task;
+        }
+
+        private class CursorMemory
+        {
+            public Cursor PreviousCursor { get; set; }
         }
     }
 }
