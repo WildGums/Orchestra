@@ -138,6 +138,9 @@
   <data name="Orchestra_BuiltOn" xml:space="preserve">
     <value>Built on {0}</value>
   </data>
+  <data name="Orchestra_Changelog" xml:space="preserve">
+    <value>Changelog</value>
+  </data>
   <data name="Orchestra_Close" xml:space="preserve">
     <value>Close</value>
   </data>

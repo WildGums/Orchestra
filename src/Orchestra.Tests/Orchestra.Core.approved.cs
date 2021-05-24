@@ -188,6 +188,72 @@ namespace Orchestra.Behaviors
         protected override void OnAssociatedObjectUnloaded() { }
     }
 }
+namespace Orchestra.Changelog
+{
+    public class Changelog
+    {
+        public Changelog() { }
+        public bool IsEmpty { get; }
+        public System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem> Items { get; }
+    }
+    public static class ChangelogExtensions
+    {
+        public static Orchestra.Changelog.Changelog GetDelta(this Orchestra.Changelog.Changelog changelog1, Orchestra.Changelog.Changelog changelog2) { }
+    }
+    public class ChangelogItem
+    {
+        public ChangelogItem() { }
+        public string Description { get; set; }
+        public string Group { get; set; }
+        public string Name { get; set; }
+        public object Tag { get; set; }
+        public Orchestra.Changelog.ChangelogType Type { get; set; }
+    }
+    public abstract class ChangelogProviderBase : Orchestra.Changelog.IChangelogProvider
+    {
+        protected ChangelogProviderBase() { }
+        public abstract System.Threading.Tasks.Task<System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem>> GetChangelogAsync();
+    }
+    public class ChangelogService : Orchestra.Changelog.IChangelogService
+    {
+        public ChangelogService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Changelog.IChangelogSnapshotService changelogSnapshotService) { }
+        public virtual System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> GetChangelogAsync() { }
+        protected virtual System.Threading.Tasks.Task<System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem>> GetChangelogAsync(Orchestra.Changelog.IChangelogProvider provider) { }
+        public virtual System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> GetChangelogSinceSnapshotAsync() { }
+    }
+    public class ChangelogSnapshotService : Orchestra.Changelog.IChangelogSnapshotService
+    {
+        public ChangelogSnapshotService(Orc.FileSystem.IDirectoryService directoryService, Orc.FileSystem.IFileService fileService, Catel.Services.IAppDataService appDataService) { }
+        public virtual System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> DeserializeSnapshotAsync() { }
+        protected virtual string GetFilename() { }
+        public virtual System.Threading.Tasks.Task SerializeSnapshotAsync(Orchestra.Changelog.Changelog changelog) { }
+    }
+    public enum ChangelogType
+    {
+        Change = 0,
+        Improvement = 1,
+        Feature = 2,
+        Bug = 3,
+    }
+    public interface IChangelogProvider
+    {
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem>> GetChangelogAsync();
+    }
+    public interface IChangelogService
+    {
+        System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> GetChangelogAsync();
+        System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> GetChangelogSinceSnapshotAsync();
+    }
+    public static class IChangelogServiceExtensions
+    {
+        public static System.Threading.Tasks.Task<System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem>> GetChangelogItemsForGroupAsync(this Orchestra.Changelog.IChangelogService changelogService, string groupName) { }
+    }
+    public interface IChangelogSnapshotService
+    {
+        System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> DeserializeSnapshotAsync();
+        System.Threading.Tasks.Task SerializeSnapshotAsync(Orchestra.Changelog.Changelog snapshot);
+    }
+}
 namespace Orchestra.Collections
 {
     public class AdorneredTooltipsCollection : Orchestra.Collections.IAdorneredTooltipsCollection

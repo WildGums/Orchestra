@@ -219,6 +219,10 @@ These (alphabetically ordered) Third Party Notices have been put together with c
           <source>Third Party Notices</source>
           <target state="new">Third Party Notices</target>
         </trans-unit>
+        <trans-unit id="Orchestra_Changelog" translate="yes" xml:space="preserve">
+          <source>Changelog</source>
+          <target state="new">Changelog</target>
+        </trans-unit>
       </group>
     </body>
   </file>

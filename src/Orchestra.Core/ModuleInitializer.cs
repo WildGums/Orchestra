@@ -15,6 +15,7 @@ using Catel.Logging;
 using Catel.Reflection;
 using Catel.Services;
 using Orchestra;
+using Orchestra.Changelog;
 using Orchestra.Collections;
 using Orchestra.Layers;
 using Orchestra.Services;
@@ -52,6 +53,11 @@ public static class ModuleInitializer
         // Override Catel.SelectDirectoryService with Orchestra.Services.SelectDirectoryService
         serviceLocator.RegisterType<ISelectDirectoryService, MicrosoftApiSelectDirectoryService>();
 
+        // Changelog
+        serviceLocator.RegisterType<IChangelogService, ChangelogService>();
+        serviceLocator.RegisterType<IChangelogSnapshotService, ChangelogSnapshotService>();
+
+        // Services
         serviceLocator.RegisterTypeIfNotYetRegistered<IThirdPartyNoticesService, ThirdPartyNoticesService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<ICloseApplicationService, CloseApplicationService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IRecentlyUsedItemsService, RecentlyUsedItemsService>();
