@@ -72,10 +72,12 @@ namespace Orchestra
                 IsClosingConfirmed = await ExecuteClosingAsync(PrepareClosingAsync).ConfigureAwait(false);
                 if (!IsClosingConfirmed)
                 {
+                    Log.Debug("Closing is not confirmed, canceling closing operations");
                     return;
                 }
 
                 Log.Debug("Performing closing operations");
+
                 IsClosingConfirmed = await ExecuteClosingAsync(ClosingAsync).ConfigureAwait(false);
                 if (IsClosingConfirmed)
                 {
@@ -89,6 +91,10 @@ namespace Orchestra
 
                     NotifyClosingCanceled();
                 }
+            }
+            catch (TaskCanceledException)
+            {
+                // Ignore, don't log
             }
             catch (Exception ex)
             {
