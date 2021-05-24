@@ -254,6 +254,24 @@ namespace Orchestra.Changelog
         System.Threading.Tasks.Task SerializeSnapshotAsync(Orchestra.Changelog.Changelog snapshot);
     }
 }
+namespace Orchestra.Changelog.ViewModels
+{
+    public class ChangelogViewModel : Catel.MVVM.ViewModelBase
+    {
+        public static readonly Catel.Data.PropertyData ItemsProperty;
+        public ChangelogViewModel(Orchestra.Changelog.Changelog changelog) { }
+        public Orchestra.Changelog.Changelog Changelog { get; }
+        public System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem> Items { get; }
+    }
+}
+namespace Orchestra.Changelog.Views
+{
+    public class ChangelogWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
+    {
+        public ChangelogWindow() { }
+        public void InitializeComponent() { }
+    }
+}
 namespace Orchestra.Collections
 {
     public class AdorneredTooltipsCollection : Orchestra.Collections.IAdorneredTooltipsCollection
