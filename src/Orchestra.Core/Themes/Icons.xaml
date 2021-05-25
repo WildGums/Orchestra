@@ -1,0 +1,49 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:catel="http://schemas.catelproject.com">
+
+    <DataTemplate x:Key="BugDataTemplate">
+        <Viewbox HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch">
+            <Canvas Width="24"
+                    Height="24">
+                <Path Fill="{DynamicResource Orc.Brushes.Black}"
+                      Data="M14,12H10V10H14M14,16H10V14H14M20,8H17.19C16.74,7.22 16.12,6.55 15.37,6.04L17,4.41L15.59,3L13.42,5.17C12.96,5.06 12.5,5 12,5C11.5,5 11.04,5.06 10.59,5.17L8.41,3L7,4.41L8.62,6.04C7.88,6.55 7.26,7.22 6.81,8H4V10H6.09C6.04,10.33 6,10.66 6,11V12H4V14H6V15C6,15.34 6.04,15.67 6.09,16H4V18H6.81C7.85,19.79 9.78,21 12,21C14.22,21 16.15,19.79 17.19,18H20V16H17.91C17.96,15.67 18,15.34 18,15V14H20V12H18V11C18,10.66 17.96,10.33 17.91,10H20V8Z" />
+            </Canvas>
+        </Viewbox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FeatureDataTemplate">
+        <Viewbox HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch">
+            <Canvas Width="24"
+                    Height="24">
+                <Path Fill="{DynamicResource Orc.Brushes.Black}"
+                      Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+            </Canvas>
+        </Viewbox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ImprovementDataTemplate">
+        <Viewbox HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch">
+            <Canvas Width="24"
+                    Height="24">
+                <Path Fill="{DynamicResource Orc.Brushes.Black}"
+                      Data="M7.41,18.41L6,17L12,11L18,17L16.59,18.41L12,13.83L7.41,18.41M7.41,12.41L6,11L12,5L18,11L16.59,12.41L12,7.83L7.41,12.41Z" />
+            </Canvas>
+        </Viewbox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ChangeDataTemplate">
+        <Viewbox HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch">
+            <Canvas Width="24"
+                    Height="24">
+                <Path Fill="{DynamicResource Orc.Brushes.Black}"
+                      Data="M3,4V12.5L6,9.5L9,13C10,14 10,15 10,15V21H14V14C14,14 14,13 13.47,12C12.94,11 12,10 12,10L9,6.58L11.5,4M18,4L13.54,8.47L14,9C14,9 14.93,10 15.47,11C15.68,11.4 15.8,11.79 15.87,12.13L21,7" />
+            </Canvas>
+        </Viewbox>
+    </DataTemplate>
+
+</ResourceDictionary>

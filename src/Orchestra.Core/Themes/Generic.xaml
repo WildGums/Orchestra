@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:catel="http://schemas.catelproject.com"
-                    xmlns:orc="http://www.wildgums.net.au/orc">
+                    xmlns:catel="http://schemas.catelproject.com">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Catel.MVVM;component/Themes/Generic.xaml" />
@@ -11,6 +10,7 @@
         <!-- Explicit control templates -->
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.explicit.xaml" />
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.messagebox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Icons.xaml" />
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.wpf.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

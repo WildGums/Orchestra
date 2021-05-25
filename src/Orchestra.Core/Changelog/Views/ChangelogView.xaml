@@ -1,7 +1,8 @@
 ﻿<catel:UserControl x:Class="Orchestra.Changelog.Views.ChangelogView"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:catel="http://schemas.catelproject.com">
+                   xmlns:catel="http://schemas.catelproject.com"
+                   xmlns:localmarkup="clr-namespace:Orchestra.Changelog.Markup">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -13,33 +14,41 @@
                    Text="{Binding Title}"
                    Style="{DynamicResource CaptionTextBlockStyle}" />
 
-        <ItemsControl Grid.Row="1"
-                      ItemsSource="{Binding Items}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"
+                                               MinHeight="30" />
+                            </Grid.RowDefinitions>
 
-                        <!-- Type -->
-                        
-                        <!-- Name -->
-                        <Label Grid.Row="0"
-                               Grid.Column="1">
-                            <TextBlock TextWrapping="Wrap"
+                            <!-- Type -->
+                            <ContentControl Grid.Row="0"
+                                            Grid.Column="0"
+                                            Width="16"
+                                            Height="16"
+                                            ContentTemplate="{localmarkup:ChangelogTypeIcon ChangelogTypeBinding={Binding Type}}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+
+                            <!-- Name -->
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="1"
+                                       TextWrapping="Wrap"
                                        Text="{Binding Name}"
                                        ToolTip="{Binding Description}" />
-                        </Label>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 
 </catel:UserControl>

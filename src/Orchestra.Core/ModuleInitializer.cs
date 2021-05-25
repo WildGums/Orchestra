@@ -100,6 +100,7 @@ public static class ModuleInitializer
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Catel", "https://www.catelproject.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.catel.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx/", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.controlzex.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("DotNetZip", string.Empty, "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.dotnetzip.txt"));
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Material Design Icons", "https://github.com/Templarian/MaterialDesign", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.materialdesignicons.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Newtonsoft.Json", "https://github.com/JamesNK/Newtonsoft.Json", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.newtonsoft.json.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Orchestra", "https://opensource.wildgums.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.orchestra.txt"));
 
