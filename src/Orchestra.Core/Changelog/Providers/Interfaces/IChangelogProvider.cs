@@ -5,6 +5,6 @@
 
     public interface IChangelogProvider
     {
-        Task<List<ChangelogItem>> GetChangelogAsync();
+        Task<IEnumerable<ChangelogItem>> GetChangelogAsync();
     }
 }

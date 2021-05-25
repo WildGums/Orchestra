@@ -11,6 +11,7 @@
         <!-- Explicit control templates -->
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.explicit.xaml" />
         <ResourceDictionary Source="/Orchestra.Core;component/Themes/Controls.messagebox.xaml" />
+        <ResourceDictionary Source="/Orchestra.Core;component/Themes/Orchestra.generic.wpf.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

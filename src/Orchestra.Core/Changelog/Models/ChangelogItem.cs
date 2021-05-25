@@ -16,5 +16,10 @@
         public string Description { get; set; }
 
         public object Tag { get; set; }
+
+        public override string ToString()
+        {
+            return $"[{Group}] {Name}";
+        }
     }
 }

@@ -1,0 +1,45 @@
+﻿<catel:UserControl x:Class="Orchestra.Changelog.Views.ChangelogView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:catel="http://schemas.catelproject.com">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="{Binding Title}"
+                   Style="{DynamicResource CaptionTextBlockStyle}" />
+
+        <ItemsControl Grid.Row="1"
+                      ItemsSource="{Binding Items}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- Type -->
+                        
+                        <!-- Name -->
+                        <Label Grid.Row="0"
+                               Grid.Column="1">
+                            <TextBlock TextWrapping="Wrap"
+                                       Text="{Binding Name}"
+                                       ToolTip="{Binding Description}" />
+                        </Label>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+
+</catel:UserControl>

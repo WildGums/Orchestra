@@ -32,6 +32,7 @@
             var changelog = await GetChangelogAsync();
 
             var delta = snapshot.GetDelta(changelog);
+            delta.Title = LanguageHelper.GetString("Orchestra_ChangelogWhatsNew");
             return delta;
         }
 
@@ -77,9 +78,9 @@
             return changelog;
         }
 
-        protected virtual async Task<List<ChangelogItem>> GetChangelogAsync(IChangelogProvider provider)
+        protected virtual Task<IEnumerable<ChangelogItem>> GetChangelogAsync(IChangelogProvider provider)
         {
-            return await provider.GetChangelogAsync();
+            return provider.GetChangelogAsync();
         }
     }
 }

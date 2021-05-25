@@ -13,7 +13,7 @@
             Changelog = changelog;
             Items = changelog.Items;
 
-            Title = LanguageHelper.GetString("Orchestra_Changelog");
+            Title = changelog.Title ?? LanguageHelper.GetString("Orchestra_Changelog");
         }
 
         public Changelog Changelog { get; }

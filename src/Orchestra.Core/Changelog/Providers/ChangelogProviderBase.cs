@@ -5,6 +5,6 @@
 
     public abstract class ChangelogProviderBase : IChangelogProvider
     {
-        public abstract Task<List<ChangelogItem>> GetChangelogAsync();
+        public abstract Task<IEnumerable<ChangelogItem>> GetChangelogAsync();
     }
 }

@@ -141,6 +141,12 @@
   <data name="Orchestra_Changelog" xml:space="preserve">
     <value>Changelog</value>
   </data>
+  <data name="Orchestra_ChangelogRemindMeLater" xml:space="preserve">
+    <value>Remind me later</value>
+  </data>
+  <data name="Orchestra_ChangelogWhatsNew" xml:space="preserve">
+    <value>What's new since the last time?</value>
+  </data>
   <data name="Orchestra_Close" xml:space="preserve">
     <value>Close</value>
   </data>
@@ -221,6 +227,9 @@
   </data>
   <data name="Orchestra_ShortcutsForApplication" xml:space="preserve">
     <value>Keyboard shortcuts for {0}</value>
+  </data>
+  <data name="Orchestra_ShowChangeLog" xml:space="preserve">
+    <value>Show changelog...</value>
   </data>
   <data name="Orchestra_ShowCommandsContaining" xml:space="preserve">
     <value>Show commands containing:</value>

@@ -9,13 +9,12 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
 using Catel;
-using Catel.Configuration;
 using Catel.IoC;
-using Catel.Logging;
-using Catel.Reflection;
 using Catel.Services;
 using Orchestra;
 using Orchestra.Changelog;
+using Orchestra.Changelog.ViewModels;
+using Orchestra.Changelog.Views;
 using Orchestra.Collections;
 using Orchestra.Layers;
 using Orchestra.Services;
@@ -95,6 +94,7 @@ public static class ModuleInitializer
         var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
         uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
         uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
+        uiVisualizerService.Register<ChangelogViewModel, ChangelogWindow>(false);
 
         var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Catel", "https://www.catelproject.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.catel.txt"));

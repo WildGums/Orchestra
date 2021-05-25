@@ -133,6 +133,24 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remind me later.
+        /// </summary>
+        internal static string Orchestra_ChangelogRemindMeLater {
+            get {
+                return ResourceManager.GetString("Orchestra_ChangelogRemindMeLater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What&apos;s new since the last time?.
+        /// </summary>
+        internal static string Orchestra_ChangelogWhatsNew {
+            get {
+                return ResourceManager.GetString("Orchestra_ChangelogWhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string Orchestra_Close {
@@ -372,6 +390,15 @@ namespace Orchestra.Properties {
         internal static string Orchestra_ShortcutsForApplication {
             get {
                 return ResourceManager.GetString("Orchestra_ShortcutsForApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show changelog....
+        /// </summary>
+        internal static string Orchestra_ShowChangeLog {
+            get {
+                return ResourceManager.GetString("Orchestra_ShowChangeLog", resourceCulture);
             }
         }
         

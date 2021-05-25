@@ -223,6 +223,18 @@ These (alphabetically ordered) Third Party Notices have been put together with c
           <source>Changelog</source>
           <target state="new">Changelog</target>
         </trans-unit>
+        <trans-unit id="Orchestra_ChangelogWhatsNew" translate="yes" xml:space="preserve">
+          <source>What's new since the last time?</source>
+          <target state="new">What's new since the last time?</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShowChangeLog" translate="yes" xml:space="preserve">
+          <source>Show changelog...</source>
+          <target state="new">Show changelog...</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ChangelogRemindMeLater" translate="yes" xml:space="preserve">
+          <source>Remind me later</source>
+          <target state="new">Remind me later</target>
+        </trans-unit>
       </group>
     </body>
   </file>

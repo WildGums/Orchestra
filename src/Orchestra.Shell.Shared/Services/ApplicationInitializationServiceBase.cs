@@ -11,8 +11,11 @@ namespace Orchestra.Services
     using System.Threading.Tasks;
     using Catel.IoC;
     using Catel.Logging;
+    using Catel.Services;
     using Catel.Threading;
     using Orc.Theming;
+    using Orchestra.Changelog;
+    using Orchestra.Changelog.ViewModels;
     using Orchestra.Theming;
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService
@@ -20,6 +23,8 @@ namespace Orchestra.Services
         public virtual bool ShowSplashScreen => true;
 
         public virtual bool ShowShell => true;
+
+        public virtual bool ShowChangelog => true;
 
         public virtual async Task InitializeBeforeShowingSplashScreenAsync()
         {
@@ -61,6 +66,10 @@ namespace Orchestra.Services
 
         public virtual async Task InitializeAfterShowingShellAsync()
         {
+            if (ShowChangelog)
+            {
+                await ShowChangelogAsync();
+            }
         }
 
         protected static async Task RunAndWaitAsync(params Func<Task>[] actions)
@@ -80,6 +89,19 @@ namespace Orchestra.Services
             fileLogListener.IsErrorEnabled = true;
 
             LogManager.AddListener(fileLogListener);
+        }
+
+        protected virtual async Task ShowChangelogAsync()
+        {
+            var serviceLocator = ServiceLocator.Default;
+            var changelogService = serviceLocator.ResolveType<IChangelogService>();
+            var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
+
+            var changelog = await changelogService.GetChangelogSinceSnapshotAsync();
+            if (!changelog.IsEmpty)
+            {
+                await uiVisualizerService.ShowDialogAsync<ChangelogViewModel>(changelog);
+            }
         }
     }
 }

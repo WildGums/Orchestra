@@ -51,6 +51,10 @@ Note: if you feel an item is missing in this list, please let us know!
   https://github.com/mahapps/mahapps.metro
   Original license: Ms-PL (compatible with MIT)
   
+* Newtonsoft.Json
+  https://github.com/JamesNK/Newtonsoft.Json
+  Original license: MIT
+  
 * Orc.Controls
   https://github.com/wildgums/orc.controls
   Original license: MIT
