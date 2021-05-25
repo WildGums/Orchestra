@@ -3,12 +3,16 @@
     using System.IO;
     using System.Threading.Tasks;
     using Catel;
+    using Catel.Logging;
     using Catel.Services;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
     using Orc.FileSystem;
 
     public class ChangelogSnapshotService : IChangelogSnapshotService
     {
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
         private readonly IAppDataService _appDataService;
@@ -31,7 +35,9 @@
 
             var fileName = GetFilename();
 
-            var json = JsonConvert.SerializeObject(changelog);
+            Log.Debug($"Serializing changelog snapshot to '{fileName}'");
+
+            var json = JsonConvert.SerializeObject(changelog, GetSerializerSettings());
 
             await _fileService.WriteAllTextAsync(fileName, json);
         }
@@ -42,11 +48,13 @@
 
             var fileName = GetFilename();
 
+            Log.Debug($"Deserializing changelog snapshot from '{fileName}'");
+
             if (_fileService.Exists(fileName))
             {
                 var json = await _fileService.ReadAllTextAsync(fileName);
 
-                JsonConvert.PopulateObject(json, snapshot);
+                JsonConvert.PopulateObject(json, snapshot, GetSerializerSettings());
             }
 
             return snapshot;
@@ -60,6 +68,18 @@
             _directoryService.Create(changelogDirectory);
 
             return Path.Combine(changelogDirectory, "changelog.json");
+        }
+
+        protected virtual JsonSerializerSettings GetSerializerSettings()
+        {
+            var settings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented
+            };
+
+            settings.Converters.Add(new StringEnumConverter());
+
+            return settings;
         }
     }
 }
