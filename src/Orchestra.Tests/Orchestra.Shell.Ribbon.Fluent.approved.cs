@@ -60,6 +60,7 @@ namespace Orchestra.Services
     public class ApplicationInitializationServiceBase : Orchestra.Services.IApplicationInitializationService
     {
         public ApplicationInitializationServiceBase() { }
+        public virtual bool ShowChangelog { get; }
         public virtual bool ShowShell { get; }
         public virtual bool ShowSplashScreen { get; }
         public virtual System.Threading.Tasks.Task InitializeAfterCreatingShellAsync() { }
@@ -68,6 +69,7 @@ namespace Orchestra.Services
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingSplashScreenAsync() { }
         protected virtual void InitializeLogging() { }
+        protected virtual System.Threading.Tasks.Task ShowChangelogAsync() { }
         protected static System.Threading.Tasks.Task RunAndWaitAsync(params System.Func<>[] actions) { }
     }
     public interface IApplicationInitializationService

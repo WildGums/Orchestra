@@ -9,12 +9,12 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
 using Catel;
-using Catel.Configuration;
 using Catel.IoC;
-using Catel.Logging;
-using Catel.Reflection;
 using Catel.Services;
 using Orchestra;
+using Orchestra.Changelog;
+using Orchestra.Changelog.ViewModels;
+using Orchestra.Changelog.Views;
 using Orchestra.Collections;
 using Orchestra.Layers;
 using Orchestra.Services;
@@ -52,6 +52,11 @@ public static class ModuleInitializer
         // Override Catel.SelectDirectoryService with Orchestra.Services.SelectDirectoryService
         serviceLocator.RegisterType<ISelectDirectoryService, MicrosoftApiSelectDirectoryService>();
 
+        // Changelog
+        serviceLocator.RegisterType<IChangelogService, ChangelogService>();
+        serviceLocator.RegisterType<IChangelogSnapshotService, ChangelogSnapshotService>();
+
+        // Services
         serviceLocator.RegisterTypeIfNotYetRegistered<IThirdPartyNoticesService, ThirdPartyNoticesService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<ICloseApplicationService, CloseApplicationService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IRecentlyUsedItemsService, RecentlyUsedItemsService>();
@@ -89,11 +94,14 @@ public static class ModuleInitializer
         var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
         uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
         uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
+        uiVisualizerService.Register<ChangelogViewModel, ChangelogWindow>(false);
 
         var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Catel", "https://www.catelproject.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.catel.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx/", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.controlzex.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("DotNetZip", string.Empty, "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.dotnetzip.txt"));
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Material Design Icons", "https://github.com/Templarian/MaterialDesign", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.materialdesignicons.txt"));
+        thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Newtonsoft.Json", "https://github.com/JamesNK/Newtonsoft.Json", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.newtonsoft.json.txt"));
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Orchestra", "https://opensource.wildgums.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.orchestra.txt"));
 
         var languageService = serviceLocator.ResolveType<ILanguageService>();
