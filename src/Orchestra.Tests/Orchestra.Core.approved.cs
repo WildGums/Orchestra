@@ -238,6 +238,15 @@ namespace Orchestra.Changelog
         Feature = 2,
         Bug = 3,
     }
+    [System.Windows.Markup.MarkupExtensionReturnType(typeof(object))]
+    public class ChangelogTypeIconExtension : Catel.Windows.Markup.UpdatableMarkupExtension
+    {
+        public ChangelogTypeIconExtension() { }
+        public Orchestra.Changelog.ChangelogType? ChangelogType { get; set; }
+        public System.Windows.Data.BindingBase ChangelogTypeBinding { get; set; }
+        protected override void OnTargetObjectLoaded() { }
+        protected override object ProvideDynamicValue(System.IServiceProvider serviceProvider) { }
+    }
     public interface IChangelogProvider
     {
         System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Orchestra.Changelog.ChangelogItem>> GetChangelogAsync();
@@ -257,22 +266,10 @@ namespace Orchestra.Changelog
         System.Threading.Tasks.Task SerializeSnapshotAsync(Orchestra.Changelog.Changelog snapshot);
     }
 }
-namespace Orchestra.Changelog.Markup
-{
-    public class ChangelogTypeIcon : Catel.Windows.Markup.UpdatableMarkupExtension
-    {
-        public ChangelogTypeIcon() { }
-        public Orchestra.Changelog.ChangelogType? ChangelogType { get; set; }
-        public System.Windows.Data.BindingBase ChangelogTypeBinding { get; set; }
-        protected override void OnTargetObjectLoaded() { }
-        protected override object ProvideDynamicValue(System.IServiceProvider serviceProvider) { }
-    }
-}
 namespace Orchestra.Changelog.ViewModels
 {
     public class ChangelogViewModel : Catel.MVVM.ViewModelBase
     {
-        public static readonly Catel.Data.PropertyData ItemsProperty;
         public ChangelogViewModel(Orchestra.Changelog.Changelog changelog, Orchestra.Changelog.IChangelogService changelogService, Orchestra.Changelog.IChangelogSnapshotService changelogSnapshotService) { }
         public Orchestra.Changelog.Changelog Changelog { get; }
         public System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem> Items { get; }
