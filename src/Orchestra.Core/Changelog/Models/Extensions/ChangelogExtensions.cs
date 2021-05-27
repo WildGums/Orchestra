@@ -1,9 +1,6 @@
 ﻿namespace Orchestra.Changelog
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using Catel;
 
     public static class ChangelogExtensions

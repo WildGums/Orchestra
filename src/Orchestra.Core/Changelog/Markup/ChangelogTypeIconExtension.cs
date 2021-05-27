@@ -1,17 +1,19 @@
-﻿namespace Orchestra.Changelog.Markup
+﻿namespace Orchestra.Changelog
 {
     using System;
     using System.Windows;
     using System.Windows.Data;
+    using System.Windows.Markup;
 
-    public class ChangelogTypeIcon : Catel.Windows.Markup.UpdatableMarkupExtension
+    [MarkupExtensionReturnType(typeof(object))]
+    public class ChangelogTypeIconExtension : Catel.Windows.Markup.UpdatableMarkupExtension
     {
         public ChangelogType? ChangelogType { get; set; }
 
         public BindingBase ChangelogTypeBinding { get; set; }
 
         private static readonly DependencyProperty ChangelogTypeBindingBindingSinkProperty = DependencyProperty.RegisterAttached("ChangelogTypeBindingBindingSink",
-            typeof(object), typeof(ChangelogTypeIcon), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+            typeof(object), typeof(ChangelogTypeIconExtension), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
         protected override object ProvideDynamicValue(IServiceProvider serviceProvider)
         {

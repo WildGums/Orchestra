@@ -29,7 +29,7 @@
 
         public Changelog Changelog { get; }
 
-        public List<ChangelogItem> Items { get; private set; }
+        public List<ChangelogItem> Items { get; }
 
         protected override async Task<bool> SaveAsync()
         {

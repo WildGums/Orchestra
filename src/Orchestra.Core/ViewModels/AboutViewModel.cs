@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AboutViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2016 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels
 {
     using System;
     using System.Linq;
@@ -15,7 +8,6 @@ namespace Orchestra.ViewModels
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Services;
-    using Catel.Reflection;
     using Models;
     using Orchestra.Changelog;
     using Orchestra.Changelog.ViewModels;

@@ -11,8 +11,8 @@
             [TestCase]
             public void ReturnsEmptySnapshot()
             {
-                var changelog1 = new Orchestra.Changelog.Changelog();
-                var changelog2 = new Orchestra.Changelog.Changelog();
+                var changelog1 = new Changelog();
+                var changelog2 = new Changelog();
 
                 var delta = changelog1.GetDelta(changelog2);
 
@@ -23,14 +23,14 @@
             [TestCase]
             public void ReturnsValidSnapshot()
             {
-                var changelog1 = new Orchestra.Changelog.Changelog();
+                var changelog1 = new Changelog();
 
-                var changelog2 = new Orchestra.Changelog.Changelog();
-                changelog2.Items.Add(new Orchestra.Changelog.ChangelogItem
+                var changelog2 = new Changelog();
+                changelog2.Items.Add(new ChangelogItem
                 {
                     Group = "Test",
                     Name = "This is a test item",
-                    Type = Orchestra.Changelog.ChangelogType.Improvement
+                    Type = ChangelogType.Improvement
                 });
 
                 var delta = changelog1.GetDelta(changelog2);
