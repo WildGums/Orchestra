@@ -14,19 +14,21 @@
                    Text="{Binding Title}"
                    Style="{DynamicResource CaptionTextBlockStyle}" />
 
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Grid.Row="1"
+                      Margin="0,0,6,0">
             <ItemsControl ItemsSource="{Binding Items}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid Margin="0,0,0,6">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="24" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"
                                                MinHeight="30" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <!-- Type -->
@@ -35,7 +37,7 @@
                                             Width="16"
                                             Height="16"
                                             ContentTemplate="{local:ChangelogTypeIcon ChangelogTypeBinding={Binding Type}}"
-                                            HorizontalAlignment="Center"
+                                            HorizontalAlignment="Left"
                                             VerticalAlignment="Center" />
 
                             <!-- Name -->
@@ -43,7 +45,18 @@
                                        Grid.Column="1"
                                        TextWrapping="Wrap"
                                        Text="{Binding Name}"
-                                       ToolTip="{Binding Description}" />
+                                       ToolTip="{Binding Name}"
+                                       FontSize="14"
+                                       FontWeight="Normal"
+                                       VerticalAlignment="Center" />
+                            
+                            <!-- Description -->
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="1"
+                                       TextWrapping="Wrap"
+                                       Text="{Binding Description}"
+                                       ToolTip="{Binding Description}"
+                                       Visibility="{Binding Description, Converter={catel:EmptyStringToCollapsingVisibilityConverter}}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
