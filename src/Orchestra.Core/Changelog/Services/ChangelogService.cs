@@ -64,14 +64,14 @@
 
                 try
                 {
-                    Log.Debug($"Retrieving changelog from '{provider.GetType().Name}'");
+                    Log.Debug($"Retrieving changelog from '{provider.GetType().FullName}'");
 
                     var providerItems = await GetChangelogAsync(provider);
                     changelog.Items.AddRange(providerItems);
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, $"Failed to get changelog from provider '{provider.GetType().Name}'");
+                    Log.Error(ex, $"Failed to get changelog from provider '{provider.GetType().FullName}'");
                 }
             }
 
