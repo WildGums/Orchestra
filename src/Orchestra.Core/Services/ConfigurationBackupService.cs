@@ -15,6 +15,7 @@
     public class ConfigurationBackupService : IConfigurationBackupService
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         private readonly IConfigurationService _configurationService;
         private readonly IAppDataService _appDataService;
         private readonly IFileService _fileService;
@@ -33,56 +34,44 @@
             _directoryService = directoryService;
         }
 
-        public int NumberOfBackups { get; protected set; } = 5;
+        public int NumberOfBackups { get; protected set; } = 10;
 
         public string BackupTimeStampFormat { get; set; } = "{0:yyyyMMdd_HHmmssfff}";
 
         [Time]
-        public void Backup()
+        public virtual async Task BackupAsync()
         {
             try
             {
                 // Get configuration paths
-                // Catel.Reflection.ReflectionExtensions.GetFieldEx
                 var roamingConfigFilePathField = _configurationService.GetType().GetFieldEx("_roamingConfigFilePath", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                 var localConfigFilePathField = _configurationService.GetType().GetFieldEx("_localConfigFilePath", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
                 var roamingConfigFilePath = roamingConfigFilePathField.GetValue(_configurationService).ToString();
                 var localConfigFilePath = localConfigFilePathField.GetValue(_configurationService).ToString();
 
-                if (_fileService.Exists(roamingConfigFilePath))
-                {
-                    BackupConfiguration(roamingConfigFilePath, Catel.IO.ApplicationDataTarget.UserRoaming);
-                }
-                else
-                {
-                    Log.Info($"Configuration file not found on path {roamingConfigFilePath}, skipping backup");
-                }
-                if (_fileService.Exists(localConfigFilePath))
-                {
-                    BackupConfiguration(localConfigFilePath, Catel.IO.ApplicationDataTarget.UserLocal);
-                }
-                else
-                {
-                    Log.Info($"Configuration file not found on path {roamingConfigFilePath}, skipping backup");
-                }
+                await BackupConfigurationAsync(roamingConfigFilePath, Catel.IO.ApplicationDataTarget.UserRoaming);
+                await BackupConfigurationAsync(localConfigFilePath, Catel.IO.ApplicationDataTarget.UserLocal);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to create database backup");
+                Log.Error(ex, "Failed to create configuration backup");
                 throw;
             }
         }
 
-        private void BackupConfiguration(string configurationFilePath, Catel.IO.ApplicationDataTarget applicationDataTarget)
+        protected virtual async Task BackupConfigurationAsync(string configurationFilePath, Catel.IO.ApplicationDataTarget applicationDataTarget)
         {
+            if (!_fileService.Exists(configurationFilePath))
+            {
+                Log.Debug($"Configuration file not found on path {configurationFilePath}, skipping backup");
+            }
+
             Log.Info($"Creating configuration backup, {applicationDataTarget}");
 
-            var configBackupFolderPath = Path.Combine(_appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "backup\\config\\");
-            if (!_directoryService.Exists(configBackupFolderPath))
-            {
-                _directoryService.Create(configBackupFolderPath);
-            }
+            var configBackupFolderPath = Path.Combine(_appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "backup", "config");
+
+            _directoryService.Create(configBackupFolderPath);
 
             var backupConfigurationFiles = _directoryService.GetFiles(configBackupFolderPath, "configuration*").OrderBy(f => f).ToList();
             if (backupConfigurationFiles.Count >= NumberOfBackups)
@@ -100,13 +89,7 @@
             // Save current configuration
             _fileService.Copy(configurationFilePath, Path.Combine(configBackupFolderPath, $"configuration.{string.Format(BackupTimeStampFormat, DateTime.Now)}.xml"));
 
-            Log.Info($"Created configration backup, {applicationDataTarget}");
-        }
-
-        [Time]
-        public async Task BackupAsync()
-        {
-            Backup();
+            Log.Info($"Created configuration backup, {applicationDataTarget}");
         }
     }
 }

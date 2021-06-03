@@ -163,6 +163,9 @@ namespace Orchestra.Services
 
             await _ensureStartupService.EnsureFailSafeStartupAsync();
 
+            // Maintaining backups
+            await _configurationBackupService.BackupAsync();
+
             var shell = default(TShell);
             var successfullyStarted = true;
 
@@ -220,9 +223,6 @@ namespace Orchestra.Services
         private async Task InitializeBeforeCreatingShellAsync()
         {
             Log.Debug("Calling IApplicationInitializationService.InitializeBeforeCreatingShell");
-
-            // Maintaining backups
-            await _configurationBackupService.BackupAsync();
 
             await _applicationInitializationService.InitializeBeforeCreatingShellAsync();
         }

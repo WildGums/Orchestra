@@ -7,7 +7,6 @@
         string BackupTimeStampFormat { get; set; }
         int NumberOfBackups { get; }
 
-        void Backup();
         Task BackupAsync();
     }
 }
