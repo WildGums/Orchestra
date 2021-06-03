@@ -1,10 +1,12 @@
 ﻿namespace Orchestra.Services
 {
     using System.Threading.Tasks;
-    using MethodTimer;
 
     public interface IConfigurationBackupService
     {
+        string BackupTimeStampFormat { get; set; }
+        int NumberOfBackups { get; }
+
         void Backup();
         Task BackupAsync();
     }
