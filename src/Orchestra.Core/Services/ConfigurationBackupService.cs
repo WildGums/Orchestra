@@ -69,7 +69,7 @@
 
             Log.Info($"Creating configuration backup, {applicationDataTarget}");
 
-            var configBackupFolderPath = Path.Combine(_appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "backup", "config");
+            var configBackupFolderPath = Path.Combine(_appDataService.GetApplicationDataDirectory(applicationDataTarget), "backup", "config");
 
             _directoryService.Create(configBackupFolderPath);
 
@@ -87,7 +87,7 @@
             }
 
             // Save current configuration
-            _fileService.Copy(configurationFilePath, Path.Combine(configBackupFolderPath, $"configuration.{string.Format(BackupTimeStampFormat, DateTime.Now)}.xml"));
+            _fileService.Copy(configurationFilePath, Path.Combine(configBackupFolderPath, $"configuration.{string.Format(BackupTimeStampFormat, DateTime.Now)}.xml"), true);
 
             Log.Info($"Created configuration backup, {applicationDataTarget}");
         }
