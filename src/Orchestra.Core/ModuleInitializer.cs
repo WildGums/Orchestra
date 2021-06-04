@@ -75,6 +75,7 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IAboutService, AboutService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IClipboardService, ClipboardService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IViewActivationService, ViewActivationService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<IConfigurationBackupService, ConfigurationBackupService>();
         serviceLocator.RegisterType<IMessageService, Orchestra.Services.MessageService>();
 
         // Theming

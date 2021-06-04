@@ -37,6 +37,7 @@ namespace Orchestra.Services
         private readonly IApplicationInitializationService _applicationInitializationService;
         private readonly IDependencyResolver _dependencyResolver;
         private readonly IServiceLocator _serviceLocator;
+        private readonly IConfigurationBackupService _configurationBackupService;
         #endregion
 
         #region Constructors
@@ -51,6 +52,7 @@ namespace Orchestra.Services
         /// <param name="applicationInitializationService">The application initialization service.</param>
         /// <param name="dependencyResolver">The dependency resolver.</param>
         /// <param name="serviceLocator">The service locator.</param>
+        /// <param name="configurationBackupService">The configuration backup service</param>
         /// <exception cref="ArgumentNullException">The <paramref name="typeFactory" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="keyboardMappingsService" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="commandManager" /> is <c>null</c>.</exception>
@@ -61,7 +63,7 @@ namespace Orchestra.Services
         public ShellService(ITypeFactory typeFactory, IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
             ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService, 
             IApplicationInitializationService applicationInitializationService, IDependencyResolver dependencyResolver,
-            IServiceLocator serviceLocator)
+            IServiceLocator serviceLocator, IConfigurationBackupService configurationBackupService)
         {
             Argument.IsNotNull(() => typeFactory);
             Argument.IsNotNull(() => keyboardMappingsService);
@@ -71,6 +73,7 @@ namespace Orchestra.Services
             Argument.IsNotNull(() => applicationInitializationService);
             Argument.IsNotNull(() => dependencyResolver);
             Argument.IsNotNull(() => serviceLocator);
+            Argument.IsNotNull(() => configurationBackupService);
 
             _typeFactory = typeFactory;
             _keyboardMappingsService = keyboardMappingsService;
@@ -80,6 +83,7 @@ namespace Orchestra.Services
             _applicationInitializationService = applicationInitializationService;
             _dependencyResolver = dependencyResolver;
             _serviceLocator = serviceLocator;
+            _configurationBackupService = configurationBackupService;
 
             var entryAssembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
 
@@ -158,6 +162,9 @@ namespace Orchestra.Services
             Log.Info("Checking if software was correctly closed previously");
 
             await _ensureStartupService.EnsureFailSafeStartupAsync();
+
+            // Maintaining backups
+            await _configurationBackupService.BackupAsync();
 
             var shell = default(TShell);
             var successfullyStarted = true;

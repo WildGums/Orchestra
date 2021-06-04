@@ -599,6 +599,14 @@ namespace Orchestra.Services
         public void Invalidate() { }
         public void UpdateCommandInfo(string commandName, Orchestra.Models.ICommandInfo commandInfo) { }
     }
+    public class ConfigurationBackupService : Orchestra.Services.IConfigurationBackupService
+    {
+        public ConfigurationBackupService(Catel.Configuration.IConfigurationService configurationService, Catel.Services.IAppDataService appDataService, Orc.FileSystem.IFileService fileService, Orc.FileSystem.IDirectoryService directoryService) { }
+        public string BackupTimeStampFormat { get; set; }
+        public int NumberOfBackups { get; set; }
+        public virtual System.Threading.Tasks.Task BackupAsync() { }
+        protected virtual System.Threading.Tasks.Task BackupConfigurationAsync(string configurationFilePath, Catel.IO.ApplicationDataTarget applicationDataTarget) { }
+    }
     public class EnsureStartupService : Orchestra.Services.IEnsureStartupService
     {
         public EnsureStartupService(Catel.Services.IAppDataService appDataService, Catel.Services.IUIVisualizerService uiVisualizerService, Orc.FileSystem.IFileService fileService) { }
@@ -656,6 +664,12 @@ namespace Orchestra.Services
     public static class ICommandInfoServiceExtensions
     {
         public static void UpdateCommandInfo(this Orchestra.Services.ICommandInfoService commandInfoService, string commandName, System.Action<Orchestra.Models.ICommandInfo> commandInfoUpdateCallback) { }
+    }
+    public interface IConfigurationBackupService
+    {
+        string BackupTimeStampFormat { get; set; }
+        int NumberOfBackups { get; }
+        System.Threading.Tasks.Task BackupAsync();
     }
     public interface IEnsureStartupService
     {
