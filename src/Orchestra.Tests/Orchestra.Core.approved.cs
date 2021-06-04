@@ -1186,15 +1186,3 @@ namespace Orchestra.Windows
         public static void ApplyApplicationIcon(this System.Windows.Window window) { }
     }
 }
-namespace XamlGeneratedNamespace
-{
-    public sealed class GeneratedInternalTypeHelper : System.Windows.Markup.InternalTypeHelper
-    {
-        public GeneratedInternalTypeHelper() { }
-        protected override void AddEventHandler(System.Reflection.EventInfo eventInfo, object target, System.Delegate handler) { }
-        protected override System.Delegate CreateDelegate(System.Type delegateType, object target, string handler) { }
-        protected override object CreateInstance(System.Type type, System.Globalization.CultureInfo culture) { }
-        protected override object GetPropertyValue(System.Reflection.PropertyInfo propertyInfo, object target, System.Globalization.CultureInfo culture) { }
-        protected override void SetPropertyValue(System.Reflection.PropertyInfo propertyInfo, object target, object value, System.Globalization.CultureInfo culture) { }
-    }
-}

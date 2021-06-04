@@ -19,8 +19,8 @@
         private TestConfigurationBackupService _testConfigurationBackupService = null;
        
         [TestCase(
-            @"C:\Users\JustAnotherUser\AppData\Roaming\WildGums\Orchestra.Examples.Ribbon.Fluent\testconfiguration.xml",
-            @"C:\Users\JustAnotherUser\AppData\Local\WildGums\Orchestra.Examples.Ribbon.Fluent\testconfiguration.xml",
+            @"C:\Users\{0}\AppData\Roaming\WildGums\Orchestra.Examples.Ribbon.Fluent\testconfiguration.xml",
+            @"C:\Users\{0}\AppData\Local\WildGums\Orchestra.Examples.Ribbon.Fluent\testconfiguration.xml",
             15
         )]
         public async Task TestBackupConfigurationAsyncCleanupExpectedAsync(string roamingConfigPath, string localConfigPath, int numberOfRuns)
@@ -31,6 +31,10 @@
             var fileService = sl.ResolveType<IFileService>();
             var directoryService = sl.ResolveType<IDirectoryService>();
 
+            // Initialize paths
+            roamingConfigPath = string.Format(roamingConfigPath, Environment.UserName);
+            localConfigPath = string.Format(localConfigPath, Environment.UserName);
+
             // Pre-initialization
             if (_testConfigurationBackupService is null)
             {
@@ -39,6 +43,9 @@
 
             // Prepare files for case
             using (fileService.Create(roamingConfigPath))
+            {
+
+            }
             using (fileService.Create(localConfigPath))
             { 
             }
@@ -51,8 +58,10 @@
             }
 
             // Check file count
-            var countInRoaming = directoryService.GetFiles(@"C:\Users\JustAnotherUser\AppData\Roaming\Microsoft Corporation\Microsoft.TestHost\backup\config", "configuration*").Count();
-            var countInLocal = directoryService.GetFiles(@"C:\Users\JustAnotherUser\AppData\Local\Microsoft Corporation\Microsoft.TestHost\backup\config", "configuration*").Count();
+            var countInRoaming = directoryService.GetFiles(string.Format(@"C:\Users\{0}\AppData\Roaming\Microsoft Corporation\Microsoft.TestHost\backup\config", Environment.UserName),
+                "configuration*").Count();
+            var countInLocal = directoryService.GetFiles(string.Format(@"C:\Users\{0}\AppData\Local\Microsoft Corporation\Microsoft.TestHost\backup\config", Environment.UserName),
+                "configuration*").Count();
 
             Assert.AreEqual(countInRoaming, _testConfigurationBackupService.NumberOfBackups);
             Assert.AreEqual(countInLocal, _testConfigurationBackupService.NumberOfBackups);
