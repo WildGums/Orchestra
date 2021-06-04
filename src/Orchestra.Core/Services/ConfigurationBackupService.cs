@@ -64,7 +64,8 @@
         {
             if (!_fileService.Exists(configurationFilePath))
             {
-                Log.Debug($"Configuration file not found on path {configurationFilePath}, skipping backup");
+                Log.Debug($"Configuration file not found on path {configurationFilePath}, skipping backup"
+                return;
             }
 
             Log.Info($"Creating configuration backup, {applicationDataTarget}");
