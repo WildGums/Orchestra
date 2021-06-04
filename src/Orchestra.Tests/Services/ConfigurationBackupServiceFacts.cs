@@ -41,11 +41,17 @@
                 _testConfigurationBackupService = new TestConfigurationBackupService(configurationService, appDataService, fileService, directoryService);
             }
 
+            var roamingDirectory = Path.GetDirectoryName(roamingConfigPath);
+            directoryService.Create(roamingDirectory);
+
             // Prepare files for case
             using (fileService.Create(roamingConfigPath))
             {
-
             }
+
+            var localDirectory = Path.GetDirectoryName(localConfigPath);
+            directoryService.Create(localDirectory);
+
             using (fileService.Create(localConfigPath))
             { 
             }

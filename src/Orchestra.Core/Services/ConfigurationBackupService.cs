@@ -87,7 +87,8 @@
             }
 
             // Save current configuration
-            _fileService.Copy(configurationFilePath, Path.Combine(configBackupFolderPath, $"configuration.{string.Format(BackupTimeStampFormat, DateTime.Now)}.xml"), true);
+            var targetFileName = Path.Combine(configBackupFolderPath, $"configuration.{string.Format(BackupTimeStampFormat, DateTime.Now)}.xml");
+            _fileService.Copy(configurationFilePath, targetFileName, true);
 
             Log.Info($"Created configuration backup, {applicationDataTarget}");
         }
