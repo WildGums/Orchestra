@@ -188,6 +188,107 @@ namespace Orchestra.Behaviors
         protected override void OnAssociatedObjectUnloaded() { }
     }
 }
+namespace Orchestra.Changelog
+{
+    public class Changelog
+    {
+        public Changelog() { }
+        public bool IsEmpty { get; }
+        public System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem> Items { get; }
+        public string Title { get; set; }
+    }
+    public static class ChangelogExtensions
+    {
+        public static Orchestra.Changelog.Changelog GetDelta(this Orchestra.Changelog.Changelog changelog1, Orchestra.Changelog.Changelog changelog2) { }
+    }
+    public class ChangelogItem
+    {
+        public ChangelogItem() { }
+        public string Description { get; set; }
+        public string Group { get; set; }
+        public string Name { get; set; }
+        public object Tag { get; set; }
+        public Orchestra.Changelog.ChangelogType Type { get; set; }
+        public override string ToString() { }
+    }
+    public abstract class ChangelogProviderBase : Orchestra.Changelog.IChangelogProvider
+    {
+        protected ChangelogProviderBase() { }
+        public abstract System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Orchestra.Changelog.ChangelogItem>> GetChangelogAsync();
+    }
+    public class ChangelogService : Orchestra.Changelog.IChangelogService
+    {
+        public ChangelogService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Changelog.IChangelogSnapshotService changelogSnapshotService) { }
+        public virtual System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> GetChangelogAsync() { }
+        protected virtual System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Orchestra.Changelog.ChangelogItem>> GetChangelogAsync(Orchestra.Changelog.IChangelogProvider provider) { }
+        public virtual System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> GetChangelogSinceSnapshotAsync() { }
+    }
+    public class ChangelogSnapshotService : Orchestra.Changelog.IChangelogSnapshotService
+    {
+        public ChangelogSnapshotService(Orc.FileSystem.IDirectoryService directoryService, Orc.FileSystem.IFileService fileService, Catel.Services.IAppDataService appDataService) { }
+        public virtual System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> DeserializeSnapshotAsync() { }
+        protected virtual string GetFilename() { }
+        protected virtual Newtonsoft.Json.JsonSerializerSettings GetSerializerSettings() { }
+        public virtual System.Threading.Tasks.Task SerializeSnapshotAsync(Orchestra.Changelog.Changelog changelog) { }
+    }
+    public enum ChangelogType
+    {
+        Change = 0,
+        Improvement = 1,
+        Feature = 2,
+        Bug = 3,
+    }
+    [System.Windows.Markup.MarkupExtensionReturnType(typeof(object))]
+    public class ChangelogTypeIconExtension : Catel.Windows.Markup.UpdatableMarkupExtension
+    {
+        public ChangelogTypeIconExtension() { }
+        public Orchestra.Changelog.ChangelogType? ChangelogType { get; set; }
+        public System.Windows.Data.BindingBase ChangelogTypeBinding { get; set; }
+        protected override void OnTargetObjectLoaded() { }
+        protected override object ProvideDynamicValue(System.IServiceProvider serviceProvider) { }
+    }
+    public interface IChangelogProvider
+    {
+        System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Orchestra.Changelog.ChangelogItem>> GetChangelogAsync();
+    }
+    public interface IChangelogService
+    {
+        System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> GetChangelogAsync();
+        System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> GetChangelogSinceSnapshotAsync();
+    }
+    public static class IChangelogServiceExtensions
+    {
+        public static System.Threading.Tasks.Task<System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem>> GetChangelogItemsForGroupAsync(this Orchestra.Changelog.IChangelogService changelogService, string groupName) { }
+    }
+    public interface IChangelogSnapshotService
+    {
+        System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> DeserializeSnapshotAsync();
+        System.Threading.Tasks.Task SerializeSnapshotAsync(Orchestra.Changelog.Changelog snapshot);
+    }
+}
+namespace Orchestra.Changelog.ViewModels
+{
+    public class ChangelogViewModel : Catel.MVVM.ViewModelBase
+    {
+        public ChangelogViewModel(Orchestra.Changelog.Changelog changelog, Orchestra.Changelog.IChangelogService changelogService, Orchestra.Changelog.IChangelogSnapshotService changelogSnapshotService) { }
+        public Orchestra.Changelog.Changelog Changelog { get; }
+        public System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem> Items { get; }
+        protected override System.Threading.Tasks.Task<bool> SaveAsync() { }
+    }
+}
+namespace Orchestra.Changelog.Views
+{
+    public class ChangelogView : Catel.Windows.Controls.UserControl, System.Windows.Markup.IComponentConnector
+    {
+        public ChangelogView() { }
+        public void InitializeComponent() { }
+    }
+    public class ChangelogWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
+    {
+        public ChangelogWindow() { }
+        public void InitializeComponent() { }
+    }
+}
 namespace Orchestra.Collections
 {
     public class AdorneredTooltipsCollection : Orchestra.Collections.IAdorneredTooltipsCollection
@@ -498,6 +599,14 @@ namespace Orchestra.Services
         public void Invalidate() { }
         public void UpdateCommandInfo(string commandName, Orchestra.Models.ICommandInfo commandInfo) { }
     }
+    public class ConfigurationBackupService : Orchestra.Services.IConfigurationBackupService
+    {
+        public ConfigurationBackupService(Catel.Configuration.IConfigurationService configurationService, Catel.Services.IAppDataService appDataService, Orc.FileSystem.IFileService fileService, Orc.FileSystem.IDirectoryService directoryService) { }
+        public string BackupTimeStampFormat { get; set; }
+        public int NumberOfBackups { get; set; }
+        public virtual System.Threading.Tasks.Task BackupAsync() { }
+        protected virtual System.Threading.Tasks.Task BackupConfigurationAsync(string configurationFilePath, Catel.IO.ApplicationDataTarget applicationDataTarget) { }
+    }
     public class EnsureStartupService : Orchestra.Services.IEnsureStartupService
     {
         public EnsureStartupService(Catel.Services.IAppDataService appDataService, Catel.Services.IUIVisualizerService uiVisualizerService, Orc.FileSystem.IFileService fileService) { }
@@ -555,6 +664,12 @@ namespace Orchestra.Services
     public static class ICommandInfoServiceExtensions
     {
         public static void UpdateCommandInfo(this Orchestra.Services.ICommandInfoService commandInfoService, string commandName, System.Action<Orchestra.Models.ICommandInfo> commandInfoUpdateCallback) { }
+    }
+    public interface IConfigurationBackupService
+    {
+        string BackupTimeStampFormat { get; set; }
+        int NumberOfBackups { get; }
+        System.Threading.Tasks.Task BackupAsync();
     }
     public interface IEnsureStartupService
     {
@@ -812,7 +927,7 @@ namespace Orchestra.ViewModels
         public static readonly Catel.Data.PropertyData TitleProperty;
         public static readonly Catel.Data.PropertyData UriInfoProperty;
         public static readonly Catel.Data.PropertyData VersionProperty;
-        public AboutViewModel(Orchestra.Models.AboutInfo aboutInfo, Catel.Services.IProcessService processService, Catel.Services.IUIVisualizerService uiVisualizerService, Catel.Services.IMessageService messageService, Catel.Services.ILanguageService languageService) { }
+        public AboutViewModel(Orchestra.Models.AboutInfo aboutInfo, Catel.Services.IProcessService processService, Catel.Services.IUIVisualizerService uiVisualizerService, Catel.Services.IMessageService messageService, Catel.Services.ILanguageService languageService, Orchestra.Changelog.IChangelogService changelogService) { }
         public System.Windows.Media.Imaging.BitmapSource AppIcon { get; }
         public string BuildDateTime { get; }
         public System.Uri CompanyLogoUri { get; }
@@ -824,6 +939,7 @@ namespace Orchestra.ViewModels
         public Catel.MVVM.Command OpenCopyrightUrl { get; }
         public Catel.MVVM.TaskCommand OpenLog { get; }
         public Catel.MVVM.Command OpenUrl { get; }
+        public Catel.MVVM.TaskCommand ShowChangelog { get; }
         public bool ShowLogButton { get; }
         public Catel.MVVM.TaskCommand ShowSystemInfo { get; }
         public Catel.MVVM.TaskCommand ShowThirdPartyNotices { get; }

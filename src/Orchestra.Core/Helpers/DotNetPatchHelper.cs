@@ -91,7 +91,7 @@ namespace Orchestra
             }
 
             var application = Application.Current;
-            if (application != null)
+            if (application is not null)
             {
                 Log.Debug("Attaching to Application");
 
@@ -108,7 +108,7 @@ namespace Orchestra
             }
 
             var application = Application.Current;
-            if (application != null)
+            if (application is not null)
             {
                 Log.Debug("Detaching from Application");
 
@@ -174,7 +174,7 @@ namespace Orchestra
             Log.Info("An unhandled exception occurred, checking if it is a known KB issue: {0}", ex.Message);
 
             var fileLoadException = ex as FileLoadException;
-            if (fileLoadException != null)
+            if (fileLoadException is not null)
             {
                 if (fileLoadException.Message.Contains("System, Version=2.0.5.0") ||
                     fileLoadException.Message.Contains("System.Core, Version=2.0.5.0"))

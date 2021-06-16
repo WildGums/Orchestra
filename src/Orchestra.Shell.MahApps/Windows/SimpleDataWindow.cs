@@ -78,7 +78,7 @@ namespace Orchestra.Windows
             Unloaded += (sender, e) => _viewUnloaded?.Invoke(this, EventArgs.Empty);
             DataContextChanged += (sender, e) => _viewDataContextChanged?.Invoke(this, new DataContextChangedEventArgs(e.OldValue, e.NewValue));
 
-            if (additionalButtons != null)
+            if (additionalButtons is not null)
             {
                 foreach (var button in additionalButtons)
                 {
@@ -277,7 +277,7 @@ namespace Orchestra.Windows
         protected virtual bool ValidateData()
         {
             var vm = _logic.ViewModel;
-            if (vm == null)
+            if (vm is null)
             {
                 return false;
             }
@@ -404,7 +404,7 @@ namespace Orchestra.Windows
 
         private void OnViewModelChanged()
         {
-            if (ViewModel != null && !ViewModel.IsClosed)
+            if (ViewModel is not null && !ViewModel.IsClosed)
             {
                 ViewModel.ClosedAsync += ViewModelClosedAsync;
             }

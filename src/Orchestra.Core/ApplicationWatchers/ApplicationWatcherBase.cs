@@ -49,7 +49,7 @@
 
         private static void EnsureSubscribesInitialized()
         {
-            if (ShellActivatedActions == null)
+            if (ShellActivatedActions is null)
             {
                 lock (Lock)
                 {
@@ -68,13 +68,13 @@
                 mainWindow = null;
             }
 
-            if (mainWindow == null)
+            if (mainWindow is null)
             {
                 DispatcherTimer.Start();
                 return;
             }
 
-            if (ShellActivatedActions == null)
+            if (ShellActivatedActions is null)
             {
                 DispatcherTimer.Start();
                 return;

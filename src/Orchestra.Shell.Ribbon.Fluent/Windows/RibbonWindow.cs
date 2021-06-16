@@ -111,7 +111,7 @@ namespace Orchestra.Windows
         #region Methods
         private void OnViewModelChanged()
         {
-            if (ViewModel != null && !ViewModel.IsClosed)
+            if (ViewModel is not null && !ViewModel.IsClosed)
             {
                 ViewModel.ClosedAsync += ViewModelClosedAsync;
             }

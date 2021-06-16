@@ -55,10 +55,10 @@ namespace Orchestra
             }
 
             var vistaIcon = ExtractVistaIcon(icon);
-            if (vistaIcon == null)
+            if (vistaIcon is null)
             {
                 var bitmap = ExtractIcon(icon);
-                if (bitmap == null)
+                if (bitmap is null)
                 {
                     return null;
                 }
@@ -241,7 +241,7 @@ namespace Orchestra
 
             private void Initialize(string fileName)
             {
-                if (fileName == null)
+                if (fileName is null)
                 {
                     throw new ArgumentNullException("fileName");
                 }

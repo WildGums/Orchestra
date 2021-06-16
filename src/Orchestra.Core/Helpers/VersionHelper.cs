@@ -19,7 +19,7 @@ namespace Orchestra
         /// <returns>System.String.</returns>
         public static string GetCurrentVersion(Assembly assembly = null)
         {
-            if (assembly == null)
+            if (assembly is null)
             {
                 assembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
             }

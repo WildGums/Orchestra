@@ -132,7 +132,7 @@
                     {
                         // Defined, check by uri
                         alreadyAdded = (from dic in applicationResourcesDictionary.MergedDictionaries
-                                        where dic.Source != null && dic.Source == resourceDictionary.Source
+                                        where dic.Source is not null && dic.Source == resourceDictionary.Source
                                         select dic).Any();
                     }
 
@@ -210,7 +210,7 @@
                 var assembly = (from x in AppDomain.CurrentDomain.GetAssemblies()
                                 where x.GetName().Name.EqualsIgnoreCase(assemblyName)
                                 select x).FirstOrDefault();
-                if (assembly != null)
+                if (assembly is not null)
                 {
                     // Orchestra.Core.g.resources
                     var generatedResourceName = $"{assembly.GetName().Name}.g.resources";

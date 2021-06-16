@@ -64,7 +64,7 @@ namespace Orchestra.Services
                 using (var fileStream = _fileService.OpenRead(_fileName))
                 {
                     var keyboardMappings = _xmlSerializer.Deserialize(typeof (KeyboardMappings), fileStream, null) as KeyboardMappings;
-                    if (keyboardMappings != null)
+                    if (keyboardMappings is not null)
                     {
                         foreach (var keyboardMapping in keyboardMappings.Mappings)
                         {

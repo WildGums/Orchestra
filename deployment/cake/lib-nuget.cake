@@ -53,30 +53,42 @@ private static void RestoreNuGetPackages(BuildContext buildContext, Cake.Core.IO
     buildContext.CakeContext.LogSeparator("Restoring packages for '{0}'", solutionOrProjectFileName);
     
     var sources = SplitSeparatedList(buildContext.General.NuGet.PackageSources, ';');
+
     var runtimeIdentifiers = new List<string>(new [] 
     {
         "win-x64",
         "browser-wasm"
     });
 
-    RestoreNuGetPackagesUsingNuGet(buildContext, solutionOrProjectFileName, sources);
-    RestoreNuGetPackagesUsingDotnetRestore(buildContext, solutionOrProjectFileName, sources, runtimeIdentifiers);
+    var supportedRuntimeIdentifiers = GetProjectRuntimesIdentifiers(buildContext, solutionOrProjectFileName, runtimeIdentifiers);
+
+    RestoreNuGetPackagesUsingNuGet(buildContext, solutionOrProjectFileName, sources, supportedRuntimeIdentifiers);
+    RestoreNuGetPackagesUsingDotnetRestore(buildContext, solutionOrProjectFileName, sources, supportedRuntimeIdentifiers);
 }
 
 //-------------------------------------------------------------
 
-private static void RestoreNuGetPackagesUsingNuGet(BuildContext buildContext, Cake.Core.IO.FilePath solutionOrProjectFileName, List<string> sources)
+private static void RestoreNuGetPackagesUsingNuGet(BuildContext buildContext, Cake.Core.IO.FilePath solutionOrProjectFileName, List<string> sources, List<string> runtimeIdentifiers)
 {
+    if (!buildContext.General.NuGet.RestoreUsingNuGet)
+    {
+        return;
+    }
+
     buildContext.CakeContext.LogSeparator("Restoring packages for '{0}' using 'NuGet'", solutionOrProjectFileName);
     
+    // No need to deal with runtime identifiers
+
     try
     {
         var nuGetRestoreSettings = new NuGetRestoreSettings
         {
             DisableParallelProcessing = false,
             NoCache = false,
+            NonInteractive = true,
+            RequireConsent = false
         };
- 
+
         if (sources.Count > 0)
         {
             nuGetRestoreSettings.Source = sources;
@@ -94,33 +106,14 @@ private static void RestoreNuGetPackagesUsingNuGet(BuildContext buildContext, Ca
 
 private static void RestoreNuGetPackagesUsingDotnetRestore(BuildContext buildContext, Cake.Core.IO.FilePath solutionOrProjectFileName, List<string> sources, List<string> runtimeIdentifiers)
 {
+    if (!buildContext.General.NuGet.RestoreUsingDotNetRestore)
+    {
+        return;
+    }
+
     buildContext.CakeContext.LogSeparator("Restoring packages for '{0}' using 'dotnet restore'", solutionOrProjectFileName);
-        
-    var projectFileContents = System.IO.File.ReadAllText(solutionOrProjectFileName.FullPath)?.ToLower();
-
-    var supportedRuntimeIdentifiers = new List<string>();
-
+ 
     foreach (var runtimeIdentifier in runtimeIdentifiers)
-    {
-        if (!string.IsNullOrWhiteSpace(runtimeIdentifier))
-        {
-            if (!projectFileContents.Contains(runtimeIdentifier.ToLower()))
-            {
-                buildContext.CakeContext.Information("Project '{0}' does not support runtime identifier '{1}', skipping restore for this runtime identifier", solutionOrProjectFileName, runtimeIdentifier);
-                continue;
-            }
-        }
-
-        supportedRuntimeIdentifiers.Add(runtimeIdentifier);
-    }
-
-    if (supportedRuntimeIdentifiers.Count == 0)
-    {
-        // Default
-        supportedRuntimeIdentifiers.Add(string.Empty);
-    }
-
-    foreach (var runtimeIdentifier in supportedRuntimeIdentifiers)
     {
         try
         {
@@ -133,13 +126,14 @@ private static void RestoreNuGetPackagesUsingDotnetRestore(BuildContext buildCon
                 ForceEvaluate = false,
                 IgnoreFailedSources = true,
                 NoCache = false,
-                NoDependencies = false, // use true to speed up things
+                NoDependencies = buildContext.General.NuGet.NoDependencies, // use true to speed up things
                 Verbosity = DotNetCoreVerbosity.Normal
             };
     
             if (!string.IsNullOrWhiteSpace(runtimeIdentifier))
             {
-                // This is a explicit supported runtime identifier, force re-evaluation
+                buildContext.CakeContext.Information("Project restore uses explicit runtime identifier, forcing re-evaluation");
+
                 restoreSettings.Force = true;
                 restoreSettings.ForceEvaluate = true;
                 restoreSettings.Runtime = runtimeIdentifier;

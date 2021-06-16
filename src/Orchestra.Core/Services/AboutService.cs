@@ -32,7 +32,7 @@ namespace Orchestra.Services
         public virtual async Task ShowAboutAsync()
         {
             var aboutInfo = _aboutInfoService.GetAboutInfo();
-            if (aboutInfo != null)
+            if (aboutInfo is not null)
             {
                 Log.Info("Showing about dialog");
 

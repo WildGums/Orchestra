@@ -38,6 +38,7 @@ namespace Orchestra.Services
     public class ApplicationInitializationServiceBase : Orchestra.Services.IApplicationInitializationService
     {
         public ApplicationInitializationServiceBase() { }
+        public virtual bool ShowChangelog { get; }
         public virtual bool ShowShell { get; }
         public virtual bool ShowSplashScreen { get; }
         public virtual System.Threading.Tasks.Task InitializeAfterCreatingShellAsync() { }
@@ -46,6 +47,7 @@ namespace Orchestra.Services
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingSplashScreenAsync() { }
         protected virtual void InitializeLogging() { }
+        protected virtual System.Threading.Tasks.Task ShowChangelogAsync() { }
         protected static System.Threading.Tasks.Task RunAndWaitAsync(params System.Func<>[] actions) { }
     }
     public class FlyoutService : Orchestra.Services.IFlyoutService
@@ -117,7 +119,7 @@ namespace Orchestra.Services
     }
     public class ShellService : Orchestra.Services.IShellService
     {
-        public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver, Catel.IoC.IServiceLocator serviceLocator) { }
+        public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver, Catel.IoC.IServiceLocator serviceLocator, Orchestra.Services.IConfigurationBackupService configurationBackupService) { }
         public Orchestra.Views.IShell Shell { get; }
         public System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }

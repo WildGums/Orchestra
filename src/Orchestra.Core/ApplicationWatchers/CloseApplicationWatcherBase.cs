@@ -47,7 +47,7 @@ namespace Orchestra
             }
 
             var window = sender as Window;
-            if (window == null)
+            if (window is null)
             {
                 Log.Debug("Main window is null");
                 return;
@@ -83,7 +83,7 @@ namespace Orchestra
                 {
                     Log.Debug("Closing confirmed, request closing again");
 
-                    await CloseWindow(window).ConfigureAwait(false);
+                    await CloseWindowAsync(window).ConfigureAwait(false);
                 }
                 else
                 {
@@ -174,11 +174,11 @@ namespace Orchestra
 
             if (await MessageService.ShowAsync(closingDetails.Message, "Error", messageButton, MessageImage.Error) == MessageResult.OK)
             {
-                await CloseWindow(window).ConfigureAwait(false);
+                await CloseWindowAsync(window).ConfigureAwait(false);
             }
         }
 
-        private static async Task CloseWindow(Window window)
+        private static async Task CloseWindowAsync(Window window)
         {
             IsClosingConfirmed = true;
             await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);

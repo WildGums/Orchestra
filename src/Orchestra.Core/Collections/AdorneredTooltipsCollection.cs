@@ -54,7 +54,7 @@ namespace Orchestra.Collections
             _adorneredTooltips.Remove(parentControl);
 
             var userControl = parentControl as UserControl;
-            if (userControl != null)
+            if (userControl is not null)
             {
                 userControl.Unloaded -= OnUnloaded;
             }
@@ -112,7 +112,7 @@ namespace Orchestra.Collections
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
             var parentControl = sender as FrameworkElement;
-            if (parentControl == null)
+            if (parentControl is null)
             {
                 return;
             }

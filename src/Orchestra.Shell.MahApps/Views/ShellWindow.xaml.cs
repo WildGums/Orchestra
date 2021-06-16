@@ -55,7 +55,7 @@ namespace Orchestra.Views
 
             var windowCommands = mahAppsService.GetRightWindowCommands();
 
-            if (mahAppsService.GetAboutInfo() != null)
+            if (mahAppsService.GetAboutInfo() is not null)
             {
                 var aboutWindowCommand = WindowCommandHelper.CreateWindowCommandButton(new PackIconMaterial { Kind = PackIconMaterialKind.Information }, "About");
 
@@ -71,7 +71,7 @@ namespace Orchestra.Views
             RightWindowCommands = windowCommands;
 
             var statusBarContent = mahAppsService.GetStatusBar();
-            if (statusBarContent != null)
+            if (statusBarContent is not null)
             {
                 customStatusBarItem.SetCurrentValue(ContentProperty, statusBarContent);
             }

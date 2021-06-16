@@ -172,7 +172,7 @@ namespace Orchestra.Windows
 
             SetBinding(TitleProperty, new Binding(nameof(ViewModelBase.Title)));
 
-            if (additionalButtons != null)
+            if (additionalButtons is not null)
             {
                 foreach (var button in additionalButtons)
                 {
@@ -547,7 +547,7 @@ namespace Orchestra.Windows
 
             if (e.Key == Key.Enter)
             {
-                if (_defaultOkElement != null)
+                if (_defaultOkElement is not null)
                 {
                     _defaultOkElement.GotFocus += OnButtonReceivedFocus;
                     if (!_defaultOkElement.Focus())
@@ -557,7 +557,7 @@ namespace Orchestra.Windows
 
                     e.Handled = true;
                 }
-                else if (_defaultOkCommand != null)
+                else if (_defaultOkCommand is not null)
                 {
                     HandleDefaultButton();
                     e.Handled = true;
@@ -568,7 +568,7 @@ namespace Orchestra.Windows
 
             if (e.Key == Key.Escape && CanCloseUsingEscape)
             {
-                if (_defaultCancelCommand != null)
+                if (_defaultCancelCommand is not null)
                 {
                     Log.Info("User pressed 'Escape', executing cancel command");
 
@@ -629,7 +629,7 @@ namespace Orchestra.Windows
         private void OnButtonReceivedFocus(object sender, EventArgs e)
         {
             var buttonBase = sender as ButtonBase;
-            if (buttonBase == null)
+            if (buttonBase is null)
             {
                 return;
             }
@@ -644,7 +644,7 @@ namespace Orchestra.Windows
         /// </summary>
         private void HandleDefaultButton()
         {
-            if (_defaultOkCommand != null)
+            if (_defaultOkCommand is not null)
             {
                 Log.Info("User pressed 'Enter', executing default command");
 
@@ -663,7 +663,7 @@ namespace Orchestra.Windows
         /// <exception cref="InvalidOperationException">The <paramref name="dataWindowButton"/> is added when the window is already loaded.</exception>
         protected void AddCustomButton(DataWindowButton dataWindowButton)
         {
-            if (InternalGrid != null)
+            if (InternalGrid is not null)
             {
                 var languageService = ServiceLocator.Default.ResolveType<ILanguageService>();
                 throw new InvalidOperationException(languageService.GetString("DataWindowButtonCanOnlyBeAddedWhenWindowIsNotLoaded"));
@@ -744,7 +744,7 @@ namespace Orchestra.Windows
             var contentGrid = _wrapControlService.Wrap(newContentAsFrameworkElement, wrapOptions, _buttons.ToArray(), this);
 
             var internalGrid = contentGrid.FindVisualDescendant(obj => (obj is FrameworkElement) && string.Equals(((FrameworkElement)obj).Name, WrapControlServiceControlNames.InternalGridName)) as Grid;
-            if (internalGrid != null)
+            if (internalGrid is not null)
             {
                 internalGrid.SetResourceReference(StyleProperty, "WindowGridStyle");
 
@@ -785,7 +785,7 @@ namespace Orchestra.Windows
             if (!_forceClose && !ClosedByButton)
             {
                 var vm = ViewModel;
-                if (vm != null && vm.IsClosed)
+                if (vm is not null && vm.IsClosed)
                 {
                     // Being closed from the vm
                     return;
@@ -822,7 +822,7 @@ namespace Orchestra.Windows
         protected virtual bool ValidateData()
         {
             var vm = _logic.ViewModel;
-            if (vm == null)
+            if (vm is null)
             {
                 return false;
             }
@@ -849,7 +849,7 @@ namespace Orchestra.Windows
         {
             // CTL-735 We might be handling the ViewModel.Closed event
             var vm = _logic.ViewModel;
-            if (vm != null && vm.IsClosed)
+            if (vm is not null && vm.IsClosed)
             {
                 return true;
             }
@@ -866,7 +866,7 @@ namespace Orchestra.Windows
             foreach (var command in Commands)
             {
                 var commandAsICatelCommand = command as ICatelCommand;
-                if (commandAsICatelCommand != null)
+                if (commandAsICatelCommand is not null)
                 {
                     commandAsICatelCommand.RaiseCanExecuteChanged();
                 }

@@ -25,7 +25,7 @@ namespace Orchestra.Services
         protected override async Task<bool?> ShowWindowAsync(FrameworkElement window, object data, bool showModal)
         {
             var simpleDialog = window as CustomDialog;
-            if (simpleDialog != null)
+            if (simpleDialog is not null)
             {
                 if (showModal)
                 {
@@ -34,7 +34,7 @@ namespace Orchestra.Services
                     await simpleDialog.WaitUntilUnloadedAsync();
                     var simpleDataWindow = window as SimpleDataWindow;
                     bool? result = true;
-                    if (simpleDataWindow != null)
+                    if (simpleDataWindow is not null)
                     {
                         result = simpleDataWindow.DialogResult;
                     }

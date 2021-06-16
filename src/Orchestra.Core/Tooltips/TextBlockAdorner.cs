@@ -65,7 +65,7 @@ namespace Orchestra.Tooltips
         {
             get
             {
-                if (_logicalChildren == null)
+                if (_logicalChildren is null)
                 {
                     _logicalChildren = new ArrayList();
                     _logicalChildren.Add(_tooltip);

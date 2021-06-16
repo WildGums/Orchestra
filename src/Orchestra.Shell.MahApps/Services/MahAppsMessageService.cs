@@ -83,7 +83,7 @@ namespace Orchestra.Services
 #pragma warning restore AvoidAsyncVoid
             {
                 var window = Application.Current.MainWindow as MetroWindow;
-                if (window == null)
+                if (window is null)
                 {
                     tcs.TrySetResult(MessageResult.Cancel);
                     return;

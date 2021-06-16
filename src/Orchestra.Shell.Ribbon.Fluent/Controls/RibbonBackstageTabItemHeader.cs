@@ -74,7 +74,7 @@ namespace Orchestra.Controls
 
             Grid.SetColumn(label, 1);
 
-            var size = (Icon != null) || KeepIconSizeWithoutIcon ? 36 : 0;
+            var size = (Icon is not null) || KeepIconSizeWithoutIcon ? 36 : 0;
 
             var grid = new Grid();
 

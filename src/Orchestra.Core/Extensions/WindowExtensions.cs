@@ -121,7 +121,7 @@ namespace Orchestra
         /// <param name="frameworkElement">Reference to the current <see cref="FrameworkElement"/>.</param>
         public static void BringWindowToTop(this FrameworkElement frameworkElement)
         {
-            if (frameworkElement == null)
+            if (frameworkElement is null)
             {
                 return;
             }
@@ -130,7 +130,7 @@ namespace Orchestra
             {
                 // Get the handle (of the window or process)
                 var ownerWindow = frameworkElement.FindVisualAncestorByType<Window>();
-                var windowHandle = (ownerWindow != null) ? new WindowInteropHelper(ownerWindow).Handle : Process.GetCurrentProcess().MainWindowHandle;
+                var windowHandle = (ownerWindow is not null) ? new WindowInteropHelper(ownerWindow).Handle : Process.GetCurrentProcess().MainWindowHandle;
                 if (windowHandle != IntPtr.Zero)
                 {
                     SetForegroundWindowEx(windowHandle);

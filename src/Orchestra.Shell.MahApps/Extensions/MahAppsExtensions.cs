@@ -35,7 +35,7 @@ namespace Orchestra
         {
             Argument.IsNotNull(() => dialog);
 
-            if (parentDialogWindow != null)
+            if (parentDialogWindow is not null)
             {
                 parentDialogWindow.Close();
             }
