@@ -1,5 +1,7 @@
 ﻿namespace Orchestra.Changelog
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Catel;
 
@@ -25,6 +27,32 @@
             }
 
             return delta;
+        }
+
+        public static List<ChangelogGroup> CreateGroups(this Changelog changelog)
+        {
+            Argument.IsNotNull(() => changelog);
+
+            var groups = new Dictionary<string, ChangelogGroup>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (var item in changelog.Items)
+            {
+                var groupName = item.Group ?? string.Empty;
+
+                if (!groups.TryGetValue(groupName, out var group))
+                {
+                    group = new ChangelogGroup
+                    {
+                        Name = groupName
+                    };
+
+                    groups[groupName] = group;
+                }
+
+                group.Items.Add(item);
+            }
+
+            return groups.Values.OrderBy(x => x.Name).ToList();
         }
     }
 }
