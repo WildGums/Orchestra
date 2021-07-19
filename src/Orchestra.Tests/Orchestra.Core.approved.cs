@@ -199,7 +199,14 @@ namespace Orchestra.Changelog
     }
     public static class ChangelogExtensions
     {
+        public static System.Collections.Generic.List<Orchestra.Changelog.ChangelogGroup> CreateGroups(this Orchestra.Changelog.Changelog changelog) { }
         public static Orchestra.Changelog.Changelog GetDelta(this Orchestra.Changelog.Changelog changelog1, Orchestra.Changelog.Changelog changelog2) { }
+    }
+    public class ChangelogGroup
+    {
+        public ChangelogGroup() { }
+        public System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem> Items { get; }
+        public string Name { get; set; }
     }
     public class ChangelogItem
     {
@@ -272,7 +279,7 @@ namespace Orchestra.Changelog.ViewModels
     {
         public ChangelogViewModel(Orchestra.Changelog.Changelog changelog, Orchestra.Changelog.IChangelogService changelogService, Orchestra.Changelog.IChangelogSnapshotService changelogSnapshotService) { }
         public Orchestra.Changelog.Changelog Changelog { get; }
-        public System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem> Items { get; }
+        public System.Collections.Generic.List<Orchestra.Changelog.ChangelogGroup> Groups { get; }
         protected override System.Threading.Tasks.Task<bool> SaveAsync() { }
     }
 }

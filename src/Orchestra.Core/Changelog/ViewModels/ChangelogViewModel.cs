@@ -23,13 +23,13 @@
             _changelogService = changelogService;
             _changelogSnapshotService = changelogSnapshotService;
 
-            Items = changelog.Items;
+            Groups = changelog.CreateGroups();
             Title = changelog.Title ?? LanguageHelper.GetString("Orchestra_Changelog");
         }
 
         public Changelog Changelog { get; }
 
-        public List<ChangelogItem> Items { get; }
+        public List<ChangelogGroup> Groups { get; }
 
         protected override async Task<bool> SaveAsync()
         {

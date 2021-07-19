@@ -21,13 +21,13 @@ namespace Orchestra.Services
             : base(viewLocator, dispatcherService)
         {
         }
-        
-        protected override async Task<bool?> ShowWindowAsync(FrameworkElement window, object data, bool showModal)
+
+        public override async Task<bool?> ShowWindowAsync(FrameworkElement window, UIVisualizerContext context)
         {
             var simpleDialog = window as CustomDialog;
             if (simpleDialog is not null)
             {
-                if (showModal)
+                if (context.IsModal)
                 {
                     var metroWindow = Application.Current.GetMainWindow();
                     await metroWindow.ShowMetroDialogAsync(simpleDialog);
@@ -47,7 +47,8 @@ namespace Orchestra.Services
                 return true;
             }
 
-            return await base.ShowWindowAsync(window, data, showModal);
+            var baseResult = await base.ShowWindowAsync(window, context);
+            return baseResult;
         }
     }
 }

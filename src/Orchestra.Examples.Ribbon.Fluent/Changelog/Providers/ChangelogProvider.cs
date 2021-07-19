@@ -21,7 +21,7 @@
                 },
                 new ChangelogItem
                 {
-                    Group = "General",
+                    Group = "Bugs",
                     Name = "Bug example",
                     Type = ChangelogType.Bug
                 },
@@ -43,7 +43,7 @@
             {
                 items.Add(new ChangelogItem
                 {
-                    Group = "General",
+                    Group = "Special group",
                     Name = $"Change example {i + 1}",
                     Type = ChangelogType.Change
                 });
