@@ -75,7 +75,6 @@
                 return;
             }
 
-
             var configBackupFolderPath = Path.Combine(_appDataService.GetApplicationDataDirectory(applicationDataTarget), "backup", "config");
 
             _directoryService.Create(configBackupFolderPath);
