@@ -1,6 +1,7 @@
 ﻿namespace Orchestra.Services
 {
     using System;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -47,11 +48,17 @@
                 var roamingConfigFilePathField = _configurationService.GetType().GetFieldEx("_roamingConfigFilePath", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                 var localConfigFilePathField = _configurationService.GetType().GetFieldEx("_localConfigFilePath", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
-                var roamingConfigFilePath = roamingConfigFilePathField.GetValue(_configurationService).ToString();
-                var localConfigFilePath = localConfigFilePathField.GetValue(_configurationService).ToString();
+                var roamingConfigFilePath = roamingConfigFilePathField.GetValue(_configurationService)?.ToString();
+                if (!string.IsNullOrWhiteSpace(roamingConfigFilePath))
+                {
+                    await BackupConfigurationAsync(roamingConfigFilePath, Catel.IO.ApplicationDataTarget.UserRoaming);
+                }
 
-                await BackupConfigurationAsync(roamingConfigFilePath, Catel.IO.ApplicationDataTarget.UserRoaming);
-                await BackupConfigurationAsync(localConfigFilePath, Catel.IO.ApplicationDataTarget.UserLocal);
+                var localConfigFilePath = localConfigFilePathField.GetValue(_configurationService).ToString();
+                if (!string.IsNullOrWhiteSpace(localConfigFilePath))
+                {
+                    await BackupConfigurationAsync(localConfigFilePath, Catel.IO.ApplicationDataTarget.UserLocal);
+                }
             }
             catch (Exception ex)
             {
@@ -73,6 +80,23 @@
             var configBackupFolderPath = Path.Combine(_appDataService.GetApplicationDataDirectory(applicationDataTarget), "backup", "config");
 
             _directoryService.Create(configBackupFolderPath);
+            
+            Log.Info($"Created configuration backup, {applicationDataTarget}");
+
+            // Save current configuration
+            var process = Process.GetCurrentProcess();
+            var dateTime = process.StartTime;
+
+            var targetFileName = Path.Combine(configBackupFolderPath, $"configuration.{string.Format(BackupTimeStampFormat, dateTime)}.xml");
+            if (_fileService.Exists(targetFileName))
+            {
+                // Already created
+                return;
+            }
+
+            _fileService.Copy(configurationFilePath, targetFileName, true);
+
+            Log.Info($"Created configuration backup, {applicationDataTarget}");
 
             var backupConfigurationFiles = _directoryService.GetFiles(configBackupFolderPath, "configuration*").OrderBy(f => f).ToList();
             if (backupConfigurationFiles.Count >= NumberOfBackups)
@@ -86,12 +110,6 @@
                     _fileService.Delete(backupFilePath);
                 }
             }
-
-            // Save current configuration
-            var targetFileName = Path.Combine(configBackupFolderPath, $"configuration.{string.Format(BackupTimeStampFormat, DateTime.Now)}.xml");
-            _fileService.Copy(configurationFilePath, targetFileName, true);
-
-            Log.Info($"Created configuration backup, {applicationDataTarget}");
         }
     }
 }
