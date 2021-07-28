@@ -163,7 +163,8 @@ namespace Orchestra.Services
 
             await _ensureStartupService.EnsureFailSafeStartupAsync();
 
-            // Maintaining backups
+            // Maintaining backups, note that we do this in several locations since we want 
+            // to ensure a valid backup (and process start time will be used for the file name)
             await _configurationBackupService.BackupAsync();
 
             var shell = default(TShell);
@@ -173,6 +174,10 @@ namespace Orchestra.Services
             {
                 await InitializeBeforeCreatingShellAsync();
 
+                // Maintaining backups, note that we do this in several locations since we want 
+                // to ensure a valid backup (and process start time will be used for the file name)
+                await _configurationBackupService.BackupAsync();
+
                 shell = await CreateShellAsync<TShell>();
 
                 _keyboardMappingsService.Load();
@@ -180,15 +185,31 @@ namespace Orchestra.Services
                 // Now we have a new window, resubscribe the command manager
                 _commandManager.SubscribeToKeyboardEvents();
 
+                // Maintaining backups, note that we do this in several locations since we want 
+                // to ensure a valid backup (and process start time will be used for the file name)
+                await _configurationBackupService.BackupAsync();
+
                 await InitializeAfterCreatingShellAsync();
+
+                // Maintaining backups, note that we do this in several locations since we want 
+                // to ensure a valid backup (and process start time will be used for the file name)
+                await _configurationBackupService.BackupAsync();
 
                 Log.Info("Confirming that application was started successfully");
 
                 _ensureStartupService.ConfirmApplicationStartedSuccessfully();
 
+                // Maintaining backups, note that we do this in several locations since we want 
+                // to ensure a valid backup (and process start time will be used for the file name)
+                await _configurationBackupService.BackupAsync();
+
                 await InitializeBeforeShowingShellAsync();
 
                 ShowShell(shell);
+
+                // Maintaining backups, note that we do this in several locations since we want 
+                // to ensure a valid backup (and process start time will be used for the file name)
+                await _configurationBackupService.BackupAsync();
 
                 if (postShowShellCallback is not null)
                 {
@@ -196,6 +217,10 @@ namespace Orchestra.Services
                 }
 
                 await InitializeAfterShowingShellAsync();
+
+                // Maintaining backups, note that we do this in several locations since we want 
+                // to ensure a valid backup (and process start time will be used for the file name)
+                await _configurationBackupService.BackupAsync();
             }
             catch (Exception ex)
             {
