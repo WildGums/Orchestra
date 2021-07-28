@@ -54,7 +54,7 @@
                     await BackupConfigurationAsync(roamingConfigFilePath, Catel.IO.ApplicationDataTarget.UserRoaming);
                 }
 
-                var localConfigFilePath = localConfigFilePathField.GetValue(_configurationService).ToString();
+                var localConfigFilePath = localConfigFilePathField.GetValue(_configurationService)?.ToString();
                 if (!string.IsNullOrWhiteSpace(localConfigFilePath))
                 {
                     await BackupConfigurationAsync(localConfigFilePath, Catel.IO.ApplicationDataTarget.UserLocal);
