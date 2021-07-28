@@ -75,13 +75,9 @@
                 return;
             }
 
-            Log.Info($"Creating configuration backup, {applicationDataTarget}");
-
             var configBackupFolderPath = Path.Combine(_appDataService.GetApplicationDataDirectory(applicationDataTarget), "backup", "config");
 
             _directoryService.Create(configBackupFolderPath);
-            
-            Log.Info($"Created configuration backup, {applicationDataTarget}");
 
             // Save current configuration
             var process = Process.GetCurrentProcess();
@@ -93,6 +89,8 @@
                 // Already created
                 return;
             }
+
+            Log.Info($"Creating configuration backup, {applicationDataTarget}");
 
             _fileService.Copy(configurationFilePath, targetFileName, true);
 
