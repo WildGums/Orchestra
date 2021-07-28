@@ -18,6 +18,7 @@
     {
         private TestConfigurationBackupService _testConfigurationBackupService = null;
        
+        [Explicit("Because we use current process start date/time for file formatting, we cannot run this multiple times in the same instance of a test")]
         [TestCase(
             @"C:\Users\{0}\AppData\Roaming\WildGums\Orchestra.Examples.Ribbon.Fluent\testconfiguration.xml",
             @"C:\Users\{0}\AppData\Local\WildGums\Orchestra.Examples.Ribbon.Fluent\testconfiguration.xml",
