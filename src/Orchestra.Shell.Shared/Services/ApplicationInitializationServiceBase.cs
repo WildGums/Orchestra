@@ -95,16 +95,9 @@ namespace Orchestra.Services
         {
             var serviceLocator = ServiceLocator.Default;
             var changelogService = serviceLocator.ResolveType<IChangelogService>();
-            var changelogSnapshotService = serviceLocator.ResolveType<IChangelogSnapshotService>();
             var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
 
             var changelog = await changelogService.GetChangelogSinceSnapshotAsync();
-            if (changelog.Type == ChangelogDeltaType.Full)
-            {
-                await changelogSnapshotService.SerializeSnapshotAsync(changelog);
-
-                return;
-            }
             if (!changelog.IsEmpty)
             {
                 await uiVisualizerService.ShowDialogAsync<ChangelogViewModel>(changelog);

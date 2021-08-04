@@ -14,7 +14,7 @@
 
             // Note: we do simple delta comparsion, only the ones we added should be part
 
-            var delta = new Changelog(ChangelogDeltaType.Delta);
+            var delta = new Changelog();
 
             foreach (var item in changelog2.Items)
             {

@@ -7,7 +7,6 @@
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Reflection;
-    using Orc.FileSystem;
 
     public class ChangelogService : IChangelogService
     {
@@ -17,17 +16,14 @@
 
         private readonly ITypeFactory _typeFactory;
         private readonly IChangelogSnapshotService _changelogSnapshotService;
-        private readonly IFileService _fileService;
 
-        public ChangelogService(ITypeFactory typeFactory, IChangelogSnapshotService changelogSnapshotService, IFileService fileService)
+        public ChangelogService(ITypeFactory typeFactory, IChangelogSnapshotService changelogSnapshotService)
         {
             Argument.IsNotNull(() => typeFactory);
             Argument.IsNotNull(() => changelogSnapshotService);
-            Argument.IsNotNull(() => fileService);
 
             _typeFactory = typeFactory;
             _changelogSnapshotService = changelogSnapshotService;
-            _fileService = fileService;
         }
 
         public virtual async Task<Changelog> GetChangelogSinceSnapshotAsync()
@@ -36,7 +32,8 @@
             var changelog = await GetChangelogAsync();
             if (snapshot is null)
             {
-                return changelog;
+                await _changelogSnapshotService.SerializeSnapshotAsync(changelog);
+                return new Changelog();
             }
 
             var delta = snapshot.GetDelta(changelog);
