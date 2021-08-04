@@ -30,6 +30,11 @@
         {
             var snapshot = await _changelogSnapshotService.DeserializeSnapshotAsync();
             var changelog = await GetChangelogAsync();
+            if (snapshot is null)
+            {
+                await _changelogSnapshotService.SerializeSnapshotAsync(changelog);
+                return new Changelog();
+            }
 
             var delta = snapshot.GetDelta(changelog);
             delta.Title = LanguageHelper.GetString("Orchestra_ChangelogWhatsNew");
