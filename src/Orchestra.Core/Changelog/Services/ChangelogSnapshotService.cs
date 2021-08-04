@@ -50,12 +50,13 @@
 
             Log.Debug($"Deserializing changelog snapshot from '{fileName}'");
 
-            if (_fileService.Exists(fileName))
+            if (!_fileService.Exists(fileName))
             {
-                var json = await _fileService.ReadAllTextAsync(fileName);
-
-                JsonConvert.PopulateObject(json, snapshot, GetSerializerSettings());
+                return null;
             }
+
+            var json = await _fileService.ReadAllTextAsync(fileName);
+            JsonConvert.PopulateObject(json, snapshot, GetSerializerSettings());
 
             return snapshot;
         }

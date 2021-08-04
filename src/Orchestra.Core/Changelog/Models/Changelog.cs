@@ -4,9 +4,10 @@
 
     public class Changelog
     {
-        public Changelog()
+        public Changelog(ChangelogDeltaType type = ChangelogDeltaType.Full)
         {
             Items = new List<ChangelogItem>();
+            Type = type;
         }
 
         public string Title { get; set; }
@@ -14,5 +15,7 @@
         public List<ChangelogItem> Items { get; private set; }
 
         public bool IsEmpty => Items.Count == 0;
+
+        public ChangelogDeltaType Type { get; }
     }
 }
