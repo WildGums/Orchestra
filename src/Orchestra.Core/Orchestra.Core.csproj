@@ -26,7 +26,7 @@
     <PackageReference Include="Catel.Fody" Version="4.7.0" PrivateAssets="all" />
     <PackageReference Include="Catel.MVVM" Version="5.12.18" />
     <PackageReference Include="DotNetZip" Version="1.15.0" />
-    <PackageReference Include="Fody" Version="6.5.2" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="6.5.3" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.6.0" PrivateAssets="all" />
