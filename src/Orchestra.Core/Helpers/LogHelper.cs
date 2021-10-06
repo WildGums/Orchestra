@@ -113,7 +113,17 @@ namespace Orchestra
 
         private static void AddFileLogListener(string prefix)
         {
-            var fileLogListener = CreateFileLogListener(prefix);
+            var fileLogListener = CreateFileLogListener(prefix) as Catel.Logging.FileLogListener;
+            if (fileLogListener is null)
+            {
+                return;
+            }
+
+            if (File.Exists(fileLogListener.FilePath))
+            {
+                // Already creating a log here, no need to do it again
+                return;
+            }
 
             LogManager.AddListener(fileLogListener);
 
