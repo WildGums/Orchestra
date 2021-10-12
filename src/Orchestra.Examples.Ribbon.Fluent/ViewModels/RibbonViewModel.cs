@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RibbonViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.Ribbon.ViewModels
+﻿namespace Orchestra.Examples.Ribbon.ViewModels
 {
     using System;
     using System.Collections.Generic;
