@@ -25,7 +25,7 @@
   <ItemGroup>
     <PackageReference Include="Catel.Fody" Version="4.7.0" PrivateAssets="all" />
     <PackageReference Include="Costura.Fody" Version="5.6.0" PrivateAssets="all" />
-    <PackageReference Include="Fody" Version="6.5.4" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="6.5.5" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.6.0" PrivateAssets="all" />
