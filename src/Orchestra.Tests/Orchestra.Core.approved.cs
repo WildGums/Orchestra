@@ -1,5 +1,5 @@
 ﻿[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
-[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v5.0", FrameworkDisplayName="")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v6.0", FrameworkDisplayName="")]
 [assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Behaviors")]
 [assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Controls")]
 [assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Converters")]
@@ -166,6 +166,11 @@ namespace Orchestra
         public static void SetMaximumHeight(this System.Windows.Window window) { }
         public static void SetMaximumWidth(this System.Windows.Window window) { }
         public static void SetMaximumWidthAndHeight(this System.Windows.Window window) { }
+    }
+    public static class ZipArchiveExtensions
+    {
+        public static void CreateEntryFromAny(this System.IO.Compression.ZipArchive archive, string sourceName, string entryName, System.IO.Compression.CompressionLevel compressionLevel = 0) { }
+        public static void CreateEntryFromDirectory(this System.IO.Compression.ZipArchive archive, string sourceDirName, string entryName, System.IO.Compression.CompressionLevel compressionLevel) { }
     }
 }
 namespace Orchestra.Behaviors

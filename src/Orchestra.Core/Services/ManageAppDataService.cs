@@ -1,21 +1,14 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AppDataService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.IO.Compression;
     using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
     using Catel.Reflection;
     using Catel.Services;
-    using Ionic.Zip;
     using Orc.FileSystem;
 
     public class ManageAppDataService : Orchestra.Services.IManageAppDataService
@@ -111,10 +104,14 @@ namespace Orchestra.Services
 
             Log.Debug("Writing zip file to '{0}'", zipFileName);
 
-            using (var zipFile = new ZipFile())
+            using (var fileStream = _fileService.Create(zipFileName))
             {
-                zipFile.AddDirectory(applicationDataDirectory, null);
-                zipFile.Save(zipFileName);
+                using (var zipArchive = new ZipArchive(fileStream, ZipArchiveMode.Create))
+                {
+                    zipArchive.CreateEntryFromDirectory(applicationDataDirectory, string.Empty, CompressionLevel.Optimal);
+
+                    await fileStream.FlushAsync();
+                }
             }
 
             return true;
