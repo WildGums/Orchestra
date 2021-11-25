@@ -133,10 +133,12 @@ namespace Orchestra
 
         private static void ConfigureFileSystemWatcher(string directory, string filter)
         {
+#pragma warning disable IDISP001 // Dispose created.
             var fileSystemWatcher = new FileSystemWatcher(directory, filter)
             {
                 EnableRaisingEvents = true
             };
+#pragma warning restore IDISP001 // Dispose created.
 
             fileSystemWatcher.Created += (sender, args) => { CleanUpLogFiles(directory, filter); };
         }

@@ -30,7 +30,10 @@ namespace Orchestra.Services
         {
             InitializeLogging();
 
+#pragma warning disable IDISP001 // Dispose created.
             var serviceLocator = this.GetServiceLocator();
+#pragma warning restore IDISP001 // Dispose created.
+
             var xamlResourceService = serviceLocator.ResolveType<IXamlResourceService>();
             var themeService = serviceLocator.ResolveType<IThemeService>();
             var orchestraThemeManager = serviceLocator.ResolveType<IThemeManager>();

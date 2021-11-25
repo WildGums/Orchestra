@@ -44,14 +44,16 @@
                 ResourceHelper.ExtractEmbeddedResource(assembly, rootNamespace, relativeResourceName, memoryStream);
 
                 memoryStream.Position = 0L;
-                var textReader = new StreamReader(memoryStream);
 
-                Content = "[failed to load resources]";
-
-                var content = textReader.ReadToEnd();
-                if (!string.IsNullOrEmpty(content))
+                using (var textReader = new StreamReader(memoryStream))
                 {
-                    Content = content;
+                    Content = "[failed to load resources]";
+
+                    var content = textReader.ReadToEnd();
+                    if (!string.IsNullOrEmpty(content))
+                    {
+                        Content = content;
+                    }
                 }
             }
         }
