@@ -36,7 +36,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Obsolete.Fody" Version="5.2.1" PrivateAssets="all" />
     <PackageReference Include="Orc.Controls" Version="4.7.0-alpha0165" />
-    <PackageReference Include="Orc.FileSystem" Version="4.2.0-alpha0379" />
+    <PackageReference Include="Orc.FileSystem" Version="4.2.0-alpha0396" />
     <PackageReference Include="Orc.SystemInfo" Version="4.3.0-alpha0262" />
     <PackageReference Include="Orc.Theming" Version="4.5.0-alpha0151" />
   </ItemGroup>
