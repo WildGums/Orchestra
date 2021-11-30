@@ -63,8 +63,11 @@ namespace Orchestra.Services
         public virtual bool ShowChangelog { get; }
         public virtual bool ShowShell { get; }
         public virtual bool ShowSplashScreen { get; }
+        protected virtual System.Globalization.CultureInfo GetApplicationCulture() { }
+        protected virtual System.Windows.Markup.XmlLanguage GetApplicationLanguage() { }
         public virtual System.Threading.Tasks.Task InitializeAfterCreatingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeAfterShowingShellAsync() { }
+        protected virtual void InitializeApplicationLanguage(System.Windows.Markup.XmlLanguage xmlLanguage) { }
         public virtual System.Threading.Tasks.Task InitializeBeforeCreatingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingSplashScreenAsync() { }

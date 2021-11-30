@@ -8,7 +8,10 @@
 namespace Orchestra.Services
 {
     using System;
+    using System.Globalization;
     using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Markup;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
@@ -20,6 +23,8 @@ namespace Orchestra.Services
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService
     {
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         public virtual bool ShowSplashScreen => true;
 
         public virtual bool ShowShell => true;
@@ -29,6 +34,9 @@ namespace Orchestra.Services
         public virtual async Task InitializeBeforeShowingSplashScreenAsync()
         {
             InitializeLogging();
+
+            var xmlLanguage = GetApplicationLanguage();
+            InitializeApplicationLanguage(xmlLanguage);
 
 #pragma warning disable IDISP001 // Dispose created.
             var serviceLocator = this.GetServiceLocator();
@@ -78,6 +86,29 @@ namespace Orchestra.Services
         protected static async Task RunAndWaitAsync(params Func<Task>[] actions)
         {
             await TaskHelper.RunAndWaitAsync(actions);
+        }
+
+        protected virtual CultureInfo GetApplicationCulture()
+        {
+            return CultureInfo.CurrentCulture;
+        }
+
+        protected virtual XmlLanguage GetApplicationLanguage()
+        {
+            var culture = GetApplicationCulture();
+            var xmlLanguage = XmlLanguage.GetLanguage(culture.IetfLanguageTag);
+
+            return xmlLanguage;
+        }
+        
+        protected virtual void InitializeApplicationLanguage(XmlLanguage xmlLanguage)
+        {
+            Log.Debug($"Setting application language to '{xmlLanguage.IetfLanguageTag}'");
+
+            // Ensure that we are using the right culture
+#pragma warning disable WPF0011 // Containing type should be used as registered owner.
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(xmlLanguage));
+#pragma warning restore WPF0011 // Containing type should be used as registered owner.
         }
 
         protected virtual void InitializeLogging()
