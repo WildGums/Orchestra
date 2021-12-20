@@ -887,11 +887,13 @@ namespace Orchestra.Theming
     {
         protected bool _ensuredOrchestraThemes;
         public ThemeManager(Orc.Theming.IAccentColorService accentColorService, Orc.Theming.IBaseColorSchemeService baseColorSchemeService) { }
+        protected virtual void AddResourceDictionary(System.Windows.ResourceDictionary applicationResourcesDictionary, System.Windows.ResourceDictionary resourceDictionary) { }
         public virtual void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = false) { }
         public virtual void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false) { }
         public virtual void EnsureApplicationThemes(System.Windows.ResourceDictionary resourceDictionary, bool createStyleForwarders = false) { }
         protected virtual void EnsureOrchestraTheme(bool createStyleForwarders) { }
         protected virtual System.Windows.ResourceDictionary GetTargetApplicationResourceDictionary() { }
+        protected virtual bool IsResourceDictionaryAlreadyAdded(System.Windows.ResourceDictionary applicationResourcesDictionary, System.Windows.ResourceDictionary resourceDictionary) { }
         public virtual bool IsResourceDictionaryAvailable(string resourceDictionaryUri) { }
         public virtual void SynchronizeTheme() { }
     }
