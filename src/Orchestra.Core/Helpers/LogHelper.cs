@@ -50,11 +50,11 @@ namespace Orchestra
         /// <summary>
         /// Maximum Log file size in KBs
         /// </summary>
-        public static int MaxFileLogSizeDefault = 10 * 1024;
+        public static int MaxFileLogSize = 10 * 1024;
 
-        public static int MaxLogFileArchiveDaysDefault = 14;
+        public static int MaxLogFileArchiveDays = 14;
 
-        public static int MaxLogFileArchiveFilesCountDefault = 20;
+        public static int MaxLogFileArchiveFilesCount = 20;
 
         /// <summary>
         /// Adds a file log listener.
@@ -89,7 +89,7 @@ namespace Orchestra
             }
 
             var fileName = Path.Combine(directory, prefix + "_{Date}_{Time}_{ProcessId}");
-            var fileLogListener = new Orchestra.Logging.FileLogListener(fileName, MaxFileLogSizeDefault);
+            var fileLogListener = new Orchestra.Logging.FileLogListener(fileName, MaxFileLogSize);
 
             return fileLogListener;
         }
@@ -101,10 +101,10 @@ namespace Orchestra
             foreach (var prefix in LogFilePrefixes.All)
             {
                 var filter = prefix + "*.log";
-                CleanUpLogFiles(directory, filter, MaxLogFileArchiveDaysDefault, MaxLogFileArchiveFilesCountDefault);
+                CleanUpLogFiles(directory, filter, MaxLogFileArchiveDays, MaxLogFileArchiveFilesCount);
                 if (keepCleanInRealTime)
                 {
-                    ConfigureFileSystemWatcher(directory, filter, (args) => CleanUpLogFiles(directory, filter, MaxLogFileArchiveDaysDefault, MaxLogFileArchiveFilesCountDefault));
+                    ConfigureFileSystemWatcher(directory, filter, (args) => CleanUpLogFiles(directory, filter, MaxLogFileArchiveDays, MaxLogFileArchiveFilesCount));
                 }
             }
         }
