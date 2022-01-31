@@ -107,6 +107,9 @@ namespace Orchestra
     }
     public static class LogHelper
     {
+        public static int MaxFileLogSize { get; set; }
+        public static int MaxLogFileArchiveDays { get; set; }
+        public static int MaxLogFileArchiveFilesCount { get; set; }
         public static void AddFileLogListener() { }
         public static System.Threading.Tasks.Task AddLogListenerForUnhandledExceptionAsync(System.Exception ex) { }
         public static void CleanUpAllLogTypeFiles(bool keepCleanInRealTime = false) { }
