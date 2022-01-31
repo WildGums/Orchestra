@@ -50,11 +50,11 @@ namespace Orchestra
         /// <summary>
         /// Maximum Log file size in KBs
         /// </summary>
-        public static int MaxFileLogSize = 10 * 1024;
+        public static int MaxFileLogSize { get; set;  } = 10 * 1024;
 
-        public static int MaxLogFileArchiveDays = 14;
+        public static int MaxLogFileArchiveDays { get; set; } = 14;
 
-        public static int MaxLogFileArchiveFilesCount = 20;
+        public static int MaxLogFileArchiveFilesCount { get; set; } = 20;
 
         /// <summary>
         /// Adds a file log listener.
