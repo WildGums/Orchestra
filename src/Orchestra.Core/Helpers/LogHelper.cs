@@ -52,9 +52,9 @@ namespace Orchestra
         /// </summary>
         public static int MaxFileLogSizeDefault = 10 * 1024;
 
-        public static int MaxLogFileArchiveDaysDefault = 7;
+        public static int MaxLogFileArchiveDaysDefault = 14;
 
-        public static int MaxLogFileArchiveFilesCountDefault = 10;
+        public static int MaxLogFileArchiveFilesCountDefault = 20;
 
         /// <summary>
         /// Adds a file log listener.
