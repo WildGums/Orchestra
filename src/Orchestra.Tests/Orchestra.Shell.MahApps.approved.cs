@@ -51,7 +51,7 @@ namespace Orchestra.Services
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingSplashScreenAsync() { }
         protected virtual void InitializeLogging() { }
         protected virtual System.Threading.Tasks.Task ShowChangelogAsync() { }
-        protected static System.Threading.Tasks.Task RunAndWaitAsync(params System.Func<>[] actions) { }
+        protected static System.Threading.Tasks.Task RunAndWaitAsync(params System.Func<System.Threading.Tasks.Task>[] actions) { }
     }
     public class FlyoutService : Orchestra.Services.IFlyoutService
     {
