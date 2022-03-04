@@ -895,9 +895,12 @@ namespace Orchestra.Theming
         public virtual void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false) { }
         public virtual void EnsureApplicationThemes(System.Windows.ResourceDictionary resourceDictionary, bool createStyleForwarders = false) { }
         protected virtual void EnsureOrchestraTheme(bool createStyleForwarders) { }
+        protected virtual System.Reflection.Assembly GetAssembly(string assemblyName) { }
         protected virtual System.Windows.ResourceDictionary GetTargetApplicationResourceDictionary() { }
         protected virtual bool IsResourceDictionaryAlreadyAdded(System.Windows.ResourceDictionary applicationResourcesDictionary, System.Windows.ResourceDictionary resourceDictionary) { }
         public virtual bool IsResourceDictionaryAvailable(string resourceDictionaryUri) { }
+        protected virtual bool IsResourceDictionaryAvailableUncached(string resourceDictionaryUri) { }
+        protected virtual bool IsResourceDictionaryAvailableUncached(string resourceDictionaryUri, System.Reflection.Assembly assembly, string expectedResourceName) { }
         public virtual void SynchronizeTheme() { }
     }
 }
