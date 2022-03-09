@@ -238,7 +238,7 @@
 
             _resourceDictionaryExists[resourceDictionaryUri] = exists;
 
-            return false;
+            return exists;
         }
 
         //[Time("{resourceDictionaryUri}")] // 9 ms
@@ -291,7 +291,7 @@
                     {
                         if (((string)resource.Key).EqualsIgnoreCase(relativeResourceName))
                         {
-                            //Log.Debug($"Resource '{resourceDictionaryUri}' exists");
+                            Log.Debug($"Resource '{resourceDictionaryUri}' exists");
                             return true;
                         }
                     }
