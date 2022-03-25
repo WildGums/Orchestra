@@ -21,6 +21,7 @@
         private readonly ControlzEx.Theming.ThemeManager _themeManager;
 
         private readonly Dictionary<string, bool> _resourceDictionaryExists = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
+        private readonly HashSet<string> _addedResourceDictionaries = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         protected bool _ensuredOrchestraThemes;
 
@@ -101,7 +102,10 @@
             if (resourceExists)
             {
                 var uri = new Uri(resourceDictionaryUri, UriKind.RelativeOrAbsolute);
-                var dict = new ResourceDictionary { Source = uri };
+                var dict = new ResourceDictionary
+                {
+                    Source = uri
+                };
 
                 EnsureApplicationThemes(dict, createStyleForwarders);
             }
@@ -117,28 +121,12 @@
             try
             {
                 var applicationResourcesDictionary = GetTargetApplicationResourceDictionary();
-                if (applicationResourcesDictionary is null == false)
+                if (applicationResourcesDictionary is not null)
                 {
-                    var alreadyAdded = false;
-
-                    if (resourceDictionary.Source is null)
-                    {
-                        // Runtime, check by instance
-                        alreadyAdded = (from dic in applicationResourcesDictionary.MergedDictionaries
-                                        where ReferenceEquals(dic, resourceDictionary)
-                                        select dic).Any();
-                    }
-                    else
-                    {
-                        // Defined, check by uri
-                        alreadyAdded = (from dic in applicationResourcesDictionary.MergedDictionaries
-                                        where dic.Source is not null && dic.Source == resourceDictionary.Source
-                                        select dic).Any();
-                    }
-
+                    var alreadyAdded = IsResourceDictionaryAlreadyAdded(applicationResourcesDictionary, resourceDictionary);
                     if (!alreadyAdded)
                     {
-                        applicationResourcesDictionary.MergedDictionaries.Add(resourceDictionary);
+                        AddResourceDictionary(applicationResourcesDictionary, resourceDictionary);
                     }
 
                     // Style forwarders only make sense once something actually changed. If it's a cascaded
@@ -155,6 +143,50 @@
             }
         }
 
+        [Time]
+        protected virtual bool IsResourceDictionaryAlreadyAdded(ResourceDictionary applicationResourcesDictionary,
+            ResourceDictionary resourceDictionary)
+        {
+            var source = resourceDictionary.Source;
+            var uri = source?.ToString();
+            if (!string.IsNullOrWhiteSpace(uri))
+            {
+                if (_addedResourceDictionaries.Contains(uri))
+                {
+                    Log.Debug("Returning IsResourceDictionaryAlreadyAdded from cache");
+                    return true;
+                }
+
+                Log.Debug("Returning IsResourceDictionaryAlreadyAdded by checking source");
+
+                // Defined, check by uri
+                return (from dic in applicationResourcesDictionary.MergedDictionaries
+                        where dic.Source is not null && dic.Source == source
+                        select dic).Any();
+            }
+
+            Log.Debug("Returning IsResourceDictionaryAlreadyAdded by checking reference");
+
+            // Runtime, check by instance since source is null
+            return (from dic in applicationResourcesDictionary.MergedDictionaries
+                    where ReferenceEquals(dic, resourceDictionary)
+                    select dic).Any();
+        }
+
+        [Time]
+        protected virtual void AddResourceDictionary(ResourceDictionary applicationResourcesDictionary,
+            ResourceDictionary resourceDictionary)
+        {
+            applicationResourcesDictionary.MergedDictionaries.Add(resourceDictionary);
+
+            var uri = resourceDictionary.Source?.ToString();
+            if (!string.IsNullOrWhiteSpace(uri))
+            {
+                _addedResourceDictionaries.Add(uri);
+            }
+        }
+
+        [Time]
         protected virtual ResourceDictionary GetTargetApplicationResourceDictionary()
         {
             var application = Application.Current;
@@ -202,58 +234,88 @@
                 return existingValue;
             }
 
-            var expectedResourceNames = resourceDictionaryUri.Split(new[] { ";component/" }, StringSplitOptions.RemoveEmptyEntries);
+            var exists = IsResourceDictionaryAvailableUncached(resourceDictionaryUri);
+
+            _resourceDictionaryExists[resourceDictionaryUri] = exists;
+
+            return exists;
+        }
+
+        //[Time("{resourceDictionaryUri}")] // 9 ms
+        protected virtual bool IsResourceDictionaryAvailableUncached(string resourceDictionaryUri)
+        {
+            var expectedResourceNames = resourceDictionaryUri.Split(";component/", StringSplitOptions.None);
             if (expectedResourceNames.Length == 2)
             {
                 // Part 1 is assembly
-                var assemblyName = expectedResourceNames[0].Replace("/", string.Empty);
-                var assembly = (from x in AppDomain.CurrentDomain.GetAssemblies()
-                                where x.GetName().Name.EqualsIgnoreCase(assemblyName)
-                                select x).FirstOrDefault();
+                //var assemblyName = expectedResourceNames[0].Replace("/", string.Empty, StringComparison.Ordinal);
+                var assemblyName = expectedResourceNames[0].Trim('/');
+                
+                var assembly = GetAssembly(assemblyName);
                 if (assembly is not null)
                 {
-                    // Orchestra.Core.g.resources
-                    var generatedResourceName = $"{assembly.GetName().Name}.g.resources";
+                    // Part 2 is resource name
+                    var resourceName = expectedResourceNames[1];
 
-                    using (var resourceStream = assembly.GetManifestResourceStream(generatedResourceName))
-                    {
-                        if (resourceStream is null)
-                        {
-                            Log.Debug($"Could not find generated resources @ '{generatedResourceName}', assuming the resource dictionary '{resourceDictionaryUri}' does not exist");
-
-                            _resourceDictionaryExists[resourceDictionaryUri] = false;
-                            return false;
-                        }
-
-                        var relativeResourceName = expectedResourceNames[1].Replace(".xaml", ".baml");
-
-                        using (var reader = new System.Resources.ResourceReader(resourceStream))
-                        {
-                            var exists = (from x in reader.Cast<DictionaryEntry>()
-                                          where ((string)x.Key).EqualsIgnoreCase(relativeResourceName)
-                                          select x).Any();
-                            if (exists)
-                            {
-                                Log.Debug($"Resource '{resourceDictionaryUri}' exists");
-
-                                _resourceDictionaryExists[resourceDictionaryUri] = true;
-                                return true;
-                            }
-                        }
-                    }
+                    var exists = IsResourceDictionaryAvailableUncached(resourceDictionaryUri, assembly, resourceName);
+                    return exists;
+                    //return true;
                 }
             }
 
             Log.Debug($"Failed to confirm that resource '{resourceDictionaryUri}' exists");
 
-            _resourceDictionaryExists[resourceDictionaryUri] = false;
             return false;
+        }
+
+        //[Time("{resourceDictionaryUri}")] // 1 ms
+        protected virtual bool IsResourceDictionaryAvailableUncached(string resourceDictionaryUri, Assembly assembly, string expectedResourceName)
+        {
+            // Orchestra.Core.g.resources
+            var generatedResourceName = $"{assembly.GetName().Name}.g.resources";
+
+            using (var resourceStream = assembly.GetManifestResourceStream(generatedResourceName))
+            {
+                if (resourceStream is null)
+                {
+                    Log.Debug($"Could not find generated resources @ '{generatedResourceName}', assuming the resource dictionary '{resourceDictionaryUri}' does not exist");
+
+                    return false;
+                }
+
+                var relativeResourceName = expectedResourceName.Replace(".xaml", ".baml");
+
+                using (var resourceReader = new System.Resources.ResourceReader(resourceStream))
+                {
+                    foreach (var resource in resourceReader.Cast<DictionaryEntry>())
+                    {
+                        if (((string)resource.Key).EqualsIgnoreCase(relativeResourceName))
+                        {
+                            Log.Debug($"Resource '{resourceDictionaryUri}' exists");
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        [Time("{assemblyName}")]
+        protected virtual Assembly GetAssembly(string assemblyName)
+        {
+            var assembly = (from x in AppDomain.CurrentDomain.GetAssemblies()
+                            where x.GetName().Name.EqualsIgnoreCase(assemblyName)
+                            select x).FirstOrDefault();
+
+            return assembly;
         }
 
         /// <summary>
         /// Ensures the orchestra theme.
         /// </summary>
         /// <param name="createStyleForwarders">if set to <c>true</c>, create style forwarders.</param>
+        [Time]
         protected virtual void EnsureOrchestraTheme(bool createStyleForwarders)
         {
             if (_ensuredOrchestraThemes)

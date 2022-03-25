@@ -1,5 +1,5 @@
 ﻿[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
-[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v5.0", FrameworkDisplayName="")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v6.0", FrameworkDisplayName="")]
 [assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Behaviors")]
 [assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Controls")]
 [assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Converters")]
@@ -107,6 +107,9 @@ namespace Orchestra
     }
     public static class LogHelper
     {
+        public static int MaxFileLogSize { get; set; }
+        public static int MaxLogFileArchiveDays { get; set; }
+        public static int MaxLogFileArchiveFilesCount { get; set; }
         public static void AddFileLogListener() { }
         public static System.Threading.Tasks.Task AddLogListenerForUnhandledExceptionAsync(System.Exception ex) { }
         public static void CleanUpAllLogTypeFiles(bool keepCleanInRealTime = false) { }
@@ -166,6 +169,11 @@ namespace Orchestra
         public static void SetMaximumHeight(this System.Windows.Window window) { }
         public static void SetMaximumWidth(this System.Windows.Window window) { }
         public static void SetMaximumWidthAndHeight(this System.Windows.Window window) { }
+    }
+    public static class ZipArchiveExtensions
+    {
+        public static void CreateEntryFromAny(this System.IO.Compression.ZipArchive archive, string sourceName, string entryName, System.IO.Compression.CompressionLevel compressionLevel = 0) { }
+        public static void CreateEntryFromDirectory(this System.IO.Compression.ZipArchive archive, string sourceDirName, string entryName, System.IO.Compression.CompressionLevel compressionLevel) { }
     }
 }
 namespace Orchestra.Behaviors
@@ -882,12 +890,17 @@ namespace Orchestra.Theming
     {
         protected bool _ensuredOrchestraThemes;
         public ThemeManager(Orc.Theming.IAccentColorService accentColorService, Orc.Theming.IBaseColorSchemeService baseColorSchemeService) { }
+        protected virtual void AddResourceDictionary(System.Windows.ResourceDictionary applicationResourcesDictionary, System.Windows.ResourceDictionary resourceDictionary) { }
         public virtual void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = false) { }
         public virtual void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false) { }
         public virtual void EnsureApplicationThemes(System.Windows.ResourceDictionary resourceDictionary, bool createStyleForwarders = false) { }
         protected virtual void EnsureOrchestraTheme(bool createStyleForwarders) { }
+        protected virtual System.Reflection.Assembly GetAssembly(string assemblyName) { }
         protected virtual System.Windows.ResourceDictionary GetTargetApplicationResourceDictionary() { }
+        protected virtual bool IsResourceDictionaryAlreadyAdded(System.Windows.ResourceDictionary applicationResourcesDictionary, System.Windows.ResourceDictionary resourceDictionary) { }
         public virtual bool IsResourceDictionaryAvailable(string resourceDictionaryUri) { }
+        protected virtual bool IsResourceDictionaryAvailableUncached(string resourceDictionaryUri) { }
+        protected virtual bool IsResourceDictionaryAvailableUncached(string resourceDictionaryUri, System.Reflection.Assembly assembly, string expectedResourceName) { }
         public virtual void SynchronizeTheme() { }
     }
 }

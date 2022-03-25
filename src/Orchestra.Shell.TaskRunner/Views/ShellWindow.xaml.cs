@@ -55,7 +55,10 @@ namespace Orchestra.Views
             
             LogManager.AddListener(fileLogListener);
 
+#pragma warning disable IDISP001 // Dispose created.
             var serviceLocator = this.GetServiceLocator();
+#pragma warning restore IDISP001 // Dispose created.
+
             var taskRunnerService = serviceLocator.ResolveType<ITaskRunnerService>();
             var commandManager = serviceLocator.ResolveType<ICommandManager>();
             var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();

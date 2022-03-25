@@ -22,7 +22,9 @@ namespace Orchestra.Services
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IFileService _fileService;
 
+#pragma warning disable IDISP006 // Implement IDisposable.
         private Stream _fileStream;
+#pragma warning restore IDISP006 // Implement IDisposable.
         #endregion
 
         #region Constructors
@@ -86,6 +88,8 @@ namespace Orchestra.Services
             {
                 // Always create the file, but not if the file is currently locked
                 Log.Debug("Creating fail safe file check for current instance");
+
+                _fileStream?.Dispose();
 
                 // Don't dispose yet, keep exclusive lock
                 _fileStream = _fileService.Open(checkFile, FileMode.Create, FileAccess.ReadWrite, FileShare.None);

@@ -19,48 +19,50 @@
         #region ISelectDirectoryService Members
         public async Task<bool> DetermineDirectoryAsync()
         {
-            var browserDialog = new CommonOpenFileDialog
+            using (var browserDialog = new CommonOpenFileDialog
+                {
+                    IsFolderPicker = true,
+                    Title = Title,
+                    InitialDirectory = InitialDirectory
+                })
             {
-                IsFolderPicker = true,
-                Title = Title,
-                InitialDirectory = InitialDirectory
-            };
+                if (browserDialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    DirectoryName = browserDialog.FileName;
+                    return true;
+                }
 
-            if (browserDialog.ShowDialog() == CommonFileDialogResult.Ok)
-            {
-                DirectoryName = browserDialog.FileName;
-                return true;
+                DirectoryName = string.Empty;
+                return false;
             }
-
-            DirectoryName = string.Empty;
-            return false;
         }
 
         public async Task<DetermineDirectoryResult> DetermineDirectoryAsync(DetermineDirectoryContext context)
         {
             Argument.IsNotNull(() => context);
 
-            var browserDialog = new CommonOpenFileDialog
+            using (var browserDialog = new CommonOpenFileDialog
+                {
+                    IsFolderPicker = true,
+                    Title = Title,
+                    InitialDirectory = context.InitialDirectory
+                })
             {
-                IsFolderPicker = true,
-                Title = Title,
-                InitialDirectory = context.InitialDirectory
-            };
+                var dialogResult = browserDialog.ShowDialog();
 
-            var dialogResult = browserDialog.ShowDialog();
+                var result = new DetermineDirectoryResult
+                {
+                    Result = dialogResult == CommonFileDialogResult.Ok,
+                };
 
-            var result = new DetermineDirectoryResult
-            {
-                Result = dialogResult == CommonFileDialogResult.Ok,
-            };
+                // Note: only get properties when succeeded, otherwise it will throw exceptions
+                if (result.Result)
+                {
+                    result.DirectoryName = browserDialog.FileName;
+                }
 
-            // Note: only get properties when succeeded, otherwise it will throw exceptions
-            if (result.Result)
-            {
-                result.DirectoryName = browserDialog.FileName;
+                return result;
             }
-
-            return result;
         }
         #endregion
     }

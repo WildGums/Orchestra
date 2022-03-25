@@ -1,5 +1,5 @@
 ﻿[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
-[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v5.0", FrameworkDisplayName="")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v6.0", FrameworkDisplayName="")]
 [assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Controls")]
 [assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Views")]
 [assembly: System.Windows.Markup.XmlnsDefinition("http://schemas.wildgums.com/orchestra", "Orchestra.Windows")]
@@ -63,14 +63,17 @@ namespace Orchestra.Services
         public virtual bool ShowChangelog { get; }
         public virtual bool ShowShell { get; }
         public virtual bool ShowSplashScreen { get; }
+        protected virtual System.Globalization.CultureInfo GetApplicationCulture() { }
+        protected virtual System.Windows.Markup.XmlLanguage GetApplicationLanguage() { }
         public virtual System.Threading.Tasks.Task InitializeAfterCreatingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeAfterShowingShellAsync() { }
+        protected virtual void InitializeApplicationLanguage(System.Windows.Markup.XmlLanguage xmlLanguage) { }
         public virtual System.Threading.Tasks.Task InitializeBeforeCreatingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingShellAsync() { }
         public virtual System.Threading.Tasks.Task InitializeBeforeShowingSplashScreenAsync() { }
         protected virtual void InitializeLogging() { }
         protected virtual System.Threading.Tasks.Task ShowChangelogAsync() { }
-        protected static System.Threading.Tasks.Task RunAndWaitAsync(params System.Func<>[] actions) { }
+        protected static System.Threading.Tasks.Task RunAndWaitAsync(params System.Func<System.Threading.Tasks.Task>[] actions) { }
     }
     public interface IApplicationInitializationService
     {

@@ -48,16 +48,22 @@ namespace Orchestra
 
         public static BitmapImage ExtractLargestIconFromFile(string filePath)
         {
+#pragma warning disable IDISP001 // Dispose created.
             var icon = ExtractIconFromFile(filePath);
+#pragma warning restore IDISP001 // Dispose created.
             if (icon is null)
             {
                 return null;
             }
 
+#pragma warning disable IDISP001 // Dispose created.
             var vistaIcon = ExtractVistaIcon(icon);
+#pragma warning restore IDISP001 // Dispose created.
             if (vistaIcon is null)
             {
+#pragma warning disable IDISP001 // Dispose created.
                 var bitmap = ExtractIcon(icon);
+#pragma warning restore IDISP001 // Dispose created.
                 if (bitmap is null)
                 {
                     return null;
@@ -102,12 +108,14 @@ namespace Orchestra
                         int imageOffset = BitConverter.ToInt32(srcBuf, SizeICONDIR + SizeICONDIRENTRY * iIndex + 12);
                         using (var destStream = new MemoryStream())
                         {
-                            var writer = new BinaryWriter(destStream);
-                            writer.Write(srcBuf, imageOffset, imageSize);
-                            destStream.Seek(0, SeekOrigin.Begin);
+                            using (var writer = new BinaryWriter(destStream))
+                            {
+                                writer.Write(srcBuf, imageOffset, imageSize);
+                                destStream.Seek(0, SeekOrigin.Begin);
 
-                            extractedIcon = new Bitmap(destStream); // This is PNG! :)
-                            return extractedIcon;
+                                extractedIcon = new Bitmap(destStream); // This is PNG! :)
+                                return extractedIcon;
+                            }
                         }
                     }
                 }
@@ -187,7 +195,7 @@ namespace Orchestra
             ////////////////////////////////////////////////////////////////////////
             // Fields
 
-            private byte[][] iconData = null;   // Binary data of each icon.
+            private byte[][] _iconData = null;   // Binary data of each icon.
 
             ////////////////////////////////////////////////////////////////////////
             // Public properties
@@ -206,7 +214,7 @@ namespace Orchestra
             /// </summary>
             public int Count
             {
-                get { return iconData.Length; }
+                get { return _iconData.Length; }
             }
 
             /// <summary>
@@ -233,7 +241,7 @@ namespace Orchestra
 
                 // Create an Icon based on a .ico file in memory.
 
-                using (var ms = new MemoryStream(iconData[index]))
+                using (var ms = new MemoryStream(_iconData[index]))
                 {
                     return new Icon(ms);
                 }
@@ -317,7 +325,7 @@ namespace Orchestra
                     };
                     NativeMethods.EnumResourceNames(hModule, RT_GROUP_ICON, callback, IntPtr.Zero);
 
-                    iconData = tmpData.ToArray();
+                    _iconData = tmpData.ToArray();
                 }
                 finally
                 {

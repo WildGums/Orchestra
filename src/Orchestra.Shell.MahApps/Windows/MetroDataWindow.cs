@@ -114,7 +114,10 @@ namespace Orchestra.Windows
                 return;
             }
 
+#pragma warning disable IDISP001 // Dispose created.
             var serviceLocator = this.GetServiceLocator();
+#pragma warning restore IDISP001 // Dispose created.
+
             _wrapControlService = serviceLocator.ResolveType<IWrapControlService>();
 
             Mode = mode;

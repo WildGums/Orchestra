@@ -23,15 +23,15 @@ private static void BuildSolution(BuildContext buildContext)
         NoLogo = true
     };
 
-    //ConfigureMsBuild(buildContext, msBuildSettings, dependency);
+    //ConfigureMsBuild(buildContext, msBuildSettings, dependency, "build");
 
-    RunMsBuild(buildContext, "Solution", solutionFileName, msBuildSettings);
+    RunMsBuild(buildContext, "Solution", solutionFileName, msBuildSettings, "build");
 }
 
 //-------------------------------------------------------------
 
 private static void ConfigureMsBuild(BuildContext buildContext, MSBuildSettings msBuildSettings, 
-    string projectName, string action = "build", bool? allowVsPrerelease = null)
+    string projectName, string action, bool? allowVsPrerelease = null)
 {
     var toolPath = GetVisualStudioPath(buildContext, allowVsPrerelease);
     if (!string.IsNullOrWhiteSpace(toolPath))
@@ -81,8 +81,8 @@ private static void ConfigureMsBuild(BuildContext buildContext, MSBuildSettings 
 
 //-------------------------------------------------------------
 
-private static void ConfigureMsBuildForDotNetCore(BuildContext buildContext, DotNetCoreMSBuildSettings msBuildSettings, 
-    string projectName, string action = "build", bool? allowVsPrerelease = null)
+private static void ConfigureMsBuildForDotNet(BuildContext buildContext, DotNetMSBuildSettings msBuildSettings, 
+    string projectName, string action, bool? allowVsPrerelease = null)
 {
     var toolPath = GetVisualStudioPath(buildContext, allowVsPrerelease);
     if (!string.IsNullOrWhiteSpace(toolPath))
@@ -122,12 +122,12 @@ private static void ConfigureMsBuildForDotNetCore(BuildContext buildContext, Dot
     });
 
     // Enable for bin logging
-    //msBuildSettings.BinaryLogger = new MSBuildBinaryLogSettings
-    //{
-    //    Enabled = true,
-    //    Imports = MSBuildBinaryLogImports.Embed,
-    //    FileName = System.IO.Path.Combine(OutputRootDirectory, string.Format(@"MsBuild_{0}_{1}.binlog", projectName, action))
-    //};
+    msBuildSettings.BinaryLogger = new MSBuildBinaryLoggerSettings
+    {
+        Enabled = true,
+        Imports = MSBuildBinaryLoggerImports.Embed,
+        FileName = System.IO.Path.Combine(buildContext.General.OutputRootDirectory, string.Format(@"MsBuild_{0}_{1}.binlog", projectName, action))
+    };
     
     // Note: this only works for direct .net core msbuild usage, not when this is
     // being wrapped in a tool (such as 'dotnet pack')
@@ -139,7 +139,7 @@ private static void ConfigureMsBuildForDotNetCore(BuildContext buildContext, Dot
 
 //-------------------------------------------------------------
 
-private static void RunMsBuild(BuildContext buildContext, string projectName, string projectFileName, MSBuildSettings msBuildSettings)
+private static void RunMsBuild(BuildContext buildContext, string projectName, string projectFileName, MSBuildSettings msBuildSettings, string action)
 {
     // IMPORTANT NOTE --- READ  <=============================================
     //
@@ -153,7 +153,6 @@ private static void RunMsBuild(BuildContext buildContext, string projectName, st
     var buildStopwatch = Stopwatch.StartNew();
 
     // Enforce additional logging for issues
-    var action = "build";
     //var logPath = System.IO.Path.Combine(buildContext.General.OutputRootDirectory, string.Format(@"MsBuild_{0}_{1}_log.binlog", projectName, action));
 
     buildContext.CakeContext.CreateDirectory(buildContext.General.OutputRootDirectory);
@@ -175,7 +174,7 @@ private static void RunMsBuild(BuildContext buildContext, string projectName, st
     }
 
     buildContext.CakeContext.Information(string.Empty);
-    buildContext.CakeContext.Information($"Done building project, took '{buildStopwatch.Elapsed}'");
+    buildContext.CakeContext.Information($"Done {action}ing project, took '{buildStopwatch.Elapsed}'");
     buildContext.CakeContext.Information(string.Empty);
     buildContext.CakeContext.Information($"Investigating potential issues using '{logPath}'");
     buildContext.CakeContext.Information(string.Empty);
@@ -225,14 +224,14 @@ private static void RunMsBuild(BuildContext buildContext, string projectName, st
 
     buildContext.CakeContext.Information(string.Empty);
     buildContext.CakeContext.Information($"Done investigating project, took '{investigationStopwatch.Elapsed}'");
-    buildContext.CakeContext.Information($"Total msbuild (build + investigation) took '{totalStopwatch.Elapsed}'");
+    buildContext.CakeContext.Information($"Total msbuild ({action} + investigation) took '{totalStopwatch.Elapsed}'");
     buildContext.CakeContext.Information(string.Empty);
 
     if (failBuild)
     {    
         buildContext.CakeContext.Information(string.Empty);
 
-        throw new Exception($"Build failed for project '{projectName}'");
+        throw new Exception($"{action} failed for project '{projectName}'");
     }
 }
 
@@ -260,26 +259,30 @@ private static string GetVisualStudioDirectory(BuildContext buildContext, bool? 
 {
     // TODO: Support different editions (e.g. Professional, Enterprise, Community, etc)
 
+    // Force 64-bit, even when running as 32-bit process
+    var programFilesx64 = Environment.ExpandEnvironmentVariables("%ProgramW6432%");
+    var programFilesx86 = Environment.ExpandEnvironmentVariables("%ProgramFiles(x86)%");
+
     var prereleasePaths = new List<KeyValuePair<string, string>>(new [] 
     { 
-        new KeyValuePair<string, string>("Visual Studio 2022 Preview", $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\Microsoft Visual Studio\2022\Preview\"),
-        new KeyValuePair<string, string>("Visual Studio 2019 Preview", $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)}\Microsoft Visual Studio\2019\Preview\"),
+        new KeyValuePair<string, string>("Visual Studio 2022 Preview", $@"{programFilesx64}\Microsoft Visual Studio\2022\Preview\"),
+        new KeyValuePair<string, string>("Visual Studio 2019 Preview", $@"{programFilesx86}\Microsoft Visual Studio\2019\Preview\"),
     });
 
     var normalPaths = new List<KeyValuePair<string, string>> (new []
     {
-        new KeyValuePair<string, string>("Visual Studio 2022 Enterprise", $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\Microsoft Visual Studio\2022\Enterprise\"),
-        new KeyValuePair<string, string>("Visual Studio 2022 Professional", $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\Microsoft Visual Studio\2022\Professional\"),
-        new KeyValuePair<string, string>("Visual Studio 2022 Community", $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\Microsoft Visual Studio\2022\Community\"),
-        new KeyValuePair<string, string>("Visual Studio 2019 Enterprise", $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)}\Microsoft Visual Studio\2019\Enterprise\"),
-        new KeyValuePair<string, string>("Visual Studio 2019 Professional", $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)}\Microsoft Visual Studio\2019\Professional\"),
-        new KeyValuePair<string, string>("Visual Studio 2019 Community", $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)}\Microsoft Visual Studio\2019\Community\"),
+        new KeyValuePair<string, string>("Visual Studio 2022 Enterprise", $@"{programFilesx64}\Microsoft Visual Studio\2022\Enterprise\"),
+        new KeyValuePair<string, string>("Visual Studio 2022 Professional", $@"{programFilesx64}\Microsoft Visual Studio\2022\Professional\"),
+        new KeyValuePair<string, string>("Visual Studio 2022 Community", $@"{programFilesx64}\Microsoft Visual Studio\2022\Community\"),
+        new KeyValuePair<string, string>("Visual Studio 2019 Enterprise", $@"{programFilesx86}\Microsoft Visual Studio\2019\Enterprise\"),
+        new KeyValuePair<string, string>("Visual Studio 2019 Professional", $@"{programFilesx86}\Microsoft Visual Studio\2019\Professional\"),
+        new KeyValuePair<string, string>("Visual Studio 2019 Community", $@"{programFilesx86}\Microsoft Visual Studio\2019\Community\"),
     });
 
     // Prerelease paths
     if ((allowVsPrerelease ?? true) && buildContext.General.UseVisualStudioPrerelease)
     {
-        buildContext.CakeContext.Debug("Checking for installation of Visual Studio preview");
+        buildContext.CakeContext.Debug("Checking for installation of Visual Studio (preview)");
 
         foreach (var prereleasePath in prereleasePaths)
         {
@@ -291,6 +294,8 @@ private static string GetVisualStudioDirectory(BuildContext buildContext, bool? 
             }
         }
     }
+
+    buildContext.CakeContext.Debug("Checking for installation of Visual Studio (non-preview)");
     
     // Normal paths
     foreach (var normalPath in normalPaths)
@@ -325,6 +330,8 @@ private static string GetVisualStudioPath(BuildContext buildContext, bool? allow
     var potentialPaths = new []
     {
         @"MSBuild\Current\Bin\msbuild.exe",
+        @"MSBuild\17.0\Bin\msbuild.exe",
+        @"MSBuild\16.0\Bin\msbuild.exe",
         @"MSBuild\15.0\Bin\msbuild.exe"
     };
 

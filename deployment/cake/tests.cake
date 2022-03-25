@@ -55,7 +55,7 @@ public class TestProcessor : ProcessorBase
                 PlatformTarget = PlatformTarget.MSIL
             };
 
-            ConfigureMsBuild(BuildContext, msBuildSettings, testProject);
+            ConfigureMsBuild(BuildContext, msBuildSettings, testProject, "build");
 
             // Always disable SourceLink
             msBuildSettings.WithProperty("EnableSourceLink", "false");
@@ -72,7 +72,7 @@ public class TestProcessor : ProcessorBase
             msBuildSettings.WithProperty("OverridableOutputPath", outputDirectory);
             msBuildSettings.WithProperty("PackageOutputPath", BuildContext.General.OutputRootDirectory);
 
-            RunMsBuild(BuildContext, testProject, projectFileName, msBuildSettings);
+            RunMsBuild(BuildContext, testProject, projectFileName, msBuildSettings, "build");
         }
     }
 
@@ -146,25 +146,29 @@ private static void RunUnitTests(BuildContext buildContext, string projectName)
 
             var projectFileName = GetProjectFileName(buildContext, projectName);
 
-            buildContext.CakeContext.DotNetCoreTest(projectFileName, new DotNetCoreTestSettings
+            var dotNetTestSettings = new DotNetTestSettings
             {
+                ArgumentCustomization = args => args
+                    .Append($"-- NUnit.TestOutputXml={testResultsDirectory}"),
                 Configuration = buildContext.General.Solution.ConfigurationName,
+                // Loggers = new []
+                // {
+                //     "nunit;LogFilePath=test-result.xml"
+                // },
                 NoBuild = true,
                 NoLogo = true,
                 NoRestore = true,
                 OutputDirectory = System.IO.Path.Combine(GetProjectOutputDirectory(buildContext, projectName), testTargetFramework),
                 ResultsDirectory = testResultsDirectory
-            });
+            };
 
-            // Information("Project '{0}' is a .NET core project, using 'dotnet vstest' to run the unit tests", projectName); 
+            var processBit = buildContext.Tests.ProcessBit.ToLower();
+            if (!string.IsNullOrWhiteSpace(processBit))
+            {
+                dotNetTestSettings.Runtime = $"win-{processBit}";
+            }
 
-            // var testFile = string.Format("{0}/{1}/{2}.dll", GetProjectOutputDirectory(buildContext, projectName), testTargetFramework, projectName);
-
-            // DotNetCoreVSTest(testFile, new DotNetCoreVSTestSettings
-            // {
-            //     //Platform = TestFramework
-            //     ResultsDirectory = testResultsDirectory
-            // });
+            buildContext.CakeContext.DotNetTest(projectFileName, dotNetTestSettings);
 
             ranTests = true;
         }

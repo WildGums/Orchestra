@@ -22,11 +22,15 @@ namespace Orchestra
             Argument.IsNotNull(() => source);
 
             var objXaml = XamlWriter.Save(source);
-            var stringReader = new StringReader(objXaml);
-            var xmlReader = XmlReader.Create(stringReader);
 
-            var target = (T)XamlReader.Load(xmlReader);
-            return target;
+            using (var stringReader = new StringReader(objXaml))
+            {
+                using (var xmlReader = XmlReader.Create(stringReader))
+                {
+                    var target = (T)XamlReader.Load(xmlReader);
+                    return target;
+                }
+            }
         }
 
         /// <summary>
