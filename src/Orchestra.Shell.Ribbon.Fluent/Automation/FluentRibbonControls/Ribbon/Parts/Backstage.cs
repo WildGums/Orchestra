@@ -1,4 +1,4 @@
-﻿namespace Orchestra.Automation
+﻿namespace Orchestra.Automation.FluentRibbon
 {
     using System.Windows.Automation;
     using global::Orc.Automation.Controls;

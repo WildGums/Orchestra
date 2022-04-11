@@ -1,7 +1,7 @@
-﻿namespace Orchestra.Automation
+﻿namespace Orchestra.Automation.FluentRibbon
 {
-    using System.Windows.Automation;
     using System.Linq;
+    using System.Windows.Automation;
     using Orc.Automation;
     using Orc.Automation.Controls;
 
@@ -24,6 +24,20 @@
             backstage.IsOpen = true;
 
             return backstage;
+        }
+
+        public TView GetView<TView>(string tabName, string viewName)
+            where TView : AutomationControl
+        {
+            var map = Map;
+
+            var tabItems = map.TabItems;
+
+            var searchingTabItem = tabItems.FirstOrDefault(x => Equals(x.Header, tabName));
+            var ribbonGroupBox = searchingTabItem?.Find(className: "RibbonGroupBox", name: viewName);
+            var view = ribbonGroupBox?.Find<TView>();
+
+            return view;
         }
     }
 }
