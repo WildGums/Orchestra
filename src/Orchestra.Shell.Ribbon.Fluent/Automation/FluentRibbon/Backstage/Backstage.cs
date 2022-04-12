@@ -1,5 +1,6 @@
 ﻿namespace Orchestra.Automation.FluentRibbon
 {
+    using System.Linq;
     using System.Windows.Automation;
     using global::Orc.Automation.Controls;
     using Orc.Automation;
@@ -17,5 +18,7 @@
             get => Element.GetIsExpanded();
             set => Element.SetIsExpanded(value);
         }
+
+        public AutomationElement Content => Element.GetChildElements().FirstOrDefault();
     }
 }

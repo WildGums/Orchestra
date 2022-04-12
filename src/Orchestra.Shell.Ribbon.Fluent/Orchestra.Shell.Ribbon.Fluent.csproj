@@ -51,7 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Automation\FluentRibbonControls\RibbonButton\Models\" />
+    <Folder Include="Automation\FluentRibbon\RibbonButton\Models\" />
   </ItemGroup>
   
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props')" />

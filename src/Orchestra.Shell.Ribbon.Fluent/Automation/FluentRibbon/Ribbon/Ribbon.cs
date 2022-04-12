@@ -26,6 +26,16 @@
             return backstage;
         }
 
+        public Backstage CloseBackstage()
+        {
+            var map = Map;
+
+            var backstage = map.Backstage;
+            backstage.IsOpen = false;
+
+            return backstage;
+        }
+
         public TView GetView<TView>(string tabName, string viewName)
             where TView : AutomationControl
         {
