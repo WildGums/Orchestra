@@ -26,34 +26,22 @@
             return backstage;
         }
 
-        public Backstage CloseBackstage()
+        public void CloseBackstage()
         {
             var map = Map;
 
             var backstage = map.Backstage;
             backstage.IsOpen = false;
-
-            return backstage;
         }
-
-        public TView GetView<TView>(string tabName, string viewName)
-            where TView : AutomationControl
-        {
-
-            var ribbonGroupBox = GetGroupBox(tabName, viewName);
-            var view = ribbonGroupBox?.Find<TView>();
-
-            return view;
-        }
-
-        public AutomationElement GetGroupBox(string tabName, string viewName)
+        
+        public RibbonGroupBox GetGroupBox(string tabName, string viewName)
         {
             var map = Map;
 
             var tabItems = map.TabItems;
 
             var searchingTabItem = tabItems.FirstOrDefault(x => Equals(x.Header, tabName));
-            var ribbonGroupBox = searchingTabItem?.Find(className: "RibbonGroupBox", name: viewName);
+            var ribbonGroupBox = searchingTabItem?.Find<RibbonGroupBox>(name: viewName);
 
             return ribbonGroupBox;
         }

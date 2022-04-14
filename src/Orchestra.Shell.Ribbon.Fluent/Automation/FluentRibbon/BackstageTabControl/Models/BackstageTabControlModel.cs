@@ -4,6 +4,7 @@
     using System.Windows.Media;
     using Orc.Automation;
 
+    [ActiveAutomationModel]
     public class BackstageTabControlModel : SelectorModel
     {
         public BackstageTabControlModel(AutomationElementAccessor accessor)

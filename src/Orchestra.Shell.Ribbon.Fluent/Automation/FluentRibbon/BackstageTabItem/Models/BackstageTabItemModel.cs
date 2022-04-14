@@ -2,6 +2,7 @@
 {
     using Orc.Automation;
 
+    [ActiveAutomationModel]
     public class BackstageTabItemModel : HeaderedContentControlModel
     {
         public BackstageTabItemModel(AutomationElementAccessor accessor) 

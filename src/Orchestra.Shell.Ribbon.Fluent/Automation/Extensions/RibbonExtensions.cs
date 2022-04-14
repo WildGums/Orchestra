@@ -7,6 +7,25 @@
 
     public static class RibbonExtensions
     {
+        public static TView GetView<TView>(this Ribbon ribbon, string tabName, string viewName)
+            where TView : AutomationControl
+        {
+            Argument.IsNotNull(() => ribbon);
+
+            var ribbonGroupBox = ribbon.GetGroupBox(tabName, viewName);
+            var view = ribbonGroupBox?.GetContent<TView>();
+
+            return view;
+        }
+
+        public static TView GetGroupBoxAsView<TView>(this Ribbon ribbon, string tabName, string viewName)
+            where TView : AutomationControl
+        {
+            Argument.IsNotNull(() => ribbon);
+
+            return ribbon.GetGroupBox(tabName, viewName)?.As<TView>();
+        }
+
         public static IDisposable OpenBackstageView<TBackstageContentView>(this Ribbon ribbon, out TBackstageContentView view)
             where TBackstageContentView : AutomationControl
         {
