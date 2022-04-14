@@ -39,15 +39,23 @@
         public TView GetView<TView>(string tabName, string viewName)
             where TView : AutomationControl
         {
+
+            var ribbonGroupBox = GetGroupBox(tabName, viewName);
+            var view = ribbonGroupBox?.Find<TView>();
+
+            return view;
+        }
+
+        public AutomationElement GetGroupBox(string tabName, string viewName)
+        {
             var map = Map;
 
             var tabItems = map.TabItems;
 
             var searchingTabItem = tabItems.FirstOrDefault(x => Equals(x.Header, tabName));
             var ribbonGroupBox = searchingTabItem?.Find(className: "RibbonGroupBox", name: viewName);
-            var view = ribbonGroupBox?.Find<TView>();
 
-            return view;
+            return ribbonGroupBox;
         }
     }
 }
