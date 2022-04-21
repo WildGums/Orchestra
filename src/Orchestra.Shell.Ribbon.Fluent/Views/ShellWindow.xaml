@@ -29,7 +29,7 @@
                 </ContentControl.Resources>
             </ContentControl>
 
-            <ContentControl Grid.Row="1" x:Name="contentControl" />
+            <ContentControl x:Name="contentControl" Grid.Row="1" />
 
             <ProgressBar x:Name="pleaseWaitProgressBar" Grid.Row="2" Visibility="Hidden" Height="2">
                 <ProgressBar.Style>
