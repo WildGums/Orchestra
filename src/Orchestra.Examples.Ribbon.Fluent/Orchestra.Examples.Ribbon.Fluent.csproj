@@ -28,7 +28,7 @@
   <ItemGroup>
     <PackageReference Include="Catel.Fody" Version="4.7.0" PrivateAssets="all" />
     <PackageReference Include="Fluent.Ribbon" Version="9.0.4" />
-    <PackageReference Include="Fody" Version="6.6.1" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="6.6.2" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
