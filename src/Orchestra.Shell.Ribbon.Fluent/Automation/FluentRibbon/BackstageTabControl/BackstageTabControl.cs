@@ -12,8 +12,6 @@
             
         }
 
-        //public AutomationElement SelectedElement => Element.GetSelection()?.FirstOrDefault();
-
         public TControl GetItem<TControl>(string name)
             where TControl : AutomationControl
         {

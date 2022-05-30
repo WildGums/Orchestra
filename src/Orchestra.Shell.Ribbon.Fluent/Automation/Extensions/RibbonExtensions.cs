@@ -49,32 +49,5 @@
 
             return backstageScope;
         }
-
-        //public static TBackstage OpenBackstage<TBackstage>(this Ribbon ribbon)
-        //{
-        //    var backstage = ribbon.OpenBackstage();
-        //    return backstage.As<TBackstage>();
-        //}
-
-        //public static IDisposable OpenBackstageViewScope<TView>(this Ribbon ribbon, string tabName, out TView view, string id = null)
-        //    where TView : AutomationControl
-        //{
-        //    Argument.IsNotNull(() => ribbon);
-
-        //    var backstage = ribbon.OpenBackstage();
-        //    view = backstage.GetView<TView>(tabName, id);
-
-        //    return new DisposableToken(null, _ => { }, _ => ribbon.CloseBackstage());
-        //}
-
-        //public static IDisposable OpenBackstageViewScope<TView>(this Ribbon ribbon, out TView view, int tabIndex = 0, string id = null)
-        //    where TView : AutomationControl
-        //{
-        //    Argument.IsNotNull(() => ribbon);
-        //    var backstage = ribbon.OpenBackstage();
-        //    view = backstage.GetView<TView>(tabIndex, id);
-
-        //    return new DisposableToken(null, _ => { }, _ => ribbon.CloseBackstage());
-        //}
     }
 }
