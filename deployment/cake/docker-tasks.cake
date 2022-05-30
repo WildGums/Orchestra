@@ -1,7 +1,7 @@
 #l "docker-variables.cake"
 #l "lib-octopusdeploy.cake"
 
-#addin "nuget:?package=Cake.Docker&version=1.1.1"
+#addin "nuget:?package=Cake.Docker&version=1.1.2"
 
 //-------------------------------------------------------------
 
@@ -185,15 +185,6 @@ public class DockerImagesProcessor : ProcessorBase
             // Always disable SourceLink
             msBuildSettings.WithProperty("EnableSourceLink", "false");
 
-            // Note: we need to set OverridableOutputPath because we need to be able to respect
-            // AppendTargetFrameworkToOutputPath which isn't possible for global properties (which
-            // are properties passed in using the command line)
-            var outputDirectory = GetProjectOutputDirectory(BuildContext, dockerImage);
-            CakeContext.Information("Output directory: '{0}'", outputDirectory);
-            msBuildSettings.WithProperty("OverridableOutputRootPath", BuildContext.General.OutputRootDirectory);
-            msBuildSettings.WithProperty("OverridableOutputPath", outputDirectory);
-            msBuildSettings.WithProperty("PackageOutputPath", BuildContext.General.OutputRootDirectory);
-
             RunMsBuild(BuildContext, dockerImage, projectFileName, msBuildSettings, "build");
         }        
     }
@@ -251,12 +242,6 @@ public class DockerImagesProcessor : ProcessorBase
 
             ConfigureMsBuildForDotNet(BuildContext, msBuildSettings, dockerImage, "pack");
 
-            // Note: we need to set OverridableOutputPath because we need to be able to respect
-            // AppendTargetFrameworkToOutputPath which isn't possible for global properties (which
-            // are properties passed in using the command line)
-            msBuildSettings.WithProperty("OverridableOutputRootPath", BuildContext.General.OutputRootDirectory);
-            msBuildSettings.WithProperty("OverridableOutputPath", outputDirectory);
-            msBuildSettings.WithProperty("PackageOutputPath", outputDirectory);
             msBuildSettings.WithProperty("ConfigurationName", BuildContext.General.Solution.ConfigurationName);
             msBuildSettings.WithProperty("PackageVersion", BuildContext.General.Version.NuGet);
 
