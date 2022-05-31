@@ -18,14 +18,6 @@
             return view;
         }
 
-        public static TView GetGroupBoxAsView<TView>(this Ribbon ribbon, string tabName, string viewName)
-            where TView : AutomationControl
-        {
-            Argument.IsNotNull(() => ribbon);
-
-            return ribbon.GetGroupBox(tabName, viewName)?.As<TView>();
-        }
-
         public static IDisposable OpenBackstageView<TBackstageContentView>(this Ribbon ribbon, out TBackstageContentView view)
             where TBackstageContentView : AutomationControl
         {

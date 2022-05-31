@@ -2,6 +2,7 @@
 {
     using System.Windows;
     using System.Windows.Automation.Peers;
+    using Orc.Automation;
 
     public class MessageBoxWindowAutomationPeer : WindowAutomationPeer
     {
@@ -13,7 +14,7 @@
         protected override string GetClassNameCore()
         {
             //NOTE: Support Message box automation control for Win32
-            return "#32770";
+            return Win32AutomationDialogsClassNames.MessageBoxClassName;
         }
     }
 }
