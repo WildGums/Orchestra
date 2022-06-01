@@ -10,6 +10,196 @@ public static class ModuleInitializer
 {
     public static void Initialize() { }
 }
+namespace Orchestra.Automation
+{
+    public static class BackstageExtensions
+    {
+        public static TView GetContent<TView>(this Orchestra.Automation.FluentRibbon.Backstage backstage)
+            where TView : Orc.Automation.AutomationControl { }
+    }
+    public static class BackstageTabControlExtensions
+    {
+        public static TView GetItemContent<TView>(this Orchestra.Automation.FluentRibbon.BackstageTabControl tabControl, string header)
+            where TView : Orc.Automation.AutomationControl { }
+        public static void SelectItem(this Orchestra.Automation.FluentRibbon.BackstageTabControl tabControl, string header) { }
+    }
+    public static class BackstageTabItemExtensions
+    {
+        public static TView GetContent<TView>(this Orchestra.Automation.FluentRibbon.BackstageTabItem backstage)
+            where TView : Orc.Automation.AutomationControl { }
+    }
+    public static class RibbonExtensions
+    {
+        public static TView GetView<TView>(this Orchestra.Automation.FluentRibbon.Ribbon ribbon, string tabName, string viewName)
+            where TView : Orc.Automation.AutomationControl { }
+        public static System.IDisposable OpenBackstageView<TBackstageContentView>(this Orchestra.Automation.FluentRibbon.Ribbon ribbon, out TBackstageContentView view)
+            where TBackstageContentView : Orc.Automation.AutomationControl { }
+        public static System.IDisposable OpenTabItemBackstageView<TBackstageTabItemContentView>(this Orchestra.Automation.FluentRibbon.Ribbon ribbon, string header, out TBackstageTabItemContentView view)
+            where TBackstageTabItemContentView : Orc.Automation.AutomationControl { }
+    }
+}
+namespace Orchestra.Automation.FluentRibbon
+{
+    [Orc.Automation.AutomatedControl(ClassName="Backstage", ControlTypeName="Menu")]
+    public class Backstage : Orc.Automation.Controls.FrameworkElement
+    {
+        public Backstage(System.Windows.Automation.AutomationElement element) { }
+        public System.Windows.Automation.AutomationElement Content { get; }
+        public bool IsOpen { get; set; }
+    }
+    public class BackstageTabControl : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.BackstageTabControlModel>
+    {
+        public BackstageTabControl(System.Windows.Automation.AutomationElement element) { }
+        public TControl GetItem<TControl>(string name)
+            where TControl : Orc.Automation.AutomationControl { }
+    }
+    [Orc.Automation.ActiveAutomationModel]
+    public class BackstageTabControlModel : Orc.Automation.SelectorModel
+    {
+        public static readonly Catel.Data.PropertyData ContentStringFormatProperty;
+        public static readonly Catel.Data.PropertyData IsBackButtonVisibleProperty;
+        public static readonly Catel.Data.PropertyData IsWindowSteeringHelperEnabledProperty;
+        public static readonly Catel.Data.PropertyData ItemsPanelBackgroundProperty;
+        public static readonly Catel.Data.PropertyData ItemsPanelMinWidthProperty;
+        public static readonly Catel.Data.PropertyData SelectedContentMarginProperty;
+        public static readonly Catel.Data.PropertyData SelectedContentProperty;
+        public static readonly Catel.Data.PropertyData SelectedContentStringFormatProperty;
+        public BackstageTabControlModel(Orc.Automation.AutomationElementAccessor accessor) { }
+        public string ContentStringFormat { get; set; }
+        public bool IsBackButtonVisible { get; set; }
+        public bool IsWindowSteeringHelperEnabled { get; set; }
+        public System.Windows.Media.SolidColorBrush ItemsPanelBackground { get; set; }
+        public double ItemsPanelMinWidth { get; set; }
+        public object SelectedContent { get; set; }
+        public System.Windows.Thickness SelectedContentMargin { get; set; }
+        public string SelectedContentStringFormat { get; set; }
+    }
+    [Orc.Automation.AutomatedControl(ClassName="BackstageTabItem")]
+    public class BackstageTabItem : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.BackstageTabItemModel>
+    {
+        public BackstageTabItem(System.Windows.Automation.AutomationElement element) { }
+        public System.Windows.Automation.AutomationElement Content { get; }
+        public string Header { get; }
+        public bool IsSelected { get; set; }
+        public bool TrySelect() { }
+    }
+    [Orc.Automation.ActiveAutomationModel]
+    public class BackstageTabItemModel : Orc.Automation.HeaderedContentControlModel
+    {
+        public BackstageTabItemModel(Orc.Automation.AutomationElementAccessor accessor) { }
+    }
+    [Orc.Automation.AutomatedControl(ClassName="DropDownButton")]
+    public class DropDownButton : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.DropDownButtonModel>
+    {
+        public DropDownButton(System.Windows.Automation.AutomationElement element) { }
+        public bool IsExpanded { get; set; }
+        public void Invoke() { }
+    }
+    [Orc.Automation.ActiveAutomationModel]
+    public class DropDownButtonModel : Orc.Automation.ItemsControlModel
+    {
+        public static readonly Catel.Data.PropertyData ClosePopupOnMouseDownDelayProperty;
+        public static readonly Catel.Data.PropertyData ClosePopupOnMouseDownProperty;
+        public static readonly Catel.Data.PropertyData DropDownHeightProperty;
+        public static readonly Catel.Data.PropertyData HasTriangleProperty;
+        public static readonly Catel.Data.PropertyData HeaderProperty;
+        public static readonly Catel.Data.PropertyData IconProperty;
+        public static readonly Catel.Data.PropertyData IsContextMenuOpenedProperty;
+        public static readonly Catel.Data.PropertyData IsDropDownOpenProperty;
+        public static readonly Catel.Data.PropertyData IsSimplifiedProperty;
+        public static readonly Catel.Data.PropertyData KeyTipProperty;
+        public static readonly Catel.Data.PropertyData LargeIconProperty;
+        public static readonly Catel.Data.PropertyData MaxDropDownHeightProperty;
+        public static readonly Catel.Data.PropertyData MediumIconProperty;
+        public static readonly Catel.Data.PropertyData ResizeModeProperty;
+        public static readonly Catel.Data.PropertyData SimplifiedSizeDefinitionProperty;
+        public static readonly Catel.Data.PropertyData SizeProperty;
+        public DropDownButtonModel(Orc.Automation.AutomationElementAccessor accessor) { }
+        public bool ClosePopupOnMouseDown { get; set; }
+        public int ClosePopupOnMouseDownDelay { get; set; }
+        public double DropDownHeight { get; set; }
+        public bool HasTriangle { get; set; }
+        public object Header { get; set; }
+        public object Icon { get; set; }
+        public bool IsContextMenuOpened { get; set; }
+        public bool IsDropDownOpen { get; set; }
+        public bool IsSimplified { get; set; }
+        public string KeyTip { get; set; }
+        public object LargeIcon { get; set; }
+        public double MaxDropDownHeight { get; set; }
+        public object MediumIcon { get; set; }
+        public Fluent.ContextMenuResizeMode ResizeMode { get; set; }
+        public Fluent.RibbonControlSizeDefinition SimplifiedSizeDefinition { get; set; }
+        public Fluent.RibbonControlSize Size { get; set; }
+    }
+    [Orc.Automation.AutomatedControl(ClassName="Ribbon")]
+    public class Ribbon : Orc.Automation.Controls.FrameworkElement
+    {
+        public Ribbon(System.Windows.Automation.AutomationElement element) { }
+        public void CloseBackstage() { }
+        public Orchestra.Automation.FluentRibbon.RibbonGroupBox GetGroupBox(string tabName, string viewName) { }
+        public Orchestra.Automation.FluentRibbon.Backstage OpenBackstage() { }
+    }
+    [Orc.Automation.AutomatedControl(ClassName="RibbonButton")]
+    public class RibbonButton : Orc.Automation.Controls.FrameworkElement<Orc.Automation.ButtonModel>
+    {
+        public RibbonButton(System.Windows.Automation.AutomationElement element) { }
+        public string Content { get; }
+        public bool Click() { }
+    }
+    [Orc.Automation.AutomatedControl(ClassName="RibbonGroupBox")]
+    public class RibbonGroupBox : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.RibbonGroupBoxModel>
+    {
+        public RibbonGroupBox(System.Windows.Automation.AutomationElement element) { }
+        public bool IsExpanded { get; set; }
+        public string Name { get; }
+        public TView GetContent<TView>()
+            where TView : Orc.Automation.AutomationControl { }
+    }
+    [Orc.Automation.ActiveAutomationModel]
+    public class RibbonGroupBoxModel : Orc.Automation.ControlModel
+    {
+        public static readonly Catel.Data.PropertyData CanAddToQuickAccessToolBarProperty;
+        public static readonly Catel.Data.PropertyData IconProperty;
+        public static readonly Catel.Data.PropertyData IsDropDownOpenProperty;
+        public static readonly Catel.Data.PropertyData IsLauncherEnabledProperty;
+        public static readonly Catel.Data.PropertyData IsSeparatorVisibleProperty;
+        public static readonly Catel.Data.PropertyData IsSimplifiedProperty;
+        public static readonly Catel.Data.PropertyData IsSnappedProperty;
+        public static readonly Catel.Data.PropertyData LauncherCommandParameterProperty;
+        public static readonly Catel.Data.PropertyData LauncherToolTipProperty;
+        public static readonly Catel.Data.PropertyData MediumIconProperty;
+        public RibbonGroupBoxModel(Orc.Automation.AutomationElementAccessor accessor) { }
+        public bool CanAddToQuickAccessToolBar { get; set; }
+        public object Icon { get; set; }
+        public bool IsDropDownOpen { get; set; }
+        public bool IsLauncherEnabled { get; set; }
+        public bool IsSeparatorVisible { get; set; }
+        public bool IsSimplified { get; }
+        public bool IsSnapped { get; set; }
+        public System.Windows.Input.ICommand LauncherCommand { get; set; }
+        public object LauncherCommandParameter { get; set; }
+        public object LauncherToolTip { get; set; }
+        public object MediumIcon { get; set; }
+    }
+    public class RibbonMap : Orc.Automation.AutomationBase
+    {
+        public RibbonMap(System.Windows.Automation.AutomationElement element) { }
+        public Orchestra.Automation.FluentRibbon.Backstage Backstage { get; }
+        public System.Collections.Generic.List<Orc.Automation.Controls.TabItem> TabItems { get; }
+    }
+    [Orc.Automation.AutomatedControl(ClassName="SplitButton")]
+    public class SplitButton : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.SplitButtonModel>
+    {
+        public SplitButton(System.Windows.Automation.AutomationElement element) { }
+        public bool IsExpanded { get; set; }
+        public void Invoke() { }
+    }
+    public class SplitButtonModel : Orchestra.Automation.FluentRibbon.DropDownButtonModel
+    {
+        public SplitButtonModel(Orc.Automation.AutomationElementAccessor accessor) { }
+    }
+}
 namespace Orchestra.Controls
 {
     public class RibbonBackstageButton : System.Windows.Controls.Button
