@@ -176,6 +176,14 @@ namespace Orchestra
         public static void CreateEntryFromDirectory(this System.IO.Compression.ZipArchive archive, string sourceDirName, string entryName, System.IO.Compression.CompressionLevel compressionLevel) { }
     }
 }
+namespace Orchestra.Automation.Views
+{
+    public class MessageBoxWindowAutomationPeer : System.Windows.Automation.Peers.WindowAutomationPeer
+    {
+        public MessageBoxWindowAutomationPeer(System.Windows.Window owner) { }
+        protected override string GetClassNameCore() { }
+    }
+}
 namespace Orchestra.Behaviors
 {
     public class HintsBehavior : Catel.Windows.Interactivity.BehaviorBase<System.Windows.FrameworkElement>
@@ -1101,6 +1109,7 @@ namespace Orchestra.Views
         public MessageBoxWindow() { }
         public MessageBoxWindow(Orchestra.ViewModels.MessageBoxViewModel viewModel) { }
         public void InitializeComponent() { }
+        protected override System.Windows.Automation.Peers.AutomationPeer OnCreateAutomationPeer() { }
     }
     public class SplashScreen : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
     {
