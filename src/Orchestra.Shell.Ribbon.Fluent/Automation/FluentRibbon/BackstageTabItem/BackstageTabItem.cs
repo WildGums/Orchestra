@@ -5,7 +5,7 @@
     using Orc.Automation;
     using Orc.Automation.Controls;
 
-    [AutomatedControl(ClassName = nameof(Fluent.BackstageTabItem))]
+    [Control(ClassName = nameof(Fluent.BackstageTabItem))]
     public class BackstageTabItem : FrameworkElement<BackstageTabItemModel>
     {
         public BackstageTabItem(AutomationElement element)

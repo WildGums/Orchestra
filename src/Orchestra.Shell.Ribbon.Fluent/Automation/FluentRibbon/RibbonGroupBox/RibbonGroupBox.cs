@@ -4,7 +4,7 @@
     using Orc.Automation;
     using Orc.Automation.Controls;
 
-    [AutomatedControl(ClassName = nameof(Fluent.RibbonGroupBox))]
+    [Control(ClassName = nameof(Fluent.RibbonGroupBox))]
     public class RibbonGroupBox : FrameworkElement<RibbonGroupBoxModel>
     {
         public RibbonGroupBox(AutomationElement element) 

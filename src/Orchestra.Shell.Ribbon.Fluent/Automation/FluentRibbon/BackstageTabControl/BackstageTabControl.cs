@@ -4,6 +4,7 @@
     using Orc.Automation;
     using Orc.Automation.Controls;
 
+    [Control(ControlTypeName = nameof(ControlType.Tab))]
     public class BackstageTabControl : FrameworkElement<BackstageTabControlModel>
     {
         public BackstageTabControl(AutomationElement element) 

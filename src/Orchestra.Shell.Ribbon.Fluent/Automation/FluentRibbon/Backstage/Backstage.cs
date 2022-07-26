@@ -5,7 +5,7 @@
     using global::Orc.Automation.Controls;
     using Orc.Automation;
 
-    [AutomatedControl(ClassName = "Backstage", ControlTypeName = nameof(ControlType.Menu))]
+    [Control(ClassName = "Backstage", ControlTypeName = nameof(ControlType.Menu))]
     public class Backstage : FrameworkElement
     {
         public Backstage(AutomationElement element) 

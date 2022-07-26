@@ -4,7 +4,7 @@
     using Orc.Automation;
     using Orc.Automation.Controls;
 
-    [AutomatedControl(ClassName = "DropDownButton")]
+    [Control(ClassName = "DropDownButton")]
     public class DropDownButton : FrameworkElement<DropDownButtonModel>
     {
         public DropDownButton(AutomationElement element)

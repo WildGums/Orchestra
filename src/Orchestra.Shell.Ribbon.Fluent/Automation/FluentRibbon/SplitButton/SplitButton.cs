@@ -4,7 +4,7 @@
     using Orc.Automation;
     using Orc.Automation.Controls;
 
-    [AutomatedControl(ClassName = "SplitButton")]
+    [Control(ClassName = "SplitButton")]
     public class SplitButton : FrameworkElement<SplitButtonModel>
     {
         public SplitButton(AutomationElement element) 

@@ -4,7 +4,7 @@
     using Orc.Automation;
     using Orc.Automation.Controls;
     
-    [AutomatedControl(ClassName = "RibbonButton")]
+    [Control(ClassName = "RibbonButton")]
     public class RibbonButton : FrameworkElement<ButtonModel>
     {
         public RibbonButton(AutomationElement element)
