@@ -40,13 +40,14 @@ namespace Orchestra.Automation
 }
 namespace Orchestra.Automation.FluentRibbon
 {
-    [Orc.Automation.AutomatedControl(ClassName="Backstage", ControlTypeName="Menu")]
+    [Orc.Automation.Control(ClassName="Backstage", ControlTypeName="Menu")]
     public class Backstage : Orc.Automation.Controls.FrameworkElement
     {
         public Backstage(System.Windows.Automation.AutomationElement element) { }
         public System.Windows.Automation.AutomationElement Content { get; }
         public bool IsOpen { get; set; }
     }
+    [Orc.Automation.Control(ControlTypeName="Tab")]
     public class BackstageTabControl : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.BackstageTabControlModel>
     {
         public BackstageTabControl(System.Windows.Automation.AutomationElement element) { }
@@ -74,7 +75,7 @@ namespace Orchestra.Automation.FluentRibbon
         public System.Windows.Thickness SelectedContentMargin { get; set; }
         public string SelectedContentStringFormat { get; set; }
     }
-    [Orc.Automation.AutomatedControl(ClassName="BackstageTabItem")]
+    [Orc.Automation.Control(ClassName="BackstageTabItem")]
     public class BackstageTabItem : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.BackstageTabItemModel>
     {
         public BackstageTabItem(System.Windows.Automation.AutomationElement element) { }
@@ -88,7 +89,7 @@ namespace Orchestra.Automation.FluentRibbon
     {
         public BackstageTabItemModel(Orc.Automation.AutomationElementAccessor accessor) { }
     }
-    [Orc.Automation.AutomatedControl(ClassName="DropDownButton")]
+    [Orc.Automation.Control(ClassName="DropDownButton")]
     public class DropDownButton : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.DropDownButtonModel>
     {
         public DropDownButton(System.Windows.Automation.AutomationElement element) { }
@@ -132,7 +133,7 @@ namespace Orchestra.Automation.FluentRibbon
         public Fluent.RibbonControlSizeDefinition SimplifiedSizeDefinition { get; set; }
         public Fluent.RibbonControlSize Size { get; set; }
     }
-    [Orc.Automation.AutomatedControl(ClassName="Ribbon")]
+    [Orc.Automation.Control(ClassName="Ribbon")]
     public class Ribbon : Orc.Automation.Controls.FrameworkElement
     {
         public Ribbon(System.Windows.Automation.AutomationElement element) { }
@@ -140,14 +141,14 @@ namespace Orchestra.Automation.FluentRibbon
         public Orchestra.Automation.FluentRibbon.RibbonGroupBox GetGroupBox(string tabName, string viewName) { }
         public Orchestra.Automation.FluentRibbon.Backstage OpenBackstage() { }
     }
-    [Orc.Automation.AutomatedControl(ClassName="RibbonButton")]
+    [Orc.Automation.Control(ClassName="RibbonButton")]
     public class RibbonButton : Orc.Automation.Controls.FrameworkElement<Orc.Automation.ButtonModel>
     {
         public RibbonButton(System.Windows.Automation.AutomationElement element) { }
         public string Content { get; }
         public bool Click() { }
     }
-    [Orc.Automation.AutomatedControl(ClassName="RibbonGroupBox")]
+    [Orc.Automation.Control(ClassName="RibbonGroupBox")]
     public class RibbonGroupBox : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.RibbonGroupBoxModel>
     {
         public RibbonGroupBox(System.Windows.Automation.AutomationElement element) { }
@@ -188,7 +189,7 @@ namespace Orchestra.Automation.FluentRibbon
         public Orchestra.Automation.FluentRibbon.Backstage Backstage { get; }
         public System.Collections.Generic.List<Orc.Automation.Controls.TabItem> TabItems { get; }
     }
-    [Orc.Automation.AutomatedControl(ClassName="SplitButton")]
+    [Orc.Automation.Control(ClassName="SplitButton")]
     public class SplitButton : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.SplitButtonModel>
     {
         public SplitButton(System.Windows.Automation.AutomationElement element) { }
