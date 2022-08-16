@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CloseApplicationWatcherBase.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System;
     using System.Collections.Generic;
@@ -46,8 +39,7 @@ namespace Orchestra
                 return;
             }
 
-            var window = sender as Window;
-            if (window is null)
+            if (sender is not Window window)
             {
                 Log.Debug("Main window is null");
                 return;
@@ -60,6 +52,30 @@ namespace Orchestra
 
                 e.Cancel = true;
                 await TaskHelper.Run(() => PerformClosingOperationsAsync(window), true);
+            }
+        }
+
+        private static async void OnWindowClosed(object sender, EventArgs e)
+        {
+            Log.Debug("Main window closed");
+
+            if (sender is not Window window)
+            {
+                Log.Debug("Main window is null");
+                return;
+            }
+
+            try
+            {
+                await ExecuteClosedAsync(ClosedAsync);
+            }
+            catch (TaskCanceledException)
+            {
+                // Ignore, don't log
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to perform closed operations");
             }
         }
 
@@ -138,6 +154,21 @@ namespace Orchestra
             }
         }
 
+        private static async Task ClosedAsync(CloseApplicationWatcherBase watcher)
+        {
+            try
+            {
+                Log.Debug($"Executing ClosedAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
+                await watcher.ClosedAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Failed to execute ClosedAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
+                throw;
+            }
+
+        }
+
         private static async Task HandleClosingErrorAsync(Window window, Exception ex)
         {
             var message = string.IsNullOrEmpty(ex.Message) ? ex.ToString() : ex.Message;
@@ -209,6 +240,16 @@ namespace Orchestra
             return true;
         }
 
+        private static async Task ExecuteClosedAsync(Func<CloseApplicationWatcherBase, Task> operation)
+        {
+            Log.Debug($"Execute operation for each of {Watchers.Count} watcher");
+
+            foreach (var watcher in Watchers)
+            {
+                await operation(watcher).ConfigureAwait(false);
+            }
+        }
+
         protected virtual void ClosingFailed(ClosingDetails appClosingFaultDetails)
         {
 
@@ -229,17 +270,24 @@ namespace Orchestra
             return TaskHelper<bool>.FromResult(true);
         }
 
+        protected virtual Task ClosedAsync()
+        {
+            return TaskHelper.Completed;
+        }
+
         private static void Subscribe(Window window)
         {
             if (SubscribedWindow is not null && !SubscribedWindow.Equals(window))
             {
                 SubscribedWindow.Closing -= OnWindowClosing;
+                SubscribedWindow.Closed -= OnWindowClosed;
                 SubscribedWindow = null;
             }
 
             if (SubscribedWindow is null)
             {
                 window.Closing += OnWindowClosing;
+                window.Closed += OnWindowClosed;
                 SubscribedWindow = window;
             }
         }
