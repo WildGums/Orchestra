@@ -55,7 +55,7 @@
             }
         }
 
-        private static async void OnWindowClosed(object sender, EventArgs e)
+        private static void OnWindowClosed(object sender, EventArgs e)
         {
             Log.Debug("Main window closed");
 
@@ -67,7 +67,7 @@
 
             try
             {
-                await ExecuteClosedAsync(ClosedAsync);
+                ExecuteClosed(Closed);
             }
             catch (TaskCanceledException)
             {
@@ -154,12 +154,12 @@
             }
         }
 
-        private static async Task ClosedAsync(CloseApplicationWatcherBase watcher)
+        private static void Closed(CloseApplicationWatcherBase watcher)
         {
             try
             {
                 Log.Debug($"Executing ClosedAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
-                await watcher.ClosedAsync();
+                watcher.Closed();
             }
             catch (Exception ex)
             {
@@ -240,13 +240,13 @@
             return true;
         }
 
-        private static async Task ExecuteClosedAsync(Func<CloseApplicationWatcherBase, Task> operation)
+        private static void ExecuteClosed(Action<CloseApplicationWatcherBase> operation)
         {
             Log.Debug($"Execute operation for each of {Watchers.Count} watcher");
 
             foreach (var watcher in Watchers)
             {
-                await operation(watcher).ConfigureAwait(false);
+                operation(watcher);
             }
         }
 
@@ -270,9 +270,9 @@
             return TaskHelper<bool>.FromResult(true);
         }
 
-        protected virtual Task ClosedAsync()
+        protected virtual void Closed()
         {
-            return TaskHelper.Completed;
+
         }
 
         private static void Subscribe(Window window)
