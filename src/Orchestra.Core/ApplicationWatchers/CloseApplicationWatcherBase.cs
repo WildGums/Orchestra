@@ -69,10 +69,6 @@
             {
                 ExecuteClosed(Closed);
             }
-            catch (TaskCanceledException)
-            {
-                // Ignore, don't log
-            }
             catch (Exception ex)
             {
                 Log.Error(ex, "Failed to perform closed operations");
