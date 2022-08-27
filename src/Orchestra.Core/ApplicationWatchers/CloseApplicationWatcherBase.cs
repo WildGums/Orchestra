@@ -102,7 +102,7 @@
             CanClose = true;
 
             // Close window (again, we will not interfere this time)
-            await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
+            await CloseWindowAsync(window).ConfigureAwait(false);
         }
 
         private static async Task PerformClosingOperationsAsync(Window window)
@@ -123,13 +123,11 @@
                 IsClosingConfirmed = await ExecuteClosingAsync(ClosingAsync).ConfigureAwait(false);
                 if (IsClosingConfirmed)
                 {
-                    Log.Debug("Closing confirmed, request closing again");
-
-                    await CloseWindowAsync(window).ConfigureAwait(false);
+                    Log.Debug("Closing confirmed, continue execution");
                 }
                 else
                 {
-                    Log.Debug("Closing cancelled, request closing again");
+                    Log.Debug("Closing cancelled, raising notification");
 
                     NotifyClosingCanceled();
                 }
@@ -241,8 +239,7 @@
 
         private static async Task CloseWindowAsync(Window window)
         {
-            IsClosingConfirmed = true;
-            // await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
+            await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
         }
 
         private static void NotifyClosingCanceled()
