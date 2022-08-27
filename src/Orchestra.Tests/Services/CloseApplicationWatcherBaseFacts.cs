@@ -13,12 +13,11 @@
         [TestCase]
         public async Task VerifyClosingClosedOperationsAreExecutingAsync()
         {
-            var tcs = new TaskCompletionSource();
             bool isWatcherCompleted = false;
             using (var cts = new CancellationTokenSource(10000))
             {
                 // tested object
-                var watcher = new TestCloseApplicationWatcher(tcs);
+                var watcher = new TestCloseApplicationWatcher();
 
                 // Use a semaphore to prevent the [TestMethod] from returning prematurely.
                 using (var semaphore = await RunStaThreadAsync(() =>
