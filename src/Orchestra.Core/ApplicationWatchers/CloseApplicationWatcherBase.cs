@@ -13,6 +13,9 @@
 
     public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
     {
+        private static bool CanClose = false;
+        private static bool IsHandlingClosing = false;
+
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private static bool IsClosingConfirmed;
@@ -31,11 +34,24 @@
         private static async void OnWindowClosing(object sender, CancelEventArgs e)
 #pragma warning restore AvoidAsyncVoid
         {
-            Log.Debug("Closing main window");
-
-            if (e.Cancel)
+            if (CanClose)
             {
-                Log.Debug("Closing is cancelled");
+                e.Cancel = false;
+                return;
+            }
+
+            // Step 1: always cancel the closing, we will take over from here
+            e.Cancel = true;
+
+            if (IsClosingConfirmed)
+            {
+                // We need to run the closing methods, so still need to cancel
+                return;
+            }
+
+            if (IsHandlingClosing)
+            {
+                // Already handling
                 return;
             }
 
@@ -45,34 +61,48 @@
                 return;
             }
 
-
-            if (!IsClosingConfirmed)
-            {
-                Log.Debug("Closing is not confirmed yet, perform closing operations first");
-
-                e.Cancel = true;
-                await TaskHelper.Run(() => PerformClosingOperationsAsync(window), true);
-            }
-        }
-
-        private static void OnWindowClosed(object sender, EventArgs e)
-        {
-            Log.Debug("Main window closed");
-
-            if (sender is not Window window)
-            {
-                Log.Debug("Main window is null");
-                return;
-            }
+            // Clone event args
+            var clonedEventArgs = new CancelEventArgs();
 
             try
             {
-                ExecuteClosed(Closed);
+                IsHandlingClosing = true;
+
+                Log.Debug("Closing main window");
+
+                if (clonedEventArgs.Cancel)
+                {
+                    Log.Debug("Closing is cancelled");
+                    return;
+                }
+
+                if (!IsClosingConfirmed)
+                {
+                    Log.Debug("Closing is not confirmed yet, perform closing operations first");
+
+                    await TaskHelper.Run(() => PerformClosingOperationsAsync(window), true);
+                }
             }
-            catch (Exception ex)
+            finally
             {
-                Log.Error(ex, "Failed to perform closed operations");
+                IsHandlingClosing = false;
             }
+
+            if (clonedEventArgs.Cancel)
+            {
+                Log.Debug("At least 1 watcher requested canceling the closing of the window");
+                return;
+            }
+
+            Log.Debug("Perform closed operations after closing confirmed");
+
+            await PerformClosedOperationAsync();
+
+            // Fully done, now really close
+            CanClose = true;
+
+            // Close window (again, we will not interfere this time)
+            await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
         }
 
         private static async Task PerformClosingOperationsAsync(Window window)
@@ -116,6 +146,11 @@
             }
         }
 
+        private static async Task PerformClosedOperationAsync()
+        {
+            await ExecuteClosedAsync(ClosedAsync);
+        }
+
         private static async Task<bool> PrepareClosingAsync(CloseApplicationWatcherBase watcher)
         {
             try
@@ -150,19 +185,18 @@
             }
         }
 
-        private static void Closed(CloseApplicationWatcherBase watcher)
+        private static async Task ClosedAsync(CloseApplicationWatcherBase watcher)
         {
             try
             {
                 Log.Debug($"Executing ClosedAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
-                watcher.Closed();
+                await watcher.ClosedAsync();
             }
             catch (Exception ex)
             {
                 Log.Error(ex, $"Failed to execute ClosedAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
                 throw;
             }
-
         }
 
         private static async Task HandleClosingErrorAsync(Window window, Exception ex)
@@ -208,7 +242,7 @@
         private static async Task CloseWindowAsync(Window window)
         {
             IsClosingConfirmed = true;
-            await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
+            // await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
         }
 
         private static void NotifyClosingCanceled()
@@ -236,13 +270,20 @@
             return true;
         }
 
-        private static void ExecuteClosed(Action<CloseApplicationWatcherBase> operation)
+        private static async Task ExecuteClosedAsync(Func<CloseApplicationWatcherBase, Task> operation)
         {
             Log.Debug($"Execute operation for each of {Watchers.Count} watcher");
 
             foreach (var watcher in Watchers)
             {
-                operation(watcher);
+                try
+                {
+                    await operation(watcher);
+                }
+                catch (Exception)
+                {
+                    // Never break on a single watcher
+                }
             }
         }
 
@@ -266,9 +307,9 @@
             return TaskHelper<bool>.FromResult(true);
         }
 
-        protected virtual void Closed()
+        protected virtual Task ClosedAsync()
         {
-
+            return TaskHelper.Completed;
         }
 
         private static void Subscribe(Window window)
@@ -276,14 +317,12 @@
             if (SubscribedWindow is not null && !SubscribedWindow.Equals(window))
             {
                 SubscribedWindow.Closing -= OnWindowClosing;
-                SubscribedWindow.Closed -= OnWindowClosed;
                 SubscribedWindow = null;
             }
 
             if (SubscribedWindow is null)
             {
                 window.Closing += OnWindowClosing;
-                window.Closed += OnWindowClosed;
                 SubscribedWindow = window;
             }
         }

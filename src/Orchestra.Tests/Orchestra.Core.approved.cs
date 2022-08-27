@@ -33,7 +33,7 @@ namespace Orchestra
     public abstract class CloseApplicationWatcherBase : Orchestra.ApplicationWatcherBase
     {
         protected CloseApplicationWatcherBase() { }
-        protected virtual void Closed() { }
+        protected virtual System.Threading.Tasks.Task ClosedAsync() { }
         protected virtual System.Threading.Tasks.Task<bool> ClosingAsync() { }
         protected virtual void ClosingCanceled() { }
         protected virtual void ClosingFailed(Orchestra.ClosingDetails appClosingFaultDetails) { }

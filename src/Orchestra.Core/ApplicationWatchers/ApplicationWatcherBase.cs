@@ -62,6 +62,12 @@
         {
             DispatcherTimer.Stop();
 
+            if (Application.Current is null)
+            {
+                // Compatibility with no shell (unit tests, different platforms)
+                return;
+            }
+
             var mainWindow = System.Windows.Application.Current.MainWindow;
             if (mainWindow is Orchestra.Views.SplashScreen || SplashScreenViewModel.IsActive)
             {
