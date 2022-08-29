@@ -62,6 +62,12 @@
         {
             DispatcherTimer.Stop();
 
+            if (NoShell())
+            {
+                // Important for unit test compatibility
+                return;
+            }
+
             var mainWindow = System.Windows.Application.Current.MainWindow;
             if (mainWindow is Orchestra.Views.SplashScreen || SplashScreenViewModel.IsActive)
             {
@@ -96,6 +102,11 @@
                     }
                 }
             }
+        }
+
+        private static bool NoShell()
+        {
+            return Application.Current is null;
         }
     }
 }

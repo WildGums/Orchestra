@@ -1,15 +1,9 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CloseApplicationWatcherBase.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
     using Catel;
@@ -20,6 +14,9 @@ namespace Orchestra
 
     public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
     {
+        private static bool CanClose = false;
+        private static bool IsHandlingClosing = false;
+
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private static bool IsClosingConfirmed;
@@ -34,33 +31,88 @@ namespace Orchestra
             EnqueueShellActivatedAction(Subscribe);
         }
 
+        /// <summary>
+        /// Only used to reset the state for unit tests.
+        /// </summary>
+        protected internal static void Reset()
+        {
+            var lastWatcher = Watchers.LastOrDefault();
+            Watchers.Clear();
+
+            if (lastWatcher is not null)
+            {
+                Watchers.Add(lastWatcher);
+            }
+
+            IsClosingConfirmed = false;
+            IsHandlingClosing = false;
+            CanClose = false;
+        }
+
 #pragma warning disable AvoidAsyncVoid
         private static async void OnWindowClosing(object sender, CancelEventArgs e)
 #pragma warning restore AvoidAsyncVoid
         {
-            Log.Debug("Closing main window");
-
-            if (e.Cancel)
+            if (CanClose)
             {
-                Log.Debug("Closing is cancelled");
+                e.Cancel = false;
                 return;
             }
 
-            var window = sender as Window;
-            if (window is null)
+            // Step 1: always cancel the closing, we will take over from here
+            e.Cancel = true;
+
+            if (IsClosingConfirmed)
+            {
+                // We need to run the closing methods, so still need to cancel
+                return;
+            }
+
+            if (IsHandlingClosing)
+            {
+                // Already handling
+                return;
+            }
+
+            if (sender is not Window window)
             {
                 Log.Debug("Main window is null");
                 return;
             }
 
+            try
+            {
+                IsHandlingClosing = true;
+
+                Log.Debug("Closing main window");
+
+                if (!IsClosingConfirmed)
+                {
+                    Log.Debug("Closing is not confirmed yet, perform closing operations first");
+
+                    await TaskHelper.Run(() => PerformClosingOperationsAsync(window), true);
+                }
+            }
+            finally
+            {
+                IsHandlingClosing = false;
+            }
 
             if (!IsClosingConfirmed)
             {
-                Log.Debug("Closing is not confirmed yet, perform closing operations first");
-
-                e.Cancel = true;
-                await TaskHelper.Run(() => PerformClosingOperationsAsync(window), true);
+                Log.Debug("At least 1 watcher requested canceling the closing of the window");
+                return;
             }
+
+            Log.Debug("Perform closed operations after closing confirmed");
+
+            await PerformClosedOperationsAsync();
+
+            // Fully done, now really close
+            CanClose = true;
+
+            // Close window (again, we will not interfere this time)
+            await CloseWindowAsync(window).ConfigureAwait(false);
         }
 
         private static async Task PerformClosingOperationsAsync(Window window)
@@ -81,13 +133,11 @@ namespace Orchestra
                 IsClosingConfirmed = await ExecuteClosingAsync(ClosingAsync).ConfigureAwait(false);
                 if (IsClosingConfirmed)
                 {
-                    Log.Debug("Closing confirmed, request closing again");
-
-                    await CloseWindowAsync(window).ConfigureAwait(false);
+                    Log.Debug("Closing confirmed, continue execution");
                 }
                 else
                 {
-                    Log.Debug("Closing cancelled, request closing again");
+                    Log.Debug("Closing cancelled, raising notification");
 
                     NotifyClosingCanceled();
                 }
@@ -104,6 +154,12 @@ namespace Orchestra
             }
         }
 
+        private static async Task PerformClosedOperationsAsync()
+        {
+            await ExecuteClosedAsync(ClosedAsync);
+
+        }
+
         private static async Task<bool> PrepareClosingAsync(CloseApplicationWatcherBase watcher)
         {
             try
@@ -116,8 +172,8 @@ namespace Orchestra
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"Failed to execute PrepareClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
-                throw;
+                Log.Error(ex, $"Failed to execute PrepareClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'. Continue to run all watchers left.");
+                return true;
             }
         }
 
@@ -133,8 +189,21 @@ namespace Orchestra
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"Failed to execute ClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
-                throw;
+                Log.Error(ex, $"Failed to execute ClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'. Continue to run all watchers left.");
+                return true;
+            }
+        }
+
+        private static async Task ClosedAsync(CloseApplicationWatcherBase watcher)
+        {
+            try
+            {
+                Log.Debug($"Executing ClosedAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
+                await watcher.ClosedAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Failed to execute ClosedAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'. Continue to run all watchers left.");
             }
         }
 
@@ -180,7 +249,6 @@ namespace Orchestra
 
         private static async Task CloseWindowAsync(Window window)
         {
-            IsClosingConfirmed = true;
             await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
         }
 
@@ -200,13 +268,21 @@ namespace Orchestra
             {
                 if (!await operation(watcher).ConfigureAwait(false))
                 {
-                    NotifyClosingCanceled();
-
                     return false;
                 }
             }
 
             return true;
+        }
+
+        private static async Task ExecuteClosedAsync(Func<CloseApplicationWatcherBase, Task> operation)
+        {
+            Log.Debug($"Execute operation for each of {Watchers.Count} watcher");
+
+            foreach (var watcher in Watchers)
+            {
+                await operation(watcher);
+            }
         }
 
         protected virtual void ClosingFailed(ClosingDetails appClosingFaultDetails)
@@ -227,6 +303,11 @@ namespace Orchestra
         protected virtual Task<bool> ClosingAsync()
         {
             return TaskHelper<bool>.FromResult(true);
+        }
+
+        protected virtual Task ClosedAsync()
+        {
+            return TaskHelper.Completed;
         }
 
         private static void Subscribe(Window window)
