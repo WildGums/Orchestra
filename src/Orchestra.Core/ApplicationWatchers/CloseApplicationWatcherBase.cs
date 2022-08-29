@@ -61,20 +61,11 @@
                 return;
             }
 
-            // Clone event args
-            var clonedEventArgs = new CancelEventArgs();
-
             try
             {
                 IsHandlingClosing = true;
 
                 Log.Debug("Closing main window");
-
-                if (clonedEventArgs.Cancel)
-                {
-                    Log.Debug("Closing is cancelled");
-                    return;
-                }
 
                 if (!IsClosingConfirmed)
                 {
@@ -88,7 +79,7 @@
                 IsHandlingClosing = false;
             }
 
-            if (clonedEventArgs.Cancel)
+            if (!IsClosingConfirmed)
             {
                 Log.Debug("At least 1 watcher requested canceling the closing of the window");
                 return;
@@ -258,8 +249,6 @@
             {
                 if (!await operation(watcher).ConfigureAwait(false))
                 {
-                    NotifyClosingCanceled();
-
                     return false;
                 }
             }
