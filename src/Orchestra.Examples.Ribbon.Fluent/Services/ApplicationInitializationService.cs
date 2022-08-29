@@ -91,6 +91,7 @@ namespace Orchestra.Examples.Ribbon.Services
             var serviceLocator = _serviceLocator;
 
             serviceLocator.RegisterType<IAboutInfoService, AboutInfoService>();
+            serviceLocator.RegisterTypeAndInstantiate<UserMessageCloseApplicationWatcher>();
 
             //throw new Exception("this is a test exception");
         }
