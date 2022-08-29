@@ -8,16 +8,65 @@
     using NUnit.Framework;
 
     [TestFixture]
-    internal class CloseApplicationWatcherBaseFacts
+    public class CloseApplicationWatcherBaseFacts
     {
         [TestCase]
-        public async Task VerifyClosingClosedOperationsAreExecutingAsync()
+        public async Task Verify_Closing_Allows_Cancel_When_Returning_False_Async()
         {
             bool isWatcherCompleted = false;
-            using (var cts = new CancellationTokenSource(10000))
+            using (var cts = new CancellationTokenSource(5000))
             {
                 // tested object
-                var watcher = new TestCloseApplicationWatcher();
+                var watcher = new TestCloseApplicationWatcher(true);
+
+                // Use a semaphore to prevent the [TestMethod] from returning prematurely.
+                using (var semaphore = await RunStaThreadAsync(() =>
+                {
+                    var window = new System.Windows.Window();
+
+                    // access handler method
+                    var onWindowClosing = typeof(CloseApplicationWatcherBase).GetMethod("OnWindowClosing", BindingFlags.Static | BindingFlags.NonPublic);
+
+                    Assert.IsNotNull(onWindowClosing);
+
+                    var cancelEventArgs = new CancelEventArgs();
+                    var cancelEventArgsRetry = new CancelEventArgs();
+
+                    window.Closing += (sender, e) =>
+                    {
+                        onWindowClosing.Invoke(watcher, new object[] { window, cancelEventArgsRetry });
+                    };
+
+                    onWindowClosing.Invoke(watcher, new object[] { window, cancelEventArgs });
+
+                    while (!cts.IsCancellationRequested)
+                    {
+                        // Note: we do await IsClosedRun, even when we expect it to be false. This will
+                        // allow the engine to await whether it is ran or not
+                        isWatcherCompleted = watcher.IsClosedRun && watcher.IsClosingRun;
+                        if (isWatcherCompleted)
+                        {
+                            break;
+                        }
+                    }
+                }))
+                {
+                    await semaphore.WaitAsync();
+
+                    Assert.IsTrue(watcher.IsClosingRun, "Closing did not run");
+                    Assert.IsFalse(watcher.IsClosedRun, "Closed did run");
+                }
+            }
+        }
+
+        [TestCase]
+        public async Task Verify_Closing_Closed_Operations_Are_Executing_Async()
+        {
+            bool isWatcherCompleted = false;
+            using (var cts = new CancellationTokenSource(5000))
+            {
+                // tested object
+                var watcher = new TestCloseApplicationWatcher(false);
 
                 // Use a semaphore to prevent the [TestMethod] from returning prematurely.
                 using (var semaphore = await RunStaThreadAsync(() =>
@@ -51,8 +100,8 @@
                 {
                     await semaphore.WaitAsync();
 
-                    Assert.IsTrue(watcher.IsClosedRun);
-                    Assert.IsTrue(watcher.IsClosingRun);
+                    Assert.IsTrue(watcher.IsClosingRun, "Closing did not run");
+                    Assert.IsTrue(watcher.IsClosedRun, "Closed did not run");
                 }
             }
         }

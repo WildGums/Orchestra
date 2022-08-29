@@ -4,9 +4,14 @@
 
     internal class TestCloseApplicationWatcher : CloseApplicationWatcherBase
     {
-        public TestCloseApplicationWatcher()
-        {
+        private readonly bool _cancel;
 
+        public TestCloseApplicationWatcher(bool cancel)
+        {
+            _cancel = cancel;
+
+            // Required for unit testing
+            Reset();
         }
 
         public bool IsClosedRun { get; set; }
@@ -21,7 +26,7 @@
         protected override async Task<bool> ClosingAsync()
         {
             IsClosingRun = true;
-            return true;
+            return !_cancel;
         }
     }
 }

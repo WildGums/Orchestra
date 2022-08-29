@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
     using Catel;
@@ -28,6 +29,24 @@
             Watchers.Add(this);
 
             EnqueueShellActivatedAction(Subscribe);
+        }
+
+        /// <summary>
+        /// Only used to reset the state for unit tests.
+        /// </summary>
+        protected internal static void Reset()
+        {
+            var lastWatcher = Watchers.LastOrDefault();
+            Watchers.Clear();
+            
+            if (lastWatcher is not null)
+            {
+                Watchers.Add(lastWatcher);
+            }
+
+            IsClosingConfirmed = false;
+            IsHandlingClosing = false;
+            CanClose = false;
         }
 
 #pragma warning disable AvoidAsyncVoid

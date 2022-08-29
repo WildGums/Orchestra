@@ -38,6 +38,7 @@ namespace Orchestra
         protected virtual void ClosingCanceled() { }
         protected virtual void ClosingFailed(Orchestra.ClosingDetails appClosingFaultDetails) { }
         protected virtual System.Threading.Tasks.Task<bool> PrepareClosingAsync() { }
+        protected static void Reset() { }
     }
     public class ClosingDetails
     {
