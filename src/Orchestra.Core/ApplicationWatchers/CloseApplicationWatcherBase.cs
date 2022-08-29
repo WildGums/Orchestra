@@ -38,7 +38,7 @@
         {
             var lastWatcher = Watchers.LastOrDefault();
             Watchers.Clear();
-            
+
             if (lastWatcher is not null)
             {
                 Watchers.Add(lastWatcher);
@@ -106,7 +106,7 @@
 
             Log.Debug("Perform closed operations after closing confirmed");
 
-            await PerformClosedOperationAsync();
+            await PerformClosedOperationsAsync();
 
             // Fully done, now really close
             CanClose = true;
@@ -154,9 +154,10 @@
             }
         }
 
-        private static async Task PerformClosedOperationAsync()
+        private static async Task PerformClosedOperationsAsync()
         {
             await ExecuteClosedAsync(ClosedAsync);
+
         }
 
         private static async Task<bool> PrepareClosingAsync(CloseApplicationWatcherBase watcher)
@@ -171,8 +172,8 @@
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"Failed to execute PrepareClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
-                throw;
+                Log.Error(ex, $"Failed to execute PrepareClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'. Continue to run all watchers left.");
+                return true;
             }
         }
 
@@ -188,8 +189,8 @@
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"Failed to execute ClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
-                throw;
+                Log.Error(ex, $"Failed to execute ClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'. Continue to run all watchers left.");
+                return true;
             }
         }
 
@@ -202,8 +203,7 @@
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"Failed to execute ClosedAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
-                throw;
+                Log.Error(ex, $"Failed to execute ClosedAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'. Continue to run all watchers left.");
             }
         }
 
@@ -281,14 +281,7 @@
 
             foreach (var watcher in Watchers)
             {
-                try
-                {
-                    await operation(watcher);
-                }
-                catch (Exception)
-                {
-                    // Never break on a single watcher
-                }
+                await operation(watcher);
             }
         }
 

@@ -62,9 +62,9 @@
         {
             DispatcherTimer.Stop();
 
-            if (Application.Current is null)
+            if (NoShell())
             {
-                // Compatibility with no shell (unit tests, different platforms)
+                // Important for unit test compatibility
                 return;
             }
 
@@ -102,6 +102,11 @@
                     }
                 }
             }
+        }
+
+        private static bool NoShell()
+        {
+            return Application.Current is null;
         }
     }
 }
