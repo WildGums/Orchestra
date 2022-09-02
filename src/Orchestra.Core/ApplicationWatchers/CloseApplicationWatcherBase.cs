@@ -31,6 +31,8 @@
             EnqueueShellActivatedAction(Subscribe);
         }
 
+        internal static bool SkipClosing { get; set; }
+
         /// <summary>
         /// Only used to reset the state for unit tests.
         /// </summary>
@@ -80,22 +82,25 @@
                 return;
             }
 
-            try
+            if (!SkipClosing)
             {
-                IsHandlingClosing = true;
-
-                Log.Debug("Closing main window");
-
-                if (!IsClosingConfirmed)
+                try
                 {
-                    Log.Debug("Closing is not confirmed yet, perform closing operations first");
+                    IsHandlingClosing = true;
 
-                    await TaskHelper.Run(() => PerformClosingOperationsAsync(window), true);
+                    Log.Debug("Closing main window");
+
+                    if (!IsClosingConfirmed)
+                    {
+                        Log.Debug("Closing is not confirmed yet, perform closing operations first");
+
+                        await TaskHelper.Run(() => PerformClosingOperationsAsync(window), true);
+                    }
                 }
-            }
-            finally
-            {
-                IsHandlingClosing = false;
+                finally
+                {
+                    IsHandlingClosing = false;
+                }
             }
 
             if (!IsClosingConfirmed)
@@ -154,10 +159,9 @@
             }
         }
 
-        private static async Task PerformClosedOperationsAsync()
+        internal static async Task PerformClosedOperationsAsync()
         {
             await ExecuteClosedAsync(ClosedAsync);
-
         }
 
         private static async Task<bool> PrepareClosingAsync(CloseApplicationWatcherBase watcher)
