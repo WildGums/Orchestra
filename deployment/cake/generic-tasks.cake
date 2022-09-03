@@ -133,25 +133,26 @@ Task("RestorePackages")
 
     foreach (var project in buildContext.AllProjects)
     {
-        // if (ShouldProcessProject(buildContext, project))
-        // {
-            var projectFileName = GetProjectFileName(buildContext, project);
-            if (projectFileName.EndsWith(".csproj"))
-            {
-                Information("Adding '{0}' as C# specific project to restore", project);
+        // Once a project is in AllProjects, it should always be restored
+        
+        var projectFileName = GetProjectFileName(buildContext, project);
+        if (projectFileName.EndsWith(".csproj"))
+        {
+            Information("Adding '{0}' as C# specific project to restore", project);
 
-                csharpProjects.Add(projectFileName);
+            csharpProjects.Add(projectFileName);
 
-                // Inject source link *before* package restore
-                InjectSourceLinkInProjectFile(buildContext, projectFileName);
-            }
-        //}
+            // Inject source link *before* package restore
+            InjectSourceLinkInProjectFile(buildContext, project, projectFileName);
+        }
     }
 
     var allFiles = new List<FilePath>();
     //allFiles.AddRange(solutions);
     allFiles.AddRange(csharpProjects);
     // //allFiles.AddRange(cProjects);
+
+	Information($"Found '{allFiles.Count}' projects to restore");
 
     foreach (var file in allFiles)
     {

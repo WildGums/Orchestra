@@ -22,8 +22,10 @@ namespace Orchestra
     public abstract class ApplicationWatcherBase
     {
         protected static readonly Catel.Services.IDispatcherService DispatcherService;
+        protected static readonly Orchestra.Services.IMainWindowService MainWindowService;
         protected ApplicationWatcherBase() { }
         protected void EnqueueShellActivatedAction(System.Action<System.Windows.Window> action) { }
+        public static System.Threading.Tasks.Task EnsureMainWindowAsync() { }
     }
     public static class AssemblyExtensions
     {
@@ -33,10 +35,12 @@ namespace Orchestra
     public abstract class CloseApplicationWatcherBase : Orchestra.ApplicationWatcherBase
     {
         protected CloseApplicationWatcherBase() { }
+        protected virtual System.Threading.Tasks.Task ClosedAsync() { }
         protected virtual System.Threading.Tasks.Task<bool> ClosingAsync() { }
         protected virtual void ClosingCanceled() { }
         protected virtual void ClosingFailed(Orchestra.ClosingDetails appClosingFaultDetails) { }
         protected virtual System.Threading.Tasks.Task<bool> PrepareClosingAsync() { }
+        protected static void Reset() { }
     }
     public class ClosingDetails
     {
@@ -174,6 +178,14 @@ namespace Orchestra
     {
         public static void CreateEntryFromAny(this System.IO.Compression.ZipArchive archive, string sourceName, string entryName, System.IO.Compression.CompressionLevel compressionLevel = 0) { }
         public static void CreateEntryFromDirectory(this System.IO.Compression.ZipArchive archive, string sourceDirName, string entryName, System.IO.Compression.CompressionLevel compressionLevel) { }
+    }
+}
+namespace Orchestra.Automation.Views
+{
+    public class MessageBoxWindowAutomationPeer : System.Windows.Automation.Peers.WindowAutomationPeer
+    {
+        public MessageBoxWindowAutomationPeer(System.Windows.Window owner) { }
+        protected override string GetClassNameCore() { }
     }
 }
 namespace Orchestra.Behaviors
@@ -603,9 +615,10 @@ namespace Orchestra.Services
     }
     public class CloseApplicationService : Orchestra.Services.ICloseApplicationService
     {
-        public CloseApplicationService(Orchestra.Services.IEnsureStartupService ensureStartupService) { }
+        public CloseApplicationService(Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IMainWindowService mainWindowService) { }
         public void Close() { }
         public System.Threading.Tasks.Task CloseAsync() { }
+        public System.Threading.Tasks.Task CloseAsync(bool force) { }
     }
     public class CommandInfoService : Orchestra.Services.ICommandInfoService
     {
@@ -669,6 +682,7 @@ namespace Orchestra.Services
     public interface ICloseApplicationService
     {
         System.Threading.Tasks.Task CloseAsync();
+        System.Threading.Tasks.Task CloseAsync(bool force);
     }
     public interface ICommandInfoService
     {
@@ -706,6 +720,11 @@ namespace Orchestra.Services
         void Load();
         void Reset();
         void Save();
+    }
+    public interface IMainWindowService
+    {
+        event System.EventHandler<System.EventArgs> MainWindowChanged;
+        System.Threading.Tasks.Task<System.Windows.Window> GetMainWindowAsync();
     }
     public interface IManageAppDataService
     {
@@ -786,6 +805,13 @@ namespace Orchestra.Services
         public void Load() { }
         public void Reset() { }
         public void Save() { }
+    }
+    public class MainWindowService : Orchestra.Services.IMainWindowService
+    {
+        public MainWindowService() { }
+        public event System.EventHandler<System.EventArgs> MainWindowChanged;
+        protected virtual System.Threading.Tasks.Task CheckForUpdatedMainWindowAsync() { }
+        public virtual System.Threading.Tasks.Task<System.Windows.Window> GetMainWindowAsync() { }
     }
     public class ManageAppDataService : Orchestra.Services.IManageAppDataService
     {
@@ -1101,6 +1127,7 @@ namespace Orchestra.Views
         public MessageBoxWindow() { }
         public MessageBoxWindow(Orchestra.ViewModels.MessageBoxViewModel viewModel) { }
         public void InitializeComponent() { }
+        protected override System.Windows.Automation.Peers.AutomationPeer OnCreateAutomationPeer() { }
     }
     public class SplashScreen : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
     {

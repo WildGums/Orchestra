@@ -1,12 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MessageBox.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
+    using System.Windows.Automation.Peers;
+    using Automation.Views;
     using Catel.Services;
     using Catel.Windows;
     using ViewModels;
@@ -30,5 +25,10 @@ namespace Orchestra.Views
             }
         }
         #endregion
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new MessageBoxWindowAutomationPeer(this);
+        }
     }
 }

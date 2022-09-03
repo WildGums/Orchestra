@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net5.0-windows;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows;net6.0-windows</TargetFrameworks>
     <AssemblyName>Orchestra.Shell.Ribbon.Fluent</AssemblyName>
     <RootNamespace>Orchestra</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
@@ -26,7 +26,7 @@
     <PackageReference Include="Catel.Fody" Version="4.7.0" PrivateAssets="all" />
     <PackageReference Include="Costura.Fody" Version="5.7.0" PrivateAssets="all" />
     <PackageReference Include="Fluent.Ribbon" Version="9.0.4" />
-    <PackageReference Include="Fody" Version="6.6.0" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="6.6.3" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.6.0" PrivateAssets="all" />
@@ -49,7 +49,7 @@
     </Compile>
     <Compile Remove="..\Orchestra.Shell.Shared\Properties\**" />
   </ItemGroup>
-  
+ 
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props')" />
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.mat.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.mat.props')" />
 </Project>

@@ -19,12 +19,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ApprovalTests" Version="5.7.2" />
+    <PackageReference Include="ApprovalTests" Version="5.7.3" />
     <PackageReference Include="Catel.Fody" Version="4.7.0" PrivateAssets="all" />
-    <PackageReference Include="Fody" Version="6.6.0" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="6.6.3" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="all" />
     <PackageReference Include="NUnit" Version="3.13.3" PrivateAssets="all" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1">
