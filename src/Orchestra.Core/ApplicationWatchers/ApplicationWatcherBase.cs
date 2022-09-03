@@ -3,12 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Threading;
     using Catel;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
+    using Orchestra.Services;
     using ViewModels;
 
     public abstract class ApplicationWatcherBase
@@ -16,6 +18,7 @@
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         protected static readonly IDispatcherService DispatcherService;
+        protected static readonly IMainWindowService MainWindowService;
 
         private static readonly DispatcherTimer DispatcherTimer;
         private static Queue<Action<Window>> ShellActivatedActions;
@@ -25,14 +28,16 @@
         {
             EnsureSubscribesInitialized();
 
-            DispatcherService = ServiceLocator.Default.ResolveType<IDispatcherService>();
+            var serviceLocator = ServiceLocator.Default;
+            DispatcherService = serviceLocator.ResolveType<IDispatcherService>();
+            MainWindowService = serviceLocator.ResolveType<IMainWindowService>();
 
             DispatcherTimer = new DispatcherTimer();
             DispatcherTimer.Interval = TimeSpan.FromMilliseconds(5);
-            DispatcherTimer.Tick += (sender, e) => EnsureMainWindow();
+            DispatcherTimer.Tick += async (sender, e) => await EnsureMainWindowAsync();
             DispatcherTimer.Start();
 
-            EnsureMainWindow();
+            _ = EnsureMainWindowAsync();
         }
 
         protected void EnqueueShellActivatedAction(Action<Window> action)
@@ -58,7 +63,7 @@
             }
         }
 
-        private static void EnsureMainWindow()
+        public static async Task EnsureMainWindowAsync()
         {
             DispatcherTimer.Stop();
 
@@ -68,8 +73,10 @@
                 return;
             }
 
-            var mainWindow = System.Windows.Application.Current.MainWindow;
-            if (mainWindow is Orchestra.Views.SplashScreen || SplashScreenViewModel.IsActive)
+            // Once the main window is visible, we can start running shell stuff, don't wait for the splash screen to be really hidden. So we
+            // only exit if the splash screen is still the main window *or* the main window (shell) is not visible yet
+            var mainWindow = await MainWindowService.GetMainWindowAsync();
+            if (mainWindow is Orchestra.Views.SplashScreen || !(mainWindow?.IsVisible ?? false)) 
             {
                 mainWindow = null;
             }

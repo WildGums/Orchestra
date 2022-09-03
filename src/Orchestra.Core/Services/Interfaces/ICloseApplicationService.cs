@@ -5,5 +5,6 @@
     public interface ICloseApplicationService
     {
         Task CloseAsync();
+        Task CloseAsync(bool force);
     }
 }

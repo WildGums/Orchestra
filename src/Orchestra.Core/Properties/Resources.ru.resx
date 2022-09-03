@@ -129,4 +129,27 @@
   <data name="Orchestra_UserDataSettings" xml:space="preserve">
     <value>Пользовательские настройки</value>
   </data>
+  <data name="Orchestra_ThirdPartyNotices_Explanation" xml:space="preserve">
+    <value>This software is based on or incorporates material from the projects listed below (collectively, Third Party Code). {0} might not be the original author of the Third Party Code. The original copyright notice and the license under which {0} received such Third Party Code, are set forth below. Such licenses and notices are provided for informational purposes only. {0} licenses the Third Party Code to you under the terms set forth in the EULA for {1}. {0} reserves all other rights not expressly grated under this agreement, whether by implication, estoppel or otherwhise.
+
+These (alphabetically ordered) Third Party Notices have been put together with care. In the event that a Third Party Notice is missing or incorrectly listed, please let us know so we can update the notices accordingly.</value>
+  </data>
+  <data name="Orchestra_ThirdPartyNotices_Title" xml:space="preserve">
+    <value>Third Party Notices</value>
+  </data>
+  <data name="Orchestra_ThirdPartyNotices" xml:space="preserve">
+    <value>Third Party Notices</value>
+  </data>
+  <data name="Orchestra_Changelog" xml:space="preserve">
+    <value>Changelog</value>
+  </data>
+  <data name="Orchestra_ChangelogWhatsNew" xml:space="preserve">
+    <value>What's new since the last time?</value>
+  </data>
+  <data name="Orchestra_ShowChangeLog" xml:space="preserve">
+    <value>Show changelog...</value>
+  </data>
+  <data name="Orchestra_ChangelogRemindMeLater" xml:space="preserve">
+    <value>Remind me later</value>
+  </data>
 </root>
