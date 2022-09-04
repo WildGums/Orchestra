@@ -32,10 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="NETStandard.Library" Version="2.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Orchestra.Core\Orchestra.Core.csproj" />
     <ProjectReference Include="..\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.csproj" />
   </ItemGroup>
