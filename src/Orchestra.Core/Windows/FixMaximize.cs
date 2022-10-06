@@ -1,34 +1,21 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="FixMaximize.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Windows
+﻿namespace Orchestra.Windows
 {
     using System;
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Interop;
-    using Catel.MVVM.Tasks;
-    using Catel.Windows.Threading;
+    using Orchestra.Win32;
 
     /// <summary>
     /// Attachable properties to fix the maximized state of a window.
     /// <para />
     /// The code comes from http://connect.microsoft.com/VisualStudio/feedback/details/775972/wpf-ribbon-window-the-border-is-too-thin.
     /// </summary>
-    public class FixMaximize : DependencyObject
+    public partial class FixMaximize : DependencyObject
     {
-        #region FixMaximize
-
-        #region Constants
         public static readonly DependencyProperty FixMaximizeProperty = DependencyProperty.RegisterAttached(
                 "FixMaximize", typeof(bool), typeof(FixMaximize), new FrameworkPropertyMetadata(false, OnFixMaximizeChanged));
-        #endregion
 
-        #region Methods
         public static void SetFixMaximize(Window ribbonWindow, bool value)
         {
             ribbonWindow.SetValue(FixMaximizeProperty, value);
@@ -67,7 +54,7 @@ namespace Orchestra.Windows
 
             if (msg == WM_SIZE && wParam.ToInt32() == SIZE_MAXIMIZED)
             {
-                GetWindowRect(hwnd, out var rect);
+                User32.GetWindowRect(hwnd, out var rect);
 
                 var newRect = new RECT();
 
@@ -94,12 +81,12 @@ namespace Orchestra.Windows
                     height = (int)windowSize.Height;
                     width = (int)windowSize.Width;
 
-                    window.Dispatcher.BeginInvoke(() => SetWindowPos(hwnd, IntPtr.Zero, newRect.left, newRect.top, width, height, SWP_NOOWNERZORDER));
+                    window.Dispatcher.BeginInvoke(() => User32.SetWindowPos(hwnd, IntPtr.Zero, newRect.left, newRect.top, width, height, SWP_NOOWNERZORDER));
                 }
 
                 // Step 2: fix the location, use dispatcher to make sure this code also works the first time an application
                 // is started in Maximize state
-                window.Dispatcher.BeginInvoke(() => SetWindowPos(hwnd, IntPtr.Zero, newRect.left, newRect.top, 0, 0, SWP_NOOWNERZORDER | SWP_NOSIZE));
+                window.Dispatcher.BeginInvoke(() => User32.SetWindowPos(hwnd, IntPtr.Zero, newRect.left, newRect.top, 0, 0, SWP_NOOWNERZORDER | SWP_NOSIZE));
             }
             else if (msg == WM_GETMINMAXINFO)
             {
@@ -129,46 +116,5 @@ namespace Orchestra.Windows
             var size = new Size(screen.WorkingArea.Width + 8, screen.WorkingArea.Height + 8);
             return size;
         }
-
-        [DllImport("user32.dll")]
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
-
-        [DllImport("user32.dll")]
-        private static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
-        #endregion
-
-        #region Nested type: MINMAXINFO
-        [StructLayout(LayoutKind.Sequential)]
-        private struct MINMAXINFO
-        {
-            public POINT ptReserved;
-            public POINT ptMaxSize;
-            public POINT ptMaxPosition;
-            public POINT ptMinTrackSize;
-            public POINT ptMaxTrackSize;
-        };
-        #endregion
-
-        #region Nested type: POINT
-        [StructLayout(LayoutKind.Sequential)]
-        private struct POINT
-        {
-            public int x;
-            public int y;
-        }
-        #endregion
-
-        #region Nested type: RECT
-        [StructLayout(LayoutKind.Sequential, Pack = 0)]
-        private struct RECT
-        {
-            public int left;
-            public int top;
-            public int right;
-            public int bottom;
-        }
-        #endregion
-
-        #endregion
     }
 }
