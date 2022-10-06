@@ -38,7 +38,7 @@ namespace Orchestra.Logging
 
         public RichTextBoxLogListener(RichTextBox richTextBox)
         {
-            Argument.IsNotNull(() => richTextBox);
+            ArgumentNullException.ThrowIfNull(richTextBox);
 
             _textBox = richTextBox;
 

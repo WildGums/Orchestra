@@ -25,7 +25,7 @@ namespace Orchestra.Services
         #region Constructors
         public ViewActivationService(IViewManager viewManager)
         {
-            Argument.IsNotNull(() => viewManager);
+            ArgumentNullException.ThrowIfNull(viewManager);
 
             _viewManager = viewManager;
         }
@@ -34,14 +34,14 @@ namespace Orchestra.Services
         #region Methods
         public bool Activate(IViewModel viewModel)
         {
-            Argument.IsNotNull(() => viewModel);
+            ArgumentNullException.ThrowIfNull(viewModel);
 
             return Activate(vm => ReferenceEquals(vm, viewModel));
         }
 
         public bool Activate(Type viewModelType)
         {
-            Argument.IsNotNull(() => viewModelType);
+            ArgumentNullException.ThrowIfNull(viewModelType);
 
             return Activate(vm => vm.GetType() == viewModelType);
         }
@@ -49,7 +49,7 @@ namespace Orchestra.Services
 
         private bool Activate(Func<IViewModel, bool> predicate)
         {
-            Argument.IsNotNull(() => predicate);
+            ArgumentNullException.ThrowIfNull(predicate);
 
             foreach (var view in _viewManager.ActiveViews)
             {

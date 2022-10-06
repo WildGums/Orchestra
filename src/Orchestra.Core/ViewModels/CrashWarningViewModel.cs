@@ -35,11 +35,11 @@ namespace Orchestra.Views
         public CrashWarningViewModel(IManageAppDataService manageAppDataService, IMessageService messageService, INavigationService navigationService,
             ILanguageService languageService)
         {
-            Argument.IsNotNull(() => messageService);
-            Argument.IsNotNull(() => navigationService);
-            Argument.IsNotNull(() => navigationService);
-            Argument.IsNotNull(() => manageAppDataService);
-            Argument.IsNotNull(() => languageService);
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(navigationService);
+            ArgumentNullException.ThrowIfNull(navigationService);
+            ArgumentNullException.ThrowIfNull(manageAppDataService);
+            ArgumentNullException.ThrowIfNull(languageService);
 
             _manageAppDataService = manageAppDataService;
             _messageService = messageService;

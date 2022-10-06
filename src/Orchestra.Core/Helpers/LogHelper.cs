@@ -79,7 +79,7 @@ namespace Orchestra
 
         public static ILogListener CreateFileLogListener(string prefix)
         {
-            Argument.IsNotNull(() => prefix);
+            ArgumentNullException.ThrowIfNull(prefix);
 
             var directory = GetLogDirectory();
 

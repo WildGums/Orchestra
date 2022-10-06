@@ -15,9 +15,9 @@
 
         public ChangelogViewModel(Changelog changelog, IChangelogService changelogService, IChangelogSnapshotService changelogSnapshotService)
         {
-            Argument.IsNotNull(() => changelog);
-            Argument.IsNotNull(() => changelogService);
-            Argument.IsNotNull(() => changelogSnapshotService);
+            ArgumentNullException.ThrowIfNull(changelog);
+            ArgumentNullException.ThrowIfNull(changelogService);
+            ArgumentNullException.ThrowIfNull(changelogSnapshotService);
 
             Changelog = changelog;
             _changelogService = changelogService;

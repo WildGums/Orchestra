@@ -19,7 +19,7 @@ namespace Orchestra
         public static T Clone<T>(this T source)
             where T : DependencyObject
         {
-            Argument.IsNotNull(() => source);
+            ArgumentNullException.ThrowIfNull(source);
 
             var objXaml = XamlWriter.Save(source);
 

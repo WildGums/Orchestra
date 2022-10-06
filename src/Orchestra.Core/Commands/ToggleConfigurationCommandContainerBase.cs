@@ -37,7 +37,7 @@ namespace Orchestra
             : base(commandName, commandManager)
         {
             Argument.IsNotNullOrWhitespace(() => configurationKey);
-            Argument.IsNotNull(() => configurationService);
+            ArgumentNullException.ThrowIfNull(configurationService);
 
             _configurationKey = configurationKey;
             _defaultValue = defaultValue;

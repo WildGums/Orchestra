@@ -32,11 +32,11 @@ namespace Orchestra.ViewModels
         public KeyboardMappingsCustomizationViewModel(IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
             ICommandInfoService commandInfoService, ILanguageService languageService, IMessageService messageService)
         {
-            Argument.IsNotNull(() => keyboardMappingsService);
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => commandInfoService);
-            Argument.IsNotNull(() => languageService);
-            Argument.IsNotNull(() => messageService);
+            ArgumentNullException.ThrowIfNull(keyboardMappingsService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(commandInfoService);
+            ArgumentNullException.ThrowIfNull(languageService);
+            ArgumentNullException.ThrowIfNull(messageService);
 
             _keyboardMappingsService = keyboardMappingsService;
             _commandManager = commandManager;

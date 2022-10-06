@@ -24,11 +24,11 @@
         public ManageAppDataService(ISaveFileService saveFileService, IProcessService processService,
             IDirectoryService directoryService, IFileService fileService, IAppDataService appDataService)
         {
-            Argument.IsNotNull(() => saveFileService);
-            Argument.IsNotNull(() => processService);
-            Argument.IsNotNull(() => directoryService);
-            Argument.IsNotNull(() => fileService);
-            Argument.IsNotNull(() => appDataService);
+            ArgumentNullException.ThrowIfNull(saveFileService);
+            ArgumentNullException.ThrowIfNull(processService);
+            ArgumentNullException.ThrowIfNull(directoryService);
+            ArgumentNullException.ThrowIfNull(fileService);
+            ArgumentNullException.ThrowIfNull(appDataService);
 
             _saveFileService = saveFileService;
             _processService = processService;

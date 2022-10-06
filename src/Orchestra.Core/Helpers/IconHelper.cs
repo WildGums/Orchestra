@@ -27,7 +27,7 @@ namespace Orchestra
         #region Methods
         public static Icon ExtractIconFromFile(string filePath)
         {
-            Argument.IsNotNull(() => filePath);
+            ArgumentNullException.ThrowIfNull(filePath);
 
             try
             {

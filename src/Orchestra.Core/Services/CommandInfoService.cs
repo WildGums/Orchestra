@@ -20,7 +20,7 @@ namespace Orchestra.Services
         #region Constructors
         public CommandInfoService(ICommandManager commandManager)
         {
-            Argument.IsNotNull(() => commandManager);
+            ArgumentNullException.ThrowIfNull(commandManager);
 
             _commandManager = commandManager;
         }
@@ -28,7 +28,7 @@ namespace Orchestra.Services
 
         public ICommandInfo GetCommandInfo(string commandName)
         {
-            Argument.IsNotNull(() => commandName);
+            ArgumentNullException.ThrowIfNull(commandName);
 
             if (!_commandInfo.ContainsKey(commandName))
             {
@@ -42,8 +42,8 @@ namespace Orchestra.Services
 
         public void UpdateCommandInfo(string commandName, ICommandInfo commandInfo)
         {
-            Argument.IsNotNull(() => commandName);
-            Argument.IsNotNull(() => commandInfo);
+            ArgumentNullException.ThrowIfNull(commandName);
+            ArgumentNullException.ThrowIfNull(commandInfo);
 
             _commandInfo[commandName] = commandInfo;
         }

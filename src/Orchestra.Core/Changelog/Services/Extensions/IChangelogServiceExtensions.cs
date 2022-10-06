@@ -10,7 +10,7 @@
         public static async Task<List<ChangelogItem>> GetChangelogItemsForGroupAsync(this IChangelogService changelogService,
             string groupName)
         {
-            Argument.IsNotNull(() => changelogService);
+            ArgumentNullException.ThrowIfNull(changelogService);
 
             var changelog = await changelogService.GetChangelogAsync();
 

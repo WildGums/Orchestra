@@ -7,7 +7,7 @@
     {
         public FileBasedThirdPartyNotice(string title, string url, string fileName)
         {
-            Argument.IsNotNull(() => title);
+            ArgumentNullException.ThrowIfNull(title);
 
             Title = title;
             Url = url;

@@ -6,7 +6,7 @@
     {
         public FontThirdPartyNotice(string fontName, string fontUrl)
         {
-            Argument.IsNotNull(() => fontName);
+            ArgumentNullException.ThrowIfNull(fontName);
 
             Title = fontName;
             Url = fontUrl;

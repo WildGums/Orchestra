@@ -20,9 +20,9 @@
         public ChangelogSnapshotService(IDirectoryService directoryService, IFileService fileService,
             IAppDataService appDataService)
         {
-            Argument.IsNotNull(() => directoryService);
-            Argument.IsNotNull(() => fileService);
-            Argument.IsNotNull(() => appDataService);
+            ArgumentNullException.ThrowIfNull(directoryService);
+            ArgumentNullException.ThrowIfNull(fileService);
+            ArgumentNullException.ThrowIfNull(appDataService);
 
             _directoryService = directoryService;
             _fileService = fileService;
@@ -31,7 +31,7 @@
 
         public virtual async Task SerializeSnapshotAsync(Changelog changelog)
         {
-            Argument.IsNotNull(() => changelog);
+            ArgumentNullException.ThrowIfNull(changelog);
 
             var fileName = GetFilename();
 

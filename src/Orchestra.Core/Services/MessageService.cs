@@ -30,9 +30,9 @@ namespace Orchestra.Services
             IViewModelFactory viewModelFactory, ILanguageService languageService)
             : base(dispatcherService, languageService)
         {
-            Argument.IsNotNull(() => dispatcherService);
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => viewModelFactory);
+            ArgumentNullException.ThrowIfNull(dispatcherService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(viewModelFactory);
 
             _dispatcherService = dispatcherService;
             _uiVisualizerService = uiVisualizerService;

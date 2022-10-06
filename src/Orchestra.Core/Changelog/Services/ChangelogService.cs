@@ -19,8 +19,8 @@
 
         public ChangelogService(ITypeFactory typeFactory, IChangelogSnapshotService changelogSnapshotService)
         {
-            Argument.IsNotNull(() => typeFactory);
-            Argument.IsNotNull(() => changelogSnapshotService);
+            ArgumentNullException.ThrowIfNull(typeFactory);
+            ArgumentNullException.ThrowIfNull(changelogSnapshotService);
 
             _typeFactory = typeFactory;
             _changelogSnapshotService = changelogSnapshotService;

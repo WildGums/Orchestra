@@ -24,10 +24,10 @@
 
         public ConfigurationBackupService(IConfigurationService configurationService, IAppDataService appDataService, IFileService fileService, IDirectoryService directoryService)
         {
-            Argument.IsNotNull(() => configurationService);
-            Argument.IsNotNull(() => appDataService);
-            Argument.IsNotNull(() => fileService);
-            Argument.IsNotNull(() => directoryService);
+            ArgumentNullException.ThrowIfNull(configurationService);
+            ArgumentNullException.ThrowIfNull(appDataService);
+            ArgumentNullException.ThrowIfNull(fileService);
+            ArgumentNullException.ThrowIfNull(directoryService);
 
             _configurationService = configurationService;
             _appDataService = appDataService;

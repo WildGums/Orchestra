@@ -28,7 +28,7 @@ namespace Orchestra.Services
         #region Constructors
         public PleaseWaitService(IDispatcherService dispatcherService)
         {
-            Argument.IsNotNull(() => dispatcherService);
+            ArgumentNullException.ThrowIfNull(dispatcherService);
 
             _dispatcherService = dispatcherService;
         }

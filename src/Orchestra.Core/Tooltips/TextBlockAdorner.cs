@@ -28,7 +28,7 @@ namespace Orchestra.Tooltips
         public TextBlockAdorner(UIElement adornedElement, string text)
             : base(adornedElement)
         {
-            Argument.IsNotNull(() => adornedElement);
+            ArgumentNullException.ThrowIfNull(adornedElement);
 
             _adornedElement = adornedElement;
 

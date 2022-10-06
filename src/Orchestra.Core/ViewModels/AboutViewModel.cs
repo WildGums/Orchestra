@@ -23,12 +23,12 @@
         public AboutViewModel(AboutInfo aboutInfo, IProcessService processService, IUIVisualizerService uiVisualizerService,
             IMessageService messageService, ILanguageService languageService, IChangelogService changelogService)
         {
-            Argument.IsNotNull(() => aboutInfo);
-            Argument.IsNotNull(() => processService);
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => messageService);
-            Argument.IsNotNull(() => languageService);
-            Argument.IsNotNull(() => changelogService);
+            ArgumentNullException.ThrowIfNull(aboutInfo);
+            ArgumentNullException.ThrowIfNull(processService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(languageService);
+            ArgumentNullException.ThrowIfNull(changelogService);
 
             _processService = processService;
             _uiVisualizerService = uiVisualizerService;

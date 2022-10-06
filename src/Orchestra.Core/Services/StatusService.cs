@@ -26,7 +26,7 @@ namespace Orchestra.Services
         #region Constructors
         public StatusService(IStatusFilterService statusFilterService)
         {
-            Argument.IsNotNull(() => statusFilterService);
+            ArgumentNullException.ThrowIfNull(statusFilterService);
 
             _statusFilterService = statusFilterService;
 
@@ -62,7 +62,7 @@ namespace Orchestra.Services
         #region Methods
         public void Initialize(IStatusRepresenter statusRepresenter)
         {
-            Argument.IsNotNull(() => statusRepresenter);
+            ArgumentNullException.ThrowIfNull(statusRepresenter);
 
             _statusRepresenter = statusRepresenter;
         }

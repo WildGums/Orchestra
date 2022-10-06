@@ -28,10 +28,10 @@ namespace Orchestra.Services
         public AdorneredTooltipsManager(IAdornerTooltipGenerator adornerTooltipGenerator, IHintsProvider hintsProviderProvider,
             IAdornerLayer adornerLayer, IAdorneredTooltipsCollection adorneredTooltipsCollection)
         {
-            Argument.IsNotNull(() => adornerTooltipGenerator);
-            Argument.IsNotNull(() => hintsProviderProvider);
-            Argument.IsNotNull(() => adornerLayer);
-            Argument.IsNotNull(() => adorneredTooltipsCollection);
+            ArgumentNullException.ThrowIfNull(adornerTooltipGenerator);
+            ArgumentNullException.ThrowIfNull(hintsProviderProvider);
+            ArgumentNullException.ThrowIfNull(adornerLayer);
+            ArgumentNullException.ThrowIfNull(adorneredTooltipsCollection);
 
             _adornerTooltipGenerator = adornerTooltipGenerator;
             _hintsProvider = hintsProviderProvider;
@@ -87,8 +87,8 @@ namespace Orchestra.Services
         #region Methods
         private UIElement FindElement(FrameworkElement element, IHint hint)
         {
-            Argument.IsNotNull(() => element);
-            Argument.IsNotNull(() => hint);
+            ArgumentNullException.ThrowIfNull(element);
+            ArgumentNullException.ThrowIfNull(hint);
 
             var dependencyObject = (DependencyObject) element;
 

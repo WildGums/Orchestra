@@ -27,7 +27,7 @@ namespace Orchestra.Behaviors
 
         public HintsBehavior(IAdorneredTooltipsManagerFactory adorneredTooltipsManagerFactory)
         {
-            Argument.IsNotNull(() => adorneredTooltipsManagerFactory);
+            ArgumentNullException.ThrowIfNull(adorneredTooltipsManagerFactory);
 
             _adorneredTooltipsManagerFactory = adorneredTooltipsManagerFactory;
         }

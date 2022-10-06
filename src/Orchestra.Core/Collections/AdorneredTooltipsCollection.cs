@@ -26,7 +26,7 @@ namespace Orchestra.Collections
         #region Constructors
         public AdorneredTooltipsCollection(IAdorneredTooltipFactory factory)
         {
-            Argument.IsNotNull(() => factory);
+            ArgumentNullException.ThrowIfNull(factory);
 
             _factory = factory;
             _adorneredTooltips = new Dictionary<FrameworkElement, IList<IAdorneredTooltip>>();

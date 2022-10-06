@@ -26,8 +26,8 @@ namespace Orchestra.ViewModels
 
         public SplashScreenViewModel(IAboutInfoService aboutInfoService, ILanguageService languageService)
         {
-            Argument.IsNotNull(() => aboutInfoService);
-            Argument.IsNotNull(() => languageService);
+            ArgumentNullException.ThrowIfNull(aboutInfoService);
+            ArgumentNullException.ThrowIfNull(languageService);
 
             _aboutInfoService = aboutInfoService;
             _languageService = languageService;

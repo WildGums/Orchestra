@@ -22,7 +22,7 @@ namespace Orchestra.Tooltips
         #region Constructors
         public AdorneredTooltip(Adorner adorner, bool adornerLayerVisible)
         {
-            Argument.IsNotNull(() => adorner);
+            ArgumentNullException.ThrowIfNull(adorner);
 
             _adornerLayerVisible = adornerLayerVisible;
             _adorner = adorner;

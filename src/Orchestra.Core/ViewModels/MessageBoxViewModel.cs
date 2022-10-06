@@ -22,8 +22,8 @@ namespace Orchestra.ViewModels
         #region Constructors
         public MessageBoxViewModel(IMessageService messageService, IClipboardService clipboardService)
         {
-            Argument.IsNotNull(() => messageService);
-            Argument.IsNotNull(() => clipboardService);
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(clipboardService);
 
             _messageService = messageService;
             _clipboardService = clipboardService;

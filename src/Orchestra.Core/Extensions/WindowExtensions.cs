@@ -85,7 +85,7 @@ namespace Orchestra
 
         public static void SetMaximumWidthAndHeight(this Window window)
         {
-            Argument.IsNotNull(() => window);
+            ArgumentNullException.ThrowIfNull(window);
 
             window.SetMaximumWidth();
             window.SetMaximumHeight();
@@ -93,21 +93,21 @@ namespace Orchestra
 
         public static void SetMaximumWidth(this Window window)
         {
-            Argument.IsNotNull(() => window);
+            ArgumentNullException.ThrowIfNull(window);
 
             window.SetCurrentValue(FrameworkElement.MaxWidthProperty, SystemParameters.WorkArea.Width - 40);
         }
 
         public static void SetMaximumHeight(this Window window)
         {
-            Argument.IsNotNull(() => window);
+            ArgumentNullException.ThrowIfNull(window);
 
             window.SetCurrentValue(FrameworkElement.MaxHeightProperty, SystemParameters.WorkArea.Height - 40);
         }
 
         public static void CenterWindowToScreen(this Window window)
         {
-            Argument.IsNotNull(() => window);
+            ArgumentNullException.ThrowIfNull(window);
 
             var screenWidth = SystemParameters.PrimaryScreenWidth;
             var screenHeight = SystemParameters.PrimaryScreenHeight;

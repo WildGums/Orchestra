@@ -16,8 +16,8 @@
 
         public CloseApplicationService(IEnsureStartupService ensureStartupService, IMainWindowService mainWindowService)
         {
-            Argument.IsNotNull(() => ensureStartupService);
-            Argument.IsNotNull(() => mainWindowService);
+            ArgumentNullException.ThrowIfNull(ensureStartupService);
+            ArgumentNullException.ThrowIfNull(mainWindowService);
 
             _ensureStartupService = ensureStartupService;
             _mainWindowService = mainWindowService;

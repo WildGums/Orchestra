@@ -27,8 +27,8 @@
 
         public ThemeManager(IAccentColorService accentColorService, IBaseColorSchemeService baseColorSchemeService)
         {
-            Argument.IsNotNull(() => accentColorService);
-            Argument.IsNotNull(() => baseColorSchemeService);
+            ArgumentNullException.ThrowIfNull(accentColorService);
+            ArgumentNullException.ThrowIfNull(baseColorSchemeService);
 
             _accentColorService = accentColorService;
             _baseColorSchemeService = baseColorSchemeService;
@@ -79,7 +79,7 @@
         /// <exception cref="ArgumentNullException">The <paramref name="assembly" /> is <c>null</c>.</exception>
         public virtual void EnsureApplicationThemes(Assembly assembly, bool createStyleForwarders = false)
         {
-            Argument.IsNotNull(() => assembly);
+            ArgumentNullException.ThrowIfNull(assembly);
 
             var uri = string.Format("/{0};component/themes/generic.xaml", assembly.GetName().Name);
 
@@ -114,7 +114,7 @@
         [Time]
         public virtual void EnsureApplicationThemes(ResourceDictionary resourceDictionary, bool createStyleForwarders = false)
         {
-            Argument.IsNotNull(() => resourceDictionary);
+            ArgumentNullException.ThrowIfNull(resourceDictionary);
 
             EnsureOrchestraTheme(createStyleForwarders);
 

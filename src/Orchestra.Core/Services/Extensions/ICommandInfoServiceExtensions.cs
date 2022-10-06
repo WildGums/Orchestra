@@ -15,9 +15,9 @@ namespace Orchestra.Services
     {
         public static void UpdateCommandInfo(this ICommandInfoService commandInfoService, string commandName, Action<ICommandInfo> commandInfoUpdateCallback)
         {
-            Argument.IsNotNull(() => commandInfoService);
-            Argument.IsNotNull(() => commandName);
-            Argument.IsNotNull(() => commandInfoUpdateCallback);
+            ArgumentNullException.ThrowIfNull(commandInfoService);
+            ArgumentNullException.ThrowIfNull(commandName);
+            ArgumentNullException.ThrowIfNull(commandInfoUpdateCallback);
 
             var commandInfo = commandInfoService.GetCommandInfo(commandName);
             commandInfoUpdateCallback(commandInfo);

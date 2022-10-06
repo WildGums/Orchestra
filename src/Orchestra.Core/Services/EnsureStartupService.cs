@@ -30,9 +30,9 @@ namespace Orchestra.Services
         #region Constructors
         public EnsureStartupService(IAppDataService appDataService, IUIVisualizerService uiVisualizerService, IFileService fileService)
         {
-            Argument.IsNotNull(() => appDataService);
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => fileService);
+            ArgumentNullException.ThrowIfNull(appDataService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(fileService);
 
             _appDataService = appDataService;
             _uiVisualizerService = uiVisualizerService;

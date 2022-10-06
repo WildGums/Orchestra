@@ -16,8 +16,8 @@
         public ThirdPartyNoticesViewModel(IAboutInfoService aboutInfoService,
             IThirdPartyNoticesService thirdPartyNoticesService)
         {
-            Argument.IsNotNull(() => aboutInfoService);
-            Argument.IsNotNull(() => thirdPartyNoticesService);
+            ArgumentNullException.ThrowIfNull(aboutInfoService);
+            ArgumentNullException.ThrowIfNull(thirdPartyNoticesService);
 
             _thirdPartyNoticesService = thirdPartyNoticesService;
 

@@ -20,8 +20,8 @@ namespace Orchestra.Services
 
         public AdorneredTooltipsManagerFactory(IServiceLocator serviceLocator, ITypeFactory typeFactory)
         {
-            Argument.IsNotNull(() => serviceLocator);
-            Argument.IsNotNull(() => typeFactory);
+            ArgumentNullException.ThrowIfNull(serviceLocator);
+            ArgumentNullException.ThrowIfNull(typeFactory);
 
             _serviceLocator = serviceLocator;
             _typeFactory = typeFactory;
@@ -30,7 +30,7 @@ namespace Orchestra.Services
         #region Methods
         public IAdorneredTooltipsManager Create(AdornerLayer adornerLayer)
         {
-            Argument.IsNotNull(() => adornerLayer);
+            ArgumentNullException.ThrowIfNull(adornerLayer);
 
             var hintsAdornerLayer = _serviceLocator.ResolveTypeUsingParameters<IAdornerLayer>(new object[] { adornerLayer });
             var adorneredHintFactory = _serviceLocator.ResolveType<IAdorneredTooltipFactory>();

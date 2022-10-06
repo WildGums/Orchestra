@@ -13,7 +13,7 @@ namespace Orchestra.Models
     {
         public UriInfo(string uri, string displayText = null)
         {
-            Argument.IsNotNull(() => uri);
+            ArgumentNullException.ThrowIfNull(uri);
 
             Uri = uri;
             DisplayText = displayText ?? uri;

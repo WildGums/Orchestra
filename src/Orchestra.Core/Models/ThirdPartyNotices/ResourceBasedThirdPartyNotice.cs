@@ -33,8 +33,8 @@
 
         private void Initialize(string title, string url, Assembly assembly, string rootNamespace, string relativeResourceName)
         {
-            Argument.IsNotNull(() => title);
-            Argument.IsNotNull(() => assembly);
+            ArgumentNullException.ThrowIfNull(title);
+            ArgumentNullException.ThrowIfNull(assembly);
 
             Title = title;
             Url = url;

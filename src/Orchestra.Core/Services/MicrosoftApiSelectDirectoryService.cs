@@ -39,7 +39,7 @@
 
         public async Task<DetermineDirectoryResult> DetermineDirectoryAsync(DetermineDirectoryContext context)
         {
-            Argument.IsNotNull(() => context);
+            ArgumentNullException.ThrowIfNull(context);
 
             using (var browserDialog = new CommonOpenFileDialog
                 {

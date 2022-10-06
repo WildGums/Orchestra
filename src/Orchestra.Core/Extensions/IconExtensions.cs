@@ -18,7 +18,7 @@ namespace Orchestra
     {
         public static ImageSource ToImageSource(this Icon icon, int requiredSize = 64)
         {
-            Argument.IsNotNull(() => icon);
+            ArgumentNullException.ThrowIfNull(icon);
 
             var imageSource = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, 
                 BitmapSizeOptions.FromWidthAndHeight(requiredSize, requiredSize));

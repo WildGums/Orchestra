@@ -20,7 +20,7 @@ namespace Orchestra.Layers
         #region Constructors
         public HintsAdornerLayer(AdornerLayer adornerLayer)
         {
-            Argument.IsNotNull(() => adornerLayer);
+            ArgumentNullException.ThrowIfNull(adornerLayer);
 
             _adornerLayer = adornerLayer;
         }

@@ -24,8 +24,8 @@ namespace Orchestra.Services
 
         public static async Task ActivateOrShowAsync(this IViewActivationService viewActivationService, Type viewModelType)
         {
-            Argument.IsNotNull(() => viewActivationService);
-            Argument.IsNotNull(() => viewModelType);
+            ArgumentNullException.ThrowIfNull(viewActivationService);
+            ArgumentNullException.ThrowIfNull(viewModelType);
 
             if (!viewActivationService.Activate(viewModelType))
             {
@@ -41,8 +41,8 @@ namespace Orchestra.Services
 
         public static async Task ActivateOrShowAsync(this IViewActivationService viewActivationService, IViewModel viewModel)
         {
-            Argument.IsNotNull(() => viewActivationService);
-            Argument.IsNotNull(() => viewModel);
+            ArgumentNullException.ThrowIfNull(viewActivationService);
+            ArgumentNullException.ThrowIfNull(viewModel);
 
             if (!viewActivationService.Activate(viewModel))
             {

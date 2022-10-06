@@ -15,8 +15,8 @@ namespace Orchestra
     {
         public static bool MatchesFilters(IEnumerable<string> filters, string fileName)
         {
-            Argument.IsNotNull(() => filters);
-            Argument.IsNotNull(() => fileName);
+            ArgumentNullException.ThrowIfNull(filters);
+            ArgumentNullException.ThrowIfNull(fileName);
 
             foreach (var filter in filters)
             {

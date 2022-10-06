@@ -23,7 +23,7 @@ namespace Orchestra
         /// <returns>System.String.</returns>
         public static string GetCommandGroup(this string commandName)
         {
-            Argument.IsNotNull(() => commandName);
+            ArgumentNullException.ThrowIfNull(commandName);
 
             if (!commandName.Contains("."))
             {
@@ -40,7 +40,7 @@ namespace Orchestra
         /// <returns>System.String.</returns>
         public static string GetCommandName(this string commandName)
         {
-            Argument.IsNotNull(() => commandName);
+            ArgumentNullException.ThrowIfNull(commandName);
 
             if (!commandName.Contains("."))
             {

@@ -211,7 +211,7 @@
 
         public static MonitorInfo GetMonitorFromWindow(Window window)
         {
-            Argument.IsNotNull(() => window);
+            ArgumentNullException.ThrowIfNull(window);
 
             var windowInteropHelper = new WindowInteropHelper(window);
             return GetMonitorFromWindowHandle(windowInteropHelper.Handle);

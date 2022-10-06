@@ -22,8 +22,8 @@ namespace Orchestra.Services
 
         public AboutService(IUIVisualizerService uiVisualizerService, IAboutInfoService aboutInfoService)
         {
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => aboutInfoService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(aboutInfoService);
 
             _uiVisualizerService = uiVisualizerService;
             _aboutInfoService = aboutInfoService;

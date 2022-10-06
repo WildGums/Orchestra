@@ -32,10 +32,10 @@ namespace Orchestra.Services
         public KeyboardMappingsService(ICommandManager commandManager, IXmlSerializer xmlSerializer, 
             IFileService fileService, IAppDataService appDataService)
         {
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => xmlSerializer);
-            Argument.IsNotNull(() => fileService);
-            Argument.IsNotNull(() => appDataService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(xmlSerializer);
+            ArgumentNullException.ThrowIfNull(fileService);
+            ArgumentNullException.ThrowIfNull(appDataService);
 
             _commandManager = commandManager;
             _xmlSerializer = xmlSerializer;

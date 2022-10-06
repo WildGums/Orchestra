@@ -36,12 +36,12 @@ namespace Orchestra.ViewModels
         public KeyboardMappingsOverviewViewModel(ICommandManager commandManager, ICommandInfoService commandInfoService, IUIVisualizerService uiVisualizerService,
             ILanguageService languageService, IViewExportService viewExportService, IKeyboardMappingsService keyboardMappingsService)
         {
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => commandInfoService);
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => languageService);
-            Argument.IsNotNull(() => viewExportService);
-            Argument.IsNotNull(() => keyboardMappingsService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(commandInfoService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(languageService);
+            ArgumentNullException.ThrowIfNull(viewExportService);
+            ArgumentNullException.ThrowIfNull(keyboardMappingsService);
 
             _commandManager = commandManager;
             _commandInfoService = commandInfoService;

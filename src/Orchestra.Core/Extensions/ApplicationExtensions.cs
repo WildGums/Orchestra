@@ -17,7 +17,7 @@ namespace Orchestra
     {
         public static void ApplyTheme(this Application application, bool createStyleForwarders = true)
         {
-            Argument.IsNotNull(() => application);
+            ArgumentNullException.ThrowIfNull(application);
 
             var serviceLocator = ServiceLocator.Default;
             var themeManager = serviceLocator.ResolveType<IThemeManager>();

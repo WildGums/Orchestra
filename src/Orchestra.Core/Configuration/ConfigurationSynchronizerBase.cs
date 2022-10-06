@@ -28,7 +28,7 @@ namespace Orchestra.Configuration
         protected ConfigurationSynchronizerBase(string key, T defaultValue, ConfigurationContainer container, IConfigurationService configurationService)
         {
             Argument.IsNotNullOrWhitespace(() => key);
-            Argument.IsNotNull(() => configurationService);
+            ArgumentNullException.ThrowIfNull(configurationService);
 
             ApplyAtStartup = true;
             Key = key;

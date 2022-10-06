@@ -16,7 +16,7 @@
 
         public void Add(ThirdPartyNotice thirdPartyNotice)
         {
-            Argument.IsNotNull(() => thirdPartyNotice);
+            ArgumentNullException.ThrowIfNull(thirdPartyNotice);
 
             lock (_thirdPartyNotices)
             {

@@ -27,8 +27,8 @@ namespace Orchestra.ViewModels
         #region Constructors
         public SystemInfoViewModel(ISystemInfoService systemInfoService, IClipboardService clipboardService)
         {
-            Argument.IsNotNull(() => systemInfoService);
-            Argument.IsNotNull(() => clipboardService);
+            ArgumentNullException.ThrowIfNull(systemInfoService);
+            ArgumentNullException.ThrowIfNull(clipboardService);
 
             _systemInfoService = systemInfoService;
             _clipboardService = clipboardService;

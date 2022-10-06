@@ -11,8 +11,8 @@
         public static void AddWithTryCatch(this IThirdPartyNoticesService thirdPartyNoticesService,
             Func<ThirdPartyNotice> func)
         {
-            Argument.IsNotNull(() => thirdPartyNoticesService);
-            Argument.IsNotNull(() => func);
+            ArgumentNullException.ThrowIfNull(thirdPartyNoticesService);
+            ArgumentNullException.ThrowIfNull(func);
 
             try
             {

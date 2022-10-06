@@ -22,7 +22,7 @@ namespace Orchestra.Logging
         #region Constructors
         public TextBoxLogListener(TextBox textBox)
         {
-            Argument.IsNotNull(() => textBox);
+            ArgumentNullException.ThrowIfNull(textBox);
 
             _textBox = textBox;
         }

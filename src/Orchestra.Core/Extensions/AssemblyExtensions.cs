@@ -16,14 +16,14 @@ namespace Orchestra
     {
         public static Icon ExtractAssemblyIcon(this Assembly assembly)
         {
-            Argument.IsNotNull(() => assembly);
+            ArgumentNullException.ThrowIfNull(assembly);
 
             return IconHelper.ExtractIconFromFile(assembly.Location);
         }
 
         public static BitmapImage ExtractLargestIcon(this Assembly assembly)
         {
-            Argument.IsNotNull(() => assembly);
+            ArgumentNullException.ThrowIfNull(assembly);
 
             return IconHelper.ExtractLargestIconFromFile(assembly.Location);
         }

@@ -30,9 +30,9 @@ namespace Orchestra.Services
 
         public RecentlyUsedItemsService(IXmlSerializer xmlSerializer, IFileService fileService, IAppDataService appDataService)
         {
-            Argument.IsNotNull(() => xmlSerializer);
-            Argument.IsNotNull(() => fileService);
-            Argument.IsNotNull(() => appDataService);
+            ArgumentNullException.ThrowIfNull(xmlSerializer);
+            ArgumentNullException.ThrowIfNull(fileService);
+            ArgumentNullException.ThrowIfNull(appDataService);
 
             _xmlSerializer = xmlSerializer;
             _fileService = fileService;
@@ -84,7 +84,7 @@ namespace Orchestra.Services
         /// <exception cref="ArgumentNullException">The <paramref name="item"/> is <c>null</c>.</exception>
         public void AddItem(RecentlyUsedItem item)
         {
-            Argument.IsNotNull(() => item);
+            ArgumentNullException.ThrowIfNull(item);
 
             Log.Debug("Adding new item '{0}' to the list of recently used items", item.Name);
 
@@ -108,7 +108,7 @@ namespace Orchestra.Services
         /// <exception cref="ArgumentNullException">The <paramref name="item"/> is <c>null</c>.</exception>
         public void RemoveItem(RecentlyUsedItem item)
         {
-            Argument.IsNotNull(() => item);
+            ArgumentNullException.ThrowIfNull(item);
 
             Log.Debug("Removing item '{0}' to the list of recently used items", item.Name);
 

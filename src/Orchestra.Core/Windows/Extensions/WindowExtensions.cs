@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="WindowExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Windows
+﻿namespace Orchestra.Windows
 {
     using System;
     using System.Windows;
@@ -23,7 +16,7 @@ namespace Orchestra.Windows
         /// <exception cref="ArgumentNullException">The <paramref name="window"/> is <c>null</c>.</exception>
         public static void ApplyApplicationIcon(this Window window)
         {
-            Argument.IsNotNull(() => window);
+            ArgumentNullException.ThrowIfNull(window);
 
             var application = Application.Current;
             if (application is not null)
