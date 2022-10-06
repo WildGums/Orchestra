@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IconHelper.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System;
     using System.Collections.Generic;
@@ -19,12 +12,12 @@ namespace Orchestra
     using System.Windows;
     using System.Windows.Interop;
     using System.Windows.Media.Imaging;
-    using Catel;
+    using Orchestra.Win32;
+    using PixelFormat = System.Drawing.Imaging.PixelFormat;
     using Point = System.Drawing.Point;
 
     internal static class IconHelper
     {
-        #region Methods
         public static Icon ExtractIconFromFile(string filePath)
         {
             ArgumentNullException.ThrowIfNull(filePath);
@@ -174,7 +167,6 @@ namespace Orchestra
                 return result;
             }
         }
-        #endregion
 
         private class IconExtractor
         {
@@ -257,7 +249,7 @@ namespace Orchestra
                 IntPtr hModule = IntPtr.Zero;
                 try
                 {
-                    hModule = NativeMethods.LoadLibraryEx(fileName, IntPtr.Zero, LOAD_LIBRARY_AS_DATAFILE);
+                    hModule = Kernel32.LoadLibraryEx(fileName, IntPtr.Zero, LOAD_LIBRARY_AS_DATAFILE);
                     if (hModule == IntPtr.Zero)
                     {
                         throw new Win32Exception();
@@ -323,7 +315,8 @@ namespace Orchestra
 
                         return true;
                     };
-                    NativeMethods.EnumResourceNames(hModule, RT_GROUP_ICON, callback, IntPtr.Zero);
+
+                    Kernel32.EnumResourceNames(hModule, RT_GROUP_ICON, callback, IntPtr.Zero);
 
                     _iconData = tmpData.ToArray();
                 }
@@ -331,7 +324,7 @@ namespace Orchestra
                 {
                     if (hModule != IntPtr.Zero)
                     {
-                        NativeMethods.FreeLibrary(hModule);
+                        Kernel32.FreeLibrary(hModule);
                     }
                 }
             }
@@ -340,25 +333,25 @@ namespace Orchestra
             {
                 // Load the binary data from the specified resource.
 
-                IntPtr hResInfo = NativeMethods.FindResource(hModule, name, type);
+                IntPtr hResInfo = Kernel32.FindResource(hModule, name, type);
                 if (hResInfo == IntPtr.Zero)
                 {
                     throw new Win32Exception();
                 }
 
-                IntPtr hResData = NativeMethods.LoadResource(hModule, hResInfo);
+                IntPtr hResData = Kernel32.LoadResource(hModule, hResInfo);
                 if (hResData == IntPtr.Zero)
                 {
                     throw new Win32Exception();
                 }
 
-                IntPtr pResData = NativeMethods.LockResource(hResData);
+                IntPtr pResData = Kernel32.LockResource(hResData);
                 if (pResData == IntPtr.Zero)
                 {
                     throw new Win32Exception();
                 }
 
-                uint size = NativeMethods.SizeofResource(hModule, hResInfo);
+                uint size = Kernel32.SizeofResource(hModule, hResInfo);
                 if (size == 0)
                 {
                     throw new Win32Exception();
@@ -381,7 +374,7 @@ namespace Orchestra
                 string fileName;
                 {
                     var buf = new StringBuilder(MAX_PATH);
-                    int len = NativeMethods.GetMappedFileName(NativeMethods.GetCurrentProcess(), hModule, buf, buf.Capacity);
+                    int len = Psapi.GetMappedFileName(Kernel32.GetCurrentProcess(), hModule, buf, buf.Capacity);
                     if (len == 0)
                     {
                         throw new Win32Exception();
@@ -397,7 +390,7 @@ namespace Orchestra
                 {
                     var drive = c + ":";
                     var buf = new StringBuilder(MAX_PATH);
-                    int len = NativeMethods.QueryDosDevice(drive, buf, buf.Capacity);
+                    int len = Kernel32.QueryDosDevice(drive, buf, buf.Capacity);
                     if (len == 0)
                     {
                         continue;
@@ -412,49 +405,6 @@ namespace Orchestra
 
                 return fileName;
             }
-        }
-
-        internal static class NativeMethods
-        {
-            [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-            [SuppressUnmanagedCodeSecurity]
-            public static extern IntPtr LoadLibraryEx(string lpFileName, IntPtr hFile, uint dwFlags);
-
-            [DllImport("kernel32.dll", SetLastError = true)]
-            [SuppressUnmanagedCodeSecurity]
-            public static extern bool FreeLibrary(IntPtr hModule);
-
-            [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-            [SuppressUnmanagedCodeSecurity]
-            public static extern bool EnumResourceNames(IntPtr hModule, IntPtr lpszType, ENUMRESNAMEPROC lpEnumFunc, IntPtr lParam);
-
-            [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-            [SuppressUnmanagedCodeSecurity]
-            public static extern IntPtr FindResource(IntPtr hModule, IntPtr lpName, IntPtr lpType);
-
-            [DllImport("kernel32.dll", SetLastError = true)]
-            [SuppressUnmanagedCodeSecurity]
-            public static extern IntPtr LoadResource(IntPtr hModule, IntPtr hResInfo);
-
-            [DllImport("kernel32.dll", SetLastError = true)]
-            [SuppressUnmanagedCodeSecurity]
-            public static extern IntPtr LockResource(IntPtr hResData);
-
-            [DllImport("kernel32.dll", SetLastError = true)]
-            [SuppressUnmanagedCodeSecurity]
-            public static extern uint SizeofResource(IntPtr hModule, IntPtr hResInfo);
-
-            [DllImport("kernel32.dll", SetLastError = true)]
-            [SuppressUnmanagedCodeSecurity]
-            public static extern IntPtr GetCurrentProcess();
-
-            [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-            [SuppressUnmanagedCodeSecurity]
-            public static extern int QueryDosDevice(string lpDeviceName, StringBuilder lpTargetPath, int ucchMax);
-
-            [DllImport("psapi.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-            [SuppressUnmanagedCodeSecurity]
-            public static extern int GetMappedFileName(IntPtr hProcess, IntPtr lpv, StringBuilder lpFilename, int nSize);
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Winapi, SetLastError = true, CharSet = CharSet.Unicode)]

@@ -7,7 +7,7 @@
     {
         public uint Width;
         public uint Height;
-        public DisplayConfig.PixelFormat PixelFormat;
+        public PixelFormat PixelFormat;
         public PointL Position;
     }
 }

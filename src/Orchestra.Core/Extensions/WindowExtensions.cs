@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="WindowExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System;
     using System.Diagnostics;
@@ -16,49 +9,11 @@ namespace Orchestra
     using Catel.Logging;
     using Catel.Windows;
     using Orc.Controls;
+    using Orchestra.Win32;
     using Window = System.Windows.Window;
     
     public static partial class WindowExtensions
     {
-        #region Win32
-        private const uint MF_BYCOMMAND = 0x00000000;
-        private const uint MF_GRAYED = 0x00000001;
-        private const uint SC_CLOSE = 0xF060;
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
-
-        [DllImport("user32.dll")]
-        private static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, uint uEnable);
-        
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool BringWindowToTop(IntPtr hWnd);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool BringWindowToTop(HandleRef hWnd);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, IntPtr processId);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
-
-        [DllImport("kernel32.dll")]
-        private static extern IntPtr GetCurrentThreadId();
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool AttachThreadInput(IntPtr idAttach, IntPtr idAttachTo, bool fAttach);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetLastActivePopup(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr SetActiveWindow(IntPtr hWnd);
-        #endregion
-
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         public static void DisableCloseButton(this Window window)
@@ -71,8 +26,8 @@ namespace Orchestra
 
             var windowInteropHelper = new WindowInteropHelper(window);
 
-            var sysMenu = GetSystemMenu(windowInteropHelper.Handle, false);
-            EnableMenuItem(sysMenu, SC_CLOSE, MF_BYCOMMAND | MF_GRAYED);
+            var sysMenu = User32.GetSystemMenu(windowInteropHelper.Handle, false);
+            User32.EnableMenuItem(sysMenu, SC.CLOSE, MF.BYCOMMAND | MF.GRAYED);
         }
 
         private static void OnWindowInitializedForDisableCloseButton(object sender, EventArgs e)
@@ -153,25 +108,25 @@ namespace Orchestra
         /// </remarks>
         private static void SetForegroundWindowEx(IntPtr hWnd)
         {
-            var foregroundWindowThreadID = GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
-            var currentThreadID = GetCurrentThreadId();
+            var foregroundWindowThreadID = User32.GetWindowThreadProcessId(User32.GetForegroundWindow(), IntPtr.Zero);
+            var currentThreadID = User32.GetCurrentThreadId();
 
-            if (!AttachThreadInput(foregroundWindowThreadID, currentThreadID, true))
+            if (!User32.AttachThreadInput(foregroundWindowThreadID, currentThreadID, true))
             {
                 Log.Warning("Failed to attach to input thread (Win32 code '{0}')", Marshal.GetLastWin32Error());
                 return;
             }
 
-            var lastActivePopupWindow = GetLastActivePopup(hWnd);
-            SetActiveWindow(lastActivePopupWindow);
+            var lastActivePopupWindow = User32.GetLastActivePopup(hWnd);
+            User32.SetActiveWindow(lastActivePopupWindow);
 
-            if (!AttachThreadInput(foregroundWindowThreadID, currentThreadID, false))
+            if (!User32.AttachThreadInput(foregroundWindowThreadID, currentThreadID, false))
             {
                 Log.Warning("Failed to detach from input thread");
                 return;
             }
 
-            BringWindowToTop(hWnd);
+            User32.BringWindowToTop(hWnd);
         }
     }
 }

@@ -10,7 +10,7 @@
     using System.Windows.Interop;
     using Catel;
     using Catel.Logging;
-    using Orchestra.Win32.Enums;
+    using Orchestra.Win32;
 
     public class DpiScale
     {
@@ -78,7 +78,7 @@
             if (throwErrorsForWrongAppManifest)
             {
                 // Step 1: check DPI awareness, must be PerMonitor
-                NativeMethods.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out var awareness);
+                Shcore.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out var awareness);
 
                 if (awareness != DpiAwareness.ProcessPerMonitor)
                 {
@@ -104,7 +104,7 @@
                 adapterIndex++;
                 var adapter = DisplayDevice.Initialize();
 
-                if (!NativeMethods.EnumDisplayDevices(null, (uint)adapterIndex, ref adapter, 0))
+                if (!User32.EnumDisplayDevices(null, (uint)adapterIndex, ref adapter, 0))
                 {
                     break;
                 }
@@ -125,7 +125,7 @@
 
                     var display = DisplayDevice.Initialize();
 
-                    if (!NativeMethods.EnumDisplayDevices(adapter.DeviceName, (uint)displayIndex, ref display, 1))
+                    if (!User32.EnumDisplayDevices(adapter.DeviceName, (uint)displayIndex, ref display, 1))
                     {
                         break;
                     }
@@ -139,10 +139,10 @@
             var displayConfigs = GetDisplayConfigs();
 
             // Step 5: Enumerate available monitors
-            NativeMethods.EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, delegate (IntPtr hMonitor, IntPtr hdcMonitor, ref Rect lprcMonitor, IntPtr dwData)
+            User32.EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, delegate (IntPtr hMonitor, IntPtr hdcMonitor, ref RECT lprcMonitor, IntPtr dwData)
             {
                 var monitorInfo = NativeMonitorInfoEx.Initialize();
-                var success = NativeMethods.GetMonitorInfo(hMonitor, ref monitorInfo);
+                var success = User32.GetMonitorInfo(hMonitor, ref monitorInfo);
 
                 if (success)
                 {
@@ -172,7 +172,7 @@
                 // Get dpi
                 var dpiScale = new DpiScale();
 
-                NativeMethods.GetDpiForMonitor(monitorHandle, DpiType.Effective, out var dpiScaleX, out var dpiScaleY);
+                Shcore.GetDpiForMonitor(monitorHandle, DpiType.Effective, out var dpiScaleX, out var dpiScaleY);
 
                 if (dpiScaleX > 0 && dpiScaleY > 0)
                 {
@@ -224,11 +224,11 @@
                 throw Log.ErrorAndCreateException((string errorMessage) => new ArgumentException(errorMessage, nameof(handle)), "Pointer has been initialized to zero");
             }
             // Get screen from window handle
-            var monitorHandle = NativeMethods.MonitorFromWindow(handle, 0);
+            var monitorHandle = User32.MonitorFromWindow(handle, 0);
 
             var nativeInfo = NativeMonitorInfoEx.Initialize();
 
-            var success = NativeMethods.GetMonitorInfo(monitorHandle, ref nativeInfo);
+            var success = User32.GetMonitorInfo(monitorHandle, ref nativeInfo);
 
             if (!success)
             {
@@ -248,7 +248,7 @@
             // Get dpi
             var dpiScale = new DpiScale();
 
-            NativeMethods.GetDpiForMonitor(monitorHandle, DpiType.Effective, out var dpiScaleX, out var dpiScaleY);
+            Shcore.GetDpiForMonitor(monitorHandle, DpiType.Effective, out var dpiScaleX, out var dpiScaleY);
 
             if (dpiScaleX > 0 && dpiScaleY > 0)
             {
@@ -288,7 +288,7 @@
 
                 var display = DisplayDevice.Initialize();
 
-                if (!NativeMethods.EnumDisplayDevices(adapterDeviceName, (uint)displayIndex, ref display, 1))
+                if (!User32.EnumDisplayDevices(adapterDeviceName, (uint)displayIndex, ref display, 1))
                 {
                     break;
                 }
@@ -301,11 +301,11 @@
 
         private static DisplayConfigTargetDeviceName[] GetDisplayConfigs()
         {
-            var error = NativeMethods.GetDisplayConfigBufferSizes(QueryDeviceConfigFlags.QdcOnlyActivePaths, out var pathInfoElementsCount, out var modeInfoElementsCount);
+            var error = User32.GetDisplayConfigBufferSizes(QueryDeviceConfigFlags.QdcOnlyActivePaths, out var pathInfoElementsCount, out var modeInfoElementsCount);
 
             if (error != 0)
             {
-                throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(NativeMethods.GetDisplayConfigBufferSizes)} returns error code '{error}'");
+                throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(User32.GetDisplayConfigBufferSizes)} returns error code '{error}'");
             }
 
             var displayConfigs = new List<DisplayConfigTargetDeviceName>();
@@ -313,33 +313,33 @@
             var displayConfigPathInfos = new DisplayConfigPathInfo[pathInfoElementsCount];
             var displayConfigModeInfos = new DisplayConfigModeInfo[modeInfoElementsCount];
 
-            error = NativeMethods.QueryDisplayConfig(QueryDeviceConfigFlags.QdcOnlyActivePaths, ref pathInfoElementsCount, displayConfigPathInfos, ref modeInfoElementsCount,
+            error = User32.QueryDisplayConfig(QueryDeviceConfigFlags.QdcOnlyActivePaths, ref pathInfoElementsCount, displayConfigPathInfos, ref modeInfoElementsCount,
                 displayConfigModeInfos, IntPtr.Zero);
 
             if (error != 0)
             {
-                throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(NativeMethods.QueryDisplayConfig)} returns error code '{error}'");
+                throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(User32.QueryDisplayConfig)} returns error code '{error}'");
             }
 
             foreach (var pathInfo in displayConfigPathInfos)
             {
-                var adapterName = new DisplayConfigAdapterName(pathInfo.TargetInfo.AdapterId, DisplayConfig.DeviceInfoType.DisplayConfigDeviceInfoGetAdapterName);
+                var adapterName = new DisplayConfigAdapterName(pathInfo.TargetInfo.AdapterId, DeviceInfoType.DisplayConfigDeviceInfoGetAdapterName);
 
                 var targetDeviceName = new DisplayConfigTargetDeviceName()
                 {
                     Header = DisplayConfigDeviceInfoHeader.Initialize(pathInfo.TargetInfo.AdapterId,
                     pathInfo.TargetInfo.Id,
-                    DisplayConfig.DeviceInfoType.DisplayConfigDeviceInfoGetTargetName,
+                    DeviceInfoType.DisplayConfigDeviceInfoGetTargetName,
                     (uint)Marshal.SizeOf<DisplayConfigTargetDeviceName>())
                 };
 
-                error = (int)NativeMethods.DisplayConfigGetDeviceInfo(ref targetDeviceName);
+                error = (int)User32.DisplayConfigGetDeviceInfo(ref targetDeviceName);
 
                 try
                 {
                     if (error != 0)
                     {
-                        throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(NativeMethods.DisplayConfigGetDeviceInfo)} returns error code '{error}'");
+                        throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(User32.DisplayConfigGetDeviceInfo)} returns error code '{error}'");
                     }
 
                     displayConfigs.Add(targetDeviceName);

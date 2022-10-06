@@ -9,7 +9,7 @@
     {
         public uint Size;
         public RECT Monitor;
-        public NativeRectangle Work;
+        public RECT Work;
         public int Flags;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
@@ -20,8 +20,8 @@
             return new NativeMonitorInfoEx()
             {
                 Size = (uint)Marshal.SizeOf(typeof(NativeMonitorInfoEx)),
-                Monitor = new NativeRectangle(),
-                Work = new NativeRectangle(),
+                Monitor = new RECT(),
+                Work = new RECT(),
                 Flags = 0,
                 Device = new char[32]
             };

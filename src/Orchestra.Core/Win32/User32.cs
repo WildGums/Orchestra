@@ -2,8 +2,6 @@
 {
     using System;
     using System.Runtime.InteropServices;
-    using Orchestra.Win32;
-    using static Orchestra.Windows.MonitorInfo;
 
     internal static class User32
     {
@@ -42,5 +40,38 @@
         [DllImport("user32.dll")]
         public static extern int QueryDisplayConfig([In] QueryDeviceConfigFlags flags, [In, Out] ref uint numPathArrayElements, [Out] DisplayConfigPathInfo[] pathInfoArray,
             [In, Out] ref uint numModeInfoArrayElements, [Out] DisplayConfigModeInfo[] modeInfoArray, IntPtr currentTopologyId);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
+        [DllImport("user32.dll")]
+        public static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, uint uEnable);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool BringWindowToTop(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool BringWindowToTop(HandleRef hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, IntPtr processId);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr GetCurrentThreadId();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool AttachThreadInput(IntPtr idAttach, IntPtr idAttachTo, bool fAttach);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetLastActivePopup(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SetActiveWindow(IntPtr hWnd);
     }
 }

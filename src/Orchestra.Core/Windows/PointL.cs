@@ -1,14 +1,11 @@
-﻿namespace Orchestra.Windows
+﻿namespace Orchestra.Win32
 {
     using System.Runtime.InteropServices;
 
-    public partial class MonitorInfo
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct PointL
     {
-        [StructLayout(LayoutKind.Sequential)]
-        internal struct PointL
-        {
-            private readonly int _x;
-            private readonly int _y;
-        }
+        private readonly int _x;
+        private readonly int _y;
     }
 }

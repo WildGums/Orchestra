@@ -7,7 +7,7 @@
     {
         [MarshalAs(UnmanagedType.U4)]
         [FieldOffset(0)]
-        public readonly DisplayConfig.ModeInfoType InfoType;
+        public readonly ModeInfoType InfoType;
 
         [MarshalAs(UnmanagedType.U4)]
         [FieldOffset(4)]
