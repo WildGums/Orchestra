@@ -46,8 +46,9 @@
       <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>    
     <Compile Remove="..\Orchestra.Shell.Shared\Properties\**" />
-  </ItemGroup>  
-  
+  </ItemGroup>
+
+  <Import Project="$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props')" />
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props')" />
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.mat.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.mat.props')" />
 </Project>

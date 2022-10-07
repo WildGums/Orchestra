@@ -1,22 +1,12 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="WindowCommandHelper.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
+    using System;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using System.Windows.Media;
-    using System.Windows.Shapes;
-    using Catel;
 
     public static class WindowCommandHelper
     {
-        #region Methods
         /// <summary>
         /// Creates the window command button.
         /// </summary>
@@ -25,6 +15,8 @@ namespace Orchestra
         /// <returns>The right button.</returns>
         public static Button CreateWindowCommandButton(MahApps.Metro.IconPacks.PackIconBase packIcon, string label)
         {
+            ArgumentNullException.ThrowIfNull(packIcon);
+
             var button = CreateWindowCommandButton((FrameworkElement)packIcon, label);
 
             packIcon.SetBinding(MahApps.Metro.IconPacks.PackIconBase.ForegroundProperty, new Binding(nameof(Button.Foreground))
@@ -56,6 +48,5 @@ namespace Orchestra
 
             return button;
         }
-        #endregion
     }
 }

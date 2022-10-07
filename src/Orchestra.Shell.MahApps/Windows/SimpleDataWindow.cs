@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SimpleDataWindow.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Windows
+﻿namespace Orchestra.Windows
 {
     using System;
     using System.Collections.Generic;
@@ -25,7 +18,6 @@ namespace Orchestra.Windows
 
     public class SimpleDataWindow : MahApps.Metro.Controls.Dialogs.CustomDialog, IDataWindow
     {
-        #region Fields
         private readonly WindowLogic _logic;
 
         private event EventHandler<EventArgs> _viewLoaded;
@@ -34,9 +26,7 @@ namespace Orchestra.Windows
 
         private readonly Collection<DataWindowButton> _buttons = new Collection<DataWindowButton>();
         private bool? _dialogResult;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleDataWindow"/> class.
         /// </summary>
@@ -60,7 +50,9 @@ namespace Orchestra.Windows
         /// <param name="mode">The data window mode.</param>
         /// <param name="additionalButtons">The additional buttons.</param>
         /// <exception cref="System.NotSupportedException"></exception>
-        protected SimpleDataWindow(IViewModel viewModel, DataWindowMode mode = DataWindowMode.OkCancel, IEnumerable<DataWindowButton> additionalButtons = null)
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        protected SimpleDataWindow(IViewModel? viewModel, DataWindowMode mode = DataWindowMode.OkCancel, IEnumerable<DataWindowButton>? additionalButtons = null)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             if (CatelEnvironment.IsInDesignMode)
             {
@@ -86,31 +78,31 @@ namespace Orchestra.Windows
                 }
             }
 
-            var languageService = ServiceLocator.Default.ResolveType<ILanguageService>();
+            var languageService = ServiceLocator.Default.ResolveRequiredType<ILanguageService>();
 
             if (mode == DataWindowMode.OkCancel || mode == DataWindowMode.OkCancelApply)
             {
-                var button = DataWindowButton.FromAsync(languageService.GetString("OK"), OnOkExecuteAsync, OnOkCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetRequiredString("OK"), OnOkExecuteAsync, OnOkCanExecute);
                 button.IsDefault = true;
                 _buttons.Add(button);
             }
 
             if (mode == DataWindowMode.OkCancel || mode == DataWindowMode.OkCancelApply)
             {
-                var button = DataWindowButton.FromAsync(languageService.GetString("Cancel"), OnCancelExecuteAsync, OnCancelCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetRequiredString("Cancel"), OnCancelExecuteAsync, OnCancelCanExecute);
                 button.IsCancel = true;
                 _buttons.Add(button);
             }
 
             if (mode == DataWindowMode.OkCancelApply)
             {
-                var button = DataWindowButton.FromAsync(languageService.GetString("Apply"), OnApplyExecuteAsync, OnApplyCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetRequiredString("Apply"), OnApplyExecuteAsync, OnApplyCanExecute);
                 _buttons.Add(button);
             }
 
             if (mode == DataWindowMode.Close)
             {
-                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute, () => true);
+                var button = DataWindowButton.FromSync(languageService.GetRequiredString("Close"), OnCloseExecute, () => true);
                 _buttons.Add(button);
             }
 
@@ -119,9 +111,7 @@ namespace Orchestra.Windows
 
             this.FixBlurriness();
         }
-        #endregion
-
-        #region Commands
+        
         /// <summary>
         /// Executes the Ok command.
         /// </summary>
@@ -132,7 +122,7 @@ namespace Orchestra.Windows
                 return OnOkExecuteAsync();
             }
 
-            return Task.Completed;
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -167,7 +157,7 @@ namespace Orchestra.Windows
                 return OnCancelExecuteAsync();
             }
 
-            return Task.Completed;
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -236,9 +226,7 @@ namespace Orchestra.Windows
             DialogResult = null;
             Close();
         }
-        #endregion
 
-        #region Properties
         public bool? DialogResult
         {
             get
@@ -257,9 +245,7 @@ namespace Orchestra.Windows
                 }
             }
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Adds a custom button to the list of buttons.
         /// </summary>
@@ -303,14 +289,12 @@ namespace Orchestra.Windows
         {
             return await _logic.CancelViewModelAsync();
         }
-        #endregion
 
-        #region IDataWindow Members
         /// <summary>
         /// Gets the view model that is contained by the container.
         /// </summary>
         /// <value>The view model.</value>
-        public IViewModel ViewModel
+        public IViewModel? ViewModel
         {
             get { return _logic.ViewModel; }
         }
@@ -318,7 +302,7 @@ namespace Orchestra.Windows
         /// <summary>
         /// Occurs when the view is loaded.
         /// </summary>
-        event EventHandler<EventArgs> IView.Loaded
+        event EventHandler<EventArgs>? IView.Loaded
         {
             add { _viewLoaded += value; }
             remove { _viewLoaded -= value; }
@@ -327,7 +311,7 @@ namespace Orchestra.Windows
         /// <summary>
         /// Occurs when the view is unloaded.
         /// </summary>
-        event EventHandler<EventArgs> IView.Unloaded
+        event EventHandler<EventArgs>? IView.Unloaded
         {
             add { _viewUnloaded += value; }
             remove { _viewUnloaded -= value; }
@@ -336,7 +320,7 @@ namespace Orchestra.Windows
         /// <summary>
         /// Occurs when the data context has changed.
         /// </summary>
-        event EventHandler<DataContextChangedEventArgs> IView.DataContextChanged
+        event EventHandler<DataContextChangedEventArgs>? IView.DataContextChanged
         {
             add { _viewDataContextChanged += value; }
             remove { _viewDataContextChanged -= value; }
@@ -345,12 +329,12 @@ namespace Orchestra.Windows
         /// <summary>
         /// Occurs when the <see cref="ViewModel"/> property has changed.
         /// </summary>
-        public event EventHandler<EventArgs> ViewModelChanged;
+        public event EventHandler<EventArgs>? ViewModelChanged;
 
         /// <summary>
         /// Occurs when a property on the <see cref="P:Catel.MVVM.IViewModelContainer.ViewModel" /> has changed.
         /// </summary>
-        public event EventHandler<PropertyChangedEventArgs> ViewModelPropertyChanged;
+        public event EventHandler<PropertyChangedEventArgs>? ViewModelPropertyChanged;
 
         /// <summary>
         /// Occurs when a property on the container has changed.
@@ -359,10 +343,8 @@ namespace Orchestra.Windows
         /// This event makes it possible to externally subscribe to property changes of a <see cref="DependencyObject"/>
         /// (mostly the container of a view model) because the .NET Framework does not allows us to.
         /// </remarks>
-        public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        #region Methods
         public void Close()
         {
             if (IsVisible)
@@ -410,10 +392,9 @@ namespace Orchestra.Windows
             }
         }
 
-        private async Task ViewModelClosedAsync(object sender, ViewModelClosedEventArgs e)
+        private async Task ViewModelClosedAsync(object? sender, ViewModelClosedEventArgs e)
         {
             Close();
         }
-        #endregion
     }
 }

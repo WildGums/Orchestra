@@ -1,15 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IShellService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
-    using System;
     using System.Threading.Tasks;
-    using Catel.MVVM;
     using Views;
 
     public partial interface IShellService
@@ -18,7 +9,7 @@ namespace Orchestra.Services
         /// Gets the shell.
         /// </summary>
         /// <value>The shell.</value>
-        IShell Shell { get; }
+        IShell? Shell { get; }
 
         /// <summary>
         /// Creates a new shell.

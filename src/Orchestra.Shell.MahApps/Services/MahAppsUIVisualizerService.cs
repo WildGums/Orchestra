@@ -7,6 +7,7 @@
     using Catel.Services;
     using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
+    using System;
 
     public class MahAppsUIVisualizerService : UIVisualizerService
     {
@@ -17,6 +18,9 @@
 
         public override async Task<UIVisualizerResult> ShowWindowAsync(FrameworkElement window, UIVisualizerContext context)
         {
+            ArgumentNullException.ThrowIfNull(window);
+            ArgumentNullException.ThrowIfNull(context);
+
             var simpleDialog = window as CustomDialog;
             if (simpleDialog is not null)
             {

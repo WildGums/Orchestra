@@ -21,7 +21,7 @@ public static partial class ModuleInitializer
         serviceLocator.RegisterType<IXamlResourceService, XamlResourceService>();
 
         var languageService = serviceLocator.ResolveRequiredType<ILanguageService>();
-        languageService.RegisterLanguageSource(new LanguageResourceSource(typeof(ShellService).Assembly.GetName().Name, 
+        languageService.RegisterLanguageSource(new LanguageResourceSource(typeof(ShellService).Assembly.GetName().Name ?? string.Empty, 
             "Orchestra.Properties", "Resources"));
 
         InitializeSpecific();

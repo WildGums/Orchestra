@@ -1,13 +1,12 @@
 ﻿namespace Orchestra.Examples.MahApps.Services
 {
     using System;
+    using System.Threading.Tasks;
     using System.Windows;
-    using Catel;
     using Catel.MVVM;
     using Catel.Services;
     using global::MahApps.Metro.Controls;
     using global::MahApps.Metro.IconPacks;
-    using Orchestra.Models;
     using Orchestra.Services;
     using ViewModels;
     using Views;
@@ -69,7 +68,7 @@
             return null;
         }
 
-        public AboutInfo GetAboutInfo()
+        public async Task<AboutInfo> GetAboutInfoAsync()
         {
             return new AboutInfo();
         }

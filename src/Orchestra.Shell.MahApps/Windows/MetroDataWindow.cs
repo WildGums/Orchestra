@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DataMetroWindow.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Windows
+﻿namespace Orchestra.Windows
 {
     using System;
     using System.Collections.Generic;
@@ -35,15 +28,14 @@ namespace Orchestra.Windows
     /// </summary>
     public class MetroDataWindow : MetroWindow, IDataWindow
     {
-        #region Fields
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private bool _isWrapped;
         private bool _forceClose;
 
-        private ICommand _defaultOkCommand;
-        private ButtonBase _defaultOkElement;
-        private ICommand _defaultCancelCommand;
+        private ICommand? _defaultOkCommand;
+        private ButtonBase? _defaultOkElement;
+        private ICommand? _defaultCancelCommand;
 
         private readonly Collection<DataWindowButton> _buttons = new Collection<DataWindowButton>();
         private readonly Collection<ICommand> _commands = new Collection<ICommand>();
@@ -52,12 +44,10 @@ namespace Orchestra.Windows
         private readonly WindowLogic _logic;
         private readonly IWrapControlService _wrapControlService;
 
-        private event EventHandler<EventArgs> _viewLoaded;
-        private event EventHandler<EventArgs> _viewUnloaded;
-        private event EventHandler<DataContextChangedEventArgs> _viewDataContextChanged;
-        #endregion
+        private event EventHandler<EventArgs>? _viewLoaded;
+        private event EventHandler<EventArgs>? _viewUnloaded;
+        private event EventHandler<DataContextChangedEventArgs>? _viewDataContextChanged;
 
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Windows.FrameworkElement"/> class.
         /// </summary>
@@ -76,7 +66,7 @@ namespace Orchestra.Windows
         /// <param name="defaultButton">The default button.</param>
         /// <param name="setOwnerAndFocus">if set to <c>true</c>, set the main window as owner window and focus the window.</param>
         /// <param name="infoBarMessageControlGenerationMode">The info bar message control generation mode.</param>
-        public MetroDataWindow(DataWindowMode mode, IEnumerable<DataWindowButton> additionalButtons = null,
+        public MetroDataWindow(DataWindowMode mode, IEnumerable<DataWindowButton>? additionalButtons = null,
             DataWindowDefaultButton defaultButton = DataWindowDefaultButton.OK, bool setOwnerAndFocus = true,
             InfoBarMessageControlGenerationMode infoBarMessageControlGenerationMode = InfoBarMessageControlGenerationMode.Inline)
             : this(null, mode, additionalButtons, defaultButton, setOwnerAndFocus, infoBarMessageControlGenerationMode)
@@ -90,7 +80,7 @@ namespace Orchestra.Windows
         /// Explicit constructor with view model injection, required for <see cref="Activator.CreateInstance(System.Type)"/> which
         /// does not seem to support default parameter values.
         /// </remarks>
-        public MetroDataWindow(IViewModel viewModel)
+        public MetroDataWindow(IViewModel? viewModel)
             : this(viewModel, DataWindowMode.OkCancel)
         {
             // Do not remove this constructor, see remarks
@@ -105,7 +95,9 @@ namespace Orchestra.Windows
         /// <param name="defaultButton">The default button.</param>
         /// <param name="setOwnerAndFocus">if set to <c>true</c>, set the main window as owner window and focus the window.</param>
         /// <param name="infoBarMessageControlGenerationMode">The info bar message control generation mode.</param>
-        public MetroDataWindow(IViewModel viewModel, DataWindowMode mode, IEnumerable<DataWindowButton> additionalButtons = null,
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public MetroDataWindow(IViewModel? viewModel, DataWindowMode mode, IEnumerable<DataWindowButton>? additionalButtons = null,
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
             DataWindowDefaultButton defaultButton = DataWindowDefaultButton.OK, bool setOwnerAndFocus = true,
             InfoBarMessageControlGenerationMode infoBarMessageControlGenerationMode = InfoBarMessageControlGenerationMode.Inline)
         {
@@ -118,7 +110,7 @@ namespace Orchestra.Windows
             var serviceLocator = this.GetServiceLocator();
 #pragma warning restore IDISP001 // Dispose created.
 
-            _wrapControlService = serviceLocator.ResolveType<IWrapControlService>();
+            _wrapControlService = serviceLocator.ResolveRequiredType<IWrapControlService>();
 
             Mode = mode;
             DefaultButton = defaultButton;
@@ -199,13 +191,11 @@ namespace Orchestra.Windows
                 this.FocusFirstControl();
             }
         }
-        #endregion
 
-        #region Properties
         /// <summary>
         /// Gets the type of the view model that this user control uses.
         /// </summary>
-        public Type ViewModelType
+        public Type? ViewModelType
         {
             get { return _logic.GetValue<WindowLogic, Type>(x => x.ViewModelType); }
         }
@@ -214,9 +204,9 @@ namespace Orchestra.Windows
         /// Gets the view model that is contained by the container.
         /// </summary>
         /// <value>The view model.</value>
-        public IViewModel ViewModel
+        public IViewModel? ViewModel
         {
-            get { return _logic.GetValue<WindowLogic, IViewModel>(x => x.ViewModel); }
+            get { return _logic.GetValue<WindowLogic, IViewModel?>(x => x.ViewModel); }
         }
 
         /// <summary>
@@ -335,10 +325,8 @@ namespace Orchestra.Windows
         /// the dynamically created grid.
         /// </summary>
         /// <value>The internal grid.</value>
-        internal Grid InternalGrid { get; private set; }
-        #endregion
+        internal Grid? InternalGrid { get; private set; }
 
-        #region Commands
         /// <summary>
         /// Executes the OK command.
         /// </summary>
@@ -349,7 +337,7 @@ namespace Orchestra.Windows
                 return OnOkExecuteAsync();
             }
 
-            return Task.Completed;
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -385,7 +373,7 @@ namespace Orchestra.Windows
                 return OnCancelExecuteAsync();
             }
 
-            return Task.Completed;
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -424,7 +412,7 @@ namespace Orchestra.Windows
                 return OnApplyExcuteAsync();
             }
 
-            return Task.Completed;
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -471,9 +459,7 @@ namespace Orchestra.Windows
         {
             Close();
         }
-        #endregion
 
-        #region Events
         /// <summary>
         /// Occurs when a property on the container has changed.
         /// </summary>
@@ -481,22 +467,22 @@ namespace Orchestra.Windows
         /// This event makes it possible to externally subscribe to property changes of a <see cref="DependencyObject"/>
         /// (mostly the container of a view model) because the .NET Framework does not allows us to.
         /// </remarks>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Occurs when the <see cref="ViewModel"/> property has changed.
         /// </summary>
-        public event EventHandler<EventArgs> ViewModelChanged;
+        public event EventHandler<EventArgs>? ViewModelChanged;
 
         /// <summary>
         /// Occurs when a property on the <see cref="ViewModel"/> has changed.
         /// </summary>
-        public event EventHandler<PropertyChangedEventArgs> ViewModelPropertyChanged;
+        public event EventHandler<PropertyChangedEventArgs>? ViewModelPropertyChanged;
 
         /// <summary>
         /// Occurs when the view is loaded.
         /// </summary>
-        event EventHandler<EventArgs> IView.Loaded
+        event EventHandler<EventArgs>? IView.Loaded
         {
             add { _viewLoaded += value; }
             remove { _viewLoaded -= value; }
@@ -505,7 +491,7 @@ namespace Orchestra.Windows
         /// <summary>
         /// Occurs when the view is unloaded.
         /// </summary>
-        event EventHandler<EventArgs> IView.Unloaded
+        event EventHandler<EventArgs>? IView.Unloaded
         {
             add { _viewUnloaded += value; }
             remove { _viewUnloaded -= value; }
@@ -514,14 +500,12 @@ namespace Orchestra.Windows
         /// <summary>
         /// Occurs when the data context has changed.
         /// </summary>
-        event EventHandler<DataContextChangedEventArgs> IView.DataContextChanged
+        event EventHandler<DataContextChangedEventArgs>? IView.DataContextChanged
         {
             add { _viewDataContextChanged += value; }
             remove { _viewDataContextChanged -= value; }
         }
-        #endregion
 
-        #region Methods
         private void RaiseViewModelChanged()
         {
             OnViewModelChanged();
@@ -629,7 +613,7 @@ namespace Orchestra.Windows
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void OnButtonReceivedFocus(object sender, EventArgs e)
+        private void OnButtonReceivedFocus(object? sender, EventArgs e)
         {
             var buttonBase = sender as ButtonBase;
             if (buttonBase is null)
@@ -668,8 +652,8 @@ namespace Orchestra.Windows
         {
             if (InternalGrid is not null)
             {
-                var languageService = ServiceLocator.Default.ResolveType<ILanguageService>();
-                throw new InvalidOperationException(languageService.GetString("DataWindowButtonCanOnlyBeAddedWhenWindowIsNotLoaded"));
+                var languageService = ServiceLocator.Default.ResolveRequiredType<ILanguageService>();
+                throw new InvalidOperationException(languageService.GetRequiredString("DataWindowButtonCanOnlyBeAddedWhenWindowIsNotLoaded"));
             }
 
             _buttons.Add(dataWindowButton);
@@ -680,7 +664,7 @@ namespace Orchestra.Windows
         /// </summary>
         /// <param name="oldContent">Old content.</param>
         /// <param name="newContent">New content.</param>
-        protected override void OnContentChanged(object oldContent, object newContent)
+        protected override void OnContentChanged(object? oldContent, object? newContent)
         {
             base.OnContentChanged(oldContent, newContent);
 
@@ -690,40 +674,50 @@ namespace Orchestra.Windows
             }
 
             var newContentAsFrameworkElement = newContent as FrameworkElement;
+            if (newContentAsFrameworkElement is null) 
+            {
+                return;
+            }
+
             if (_isWrapped || !_wrapControlService.CanBeWrapped(newContentAsFrameworkElement))
             {
                 return;
             }
 
-            var languageService = ServiceLocator.Default.ResolveType<ILanguageService>();
+            var languageService = ServiceLocator.Default.ResolveRequiredType<ILanguageService>();
 
             if (IsOKButtonAvailable)
             {
-                var button = DataWindowButton.FromAsync(languageService.GetString("OK"), OnOkExecuteAsync, OnOkCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetRequiredString("OK"), OnOkExecuteAsync, OnOkCanExecute);
                 button.IsDefault = (DefaultButton == DataWindowDefaultButton.OK);
                 _buttons.Add(button);
             }
             if (IsCancelButtonAvailable)
             {
-                var button = DataWindowButton.FromAsync(languageService.GetString("Cancel"), OnCancelExecuteAsync, OnCancelCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetRequiredString("Cancel"), OnCancelExecuteAsync, OnCancelCanExecute);
                 button.IsCancel = true;
                 _buttons.Add(button);
             }
             if (IsApplyButtonAvailable)
             {
-                var button = DataWindowButton.FromAsync(languageService.GetString("Apply"), OnApplyExcuteAsync, OnApplyCanExecute);
+                var button = DataWindowButton.FromAsync(languageService.GetRequiredString("Apply"), OnApplyExcuteAsync, OnApplyCanExecute);
                 button.IsDefault = (DefaultButton == DataWindowDefaultButton.Apply);
                 _buttons.Add(button);
             }
             if (IsCloseButtonAvailable)
             {
-                var button = DataWindowButton.FromSync(languageService.GetString("Close"), OnCloseExecute, OnCloseCanExecute);
+                var button = DataWindowButton.FromSync(languageService.GetRequiredString("Close"), OnCloseExecute, OnCloseCanExecute);
                 button.IsDefault = (DefaultButton == DataWindowDefaultButton.Close);
                 _buttons.Add(button);
             }
 
             foreach (var button in _buttons)
             {
+                if (button.Command is null)
+                {
+                    continue;
+                }
+
                 _commands.Add(button.Command);
             }
 
@@ -754,12 +748,12 @@ namespace Orchestra.Windows
                 newContentAsFrameworkElement.FocusFirstControl();
 
                 _defaultOkCommand = (from button in _buttons
-                                     where button.IsDefault
+                                     where button.IsDefault && button.Command is not null
                                      select button.Command).FirstOrDefault();
                 _defaultOkElement = _wrapControlService.GetWrappedElement<ButtonBase>(contentGrid, WrapControlServiceControlNames.DefaultOkButtonName);
 
                 _defaultCancelCommand = (from button in _buttons
-                                         where button.IsCancel
+                                         where button.IsCancel && button.Command is not null
                                          select button.Command).FirstOrDefault();
 
                 InternalGrid = internalGrid;
@@ -782,7 +776,7 @@ namespace Orchestra.Windows
         /// <param name="sender">The source of the event.</param>
         /// <param name="args">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
 #pragma warning disable AvoidAsyncVoid
-        private async void OnDataWindowClosing(object sender, CancelEventArgs args)
+        private async void OnDataWindowClosing(object? sender, CancelEventArgs args)
 #pragma warning restore AvoidAsyncVoid
         {
             if (!_forceClose && !ClosedByButton)
@@ -881,7 +875,7 @@ namespace Orchestra.Windows
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
-        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             RaiseCanExecuteChangedForAllCommands();
 
@@ -902,9 +896,9 @@ namespace Orchestra.Windows
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 
-        protected virtual Task OnViewModelClosedAsync(object sender, ViewModelClosedEventArgs e)
+        protected virtual Task OnViewModelClosedAsync(object? sender, ViewModelClosedEventArgs e)
         {
-            return Task.Completed;
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -937,6 +931,5 @@ namespace Orchestra.Windows
         protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
         {
         }
-        #endregion
     }
 }

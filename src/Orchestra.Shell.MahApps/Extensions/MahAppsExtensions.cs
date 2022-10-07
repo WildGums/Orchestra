@@ -1,15 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MahAppsExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
+    using System;
     using System.Windows;
-    using Catel;
-    using Catel.Windows.Threading;
     using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
 
@@ -31,7 +23,7 @@ namespace Orchestra
             dialog.ShowModalDialogExternally();
         }
 
-        public static void Close(this BaseMetroDialog dialog, Window parentDialogWindow = null)
+        public static void Close(this BaseMetroDialog dialog, Window? parentDialogWindow = null)
         {
             ArgumentNullException.ThrowIfNull(dialog);
 

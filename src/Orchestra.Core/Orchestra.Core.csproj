@@ -8,7 +8,6 @@
     <PackageVersion>1.0.0-alpha0001</PackageVersion>
     <Description>Orchestra core library.</Description>
     <PackageTags>orc;orchestra;wpf;xaml</PackageTags>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -25,7 +24,7 @@
   
   <ItemGroup>
     <PackageReference Include="Catel.Fody" Version="4.7.0" PrivateAssets="all" />
-    <PackageReference Include="Catel.MVVM" Version="6.0.0-alpha1001" />
+    <PackageReference Include="Catel.MVVM" Version="6.0.0-alpha1002" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -41,6 +40,7 @@
     <PackageReference Include="Orc.SystemInfo" Version="5.0.0-alpha0057" />
   </ItemGroup>
 
+  <Import Project="$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props')" />
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props')" />
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.mat.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.mat.props')" />
 </Project>

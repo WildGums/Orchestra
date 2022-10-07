@@ -5,7 +5,6 @@
     using System.Windows.Controls;
     using System.Windows.Media.Animation;
     using System.Windows.Threading;
-    using Catel;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
@@ -15,8 +14,8 @@
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly IDependencyResolver _dependencyResolver;
-        private ProgressBar _progressBar;
-        private ResourceDictionary _resourceDictionary;
+        private ProgressBar? _progressBar;
+        private ResourceDictionary? _resourceDictionary;
 
         private readonly DispatcherTimer _hidingTimer;
 
@@ -71,7 +70,7 @@
             }
         }
 
-        private void OnHideTimerTick(object sender, EventArgs eventArgs)
+        private void OnHideTimerTick(object? sender, EventArgs eventArgs)
         {
             Log.Debug("Hiding progress bar");
 
@@ -93,7 +92,7 @@
             storyboard.Begin(progressBar);
         }
 
-        private ProgressBar InitializeProgressBar()
+        private ProgressBar? InitializeProgressBar()
         {
             if (_progressBar is null)
             {

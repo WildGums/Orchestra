@@ -1,13 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ApplicationInitializationService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Threading.Tasks;
     using System.Windows;
@@ -15,7 +9,6 @@ namespace Orchestra.Services
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
-    using Catel.Threading;
     using Orc.Theming;
     using Orchestra.Changelog;
     using Orchestra.Changelog.ViewModels;
@@ -42,10 +35,10 @@ namespace Orchestra.Services
             var serviceLocator = this.GetServiceLocator();
 #pragma warning restore IDISP001 // Dispose created.
 
-            var xamlResourceService = serviceLocator.ResolveType<IXamlResourceService>();
-            var themeService = serviceLocator.ResolveType<IThemeService>();
-            var orchestraThemeManager = serviceLocator.ResolveType<IThemeManager>();
-            var orcThemingThemeManager = serviceLocator.ResolveType<Orc.Theming.ThemeManager>();
+            var xamlResourceService = serviceLocator.ResolveRequiredType<IXamlResourceService>();
+            var themeService = serviceLocator.ResolveRequiredType<IThemeService>();
+            var orchestraThemeManager = serviceLocator.ResolveRequiredType<IThemeManager>();
+            var orcThemingThemeManager = serviceLocator.ResolveRequiredType<Orc.Theming.ThemeManager>();
 
             // Note: we only have to create style forwarders once
             var xamlResourceDictionaries = xamlResourceService.GetApplicationResourceDictionaries();
@@ -85,7 +78,14 @@ namespace Orchestra.Services
 
         protected static async Task RunAndWaitAsync(params Func<Task>[] actions)
         {
-            await Task.RunAndWaitAsync(actions);
+            var tasks = new List<Task>();
+
+            foreach (var action in actions)
+            {
+                tasks.Add(Task.Run(action));
+            }
+
+            await Task.WhenAll(tasks);
         }
 
         protected virtual CultureInfo GetApplicationCulture()
@@ -103,6 +103,8 @@ namespace Orchestra.Services
         
         protected virtual void InitializeApplicationLanguage(XmlLanguage xmlLanguage)
         {
+            ArgumentNullException.ThrowIfNull(xmlLanguage);
+
             Log.Debug($"Setting application language to '{xmlLanguage.IetfLanguageTag}'");
 
             // Ensure that we are using the right culture
@@ -128,8 +130,8 @@ namespace Orchestra.Services
         protected virtual async Task ShowChangelogAsync()
         {
             var serviceLocator = ServiceLocator.Default;
-            var changelogService = serviceLocator.ResolveType<IChangelogService>();
-            var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
+            var changelogService = serviceLocator.ResolveRequiredType<IChangelogService>();
+            var uiVisualizerService = serviceLocator.ResolveRequiredType<IUIVisualizerService>();
 
             var changelog = await changelogService.GetChangelogSinceSnapshotAsync();
             if (!changelog.IsEmpty)

@@ -1,6 +1,6 @@
 ﻿namespace Orchestra.Views
 {
-    using System.Windows;
+    using System;
     using System.Windows.Data;
     using Catel.IoC;
     using Catel.MVVM;
@@ -14,7 +14,8 @@
     /// </summary>
     public partial class ShellWindow : IShell
     {
-        #region Constructors
+        private readonly IMahAppsService _mahAppsService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ShellWindow"/> class.
         /// </summary>
@@ -29,30 +30,39 @@
 
             serviceLocator.RegisterInstance(pleaseWaitProgressBar, "busyIndicatorService");
 
-            var statusService = serviceLocator.ResolveType<IStatusService>();
+            var statusService = serviceLocator.ResolveRequiredType<IStatusService>();
             statusService.Initialize(statusTextBlock);
 
-            var commandManager = serviceLocator.ResolveType<ICommandManager>();
-            var flyoutService = serviceLocator.ResolveType<IFlyoutService>();
-            var mahAppsService = serviceLocator.ResolveType<IMahAppsService>();
+            _mahAppsService = serviceLocator.ResolveRequiredType<IMahAppsService>();
+            serviceLocator.RegisterInstance<IAboutInfoService>(_mahAppsService);
 
-            serviceLocator.RegisterInstance<IAboutInfoService>(mahAppsService);
-
+            var flyoutService = serviceLocator.ResolveRequiredType<IFlyoutService>();
             var flyouts = new FlyoutsControl();
+
             foreach (var flyout in flyoutService.GetFlyouts())
             {
                 flyouts.Items.Add(flyout);
             }
 
             Flyouts = flyouts;
+        }
 
-            var windowCommands = mahAppsService.GetRightWindowCommands();
+        protected override async void OnLoaded(EventArgs e)
+        {
+            base.OnLoaded(e);
 
-            if (mahAppsService.GetAboutInfo() is not null)
+            var serviceLocator = ServiceLocator.Default;
+
+            var commandManager = serviceLocator.ResolveRequiredType<ICommandManager>();
+
+            var windowCommands = _mahAppsService.GetRightWindowCommands();
+
+            var aboutInfo = await _mahAppsService.GetAboutInfoAsync();
+            if (aboutInfo is not null)
             {
                 var aboutWindowCommand = WindowCommandHelper.CreateWindowCommandButton(new PackIconMaterial { Kind = PackIconMaterialKind.Information }, "About");
 
-                var aboutService = serviceLocator.ResolveType<IAboutService>();
+                var aboutService = serviceLocator.ResolveRequiredType<IAboutService>();
 #pragma warning disable AvoidAsyncVoid // Avoid async void
                 commandManager.RegisterAction("Help.About", async () => await aboutService.ShowAboutAsync());
 #pragma warning restore AvoidAsyncVoid // Avoid async void
@@ -61,16 +71,21 @@
                 windowCommands.Items.Add(aboutWindowCommand);
             }
 
-            RightWindowCommands = windowCommands;
+            SetCurrentValue(RightWindowCommandsProperty, windowCommands);
 
-            var statusBarContent = mahAppsService.GetStatusBar();
+            var statusBarContent = _mahAppsService.GetStatusBar();
             if (statusBarContent is not null)
             {
                 customStatusBarItem.SetCurrentValue(ContentProperty, statusBarContent);
             }
 
-            var mainView = mahAppsService.GetMainView();
-            contentControl.Content = mainView;
+            var mainView = _mahAppsService.GetMainView();
+            if (mainView is null)
+            {
+                return;
+            }
+
+            contentControl.SetCurrentValue(ContentProperty, mainView);
 
             ShellDimensionsHelper.ApplyDimensions(this, mainView);
 
@@ -79,6 +94,5 @@
                 Source = mainView
             });
         }
-        #endregion
     }
 }
