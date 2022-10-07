@@ -19,8 +19,8 @@
 
         public ChangelogService(ITypeFactory typeFactory, IChangelogSnapshotService changelogSnapshotService)
         {
-            Argument.IsNotNull(() => typeFactory);
-            Argument.IsNotNull(() => changelogSnapshotService);
+            ArgumentNullException.ThrowIfNull(typeFactory);
+            ArgumentNullException.ThrowIfNull(changelogSnapshotService);
 
             _typeFactory = typeFactory;
             _changelogSnapshotService = changelogSnapshotService;
@@ -37,7 +37,7 @@
             }
 
             var delta = snapshot.GetDelta(changelog);
-            delta.Title = LanguageHelper.GetString("Orchestra_ChangelogWhatsNew");
+            delta.Title = LanguageHelper.GetRequiredString("Orchestra_ChangelogWhatsNew");
             return delta;
         }
 

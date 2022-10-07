@@ -1,38 +1,24 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PleaseWaitService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Windows.Input;
-    using Catel;
     using Catel.Logging;
     using Catel.Services;
 
-    public class PleaseWaitService : IPleaseWaitService
+    public class BusyIndicatorService : IBusyIndicatorService
     {
-        #region Constants
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        #endregion
 
-        #region Fields
         protected readonly IDispatcherService _dispatcherService;
 
-        private Cursor _previousCursor;
-        #endregion
+        private Cursor? _previousCursor;
 
-        #region Constructors
-        public PleaseWaitService(IDispatcherService dispatcherService)
+        public BusyIndicatorService(IDispatcherService dispatcherService)
         {
-            Argument.IsNotNull(() => dispatcherService);
+            ArgumentNullException.ThrowIfNull(dispatcherService);
 
             _dispatcherService = dispatcherService;
         }
-        #endregion
 
         public int ShowCounter { get; private set; }
 
@@ -62,7 +48,6 @@ namespace Orchestra.Services
             }
         }
 
-        #region IPleaseWaitService Members
         public virtual void Show(string status = "")
         {
             Log.Debug("Showing busy indicator");
@@ -85,13 +70,27 @@ namespace Orchestra.Services
             });
         }
 
-        public virtual void Show(PleaseWaitWorkDelegate workDelegate, string status = "")
+        public virtual void Show(BusyIndicatorWorkDelegate workDelegate, string status = "")
         {
             Show(status);
 
             try
             {
                 workDelegate();
+            }
+            finally
+            {
+                Hide();
+            }
+        }
+
+        public virtual async void Show(BusyIndicatorWorkAsyncDelegate workDelegate, string status = "")
+        {
+            Show(status);
+
+            try
+            {
+                await workDelegate();
             }
             finally
             {
@@ -172,6 +171,5 @@ namespace Orchestra.Services
                 Hide();
             }
         }
-        #endregion
     }
 }

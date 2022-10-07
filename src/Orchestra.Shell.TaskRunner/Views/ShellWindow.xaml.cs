@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ShellWindow.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
     using System.IO;
     using System.Windows;
@@ -18,17 +11,17 @@ namespace Orchestra.Views
     using ViewModels;
 
     using Services;
+    using System;
 
     /// <summary>
     /// Interaction logic for ShellWindow.xaml.
     /// </summary>
     public partial class ShellWindow : IShell
     {
-        #region Fields
-        private bool _hasUpdatedViewModel;
-        #endregion
+        private readonly ITaskRunnerService _taskRunnerService;
 
-        #region Constructors
+        private bool _hasUpdatedViewModel;
+
         static ShellWindow()
         {
             typeof(ShellWindow).AutoDetectViewPropertiesToSubscribe();
@@ -47,45 +40,46 @@ namespace Orchestra.Views
                 File.Delete(currentLogFileName);
             }
 
-            var fileLogListener = new FileLogListener(currentLogFileName, 25*1000)
+            var fileLogListener = new FileLogListener(currentLogFileName, 25 * 1000)
             {
                 IgnoreCatelLogging = true,
                 IsDebugEnabled = false
             };
-            
+
             LogManager.AddListener(fileLogListener);
 
 #pragma warning disable IDISP001 // Dispose created.
             var serviceLocator = this.GetServiceLocator();
 #pragma warning restore IDISP001 // Dispose created.
 
-            var taskRunnerService = serviceLocator.ResolveType<ITaskRunnerService>();
-            var commandManager = serviceLocator.ResolveType<ICommandManager>();
-            var uiVisualizerService = serviceLocator.ResolveType<IUIVisualizerService>();
+            var uiVisualizerService = serviceLocator.ResolveRequiredType<IUIVisualizerService>();
+            _taskRunnerService = serviceLocator.ResolveRequiredType<ITaskRunnerService>();
 
-            if (taskRunnerService.ShowCustomizeShortcutsButton)
+            if (_taskRunnerService.ShowCustomizeShortcutsButton)
             {
                 AddCustomButton(DataWindowButton.FromAsync("Keyboard shortcuts", () => uiVisualizerService.ShowDialogAsync<KeyboardMappingsOverviewViewModel>(), null));
             }
 
-            serviceLocator.RegisterInstance<IAboutInfoService>(taskRunnerService);
+            serviceLocator.RegisterInstance<IAboutInfoService>(_taskRunnerService);
 
-            if (taskRunnerService.GetAboutInfo() is not null)
+            var commandManager = serviceLocator.ResolveRequiredType<ICommandManager>();
+
+            var helpAboutCommand = commandManager.GetCommand("Help.About");
+            if (helpAboutCommand is not null)
             {
-                var aboutService = serviceLocator.ResolveType<IAboutService>();
-#pragma warning disable AvoidAsyncVoid // Avoid async void
+                var aboutService = serviceLocator.ResolveRequiredType<IAboutService>();
                 commandManager.RegisterAction("Help.About", async () => await aboutService.ShowAboutAsync());
-#pragma warning restore AvoidAsyncVoid // Avoid async void
 
-                AddCustomButton(new DataWindowButton("About", commandManager.GetCommand("Help.About")));
+                AddCustomButton(new DataWindowButton("About", helpAboutCommand));
             }
 
             InitializeComponent();
+
             serviceLocator.RegisterInstance<ILogControlService>(new LogControlService(traceOutputControl));
 
-            ConfigurationContext = taskRunnerService.GetViewDataContext();
+            ConfigurationContext = _taskRunnerService.GetViewDataContext();
 
-            var startupSize = taskRunnerService.GetInitialWindowSize();
+            var startupSize = _taskRunnerService.GetInitialWindowSize();
             if (!startupSize.IsEmpty)
             {
                 var setWidth = startupSize.Width > 0d;
@@ -118,28 +112,24 @@ namespace Orchestra.Views
                 {
                     SetCurrentValue(MinHeightProperty, startupSize.Height);
                     SetCurrentValue(HeightProperty, startupSize.Height);
-                }                
+                }
             }
 
-            var view = taskRunnerService.GetView();
+            var view = _taskRunnerService.GetView();
 
             contentControl.Content = view;
         }
-        #endregion
 
-        #region Properties
         [ViewToViewModel(MappingType = ViewToViewModelMappingType.TwoWayViewWins)]
-        public object ConfigurationContext
+        public object? ConfigurationContext
         {
             get { return GetValue(ConfigurationContextProperty); }
             set { SetValue(ConfigurationContextProperty, value); }
         }
 
-        public static readonly DependencyProperty ConfigurationContextProperty = DependencyProperty.Register(nameof(ConfigurationContext), typeof(object), 
+        public static readonly DependencyProperty ConfigurationContextProperty = DependencyProperty.Register(nameof(ConfigurationContext), typeof(object),
             typeof(ShellWindow), new PropertyMetadata(null));
-        #endregion
 
-        #region Methods
         protected override void OnViewModelChanged()
         {
             base.OnViewModelChanged();
@@ -154,6 +144,5 @@ namespace Orchestra.Views
                 view.SetValue(DataContextProperty, ConfigurationContext);
             }
         }
-        #endregion
     }
 }

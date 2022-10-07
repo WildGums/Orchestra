@@ -1,24 +1,10 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingControl.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Controls
+﻿namespace Orchestra.Controls
 {
-    using System.Windows.Controls;
-
-    /// <summary>
-    /// Interaction logic for KeyboardMappingControl.xaml
-    /// </summary>
-    public partial class KeyboardMappingControl : UserControl
+    public partial class KeyboardMappingControl
     {
-        #region Constructors
         public KeyboardMappingControl()
         {
             InitializeComponent();
         }
-        #endregion
     }
 }

@@ -1,15 +1,8 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CrashWarningViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
+    using System;
     using System.Reflection;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
@@ -18,50 +11,40 @@ namespace Orchestra.Views
 
     public class CrashWarningViewModel : ViewModelBase
     {
-        #region Fields
-
-        #region Constants
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        #endregion
-
+        
         private readonly IManageAppDataService _manageAppDataService;
         private readonly Assembly _assembly;
         private readonly IMessageService _messageService;
         private readonly INavigationService _navigationService;
         private readonly ILanguageService _languageService;
-        #endregion
 
-        #region Constructors
         public CrashWarningViewModel(IManageAppDataService manageAppDataService, IMessageService messageService, INavigationService navigationService,
             ILanguageService languageService)
         {
-            Argument.IsNotNull(() => messageService);
-            Argument.IsNotNull(() => navigationService);
-            Argument.IsNotNull(() => navigationService);
-            Argument.IsNotNull(() => manageAppDataService);
-            Argument.IsNotNull(() => languageService);
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(navigationService);
+            ArgumentNullException.ThrowIfNull(navigationService);
+            ArgumentNullException.ThrowIfNull(manageAppDataService);
+            ArgumentNullException.ThrowIfNull(languageService);
 
             _manageAppDataService = manageAppDataService;
             _messageService = messageService;
             _navigationService = navigationService;
             _languageService = languageService;
 
-            _assembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
+            _assembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
 
             Continue = new TaskCommand(OnContinueExecuteAsync);
             ResetUserSettings = new TaskCommand(OnResetUserSettingsExecuteAsync);
             BackupAndReset = new TaskCommand(OnResetAndBackupExecuteAsync);
         }
-        #endregion
 
-        #region Properties
         public override string Title
         {
-            get { return _assembly.Title(); }
+            get { return _assembly.Title() ?? string.Empty; }
         }
-        #endregion
 
-        #region Commands
         public TaskCommand BackupAndReset { get; set; }
 
         private async Task OnResetAndBackupExecuteAsync()
@@ -72,16 +55,16 @@ namespace Orchestra.Views
             {
                 Log.Warning("User canceled the backup, exit application");
 
-                await _messageService.ShowErrorAsync(_languageService.GetString("Orchestra_FailedToCreateBackup"), _assembly.Title());
+                await _messageService.ShowErrorAsync(_languageService.GetRequiredString("Orchestra_FailedToCreateBackup"), _assembly.Title() ?? string.Empty);
 
-                _navigationService.CloseApplication();
+                await _navigationService.CloseApplicationAsync();
 
                 return;
             }
 
             await _manageAppDataService.DeleteUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming);
 
-            await _messageService.ShowInformationAsync(_languageService.GetString("Orchestra_BackupCreated"), _assembly.Title());
+            await _messageService.ShowInformationAsync(_languageService.GetRequiredString("Orchestra_BackupCreated"), _assembly.Title() ?? string.Empty);
 
             await CloseViewModelAsync(false);
         }
@@ -94,7 +77,7 @@ namespace Orchestra.Views
 
             await _manageAppDataService.DeleteUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming);
 
-            await _messageService.ShowInformationAsync(_languageService.GetString("Orchestra_DeletedUserDataSettings"), _assembly.Title());
+            await _messageService.ShowInformationAsync(_languageService.GetRequiredString("Orchestra_DeletedUserDataSettings"), _assembly.Title() ?? string.Empty);
 
             await CloseViewModelAsync(false);
         }
@@ -107,7 +90,6 @@ namespace Orchestra.Views
 
             await CloseViewModelAsync(false);
         }
-        #endregion
 
         protected override Task<bool> CancelAsync()
         {

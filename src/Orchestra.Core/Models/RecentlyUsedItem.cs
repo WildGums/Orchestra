@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RecentlyUsedItem.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Models
+﻿namespace Orchestra
 {
     using System;
     using Catel;
@@ -15,6 +8,7 @@ namespace Orchestra.Models
     {
         public RecentlyUsedItem()
         {
+            Name = string.Empty;
         }
 
         public RecentlyUsedItem(string name, DateTime dateTime)

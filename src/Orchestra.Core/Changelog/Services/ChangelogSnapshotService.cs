@@ -1,8 +1,8 @@
 ﻿namespace Orchestra.Changelog
 {
+    using System;
     using System.IO;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Logging;
     using Catel.Services;
     using Newtonsoft.Json;
@@ -20,9 +20,9 @@
         public ChangelogSnapshotService(IDirectoryService directoryService, IFileService fileService,
             IAppDataService appDataService)
         {
-            Argument.IsNotNull(() => directoryService);
-            Argument.IsNotNull(() => fileService);
-            Argument.IsNotNull(() => appDataService);
+            ArgumentNullException.ThrowIfNull(directoryService);
+            ArgumentNullException.ThrowIfNull(fileService);
+            ArgumentNullException.ThrowIfNull(appDataService);
 
             _directoryService = directoryService;
             _fileService = fileService;
@@ -31,7 +31,7 @@
 
         public virtual async Task SerializeSnapshotAsync(Changelog changelog)
         {
-            Argument.IsNotNull(() => changelog);
+            ArgumentNullException.ThrowIfNull(changelog);
 
             var fileName = GetFilename();
 
@@ -52,7 +52,7 @@
 
             if (!_fileService.Exists(fileName))
             {
-                return null;
+                return new Changelog();
             }
 
             var json = await _fileService.ReadAllTextAsync(fileName);

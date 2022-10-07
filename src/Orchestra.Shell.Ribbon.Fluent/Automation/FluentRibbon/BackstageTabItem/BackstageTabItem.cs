@@ -15,7 +15,7 @@
 
         public string Header => Element.Current.Name;
 
-        public AutomationElement Content => Element.GetChildElements().FirstOrDefault();
+        public AutomationElement? Content => Element.GetChildElements().FirstOrDefault();
 
         public bool IsSelected
         {

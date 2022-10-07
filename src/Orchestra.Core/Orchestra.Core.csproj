@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows</TargetFrameworks>
     <AssemblyName>Orchestra.Core</AssemblyName>
     <RootNamespace>Orchestra</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
@@ -24,7 +24,7 @@
   
   <ItemGroup>
     <PackageReference Include="Catel.Fody" Version="4.7.0" PrivateAssets="all" />
-    <PackageReference Include="Catel.MVVM" Version="5.12.22" />
+    <PackageReference Include="Catel.MVVM" Version="6.0.0-alpha1005" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -35,11 +35,13 @@
     <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="all" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Obsolete.Fody" Version="5.3.0" PrivateAssets="all" />
-    <PackageReference Include="Orc.Controls" Version="4.8.0" />
-    <PackageReference Include="Orc.FileSystem" Version="4.2.0" />
-    <PackageReference Include="Orc.SystemInfo" Version="4.3.1" />
+    <PackageReference Include="Orc.Automation" Version="5.0.0-alpha0025" />
+    <PackageReference Include="Orc.Controls" Version="5.0.0-alpha0029" />
+    <PackageReference Include="Orc.FileSystem" Version="5.0.0-alpha0061" />
+    <PackageReference Include="Orc.SystemInfo" Version="5.0.0-alpha0057" />
   </ItemGroup>
 
+  <Import Project="$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props')" />
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props')" />
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.mat.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.mat.props')" />
 </Project>

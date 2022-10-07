@@ -1,23 +1,14 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AboutInfoService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
-    using Models;
+    using System.Threading.Tasks;
 
     public class AboutInfoService : IAboutInfoService
     {
-        #region IAboutInfoService Members
-        public AboutInfo GetAboutInfo()
+        public async Task<AboutInfo> GetAboutInfoAsync()
         {
             var aboutInfo = new AboutInfo(new Uri("pack://application:,,,/Resources/Images/CompanyLogo.png", UriKind.RelativeOrAbsolute));
             return aboutInfo;
         }
-        #endregion
     }
 }

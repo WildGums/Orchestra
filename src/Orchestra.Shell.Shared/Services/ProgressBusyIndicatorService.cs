@@ -1,36 +1,28 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ProgressPleaseWaitService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media.Animation;
     using System.Windows.Threading;
-    using Catel;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
 
-    internal class ProgressPleaseWaitService : PleaseWaitService
+    internal class ProgressBusyIndicatorService : BusyIndicatorService
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly IDependencyResolver _dependencyResolver;
-        private ProgressBar _progressBar;
-        private ResourceDictionary _resourceDictionary;
+        private ProgressBar? _progressBar;
+        private ResourceDictionary? _resourceDictionary;
 
         private readonly DispatcherTimer _hidingTimer;
 
-        public ProgressPleaseWaitService(IDispatcherService dispatcherService, IDependencyResolver dependencyResolver)
+        public ProgressBusyIndicatorService(IDispatcherService dispatcherService, IDependencyResolver dependencyResolver)
             : base(dispatcherService)
         {
-            Argument.IsNotNull(() => dependencyResolver);
+            ArgumentNullException.ThrowIfNull(dependencyResolver);
 
             _dependencyResolver = dependencyResolver;
 
@@ -78,7 +70,7 @@ namespace Orchestra.Services
             }
         }
 
-        private void OnHideTimerTick(object sender, EventArgs eventArgs)
+        private void OnHideTimerTick(object? sender, EventArgs eventArgs)
         {
             Log.Debug("Hiding progress bar");
 
@@ -100,15 +92,15 @@ namespace Orchestra.Services
             storyboard.Begin(progressBar);
         }
 
-        private ProgressBar InitializeProgressBar()
+        private ProgressBar? InitializeProgressBar()
         {
             if (_progressBar is null)
             {
-                _progressBar = _dependencyResolver.TryResolve<ProgressBar>("pleaseWaitService");
+                _progressBar = _dependencyResolver.Resolve<ProgressBar>("busyIndicatorService");
 
                 if (_progressBar is not null)
                 {
-                    Log.Debug("Found progress bar that will represent progress inside the ProgressPleaseWaitService");
+                    Log.Debug("Found progress bar that will represent progress inside the ProgressBusyIndicatorService");
                 }
             }
 

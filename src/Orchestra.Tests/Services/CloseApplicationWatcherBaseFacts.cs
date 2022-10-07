@@ -35,7 +35,7 @@
 
         private async Task RunOnWindowClosingAndWaitForFinishAsync(TestCloseApplicationWatcher watcher, int timeout)
         {
-            Argument.IsNotNull(() => watcher);
+            ArgumentNullException.ThrowIfNull(watcher);
 
             bool isWatcherCompleted = false;
             using (var cts = new CancellationTokenSource(timeout))

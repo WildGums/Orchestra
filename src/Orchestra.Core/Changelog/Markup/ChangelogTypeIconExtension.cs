@@ -10,12 +10,12 @@
     {
         public ChangelogType? ChangelogType { get; set; }
 
-        public BindingBase ChangelogTypeBinding { get; set; }
+        public BindingBase? ChangelogTypeBinding { get; set; }
 
         private static readonly DependencyProperty ChangelogTypeBindingBindingSinkProperty = DependencyProperty.RegisterAttached("ChangelogTypeBindingBindingSink",
             typeof(object), typeof(ChangelogTypeIconExtension), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
-        protected override object ProvideDynamicValue(IServiceProvider serviceProvider)
+        protected override object? ProvideDynamicValue(IServiceProvider? serviceProvider)
         {
             var application = Application.Current;
             if (application is null)

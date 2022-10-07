@@ -1,22 +1,16 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IMessageServiceExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Text;
-    using System.Windows.Forms;
-    using Catel;
     using Catel.Services;
 
     public static class IMessageServiceExtensions
     {
         public static string GetAsText(this IMessageService messageService, string message, MessageButton messageButton)
         {
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(message);
+
             string buttons;
 
             switch (messageButton)
@@ -46,6 +40,9 @@ namespace Orchestra.Services
 
         public static string GetAsText(this IMessageService messageService, string message, string buttons)
         {
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(message);
+
             var stringBuilder = new StringBuilder();
 
             stringBuilder.AppendLine(message);

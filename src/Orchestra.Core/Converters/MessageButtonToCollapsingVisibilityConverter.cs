@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MessageButtonToCollapsingVisibilityConverter.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Converters
+﻿namespace Orchestra.Converters
 {
     using System;
     using System.Windows;
@@ -20,26 +13,37 @@ namespace Orchestra.Converters
             SupportInversionUsingCommandParameter = false;
         }
 
-        protected override bool IsVisible(object value, Type targetType, object parameter)
+        protected override bool IsVisible(object? value, Type targetType, object? parameter)
         {
-            var button = (MessageButton)value;
+            var button = value as MessageButton?;
+            if (button is null)
+            {
+                return false;
+            }
 
-            if (parameter.Equals("OK") && (button == MessageButton.OK || button == MessageButton.OKCancel))
+            var stringParameter = parameter as string;
+            if (stringParameter is null)
+            {
+                return false;
+            }
+
+
+            if (stringParameter.Equals("OK") && (button == MessageButton.OK || button == MessageButton.OKCancel))
             {
                 return true;
             }
 
-            if (parameter.Equals("Yes") && (button == MessageButton.YesNoCancel || button == MessageButton.YesNo))
+            if (stringParameter.Equals("Yes") && (button == MessageButton.YesNoCancel || button == MessageButton.YesNo))
             {
                 return true;
             }
 
-            if (parameter.Equals("No") && (button == MessageButton.YesNoCancel || button == MessageButton.YesNo))
+            if (stringParameter.Equals("No") && (button == MessageButton.YesNoCancel || button == MessageButton.YesNo))
             {
                 return true;
             }
 
-            return parameter.Equals("Cancel") && (button == MessageButton.OKCancel || button == MessageButton.YesNoCancel);
+            return stringParameter.Equals("Cancel") && (button == MessageButton.OKCancel || button == MessageButton.YesNoCancel);
         }
     }
 }

@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RibbonBackstageTabItem.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Controls
+﻿namespace Orchestra.Controls
 {
     using System.Windows;
     using System.Windows.Controls;
@@ -17,9 +10,9 @@ namespace Orchestra.Controls
         {
         }
 
-        public ImageSource Icon
+        public ImageSource? Icon
         {
-            get { return (ImageSource)GetValue(IconProperty); }
+            get { return (ImageSource?)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
 
@@ -27,9 +20,9 @@ namespace Orchestra.Controls
             typeof(RibbonBackstageTabItem), new PropertyMetadata(null, (sender, e) => ((RibbonBackstageTabItem)sender).BuildHeader()));
 
 
-        public string HeaderText
+        public string? HeaderText
         {
-            get { return (string)GetValue(HeaderTextProperty); }
+            get { return (string?)GetValue(HeaderTextProperty); }
             set { SetValue(HeaderTextProperty, value); }
         }
 

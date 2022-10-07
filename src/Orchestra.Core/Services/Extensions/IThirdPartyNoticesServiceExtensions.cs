@@ -1,7 +1,6 @@
 ﻿namespace Orchestra.Services
 {
     using System;
-    using Catel;
     using Catel.Logging;
 
     public static class IThirdPartyNoticesServiceExtensions
@@ -11,8 +10,8 @@
         public static void AddWithTryCatch(this IThirdPartyNoticesService thirdPartyNoticesService,
             Func<ThirdPartyNotice> func)
         {
-            Argument.IsNotNull(() => thirdPartyNoticesService);
-            Argument.IsNotNull(() => func);
+            ArgumentNullException.ThrowIfNull(thirdPartyNoticesService);
+            ArgumentNullException.ThrowIfNull(func);
 
             try
             {

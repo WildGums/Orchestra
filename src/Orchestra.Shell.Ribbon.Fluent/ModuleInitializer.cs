@@ -17,7 +17,7 @@ public static partial class ModuleInitializer
 
         var serviceLocator = ServiceLocator.Default;
 
-        var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
+        var thirdPartyNoticesService = serviceLocator.ResolveRequiredType<IThirdPartyNoticesService>();
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("Fluent.Ribbon", "https://github.com/fluentribbon/Fluent.Ribbon", "Orchestra.Shell.Ribbon.Fluent", "Orchestra", "Resources.ThirdPartyNotices.fluent.ribbon.txt"));
     }
 }

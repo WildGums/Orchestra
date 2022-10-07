@@ -1,5 +1,6 @@
 ﻿namespace Orchestra.Changelog
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -10,7 +11,7 @@
         public static async Task<List<ChangelogItem>> GetChangelogItemsForGroupAsync(this IChangelogService changelogService,
             string groupName)
         {
-            Argument.IsNotNull(() => changelogService);
+            ArgumentNullException.ThrowIfNull(changelogService);
 
             var changelog = await changelogService.GetChangelogAsync();
 

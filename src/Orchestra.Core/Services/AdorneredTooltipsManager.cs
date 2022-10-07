@@ -1,37 +1,26 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AdorneredTooltipsManager.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
+    using System;
     using System.Windows;
     using System.Windows.Documents;
-    using Catel;
     using Catel.Windows;
     using Collections;
     using Layers;
-    using Models;
 
     public class AdorneredTooltipsManager : IAdorneredTooltipsManager
     {
-        #region Fields
         private readonly IAdornerLayer _adornerLayer;
         private readonly IAdornerTooltipGenerator _adornerTooltipGenerator;
         private readonly IAdorneredTooltipsCollection _adorneredTooltipsCollection;
         private readonly IHintsProvider _hintsProvider;
-        #endregion
 
-        #region Constructors
         public AdorneredTooltipsManager(IAdornerTooltipGenerator adornerTooltipGenerator, IHintsProvider hintsProviderProvider,
             IAdornerLayer adornerLayer, IAdorneredTooltipsCollection adorneredTooltipsCollection)
         {
-            Argument.IsNotNull(() => adornerTooltipGenerator);
-            Argument.IsNotNull(() => hintsProviderProvider);
-            Argument.IsNotNull(() => adornerLayer);
-            Argument.IsNotNull(() => adorneredTooltipsCollection);
+            ArgumentNullException.ThrowIfNull(adornerTooltipGenerator);
+            ArgumentNullException.ThrowIfNull(hintsProviderProvider);
+            ArgumentNullException.ThrowIfNull(adornerLayer);
+            ArgumentNullException.ThrowIfNull(adorneredTooltipsCollection);
 
             _adornerTooltipGenerator = adornerTooltipGenerator;
             _hintsProvider = hintsProviderProvider;
@@ -40,11 +29,11 @@ namespace Orchestra.Services
 
             IsEnabled = true;
         }
-        #endregion
 
-        #region IAdorneredTooltipsManager Members
         public void AddHintsFor(FrameworkElement element)
         {
+            ArgumentNullException.ThrowIfNull(element);
+
             var triggerHints = _hintsProvider.GetHintsFor(element);
             if (triggerHints is null)
             {
@@ -82,13 +71,11 @@ namespace Orchestra.Services
         }
 
         public bool IsEnabled { get; private set; }
-        #endregion
 
-        #region Methods
-        private UIElement FindElement(FrameworkElement element, IHint hint)
+        private UIElement? FindElement(FrameworkElement element, IHint hint)
         {
-            Argument.IsNotNull(() => element);
-            Argument.IsNotNull(() => hint);
+            ArgumentNullException.ThrowIfNull(element);
+            ArgumentNullException.ThrowIfNull(hint);
 
             var dependencyObject = (DependencyObject) element;
 
@@ -97,7 +84,15 @@ namespace Orchestra.Services
 
         private void AddAdorneredTooltip(FrameworkElement element, IHint hint)
         {
+            ArgumentNullException.ThrowIfNull(element);
+            ArgumentNullException.ThrowIfNull(hint);
+
             var elementWithHint = FindElement(element, hint);
+            if (elementWithHint is null)
+            {
+                return;
+            }
+
             if (!CanAddAdorner(elementWithHint))
             {
                 return;
@@ -131,12 +126,14 @@ namespace Orchestra.Services
 
         private Adorner CreateAdornerTooltip(IHint hint, UIElement adornedElement)
         {
+            ArgumentNullException.ThrowIfNull(hint);
+            ArgumentNullException.ThrowIfNull(adornedElement);
+
             var adorner = _adornerTooltipGenerator.GetAdornerTooltip(hint, adornedElement);
 
             adorner.SetCurrentValue(UIElement.VisibilityProperty, !IsEnabled ? Visibility.Collapsed : Visibility.Visible);
 
             return adorner;
         }
-        #endregion
     }
 }

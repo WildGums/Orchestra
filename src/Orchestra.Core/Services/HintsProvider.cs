@@ -1,29 +1,21 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="HintsProvider.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Windows;
     using Catel;
-    using Models;
 
     public class HintsProvider : IHintsProvider
     {
-        #region Fields
         private readonly Dictionary<Type, List<IHint>> _hints = new Dictionary<Type, List<IHint>>();
-        #endregion
 
-        #region Methods
         public void AddHint<TControlType>(string hintText, Expression<Func<object>> userControlName)
         {
-            string controlName = string.Empty;
+            ArgumentNullException.ThrowIfNull(hintText);
+            ArgumentNullException.ThrowIfNull(userControlName);
+
+            var controlName = string.Empty;
             if (userControlName is not null)
             {
                 controlName = ExpressionHelper.GetPropertyName(userControlName);
@@ -34,7 +26,7 @@ namespace Orchestra.Services
 
         public void AddHint<TControlType>(IHint hint)
         {
-            Argument.IsNotNull(() => hint);
+            ArgumentNullException.ThrowIfNull(hint);
 
             var type = typeof(TControlType);
             if (!_hints.ContainsKey(type))
@@ -47,6 +39,8 @@ namespace Orchestra.Services
 
         public IHint[] GetHintsFor(FrameworkElement element)
         {
+            ArgumentNullException.ThrowIfNull(element);
+
             if (_hints.TryGetValue(element.GetType(), out var hints))
             {
                 return hints.ToArray();
@@ -54,6 +48,5 @@ namespace Orchestra.Services
 
             return Array.Empty<IHint>();
         }
-        #endregion
     }
 }

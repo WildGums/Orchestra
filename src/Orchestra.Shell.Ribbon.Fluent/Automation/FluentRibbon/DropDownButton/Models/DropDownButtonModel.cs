@@ -13,13 +13,13 @@
         }
 
         public RibbonControlSize Size { get; set; }
-        public RibbonControlSizeDefinition SimplifiedSizeDefinition { get; set; }
-        public string KeyTip { get; set; }
+        public RibbonControlSizeDefinition? SimplifiedSizeDefinition { get; set; }
+        public string? KeyTip { get; set; }
         public bool IsContextMenuOpened { get; set; }
-        public object Header { get; set; }
-        public object Icon { get; set; }
-        public object LargeIcon { get; set; }
-        public object MediumIcon { get; set; }
+        public object? Header { get; set; }
+        public object? Icon { get; set; }
+        public object? LargeIcon { get; set; }
+        public object? MediumIcon { get; set; }
         public bool HasTriangle { get; set; }
         public bool IsDropDownOpen { get; set; }
         public ContextMenuResizeMode ResizeMode { get; set; }

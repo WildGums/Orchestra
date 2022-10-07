@@ -1,19 +1,9 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SplashScreenViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2016 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels
 {
     using System;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.MVVM;
-    using Catel.Reflection;
     using Catel.Services;
-    using Models;
     using Services;
 
     /// <summary>
@@ -26,38 +16,35 @@ namespace Orchestra.ViewModels
 
         public SplashScreenViewModel(IAboutInfoService aboutInfoService, ILanguageService languageService)
         {
-            Argument.IsNotNull(() => aboutInfoService);
-            Argument.IsNotNull(() => languageService);
+            ArgumentNullException.ThrowIfNull(aboutInfoService);
+            ArgumentNullException.ThrowIfNull(languageService);
 
             _aboutInfoService = aboutInfoService;
             _languageService = languageService;
         }
 
-        #region Properties
         public static bool IsActive { get; private set; }
 
-        public Uri CompanyLogoForSplashScreenUri { get; private set; }
+        public Uri? CompanyLogoForSplashScreenUri { get; private set; }
 
-        public string Company { get; private set; }
+        public string? Company { get; private set; }
 
-        public string ProducedBy { get; private set; }
+        public string? ProducedBy { get; private set; }
 
-        public string Version { get; private set; }        
-        #endregion
+        public string? Version { get; private set; }        
 
-        #region Methods
         protected override async Task InitializeAsync()
         {
             IsActive = true;
 
             await base.InitializeAsync();
 
-            var aboutInfo = _aboutInfoService.GetAboutInfo();
+            var aboutInfo = await _aboutInfoService.GetAboutInfoAsync();
 
-            Title = aboutInfo.Name;
+            Title = aboutInfo.Name ?? string.Empty;
             Company = aboutInfo.Company;
             CompanyLogoForSplashScreenUri = aboutInfo.CompanyLogoForSplashScreenUri;
-            ProducedBy = string.Format(_languageService.GetString("Orchestra_ProducedBy"), Company);
+            ProducedBy = string.Format(_languageService.GetRequiredString("Orchestra_ProducedBy"), Company);
             Version = aboutInfo.DisplayVersion;
         }
 
@@ -67,6 +54,5 @@ namespace Orchestra.ViewModels
 
             return base.OnClosedAsync(result);
         }
-        #endregion
     }
 }

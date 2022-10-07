@@ -1,13 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="FlyoutServiceExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
-    using Catel;
+    using System;
     using Catel.MVVM.Providers;
     using MahApps.Metro.Controls;
 
@@ -16,7 +9,7 @@ namespace Orchestra.Services
         public static void AddFlyout<TView>(this IFlyoutService flyoutService, string name, Position position, 
             UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel, FlyoutTheme flyoutTheme = FlyoutTheme.Adapt)
         {
-            Argument.IsNotNull(() => flyoutService);
+            ArgumentNullException.ThrowIfNull(flyoutService);
 
             flyoutService.AddFlyout(name, typeof(TView), position, unloadBehavior, flyoutTheme);
         }

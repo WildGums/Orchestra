@@ -1,14 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingsViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels
 {
     using System;
-    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -18,7 +10,6 @@ namespace Orchestra.ViewModels
     using Catel.Services;
     using Catel.Text;
     using Catel.Windows.Input;
-    using Models;
     using Orchestra.Services;
 
     public class KeyboardMappingsCustomizationViewModel : ViewModelBase
@@ -32,11 +23,11 @@ namespace Orchestra.ViewModels
         public KeyboardMappingsCustomizationViewModel(IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
             ICommandInfoService commandInfoService, ILanguageService languageService, IMessageService messageService)
         {
-            Argument.IsNotNull(() => keyboardMappingsService);
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => commandInfoService);
-            Argument.IsNotNull(() => languageService);
-            Argument.IsNotNull(() => messageService);
+            ArgumentNullException.ThrowIfNull(keyboardMappingsService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(commandInfoService);
+            ArgumentNullException.ThrowIfNull(languageService);
+            ArgumentNullException.ThrowIfNull(messageService);
 
             _keyboardMappingsService = keyboardMappingsService;
             _commandManager = commandManager;
@@ -53,35 +44,32 @@ namespace Orchestra.ViewModels
             Assign = new TaskCommand(OnAssignExecuteAsync, OnAssignCanExecute);
         }
 
-        #region Properties
         public override string Title
         {
-            get { return _languageService.GetString("Orchestra_KeyboardShortcuts"); }
+            get { return _languageService.GetRequiredString("Orchestra_KeyboardShortcuts"); }
         }
 
-        public string CommandFilter { get; set; }
+        public string? CommandFilter { get; set; }
 
         public FastObservableCollection<ICommandInfo> Commands { get; private set; }
 
-        public string SelectedCommand { get; set; }
+        public string? SelectedCommand { get; set; }
 
-        public InputGesture SelectedCommandInputGesture { get; private set; }
+        public InputGesture? SelectedCommandInputGesture { get; private set; }
 
-        public InputGesture SelectedCommandNewInputGesture { get; set; }
-        #endregion
+        public InputGesture? SelectedCommandNewInputGesture { get; set; }
 
-        #region Commands
         public TaskCommand Reset { get; private set; }
 
         private async Task OnResetExecuteAsync()
         {
-            var messageResult = await _messageService.ShowAsync(_languageService.GetString("Orchestra_ResetKeyboardShortcutsAreYouSure"), string.Empty, MessageButton.YesNo, MessageImage.Question);
+            var messageResult = await _messageService.ShowAsync(_languageService.GetRequiredString("Orchestra_ResetKeyboardShortcutsAreYouSure"), string.Empty, MessageButton.YesNo, MessageImage.Question);
             if (messageResult == MessageResult.No)
             {
                 return;
             }
 
-            _keyboardMappingsService.Reset();
+            await _keyboardMappingsService.ResetAsync();
 
             if (!string.IsNullOrWhiteSpace(SelectedCommand))
             {
@@ -107,6 +95,11 @@ namespace Orchestra.ViewModels
 
         private void OnRemoveExecute()
         {
+            if (string.IsNullOrWhiteSpace(SelectedCommand))
+            {
+                return;
+            }
+
             SelectedCommandInputGesture = null;
 
             _commandManager.UpdateInputGesture(SelectedCommand, null);
@@ -137,7 +130,16 @@ namespace Orchestra.ViewModels
             SelectedCommandInputGesture = SelectedCommandNewInputGesture;
 
             var selectedCommand = SelectedCommand;
+            if (selectedCommand is null)
+            {
+                return;
+            };
+
             var selectedInputGesture = SelectedCommandInputGesture;
+            if (selectedInputGesture is null)
+            {
+                return;
+            }
 
             if (!selectedInputGesture.IsEmpty())
             {
@@ -146,7 +148,7 @@ namespace Orchestra.ViewModels
                 {
                     var messageBuilder = new StringBuilder();
 
-                    messageBuilder.AppendLine(_languageService.GetString("Orchestra_AssignInputGestureUsedByFollowCommands"), selectedInputGesture);
+                    messageBuilder.AppendLine(_languageService.GetRequiredString("Orchestra_AssignInputGestureUsedByFollowCommands"), selectedInputGesture);
                     messageBuilder.AppendLine();
 
                     foreach (var existingCommand in existingCommands)
@@ -155,9 +157,9 @@ namespace Orchestra.ViewModels
                     }
 
                     messageBuilder.AppendLine();
-                    messageBuilder.AppendLine(_languageService.GetString("Orchestra_AssignInputGestureAreYouSure"), selectedCommand);
+                    messageBuilder.AppendLine(_languageService.GetRequiredString("Orchestra_AssignInputGestureAreYouSure"), selectedCommand);
 
-                    if (await _messageService.ShowAsync(messageBuilder.ToString(), _languageService.GetString("Orchestra_ReplaceInputGesture"), 
+                    if (await _messageService.ShowAsync(messageBuilder.ToString(), _languageService.GetRequiredString("Orchestra_ReplaceInputGesture"), 
                         MessageButton.YesNo) == MessageResult.No)
                     {
                         return;
@@ -175,9 +177,7 @@ namespace Orchestra.ViewModels
 
             UpdateCommands();
         }
-        #endregion
 
-        #region Methods
         protected override async Task InitializeAsync()
         {
             await base.InitializeAsync();
@@ -187,7 +187,7 @@ namespace Orchestra.ViewModels
 
         protected override async Task CloseAsync()
         {
-            _keyboardMappingsService.Save();
+            await _keyboardMappingsService.SaveAsync();
 
             _commandManager.IsKeyboardEventsSuspended = false;
 
@@ -232,7 +232,7 @@ namespace Orchestra.ViewModels
 
         private void OnSelectedCommandChanged()
         {
-            InputGesture inputGesture = null;
+            InputGesture? inputGesture = null;
 
             if (!string.IsNullOrWhiteSpace(SelectedCommand))
             {
@@ -242,6 +242,5 @@ namespace Orchestra.ViewModels
             SelectedCommandInputGesture = inputGesture;
             SelectedCommandNewInputGesture = null;
         }
-        #endregion
     }
 }

@@ -1,22 +1,19 @@
 ﻿namespace Orchestra.Services
 {
+    using System;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Services;
     using Microsoft.WindowsAPICodePack.Dialogs;
 
     public class MicrosoftApiSelectDirectoryService : ISelectDirectoryService
     {
-        #region Properties
-        public string FileName { get; set; }
-        public string Filter { get; set; }
-        public string DirectoryName { get; private set; }
+        public string? FileName { get; set; }
+        public string? Filter { get; set; }
+        public string? DirectoryName { get; private set; }
         public bool ShowNewFolderButton { get; set; }
-        public string InitialDirectory { get; set; }
-        public string Title { get; set; }
-        #endregion
+        public string? InitialDirectory { get; set; }
+        public string? Title { get; set; }
 
-        #region ISelectDirectoryService Members
         public async Task<bool> DetermineDirectoryAsync()
         {
             using (var browserDialog = new CommonOpenFileDialog
@@ -39,7 +36,7 @@
 
         public async Task<DetermineDirectoryResult> DetermineDirectoryAsync(DetermineDirectoryContext context)
         {
-            Argument.IsNotNull(() => context);
+            ArgumentNullException.ThrowIfNull(context);
 
             using (var browserDialog = new CommonOpenFileDialog
                 {
@@ -64,6 +61,5 @@
                 return result;
             }
         }
-        #endregion
     }
 }

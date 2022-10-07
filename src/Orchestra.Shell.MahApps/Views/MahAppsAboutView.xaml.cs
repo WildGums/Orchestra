@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MahAppsAboutView.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
     using Catel.Windows;
     using ViewModels;
@@ -15,7 +8,6 @@ namespace Orchestra.Views
     /// </summary>
     public partial class MahAppsAboutView
     {
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="MahAppsAboutView"/> class.
         /// </summary>
@@ -31,11 +23,10 @@ namespace Orchestra.Views
         /// <remarks>
         /// This constructor can be used to use view-model injection.
         /// </remarks>
-        public MahAppsAboutView(AboutViewModel viewModel)
+        public MahAppsAboutView(AboutViewModel? viewModel)
             : base(viewModel, DataWindowMode.Close)
         {
             InitializeComponent();
         }
-        #endregion
     }
 }

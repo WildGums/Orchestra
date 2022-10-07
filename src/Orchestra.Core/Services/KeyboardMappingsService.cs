@@ -1,23 +1,14 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingsService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Catel;
+    using System.Threading.Tasks;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Runtime.Serialization.Xml;
     using Catel.Services;
     using Orc.FileSystem;
-    using Orchestra.Models;
-    using Path = Catel.IO.Path;
 
     public class KeyboardMappingsService : IKeyboardMappingsService
     {
@@ -32,10 +23,10 @@ namespace Orchestra.Services
         public KeyboardMappingsService(ICommandManager commandManager, IXmlSerializer xmlSerializer, 
             IFileService fileService, IAppDataService appDataService)
         {
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => xmlSerializer);
-            Argument.IsNotNull(() => fileService);
-            Argument.IsNotNull(() => appDataService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(xmlSerializer);
+            ArgumentNullException.ThrowIfNull(fileService);
+            ArgumentNullException.ThrowIfNull(appDataService);
 
             _commandManager = commandManager;
             _xmlSerializer = xmlSerializer;
@@ -49,7 +40,7 @@ namespace Orchestra.Services
 
         public List<KeyboardMapping> AdditionalKeyboardMappings { get; private set; } 
 
-        public void Load()
+        public async Task LoadAsync()
         {
             Log.Debug("Loading keyboard mappings");
 
@@ -87,7 +78,7 @@ namespace Orchestra.Services
             }
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
             Log.Debug("Saving keyboard mappings");
 
@@ -114,7 +105,7 @@ namespace Orchestra.Services
             }
         }
 
-        public void Reset()
+        public async Task ResetAsync()
         {
             Log.Debug("Resetting keyboard mappings");
 

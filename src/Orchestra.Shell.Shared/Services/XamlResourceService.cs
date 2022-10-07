@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Text;
     using System.Windows;
     using Catel.Reflection;
 
@@ -11,22 +10,25 @@
     {
         public virtual IEnumerable<ResourceDictionary> GetApplicationResourceDictionaries()
         {
-            var resourceDictionaries = new List<ResourceDictionary>();
+            var resourceDictionaries = new List<ResourceDictionary>
+            {
+                // Orchestra.Core
+                GetResourceDictionaryFromAssembly(typeof(IXamlResourceService).Assembly),
 
-            // Orchestra.Core
-            resourceDictionaries.Add(GetResourceDictionaryFromAssembly(typeof(IXamlResourceService).Assembly));
+                // Shell specific
+                GetResourceDictionaryFromAssembly(typeof(ApplicationInitializationServiceBase).Assembly),
 
-            // Shell specific
-            resourceDictionaries.Add(GetResourceDictionaryFromAssembly(typeof(ApplicationInitializationServiceBase).Assembly));
-
-            // Current app specific
-            resourceDictionaries.Add(GetResourceDictionaryFromAssembly(AssemblyHelper.GetEntryAssembly()));
+                // Current app specific
+                GetResourceDictionaryFromAssembly(AssemblyHelper.GetRequiredEntryAssembly())
+            };
 
             return resourceDictionaries;
         }
 
         protected virtual ResourceDictionary GetResourceDictionaryFromAssembly(Assembly assembly)
         {
+            ArgumentNullException.ThrowIfNull(assembly);
+
             var uri = GetResourceDictionaryUriFromAssembly(assembly);
 
             var resourceDictionary = new ResourceDictionary
@@ -39,6 +41,8 @@
 
         protected virtual Uri GetResourceDictionaryUriFromAssembly(Assembly assembly)
         {
+            ArgumentNullException.ThrowIfNull(assembly);
+
             var uri = string.Format("/{0};component/themes/generic.xaml", assembly.GetName().Name);
             return new Uri(uri, UriKind.RelativeOrAbsolute);
         }

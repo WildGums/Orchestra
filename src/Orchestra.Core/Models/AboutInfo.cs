@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AboutInfo.cs" company="WildGums">
-//   Copyright (c) 2008 - 2016 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Models
+﻿namespace Orchestra
 {
     using System;
     using System.Reflection;
@@ -15,7 +8,6 @@ namespace Orchestra.Models
 
     public class AboutInfo : ModelBase
     {
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="AboutInfo" /> class.
         /// </summary>
@@ -35,15 +27,14 @@ namespace Orchestra.Models
         /// <param name="productName">The application product name. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="name">The application title. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="version">The application version. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
-        public AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, UriInfo uriInfo = null, Assembly assembly = null,
-            Uri companyLogoForSplashScreenUri = null, BitmapSource appIcon = null, DateTime? buildDateTime = null, string company = null,
-            string copyright = null, Uri copyrightUri = null, string description = null, string displayVersion = null, string informationalVersion = null,
-            string name = null, string productName = null, string version = null)
+        public AboutInfo(Uri? companyLogoUri = null, string? logoImageSource = null, UriInfo? uriInfo = null, Assembly? assembly = null,
+            Uri? companyLogoForSplashScreenUri = null, BitmapSource? appIcon = null, DateTime? buildDateTime = null, string? company = null,
+            string? copyright = null, Uri? copyrightUri = null, string? description = null, string? displayVersion = null, string? informationalVersion = null,
+            string? name = null, string? productName = null, string? version = null)
         {
             ShowLogButton = true;
 
-            Assembly = assembly ?? Catel.Reflection.AssemblyHelper.GetEntryAssembly();
-
+            Assembly = assembly ?? Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
             CompanyLogoForSplashScreenUri = companyLogoForSplashScreenUri;
             CompanyLogoUri = companyLogoUri;
             CopyrightUri = copyrightUri;
@@ -62,9 +53,6 @@ namespace Orchestra.Models
 
             DisplayVersion = displayVersion ?? VersionHelper.GetCurrentVersion(Assembly);
         }
-        #endregion
-
-        #region Properties
 
         /// <summary>
         /// Gets the assembly.
@@ -75,7 +63,7 @@ namespace Orchestra.Models
         /// <summary>
         /// Gets the application icon.
         /// </summary>
-        public BitmapSource AppIcon { get; private set; }
+        public BitmapSource? AppIcon { get; private set; }
 
         /// <summary>
         /// Gets the application build datetime.
@@ -86,59 +74,59 @@ namespace Orchestra.Models
         /// Gets the application logo image Uri.
         /// </summary>
         /// <value>The company logo image Uri.</value>
-        public Uri CompanyLogoForSplashScreenUri { get; set; }
+        public Uri? CompanyLogoForSplashScreenUri { get; set; }
 
         /// <summary>
         /// Gets the application logo image source.
         /// </summary>
         /// <value>The company logo image Uri.</value>
-        public Uri CompanyLogoUri { get; private set; }
+        public Uri? CompanyLogoUri { get; private set; }
 
         /// <summary>
         /// Gets the application company.
         /// </summary>
-        public string Company { get; private set; }
+        public string? Company { get; private set; }
 
         /// <summary>
         /// Gets the application copyright.
         /// </summary>
-        public string Copyright { get; private set; }
+        public string? Copyright { get; private set; }
 
         /// <summary>
         /// Gets the application copyright Uri.
         /// </summary>
-        public Uri CopyrightUri { get; private set; }
+        public Uri? CopyrightUri { get; private set; }
 
         /// <summary>
         /// Gets the application description.
         /// </summary>
-        public string Description { get; private set; }
+        public string? Description { get; private set; }
 
         /// <summary>
         /// Gets the application display version.
         /// </summary>
-        public string DisplayVersion { get; private set; }
+        public string? DisplayVersion { get; private set; }
 
         /// <summary>
         /// Gets the application informational version.
         /// </summary>
-        public string InformationalVersion { get; private set; }
+        public string? InformationalVersion { get; private set; }
 
         /// <summary>
         /// Gets the application logo image source.
         /// </summary>
         /// <value>The logo image source.</value>
-        public string LogoImageSource { get; private set; }
+        public string? LogoImageSource { get; private set; }
 
         /// <summary>
         /// Gets the application name.
         /// </summary>
-        public string Name { get; private set; }
+        public string? Name { get; private set; }
 
         /// <summary>
         /// Gets the application product name.
         /// </summary>
-        public string ProductName { get; private set; }
+        public string? ProductName { get; private set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the about should show a log button.
@@ -150,12 +138,11 @@ namespace Orchestra.Models
         /// Gets the application uri info.
         /// </summary>
         /// <value>The uri info.</value>
-        public UriInfo UriInfo { get; private set; }
+        public UriInfo? UriInfo { get; private set; }
 
         /// <summary>
         /// Gets the application version.
         /// </summary>
-        public string Version { get; private set; }
-        #endregion
+        public string? Version { get; private set; }
     }
 }

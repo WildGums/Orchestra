@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ShellWindow.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
     using Catel.IoC;
     using Catel.Windows;
@@ -25,13 +18,13 @@ namespace Orchestra.Views
 
             InitializeComponent();
 
-            serviceLocator.RegisterInstance(pleaseWaitProgressBar, "pleaseWaitService");
+            serviceLocator.RegisterInstance(pleaseWaitProgressBar, "busyIndicatorService");
 
-            var statusService = serviceLocator.ResolveType<IStatusService>();
+            var statusService = serviceLocator.ResolveRequiredType<IStatusService>();
             statusService.Initialize(statusTextBlock);
 
             var dependencyResolver = this.GetDependencyResolver();
-            var ribbonService = dependencyResolver.Resolve<IRibbonService>();
+            var ribbonService = dependencyResolver.ResolveRequired<IRibbonService>();
 
             var ribbonContent = ribbonService.GetRibbon();
             if (ribbonContent is not null)
@@ -52,9 +45,12 @@ namespace Orchestra.Views
             }
 
             var mainView = ribbonService.GetMainView();
-            contentControl.Content = mainView;
+            if (mainView is not null)
+            {
+                contentControl.Content = mainView;
 
-            ShellDimensionsHelper.ApplyDimensions(this, mainView);
+                ShellDimensionsHelper.ApplyDimensions(this, mainView);
+            }
         }
     }
 }

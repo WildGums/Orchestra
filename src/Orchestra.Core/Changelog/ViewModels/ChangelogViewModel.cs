@@ -1,5 +1,6 @@
 ﻿namespace Orchestra.Changelog.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Catel;
@@ -15,16 +16,16 @@
 
         public ChangelogViewModel(Changelog changelog, IChangelogService changelogService, IChangelogSnapshotService changelogSnapshotService)
         {
-            Argument.IsNotNull(() => changelog);
-            Argument.IsNotNull(() => changelogService);
-            Argument.IsNotNull(() => changelogSnapshotService);
+            ArgumentNullException.ThrowIfNull(changelog);
+            ArgumentNullException.ThrowIfNull(changelogService);
+            ArgumentNullException.ThrowIfNull(changelogSnapshotService);
 
             Changelog = changelog;
             _changelogService = changelogService;
             _changelogSnapshotService = changelogSnapshotService;
 
             Groups = changelog.CreateGroups();
-            Title = changelog.Title ?? LanguageHelper.GetString("Orchestra_Changelog");
+            Title = changelog.Title ?? LanguageHelper.GetRequiredString("Orchestra_Changelog");
         }
 
         public Changelog Changelog { get; }

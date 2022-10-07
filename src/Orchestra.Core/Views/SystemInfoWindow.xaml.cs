@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SystemInfoWindow.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
     using System.Windows;
     using Catel.Windows;
@@ -16,7 +9,6 @@ namespace Orchestra.Views
     /// </summary>
     public partial class SystemInfoWindow
     {
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="SystemInfoWindow"/> class.
         /// </summary>
@@ -32,18 +24,15 @@ namespace Orchestra.Views
         /// <remarks>
         /// This constructor can be used to use view-model injection.
         /// </remarks>
-        public SystemInfoWindow(SystemInfoViewModel viewModel)
+        public SystemInfoWindow(SystemInfoViewModel? viewModel)
             : base(viewModel, DataWindowMode.Custom)
         {
             InitializeComponent();
         }
-        #endregion
 
-        #region Methods
-        private void OnCloseClick(object sender, RoutedEventArgs e)
+        private void OnCloseClick(object? sender, RoutedEventArgs e)
         {
             Close();
         }
-        #endregion
     }
 }

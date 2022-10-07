@@ -1,15 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MahAppsExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
+    using System;
     using System.Windows;
-    using Catel;
-    using Catel.Windows.Threading;
     using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
 
@@ -17,7 +9,7 @@ namespace Orchestra
     {
         public static void Show(this BaseMetroDialog dialog)
         {
-            Argument.IsNotNull(() => dialog);
+            ArgumentNullException.ThrowIfNull(dialog);
 
             var metroWindow = Application.Current.GetMainWindow();
 
@@ -26,14 +18,14 @@ namespace Orchestra
 
         public static void ShowModal(this BaseMetroDialog dialog)
         {
-            Argument.IsNotNull(() => dialog);
+            ArgumentNullException.ThrowIfNull(dialog);
 
             dialog.ShowModalDialogExternally();
         }
 
-        public static void Close(this BaseMetroDialog dialog, Window parentDialogWindow = null)
+        public static void Close(this BaseMetroDialog dialog, Window? parentDialogWindow = null)
         {
-            Argument.IsNotNull(() => dialog);
+            ArgumentNullException.ThrowIfNull(dialog);
 
             if (parentDialogWindow is not null)
             {
@@ -48,7 +40,7 @@ namespace Orchestra
 
         public static MetroWindow GetMainWindow(this Application application)
         {
-            Argument.IsNotNull(() => application);
+            ArgumentNullException.ThrowIfNull(application);
 
             return (MetroWindow) application.MainWindow;
         }

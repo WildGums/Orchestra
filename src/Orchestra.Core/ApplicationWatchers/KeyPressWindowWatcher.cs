@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyPressWindowWatcher.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System;
     using System.Windows;
@@ -15,10 +8,10 @@ namespace Orchestra
     {
         private static readonly bool[] _heldDown = new bool[256];
 
-        private Action<KeyEventArgs> _keyDownHandler;
-        private Action<KeyEventArgs> _keyUpHandler;
-        private Action<KeyEventArgs> _previewKeyDownHandler;
-        private Action<KeyEventArgs> _previewKeyUpHandler;
+        private Action<KeyEventArgs>? _keyDownHandler;
+        private Action<KeyEventArgs>? _keyUpHandler;
+        private Action<KeyEventArgs>? _previewKeyDownHandler;
+        private Action<KeyEventArgs>? _previewKeyUpHandler;
 
         public void WatchWindow(Window window)
         {
@@ -57,7 +50,7 @@ namespace Orchestra
             return IsKeyHeldDown(Key.LeftAlt) || IsKeyHeldDown(Key.RightAlt);
         }
 
-        private void OnKeyUp(object sender, KeyEventArgs e)
+        private void OnKeyUp(object? sender, KeyEventArgs e)
         {
             var virtualKey = KeyInterop.VirtualKeyFromKey(e.Key);
             _heldDown[virtualKey] = false;
@@ -81,7 +74,7 @@ namespace Orchestra
             _keyUpHandler(e);
         }
 
-        private void OnPreviewKeyUp(object sender, KeyEventArgs e)
+        private void OnPreviewKeyUp(object? sender, KeyEventArgs e)
         {
             if (e.Handled)
             {
@@ -102,7 +95,7 @@ namespace Orchestra
             _previewKeyUpHandler(e);
         }
 
-        private void OnKeyDown(object sender, KeyEventArgs e)
+        private void OnKeyDown(object? sender, KeyEventArgs e)
         {
             if (e.Handled)
             {
@@ -123,7 +116,7 @@ namespace Orchestra
             _keyDownHandler(e);
         }
 
-        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        private void OnPreviewKeyDown(object? sender, KeyEventArgs e)
         {
             var virtualKey = KeyInterop.VirtualKeyFromKey(e.Key);
             _heldDown[virtualKey] = true;
@@ -147,22 +140,22 @@ namespace Orchestra
             _previewKeyDownHandler(e);
         }
 
-        public void SetPreviewKeyDownHandler(Action<KeyEventArgs> handler)
+        public void SetPreviewKeyDownHandler(Action<KeyEventArgs>? handler)
         {
             _previewKeyDownHandler = handler;
         }
 
-        public void SetKeyDownHandler(Action<KeyEventArgs> handler)
+        public void SetKeyDownHandler(Action<KeyEventArgs>? handler)
         {
             _keyDownHandler = handler;
         }
 
-        public void SetPreviewKeyUpHandler(Action<KeyEventArgs> handler)
+        public void SetPreviewKeyUpHandler(Action<KeyEventArgs>? handler)
         {
             _previewKeyUpHandler = handler;
         }
 
-        public void SetKeyUpHandler(Action<KeyEventArgs> handler)
+        public void SetKeyUpHandler(Action<KeyEventArgs>? handler)
         {
             _keyUpHandler = handler;
         }

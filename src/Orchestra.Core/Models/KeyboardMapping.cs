@@ -1,22 +1,16 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMapping.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Models
+﻿namespace Orchestra
 {
     using System.Windows.Input;
     using Catel;
     using Catel.Data;
-    using Catel.Windows.Input;
     using InputGesture = Catel.Windows.Input.InputGesture;
 
     public class KeyboardMapping : ModelBase
     {
         public KeyboardMapping()
         {
+            CommandName = string.Empty;
+            Text = string.Empty;
         }
 
         public KeyboardMapping(string commandName, string additionalText, ModifierKeys modifierKeys)
@@ -40,7 +34,7 @@ namespace Orchestra.Models
 
         public string CommandName { get; set; }
 
-        public InputGesture InputGesture { get; set; } 
+        public InputGesture? InputGesture { get; set; } 
 
         public string Text { get; set; }
 
