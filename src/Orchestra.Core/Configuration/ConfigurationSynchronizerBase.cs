@@ -11,7 +11,7 @@
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        private T _lastKnownValue;
+        private T? _lastKnownValue;
 
         protected ConfigurationSynchronizerBase(string key, T defaultValue,  IConfigurationService configurationService)
             : this(key, defaultValue, ConfigurationContainer.Roaming, configurationService)
@@ -75,7 +75,7 @@
         }
 
 #pragma warning disable AvoidAsyncVoid
-        private async void OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+        private async void OnConfigurationChanged(object? sender, ConfigurationChangedEventArgs e)
 #pragma warning restore AvoidAsyncVoid
         {
             if (e.IsConfigurationKey(Key))

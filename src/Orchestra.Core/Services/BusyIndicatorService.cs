@@ -11,7 +11,7 @@
 
         protected readonly IDispatcherService _dispatcherService;
 
-        private Cursor _previousCursor;
+        private Cursor? _previousCursor;
 
         public BusyIndicatorService(IDispatcherService dispatcherService)
         {

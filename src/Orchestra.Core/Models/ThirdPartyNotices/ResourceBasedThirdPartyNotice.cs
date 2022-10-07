@@ -10,21 +10,21 @@
     {
         public ResourceBasedThirdPartyNotice(string title, string url, string assemblyName, string relativeResourceName)
         {
-            var assembly = Catel.Reflection.AssemblyHelper.GetLoadedAssemblies().First(x => x.GetName().Name.EqualsIgnoreCase(assemblyName));
+            var assembly = Catel.Reflection.AssemblyHelper.GetLoadedAssemblies().First(x => (x.GetName().Name ?? string.Empty).EqualsIgnoreCase(assemblyName));
 
-            Initialize(title, url, assembly, assembly.GetName().Name, relativeResourceName);
+            Initialize(title, url, assembly, assembly.GetName().Name ?? string.Empty, relativeResourceName);
         }
 
         public ResourceBasedThirdPartyNotice(string title, string url, string assemblyName, string rootNamespace, string relativeResourceName)
         {
-            var assembly = Catel.Reflection.AssemblyHelper.GetLoadedAssemblies().First(x => x.GetName().Name.EqualsIgnoreCase(assemblyName));
+            var assembly = Catel.Reflection.AssemblyHelper.GetLoadedAssemblies().First(x => (x.GetName().Name ?? string.Empty).EqualsIgnoreCase(assemblyName));
 
             Initialize(title, url, assembly, rootNamespace, relativeResourceName);
         }
 
         public ResourceBasedThirdPartyNotice(string title, string url, Assembly assembly, string relativeResourceName)
         {
-            Initialize(title, url, assembly, assembly.GetName().Name, relativeResourceName);
+            Initialize(title, url, assembly, assembly.GetName().Name ?? string.Empty, relativeResourceName);
         }
 
         public ResourceBasedThirdPartyNotice(string title, string url, Assembly assembly, string rootNamespace, string relativeResourceName)

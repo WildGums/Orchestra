@@ -18,7 +18,7 @@
 
     internal static class IconHelper
     {
-        public static Icon ExtractIconFromFile(string filePath)
+        public static Icon? ExtractIconFromFile(string filePath)
         {
             ArgumentNullException.ThrowIfNull(filePath);
 
@@ -39,7 +39,7 @@
             }
         }
 
-        public static BitmapImage ExtractLargestIconFromFile(string filePath)
+        public static BitmapImage? ExtractLargestIconFromFile(string filePath)
         {
 #pragma warning disable IDISP001 // Dispose created.
             var icon = ExtractIconFromFile(filePath);
@@ -70,7 +70,7 @@
 
         private static Bitmap? ExtractVistaIcon(Icon? icon)
         {
-            Bitmap extractedIcon = null;
+            Bitmap? extractedIcon = null;
 
             if (icon is null)
             {
@@ -79,7 +79,8 @@
 
             try
             {
-                byte[] srcBuf = null;
+                byte[] srcBuf;
+
                 using (var stream = new MemoryStream())
                 {
                     icon.Save(stream);
@@ -89,7 +90,7 @@
                 const int SizeICONDIR = 6;
                 const int SizeICONDIRENTRY = 16;
                 int iCount = BitConverter.ToInt16(srcBuf, 4);
-                for (int iIndex = 0; iIndex < iCount; iIndex++)
+                for (var iIndex = 0; iIndex < iCount; iIndex++)
                 {
                     int width = srcBuf[SizeICONDIR + SizeICONDIRENTRY * iIndex];
                     int height = srcBuf[SizeICONDIR + SizeICONDIRENTRY * iIndex + 1];
@@ -191,7 +192,7 @@
             ////////////////////////////////////////////////////////////////////////
             // Fields
 
-            private byte[][] _iconData = null;   // Binary data of each icon.
+            private byte[][]? _iconData = null;   // Binary data of each icon.
 
             ////////////////////////////////////////////////////////////////////////
             // Public properties
@@ -199,7 +200,7 @@
             /// <summary>
             /// Gets the full path of the associated file.
             /// </summary>
-            public string FileName
+            public string? FileName
             {
                 get;
                 private set;
@@ -210,7 +211,7 @@
             /// </summary>
             public int Count
             {
-                get { return _iconData.Length; }
+                get { return _iconData?.Length ?? 0; }
             }
 
             /// <summary>
@@ -228,8 +229,13 @@
             /// <param name="index">Zero based index of the icon to be extracted.</param>
             /// <returns>A System.Drawing.Icon object.</returns>
             /// <remarks>Always returns new copy of the Icon. It should be disposed by the user.</remarks>
-            public Icon GetIcon(int index)
+            public Icon? GetIcon(int index)
             {
+                if (_iconData is null)
+                {
+                    return null;
+                }
+
                 if (index < 0 || Count <= index)
                 {
                     throw new ArgumentOutOfRangeException("index");
@@ -245,12 +251,10 @@
 
             private void Initialize(string fileName)
             {
-                if (fileName is null)
-                {
-                    throw new ArgumentNullException("fileName");
-                }
+                ArgumentNullException.ThrowIfNull(fileName);
 
-                IntPtr hModule = IntPtr.Zero;
+                var hModule = IntPtr.Zero;
+
                 try
                 {
                     hModule = Kernel32.LoadLibraryEx(fileName, IntPtr.Zero, LOAD_LIBRARY_AS_DATAFILE);

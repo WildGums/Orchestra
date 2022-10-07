@@ -13,12 +13,12 @@
         {
         }
 
-        public MessageBoxWindow(MessageBoxViewModel viewModel)
+        public MessageBoxWindow(MessageBoxViewModel? viewModel)
             : base(viewModel, DataWindowMode.Custom)
         {
             InitializeComponent();
 
-            if (viewModel.Button == MessageButton.YesNo)
+            if (viewModel?.Button == MessageButton.YesNo)
             {
                 this.DisableCloseButton();
             }

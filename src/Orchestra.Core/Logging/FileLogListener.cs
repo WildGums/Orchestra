@@ -15,7 +15,7 @@
     {
         private static readonly Type ArgumentType = typeof(Argument);
 
-        public FileLogListener(Assembly assembly = null)
+        public FileLogListener(Assembly? assembly = null)
             : base(assembly)
         {
         }
@@ -25,7 +25,7 @@
         {
         }
 
-        protected override bool ShouldIgnoreLogMessage(ILog log, string message, LogEvent logEvent, object? extraData, LogData logData, DateTime time)
+        protected override bool ShouldIgnoreLogMessage(ILog log, string message, LogEvent logEvent, object? extraData, LogData? logData, DateTime time)
         {
             // Ignore Catel logging that is not about Arguments
             if (log.IsCatelLogging && log.TargetType != ArgumentType)

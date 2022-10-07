@@ -23,7 +23,7 @@
         /// <remarks>
         /// This constructor can be used to use view-model injection.
         /// </remarks>
-        public KeyboardMappingsCustomizationWindow(KeyboardMappingsCustomizationViewModel viewModel)
+        public KeyboardMappingsCustomizationWindow(KeyboardMappingsCustomizationViewModel? viewModel)
             : base(viewModel, DataWindowMode.Close)
         {
             InitializeComponent();

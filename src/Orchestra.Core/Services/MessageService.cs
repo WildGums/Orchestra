@@ -40,7 +40,7 @@
 
             _dispatcherService.BeginInvokeIfRequired(async () =>
             {
-                var vm = _viewModelFactory.CreateViewModel<MessageBoxViewModel>(null, null);
+                var vm = _viewModelFactory.CreateRequiredViewModel<MessageBoxViewModel>(null, null);
 
                 using (new DisposableToken<CursorMemory>(new CursorMemory(),
                     x =>
@@ -73,7 +73,7 @@
 
         private class CursorMemory
         {
-            public Cursor PreviousCursor { get; set; }
+            public Cursor? PreviousCursor { get; set; }
         }
     }
 }

@@ -66,7 +66,7 @@
         /// <summary>
         /// Occurs when the <see cref="Items"/> property has been updated.
         /// </summary>
-        public event EventHandler<EventArgs> Updated;
+        public event EventHandler<EventArgs>? Updated;
 
         /// <summary>
         /// Adds the item to the list of recently used items.

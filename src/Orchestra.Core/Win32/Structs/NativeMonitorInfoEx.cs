@@ -27,7 +27,7 @@
             };
         }
 
-        public string GetDeviceName()
+        public string? GetDeviceName()
         {
             if (Device is null)
             {
@@ -42,7 +42,7 @@
             return Monitor.Equals(other.Monitor) && Work.Equals(other.Work) && Flags == other.Flags;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is NativeMonitorInfoEx m && m.Equals(this);
         }

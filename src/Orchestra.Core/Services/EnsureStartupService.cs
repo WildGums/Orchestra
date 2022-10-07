@@ -20,7 +20,7 @@
         private readonly IFileService _fileService;
 
 #pragma warning disable IDISP006 // Implement IDisposable.
-        private Stream _fileStream;
+        private Stream? _fileStream;
 #pragma warning restore IDISP006 // Implement IDisposable.
 
         public EnsureStartupService(IAppDataService appDataService, IUIVisualizerService uiVisualizerService, IFileService fileService)

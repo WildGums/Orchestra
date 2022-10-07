@@ -19,16 +19,16 @@
         protected static readonly IMainWindowService MainWindowService;
 
         private static readonly DispatcherTimer DispatcherTimer;
-        private static Queue<Action<Window>> ShellActivatedActions;
+        private static readonly Queue<Action<Window>> ShellActivatedActions;
         private static readonly object Lock = new object();
 
         static ApplicationWatcherBase()
         {
-            EnsureSubscribesInitialized();
+            ShellActivatedActions = new Queue<Action<Window>>();
 
             var serviceLocator = ServiceLocator.Default;
-            DispatcherService = serviceLocator.ResolveType<IDispatcherService>();
-            MainWindowService = serviceLocator.ResolveType<IMainWindowService>();
+            DispatcherService = serviceLocator.ResolveRequiredType<IDispatcherService>();
+            MainWindowService = serviceLocator.ResolveRequiredType<IMainWindowService>();
 
             DispatcherTimer = new DispatcherTimer();
             DispatcherTimer.Interval = TimeSpan.FromMilliseconds(5);
@@ -40,25 +40,12 @@
 
         protected void EnqueueShellActivatedAction(Action<Window> action)
         {
-            EnsureSubscribesInitialized();
-
             lock (Lock)
             {
                 ShellActivatedActions.Enqueue(action);
             }
 
             DispatcherTimer.Start();
-        }
-
-        private static void EnsureSubscribesInitialized()
-        {
-            if (ShellActivatedActions is null)
-            {
-                lock (Lock)
-                {
-                    ShellActivatedActions = new Queue<Action<Window>>();
-                }
-            }
         }
 
         public static async Task EnsureMainWindowAsync()

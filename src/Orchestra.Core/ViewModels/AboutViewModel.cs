@@ -34,11 +34,11 @@
             _languageService = languageService;
             _changelogService = changelogService;
 
-            var buildDateTime = aboutInfo.BuildDateTime.Value;
+            var buildDateTime = aboutInfo.BuildDateTime;
 
             Title = aboutInfo.Name ?? string.Empty;
             Version = string.Format("v {0}", aboutInfo.DisplayVersion);
-            BuildDateTime = string.Format(languageService.GetString("Orchestra_BuiltOn"), buildDateTime);
+            BuildDateTime = string.Format(languageService.GetRequiredString("Orchestra_BuiltOn"), buildDateTime?.ToString() ?? "Unknown");
             UriInfo = aboutInfo.UriInfo;
             Copyright = aboutInfo.Copyright;
             CopyrightUrl = aboutInfo.CopyrightUri is null ? null : aboutInfo.CopyrightUri.ToString();
@@ -93,10 +93,16 @@
 
         private void OnOpenUrlExecute()
         {
+            var uriInfo = UriInfo;
+            if (uriInfo is null)
+            {
+                return;
+            }
+
             _processService.StartProcess(new ProcessContext
             {
                 UseShellExecute = true,
-                FileName = UriInfo.Uri
+                FileName = uriInfo.Uri
             });
         }
 
@@ -109,10 +115,16 @@
 
         private void OnOpenCopyrightUrlExecute()
         {
+            var copyrightUrl = CopyrightUrl;
+            if (string.IsNullOrEmpty(copyrightUrl))
+            {
+                return;
+            }
+
             _processService.StartProcess(new ProcessContext
             {
                 UseShellExecute = true,
-                FileName = CopyrightUrl
+                FileName = copyrightUrl
             });
         }
 
@@ -142,7 +154,7 @@
             }
             else
             {
-                await _messageService.ShowErrorAsync(_languageService.GetString("Orchestra_NoLogListenerAvailable"));
+                await _messageService.ShowErrorAsync(_languageService.GetRequiredString("Orchestra_NoLogListenerAvailable"));
             }
         }
 

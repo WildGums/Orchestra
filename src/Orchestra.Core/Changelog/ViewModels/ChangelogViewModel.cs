@@ -25,7 +25,7 @@
             _changelogSnapshotService = changelogSnapshotService;
 
             Groups = changelog.CreateGroups();
-            Title = changelog.Title ?? LanguageHelper.GetString("Orchestra_Changelog");
+            Title = changelog.Title ?? LanguageHelper.GetRequiredString("Orchestra_Changelog");
         }
 
         public Changelog Changelog { get; }

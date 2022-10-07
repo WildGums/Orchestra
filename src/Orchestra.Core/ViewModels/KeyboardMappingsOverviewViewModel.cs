@@ -39,6 +39,7 @@
             _keyboardMappingsService = keyboardMappingsService;
 
             Customize = new TaskCommand(OnCustomizeExecuteAsync);
+            KeyboardMappings = new List<KeyboardMappings>();
         }
 
         /// <summary>
@@ -64,7 +65,7 @@
         {
             await base.InitializeAsync();
 
-            Title = string.Format(_languageService.GetString("Orchestra_ShortcutsForApplication"), AssemblyHelper.GetEntryAssembly().Title());
+            Title = string.Format(_languageService.GetRequiredString("Orchestra_ShortcutsForApplication"), AssemblyHelper.GetRequiredEntryAssembly().Title());
 
             var mappingsByGroup = new Dictionary<string, KeyboardMappings>();
             mappingsByGroup.Add(string.Empty, new KeyboardMappings { GroupName = string.Empty });

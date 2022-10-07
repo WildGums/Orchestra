@@ -15,7 +15,7 @@
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        private string _pathName;
+        private string? _pathName;
 
         public CanvasViewbox()
         {
@@ -42,7 +42,7 @@
         /// Gets or sets the name of the canvas as it can be found in the application resources.
         /// </summary>
         [ConstructorArgument("pathName")]
-        public string PathName
+        public string? PathName
         {
             get { return _pathName; }
             set
@@ -63,7 +63,7 @@
 
             viewbox.Stretch = Stretch.Uniform;
 
-            Canvas canvas = null;
+            Canvas? canvas = null;
 
             var pathName = PathName;
             if (!string.IsNullOrWhiteSpace(pathName))

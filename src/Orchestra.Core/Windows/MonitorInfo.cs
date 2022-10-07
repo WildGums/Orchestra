@@ -16,8 +16,8 @@
     {
         private const double BasicAbsoluteDpi = 96;
 
-        public double X { get; set; }
-        public double Y { get; set; }
+        public double X { get; set; } = BasicAbsoluteDpi;
+        public double Y { get; set; } = BasicAbsoluteDpi;
 
         public void SetScaleFromAbsolute(uint absoluteDpiX, uint absoluteDpiY)
         {
@@ -34,6 +34,20 @@
     public partial class MonitorInfo
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        public MonitorInfo()
+        {
+            Id = string.Empty;
+            Availability = string.Empty;
+            FriendlyName = string.Empty;
+            DeviceName = string.Empty;
+            DeviceNameFull = string.Empty;
+            AdapterDeviceName = string.Empty;
+            ScreenHeight = string.Empty;
+            ScreenWidth = string.Empty;
+            ManufactureCode = string.Empty;
+            DpiScale = new DpiScale();
+        }
 
         public string Id { get; set; }
 
@@ -183,7 +197,7 @@
 
                 var di = new MonitorInfo
                 {
-                    DeviceName = nativeMonitorInfo.GetDeviceName(),
+                    DeviceName = nativeMonitorInfo.GetDeviceName() ?? string.Empty,
                     ScreenWidth = nativeMonitorInfo.Monitor.GetWidth().ToString(),
                     ScreenHeight = nativeMonitorInfo.Monitor.GetHeight().ToString(),
                     MonitorArea = nativeMonitorInfo.Monitor.ToInt32Rect(),
@@ -204,12 +218,12 @@
             return monitorInfos.ToArray();
         }
 
-        public static MonitorInfo GetPrimaryMonitor()
+        public static MonitorInfo? GetPrimaryMonitor()
         {
             return GetAllMonitors().FirstOrDefault(x => x.IsPrimary);
         }
 
-        public static MonitorInfo GetMonitorFromWindow(Window window)
+        public static MonitorInfo? GetMonitorFromWindow(Window window)
         {
             ArgumentNullException.ThrowIfNull(window);
 
@@ -217,7 +231,7 @@
             return GetMonitorFromWindowHandle(windowInteropHelper.Handle);
         }
 
-        public static MonitorInfo GetMonitorFromWindowHandle(IntPtr handle)
+        public static MonitorInfo? GetMonitorFromWindowHandle(IntPtr handle)
         {
             if (handle == IntPtr.Zero)
             {
@@ -236,7 +250,7 @@
             }
 
             // note: can this cause issues when monitor mirror, probably need to check DisplayDeviceStateFlag?
-            var outputDevice = GetOutputDevicesForDevice(nativeInfo.GetDeviceName())?.FirstOrDefault();
+            var outputDevice = GetOutputDevicesForDevice(nativeInfo.GetDeviceName() ?? string.Empty)?.FirstOrDefault();
 
             if (outputDevice is null || outputDevice.Value.Size == 0)
             {
@@ -259,7 +273,7 @@
 
             var di = new MonitorInfo
             {
-                DeviceName = nativeInfo.GetDeviceName(),
+                DeviceName = nativeInfo.GetDeviceName() ?? string.Empty,
                 ScreenWidth = nativeInfo.Monitor.GetWidth().ToString(),
                 ScreenHeight = nativeInfo.Monitor.GetHeight().ToString(),
                 MonitorArea = nativeInfo.Monitor.ToInt32Rect(),
@@ -268,7 +282,7 @@
                 IsPrimary = nativeInfo.Flags == 1,
                 FriendlyName = string.IsNullOrEmpty(matchedDisplayConfig.MonitorFriendDeviceName) ? outputDevice.Value.DeviceString : matchedDisplayConfig.MonitorFriendDeviceName,
                 DeviceNameFull = outputDevice.Value.DeviceName,
-                AdapterDeviceName = nativeInfo.GetDeviceName(),
+                AdapterDeviceName = nativeInfo.GetDeviceName() ?? string.Empty,
                 DpiScale = dpiScale
             };
 

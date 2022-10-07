@@ -24,7 +24,7 @@
         /// <remarks>
         /// This constructor can be used to use view-model injection.
         /// </remarks>
-        public SystemInfoWindow(SystemInfoViewModel viewModel)
+        public SystemInfoWindow(SystemInfoViewModel? viewModel)
             : base(viewModel, DataWindowMode.Custom)
         {
             InitializeComponent();

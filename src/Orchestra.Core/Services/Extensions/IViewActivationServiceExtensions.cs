@@ -2,7 +2,6 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.IoC;
     using Catel.MVVM;
     using Catel.Services;
@@ -26,10 +25,10 @@
             {
                 var dependencyResolver = viewActivationService.GetDependencyResolver();
 
-                var viewModelFactory = dependencyResolver.Resolve<IViewModelFactory>();
-                var uiVisualizerService = dependencyResolver.Resolve<IUIVisualizerService>();
+                var viewModelFactory = dependencyResolver.ResolveRequired<IViewModelFactory>();
+                var uiVisualizerService = dependencyResolver.ResolveRequired<IUIVisualizerService>();
 
-                var vm = viewModelFactory.CreateViewModel(viewModelType, null, null);
+                var vm = viewModelFactory.CreateRequiredViewModel(viewModelType, null, null);
                 await uiVisualizerService.ShowAsync(vm);
             }
         }
@@ -43,7 +42,7 @@
             {
                 var dependencyResolver = viewActivationService.GetDependencyResolver();
 
-                var uiVisualizerService = dependencyResolver.Resolve<IUIVisualizerService>();
+                var uiVisualizerService = dependencyResolver.ResolveRequired<IUIVisualizerService>();
 
                 await uiVisualizerService.ShowAsync(viewModel);
             }

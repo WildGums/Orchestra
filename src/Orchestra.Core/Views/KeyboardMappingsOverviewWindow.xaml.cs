@@ -23,7 +23,7 @@
         /// <remarks>
         /// This constructor can be used to use view-model injection.
         /// </remarks>
-        public KeyboardMappingsOverviewWindow(KeyboardMappingsOverviewViewModel viewModel)
+        public KeyboardMappingsOverviewWindow(KeyboardMappingsOverviewViewModel? viewModel)
             : base(viewModel, DataWindowMode.Custom)
         {
             AddCustomButton(new DataWindowButton("Customize", "Customize"));

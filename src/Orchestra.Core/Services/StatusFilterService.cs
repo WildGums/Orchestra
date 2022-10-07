@@ -4,7 +4,7 @@
     {
         public bool IsSuspended { get; set; }
 
-        public string GetStatus(string status)
+        public string? GetStatus(string status)
         {
             if (IsSuspended)
             {

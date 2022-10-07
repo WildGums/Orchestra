@@ -9,8 +9,8 @@
     {
         private readonly IStatusFilterService _statusFilterService;
 
-        private IStatusRepresenter _statusRepresenter;
-        private string _lastStatus;
+        private IStatusRepresenter? _statusRepresenter;
+        private string? _lastStatus;
 
         public StatusService(IStatusFilterService statusFilterService)
         {
@@ -53,9 +53,13 @@
 
         private void OnResetTimerTick(object? sender, EventArgs e)
         {
-            var timer = (DispatcherTimer)sender;
+            var timer = sender as DispatcherTimer;
+            if (timer is null)
+            {
+                return;
+            }
 
-            var finalStatus = (string)timer.Tag;
+            var finalStatus = (string?)timer.Tag;
 
             timer.Stop();
             timer.Tick -= OnResetTimerTick;
@@ -77,7 +81,7 @@
                 }
             }
 
-            _statusRepresenter.UpdateStatus(status);
+            _statusRepresenter?.UpdateStatus(status);
         }
     }
 }

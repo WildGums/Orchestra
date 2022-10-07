@@ -6,7 +6,7 @@
 
     public class MainWindowService : IMainWindowService
     {
-        private Window _lastKnownMainWindow;
+        private Window? _lastKnownMainWindow;
 
         public MainWindowService()
         {

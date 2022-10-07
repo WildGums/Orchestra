@@ -18,7 +18,7 @@
         /// <summary>
         /// The entry assembly name prefix.
         /// </summary>
-        public static readonly string EntryAssemblyName = Catel.Reflection.AssemblyHelper.GetEntryAssembly().GetName().Name;
+        public static readonly string EntryAssemblyName = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly().GetName().Name ?? string.Empty;
 
         /// <summary>
         /// The 'Log' file log prefix.

@@ -22,6 +22,8 @@
             _thirdPartyNoticesService = thirdPartyNoticesService;
 
             Title = LanguageHelper.GetRequiredString("Orchestra_ThirdPartyNotices_Title");
+            Explanation = string.Empty;
+            ThirdPartyNotices = new List<ThirdPartyNotice>();
         }
 
         public string Explanation { get; private set; }
@@ -33,7 +35,7 @@
             await base.InitializeAsync();
 
             var aboutInfo = await _aboutInfoService.GetAboutInfoAsync();
-            var explanation = LanguageHelper.GetString("Orchestra_ThirdPartyNotices_Explanation");
+            var explanation = LanguageHelper.GetRequiredString("Orchestra_ThirdPartyNotices_Explanation");
             Explanation = string.Format(explanation, aboutInfo.Company, aboutInfo.ProductName);
 
             ThirdPartyNotices = await _thirdPartyNoticesService.GetThirdPartyNoticesAsync();

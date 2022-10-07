@@ -84,7 +84,7 @@
 
         public async Task<bool> BackupUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget)
         {
-            var assembly = AssemblyHelper.GetEntryAssembly();
+            var assembly = AssemblyHelper.GetRequiredEntryAssembly();
             var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
 
             var result = await _saveFileService.DetermineFileAsync(new DetermineSaveFileContext
@@ -94,7 +94,7 @@
                 Filter = "Zip files|*.zip"
             });
 
-            if (!result.Result)
+            if (!result.Result || result.FileName is null)
             {
                 return false;
             }

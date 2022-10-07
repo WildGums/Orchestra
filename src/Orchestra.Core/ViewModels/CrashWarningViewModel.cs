@@ -33,7 +33,7 @@
             _navigationService = navigationService;
             _languageService = languageService;
 
-            _assembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
+            _assembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
 
             Continue = new TaskCommand(OnContinueExecuteAsync);
             ResetUserSettings = new TaskCommand(OnResetUserSettingsExecuteAsync);
@@ -55,7 +55,7 @@
             {
                 Log.Warning("User canceled the backup, exit application");
 
-                await _messageService.ShowErrorAsync(_languageService.GetString("Orchestra_FailedToCreateBackup"), _assembly.Title());
+                await _messageService.ShowErrorAsync(_languageService.GetRequiredString("Orchestra_FailedToCreateBackup"), _assembly.Title() ?? string.Empty);
 
                 await _navigationService.CloseApplicationAsync();
 
@@ -64,7 +64,7 @@
 
             await _manageAppDataService.DeleteUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming);
 
-            await _messageService.ShowInformationAsync(_languageService.GetString("Orchestra_BackupCreated"), _assembly.Title());
+            await _messageService.ShowInformationAsync(_languageService.GetRequiredString("Orchestra_BackupCreated"), _assembly.Title() ?? string.Empty);
 
             await CloseViewModelAsync(false);
         }
@@ -77,7 +77,7 @@
 
             await _manageAppDataService.DeleteUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming);
 
-            await _messageService.ShowInformationAsync(_languageService.GetString("Orchestra_DeletedUserDataSettings"), _assembly.Title());
+            await _messageService.ShowInformationAsync(_languageService.GetRequiredString("Orchestra_DeletedUserDataSettings"), _assembly.Title() ?? string.Empty);
 
             await CloseViewModelAsync(false);
         }

@@ -47,7 +47,7 @@
                 return;
             }
 
-            var assembly = AssemblyHelper.GetEntryAssembly();
+            var assembly = AssemblyHelper.GetRequiredEntryAssembly();
             Title = assembly.Title() ?? string.Empty;
         }
 
@@ -78,7 +78,7 @@
 
         private void OnCopyToClipboardExecute()
         {
-            var text = _messageService.GetAsText(Message, Button);
+            var text = _messageService.GetAsText(Message ?? string.Empty, Button);
 
             _clipboardService.CopyToClipboard(text);
         }

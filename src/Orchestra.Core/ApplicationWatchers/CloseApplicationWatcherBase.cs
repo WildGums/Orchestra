@@ -19,9 +19,9 @@
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private static bool IsClosingConfirmed;
-        private static Window SubscribedWindow;
+        private static Window? SubscribedWindow;
         private static readonly IList<CloseApplicationWatcherBase> Watchers = new List<CloseApplicationWatcherBase>();
-        private static readonly IMessageService MessageService = ServiceLocator.Default.ResolveType<IMessageService>();
+        private static readonly IMessageService MessageService = ServiceLocator.Default.ResolveRequiredType<IMessageService>();
 
         protected CloseApplicationWatcherBase()
         {
@@ -51,7 +51,7 @@
         }
 
 #pragma warning disable AvoidAsyncVoid
-        private static async void OnWindowClosing(object sender, CancelEventArgs e)
+        private static async void OnWindowClosing(object? sender, CancelEventArgs e)
 #pragma warning restore AvoidAsyncVoid
         {
             if (CanClose)
@@ -216,9 +216,8 @@
 
             IsClosingConfirmed = false;
 
-            var closingDetails = new ClosingDetails
+            var closingDetails = new ClosingDetails(window)
             {
-                Window = window,
                 Exception = ex,
                 CanBeClosed = true,
                 CanKeepOpened = true,

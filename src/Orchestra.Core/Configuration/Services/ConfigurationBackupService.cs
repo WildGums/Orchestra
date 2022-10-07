@@ -46,7 +46,16 @@
             {
                 // Get configuration paths
                 var roamingConfigFilePathField = _configurationService.GetType().GetFieldEx("_roamingConfigFilePath", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (roamingConfigFilePathField is null)
+                {
+                    throw Log.ErrorAndCreateException<OrchestraException>($"Roaming config file path field not found on the configuration service");
+                }
+
                 var localConfigFilePathField = _configurationService.GetType().GetFieldEx("_localConfigFilePath", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (localConfigFilePathField is null)
+                {
+                    throw Log.ErrorAndCreateException<OrchestraException>($"Local config file path field not found on the configuration service");
+                }
 
                 var roamingConfigFilePath = roamingConfigFilePathField.GetValue(_configurationService)?.ToString();
                 if (!string.IsNullOrWhiteSpace(roamingConfigFilePath))

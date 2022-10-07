@@ -17,6 +17,11 @@
                 assembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
             }
 
+            if (assembly is null)
+            {
+                throw new OrchestraException($"Entry assembly could not be determined automatically");
+            }
+
             var version = assembly.InformationalVersion();
             if (string.IsNullOrWhiteSpace(version))
             {

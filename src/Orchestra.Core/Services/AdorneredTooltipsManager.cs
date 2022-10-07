@@ -72,7 +72,7 @@
 
         public bool IsEnabled { get; private set; }
 
-        private UIElement FindElement(FrameworkElement element, IHint hint)
+        private UIElement? FindElement(FrameworkElement element, IHint hint)
         {
             ArgumentNullException.ThrowIfNull(element);
             ArgumentNullException.ThrowIfNull(hint);
@@ -88,6 +88,11 @@
             ArgumentNullException.ThrowIfNull(hint);
 
             var elementWithHint = FindElement(element, hint);
+            if (elementWithHint is null)
+            {
+                return;
+            }
+
             if (!CanAddAdorner(elementWithHint))
             {
                 return;

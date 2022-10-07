@@ -20,7 +20,7 @@
         {
             InitializeComponent();
 
-            _keyboardMappingsAllowedKeysService = ServiceLocator.Default.ResolveType<IKeyboardMappingsAllowedKeysService>();
+            _keyboardMappingsAllowedKeysService = ServiceLocator.Default.ResolveRequiredType<IKeyboardMappingsAllowedKeysService>();
         }
 
         private void OnNewInputGestureTextBoxKeyDown(object? sender, KeyEventArgs e)

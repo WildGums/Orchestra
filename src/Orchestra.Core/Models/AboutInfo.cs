@@ -34,8 +34,7 @@
         {
             ShowLogButton = true;
 
-            Assembly = assembly ?? Catel.Reflection.AssemblyHelper.GetEntryAssembly();
-
+            Assembly = assembly ?? Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
             CompanyLogoForSplashScreenUri = companyLogoForSplashScreenUri;
             CompanyLogoUri = companyLogoUri;
             CopyrightUri = copyrightUri;
@@ -64,7 +63,7 @@
         /// <summary>
         /// Gets the application icon.
         /// </summary>
-        public BitmapSource AppIcon { get; private set; }
+        public BitmapSource? AppIcon { get; private set; }
 
         /// <summary>
         /// Gets the application build datetime.
@@ -86,48 +85,48 @@
         /// <summary>
         /// Gets the application company.
         /// </summary>
-        public string Company { get; private set; }
+        public string? Company { get; private set; }
 
         /// <summary>
         /// Gets the application copyright.
         /// </summary>
-        public string Copyright { get; private set; }
+        public string? Copyright { get; private set; }
 
         /// <summary>
         /// Gets the application copyright Uri.
         /// </summary>
-        public Uri CopyrightUri { get; private set; }
+        public Uri? CopyrightUri { get; private set; }
 
         /// <summary>
         /// Gets the application description.
         /// </summary>
-        public string Description { get; private set; }
+        public string? Description { get; private set; }
 
         /// <summary>
         /// Gets the application display version.
         /// </summary>
-        public string DisplayVersion { get; private set; }
+        public string? DisplayVersion { get; private set; }
 
         /// <summary>
         /// Gets the application informational version.
         /// </summary>
-        public string InformationalVersion { get; private set; }
+        public string? InformationalVersion { get; private set; }
 
         /// <summary>
         /// Gets the application logo image source.
         /// </summary>
         /// <value>The logo image source.</value>
-        public string LogoImageSource { get; private set; }
+        public string? LogoImageSource { get; private set; }
 
         /// <summary>
         /// Gets the application name.
         /// </summary>
-        public string Name { get; private set; }
+        public string? Name { get; private set; }
 
         /// <summary>
         /// Gets the application product name.
         /// </summary>
-        public string ProductName { get; private set; }
+        public string? ProductName { get; private set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the about should show a log button.
@@ -139,11 +138,11 @@
         /// Gets the application uri info.
         /// </summary>
         /// <value>The uri info.</value>
-        public UriInfo UriInfo { get; private set; }
+        public UriInfo? UriInfo { get; private set; }
 
         /// <summary>
         /// Gets the application version.
         /// </summary>
-        public string Version { get; private set; }
+        public string? Version { get; private set; }
     }
 }

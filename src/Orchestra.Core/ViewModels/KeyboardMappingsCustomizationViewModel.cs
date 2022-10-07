@@ -63,7 +63,7 @@
 
         private async Task OnResetExecuteAsync()
         {
-            var messageResult = await _messageService.ShowAsync(_languageService.GetString("Orchestra_ResetKeyboardShortcutsAreYouSure"), string.Empty, MessageButton.YesNo, MessageImage.Question);
+            var messageResult = await _messageService.ShowAsync(_languageService.GetRequiredString("Orchestra_ResetKeyboardShortcutsAreYouSure"), string.Empty, MessageButton.YesNo, MessageImage.Question);
             if (messageResult == MessageResult.No)
             {
                 return;
@@ -95,6 +95,11 @@
 
         private void OnRemoveExecute()
         {
+            if (string.IsNullOrWhiteSpace(SelectedCommand))
+            {
+                return;
+            }
+
             SelectedCommandInputGesture = null;
 
             _commandManager.UpdateInputGesture(SelectedCommand, null);
@@ -125,7 +130,16 @@
             SelectedCommandInputGesture = SelectedCommandNewInputGesture;
 
             var selectedCommand = SelectedCommand;
+            if (selectedCommand is null)
+            {
+                return;
+            };
+
             var selectedInputGesture = SelectedCommandInputGesture;
+            if (selectedInputGesture is null)
+            {
+                return;
+            }
 
             if (!selectedInputGesture.IsEmpty())
             {
@@ -134,7 +148,7 @@
                 {
                     var messageBuilder = new StringBuilder();
 
-                    messageBuilder.AppendLine(_languageService.GetString("Orchestra_AssignInputGestureUsedByFollowCommands"), selectedInputGesture);
+                    messageBuilder.AppendLine(_languageService.GetRequiredString("Orchestra_AssignInputGestureUsedByFollowCommands"), selectedInputGesture);
                     messageBuilder.AppendLine();
 
                     foreach (var existingCommand in existingCommands)
@@ -143,9 +157,9 @@
                     }
 
                     messageBuilder.AppendLine();
-                    messageBuilder.AppendLine(_languageService.GetString("Orchestra_AssignInputGestureAreYouSure"), selectedCommand);
+                    messageBuilder.AppendLine(_languageService.GetRequiredString("Orchestra_AssignInputGestureAreYouSure"), selectedCommand);
 
-                    if (await _messageService.ShowAsync(messageBuilder.ToString(), _languageService.GetString("Orchestra_ReplaceInputGesture"), 
+                    if (await _messageService.ShowAsync(messageBuilder.ToString(), _languageService.GetRequiredString("Orchestra_ReplaceInputGesture"), 
                         MessageButton.YesNo) == MessageResult.No)
                     {
                         return;
@@ -218,7 +232,7 @@
 
         private void OnSelectedCommandChanged()
         {
-            InputGesture inputGesture = null;
+            InputGesture? inputGesture = null;
 
             if (!string.IsNullOrWhiteSpace(SelectedCommand))
             {

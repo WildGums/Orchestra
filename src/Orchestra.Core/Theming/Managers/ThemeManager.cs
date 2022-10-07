@@ -38,12 +38,12 @@
             _baseColorSchemeService.BaseColorSchemeChanged += OnBaseColorSchemeChanged;
         }
 
-        private void OnAccentColorChanged(object sender, EventArgs e)
+        private void OnAccentColorChanged(object? sender, EventArgs e)
         {
             SynchronizeTheme();
         }
 
-        private void OnBaseColorSchemeChanged(object sender, EventArgs e)
+        private void OnBaseColorSchemeChanged(object? sender, EventArgs e)
         {
             SynchronizeTheme();
         }
@@ -302,10 +302,10 @@
         }
 
         [Time("{assemblyName}")]
-        protected virtual Assembly GetAssembly(string assemblyName)
+        protected virtual Assembly? GetAssembly(string assemblyName)
         {
             var assembly = (from x in AppDomain.CurrentDomain.GetAssemblies()
-                            where x.GetName().Name.EqualsIgnoreCase(assemblyName)
+                            where (x.GetName().Name ?? string.Empty).EqualsIgnoreCase(assemblyName)
                             select x).FirstOrDefault();
 
             return assembly;

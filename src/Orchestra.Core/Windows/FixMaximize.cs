@@ -35,9 +35,14 @@
             }
         }
 
-        private static void FixMaximize_RibbonWindow_SourceInitialized(object sender, EventArgs e)
+        private static void FixMaximize_RibbonWindow_SourceInitialized(object? sender, EventArgs e)
         {
-            var ribbonWindow = (Window)sender;
+            var ribbonWindow = sender as Window;
+            if (ribbonWindow is null)
+            {
+                return;
+            }
+
             var source = HwndSource.FromHwnd(new WindowInteropHelper(ribbonWindow).Handle);
             source.AddHook(FixMaximize_RibbonWindow_WndProc);
         }
@@ -90,7 +95,14 @@
             }
             else if (msg == WM_GETMINMAXINFO)
             {
-                var mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
+                var mmiMarchalled = Marshal.PtrToStructure(lParam, typeof(MINMAXINFO)) as MINMAXINFO?;
+                if (mmiMarchalled is null)
+                {
+                    throw new OrchestraException($"Failed to call PtrToStructure for MINMAXINFO");
+                }
+
+                var mmi = mmiMarchalled.Value;
+
                 //mmi.ptMaxSize.x -= 8; // we are missing 4 pixels left and right
                 //mmi.ptMaxSize.y -= 8; // we are missing 4 pixels top and bottom
                 mmi.ptMaxPosition.x = 1; // need to set this to positive value for MaxSize to have any effect, we will reposition later anyway
@@ -112,6 +124,10 @@
         {
             var window = (Window)HwndSource.FromHwnd(hWnd).RootVisual;
             var screen = MonitorInfo.GetMonitorFromWindow(window);
+            if (screen is null)
+            {
+                return new Size(0, 0);
+            }
 
             var size = new Size(screen.WorkingArea.Width + 8, screen.WorkingArea.Height + 8);
             return size;

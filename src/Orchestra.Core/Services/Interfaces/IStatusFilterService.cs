@@ -4,6 +4,6 @@
     {
         bool IsSuspended { get; set; }
         
-        string GetStatus(string status);
+        string? GetStatus(string status);
     }
 }

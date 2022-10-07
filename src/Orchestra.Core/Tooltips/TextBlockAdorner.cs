@@ -12,7 +12,7 @@
     {
         private readonly UIElement _adornedElement;
         private readonly Border _tooltip;
-        private ArrayList _logicalChildren;
+        private ArrayList? _logicalChildren;
 
         public TextBlockAdorner(UIElement adornedElement, string text)
             : base(adornedElement)

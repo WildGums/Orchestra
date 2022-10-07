@@ -4,7 +4,7 @@
     
     public class UriInfo
     {
-        public UriInfo(string uri, string displayText = null)
+        public UriInfo(string uri, string? displayText = null)
         {
             ArgumentNullException.ThrowIfNull(uri);
 

@@ -41,10 +41,10 @@
 
             var aboutInfo = await _aboutInfoService.GetAboutInfoAsync();
 
-            Title = aboutInfo.Name;
+            Title = aboutInfo.Name ?? string.Empty;
             Company = aboutInfo.Company;
             CompanyLogoForSplashScreenUri = aboutInfo.CompanyLogoForSplashScreenUri;
-            ProducedBy = string.Format(_languageService.GetString("Orchestra_ProducedBy"), Company);
+            ProducedBy = string.Format(_languageService.GetRequiredString("Orchestra_ProducedBy"), Company);
             Version = aboutInfo.DisplayVersion;
         }
 

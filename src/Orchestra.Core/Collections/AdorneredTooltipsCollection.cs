@@ -49,7 +49,7 @@
 
         public IList<IAdorneredTooltip> GetAdorners(FrameworkElement parentControl)
         {
-            return Contains(parentControl) ? _adorneredTooltips[parentControl] : null;
+            return Contains(parentControl) ? _adorneredTooltips[parentControl] : new List<IAdorneredTooltip>();
         }
 
         public void ShowAll()

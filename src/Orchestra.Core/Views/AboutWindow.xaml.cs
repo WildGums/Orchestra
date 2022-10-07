@@ -22,7 +22,7 @@
         /// <remarks>
         /// This constructor can be used to use view-model injection.
         /// </remarks>
-        public AboutWindow(AboutViewModel viewModel)
+        public AboutWindow(AboutViewModel? viewModel)
             : base(viewModel, DataWindowMode.Custom)
         {
             InitializeComponent();
