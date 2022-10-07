@@ -4,11 +4,9 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Media.Imaging;
-    using Catel;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Services;
-    using Models;
     using Orchestra.Changelog;
     using Orchestra.Changelog.ViewModels;
 
@@ -38,7 +36,7 @@
 
             var buildDateTime = aboutInfo.BuildDateTime.Value;
 
-            Title = aboutInfo.Name;
+            Title = aboutInfo.Name ?? string.Empty;
             Version = string.Format("v {0}", aboutInfo.DisplayVersion);
             BuildDateTime = string.Format(languageService.GetString("Orchestra_BuiltOn"), buildDateTime);
             UriInfo = aboutInfo.UriInfo;
@@ -58,31 +56,28 @@
             EnableDetailedLogging = new Command(OnEnableDetailedLoggingExecute);
         }
 
-        #region Properties
         public override string Title { get; protected set; }
 
         public string Version { get; private set; }
 
         public string BuildDateTime { get; private set; }
 
-        public UriInfo UriInfo { get; private set; }
+        public UriInfo? UriInfo { get; private set; }
 
-        public string Copyright { get; private set; }
+        public string? Copyright { get; private set; }
 
-        public string CopyrightUrl { get; private set; }
+        public string? CopyrightUrl { get; private set; }
 
-        public Uri CompanyLogoUri { get; private set; }
+        public Uri? CompanyLogoUri { get; private set; }
 
-        public string ImageSourceUrl { get; private set; }
+        public string? ImageSourceUrl { get; private set; }
 
         public bool ShowLogButton { get; private set; }
 
         public bool IsDebugLoggingEnabled { get; private set; }
 
-        public BitmapSource AppIcon { get; private set; }
-        #endregion
+        public BitmapSource? AppIcon { get; private set; }
 
-        #region Commands
         public Command OpenUrl { get; private set; }
 
         private bool OnOpenUrlCanExecute()
@@ -180,9 +175,7 @@
 
             UpdateLoggingInfo();
         }
-        #endregion
 
-        #region Methods
         protected override async Task InitializeAsync()
         {
             await base.InitializeAsync();
@@ -205,6 +198,5 @@
 
             IsDebugLoggingEnabled = isDebugLoggingEnabled;
         }
-        #endregion
     }
 }

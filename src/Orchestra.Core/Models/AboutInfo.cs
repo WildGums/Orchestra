@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AboutInfo.cs" company="WildGums">
-//   Copyright (c) 2008 - 2016 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Models
+﻿namespace Orchestra
 {
     using System;
     using System.Reflection;
@@ -15,7 +8,6 @@ namespace Orchestra.Models
 
     public class AboutInfo : ModelBase
     {
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="AboutInfo" /> class.
         /// </summary>
@@ -35,10 +27,10 @@ namespace Orchestra.Models
         /// <param name="productName">The application product name. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="name">The application title. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
         /// <param name="version">The application version. Can be <c>null</c>. If <c>null</c> then value will be picked from assembly.</param>
-        public AboutInfo(Uri companyLogoUri = null, string logoImageSource = null, UriInfo uriInfo = null, Assembly assembly = null,
-            Uri companyLogoForSplashScreenUri = null, BitmapSource appIcon = null, DateTime? buildDateTime = null, string company = null,
-            string copyright = null, Uri copyrightUri = null, string description = null, string displayVersion = null, string informationalVersion = null,
-            string name = null, string productName = null, string version = null)
+        public AboutInfo(Uri? companyLogoUri = null, string? logoImageSource = null, UriInfo? uriInfo = null, Assembly? assembly = null,
+            Uri? companyLogoForSplashScreenUri = null, BitmapSource? appIcon = null, DateTime? buildDateTime = null, string? company = null,
+            string? copyright = null, Uri? copyrightUri = null, string? description = null, string? displayVersion = null, string? informationalVersion = null,
+            string? name = null, string? productName = null, string? version = null)
         {
             ShowLogButton = true;
 
@@ -62,9 +54,6 @@ namespace Orchestra.Models
 
             DisplayVersion = displayVersion ?? VersionHelper.GetCurrentVersion(Assembly);
         }
-        #endregion
-
-        #region Properties
 
         /// <summary>
         /// Gets the assembly.
@@ -86,13 +75,13 @@ namespace Orchestra.Models
         /// Gets the application logo image Uri.
         /// </summary>
         /// <value>The company logo image Uri.</value>
-        public Uri CompanyLogoForSplashScreenUri { get; set; }
+        public Uri? CompanyLogoForSplashScreenUri { get; set; }
 
         /// <summary>
         /// Gets the application logo image source.
         /// </summary>
         /// <value>The company logo image Uri.</value>
-        public Uri CompanyLogoUri { get; private set; }
+        public Uri? CompanyLogoUri { get; private set; }
 
         /// <summary>
         /// Gets the application company.
@@ -156,6 +145,5 @@ namespace Orchestra.Models
         /// Gets the application version.
         /// </summary>
         public string Version { get; private set; }
-        #endregion
     }
 }

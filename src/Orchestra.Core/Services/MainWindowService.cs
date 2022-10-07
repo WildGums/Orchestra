@@ -23,14 +23,14 @@
             //EventManager.RegisterClassHandler(typeof(Window), FrameworkElement.SizeChangedEvent, new RoutedEventHandler(OnSizeChanged));
         }
 
-        public event EventHandler<EventArgs> MainWindowChanged;
+        public event EventHandler<EventArgs>? MainWindowChanged;
 
         public virtual async Task<Window> GetMainWindowAsync()
         {
             return Application.Current.MainWindow;
         }
 
-        private async void OnSizeChanged(object sender, RoutedEventArgs e)
+        private async void OnSizeChanged(object? sender, RoutedEventArgs e)
         {
             await CheckForUpdatedMainWindowAsync();
         }

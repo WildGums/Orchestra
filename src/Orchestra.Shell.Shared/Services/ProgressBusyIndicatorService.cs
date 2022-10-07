@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ProgressPleaseWaitService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Windows;
@@ -17,7 +10,7 @@ namespace Orchestra.Services
     using Catel.Logging;
     using Catel.Services;
 
-    internal class ProgressPleaseWaitService : PleaseWaitService
+    internal class ProgressBusyIndicatorService : BusyIndicatorService
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
@@ -27,10 +20,10 @@ namespace Orchestra.Services
 
         private readonly DispatcherTimer _hidingTimer;
 
-        public ProgressPleaseWaitService(IDispatcherService dispatcherService, IDependencyResolver dependencyResolver)
+        public ProgressBusyIndicatorService(IDispatcherService dispatcherService, IDependencyResolver dependencyResolver)
             : base(dispatcherService)
         {
-            Argument.IsNotNull(() => dependencyResolver);
+            ArgumentNullException.ThrowIfNull(dependencyResolver);
 
             _dependencyResolver = dependencyResolver;
 
@@ -104,11 +97,11 @@ namespace Orchestra.Services
         {
             if (_progressBar is null)
             {
-                _progressBar = _dependencyResolver.TryResolve<ProgressBar>("pleaseWaitService");
+                _progressBar = _dependencyResolver.Resolve<ProgressBar>("busyIndicatorService");
 
                 if (_progressBar is not null)
                 {
-                    Log.Debug("Found progress bar that will represent progress inside the ProgressPleaseWaitService");
+                    Log.Debug("Found progress bar that will represent progress inside the ProgressBusyIndicatorService");
                 }
             }
 

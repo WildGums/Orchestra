@@ -23,9 +23,9 @@ namespace Orchestra.ViewModels
 
         public ShellViewModel(ITaskRunnerService taskRunnerService, ICommandManager commandManager, IShellConfigurationService shellConfigurationService)
         {
-            Argument.IsNotNull(() => taskRunnerService);
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => shellConfigurationService);
+            ArgumentNullException.ThrowIfNull(taskRunnerService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(shellConfigurationService);
 
             _taskRunnerService = taskRunnerService;
 
@@ -90,7 +90,7 @@ namespace Orchestra.ViewModels
 
             try
             {
-                await TaskHelper.Run(() => _taskRunnerService.RunAsync(ConfigurationContext), true);
+                await Task.Run(() => _taskRunnerService.RunAsync(ConfigurationContext), true);
             }
             catch (Exception ex)
             {

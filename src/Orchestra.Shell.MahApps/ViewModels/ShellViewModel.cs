@@ -15,7 +15,7 @@ namespace Orchestra.ViewModels
     {
         public ShellViewModel(IShellConfigurationService shellConfigurationService)
         {
-            Argument.IsNotNull(() => shellConfigurationService);
+            ArgumentNullException.ThrowIfNull(shellConfigurationService);
 
             DeferValidationUntilFirstSaveCall = shellConfigurationService.DeferValidationUntilFirstSaveCall;
         }

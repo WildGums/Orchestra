@@ -1,5 +1,6 @@
 ﻿namespace Orchestra.Changelog
 {
+    using System;
     using System.IO;
     using System.Threading.Tasks;
     using Catel;

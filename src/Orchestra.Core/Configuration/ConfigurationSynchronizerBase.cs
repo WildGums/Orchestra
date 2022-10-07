@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ConfigurationSynchronizerBase.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Configuration
+﻿namespace Orchestra.Configuration
 {
     using System;
     using System.Threading.Tasks;
@@ -49,26 +42,21 @@ namespace Orchestra.Configuration
 
         protected bool ApplyAtStartup { get; set; }
 
-        public virtual T GetCurrentValue()
+        public virtual async Task<T> GetCurrentValueAsync()
         {
-            var value = ConfigurationService.GetValue(Container, Key, DefaultValue);
+            var value = await ConfigurationService.GetValueAsync(Container, Key, DefaultValue);
             return value;
         }
 
-        public virtual void ApplyConfiguration()
+        public virtual async Task ApplyConfigurationAsync()
         {
-            var value = ConfigurationService.GetValue(Container, Key, DefaultValue);
+            var value = await ConfigurationService.GetValueAsync(Container, Key, DefaultValue);
 
-            ApplyConfiguration(value);
-        }
-
-        protected virtual void ApplyConfiguration(T value)
-        {
+            await ApplyConfigurationAsync(value);
         }
 
         protected virtual async Task ApplyConfigurationAsync(T value)
         {
-            ApplyConfiguration(value);
         }
 
         protected abstract string GetStatus(T value);
@@ -83,7 +71,7 @@ namespace Orchestra.Configuration
                 await ApplyConfigurationInternalAsync(true);
             }
 
-            _lastKnownValue = ConfigurationService.GetValue(Container, Key, DefaultValue);
+            _lastKnownValue = await ConfigurationService.GetValueAsync(Container, Key, DefaultValue);
         }
 
 #pragma warning disable AvoidAsyncVoid
@@ -98,7 +86,7 @@ namespace Orchestra.Configuration
 
         private async Task ApplyConfigurationInternalAsync(bool force = false)
         {
-            var value = GetCurrentValue();
+            var value = await GetCurrentValueAsync();
             if (!force && ObjectHelper.AreEqual(value, _lastKnownValue))
             {
                 return;

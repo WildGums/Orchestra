@@ -1,29 +1,17 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StatusService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
-    using System.Timers;
     using System.Windows.Threading;
-    using Catel;
     using Catel.Logging;
     using Orc.Controls.Services;
 
     public class StatusService : IStatusService
     {
-        #region Fields
         private readonly IStatusFilterService _statusFilterService;
 
         private IStatusRepresenter _statusRepresenter;
         private string _lastStatus;
-        #endregion
 
-        #region Constructors
         public StatusService(IStatusFilterService statusFilterService)
         {
             ArgumentNullException.ThrowIfNull(statusFilterService);
@@ -34,9 +22,7 @@ namespace Orchestra.Services
 
             LogManager.AddListener(statusLogListener);
         }
-        #endregion
 
-        #region IStatusService Members
         public void UpdateStatus(string status)
         {
             var finalStatus = _statusFilterService.GetStatus(status);
@@ -57,9 +43,7 @@ namespace Orchestra.Services
             resetTimer.Tag = finalStatus;
             resetTimer.Start();
         }
-        #endregion
 
-        #region Methods
         public void Initialize(IStatusRepresenter statusRepresenter)
         {
             ArgumentNullException.ThrowIfNull(statusRepresenter);
@@ -67,7 +51,7 @@ namespace Orchestra.Services
             _statusRepresenter = statusRepresenter;
         }
 
-        private void OnResetTimerTick(object sender, EventArgs e)
+        private void OnResetTimerTick(object? sender, EventArgs e)
         {
             var timer = (DispatcherTimer)sender;
 
@@ -95,6 +79,5 @@ namespace Orchestra.Services
 
             _statusRepresenter.UpdateStatus(status);
         }
-        #endregion
     }
 }

@@ -44,7 +44,7 @@ namespace Orchestra
         /// <returns>The right button.</returns>
         public static Button CreateWindowCommandButton(FrameworkElement content, string label)
         {
-            Argument.IsNotNull(() => content);
+            ArgumentNullException.ThrowIfNull(content);
 
             var button = new Button();
             button.Content = content;

@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ShellWindow.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
     using Catel.IoC;
     using Catel.Windows;
@@ -25,7 +18,7 @@ namespace Orchestra.Views
 
             InitializeComponent();
 
-            serviceLocator.RegisterInstance(pleaseWaitProgressBar, "pleaseWaitService");
+            serviceLocator.RegisterInstance(pleaseWaitProgressBar, "busyIndicatorService");
 
             var statusService = serviceLocator.ResolveType<IStatusService>();
             statusService.Initialize(statusTextBlock);

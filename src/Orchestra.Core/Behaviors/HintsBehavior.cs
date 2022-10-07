@@ -1,23 +1,13 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="HintsBehavior.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Behaviors
+﻿namespace Orchestra.Behaviors
 {
     using System;
     using System.Windows;
     using System.Windows.Documents;
     using System.Windows.Media;
-    using Catel;
-    using Catel.IoC;
     using Catel.Logging;
     using Catel.Windows.Input;
     using Catel.Windows.Interactivity;
     using Services;
-    using Tooltips;
 
     public class HintsBehavior : BehaviorBase<FrameworkElement>
     {
@@ -32,16 +22,14 @@ namespace Orchestra.Behaviors
             _adorneredTooltipsManagerFactory = adorneredTooltipsManagerFactory;
         }
 
-        #region Properties
-        public Visual Adorner
+        public Visual? Adorner
         {
-            get { return (Visual)GetValue(AdornerProperty); }
+            get { return (Visual?)GetValue(AdornerProperty); }
             set { SetValue(AdornerProperty, value); }
         }
 
         public static readonly DependencyProperty AdornerProperty = DependencyProperty.Register(nameof(Adorner), typeof(Visual), 
             typeof(HintsBehavior), new PropertyMetadata(null));
-        #endregion
 
 
         protected override void Initialize()

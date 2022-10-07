@@ -6,7 +6,7 @@
 
     public interface IMainWindowService
     {
-        event EventHandler<EventArgs> MainWindowChanged;
+        event EventHandler<EventArgs>? MainWindowChanged;
 
         Task<Window> GetMainWindowAsync();
     }

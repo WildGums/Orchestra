@@ -15,8 +15,8 @@ namespace Orchestra.Models
         #region Constructors
         public FlyoutInfo(Flyout flyout, object content)
         {
-            Argument.IsNotNull(() => flyout);
-            Argument.IsNotNull(() => content);
+            ArgumentNullException.ThrowIfNull(flyout);
+            ArgumentNullException.ThrowIfNull(content);
 
             Flyout = flyout;
             Content = content;

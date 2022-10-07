@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ViewActivationService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Windows;
@@ -17,21 +10,16 @@ namespace Orchestra.Services
 
     public class ViewActivationService : IViewActivationService
     {
-        #region Fields
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
         private readonly IViewManager _viewManager;
-        #endregion
 
-        #region Constructors
         public ViewActivationService(IViewManager viewManager)
         {
             ArgumentNullException.ThrowIfNull(viewManager);
 
             _viewManager = viewManager;
         }
-        #endregion
 
-        #region Methods
         public bool Activate(IViewModel viewModel)
         {
             ArgumentNullException.ThrowIfNull(viewModel);
@@ -45,7 +33,6 @@ namespace Orchestra.Services
 
             return Activate(vm => vm.GetType() == viewModelType);
         }
-        #endregion
 
         private bool Activate(Func<IViewModel, bool> predicate)
         {

@@ -1,21 +1,12 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LogHelper.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
-    using Path = Catel.IO.Path;
 
     public static class LogFilePrefixes
     {
@@ -70,6 +61,8 @@ namespace Orchestra
         /// <param name="ex">The unhandled exception.</param>
         public static async Task AddLogListenerForUnhandledExceptionAsync(Exception ex)
         {
+            ArgumentNullException.ThrowIfNull(ex);
+
             AddFileLogListener(LogFilePrefixes.CrashReport);
 
             Log.Error(ex, "Application crashed");
@@ -111,7 +104,7 @@ namespace Orchestra
 
         private static string GetLogDirectory()
         {
-            var appDataService = ServiceLocator.Default.ResolveType<IAppDataService>();
+            var appDataService = ServiceLocator.Default.ResolveRequiredType<IAppDataService>();
 
             var directory = Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "log");
 

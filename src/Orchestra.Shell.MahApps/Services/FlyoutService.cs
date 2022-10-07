@@ -33,8 +33,8 @@ namespace Orchestra.Services
         #region Constructors
         public FlyoutService(ITypeFactory typeFactory, ICommandManager commandManager)
         {
-            Argument.IsNotNull(() => typeFactory);
-            Argument.IsNotNull(() => commandManager);
+            ArgumentNullException.ThrowIfNull(typeFactory);
+            ArgumentNullException.ThrowIfNull(commandManager);
 
             _typeFactory = typeFactory;
             _commandManager = commandManager;
@@ -51,7 +51,7 @@ namespace Orchestra.Services
         public void AddFlyout(string name, Type viewType, Position position, UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel, FlyoutTheme flyoutTheme = FlyoutTheme.Adapt)
         {
             Argument.IsNotNullOrWhitespace(() => name);
-            Argument.IsNotNull(() => viewType);
+            ArgumentNullException.ThrowIfNull(viewType);
 
             Log.Info("Adding flyout '{0}' with view type '{1}'", name, viewType.FullName);
 

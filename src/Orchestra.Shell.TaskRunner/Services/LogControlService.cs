@@ -18,7 +18,7 @@ namespace Orchestra.Services
         #region Constructors
         public LogControlService(AdvancedLogViewerControl traceOutputControl)
         {
-            Argument.IsNotNull(() => traceOutputControl);
+            ArgumentNullException.ThrowIfNull(traceOutputControl);
 
             _traceOutputControl = traceOutputControl;
         }

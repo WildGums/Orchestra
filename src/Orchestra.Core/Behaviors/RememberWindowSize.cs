@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RememberWindowSize.cs" company="WildGums">
-//   Copyright (c) 2008 - 2016 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Behaviors
+﻿namespace Orchestra.Behaviors
 {
     using System;
     using System.Windows;
@@ -17,7 +10,6 @@ namespace Orchestra.Behaviors
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        #region Dependency properties
         public bool MakeWindowResizable
         {
             get { return (bool)GetValue(MakeWindowResizableProperty); }
@@ -36,7 +28,6 @@ namespace Orchestra.Behaviors
 
         public static readonly DependencyProperty RememberWindowStateProperty = DependencyProperty.Register(nameof(RememberWindowState), 
             typeof(bool), typeof(RememberWindowSize), new PropertyMetadata(true));
-        #endregion
 
         protected override void OnAssociatedObjectLoaded()
         {
@@ -84,7 +75,7 @@ namespace Orchestra.Behaviors
             base.OnAssociatedObjectUnloaded();
         }
 
-        private void OnWindowClosed(object sender, EventArgs e)
+        private void OnWindowClosed(object? sender, EventArgs e)
         {
             AssociatedObject.SaveWindowSize();
         }

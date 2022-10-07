@@ -1,21 +1,10 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SystemInfoViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
-    using System.Windows;
-    using Catel;
     using Catel.MVVM;
-    using Catel.Services;
-    using Catel.Threading;
     using Orc.SystemInfo;
     using Services;
 
@@ -24,7 +13,6 @@ namespace Orchestra.ViewModels
         private readonly ISystemInfoService _systemInfoService;
         private readonly IClipboardService _clipboardService;
 
-        #region Constructors
         public SystemInfoViewModel(ISystemInfoService systemInfoService, IClipboardService clipboardService)
         {
             ArgumentNullException.ThrowIfNull(systemInfoService);
@@ -37,22 +25,18 @@ namespace Orchestra.ViewModels
 
             CopyToClipboard = new Command(OnCopyToClipboardExecute);
         }
-        #endregion
 
-        #region Properties
         public List<KeyValuePair<string, string>> SystemInfo { get; private set; }
 
         public bool IsSystemInformationLoaded { get; private set; }
-        #endregion
 
-        #region Methods
         protected override async Task InitializeAsync()
         {
             await base.InitializeAsync();
 
             var items = new List<KeyValuePair<string, string>>();
 
-            var systemInfo = await TaskHelper.Run(() => _systemInfoService.GetSystemInfo(), true);
+            var systemInfo = await Task.Run(() => _systemInfoService.GetSystemInfo());
 
             foreach (var item in systemInfo)
             {
@@ -62,9 +46,7 @@ namespace Orchestra.ViewModels
             SystemInfo = items;
             IsSystemInformationLoaded = true;
         }
-        #endregion
 
-        #region Commands
         public Command CopyToClipboard { get; private set; }
 
         private void OnCopyToClipboardExecute()
@@ -78,6 +60,5 @@ namespace Orchestra.ViewModels
 
             _clipboardService.CopyToClipboard(sb.ToString());
         }
-        #endregion
     }
 }

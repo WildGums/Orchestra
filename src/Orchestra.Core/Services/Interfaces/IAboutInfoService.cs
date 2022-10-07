@@ -1,13 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IAboutInfoService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
-    using Models;
+    using System.Threading.Tasks;
 
     public interface IAboutInfoService
     {
@@ -15,6 +8,6 @@ namespace Orchestra.Services
         /// Returns the about info. If <c>null</c>, the shell will not show the about window.
         /// </summary>
         /// <returns></returns>
-        AboutInfo GetAboutInfo();
+        Task<AboutInfo> GetAboutInfoAsync();
     }
 }

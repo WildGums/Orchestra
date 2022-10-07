@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IAdorneredTooltipsCollection.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Collections
+﻿namespace Orchestra.Collections
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -14,7 +7,6 @@ namespace Orchestra.Collections
 
     public interface IAdorneredTooltipsCollection
     {
-        #region Methods
         void Add(FrameworkElement parentControl, Adorner tooltip, bool adornerLayerVisibility);
         void Remove(FrameworkElement parentControl);
 
@@ -24,6 +16,5 @@ namespace Orchestra.Collections
         void HideAll();
         void AdornerLayerEnabled();
         void AdornerLayerDisabled();
-        #endregion
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace Orchestra.Services
 {
     using System;
-    using Catel;
     using Catel.Logging;
 
     public static class IThirdPartyNoticesServiceExtensions

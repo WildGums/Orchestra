@@ -1,17 +1,9 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DotNetPatchHelper.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
-    using System.Linq;
     using System.Runtime.ExceptionServices;
     using System.Threading.Tasks;
     using System.Windows;
@@ -117,7 +109,7 @@ namespace Orchestra
             }
         }
 
-        private static async void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static async void OnAppDomainUnhandledException(object? sender, UnhandledExceptionEventArgs e)
         {
             Log.Debug("AppDomain unhandled exception");
 
@@ -134,7 +126,7 @@ namespace Orchestra
             }
         }
 
-        private static void OnAppDomainFirstChanceException(object sender, FirstChanceExceptionEventArgs e)
+        private static void OnAppDomainFirstChanceException(object? sender, FirstChanceExceptionEventArgs e)
         {
             lock (LastFirstChanceExceptions)
             {
@@ -150,7 +142,7 @@ namespace Orchestra
             }
         }
 
-        private static async void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        private static async void OnDispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs e)
         {
             Log.Debug("Dispatcher unhandled exception");
 
@@ -169,6 +161,8 @@ namespace Orchestra
 
         private static async Task<bool> HandleExceptionAsync(Exception ex)
         {
+            ArgumentNullException.ThrowIfNull(ex);
+
             await LogHelper.AddLogListenerForUnhandledExceptionAsync(ex);
 
             Log.Info("An unhandled exception occurred, checking if it is a known KB issue: {0}", ex.Message);
@@ -212,6 +206,8 @@ namespace Orchestra
 
         private static void ShowMessage(string content)
         {
+            ArgumentNullException.ThrowIfNull(content);
+
             Log.Error(content);
 
             var finalMessage = $"{content}\n\nNote: you can use CTRL + C to copy this message into the clipboard";

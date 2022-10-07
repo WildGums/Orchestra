@@ -10,7 +10,7 @@
         public static TView GetView<TView>(this Ribbon ribbon, string tabName, string viewName)
             where TView : AutomationControl
         {
-            Argument.IsNotNull(() => ribbon);
+            ArgumentNullException.ThrowIfNull(ribbon);
 
             var ribbonGroupBox = ribbon.GetGroupBox(tabName, viewName);
             var view = ribbonGroupBox?.GetContent<TView>();
@@ -21,7 +21,7 @@
         public static IDisposable OpenBackstageView<TBackstageContentView>(this Ribbon ribbon, out TBackstageContentView view)
             where TBackstageContentView : AutomationControl
         {
-            Argument.IsNotNull(() => ribbon);
+            ArgumentNullException.ThrowIfNull(ribbon);
 
             var backstage = ribbon.OpenBackstage();
 
@@ -33,7 +33,7 @@
         public static IDisposable OpenTabItemBackstageView<TBackstageTabItemContentView>(this Ribbon ribbon, string header, out TBackstageTabItemContentView view)
             where TBackstageTabItemContentView : AutomationControl
         {
-            Argument.IsNotNull(() => ribbon);
+            ArgumentNullException.ThrowIfNull(ribbon);
 
             var backstageScope = ribbon.OpenBackstageView<BackstageTabControl>(out var tabControl);
 

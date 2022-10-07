@@ -68,7 +68,7 @@
             return ToBitmapImageWithTransparency(vistaIcon);
         }
 
-        private static Bitmap ExtractVistaIcon(Icon icon)
+        private static Bitmap? ExtractVistaIcon(Icon? icon)
         {
             Bitmap extractedIcon = null;
 
@@ -122,7 +122,7 @@
             return extractedIcon;
         }
 
-        private static Bitmap ExtractIcon(Icon icon)
+        private static Bitmap? ExtractIcon(Icon? icon)
         {
             if (icon is null)
             {
@@ -140,6 +140,8 @@
 
         private static Bitmap ToBitmap(BitmapSource source)
         {
+            ArgumentNullException.ThrowIfNull(source);
+
             var bitmap = new Bitmap(source.PixelWidth, source.PixelHeight, PixelFormat.Format32bppPArgb);
             var data = bitmap.LockBits(new Rectangle(Point.Empty, bitmap.Size), ImageLockMode.WriteOnly, PixelFormat.Format32bppPArgb);
             source.CopyPixels(Int32Rect.Empty, data.Scan0, data.Height * data.Stride, data.Stride);
@@ -149,6 +151,8 @@
 
         private static BitmapImage ToBitmapImageWithTransparency(Bitmap bitmap)
         {
+            ArgumentNullException.ThrowIfNull(bitmap);
+
             using (var stream = new MemoryStream())
             {
                 bitmap.Save(stream, ImageFormat.Png); // Was .Bmp, but this did not show a transparent background.

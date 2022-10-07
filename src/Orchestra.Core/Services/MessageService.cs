@@ -1,12 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MessageService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
+    using System;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Catel;
@@ -17,15 +11,12 @@ namespace Orchestra.Services
 
     public class MessageService : Catel.Services.MessageService
     {
-        #region Fields
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly IDispatcherService _dispatcherService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IViewModelFactory _viewModelFactory;
-        #endregion
 
-        #region Constructors
         public MessageService(IDispatcherService dispatcherService, IUIVisualizerService uiVisualizerService,
             IViewModelFactory viewModelFactory, ILanguageService languageService)
             : base(dispatcherService, languageService)
@@ -38,7 +29,6 @@ namespace Orchestra.Services
             _uiVisualizerService = uiVisualizerService;
             _viewModelFactory = viewModelFactory;
         }
-        #endregion
 
         public override Task<MessageResult> ShowAsync(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
         {

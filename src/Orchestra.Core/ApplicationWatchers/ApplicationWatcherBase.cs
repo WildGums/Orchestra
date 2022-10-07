@@ -6,12 +6,10 @@
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Threading;
-    using Catel;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
     using Orchestra.Services;
-    using ViewModels;
 
     public abstract class ApplicationWatcherBase
     {
@@ -105,7 +103,7 @@
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(ex, LanguageHelper.GetString("Failed to execute ApplicationWatcher action"));
+                        Log.Error(ex, "Failed to execute ApplicationWatcher action");
                     }
                 }
             }

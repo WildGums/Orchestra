@@ -1,17 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyPressApplicationWatcherBase.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
+    using System;
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Input;
 
-    public class KeyPressApplicationWatcherBase : ApplicationWatcherBase
+    public abstract class KeyPressApplicationWatcherBase : ApplicationWatcherBase
     {
         private static readonly IList<KeyPressApplicationWatcherBase> Watchers = new List<KeyPressApplicationWatcherBase>();
 
@@ -24,6 +18,8 @@ namespace Orchestra
 
         private static void Subscribe(Window window)
         {
+            ArgumentNullException.ThrowIfNull(window);
+
             var windowWatcher = new KeyPressWindowWatcher();
             windowWatcher.WatchWindow(window);
 

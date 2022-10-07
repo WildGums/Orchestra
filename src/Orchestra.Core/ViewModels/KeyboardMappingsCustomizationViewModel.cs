@@ -1,14 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingsViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels
 {
     using System;
-    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -18,7 +10,6 @@ namespace Orchestra.ViewModels
     using Catel.Services;
     using Catel.Text;
     using Catel.Windows.Input;
-    using Models;
     using Orchestra.Services;
 
     public class KeyboardMappingsCustomizationViewModel : ViewModelBase
@@ -53,24 +44,21 @@ namespace Orchestra.ViewModels
             Assign = new TaskCommand(OnAssignExecuteAsync, OnAssignCanExecute);
         }
 
-        #region Properties
         public override string Title
         {
-            get { return _languageService.GetString("Orchestra_KeyboardShortcuts"); }
+            get { return _languageService.GetRequiredString("Orchestra_KeyboardShortcuts"); }
         }
 
-        public string CommandFilter { get; set; }
+        public string? CommandFilter { get; set; }
 
         public FastObservableCollection<ICommandInfo> Commands { get; private set; }
 
-        public string SelectedCommand { get; set; }
+        public string? SelectedCommand { get; set; }
 
-        public InputGesture SelectedCommandInputGesture { get; private set; }
+        public InputGesture? SelectedCommandInputGesture { get; private set; }
 
-        public InputGesture SelectedCommandNewInputGesture { get; set; }
-        #endregion
+        public InputGesture? SelectedCommandNewInputGesture { get; set; }
 
-        #region Commands
         public TaskCommand Reset { get; private set; }
 
         private async Task OnResetExecuteAsync()
@@ -81,7 +69,7 @@ namespace Orchestra.ViewModels
                 return;
             }
 
-            _keyboardMappingsService.Reset();
+            await _keyboardMappingsService.ResetAsync();
 
             if (!string.IsNullOrWhiteSpace(SelectedCommand))
             {
@@ -175,9 +163,7 @@ namespace Orchestra.ViewModels
 
             UpdateCommands();
         }
-        #endregion
 
-        #region Methods
         protected override async Task InitializeAsync()
         {
             await base.InitializeAsync();
@@ -187,7 +173,7 @@ namespace Orchestra.ViewModels
 
         protected override async Task CloseAsync()
         {
-            _keyboardMappingsService.Save();
+            await _keyboardMappingsService.SaveAsync();
 
             _commandManager.IsKeyboardEventsSuspended = false;
 
@@ -242,6 +228,5 @@ namespace Orchestra.ViewModels
             SelectedCommandInputGesture = inputGesture;
             SelectedCommandNewInputGesture = null;
         }
-        #endregion
     }
 }

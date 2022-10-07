@@ -1,15 +1,8 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CrashWarningViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
+    using System;
     using System.Reflection;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
@@ -18,20 +11,14 @@ namespace Orchestra.Views
 
     public class CrashWarningViewModel : ViewModelBase
     {
-        #region Fields
-
-        #region Constants
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        #endregion
-
+        
         private readonly IManageAppDataService _manageAppDataService;
         private readonly Assembly _assembly;
         private readonly IMessageService _messageService;
         private readonly INavigationService _navigationService;
         private readonly ILanguageService _languageService;
-        #endregion
 
-        #region Constructors
         public CrashWarningViewModel(IManageAppDataService manageAppDataService, IMessageService messageService, INavigationService navigationService,
             ILanguageService languageService)
         {
@@ -52,16 +39,12 @@ namespace Orchestra.Views
             ResetUserSettings = new TaskCommand(OnResetUserSettingsExecuteAsync);
             BackupAndReset = new TaskCommand(OnResetAndBackupExecuteAsync);
         }
-        #endregion
 
-        #region Properties
         public override string Title
         {
-            get { return _assembly.Title(); }
+            get { return _assembly.Title() ?? string.Empty; }
         }
-        #endregion
 
-        #region Commands
         public TaskCommand BackupAndReset { get; set; }
 
         private async Task OnResetAndBackupExecuteAsync()
@@ -74,7 +57,7 @@ namespace Orchestra.Views
 
                 await _messageService.ShowErrorAsync(_languageService.GetString("Orchestra_FailedToCreateBackup"), _assembly.Title());
 
-                _navigationService.CloseApplication();
+                await _navigationService.CloseApplicationAsync();
 
                 return;
             }
@@ -107,7 +90,6 @@ namespace Orchestra.Views
 
             await CloseViewModelAsync(false);
         }
-        #endregion
 
         protected override Task<bool> CancelAsync()
         {

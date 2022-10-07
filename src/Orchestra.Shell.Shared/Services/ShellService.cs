@@ -65,15 +65,15 @@ namespace Orchestra.Services
             IApplicationInitializationService applicationInitializationService, IDependencyResolver dependencyResolver,
             IServiceLocator serviceLocator, IConfigurationBackupService configurationBackupService)
         {
-            Argument.IsNotNull(() => typeFactory);
-            Argument.IsNotNull(() => keyboardMappingsService);
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => splashScreenService);
-            Argument.IsNotNull(() => ensureStartupService);
-            Argument.IsNotNull(() => applicationInitializationService);
-            Argument.IsNotNull(() => dependencyResolver);
-            Argument.IsNotNull(() => serviceLocator);
-            Argument.IsNotNull(() => configurationBackupService);
+            ArgumentNullException.ThrowIfNull(typeFactory);
+            ArgumentNullException.ThrowIfNull(keyboardMappingsService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(splashScreenService);
+            ArgumentNullException.ThrowIfNull(ensureStartupService);
+            ArgumentNullException.ThrowIfNull(applicationInitializationService);
+            ArgumentNullException.ThrowIfNull(dependencyResolver);
+            ArgumentNullException.ThrowIfNull(serviceLocator);
+            ArgumentNullException.ThrowIfNull(configurationBackupService);
 
             _typeFactory = typeFactory;
             _keyboardMappingsService = keyboardMappingsService;

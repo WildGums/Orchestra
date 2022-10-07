@@ -16,7 +16,7 @@ namespace Orchestra.Services
         public static void AddFlyout<TView>(this IFlyoutService flyoutService, string name, Position position, 
             UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel, FlyoutTheme flyoutTheme = FlyoutTheme.Adapt)
         {
-            Argument.IsNotNull(() => flyoutService);
+            ArgumentNullException.ThrowIfNull(flyoutService);
 
             flyoutService.AddFlyout(name, typeof(TView), position, unloadBehavior, flyoutTheme);
         }

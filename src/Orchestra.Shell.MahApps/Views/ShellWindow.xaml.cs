@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MainWindow.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
     using System.Windows;
     using System.Windows.Data;
@@ -34,7 +27,7 @@ namespace Orchestra.Views
 
             statusBar.Background = Orc.Theming.ThemeManager.Current.GetThemeColorBrush(Orc.Theming.ThemeColorStyle.AccentColor20);
 
-            serviceLocator.RegisterInstance(pleaseWaitProgressBar, "pleaseWaitService");
+            serviceLocator.RegisterInstance(pleaseWaitProgressBar, "busyIndicatorService");
 
             var statusService = serviceLocator.ResolveType<IStatusService>();
             statusService.Initialize(statusTextBlock);

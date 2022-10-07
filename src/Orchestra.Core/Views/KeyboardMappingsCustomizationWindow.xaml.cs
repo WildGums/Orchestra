@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingsWindow.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
     using Catel.Windows;
     using Orchestra.ViewModels;
@@ -13,9 +6,8 @@ namespace Orchestra.Views
     /// <summary>
     /// Interaction logic for KeyboardMappingsWindow.xaml.
     /// </summary>
-    public partial class KeyboardMappingsCustomizationWindow : DataWindow
+    public partial class KeyboardMappingsCustomizationWindow
     {
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyboardMappingsCustomizationWindow"/> class.
         /// </summary>
@@ -36,6 +28,5 @@ namespace Orchestra.Views
         {
             InitializeComponent();
         }
-        #endregion
     }
 }

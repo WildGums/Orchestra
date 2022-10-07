@@ -1,12 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PersonsViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.MahApps.ViewModels
+﻿namespace Orchestra.Examples.MahApps.ViewModels
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading.Tasks;
@@ -28,9 +22,9 @@ namespace Orchestra.Examples.MahApps.ViewModels
         #region Constructors
         public PersonsViewModel(IFlyoutService flyoutService, IMessageService messageService, IDispatcherService dispatcherService)
         {
-            Argument.IsNotNull(() => flyoutService);
-            Argument.IsNotNull(() => messageService);
-            Argument.IsNotNull(() => dispatcherService);
+            ArgumentNullException.ThrowIfNull(flyoutService);
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(dispatcherService);
 
             _flyoutService = flyoutService;
             _messageService = messageService;

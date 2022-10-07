@@ -23,7 +23,7 @@
             _keyboardMappingsAllowedKeysService = ServiceLocator.Default.ResolveType<IKeyboardMappingsAllowedKeysService>();
         }
 
-        private void OnNewInputGestureTextBoxKeyDown(object sender, KeyEventArgs e)
+        private void OnNewInputGestureTextBoxKeyDown(object? sender, KeyEventArgs e)
         {
             e.Handled = true;
 

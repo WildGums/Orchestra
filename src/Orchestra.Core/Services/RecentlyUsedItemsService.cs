@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RecentlyUsedItemService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Collections.Generic;
@@ -15,8 +8,6 @@ namespace Orchestra.Services
     using Catel.Runtime.Serialization.Xml;
     using Catel.Services;
     using Orc.FileSystem;
-    using Orchestra.Models;
-    using Path = Catel.IO.Path;
 
     public class RecentlyUsedItemsService : IRecentlyUsedItemsService
     {

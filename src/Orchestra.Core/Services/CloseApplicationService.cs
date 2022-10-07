@@ -37,7 +37,7 @@
 
         public async Task CloseAsync(bool force)
         {
-            _ensureStartupService.ConfirmApplicationStartedSuccessfully();
+            await _ensureStartupService.ConfirmApplicationStartedSuccessfullyAsync();
 
             await LogManager.FlushAllAsync();
 

@@ -10,7 +10,6 @@
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
-    using Catel.Threading;
 
     public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
     {
@@ -94,7 +93,7 @@
                     {
                         Log.Debug("Closing is not confirmed yet, perform closing operations first");
 
-                        await TaskHelper.Run(() => PerformClosingOperationsAsync(window), true);
+                        await Task.Run(() => PerformClosingOperationsAsync(window));
                     }
                 }
                 finally
@@ -301,17 +300,17 @@
 
         protected virtual Task<bool> PrepareClosingAsync()
         {
-            return TaskHelper<bool>.FromResult(true);
+            return Task<bool>.FromResult(true);
         }
 
         protected virtual Task<bool> ClosingAsync()
         {
-            return TaskHelper<bool>.FromResult(true);
+            return Task<bool>.FromResult(true);
         }
 
         protected virtual Task ClosedAsync()
         {
-            return TaskHelper.Completed;
+            return Task.CompletedTask;
         }
 
         private static void Subscribe(Window window)

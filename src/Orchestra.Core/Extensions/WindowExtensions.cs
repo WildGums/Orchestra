@@ -18,6 +18,8 @@
 
         public static void DisableCloseButton(this Window window)
         {
+            ArgumentNullException.ThrowIfNull(window);
+
             if (!window.IsVisible)
             {
                 window.SourceInitialized += OnWindowInitializedForDisableCloseButton;
@@ -30,9 +32,14 @@
             User32.EnableMenuItem(sysMenu, SC.CLOSE, MF.BYCOMMAND | MF.GRAYED);
         }
 
-        private static void OnWindowInitializedForDisableCloseButton(object sender, EventArgs e)
+        private static void OnWindowInitializedForDisableCloseButton(object? sender, EventArgs e)
         {
-            var window = (Window) sender;
+            var window = sender as Window;
+            if (window is null)
+            {
+                return;
+            }
+
             window.SourceInitialized -= OnWindowInitializedForDisableCloseButton;
 
             DisableCloseButton(window);

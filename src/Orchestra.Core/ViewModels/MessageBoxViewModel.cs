@@ -1,14 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MessageBoxViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels
 {
+    using System;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
@@ -19,7 +12,6 @@ namespace Orchestra.ViewModels
         private readonly IMessageService _messageService;
         private readonly IClipboardService _clipboardService;
 
-        #region Constructors
         public MessageBoxViewModel(IMessageService messageService, IClipboardService clipboardService)
         {
             ArgumentNullException.ThrowIfNull(messageService);
@@ -38,17 +30,14 @@ namespace Orchestra.ViewModels
 
             Result = MessageResult.None;
         }
-        #endregion
 
-        #region Properties
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
         public MessageResult Result { get; set; }
 
         public MessageButton Button { get; set; }
 
         public MessageImage Icon { get; set; }
-        #endregion
 
         public void SetTitle(string title)
         {
@@ -59,7 +48,7 @@ namespace Orchestra.ViewModels
             }
 
             var assembly = AssemblyHelper.GetEntryAssembly();
-            Title = assembly.Title();
+            Title = assembly.Title() ?? string.Empty;
         }
 
         protected override async Task CloseAsync()
@@ -85,7 +74,6 @@ namespace Orchestra.ViewModels
             await base.CloseAsync();
         }
 
-        #region Commands
         public Command CopyToClipboard { get; private set; }
 
         private void OnCopyToClipboardExecute()
@@ -149,6 +137,5 @@ namespace Orchestra.ViewModels
                     break;
             }
         }
-        #endregion
     }
 }

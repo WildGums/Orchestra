@@ -17,7 +17,7 @@ namespace Orchestra
     {
         public static void Show(this BaseMetroDialog dialog)
         {
-            Argument.IsNotNull(() => dialog);
+            ArgumentNullException.ThrowIfNull(dialog);
 
             var metroWindow = Application.Current.GetMainWindow();
 
@@ -26,14 +26,14 @@ namespace Orchestra
 
         public static void ShowModal(this BaseMetroDialog dialog)
         {
-            Argument.IsNotNull(() => dialog);
+            ArgumentNullException.ThrowIfNull(dialog);
 
             dialog.ShowModalDialogExternally();
         }
 
         public static void Close(this BaseMetroDialog dialog, Window parentDialogWindow = null)
         {
-            Argument.IsNotNull(() => dialog);
+            ArgumentNullException.ThrowIfNull(dialog);
 
             if (parentDialogWindow is not null)
             {
@@ -48,7 +48,7 @@ namespace Orchestra
 
         public static MetroWindow GetMainWindow(this Application application)
         {
-            Argument.IsNotNull(() => application);
+            ArgumentNullException.ThrowIfNull(application);
 
             return (MetroWindow) application.MainWindow;
         }

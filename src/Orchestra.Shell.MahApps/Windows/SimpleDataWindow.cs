@@ -132,7 +132,7 @@ namespace Orchestra.Windows
                 return OnOkExecuteAsync();
             }
 
-            return TaskHelper.Completed;
+            return Task.Completed;
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace Orchestra.Windows
                 return OnCancelExecuteAsync();
             }
 
-            return TaskHelper.Completed;
+            return Task.Completed;
         }
 
         /// <summary>

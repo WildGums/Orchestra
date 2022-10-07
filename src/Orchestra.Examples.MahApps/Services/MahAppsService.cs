@@ -1,12 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MahAppsService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.MahApps.Services
+﻿namespace Orchestra.Examples.MahApps.Services
 {
+    using System;
     using System.Windows;
     using Catel;
     using Catel.MVVM;
@@ -20,26 +14,21 @@ namespace Orchestra.Examples.MahApps.Services
 
     public class MahAppsService : IMahAppsService
     {
-        #region Fields
         private readonly ICommandManager _commandManager;
         private readonly IMessageService _messageService;
         private readonly IUIVisualizerService _uiVisualizerService;
-        #endregion
 
-        #region Constructors
         public MahAppsService(ICommandManager commandManager, IMessageService messageService, IUIVisualizerService uiVisualizerService)
         {
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => messageService);
-            Argument.IsNotNull(() => uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
 
             _commandManager = commandManager;
             _messageService = messageService;
             _uiVisualizerService = uiVisualizerService;
         }
-        #endregion
 
-        #region IMahAppsService Members
         public WindowCommands GetRightWindowCommands()
         {
             var windowCommands = new WindowCommands();
@@ -84,6 +73,5 @@ namespace Orchestra.Examples.MahApps.Services
         {
             return new AboutInfo();
         }
-        #endregion
     }
 }

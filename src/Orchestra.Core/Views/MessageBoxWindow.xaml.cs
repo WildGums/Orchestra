@@ -8,7 +8,6 @@
 
     public partial class MessageBoxWindow
     {
-        #region Constructors
         public MessageBoxWindow()
             : this(null)
         {
@@ -24,7 +23,6 @@
                 this.DisableCloseButton();
             }
         }
-        #endregion
 
         protected override AutomationPeer OnCreateAutomationPeer()
         {

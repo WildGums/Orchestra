@@ -8,6 +8,7 @@
     <PackageVersion>1.0.0-alpha0001</PackageVersion>
     <Description>Orchestra task runner shell library.</Description>
     <PackageTags>orc;orchestra;wpf;xaml;shell;task;runner</PackageTags>
+    <Nullable>annotations</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>

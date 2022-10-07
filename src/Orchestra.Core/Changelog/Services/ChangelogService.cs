@@ -37,7 +37,7 @@
             }
 
             var delta = snapshot.GetDelta(changelog);
-            delta.Title = LanguageHelper.GetString("Orchestra_ChangelogWhatsNew");
+            delta.Title = LanguageHelper.GetRequiredString("Orchestra_ChangelogWhatsNew");
             return delta;
         }
 

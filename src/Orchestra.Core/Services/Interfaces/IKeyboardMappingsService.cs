@@ -1,20 +1,14 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IKeyboardMappingsService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System.Collections.Generic;
-    using Models;
+    using System.Threading.Tasks;
 
     public interface IKeyboardMappingsService
     {
-        void Load();
-        void Save();
-        void Reset();
         List<KeyboardMapping> AdditionalKeyboardMappings { get; }
+
+        Task LoadAsync();
+        Task SaveAsync();
+        Task ResetAsync();
     }
 }

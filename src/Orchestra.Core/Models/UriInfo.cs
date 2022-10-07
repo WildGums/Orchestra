@@ -1,14 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UrlInfo.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Models
+﻿namespace Orchestra
 {
-    using Catel;
-
+    using System;
+    
     public class UriInfo
     {
         public UriInfo(string uri, string displayText = null)

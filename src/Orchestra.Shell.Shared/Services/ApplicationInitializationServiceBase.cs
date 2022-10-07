@@ -85,7 +85,7 @@ namespace Orchestra.Services
 
         protected static async Task RunAndWaitAsync(params Func<Task>[] actions)
         {
-            await TaskHelper.RunAndWaitAsync(actions);
+            await Task.RunAndWaitAsync(actions);
         }
 
         protected virtual CultureInfo GetApplicationCulture()

@@ -9,7 +9,7 @@
         public static TView GetItemContent<TView>(this BackstageTabControl tabControl, string header)
             where TView : AutomationControl
         {
-            Argument.IsNotNull(() => tabControl);
+            ArgumentNullException.ThrowIfNull(tabControl);
 
             tabControl.SelectItem(header);
 
@@ -21,7 +21,7 @@
 
         public static void SelectItem(this BackstageTabControl tabControl, string header)
         {
-            Argument.IsNotNull(() => tabControl);
+            ArgumentNullException.ThrowIfNull(tabControl);
 
             var tabItem = tabControl.GetItem<BackstageTabItem>(header);
 

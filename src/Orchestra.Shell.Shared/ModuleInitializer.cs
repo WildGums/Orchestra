@@ -17,10 +17,10 @@ public static partial class ModuleInitializer
         serviceLocator.RegisterType<IShellService, ShellService>();
         serviceLocator.RegisterType<IApplicationInitializationService, ApplicationInitializationServiceBase>();
         serviceLocator.RegisterType<IShellConfigurationService, ShellConfigurationService>();
-        serviceLocator.RegisterType<IPleaseWaitService, ProgressPleaseWaitService>();
+        serviceLocator.RegisterType<IBusyIndicatorService, ProgressBusyIndicatorService>();
         serviceLocator.RegisterType<IXamlResourceService, XamlResourceService>();
 
-        var languageService = serviceLocator.ResolveType<ILanguageService>();
+        var languageService = serviceLocator.ResolveRequiredType<ILanguageService>();
         languageService.RegisterLanguageSource(new LanguageResourceSource(typeof(ShellService).Assembly.GetName().Name, 
             "Orchestra.Properties", "Resources"));
 

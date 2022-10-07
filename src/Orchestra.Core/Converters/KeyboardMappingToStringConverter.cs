@@ -1,15 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="InputGestureToStringConverter.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Converters
+﻿namespace Orchestra.Converters
 {
     using System;
     using Catel.MVVM.Converters;
-    using Models;
 
     /// <summary>
     /// Converts an keyboard mapping to a string.
@@ -23,7 +15,7 @@ namespace Orchestra.Converters
         /// <param name="targetType">The <see cref="T:System.Type" /> of data expected by the target dependency property.</param>
         /// <param name="parameter">An optional parameter to be used in the converter logic.</param>
         /// <returns>The value to be passed to the target dependency property.</returns>
-        protected override object Convert(object value, Type targetType, object parameter)
+        protected override object? Convert(object? value, Type targetType, object? parameter)
         {
             if (!(value is KeyboardMapping keyboardMapping))
             {

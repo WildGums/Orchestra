@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MessageButtonToCollapsingVisibilityConverter.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Converters
+﻿namespace Orchestra.Converters
 {
     using System;
     using System.Windows;
@@ -20,7 +13,7 @@ namespace Orchestra.Converters
             SupportInversionUsingCommandParameter = false;
         }
 
-        protected override bool IsVisible(object value, Type targetType, object parameter)
+        protected override bool IsVisible(object? value, Type targetType, object? parameter)
         {
             var button = (MessageButton)value;
 

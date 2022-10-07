@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="VersionHelper.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System.Reflection;
     using Catel.Reflection;
@@ -17,7 +10,7 @@ namespace Orchestra
         /// </summary>
         /// <param name="assembly">The assembly. If <c>null</c>, <see cref="AssemblyHelper.GetEntryAssembly"/> will be used.</param>
         /// <returns>System.String.</returns>
-        public static string GetCurrentVersion(Assembly assembly = null)
+        public static string GetCurrentVersion(Assembly? assembly = null)
         {
             if (assembly is null)
             {

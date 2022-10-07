@@ -35,15 +35,15 @@
             IMessageService messageService, ISelectDirectoryService selectDirectoryService, IDirectoryService directoryService,
             IManageAppDataService manageAppDataService)
         {
-            Argument.IsNotNull(() => navigationService);
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => recentlyUsedItemsService);
-            Argument.IsNotNull(() => processService);
-            Argument.IsNotNull(() => messageService);
-            Argument.IsNotNull(() => selectDirectoryService);
-            Argument.IsNotNull(() => directoryService);
-            Argument.IsNotNull(() => manageAppDataService);
+            ArgumentNullException.ThrowIfNull(navigationService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(recentlyUsedItemsService);
+            ArgumentNullException.ThrowIfNull(processService);
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(selectDirectoryService);
+            ArgumentNullException.ThrowIfNull(directoryService);
+            ArgumentNullException.ThrowIfNull(manageAppDataService);
 
             _navigationService = navigationService;
             _uiVisualizerService = uiVisualizerService;

@@ -23,7 +23,7 @@ namespace Orchestra.Services
         public MahAppsMessageService(IDispatcherService dispatcherService, ILanguageService languageService)
             : base(dispatcherService, languageService)
         {
-            Argument.IsNotNull(() => languageService);
+            ArgumentNullException.ThrowIfNull(languageService);
 
             _dispatcherService = dispatcherService;
             _languageService = languageService;

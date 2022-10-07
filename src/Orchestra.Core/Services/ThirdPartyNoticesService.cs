@@ -3,9 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Logging;
 
     public class ThirdPartyNoticesService : IThirdPartyNoticesService
@@ -26,7 +24,7 @@
             }
         }
 
-        public List<ThirdPartyNotice> GetThirdPartyNotices()
+        public async Task<List<ThirdPartyNotice>> GetThirdPartyNoticesAsync()
         {
             lock (_thirdPartyNotices)
             {

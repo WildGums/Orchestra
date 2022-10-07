@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IViewActivationServiceExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Threading.Tasks;
@@ -19,6 +12,8 @@ namespace Orchestra.Services
         public static Task ActivateOrShowAsync<TViewModel>(this IViewActivationService viewActivationService)
             where TViewModel : IViewModel
         {
+            ArgumentNullException.ThrowIfNull(viewActivationService);
+
             return viewActivationService.ActivateOrShowAsync(typeof (TViewModel));
         }
 

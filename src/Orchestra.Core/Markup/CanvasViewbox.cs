@@ -1,21 +1,10 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CanvasViewbox.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Markup
+﻿namespace Orchestra.Markup
 {
     using System;
-    using System.IO;
-    using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Windows.Shapes;
-    using System.Xml;
-    using Catel;
     using Catel.Logging;
     using Path = System.Windows.Shapes.Path;
 
@@ -63,7 +52,7 @@ namespace Orchestra.Markup
             }
         }
 
-        protected override object ProvideDynamicValue(IServiceProvider serviceProvider)
+        protected override object? ProvideDynamicValue(IServiceProvider? serviceProvider)
         {
             return GetImageSource();
         }

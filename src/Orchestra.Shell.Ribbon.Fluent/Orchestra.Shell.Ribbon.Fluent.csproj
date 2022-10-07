@@ -8,6 +8,7 @@
     <PackageVersion>1.0.0-alpha0001</PackageVersion>
     <Description>Orchestra shell using Fluent ribbon library.</Description>
     <PackageTags>orc;orchestra;wpf;xaml;shell;ribbon;fluent</PackageTags>
+    <Nullable>annotations</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>

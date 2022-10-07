@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TextBlockAdorner.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Tooltips
+﻿namespace Orchestra.Tooltips
 {
     using System;
     using System.Collections;
@@ -14,17 +7,13 @@ namespace Orchestra.Tooltips
     using System.Windows.Documents;
     using System.Windows.Media;
     using Catel;
-    using Models;
 
     public class TextBlockAdorner : Adorner
     {
-        #region Fields
         private readonly UIElement _adornedElement;
         private readonly Border _tooltip;
         private ArrayList _logicalChildren;
-        #endregion
 
-        #region Constructors
         public TextBlockAdorner(UIElement adornedElement, string text)
             : base(adornedElement)
         {
@@ -53,9 +42,7 @@ namespace Orchestra.Tooltips
             : this(uiElement, hint.Text)
         {
         }
-        #endregion
 
-        #region Properties
         protected override int VisualChildrenCount
         {
             get { return 1; }
@@ -67,16 +54,16 @@ namespace Orchestra.Tooltips
             {
                 if (_logicalChildren is null)
                 {
-                    _logicalChildren = new ArrayList();
-                    _logicalChildren.Add(_tooltip);
+                    _logicalChildren = new ArrayList
+                    {
+                        _tooltip
+                    };
                 }
 
                 return _logicalChildren.GetEnumerator();
             }
         }
-        #endregion
 
-        #region Methods
         protected override Size MeasureOverride(Size constraint)
         {
             _tooltip.Measure(constraint);
@@ -100,6 +87,5 @@ namespace Orchestra.Tooltips
 
             return _tooltip;
         }
-        #endregion
     }
 }

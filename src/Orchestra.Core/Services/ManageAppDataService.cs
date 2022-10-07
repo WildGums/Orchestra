@@ -5,7 +5,6 @@
     using System.IO;
     using System.IO.Compression;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Logging;
     using Catel.Reflection;
     using Catel.Services;

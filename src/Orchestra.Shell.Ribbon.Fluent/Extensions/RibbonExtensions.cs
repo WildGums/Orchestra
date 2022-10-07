@@ -23,7 +23,7 @@ namespace Orchestra
 
         public static void AddAboutButton(this Ribbon ribbon)
         {
-            Argument.IsNotNull(() => ribbon);
+            ArgumentNullException.ThrowIfNull(ribbon);
 
             ribbon.AddRibbonButton(GetImageUri("/Resources/Images/about.png"), () =>
             {
@@ -34,7 +34,7 @@ namespace Orchestra
 
         public static Button AddRibbonButton(this Ribbon ribbon, ImageSource imageSource, Action action)
         {
-            Argument.IsNotNull(() => ribbon);
+            ArgumentNullException.ThrowIfNull(ribbon);
 
             var button = AddRibbonButton(ribbon, action);
 
@@ -48,14 +48,14 @@ namespace Orchestra
 
         public static Button AddRibbonButton(this Ribbon ribbon, Uri imageUri, Action action)
         {
-            Argument.IsNotNull(() => ribbon);
+            ArgumentNullException.ThrowIfNull(ribbon);
 
             return AddRibbonButton(ribbon, new BitmapImage(imageUri), action);
         }
 
         private static Button AddRibbonButton(this Ribbon ribbon, Action action)
         {
-            Argument.IsNotNull(() => ribbon);
+            ArgumentNullException.ThrowIfNull(ribbon);
 
             Log.Debug("Adding button to ribbon");
 

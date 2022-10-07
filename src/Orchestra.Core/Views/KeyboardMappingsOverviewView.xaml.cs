@@ -1,22 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingsOverviewView.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
-    using System.Windows;
-    using Catel.Windows;
-    using Catel.Windows.Controls;
-
-    /// <summary>
-    /// Interaction logic for KeyboardMappingsOverviewView.xaml.
-    /// </summary>
-    public partial class KeyboardMappingsOverviewView : UserControl
+    public partial class KeyboardMappingsOverviewView
     {
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyboardMappingsOverviewView"/> class.
         /// </summary>
@@ -24,6 +9,5 @@ namespace Orchestra.Views
         {
             InitializeComponent();
         }
-        #endregion
     }
 }

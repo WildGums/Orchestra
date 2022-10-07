@@ -1,12 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ToggleConfigurationCommandContainerBase.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
+    using System;
     using System.Threading.Tasks;
     using Catel;
     using Catel.Configuration;
@@ -48,8 +42,8 @@ namespace Orchestra
 
         protected override async Task ExecuteAsync(TExecuteParameter parameter)
         {
-            var oldVersion = ConfigurationService.GetRoamingValue(_configurationKey, _defaultValue);
-            ConfigurationService.SetRoamingValue(_configurationKey, !oldVersion);
+            var oldVersion = await ConfigurationService.GetRoamingValueAsync(_configurationKey, _defaultValue);
+            await ConfigurationService.SetRoamingValueAsync(_configurationKey, !oldVersion);
         }
     }
 }

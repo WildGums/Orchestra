@@ -1,10 +1,12 @@
 ﻿namespace Orchestra.Services
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IThirdPartyNoticesService
     {
         void Add(ThirdPartyNotice thirdPartyNotice);
-        List<ThirdPartyNotice> GetThirdPartyNotices();
+
+        Task<List<ThirdPartyNotice>> GetThirdPartyNoticesAsync();
     }
 }
