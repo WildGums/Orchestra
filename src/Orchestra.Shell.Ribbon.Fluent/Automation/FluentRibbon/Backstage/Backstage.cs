@@ -2,7 +2,7 @@
 {
     using System.Linq;
     using System.Windows.Automation;
-    using global::Orc.Automation.Controls;
+    using Orc.Automation.Controls;
     using Orc.Automation;
 
     [Control(ClassName = "Backstage", ControlTypeName = nameof(ControlType.Menu))]
@@ -19,6 +19,6 @@
             set => Element.SetIsExpanded(value);
         }
 
-        public AutomationElement Content => Element.GetChildElements().FirstOrDefault();
+        public AutomationElement? Content => Element.GetChildElements().FirstOrDefault();
     }
 }

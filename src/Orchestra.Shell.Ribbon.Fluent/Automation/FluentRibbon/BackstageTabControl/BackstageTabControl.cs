@@ -13,7 +13,7 @@
             
         }
 
-        public TControl GetItem<TControl>(string name)
+        public TControl? GetItem<TControl>(string name)
             where TControl : AutomationControl
         {
             var childElement = Element.Find<TControl>(name: name, scope: TreeScope.Children);

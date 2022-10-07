@@ -45,9 +45,12 @@
             }
 
             var mainView = ribbonService.GetMainView();
-            contentControl.Content = mainView;
+            if (mainView is not null)
+            {
+                contentControl.Content = mainView;
 
-            ShellDimensionsHelper.ApplyDimensions(this, mainView);
+                ShellDimensionsHelper.ApplyDimensions(this, mainView);
+            }
         }
     }
 }

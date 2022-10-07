@@ -19,7 +19,7 @@
 
             ribbon.AddRibbonButton(GetImageUri("/Resources/Images/about.png"), () =>
             {
-                var aboutService = ServiceLocator.Default.ResolveType<IAboutService>();
+                var aboutService = ServiceLocator.Default.ResolveRequiredType<IAboutService>();
                 aboutService.ShowAboutAsync();
             });
         }

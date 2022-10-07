@@ -1,7 +1,6 @@
 ﻿namespace Orchestra.ViewModels
 {
     using System;
-    using System.Reflection;
     using Catel.MVVM;
     using Catel.Reflection;
     using Orchestra.Services;
@@ -14,7 +13,7 @@
 
             DeferValidationUntilFirstSaveCall = shellConfigurationService.DeferValidationUntilFirstSaveCall;
 
-            var assembly = Assembly.GetEntryAssembly();
+            var assembly = AssemblyHelper.GetRequiredEntryAssembly();
             Title = assembly.Title() ?? string.Empty;
         }
     }

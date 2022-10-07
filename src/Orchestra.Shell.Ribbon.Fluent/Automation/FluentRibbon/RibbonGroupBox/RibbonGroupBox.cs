@@ -20,7 +20,7 @@
             set => Element.SetIsExpanded(value);
         }
 
-        public TView GetContent<TView>()
+        public TView? GetContent<TView>()
             where TView : AutomationControl
         {
             return Element?.Find<TView>();

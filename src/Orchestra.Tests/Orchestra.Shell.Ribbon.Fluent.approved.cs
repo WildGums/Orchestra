@@ -57,14 +57,14 @@ namespace Orchestra.Automation.FluentRibbon
     [Orc.Automation.ActiveAutomationModel]
     public class BackstageTabControlModel : Orc.Automation.SelectorModel
     {
-        public static readonly Catel.Data.PropertyData ContentStringFormatProperty;
-        public static readonly Catel.Data.PropertyData IsBackButtonVisibleProperty;
-        public static readonly Catel.Data.PropertyData IsWindowSteeringHelperEnabledProperty;
-        public static readonly Catel.Data.PropertyData ItemsPanelBackgroundProperty;
-        public static readonly Catel.Data.PropertyData ItemsPanelMinWidthProperty;
-        public static readonly Catel.Data.PropertyData SelectedContentMarginProperty;
-        public static readonly Catel.Data.PropertyData SelectedContentProperty;
-        public static readonly Catel.Data.PropertyData SelectedContentStringFormatProperty;
+        public static readonly Catel.Data.IPropertyData ContentStringFormatProperty;
+        public static readonly Catel.Data.IPropertyData IsBackButtonVisibleProperty;
+        public static readonly Catel.Data.IPropertyData IsWindowSteeringHelperEnabledProperty;
+        public static readonly Catel.Data.IPropertyData ItemsPanelBackgroundProperty;
+        public static readonly Catel.Data.IPropertyData ItemsPanelMinWidthProperty;
+        public static readonly Catel.Data.IPropertyData SelectedContentMarginProperty;
+        public static readonly Catel.Data.IPropertyData SelectedContentProperty;
+        public static readonly Catel.Data.IPropertyData SelectedContentStringFormatProperty;
         public BackstageTabControlModel(Orc.Automation.AutomationElementAccessor accessor) { }
         public string ContentStringFormat { get; set; }
         public bool IsBackButtonVisible { get; set; }
@@ -99,22 +99,22 @@ namespace Orchestra.Automation.FluentRibbon
     [Orc.Automation.ActiveAutomationModel]
     public class DropDownButtonModel : Orc.Automation.ItemsControlModel
     {
-        public static readonly Catel.Data.PropertyData ClosePopupOnMouseDownDelayProperty;
-        public static readonly Catel.Data.PropertyData ClosePopupOnMouseDownProperty;
-        public static readonly Catel.Data.PropertyData DropDownHeightProperty;
-        public static readonly Catel.Data.PropertyData HasTriangleProperty;
-        public static readonly Catel.Data.PropertyData HeaderProperty;
-        public static readonly Catel.Data.PropertyData IconProperty;
-        public static readonly Catel.Data.PropertyData IsContextMenuOpenedProperty;
-        public static readonly Catel.Data.PropertyData IsDropDownOpenProperty;
-        public static readonly Catel.Data.PropertyData IsSimplifiedProperty;
-        public static readonly Catel.Data.PropertyData KeyTipProperty;
-        public static readonly Catel.Data.PropertyData LargeIconProperty;
-        public static readonly Catel.Data.PropertyData MaxDropDownHeightProperty;
-        public static readonly Catel.Data.PropertyData MediumIconProperty;
-        public static readonly Catel.Data.PropertyData ResizeModeProperty;
-        public static readonly Catel.Data.PropertyData SimplifiedSizeDefinitionProperty;
-        public static readonly Catel.Data.PropertyData SizeProperty;
+        public static readonly Catel.Data.IPropertyData ClosePopupOnMouseDownDelayProperty;
+        public static readonly Catel.Data.IPropertyData ClosePopupOnMouseDownProperty;
+        public static readonly Catel.Data.IPropertyData DropDownHeightProperty;
+        public static readonly Catel.Data.IPropertyData HasTriangleProperty;
+        public static readonly Catel.Data.IPropertyData HeaderProperty;
+        public static readonly Catel.Data.IPropertyData IconProperty;
+        public static readonly Catel.Data.IPropertyData IsContextMenuOpenedProperty;
+        public static readonly Catel.Data.IPropertyData IsDropDownOpenProperty;
+        public static readonly Catel.Data.IPropertyData IsSimplifiedProperty;
+        public static readonly Catel.Data.IPropertyData KeyTipProperty;
+        public static readonly Catel.Data.IPropertyData LargeIconProperty;
+        public static readonly Catel.Data.IPropertyData MaxDropDownHeightProperty;
+        public static readonly Catel.Data.IPropertyData MediumIconProperty;
+        public static readonly Catel.Data.IPropertyData ResizeModeProperty;
+        public static readonly Catel.Data.IPropertyData SimplifiedSizeDefinitionProperty;
+        public static readonly Catel.Data.IPropertyData SizeProperty;
         public DropDownButtonModel(Orc.Automation.AutomationElementAccessor accessor) { }
         public bool ClosePopupOnMouseDown { get; set; }
         public int ClosePopupOnMouseDownDelay { get; set; }
@@ -145,7 +145,7 @@ namespace Orchestra.Automation.FluentRibbon
     public class RibbonButton : Orc.Automation.Controls.FrameworkElement<Orc.Automation.ButtonModel>
     {
         public RibbonButton(System.Windows.Automation.AutomationElement element) { }
-        public string Content { get; }
+        public string? Content { get; }
         public bool Click() { }
     }
     [Orc.Automation.Control(ClassName="RibbonGroupBox")]
@@ -160,28 +160,28 @@ namespace Orchestra.Automation.FluentRibbon
     [Orc.Automation.ActiveAutomationModel]
     public class RibbonGroupBoxModel : Orc.Automation.ControlModel
     {
-        public static readonly Catel.Data.PropertyData CanAddToQuickAccessToolBarProperty;
-        public static readonly Catel.Data.PropertyData IconProperty;
-        public static readonly Catel.Data.PropertyData IsDropDownOpenProperty;
-        public static readonly Catel.Data.PropertyData IsLauncherEnabledProperty;
-        public static readonly Catel.Data.PropertyData IsSeparatorVisibleProperty;
-        public static readonly Catel.Data.PropertyData IsSimplifiedProperty;
-        public static readonly Catel.Data.PropertyData IsSnappedProperty;
-        public static readonly Catel.Data.PropertyData LauncherCommandParameterProperty;
-        public static readonly Catel.Data.PropertyData LauncherToolTipProperty;
-        public static readonly Catel.Data.PropertyData MediumIconProperty;
+        public static readonly Catel.Data.IPropertyData? CanAddToQuickAccessToolBarProperty;
+        public static readonly Catel.Data.IPropertyData? IconProperty;
+        public static readonly Catel.Data.IPropertyData? IsDropDownOpenProperty;
+        public static readonly Catel.Data.IPropertyData? IsLauncherEnabledProperty;
+        public static readonly Catel.Data.IPropertyData? IsSeparatorVisibleProperty;
+        public static readonly Catel.Data.IPropertyData? IsSimplifiedProperty;
+        public static readonly Catel.Data.IPropertyData? IsSnappedProperty;
+        public static readonly Catel.Data.IPropertyData? LauncherCommandParameterProperty;
+        public static readonly Catel.Data.IPropertyData? LauncherToolTipProperty;
+        public static readonly Catel.Data.IPropertyData? MediumIconProperty;
         public RibbonGroupBoxModel(Orc.Automation.AutomationElementAccessor accessor) { }
         public bool CanAddToQuickAccessToolBar { get; set; }
-        public object Icon { get; set; }
+        public object? Icon { get; set; }
         public bool IsDropDownOpen { get; set; }
         public bool IsLauncherEnabled { get; set; }
         public bool IsSeparatorVisible { get; set; }
         public bool IsSimplified { get; }
         public bool IsSnapped { get; set; }
-        public System.Windows.Input.ICommand LauncherCommand { get; set; }
-        public object LauncherCommandParameter { get; set; }
-        public object LauncherToolTip { get; set; }
-        public object MediumIcon { get; set; }
+        public System.Windows.Input.ICommand? LauncherCommand { get; set; }
+        public object? LauncherCommandParameter { get; set; }
+        public object? LauncherToolTip { get; set; }
+        public object? MediumIcon { get; set; }
     }
     public class RibbonMap : Orc.Automation.AutomationBase
     {
@@ -221,8 +221,8 @@ namespace Orchestra.Controls
         public static readonly System.Windows.DependencyProperty HeaderTextProperty;
         public static readonly System.Windows.DependencyProperty IconProperty;
         public RibbonBackstageTabItem() { }
-        public string HeaderText { get; set; }
-        public System.Windows.Media.ImageSource Icon { get; set; }
+        public string? HeaderText { get; set; }
+        public System.Windows.Media.ImageSource? Icon { get; set; }
     }
     public class RibbonBackstageTabItemHeader : System.Windows.Controls.ContentControl
     {
@@ -231,9 +231,9 @@ namespace Orchestra.Controls
         public static readonly System.Windows.DependencyProperty IconProperty;
         public static readonly System.Windows.DependencyProperty KeepIconSizeWithoutIconProperty;
         public RibbonBackstageTabItemHeader() { }
-        public string HeaderText { get; set; }
-        public string HeaderTextStyleKey { get; set; }
-        public System.Windows.Media.ImageSource Icon { get; set; }
+        public string? HeaderText { get; set; }
+        public string? HeaderTextStyleKey { get; set; }
+        public System.Windows.Media.ImageSource? Icon { get; set; }
         public bool KeepIconSizeWithoutIcon { get; set; }
     }
 }
@@ -243,7 +243,7 @@ namespace Orchestra
     {
         public static void AddAboutButton(this Fluent.Ribbon ribbon) { }
         public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Uri imageUri, System.Action action) { }
-        public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Windows.Media.ImageSource imageSource, System.Action action) { }
+        public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Windows.Media.ImageSource? imageSource, System.Action action) { }
     }
 }
 namespace Orchestra.Services
@@ -278,7 +278,7 @@ namespace Orchestra.Services
     }
     public interface IRibbonService : Orchestra.Services.IShellContentService
     {
-        System.Windows.FrameworkElement GetRibbon();
+        System.Windows.FrameworkElement? GetRibbon();
     }
     public interface IShellConfigurationService
     {
@@ -286,12 +286,12 @@ namespace Orchestra.Services
     }
     public interface IShellContentService
     {
-        System.Windows.FrameworkElement GetMainView();
-        System.Windows.FrameworkElement GetStatusBar();
+        System.Windows.FrameworkElement? GetMainView();
+        System.Windows.FrameworkElement? GetStatusBar();
     }
     public interface IShellService
     {
-        Orchestra.Views.IShell Shell { get; }
+        Orchestra.Views.IShell? Shell { get; }
         System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell;
     }
@@ -303,7 +303,7 @@ namespace Orchestra.Services
     public class ShellService : Orchestra.Services.IShellService
     {
         public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver, Catel.IoC.IServiceLocator serviceLocator, Orchestra.Services.IConfigurationBackupService configurationBackupService) { }
-        public Orchestra.Views.IShell Shell { get; }
+        public Orchestra.Views.IShell? Shell { get; }
         public System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }
     }
@@ -339,9 +339,9 @@ namespace Orchestra.Windows
     public class RibbonWindow : Fluent.RibbonWindow, Catel.MVVM.IViewModelContainer, Catel.MVVM.Views.IDataWindow, Catel.MVVM.Views.IView, System.ComponentModel.INotifyPropertyChanged
     {
         public RibbonWindow() { }
-        public RibbonWindow(Catel.MVVM.IViewModel viewModel) { }
-        public Catel.MVVM.IViewModel ViewModel { get; }
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        public event System.EventHandler<System.EventArgs> ViewModelChanged;
+        public RibbonWindow(Catel.MVVM.IViewModel? viewModel) { }
+        public Catel.MVVM.IViewModel? ViewModel { get; }
+        public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+        public event System.EventHandler<System.EventArgs>? ViewModelChanged;
     }
 }
