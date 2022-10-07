@@ -1,13 +1,6 @@
-﻿﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LogControlService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
-    using Catel;
+    using System;
     using Catel.Logging;
     using Orc.LogViewer;
 
@@ -15,14 +8,12 @@ namespace Orchestra.Services
     {
         private readonly AdvancedLogViewerControl _traceOutputControl;
 
-        #region Constructors
         public LogControlService(AdvancedLogViewerControl traceOutputControl)
         {
             ArgumentNullException.ThrowIfNull(traceOutputControl);
 
             _traceOutputControl = traceOutputControl;
         }
-        #endregion
 
         public LogEvent SelectedLevel
         {

@@ -1,18 +1,9 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ShellViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels
 {
     using System;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Logging;
     using Catel.MVVM;
-    using Catel.Threading;
     using Services;
 
     public class ShellViewModel : ViewModelBase
@@ -39,13 +30,10 @@ namespace Orchestra.ViewModels
             taskRunnerService.TitleChanged += (sender, args) => Title = taskRunnerService.Title;
         }
 
-        #region Properties
         public bool IsRunning { get; private set; }
 
-        public object ConfigurationContext { get; set; }
-        #endregion
+        public object? ConfigurationContext { get; set; }
 
-        #region Commands
         /// <summary>
         /// Gets the Run command.
         /// </summary>
@@ -90,7 +78,7 @@ namespace Orchestra.ViewModels
 
             try
             {
-                await Task.Run(() => _taskRunnerService.RunAsync(ConfigurationContext), true);
+                await Task.Run(() => _taskRunnerService.RunAsync(ConfigurationContext));
             }
             catch (Exception ex)
             {
@@ -101,6 +89,5 @@ namespace Orchestra.ViewModels
                 IsRunning = false;
             }
         }
-        #endregion
     }
 }

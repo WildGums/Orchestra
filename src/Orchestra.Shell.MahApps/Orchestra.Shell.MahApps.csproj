@@ -8,7 +8,6 @@
     <PackageVersion>1.0.0-alpha0001</PackageVersion>
     <Description>Orchestra shell using MahApps.Metro library.</Description>
     <PackageTags>orc;orchestra;wpf;xaml;shell;mahapps;metro</PackageTags>
-    <Nullable>annotations</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>

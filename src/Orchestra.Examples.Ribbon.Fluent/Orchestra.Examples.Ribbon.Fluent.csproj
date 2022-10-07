@@ -8,6 +8,7 @@
     <RootNamespace>Orchestra.Examples.Ribbon</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <SonarQubeExclude>true</SonarQubeExclude>
+    <Nullable>annotations</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CommandToSelectedTabBehavior.cs" company="Simulation Modelling Services">
-//   Copyright (c) 2008 - 2014 Simulation Modelling Services. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Behaviors
+﻿namespace Orchestra.Behaviors
 {
     using System.Windows;
     using System.Windows.Controls;
@@ -15,9 +8,9 @@ namespace Orchestra.Behaviors
 
     public class CommandToExpanderBehavior : BehaviorBase<Expander>
     {
-        public ICommand Command
+        public ICommand? Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
+            get { return (ICommand?)GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
         }
 
@@ -39,7 +32,7 @@ namespace Orchestra.Behaviors
             }
         }
 
-        private void OnCommandExecuted(object sender, CommandExecutedEventArgs e)
+        private void OnCommandExecuted(object? sender, CommandExecutedEventArgs e)
         {
             var expander = AssociatedObject;
             if (expander is not null)

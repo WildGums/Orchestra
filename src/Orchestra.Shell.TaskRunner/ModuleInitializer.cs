@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ModuleInitializer.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Catel.IoC;
 using Catel.MVVM;
 using InputGesture = Catel.Windows.Input.InputGesture;
@@ -19,7 +12,7 @@ public static partial class ModuleInitializer
     {
         var serviceLocator = ServiceLocator.Default;
 
-        var commandManager = serviceLocator.ResolveType<ICommandManager>();
+        var commandManager = serviceLocator.ResolveRequiredType<ICommandManager>();
 
         commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
         commandManager.CreateCommand("Groups.Run", new InputGesture(Key.R, ModifierKeys.Shift | ModifierKeys.Control));

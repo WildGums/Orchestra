@@ -1,5 +1,6 @@
 ﻿namespace Orchestra.Automation
 {
+    using System;
     using Catel;
     using FluentRibbon;
     using Orc.Automation;
