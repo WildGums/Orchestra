@@ -12,7 +12,7 @@
         {
         }
 
-        public string Content => Element.Current.Name;
+        public string? Content => Element.Current.Name;
 
         public bool Click()
         {

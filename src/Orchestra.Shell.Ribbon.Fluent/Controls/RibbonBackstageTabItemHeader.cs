@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RibbonBackstageTabItemHeader.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Controls
+﻿namespace Orchestra.Controls
 {
     using System.Windows;
     using System.Windows.Controls;
@@ -26,18 +19,18 @@ namespace Orchestra.Controls
         // Using a DependencyProperty as the backing store for KeepIconSizeWithoutIcon.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty KeepIconSizeWithoutIconProperty = DependencyProperty.Register(nameof(KeepIconSizeWithoutIcon), typeof(bool), typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(false, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
 
-        public ImageSource Icon
+        public ImageSource? Icon
         {
-            get { return (ImageSource)GetValue(IconProperty); }
+            get { return (ImageSource?)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
 
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource),
             typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(null, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
 
-        public string HeaderText
+        public string? HeaderText
         {
-            get { return (string)GetValue(HeaderTextProperty); }
+            get { return (string?)GetValue(HeaderTextProperty); }
             set { SetValue(HeaderTextProperty, value); }
         }
 
@@ -45,9 +38,9 @@ namespace Orchestra.Controls
         public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.Register(nameof(HeaderText), typeof(string),
             typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(string.Empty, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
 
-        public string HeaderTextStyleKey
+        public string? HeaderTextStyleKey
         {
-            get { return (string)GetValue(HeaderTextStyleKeyProperty); }
+            get { return (string?)GetValue(HeaderTextStyleKeyProperty); }
             set { SetValue(HeaderTextStyleKeyProperty, value); }
         }
 

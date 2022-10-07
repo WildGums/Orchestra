@@ -1,16 +1,8 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RibbonExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    using Catel;
     using Catel.IoC;
     using Catel.Logging;
     using Fluent;
@@ -32,9 +24,10 @@ namespace Orchestra
             });
         }
 
-        public static Button AddRibbonButton(this Ribbon ribbon, ImageSource imageSource, Action action)
+        public static Button AddRibbonButton(this Ribbon ribbon, ImageSource? imageSource, Action action)
         {
             ArgumentNullException.ThrowIfNull(ribbon);
+            ArgumentNullException.ThrowIfNull(action);
 
             var button = AddRibbonButton(ribbon, action);
 
@@ -49,6 +42,8 @@ namespace Orchestra
         public static Button AddRibbonButton(this Ribbon ribbon, Uri imageUri, Action action)
         {
             ArgumentNullException.ThrowIfNull(ribbon);
+            ArgumentNullException.ThrowIfNull(imageUri);
+            ArgumentNullException.ThrowIfNull(action);
 
             return AddRibbonButton(ribbon, new BitmapImage(imageUri), action);
         }
@@ -56,6 +51,7 @@ namespace Orchestra
         private static Button AddRibbonButton(this Ribbon ribbon, Action action)
         {
             ArgumentNullException.ThrowIfNull(ribbon);
+            ArgumentNullException.ThrowIfNull(action);
 
             Log.Debug("Adding button to ribbon");
 
@@ -74,6 +70,8 @@ namespace Orchestra
 
         private static Uri GetImageUri(string uri)
         {
+            ArgumentNullException.ThrowIfNull(uri);
+
             var finalUri = string.Format("pack://application:,,,/{0};component{1}", typeof(RibbonExtensions).Assembly.GetName().Name, uri);
             return new Uri(finalUri, UriKind.RelativeOrAbsolute);
         }

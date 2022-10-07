@@ -20,11 +20,11 @@
 
             serviceLocator.RegisterInstance(pleaseWaitProgressBar, "busyIndicatorService");
 
-            var statusService = serviceLocator.ResolveType<IStatusService>();
+            var statusService = serviceLocator.ResolveRequiredType<IStatusService>();
             statusService.Initialize(statusTextBlock);
 
             var dependencyResolver = this.GetDependencyResolver();
-            var ribbonService = dependencyResolver.Resolve<IRibbonService>();
+            var ribbonService = dependencyResolver.ResolveRequired<IRibbonService>();
 
             var ribbonContent = ribbonService.GetRibbon();
             if (ribbonContent is not null)

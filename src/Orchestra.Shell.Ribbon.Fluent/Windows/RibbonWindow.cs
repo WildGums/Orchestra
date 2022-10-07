@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RibbonWindow.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Windows
+﻿namespace Orchestra.Windows
 {
     using System;
     using System.ComponentModel;
@@ -21,9 +14,9 @@ namespace Orchestra.Windows
     {
         private readonly WindowLogic _logic;
 
-        private event EventHandler<EventArgs> _viewLoaded;
-        private event EventHandler<EventArgs> _viewUnloaded;
-        private event EventHandler<DataContextChangedEventArgs> _viewDataContextChanged;
+        private event EventHandler<EventArgs>? _viewLoaded;
+        private event EventHandler<EventArgs>? _viewUnloaded;
+        private event EventHandler<DataContextChangedEventArgs>? _viewDataContextChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RibbonWindow"/> class.
@@ -35,7 +28,7 @@ namespace Orchestra.Windows
         /// Initializes a new instance of the <see cref="RibbonWindow"/> class.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
-        public RibbonWindow(IViewModel viewModel)
+        public RibbonWindow(IViewModel? viewModel)
         {
             _logic = new WindowLogic(this, null, viewModel);
             _logic.ViewModelChanged += (sender, e) => ViewModelChanged?.Invoke(this, e);
@@ -54,22 +47,19 @@ namespace Orchestra.Windows
             this.FixBlurriness();
         }
 
-        #region Properties
         /// <summary>
         /// Gets the view model that is contained by the container.
         /// </summary>
         /// <value>The view model.</value>
-        public IViewModel ViewModel
+        public IViewModel? ViewModel
         {
             get { return _logic.ViewModel; }
         }
-        #endregion
 
-        #region Events
         /// <summary>
         /// Occurs when the <see cref="ViewModel"/> property has changed.
         /// </summary>
-        public event EventHandler<EventArgs> ViewModelChanged;
+        public event EventHandler<EventArgs>? ViewModelChanged;
 
         /// <summary>
         /// Occurs when a property on the container has changed.
@@ -78,12 +68,12 @@ namespace Orchestra.Windows
         /// This event makes it possible to externally subscribe to property changes of a <see cref="DependencyObject"/>
         /// (mostly the container of a view model) because the .NET Framework does not allows us to.
         /// </remarks>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Occurs when the view is loaded.
         /// </summary>
-        event EventHandler<EventArgs> IView.Loaded
+        event EventHandler<EventArgs>? IView.Loaded
         {
             add { _viewLoaded += value; }
             remove { _viewLoaded -= value; }
@@ -92,7 +82,7 @@ namespace Orchestra.Windows
         /// <summary>
         /// Occurs when the view is unloaded.
         /// </summary>
-        event EventHandler<EventArgs> IView.Unloaded
+        event EventHandler<EventArgs>? IView.Unloaded
         {
             add { _viewUnloaded += value; }
             remove { _viewUnloaded -= value; }
@@ -101,14 +91,12 @@ namespace Orchestra.Windows
         /// <summary>
         /// Occurs when the data context has changed.
         /// </summary>
-        event EventHandler<DataContextChangedEventArgs> IView.DataContextChanged
+        event EventHandler<DataContextChangedEventArgs>? IView.DataContextChanged
         {
             add { _viewDataContextChanged += value; }
             remove { _viewDataContextChanged -= value; }
         }
-        #endregion
 
-        #region Methods
         private void OnViewModelChanged()
         {
             if (ViewModel is not null && !ViewModel.IsClosed)
@@ -117,10 +105,9 @@ namespace Orchestra.Windows
             }
         }
 
-        private async Task ViewModelClosedAsync(object sender, ViewModelClosedEventArgs e)
+        private async Task ViewModelClosedAsync(object? sender, ViewModelClosedEventArgs e)
         {
             Close();
         }
-        #endregion
     }
 }
