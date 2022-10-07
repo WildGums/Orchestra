@@ -14,27 +14,27 @@ namespace Orchestra.Automation
 {
     public static class BackstageExtensions
     {
-        public static TView GetContent<TView>(this Orchestra.Automation.FluentRibbon.Backstage backstage)
+        public static TView? GetContent<TView>(this Orchestra.Automation.FluentRibbon.Backstage backstage)
             where TView : Orc.Automation.AutomationControl { }
     }
     public static class BackstageTabControlExtensions
     {
-        public static TView GetItemContent<TView>(this Orchestra.Automation.FluentRibbon.BackstageTabControl tabControl, string header)
+        public static TView? GetItemContent<TView>(this Orchestra.Automation.FluentRibbon.BackstageTabControl tabControl, string header)
             where TView : Orc.Automation.AutomationControl { }
         public static void SelectItem(this Orchestra.Automation.FluentRibbon.BackstageTabControl tabControl, string header) { }
     }
     public static class BackstageTabItemExtensions
     {
-        public static TView GetContent<TView>(this Orchestra.Automation.FluentRibbon.BackstageTabItem backstage)
+        public static TView? GetContent<TView>(this Orchestra.Automation.FluentRibbon.BackstageTabItem backstage)
             where TView : Orc.Automation.AutomationControl { }
     }
     public static class RibbonExtensions
     {
-        public static TView GetView<TView>(this Orchestra.Automation.FluentRibbon.Ribbon ribbon, string tabName, string viewName)
+        public static TView? GetView<TView>(this Orchestra.Automation.FluentRibbon.Ribbon ribbon, string tabName, string viewName)
             where TView : Orc.Automation.AutomationControl { }
-        public static System.IDisposable OpenBackstageView<TBackstageContentView>(this Orchestra.Automation.FluentRibbon.Ribbon ribbon, out TBackstageContentView view)
+        public static System.IDisposable OpenBackstageView<TBackstageContentView>(this Orchestra.Automation.FluentRibbon.Ribbon ribbon, out TBackstageContentView? view)
             where TBackstageContentView : Orc.Automation.AutomationControl { }
-        public static System.IDisposable OpenTabItemBackstageView<TBackstageTabItemContentView>(this Orchestra.Automation.FluentRibbon.Ribbon ribbon, string header, out TBackstageTabItemContentView view)
+        public static System.IDisposable OpenTabItemBackstageView<TBackstageTabItemContentView>(this Orchestra.Automation.FluentRibbon.Ribbon ribbon, string header, out TBackstageTabItemContentView? view)
             where TBackstageTabItemContentView : Orc.Automation.AutomationControl { }
     }
 }
@@ -44,42 +44,42 @@ namespace Orchestra.Automation.FluentRibbon
     public class Backstage : Orc.Automation.Controls.FrameworkElement
     {
         public Backstage(System.Windows.Automation.AutomationElement element) { }
-        public System.Windows.Automation.AutomationElement Content { get; }
+        public System.Windows.Automation.AutomationElement? Content { get; }
         public bool IsOpen { get; set; }
     }
     [Orc.Automation.Control(ControlTypeName="Tab")]
     public class BackstageTabControl : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.BackstageTabControlModel>
     {
         public BackstageTabControl(System.Windows.Automation.AutomationElement element) { }
-        public TControl GetItem<TControl>(string name)
+        public TControl? GetItem<TControl>(string name)
             where TControl : Orc.Automation.AutomationControl { }
     }
     [Orc.Automation.ActiveAutomationModel]
     public class BackstageTabControlModel : Orc.Automation.SelectorModel
     {
-        public static readonly Catel.Data.IPropertyData ContentStringFormatProperty;
-        public static readonly Catel.Data.IPropertyData IsBackButtonVisibleProperty;
-        public static readonly Catel.Data.IPropertyData IsWindowSteeringHelperEnabledProperty;
-        public static readonly Catel.Data.IPropertyData ItemsPanelBackgroundProperty;
-        public static readonly Catel.Data.IPropertyData ItemsPanelMinWidthProperty;
-        public static readonly Catel.Data.IPropertyData SelectedContentMarginProperty;
-        public static readonly Catel.Data.IPropertyData SelectedContentProperty;
-        public static readonly Catel.Data.IPropertyData SelectedContentStringFormatProperty;
+        public static readonly Catel.Data.IPropertyData? ContentStringFormatProperty;
+        public static readonly Catel.Data.IPropertyData? IsBackButtonVisibleProperty;
+        public static readonly Catel.Data.IPropertyData? IsWindowSteeringHelperEnabledProperty;
+        public static readonly Catel.Data.IPropertyData? ItemsPanelBackgroundProperty;
+        public static readonly Catel.Data.IPropertyData? ItemsPanelMinWidthProperty;
+        public static readonly Catel.Data.IPropertyData? SelectedContentMarginProperty;
+        public static readonly Catel.Data.IPropertyData? SelectedContentProperty;
+        public static readonly Catel.Data.IPropertyData? SelectedContentStringFormatProperty;
         public BackstageTabControlModel(Orc.Automation.AutomationElementAccessor accessor) { }
-        public string ContentStringFormat { get; set; }
+        public string? ContentStringFormat { get; set; }
         public bool IsBackButtonVisible { get; set; }
         public bool IsWindowSteeringHelperEnabled { get; set; }
-        public System.Windows.Media.SolidColorBrush ItemsPanelBackground { get; set; }
+        public System.Windows.Media.SolidColorBrush? ItemsPanelBackground { get; set; }
         public double ItemsPanelMinWidth { get; set; }
-        public object SelectedContent { get; set; }
-        public System.Windows.Thickness SelectedContentMargin { get; set; }
-        public string SelectedContentStringFormat { get; set; }
+        public object? SelectedContent { get; set; }
+        public System.Windows.Thickness? SelectedContentMargin { get; set; }
+        public string? SelectedContentStringFormat { get; set; }
     }
     [Orc.Automation.Control(ClassName="BackstageTabItem")]
     public class BackstageTabItem : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.BackstageTabItemModel>
     {
         public BackstageTabItem(System.Windows.Automation.AutomationElement element) { }
-        public System.Windows.Automation.AutomationElement Content { get; }
+        public System.Windows.Automation.AutomationElement? Content { get; }
         public string Header { get; }
         public bool IsSelected { get; set; }
         public bool TrySelect() { }
@@ -99,38 +99,38 @@ namespace Orchestra.Automation.FluentRibbon
     [Orc.Automation.ActiveAutomationModel]
     public class DropDownButtonModel : Orc.Automation.ItemsControlModel
     {
-        public static readonly Catel.Data.IPropertyData ClosePopupOnMouseDownDelayProperty;
-        public static readonly Catel.Data.IPropertyData ClosePopupOnMouseDownProperty;
-        public static readonly Catel.Data.IPropertyData DropDownHeightProperty;
-        public static readonly Catel.Data.IPropertyData HasTriangleProperty;
-        public static readonly Catel.Data.IPropertyData HeaderProperty;
-        public static readonly Catel.Data.IPropertyData IconProperty;
-        public static readonly Catel.Data.IPropertyData IsContextMenuOpenedProperty;
-        public static readonly Catel.Data.IPropertyData IsDropDownOpenProperty;
-        public static readonly Catel.Data.IPropertyData IsSimplifiedProperty;
-        public static readonly Catel.Data.IPropertyData KeyTipProperty;
-        public static readonly Catel.Data.IPropertyData LargeIconProperty;
-        public static readonly Catel.Data.IPropertyData MaxDropDownHeightProperty;
-        public static readonly Catel.Data.IPropertyData MediumIconProperty;
-        public static readonly Catel.Data.IPropertyData ResizeModeProperty;
-        public static readonly Catel.Data.IPropertyData SimplifiedSizeDefinitionProperty;
-        public static readonly Catel.Data.IPropertyData SizeProperty;
+        public static readonly Catel.Data.IPropertyData? ClosePopupOnMouseDownDelayProperty;
+        public static readonly Catel.Data.IPropertyData? ClosePopupOnMouseDownProperty;
+        public static readonly Catel.Data.IPropertyData? DropDownHeightProperty;
+        public static readonly Catel.Data.IPropertyData? HasTriangleProperty;
+        public static readonly Catel.Data.IPropertyData? HeaderProperty;
+        public static readonly Catel.Data.IPropertyData? IconProperty;
+        public static readonly Catel.Data.IPropertyData? IsContextMenuOpenedProperty;
+        public static readonly Catel.Data.IPropertyData? IsDropDownOpenProperty;
+        public static readonly Catel.Data.IPropertyData? IsSimplifiedProperty;
+        public static readonly Catel.Data.IPropertyData? KeyTipProperty;
+        public static readonly Catel.Data.IPropertyData? LargeIconProperty;
+        public static readonly Catel.Data.IPropertyData? MaxDropDownHeightProperty;
+        public static readonly Catel.Data.IPropertyData? MediumIconProperty;
+        public static readonly Catel.Data.IPropertyData? ResizeModeProperty;
+        public static readonly Catel.Data.IPropertyData? SimplifiedSizeDefinitionProperty;
+        public static readonly Catel.Data.IPropertyData? SizeProperty;
         public DropDownButtonModel(Orc.Automation.AutomationElementAccessor accessor) { }
         public bool ClosePopupOnMouseDown { get; set; }
         public int ClosePopupOnMouseDownDelay { get; set; }
         public double DropDownHeight { get; set; }
         public bool HasTriangle { get; set; }
-        public object Header { get; set; }
-        public object Icon { get; set; }
+        public object? Header { get; set; }
+        public object? Icon { get; set; }
         public bool IsContextMenuOpened { get; set; }
         public bool IsDropDownOpen { get; set; }
         public bool IsSimplified { get; set; }
-        public string KeyTip { get; set; }
-        public object LargeIcon { get; set; }
+        public string? KeyTip { get; set; }
+        public object? LargeIcon { get; set; }
         public double MaxDropDownHeight { get; set; }
-        public object MediumIcon { get; set; }
+        public object? MediumIcon { get; set; }
         public Fluent.ContextMenuResizeMode ResizeMode { get; set; }
-        public Fluent.RibbonControlSizeDefinition SimplifiedSizeDefinition { get; set; }
+        public Fluent.RibbonControlSizeDefinition? SimplifiedSizeDefinition { get; set; }
         public Fluent.RibbonControlSize Size { get; set; }
     }
     [Orc.Automation.Control(ClassName="Ribbon")]
@@ -138,8 +138,8 @@ namespace Orchestra.Automation.FluentRibbon
     {
         public Ribbon(System.Windows.Automation.AutomationElement element) { }
         public void CloseBackstage() { }
-        public Orchestra.Automation.FluentRibbon.RibbonGroupBox GetGroupBox(string tabName, string viewName) { }
-        public Orchestra.Automation.FluentRibbon.Backstage OpenBackstage() { }
+        public Orchestra.Automation.FluentRibbon.RibbonGroupBox? GetGroupBox(string tabName, string viewName) { }
+        public Orchestra.Automation.FluentRibbon.Backstage? OpenBackstage() { }
     }
     [Orc.Automation.Control(ClassName="RibbonButton")]
     public class RibbonButton : Orc.Automation.Controls.FrameworkElement<Orc.Automation.ButtonModel>
@@ -154,7 +154,7 @@ namespace Orchestra.Automation.FluentRibbon
         public RibbonGroupBox(System.Windows.Automation.AutomationElement element) { }
         public bool IsExpanded { get; set; }
         public string Name { get; }
-        public TView GetContent<TView>()
+        public TView? GetContent<TView>()
             where TView : Orc.Automation.AutomationControl { }
     }
     [Orc.Automation.ActiveAutomationModel]
@@ -186,7 +186,7 @@ namespace Orchestra.Automation.FluentRibbon
     public class RibbonMap : Orc.Automation.AutomationBase
     {
         public RibbonMap(System.Windows.Automation.AutomationElement element) { }
-        public Orchestra.Automation.FluentRibbon.Backstage Backstage { get; }
+        public Orchestra.Automation.FluentRibbon.Backstage? Backstage { get; }
         public System.Collections.Generic.List<Orc.Automation.Controls.TabItem> TabItems { get; }
     }
     [Orc.Automation.Control(ClassName="SplitButton")]
