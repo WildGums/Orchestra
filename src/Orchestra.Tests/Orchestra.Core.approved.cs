@@ -81,11 +81,6 @@ namespace Orchestra
         protected void EnqueueShellActivatedAction(System.Action<System.Windows.Window> action) { }
         public static System.Threading.Tasks.Task EnsureMainWindowAsync() { }
     }
-    public static class AssemblyExtensions
-    {
-        public static System.Drawing.Icon? ExtractAssemblyIcon(this System.Reflection.Assembly assembly) { }
-        public static System.Windows.Media.Imaging.BitmapImage? ExtractLargestIcon(this System.Reflection.Assembly assembly) { }
-    }
     public abstract class CloseApplicationWatcherBase : Orchestra.ApplicationWatcherBase
     {
         protected CloseApplicationWatcherBase() { }

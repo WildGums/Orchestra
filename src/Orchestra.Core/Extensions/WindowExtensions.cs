@@ -5,13 +5,12 @@
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Interop;
-    using Catel;
     using Catel.Logging;
     using Catel.Windows;
     using Orc.Controls;
     using Orchestra.Win32;
     using Window = System.Windows.Window;
-    
+
     public static partial class WindowExtensions
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();

@@ -5,6 +5,7 @@
     using Catel.Data;
     using Catel.Reflection;
     using System.Windows.Media.Imaging;
+    using Orc.Theming;
 
     public class AboutInfo : ModelBase
     {
