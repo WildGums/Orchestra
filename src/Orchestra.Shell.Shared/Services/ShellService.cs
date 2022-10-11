@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using System.Windows;
     using Catel;
+    using Catel.Configuration;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
@@ -158,11 +159,10 @@
 
             try
             {
-                await InitializeBeforeCreatingShellAsync();
+                var configurationService = _serviceLocator.ResolveRequiredType<IConfigurationService>();
+                await configurationService.LoadAsync();
 
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
+                await InitializeBeforeCreatingShellAsync();
 
                 shell = await CreateShellAsync<TShell>();
 
@@ -171,31 +171,15 @@
                 // Now we have a new window, resubscribe the command manager
                 _commandManager.SubscribeToKeyboardEvents();
 
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
-
                 await InitializeAfterCreatingShellAsync();
-
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
 
                 Log.Info("Confirming that application was started successfully");
 
                 await _ensureStartupService.ConfirmApplicationStartedSuccessfullyAsync();
 
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
-
                 await InitializeBeforeShowingShellAsync();
 
                 ShowShell(shell);
-
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
 
                 if (postShowShellCallback is not null)
                 {
@@ -203,10 +187,6 @@
                 }
 
                 await InitializeAfterShowingShellAsync();
-
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
             }
             catch (Exception ex)
             {

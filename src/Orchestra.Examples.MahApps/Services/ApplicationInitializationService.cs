@@ -11,6 +11,7 @@ namespace Orchestra.Examples.MahApps.Services
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Catel;
+    using Catel.Configuration;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;

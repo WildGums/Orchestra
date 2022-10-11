@@ -44,13 +44,13 @@
 
         public virtual async Task<T> GetCurrentValueAsync()
         {
-            var value = await ConfigurationService.GetValueAsync(Container, Key, DefaultValue);
+            var value = ConfigurationService.GetValue(Container, Key, DefaultValue);
             return value;
         }
 
         public virtual async Task ApplyConfigurationAsync()
         {
-            var value = await ConfigurationService.GetValueAsync(Container, Key, DefaultValue);
+            var value = ConfigurationService.GetValue(Container, Key, DefaultValue);
 
             await ApplyConfigurationAsync(value);
         }
@@ -71,7 +71,7 @@
                 await ApplyConfigurationInternalAsync(true);
             }
 
-            _lastKnownValue = await ConfigurationService.GetValueAsync(Container, Key, DefaultValue);
+            _lastKnownValue = ConfigurationService.GetValue(Container, Key, DefaultValue);
         }
 
 #pragma warning disable AvoidAsyncVoid

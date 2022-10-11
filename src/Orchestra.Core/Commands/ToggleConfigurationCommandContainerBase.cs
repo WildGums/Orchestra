@@ -42,8 +42,8 @@
 
         protected override async Task ExecuteAsync(TExecuteParameter? parameter)
         {
-            var oldVersion = await ConfigurationService.GetRoamingValueAsync(_configurationKey, _defaultValue);
-            await ConfigurationService.SetRoamingValueAsync(_configurationKey, !oldVersion);
+            var oldVersion = ConfigurationService.GetRoamingValue(_configurationKey, _defaultValue);
+            ConfigurationService.SetRoamingValue(_configurationKey, !oldVersion);
         }
     }
 }
