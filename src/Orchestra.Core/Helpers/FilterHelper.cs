@@ -13,7 +13,7 @@
 
             foreach (var filter in filters)
             {
-                var mask = new Regex(filter.Replace(".", "[.]").Replace("*", ".*").Replace("?", "."), RegexOptions.IgnoreCase);
+                var mask = new Regex(filter.Replace(".", "[.]").Replace("*", ".*").Replace("?", "."), RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
                 if (mask.IsMatch(fileName))
                 {
                     return true;
