@@ -24,7 +24,7 @@
   
   <ItemGroup>
     <PackageReference Include="Catel.Fody" Version="4.7.0" PrivateAssets="all" />
-    <PackageReference Include="Catel.MVVM" Version="6.0.0-alpha1068" />
+    <PackageReference Include="Catel.MVVM" Version="6.0.0-alpha1080" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
