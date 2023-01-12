@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PersonView.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2018 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.MahApps.Views
+﻿namespace Orchestra.Examples.MahApps.Views
 {
     /// <summary>
     /// Interaction logic for PersonView.xaml.

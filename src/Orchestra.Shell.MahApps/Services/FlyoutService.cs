@@ -110,7 +110,7 @@
                                 break;
 
                             default:
-                                throw new ArgumentOutOfRangeException(nameof(unloadBehavior));
+                                throw Log.ErrorAndCreateException(_ => new ArgumentOutOfRangeException(nameof(unloadBehavior)), string.Empty);
                         }
                     }
 

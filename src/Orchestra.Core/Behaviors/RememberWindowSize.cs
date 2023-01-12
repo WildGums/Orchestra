@@ -60,7 +60,7 @@
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(window.WindowStartupLocation));
+                    throw Log.ErrorAndCreateException(_ => new ArgumentOutOfRangeException(nameof(window.WindowStartupLocation)), string.Empty);
             }
 
             window.Closed += OnWindowClosed;

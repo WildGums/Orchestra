@@ -35,11 +35,11 @@
                         break;
 
                     case MessageButton.YesNo:
-                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", "", button, MessageImage.Warning);
+                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", string.Empty, button, MessageImage.Warning);
                         break;
 
                     case MessageButton.YesNoCancel:
-                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", "", button);
+                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", string.Empty, button);
                         break;
 
                     default:

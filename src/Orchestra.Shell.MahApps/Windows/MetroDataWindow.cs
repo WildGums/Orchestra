@@ -652,8 +652,7 @@
         {
             if (InternalGrid is not null)
             {
-                var languageService = ServiceLocator.Default.ResolveRequiredType<ILanguageService>();
-                throw new InvalidOperationException(languageService.GetRequiredString("DataWindowButtonCanOnlyBeAddedWhenWindowIsNotLoaded"));
+                throw Log.ErrorAndCreateException<InvalidOperationException>(LanguageHelper.GetRequiredString("DataWindowButtonCanOnlyBeAddedWhenWindowIsNotLoaded"));
             }
 
             _buttons.Add(dataWindowButton);
