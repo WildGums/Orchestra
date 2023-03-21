@@ -39,7 +39,7 @@
     <PackageReference Include="Orc.Controls" Version="5.0.0-alpha0182" />
     <PackageReference Include="Orc.FileSystem" Version="5.0.0-alpha0186" />
     <PackageReference Include="Orc.SystemInfo" Version="5.0.0-alpha0191" />
-    <PackageReference Include="Orc.Theming" Version="5.0.0-alpha0144" />
+    <PackageReference Include="Orc.Theming" Version="5.0.0-alpha0146" />
   </ItemGroup>
 
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props')" />
