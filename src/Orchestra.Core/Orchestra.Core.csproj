@@ -34,7 +34,7 @@
     <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="all" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Obsolete.Fody" Version="5.3.0" PrivateAssets="all" />
-    <PackageReference Include="Orc.Controls" Version="5.0.0-alpha0260" />
+    <PackageReference Include="Orc.Controls" Version="5.0.0-alpha0274" />
     <PackageReference Include="Orc.SystemInfo" Version="5.0.0-alpha0199" />
   </ItemGroup>
 
