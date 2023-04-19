@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>net6.0-windows</TargetFrameworks>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
@@ -29,7 +29,7 @@
   <ItemGroup>
     <PackageReference Include="Catel.Fody" Version="4.9.0" PrivateAssets="all" />
     <PackageReference Include="Fluent.Ribbon" Version="9.0.4" />
-    <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="6.7.0" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
