@@ -35,7 +35,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Obsolete.Fody" Version="5.3.0" PrivateAssets="all" />
     <PackageReference Include="Orc.Controls" Version="5.0.0-alpha0284" />
-    <PackageReference Include="Orc.SystemInfo" Version="5.0.0-alpha0199" />
+    <PackageReference Include="Orc.SystemInfo" Version="5.0.0-alpha0229" />
   </ItemGroup>
 
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props')" />
