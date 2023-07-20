@@ -21,7 +21,7 @@
             _messageService = messageService;
         }
   
-        protected override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync(object parameter)
         {
             const int TotalItems = 250;
 

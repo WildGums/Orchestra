@@ -16,7 +16,7 @@
             _aboutService = aboutService;
         }
 
-        protected override void Execute(object parameter)
+        public override void Execute(object parameter)
         {
             _aboutService.ShowAboutAsync();
         }

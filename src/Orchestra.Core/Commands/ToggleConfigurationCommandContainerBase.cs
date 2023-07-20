@@ -40,7 +40,7 @@
 
         protected IConfigurationService ConfigurationService { get; private set; }
 
-        protected override async Task ExecuteAsync(TExecuteParameter? parameter)
+        public override async Task ExecuteAsync(TExecuteParameter? parameter)
         {
             var oldVersion = ConfigurationService.GetRoamingValue(_configurationKey, _defaultValue);
             ConfigurationService.SetRoamingValue(_configurationKey, !oldVersion);
