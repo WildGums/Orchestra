@@ -18,7 +18,7 @@
             _messageService = messageService;
         }
 
-        protected override async Task ExecuteAsync(object? parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
             if (parameter is MessageButton)
             {

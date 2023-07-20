@@ -17,7 +17,7 @@
             _messageService = messageService;
         }
 
-        protected override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync(object parameter)
         {
             await _messageService.ShowAsync("You just executed a hidden command");
         }

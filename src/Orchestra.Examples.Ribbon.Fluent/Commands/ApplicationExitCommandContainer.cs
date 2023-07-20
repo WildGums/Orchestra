@@ -17,7 +17,7 @@
             _navigationService = navigationService;
         }
 
-        protected override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync(object parameter)
         {
             await _navigationService.CloseApplicationAsync();
         }

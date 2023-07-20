@@ -270,7 +270,7 @@ namespace Orchestra
     {
         protected ToggleConfigurationCommandContainerBase(string commandName, string configurationKey, bool defaultValue, Catel.MVVM.ICommandManager commandManager, Catel.Configuration.IConfigurationService configurationService) { }
         protected Catel.Configuration.IConfigurationService ConfigurationService { get; }
-        protected override System.Threading.Tasks.Task ExecuteAsync(TExecuteParameter? parameter) { }
+        public override System.Threading.Tasks.Task ExecuteAsync(TExecuteParameter? parameter) { }
     }
     public class UriInfo
     {
