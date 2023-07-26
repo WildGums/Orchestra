@@ -1,4 +1,4 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>net6.0-windows</TargetFrameworks>
     <AssemblyName>Orchestra.Tests</AssemblyName>
@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Catel.Fody" Version="4.9.0" PrivateAssets="all" />
+    <PackageReference Include="ControlzEx" Version="6.0.0" />
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
