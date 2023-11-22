@@ -1,6 +1,6 @@
 <Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows</TargetFrameworks>
     <AssemblyName>Orchestra.Examples.TaskRunner</AssemblyName>
     <RootNamespace>Orchestra.Examples.TaskRunner</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
