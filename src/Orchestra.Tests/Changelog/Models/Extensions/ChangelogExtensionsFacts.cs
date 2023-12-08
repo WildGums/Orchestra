@@ -16,8 +16,8 @@
 
                 var delta = changelog1.GetDelta(changelog2);
 
-                Assert.AreEqual(0, delta.Items.Count);
-                Assert.IsTrue(delta.IsEmpty);
+                Assert.That(delta.Items.Count, Is.EqualTo(0));
+                Assert.That(delta.IsEmpty, Is.True);
             }
 
             [TestCase]
@@ -35,7 +35,7 @@
 
                 var delta = changelog1.GetDelta(changelog2);
 
-                Assert.AreEqual(1, delta.Items.Count);
+                Assert.That(delta.Items.Count, Is.EqualTo(1));
             }
         }
     }

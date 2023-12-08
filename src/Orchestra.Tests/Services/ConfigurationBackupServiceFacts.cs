@@ -70,8 +70,8 @@
             var countInLocal = directoryService.GetFiles(string.Format(@"C:\Users\{0}\AppData\Local\Microsoft Corporation\Microsoft.TestHost\backup\config", Environment.UserName),
                 "configuration*").Count();
 
-            Assert.AreEqual(countInRoaming, _testConfigurationBackupService.NumberOfBackups);
-            Assert.AreEqual(countInLocal, _testConfigurationBackupService.NumberOfBackups);
+            Assert.That(_testConfigurationBackupService.NumberOfBackups, Is.EqualTo(countInRoaming));
+            Assert.That(_testConfigurationBackupService.NumberOfBackups, Is.EqualTo(countInLocal));
         }
 
         public class TestConfigurationBackupService : ConfigurationBackupService

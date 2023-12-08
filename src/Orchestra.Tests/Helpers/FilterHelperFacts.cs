@@ -21,7 +21,7 @@
                     "*.log"
                 };
 
-                Assert.AreEqual(expectedValue, FilterHelper.MatchesFilters(filters, file));
+                Assert.That(FilterHelper.MatchesFilters(filters, file), Is.EqualTo(expectedValue));
             }
         }
     }

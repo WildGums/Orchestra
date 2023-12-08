@@ -19,8 +19,8 @@
             var watcher = new TestCloseApplicationWatcher(true);
             await RunOnWindowClosingAndWaitForFinishAsync(watcher, OnWindowClosingWaitingTimeout);
 
-            Assert.IsTrue(watcher.IsClosingRun, "Closing did not run");
-            Assert.IsFalse(watcher.IsClosedRun, "Closed did run");
+            Assert.That(watcher.IsClosingRun, Is.True, "Closing did not run");
+            Assert.That(watcher.IsClosedRun, Is.False, "Closed did run");
         }
 
         [TestCase]
@@ -29,8 +29,8 @@
             var watcher = new TestCloseApplicationWatcher(false);
             await RunOnWindowClosingAndWaitForFinishAsync(watcher, OnWindowClosingWaitingTimeout);
 
-            Assert.IsTrue(watcher.IsClosingRun, "Closing did not run");
-            Assert.IsTrue(watcher.IsClosedRun, "Closed did not run");
+            Assert.That(watcher.IsClosingRun, Is.True, "Closing did not run");
+            Assert.That(watcher.IsClosedRun, Is.True, "Closed did not run");
         }
 
         private async Task RunOnWindowClosingAndWaitForFinishAsync(TestCloseApplicationWatcher watcher, int timeout)
@@ -48,7 +48,7 @@
                     // access handler method
                     var onWindowClosing = typeof(CloseApplicationWatcherBase).GetMethod("OnWindowClosing", BindingFlags.Static | BindingFlags.NonPublic);
 
-                    Assert.IsNotNull(onWindowClosing);
+                    Assert.That(onWindowClosing, Is.Not.Null);
 
                     var cancelEventArgs = new CancelEventArgs();
                     var cancelEventArgsRetry = new CancelEventArgs();
@@ -87,7 +87,7 @@
                 try
                 {
                     // Verify new thread able to host UI component
-                    Assert.IsTrue(Thread.CurrentThread.GetApartmentState() == ApartmentState.STA);
+                    Assert.That(Thread.CurrentThread.GetApartmentState() == ApartmentState.STA, Is.True);
 
                     action();
 
