@@ -208,10 +208,10 @@ namespace Orchestra
         public static int MaxFileLogSize { get; set; }
         public static int MaxLogFileArchiveDays { get; set; }
         public static int MaxLogFileArchiveFilesCount { get; set; }
-        public static void AddFileLogListener() { }
+        public static void AddFileLogListener(string? prefix = null) { }
         public static System.Threading.Tasks.Task AddLogListenerForUnhandledExceptionAsync(System.Exception ex) { }
         public static void CleanUpAllLogTypeFiles(bool keepCleanInRealTime = false) { }
-        public static Catel.Logging.ILogListener CreateFileLogListener(string prefix) { }
+        public static Catel.Logging.ILogListener CreateFileLogListener(string? prefix = null) { }
     }
     public static class OrchestraEnvironment
     {

@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Markup;
@@ -117,14 +119,20 @@
         {
             LogHelper.CleanUpAllLogTypeFiles();
 
-            var fileLogListener = LogHelper.CreateFileLogListener(LogFilePrefixes.EntryAssemblyName);
+            var existingFileLogListener = LogManager.GetListeners()
+                .FirstOrDefault(x => x is FileLogListener fileLogListener && 
+                                     Path.GetFileName(fileLogListener.FilePath).StartsWith(LogFilePrefixes.EntryAssemblyName));
+            if (existingFileLogListener is null)
+            {
+                var fileLogListener = LogHelper.CreateFileLogListener(LogFilePrefixes.EntryAssemblyName);
 
-            fileLogListener.IsDebugEnabled = false;
-            fileLogListener.IsInfoEnabled = true;
-            fileLogListener.IsWarningEnabled = true;
-            fileLogListener.IsErrorEnabled = true;
+                fileLogListener.IsDebugEnabled = false;
+                fileLogListener.IsInfoEnabled = true;
+                fileLogListener.IsWarningEnabled = true;
+                fileLogListener.IsErrorEnabled = true;
 
-            LogManager.AddListener(fileLogListener);
+                LogManager.AddListener(fileLogListener);
+            }
         }
 
         protected virtual async Task ShowChangelogAsync()

@@ -28,7 +28,12 @@
         /// <summary>
         /// All file log prefixes
         /// </summary>
-        public static readonly string[] All = { EntryAssemblyName, CrashReport, Log };
+        public static readonly string[] All =
+        {
+            EntryAssemblyName,
+            CrashReport,
+            Log
+        };
     }
 
     /// <summary>
@@ -41,7 +46,7 @@
         /// <summary>
         /// Maximum Log file size in KBs
         /// </summary>
-        public static int MaxFileLogSize { get; set;  } = 10 * 1024;
+        public static int MaxFileLogSize { get; set; } = 10 * 1024;
 
         public static int MaxLogFileArchiveDays { get; set; } = 14;
 
@@ -50,9 +55,24 @@
         /// <summary>
         /// Adds a file log listener.
         /// </summary>
-        public static void AddFileLogListener()
+        public static void AddFileLogListener(string? prefix = null)
         {
-            AddFileLogListener(LogFilePrefixes.Log);
+            var fileLogListener = CreateFileLogListener(prefix) as Catel.Logging.FileLogListener;
+            if (fileLogListener is null)
+            {
+                return;
+            }
+
+            if (File.Exists(fileLogListener.FilePath))
+            {
+                // Already creating a log here, no need to do it again
+                return;
+            }
+
+            LogManager.AddListener(fileLogListener);
+
+            Log.LogProductInfo();
+            Log.LogDeviceInfo();
         }
 
         /// <summary>
@@ -70,10 +90,13 @@
             await LogManager.FlushAllAsync();
         }
 
-        public static ILogListener CreateFileLogListener(string prefix)
+        public static ILogListener CreateFileLogListener(string? prefix = null)
         {
-            ArgumentNullException.ThrowIfNull(prefix);
-
+            if (string.IsNullOrWhiteSpace(prefix))
+            {
+                prefix = LogFilePrefixes.EntryAssemblyName;
+            }
+            
             var directory = GetLogDirectory();
 
             if (!Directory.Exists(directory))
@@ -94,7 +117,9 @@
             foreach (var prefix in LogFilePrefixes.All)
             {
                 var filter = prefix + "*.log";
+
                 CleanUpLogFiles(directory, filter, MaxLogFileArchiveDays, MaxLogFileArchiveFilesCount);
+
                 if (keepCleanInRealTime)
                 {
                     ConfigureFileSystemWatcher(directory, filter, (args) => CleanUpLogFiles(directory, filter, MaxLogFileArchiveDays, MaxLogFileArchiveFilesCount));
@@ -113,26 +138,6 @@
             return directory;
         }
 
-        private static void AddFileLogListener(string prefix)
-        {
-            var fileLogListener = CreateFileLogListener(prefix) as Catel.Logging.FileLogListener;
-            if (fileLogListener is null)
-            {
-                return;
-            }
-
-            if (File.Exists(fileLogListener.FilePath))
-            {
-                // Already creating a log here, no need to do it again
-                return;
-            }
-
-            LogManager.AddListener(fileLogListener);
-
-            Log.LogProductInfo();
-            Log.LogDeviceInfo();
-        }
-
         private static void ConfigureFileSystemWatcher(string directory, string filter, Action<FileSystemEventArgs> pathCreatedHandler)
         {
 #pragma warning disable IDISP001 // Dispose created.
@@ -149,7 +154,7 @@
         {
             try
             {
-                var files = Directory.GetFiles(directory, filter).Select(file => new { FileName = file, LastWriteTime = File.GetLastWriteTime(file)} ).ToList();
+                var files = Directory.GetFiles(directory, filter).Select(file => new { FileName = file, LastWriteTime = File.GetLastWriteTime(file) }).ToList();
 
                 files.Sort((f1, f2) => f1.LastWriteTime.CompareTo(f2.LastWriteTime));
 
