@@ -1,4 +1,4 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>net6.0-windows;net8.0-windows</TargetFrameworks>
     <AssemblyName>Orchestra.Core</AssemblyName>
@@ -34,8 +34,8 @@
     <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="all" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Obsolete.Fody" Version="5.3.0" PrivateAssets="all" />
-    <PackageReference Include="Orc.Controls" Version="5.0.0-alpha0482" />
-    <PackageReference Include="Orc.SystemInfo" Version="5.0.0-alpha0381" />
+    <PackageReference Include="Orc.Controls" Version="5.0.0" />
+    <PackageReference Include="Orc.SystemInfo" Version="5.0.0" />
   </ItemGroup>
 
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props')" />
