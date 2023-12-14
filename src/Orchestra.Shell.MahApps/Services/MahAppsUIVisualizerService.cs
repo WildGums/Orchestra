@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MahAppsUIVisualizerService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System.Threading.Tasks;
     using System.Windows;
@@ -14,6 +7,7 @@ namespace Orchestra.Services
     using Catel.Services;
     using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
+    using System;
 
     public class MahAppsUIVisualizerService : UIVisualizerService
     {
@@ -22,8 +16,11 @@ namespace Orchestra.Services
         {
         }
 
-        public override async Task<bool?> ShowWindowAsync(FrameworkElement window, UIVisualizerContext context)
+        public override async Task<UIVisualizerResult> ShowWindowAsync(FrameworkElement window, UIVisualizerContext context)
         {
+            ArgumentNullException.ThrowIfNull(window);
+            ArgumentNullException.ThrowIfNull(context);
+
             var simpleDialog = window as CustomDialog;
             if (simpleDialog is not null)
             {
@@ -39,12 +36,12 @@ namespace Orchestra.Services
                         result = simpleDataWindow.DialogResult;
                     }
 
-                    return result;
+                    return new UIVisualizerResult(result, context, window);
                 }
 
                 simpleDialog.Invoke(simpleDialog.Show);
 
-                return true;
+                return new UIVisualizerResult(true, context, window);
             }
 
             var baseResult = await base.ShowWindowAsync(window, context);

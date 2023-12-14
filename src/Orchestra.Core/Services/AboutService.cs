@@ -1,14 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AboutService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
+    using System;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Logging;
     using Catel.Services;
     using ViewModels;
@@ -22,8 +15,8 @@ namespace Orchestra.Services
 
         public AboutService(IUIVisualizerService uiVisualizerService, IAboutInfoService aboutInfoService)
         {
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => aboutInfoService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(aboutInfoService);
 
             _uiVisualizerService = uiVisualizerService;
             _aboutInfoService = aboutInfoService;
@@ -31,7 +24,7 @@ namespace Orchestra.Services
 
         public virtual async Task ShowAboutAsync()
         {
-            var aboutInfo = _aboutInfoService.GetAboutInfo();
+            var aboutInfo = await _aboutInfoService.GetAboutInfoAsync();
             if (aboutInfo is not null)
             {
                 Log.Info("Showing about dialog");

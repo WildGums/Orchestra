@@ -1,16 +1,13 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IStatusServiceExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
+    using System;
+
     public static class IStatusServiceExtensions
     {
         public static void UpdateStatus(this IStatusService statusService, string statusFormat, params object[] parameters)
         {
+            ArgumentNullException.ThrowIfNull(statusService);
+
             if (string.IsNullOrWhiteSpace(statusFormat))
             {
                 statusFormat = string.Empty;

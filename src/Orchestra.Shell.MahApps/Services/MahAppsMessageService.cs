@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MahAppsMessageService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Threading.Tasks;
@@ -23,7 +16,8 @@ namespace Orchestra.Services
         public MahAppsMessageService(IDispatcherService dispatcherService, ILanguageService languageService)
             : base(dispatcherService, languageService)
         {
-            Argument.IsNotNull(() => languageService);
+            ArgumentNullException.ThrowIfNull(dispatcherService);
+            ArgumentNullException.ThrowIfNull(languageService);
 
             _dispatcherService = dispatcherService;
             _languageService = languageService;

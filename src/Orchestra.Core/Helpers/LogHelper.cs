@@ -1,21 +1,12 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LogHelper.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
-    using Path = Catel.IO.Path;
 
     public static class LogFilePrefixes
     {
@@ -27,7 +18,7 @@ namespace Orchestra
         /// <summary>
         /// The entry assembly name prefix.
         /// </summary>
-        public static readonly string EntryAssemblyName = Catel.Reflection.AssemblyHelper.GetEntryAssembly().GetName().Name;
+        public static readonly string EntryAssemblyName = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly().GetName().Name ?? string.Empty;
 
         /// <summary>
         /// The 'Log' file log prefix.
@@ -37,7 +28,12 @@ namespace Orchestra
         /// <summary>
         /// All file log prefixes
         /// </summary>
-        public static readonly string[] All = { EntryAssemblyName, CrashReport, Log };
+        public static readonly string[] All =
+        {
+            EntryAssemblyName,
+            CrashReport,
+            Log
+        };
     }
 
     /// <summary>
@@ -50,7 +46,7 @@ namespace Orchestra
         /// <summary>
         /// Maximum Log file size in KBs
         /// </summary>
-        public static int MaxFileLogSize { get; set;  } = 10 * 1024;
+        public static int MaxFileLogSize { get; set; } = 10 * 1024;
 
         public static int MaxLogFileArchiveDays { get; set; } = 14;
 
@@ -59,9 +55,24 @@ namespace Orchestra
         /// <summary>
         /// Adds a file log listener.
         /// </summary>
-        public static void AddFileLogListener()
+        public static void AddFileLogListener(string? prefix = null)
         {
-            AddFileLogListener(LogFilePrefixes.Log);
+            var fileLogListener = CreateFileLogListener(prefix) as Catel.Logging.FileLogListener;
+            if (fileLogListener is null)
+            {
+                return;
+            }
+
+            if (File.Exists(fileLogListener.FilePath))
+            {
+                // Already creating a log here, no need to do it again
+                return;
+            }
+
+            LogManager.AddListener(fileLogListener);
+
+            Log.LogProductInfo();
+            Log.LogDeviceInfo();
         }
 
         /// <summary>
@@ -70,6 +81,8 @@ namespace Orchestra
         /// <param name="ex">The unhandled exception.</param>
         public static async Task AddLogListenerForUnhandledExceptionAsync(Exception ex)
         {
+            ArgumentNullException.ThrowIfNull(ex);
+
             AddFileLogListener(LogFilePrefixes.CrashReport);
 
             Log.Error(ex, "Application crashed");
@@ -77,10 +90,13 @@ namespace Orchestra
             await LogManager.FlushAllAsync();
         }
 
-        public static ILogListener CreateFileLogListener(string prefix)
+        public static ILogListener CreateFileLogListener(string? prefix = null)
         {
-            Argument.IsNotNull(() => prefix);
-
+            if (string.IsNullOrWhiteSpace(prefix))
+            {
+                prefix = LogFilePrefixes.EntryAssemblyName;
+            }
+            
             var directory = GetLogDirectory();
 
             if (!Directory.Exists(directory))
@@ -101,7 +117,9 @@ namespace Orchestra
             foreach (var prefix in LogFilePrefixes.All)
             {
                 var filter = prefix + "*.log";
+
                 CleanUpLogFiles(directory, filter, MaxLogFileArchiveDays, MaxLogFileArchiveFilesCount);
+
                 if (keepCleanInRealTime)
                 {
                     ConfigureFileSystemWatcher(directory, filter, (args) => CleanUpLogFiles(directory, filter, MaxLogFileArchiveDays, MaxLogFileArchiveFilesCount));
@@ -111,33 +129,13 @@ namespace Orchestra
 
         private static string GetLogDirectory()
         {
-            var appDataService = ServiceLocator.Default.ResolveType<IAppDataService>();
+            var appDataService = ServiceLocator.Default.ResolveRequiredType<IAppDataService>();
 
             var directory = Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "log");
 
             Directory.CreateDirectory(directory);
 
             return directory;
-        }
-
-        private static void AddFileLogListener(string prefix)
-        {
-            var fileLogListener = CreateFileLogListener(prefix) as Catel.Logging.FileLogListener;
-            if (fileLogListener is null)
-            {
-                return;
-            }
-
-            if (File.Exists(fileLogListener.FilePath))
-            {
-                // Already creating a log here, no need to do it again
-                return;
-            }
-
-            LogManager.AddListener(fileLogListener);
-
-            Log.LogProductInfo();
-            Log.LogDeviceInfo();
         }
 
         private static void ConfigureFileSystemWatcher(string directory, string filter, Action<FileSystemEventArgs> pathCreatedHandler)
@@ -156,7 +154,7 @@ namespace Orchestra
         {
             try
             {
-                var files = Directory.GetFiles(directory, filter).Select(file => new { FileName = file, LastWriteTime = File.GetLastWriteTime(file)} ).ToList();
+                var files = Directory.GetFiles(directory, filter).Select(file => new { FileName = file, LastWriteTime = File.GetLastWriteTime(file) }).ToList();
 
                 files.Sort((f1, f2) => f1.LastWriteTime.CompareTo(f2.LastWriteTime));
 

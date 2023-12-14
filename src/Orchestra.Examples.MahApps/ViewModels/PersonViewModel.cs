@@ -1,13 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PersonViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.MahApps.ViewModels
+﻿namespace Orchestra.Examples.MahApps.ViewModels
 {
-    using Catel;
+    using System;
     using Catel.Fody;
     using Catel.MVVM;
     using Models;
@@ -17,19 +10,16 @@ namespace Orchestra.Examples.MahApps.ViewModels
     /// </summary>
     public class PersonViewModel : ViewModelBase
     {
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="PersonViewModel"/> class.
         /// </summary>
         public PersonViewModel(Person person)
         {
-            Argument.IsNotNull(() => person);
+            ArgumentNullException.ThrowIfNull(person);
 
             Person = person;
         }
-        #endregion
 
-        #region Properties
         /// <summary>
         /// Gets the title of the view model.
         /// </summary>
@@ -53,6 +43,5 @@ namespace Orchestra.Examples.MahApps.ViewModels
         [Expose("MiddleName")]
         [Expose("LastName")]
         public Person Person { get; private set; }
-        #endregion
     }
 }

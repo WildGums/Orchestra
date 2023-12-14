@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RibbonService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.Ribbon.Services
+﻿namespace Orchestra.Examples.Ribbon.Services
 {
     using System.Windows;
     using Orchestra.Services;

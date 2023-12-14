@@ -1,12 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DemoShowMessageBoxCommandContainer.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.Ribbon
+﻿namespace Orchestra.Examples.Ribbon
 {
+    using System;
     using System.Threading.Tasks;
     using Catel;
     using Catel.MVVM;
@@ -14,21 +8,17 @@ namespace Orchestra.Examples.Ribbon
 
     internal class DemoShowMessageBoxCommandContainer : CommandContainerBase
     {
-        #region Fields
         private readonly IMessageService _messageService;
-        #endregion
 
-        #region Constructors
         public DemoShowMessageBoxCommandContainer(ICommandManager commandManager, IMessageService messageService)
             : base(Commands.Demo.ShowMessageBox, commandManager)
         {
-            Argument.IsNotNull(() => messageService);
+            ArgumentNullException.ThrowIfNull(messageService);
 
             _messageService = messageService;
         }
-        #endregion
 
-        protected override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
             if (parameter is MessageButton)
             {
@@ -45,11 +35,11 @@ namespace Orchestra.Examples.Ribbon
                         break;
 
                     case MessageButton.YesNo:
-                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", "", button, MessageImage.Warning);
+                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", string.Empty, button, MessageImage.Warning);
                         break;
 
                     case MessageButton.YesNoCancel:
-                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", "", button);
+                        await _messageService.ShowAsync("This is a custom message box implemented in Orchestra. Here is your long text", string.Empty, button);
                         break;
 
                     default:

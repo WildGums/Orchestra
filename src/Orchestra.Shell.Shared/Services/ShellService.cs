@@ -1,16 +1,10 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ShellService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Threading.Tasks;
     using System.Windows;
     using Catel;
+    using Catel.Configuration;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
@@ -23,7 +17,6 @@ namespace Orchestra.Services
 
     public partial class ShellService : IShellService
     {
-        #region Fields
         /// <summary>
         /// The log.
         /// </summary>
@@ -38,9 +31,7 @@ namespace Orchestra.Services
         private readonly IDependencyResolver _dependencyResolver;
         private readonly IServiceLocator _serviceLocator;
         private readonly IConfigurationBackupService _configurationBackupService;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="ShellService" /> class.
         /// </summary>
@@ -61,19 +52,19 @@ namespace Orchestra.Services
         /// <exception cref="ArgumentNullException">The <paramref name="dependencyResolver" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="serviceLocator" /> is <c>null</c>.</exception>
         public ShellService(ITypeFactory typeFactory, IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
-            ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService, 
+            ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService,
             IApplicationInitializationService applicationInitializationService, IDependencyResolver dependencyResolver,
             IServiceLocator serviceLocator, IConfigurationBackupService configurationBackupService)
         {
-            Argument.IsNotNull(() => typeFactory);
-            Argument.IsNotNull(() => keyboardMappingsService);
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => splashScreenService);
-            Argument.IsNotNull(() => ensureStartupService);
-            Argument.IsNotNull(() => applicationInitializationService);
-            Argument.IsNotNull(() => dependencyResolver);
-            Argument.IsNotNull(() => serviceLocator);
-            Argument.IsNotNull(() => configurationBackupService);
+            ArgumentNullException.ThrowIfNull(typeFactory);
+            ArgumentNullException.ThrowIfNull(keyboardMappingsService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(splashScreenService);
+            ArgumentNullException.ThrowIfNull(ensureStartupService);
+            ArgumentNullException.ThrowIfNull(applicationInitializationService);
+            ArgumentNullException.ThrowIfNull(dependencyResolver);
+            ArgumentNullException.ThrowIfNull(serviceLocator);
+            ArgumentNullException.ThrowIfNull(configurationBackupService);
 
             _typeFactory = typeFactory;
             _keyboardMappingsService = keyboardMappingsService;
@@ -85,24 +76,20 @@ namespace Orchestra.Services
             _serviceLocator = serviceLocator;
             _configurationBackupService = configurationBackupService;
 
-            var entryAssembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
+            var entryAssembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
 
-            Log.Info("Starting {0} v{1} ({2})", entryAssembly.Title(), entryAssembly.Version(), entryAssembly.InformationalVersion());
+            Log.Info("Starting {0} v{1} ({2})", entryAssembly.Title() ?? string.Empty, entryAssembly.Version() ?? string.Empty, entryAssembly.InformationalVersion() ?? string.Empty);
 
             // Initialize (now we have an application)
             DotNetPatchHelper.Initialize();
         }
-        #endregion
 
-        #region Properties
         /// <summary>
         /// Gets the shell.
         /// </summary>
         /// <value>The shell.</value>
-        public IShell Shell { get; private set; }
-        #endregion
+        public IShell? Shell { get; private set; }
 
-        #region Methods
         /// <summary>
         /// Creates a new shell.
         /// </summary>
@@ -115,13 +102,13 @@ namespace Orchestra.Services
         {
             await _applicationInitializationService.InitializeBeforeShowingSplashScreenAsync();
 
-            TShell shell = null;
+            TShell shell;
 
             if (_applicationInitializationService.ShowSplashScreen)
             {
                 Log.Debug("Showing splash screen");
 
-                var splashScreen = _splashScreenService.CreateSplashScreen();
+                var splashScreen = await _splashScreenService.CreateSplashScreenAsync();
                 splashScreen.Show();
 
                 shell = await CreateShellInternalAsync<TShell>(splashScreen.Close);
@@ -151,7 +138,7 @@ namespace Orchestra.Services
         /// <param name="postShowShellCallback">The shell created callback.</param>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        private async Task<TShell> CreateShellInternalAsync<TShell>(Action postShowShellCallback = null)
+        private async Task<TShell> CreateShellInternalAsync<TShell>(Action? postShowShellCallback = null)
             where TShell : IShell
         {
             if (Shell is not null)
@@ -167,49 +154,32 @@ namespace Orchestra.Services
             // to ensure a valid backup (and process start time will be used for the file name)
             await _configurationBackupService.BackupAsync();
 
-            var shell = default(TShell);
+            TShell? shell = default;
             var successfullyStarted = true;
 
             try
             {
-                await InitializeBeforeCreatingShellAsync();
+                var configurationService = _serviceLocator.ResolveRequiredType<IConfigurationService>();
+                await configurationService.LoadAsync();
 
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
+                await InitializeBeforeCreatingShellAsync();
 
                 shell = await CreateShellAsync<TShell>();
 
-                _keyboardMappingsService.Load();
+                await _keyboardMappingsService.LoadAsync();
 
                 // Now we have a new window, resubscribe the command manager
                 _commandManager.SubscribeToKeyboardEvents();
 
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
-
                 await InitializeAfterCreatingShellAsync();
-
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
 
                 Log.Info("Confirming that application was started successfully");
 
-                _ensureStartupService.ConfirmApplicationStartedSuccessfully();
-
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
+                await _ensureStartupService.ConfirmApplicationStartedSuccessfullyAsync();
 
                 await InitializeBeforeShowingShellAsync();
 
                 ShowShell(shell);
-
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
 
                 if (postShowShellCallback is not null)
                 {
@@ -217,10 +187,6 @@ namespace Orchestra.Services
                 }
 
                 await InitializeAfterShowingShellAsync();
-
-                // Maintaining backups, note that we do this in several locations since we want 
-                // to ensure a valid backup (and process start time will be used for the file name)
-                await _configurationBackupService.BackupAsync();
             }
             catch (Exception ex)
             {
@@ -231,14 +197,19 @@ namespace Orchestra.Services
 
             if (!successfullyStarted)
             {
-                var entryAssembly = Catel.Reflection.AssemblyHelper.GetEntryAssembly();
+                var entryAssembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
                 var assemblyTitle = entryAssembly.Title();
 
                 // Late resolve so user might change the message service
-                var messageService = _dependencyResolver.Resolve<IMessageService>();
+                var messageService = _dependencyResolver.ResolveRequired<IMessageService>();
                 await messageService.ShowErrorAsync(string.Format("An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.\n\nPlease try restarting the application. If this error keeps coming up while starting the application, please contact support.", assemblyTitle), string.Format("Failed to start {0}", assemblyTitle));
 
                 Application.Current.Shutdown(-1);
+            }
+
+            if (shell is null)
+            {
+                throw Log.ErrorAndCreateException<OrchestraException>("Failed to create shell, cannot start application");
             }
 
             return shell;
@@ -269,7 +240,7 @@ namespace Orchestra.Services
             Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName(false));
 
             // Late resolve so user might change the message service
-            var themeService = _dependencyResolver.Resolve<IThemeService>();
+            var themeService = _dependencyResolver.ResolveRequired<IThemeService>();
             var themeInfo = themeService.GetThemeInfo();
 
             var shellThemeTypes = TypeCache.GetTypesImplementingInterface(typeof(IShellTheme));
@@ -278,7 +249,7 @@ namespace Orchestra.Services
             {
                 Log.Debug($"Creating shell theme using '{shellThemeType.FullName}'");
 
-                var instance = (IShellTheme)_typeFactory.CreateInstance(shellThemeType);
+                var instance = (IShellTheme)_typeFactory.CreateRequiredInstance(shellThemeType);
 
                 // Register so it stays alive and can subscribe to events
                 _serviceLocator.RegisterInstance(instance);
@@ -288,7 +259,7 @@ namespace Orchestra.Services
 
             OnCreatingShell();
 
-            var shell = _typeFactory.CreateInstance<TShell>();
+            var shell = _typeFactory.CreateRequiredInstance<TShell>();
             Shell = shell;
 
             var shellAsWindow = Shell as Window;
@@ -338,6 +309,5 @@ namespace Orchestra.Services
 
             await _applicationInitializationService.InitializeAfterShowingShellAsync();
         }
-        #endregion
     }
 }

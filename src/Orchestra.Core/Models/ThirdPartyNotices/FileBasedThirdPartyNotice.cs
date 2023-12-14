@@ -1,13 +1,14 @@
 ﻿namespace Orchestra
 {
+    using System;
     using System.IO;
-    using Catel;
 
     public class FileBasedThirdPartyNotice : ThirdPartyNotice
     {
         public FileBasedThirdPartyNotice(string title, string url, string fileName)
         {
-            Argument.IsNotNull(() => title);
+            ArgumentNullException.ThrowIfNull(title);
+            ArgumentNullException.ThrowIfNull(fileName);
 
             Title = title;
             Url = url;

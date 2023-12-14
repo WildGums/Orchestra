@@ -13,8 +13,8 @@
 
         public UserMessageCloseApplicationWatcher(IMessageService messageService, INotificationService notificationService)
         {
-            Argument.IsNotNull(() => messageService);
-            Argument.IsNotNull(() => notificationService);
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(notificationService);
 
             _messageService = messageService;
             _notificationService = notificationService;

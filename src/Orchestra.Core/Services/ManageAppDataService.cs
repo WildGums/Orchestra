@@ -5,7 +5,6 @@
     using System.IO;
     using System.IO.Compression;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Logging;
     using Catel.Reflection;
     using Catel.Services;
@@ -24,11 +23,11 @@
         public ManageAppDataService(ISaveFileService saveFileService, IProcessService processService,
             IDirectoryService directoryService, IFileService fileService, IAppDataService appDataService)
         {
-            Argument.IsNotNull(() => saveFileService);
-            Argument.IsNotNull(() => processService);
-            Argument.IsNotNull(() => directoryService);
-            Argument.IsNotNull(() => fileService);
-            Argument.IsNotNull(() => appDataService);
+            ArgumentNullException.ThrowIfNull(saveFileService);
+            ArgumentNullException.ThrowIfNull(processService);
+            ArgumentNullException.ThrowIfNull(directoryService);
+            ArgumentNullException.ThrowIfNull(fileService);
+            ArgumentNullException.ThrowIfNull(appDataService);
 
             _saveFileService = saveFileService;
             _processService = processService;
@@ -85,7 +84,7 @@
 
         public async Task<bool> BackupUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget)
         {
-            var assembly = AssemblyHelper.GetEntryAssembly();
+            var assembly = AssemblyHelper.GetRequiredEntryAssembly();
             var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
 
             var result = await _saveFileService.DetermineFileAsync(new DetermineSaveFileContext
@@ -95,7 +94,7 @@
                 Filter = "Zip files|*.zip"
             });
 
-            if (!result.Result)
+            if (!result.Result || result.FileName is null)
             {
                 return false;
             }

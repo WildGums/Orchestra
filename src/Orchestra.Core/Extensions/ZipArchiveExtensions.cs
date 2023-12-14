@@ -1,5 +1,6 @@
 ﻿namespace Orchestra
 {
+    using System;
     using System.IO;
     using System.IO.Compression;
     using System.Linq;
@@ -11,6 +12,8 @@
     {
         public static void CreateEntryFromAny(this ZipArchive archive, string sourceName, string entryName, CompressionLevel compressionLevel = CompressionLevel.Optimal)
         {
+            ArgumentNullException.ThrowIfNull(archive);
+
             try
             {
                 if (File.GetAttributes(sourceName).HasFlag(FileAttributes.Directory))
@@ -30,6 +33,8 @@
 
         public static void CreateEntryFromDirectory(this ZipArchive archive, string sourceDirName, string entryName, CompressionLevel compressionLevel)
         {
+            ArgumentNullException.ThrowIfNull(archive);
+
             try
             {
                 var files = Directory.EnumerateFileSystemEntries(sourceDirName);

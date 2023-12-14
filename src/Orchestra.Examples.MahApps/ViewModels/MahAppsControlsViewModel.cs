@@ -1,7 +1,7 @@
 ﻿namespace Orchestra.Examples.MahApps.ViewModels
 {
+    using System;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.MVVM;
     using Catel.Services;
 
@@ -12,8 +12,8 @@
 
         public MahAppsControlsViewModel(IUIVisualizerService uiVisualizerService, IMessageService messageService)
         {
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => messageService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(messageService);
 
             _uiVisualizerService = uiVisualizerService;
             _messageService = messageService;
@@ -50,9 +50,9 @@
             await ShowResultInMessageBoxAsync(result);
         }
 
-        private async Task ShowResultInMessageBoxAsync(bool? result)
+        private async Task ShowResultInMessageBoxAsync(UIVisualizerResult result)
         {
-            var part = !result.HasValue ? "null" : result.Value ? "true" : "false";
+            var part = !result.DialogResult.HasValue ? "null" : result.DialogResult.Value ? "true" : "false";
             await _messageService.ShowInformationAsync($"The result of the custom dialog is '{part}'");
         }
 

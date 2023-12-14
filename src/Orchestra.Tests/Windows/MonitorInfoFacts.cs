@@ -40,8 +40,8 @@
             var scaledResolution = testMonitorInfo.GetDpiAwareResolution();
             var scaledWorkingArea = testMonitorInfo.GetDpiAwareWorkingArea();
 
-            Assert.AreEqual(scaledResolution, new Rect(0, 0, 2400, 1350));
-            Assert.AreEqual(scaledWorkingArea, new Rect(0, 0, 2375, 1250));
+            Assert.That(new Rect(0, 0, 2400, 1350), Is.EqualTo(scaledResolution));
+            Assert.That(new Rect(0, 0, 2375, 1250), Is.EqualTo(scaledWorkingArea));
         }
     }
 }

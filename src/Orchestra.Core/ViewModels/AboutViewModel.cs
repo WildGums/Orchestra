@@ -4,11 +4,9 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Media.Imaging;
-    using Catel;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Services;
-    using Models;
     using Orchestra.Changelog;
     using Orchestra.Changelog.ViewModels;
 
@@ -23,12 +21,12 @@
         public AboutViewModel(AboutInfo aboutInfo, IProcessService processService, IUIVisualizerService uiVisualizerService,
             IMessageService messageService, ILanguageService languageService, IChangelogService changelogService)
         {
-            Argument.IsNotNull(() => aboutInfo);
-            Argument.IsNotNull(() => processService);
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => messageService);
-            Argument.IsNotNull(() => languageService);
-            Argument.IsNotNull(() => changelogService);
+            ArgumentNullException.ThrowIfNull(aboutInfo);
+            ArgumentNullException.ThrowIfNull(processService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(languageService);
+            ArgumentNullException.ThrowIfNull(changelogService);
 
             _processService = processService;
             _uiVisualizerService = uiVisualizerService;
@@ -36,11 +34,11 @@
             _languageService = languageService;
             _changelogService = changelogService;
 
-            var buildDateTime = aboutInfo.BuildDateTime.Value;
+            var buildDateTime = aboutInfo.BuildDateTime;
 
-            Title = aboutInfo.Name;
+            Title = aboutInfo.Name ?? string.Empty;
             Version = string.Format("v {0}", aboutInfo.DisplayVersion);
-            BuildDateTime = string.Format(languageService.GetString("Orchestra_BuiltOn"), buildDateTime);
+            BuildDateTime = string.Format(languageService.GetRequiredString("Orchestra_BuiltOn"), buildDateTime?.ToString() ?? "Unknown");
             UriInfo = aboutInfo.UriInfo;
             Copyright = aboutInfo.Copyright;
             CopyrightUrl = aboutInfo.CopyrightUri is null ? null : aboutInfo.CopyrightUri.ToString();
@@ -58,31 +56,28 @@
             EnableDetailedLogging = new Command(OnEnableDetailedLoggingExecute);
         }
 
-        #region Properties
         public override string Title { get; protected set; }
 
         public string Version { get; private set; }
 
         public string BuildDateTime { get; private set; }
 
-        public UriInfo UriInfo { get; private set; }
+        public UriInfo? UriInfo { get; private set; }
 
-        public string Copyright { get; private set; }
+        public string? Copyright { get; private set; }
 
-        public string CopyrightUrl { get; private set; }
+        public string? CopyrightUrl { get; private set; }
 
-        public Uri CompanyLogoUri { get; private set; }
+        public Uri? CompanyLogoUri { get; private set; }
 
-        public string ImageSourceUrl { get; private set; }
+        public string? ImageSourceUrl { get; private set; }
 
         public bool ShowLogButton { get; private set; }
 
         public bool IsDebugLoggingEnabled { get; private set; }
 
-        public BitmapSource AppIcon { get; private set; }
-        #endregion
+        public BitmapSource? AppIcon { get; private set; }
 
-        #region Commands
         public Command OpenUrl { get; private set; }
 
         private bool OnOpenUrlCanExecute()
@@ -98,10 +93,16 @@
 
         private void OnOpenUrlExecute()
         {
+            var uriInfo = UriInfo;
+            if (uriInfo is null)
+            {
+                return;
+            }
+
             _processService.StartProcess(new ProcessContext
             {
                 UseShellExecute = true,
-                FileName = UriInfo.Uri
+                FileName = uriInfo.Uri
             });
         }
 
@@ -114,10 +115,16 @@
 
         private void OnOpenCopyrightUrlExecute()
         {
+            var copyrightUrl = CopyrightUrl;
+            if (string.IsNullOrEmpty(copyrightUrl))
+            {
+                return;
+            }
+
             _processService.StartProcess(new ProcessContext
             {
                 UseShellExecute = true,
-                FileName = CopyrightUrl
+                FileName = copyrightUrl
             });
         }
 
@@ -147,7 +154,7 @@
             }
             else
             {
-                await _messageService.ShowErrorAsync(_languageService.GetString("Orchestra_NoLogListenerAvailable"));
+                await _messageService.ShowErrorAsync(_languageService.GetRequiredString("Orchestra_NoLogListenerAvailable"));
             }
         }
 
@@ -180,9 +187,7 @@
 
             UpdateLoggingInfo();
         }
-        #endregion
 
-        #region Methods
         protected override async Task InitializeAsync()
         {
             await base.InitializeAsync();
@@ -205,6 +210,5 @@
 
             IsDebugLoggingEnabled = isDebugLoggingEnabled;
         }
-        #endregion
     }
 }

@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Constants.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.Ribbon
+﻿namespace Orchestra.Examples.Ribbon
 {
     using System.Windows.Input;
     using InputGesture = Catel.Windows.Input.InputGesture;

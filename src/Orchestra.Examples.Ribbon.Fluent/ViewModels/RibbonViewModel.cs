@@ -2,15 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
-    using Models;
     using Orc.FileSystem;
     using Orchestra.Examples.ViewModels;
     using Orchestra.Services;
@@ -35,15 +32,15 @@
             IMessageService messageService, ISelectDirectoryService selectDirectoryService, IDirectoryService directoryService,
             IManageAppDataService manageAppDataService)
         {
-            Argument.IsNotNull(() => navigationService);
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => recentlyUsedItemsService);
-            Argument.IsNotNull(() => processService);
-            Argument.IsNotNull(() => messageService);
-            Argument.IsNotNull(() => selectDirectoryService);
-            Argument.IsNotNull(() => directoryService);
-            Argument.IsNotNull(() => manageAppDataService);
+            ArgumentNullException.ThrowIfNull(navigationService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(recentlyUsedItemsService);
+            ArgumentNullException.ThrowIfNull(processService);
+            ArgumentNullException.ThrowIfNull(messageService);
+            ArgumentNullException.ThrowIfNull(selectDirectoryService);
+            ArgumentNullException.ThrowIfNull(directoryService);
+            ArgumentNullException.ThrowIfNull(manageAppDataService);
 
             _navigationService = navigationService;
             _uiVisualizerService = uiVisualizerService;
@@ -67,17 +64,14 @@
 
             commandManager.RegisterCommand("File.Open", OpenProject, this);
 
-            var assembly = AssemblyHelper.GetEntryAssembly();
-            Title = assembly.Title();
+            var assembly = AssemblyHelper.GetRequiredEntryAssembly();
+            Title = assembly.Title() ?? string.Empty;
         }
 
-        #region Properties
         public List<RecentlyUsedItem> RecentlyUsedItems { get; private set; }
 
         public List<RecentlyUsedItem> PinnedItems { get; private set; }
-        #endregion
 
-        #region Commands
         public TaskCommand OpenDataDirectory { get; private set; }
 
         private async Task OnOpenDataDirectoryExecuteAsync()
@@ -209,9 +203,7 @@
                 Log.Error(ex);
             }
         }
-        #endregion
 
-        #region Methods
         protected override async Task InitializeAsync()
         {
             await base.InitializeAsync();
@@ -264,6 +256,5 @@
             RecentlyUsedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.Items);
             PinnedItems = new List<RecentlyUsedItem>(_recentlyUsedItemsService.PinnedItems);
         }
-        #endregion
     }
 }

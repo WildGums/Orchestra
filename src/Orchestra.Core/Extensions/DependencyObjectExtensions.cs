@@ -1,17 +1,10 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DependencyObjectExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
+    using System;
     using System.IO;
     using System.Windows;
     using System.Windows.Markup;
     using System.Xml;
-    using Catel;
     using Catel.Windows;
 
     public static class DependencyObjectExtensions
@@ -19,7 +12,7 @@ namespace Orchestra
         public static T Clone<T>(this T source)
             where T : DependencyObject
         {
-            Argument.IsNotNull(() => source);
+            ArgumentNullException.ThrowIfNull(source);
 
             var objXaml = XamlWriter.Save(source);
 
@@ -38,7 +31,7 @@ namespace Orchestra
         /// </summary>
         /// <param name="visualObject">Reference to visual object.</param>
         /// <returns>Reference to partent window or null when not exists.</returns>
-        public static System.Windows.Window GetParentWindow(this DependencyObject visualObject)
+        public static System.Windows.Window? GetParentWindow(this DependencyObject visualObject)
         {
             return visualObject?.FindLogicalOrVisualAncestorByType<System.Windows.Window>();
         }

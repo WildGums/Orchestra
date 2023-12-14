@@ -1,6 +1,6 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows</TargetFrameworks>
     <AssemblyName>Orchestra.Tests</AssemblyName>
     <RootNamespace>Orchestra.Tests</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
@@ -9,6 +9,7 @@
     <Description></Description>
     <PackageTags></PackageTags>
     <SonarQubeExclude>true</SonarQubeExclude>
+    <Nullable>annotations</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -19,23 +20,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ApprovalTests" Version="5.7.3" />
-    <PackageReference Include="Catel.Fody" Version="4.7.0" PrivateAssets="all" />
-    <PackageReference Include="Fody" Version="6.6.3" PrivateAssets="all">
+    <PackageReference Include="Catel.Fody" Version="4.9.0" PrivateAssets="all" />
+    <PackageReference Include="ControlzEx" Version="6.0.0" />
+    <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="all" />
-    <PackageReference Include="NUnit" Version="3.13.3" PrivateAssets="all" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1">
+    <PackageReference Include="NUnit" Version="4.0.1" PrivateAssets="all" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="PublicApiGenerator" Version="10.3.0" PrivateAssets="all" />
+    <PackageReference Include="PublicApiGenerator" Version="11.1.0" PrivateAssets="all" />
+    <PackageReference Include="Verify.NUnit" Version="22.8.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Orchestra.Core\Orchestra.Core.csproj" />
     <ProjectReference Include="..\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.csproj" />
     <ProjectReference Include="..\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.csproj" />
     <ProjectReference Include="..\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.csproj" />

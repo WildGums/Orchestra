@@ -9,8 +9,8 @@
     {
         public static Changelog GetDelta(this Changelog changelog1, Changelog changelog2)
         {
-            Argument.IsNotNull(() => changelog1);
-            Argument.IsNotNull(() => changelog2);
+            ArgumentNullException.ThrowIfNull(changelog1);
+            ArgumentNullException.ThrowIfNull(changelog2);
 
             // Note: we do simple delta comparsion, only the ones we added should be part
 
@@ -31,7 +31,7 @@
 
         public static List<ChangelogGroup> CreateGroups(this Changelog changelog)
         {
-            Argument.IsNotNull(() => changelog);
+            ArgumentNullException.ThrowIfNull(changelog);
 
             var groups = new Dictionary<string, ChangelogGroup>(StringComparer.OrdinalIgnoreCase);
 

@@ -1,21 +1,12 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StringExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
     using System;
-    using Catel;
 
     /// <summary>
     /// Extension methods for strings.
     /// </summary>
     public static class StringExtensions
     {
-        #region Methods
         /// <summary>
         /// Gets the command group from the command name.
         /// </summary>
@@ -23,7 +14,7 @@ namespace Orchestra
         /// <returns>System.String.</returns>
         public static string GetCommandGroup(this string commandName)
         {
-            Argument.IsNotNull(() => commandName);
+            ArgumentNullException.ThrowIfNull(commandName);
 
             if (!commandName.Contains("."))
             {
@@ -40,15 +31,14 @@ namespace Orchestra
         /// <returns>System.String.</returns>
         public static string GetCommandName(this string commandName)
         {
-            Argument.IsNotNull(() => commandName);
+            ArgumentNullException.ThrowIfNull(commandName);
 
-            if (!commandName.Contains("."))
+            if (!commandName.Contains('.'))
             {
                 return commandName;
             }
 
             return commandName.Split(new[] { '.' })[1];
         }
-        #endregion
     }
 }

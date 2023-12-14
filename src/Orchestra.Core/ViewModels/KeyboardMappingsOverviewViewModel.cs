@@ -1,22 +1,13 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="KeyboardMappingsOverviewViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
-    using Models;
     using Services;
 
     /// <summary>
@@ -30,28 +21,25 @@ namespace Orchestra.ViewModels
         private readonly ICommandInfoService _commandInfoService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly ILanguageService _languageService;
-        private readonly IViewExportService _viewExportService;
         private readonly IKeyboardMappingsService _keyboardMappingsService;
 
         public KeyboardMappingsOverviewViewModel(ICommandManager commandManager, ICommandInfoService commandInfoService, IUIVisualizerService uiVisualizerService,
-            ILanguageService languageService, IViewExportService viewExportService, IKeyboardMappingsService keyboardMappingsService)
+            ILanguageService languageService, IKeyboardMappingsService keyboardMappingsService)
         {
-            Argument.IsNotNull(() => commandManager);
-            Argument.IsNotNull(() => commandInfoService);
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => languageService);
-            Argument.IsNotNull(() => viewExportService);
-            Argument.IsNotNull(() => keyboardMappingsService);
+            ArgumentNullException.ThrowIfNull(commandManager);
+            ArgumentNullException.ThrowIfNull(commandInfoService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(languageService);
+            ArgumentNullException.ThrowIfNull(keyboardMappingsService);
 
             _commandManager = commandManager;
             _commandInfoService = commandInfoService;
             _uiVisualizerService = uiVisualizerService;
             _languageService = languageService;
-            _viewExportService = viewExportService;
             _keyboardMappingsService = keyboardMappingsService;
 
-            Print = new TaskCommand(OnPrintExecuteAsync);
             Customize = new TaskCommand(OnCustomizeExecuteAsync);
+            KeyboardMappings = new List<KeyboardMappings>();
         }
 
         /// <summary>
@@ -59,20 +47,6 @@ namespace Orchestra.ViewModels
         /// </summary>
         /// <value>The keyboard mappings.</value>
         public List<KeyboardMappings> KeyboardMappings { get; private set; }
-
-        #region Commands
-        /// <summary>
-        /// Gets the Print command.
-        /// </summary>
-        public TaskCommand Print { get; private set; }
-
-        /// <summary>
-        /// Method to invoke when the Print command is executed.
-        /// </summary>
-        private async Task OnPrintExecuteAsync()
-        {
-            await _viewExportService.ExportAsync(this);
-        }
 
         /// <summary>
         /// Gets the Customize command.
@@ -86,13 +60,12 @@ namespace Orchestra.ViewModels
         {
             return _uiVisualizerService.ShowDialogAsync<KeyboardMappingsCustomizationViewModel>();
         }
-        #endregion
 
         protected override async Task InitializeAsync()
         {
             await base.InitializeAsync();
 
-            Title = string.Format(_languageService.GetString("Orchestra_ShortcutsForApplication"), AssemblyHelper.GetEntryAssembly().Title());
+            Title = string.Format(_languageService.GetRequiredString("Orchestra_ShortcutsForApplication"), AssemblyHelper.GetRequiredEntryAssembly().Title());
 
             var mappingsByGroup = new Dictionary<string, KeyboardMappings>();
             mappingsByGroup.Add(string.Empty, new KeyboardMappings { GroupName = string.Empty });

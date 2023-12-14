@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="InputGestureExtensionsFacts.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Tests
+﻿namespace Orchestra.Tests
 {
     using System.Windows.Input;
     using Catel.Windows.Input;
@@ -24,7 +17,7 @@ namespace Orchestra.Tests
         {
             var inputGesture = new InputGesture(key, modifierKeys);
 
-            Assert.AreEqual(expectedValue, inputGesture.IsEmpty());
+            Assert.That(inputGesture.IsEmpty(), Is.EqualTo(expectedValue));
         }
     }
 }

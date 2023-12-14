@@ -10,7 +10,6 @@
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
-    using Catel.Threading;
 
     public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
     {
@@ -20,9 +19,9 @@
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private static bool IsClosingConfirmed;
-        private static Window SubscribedWindow;
+        private static Window? SubscribedWindow;
         private static readonly IList<CloseApplicationWatcherBase> Watchers = new List<CloseApplicationWatcherBase>();
-        private static readonly IMessageService MessageService = ServiceLocator.Default.ResolveType<IMessageService>();
+        private static readonly IMessageService MessageService = ServiceLocator.Default.ResolveRequiredType<IMessageService>();
 
         protected CloseApplicationWatcherBase()
         {
@@ -52,7 +51,7 @@
         }
 
 #pragma warning disable AvoidAsyncVoid
-        private static async void OnWindowClosing(object sender, CancelEventArgs e)
+        private static async void OnWindowClosing(object? sender, CancelEventArgs e)
 #pragma warning restore AvoidAsyncVoid
         {
             if (CanClose)
@@ -94,7 +93,7 @@
                     {
                         Log.Debug("Closing is not confirmed yet, perform closing operations first");
 
-                        await TaskHelper.Run(() => PerformClosingOperationsAsync(window), true);
+                        await Task.Run(() => PerformClosingOperationsAsync(window));
                     }
                 }
                 finally
@@ -217,9 +216,8 @@
 
             IsClosingConfirmed = false;
 
-            var closingDetails = new ClosingDetails
+            var closingDetails = new ClosingDetails(window)
             {
-                Window = window,
                 Exception = ex,
                 CanBeClosed = true,
                 CanKeepOpened = true,
@@ -301,17 +299,17 @@
 
         protected virtual Task<bool> PrepareClosingAsync()
         {
-            return TaskHelper<bool>.FromResult(true);
+            return Task<bool>.FromResult(true);
         }
 
         protected virtual Task<bool> ClosingAsync()
         {
-            return TaskHelper<bool>.FromResult(true);
+            return Task<bool>.FromResult(true);
         }
 
         protected virtual Task ClosedAsync()
         {
-            return TaskHelper.Completed;
+            return Task.CompletedTask;
         }
 
         private static void Subscribe(Window window)

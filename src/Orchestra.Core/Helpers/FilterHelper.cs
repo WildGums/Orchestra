@@ -1,26 +1,19 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="FilterHelper.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
+    using System;
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
-    using Catel;
 
     public static class FilterHelper
     {
         public static bool MatchesFilters(IEnumerable<string> filters, string fileName)
         {
-            Argument.IsNotNull(() => filters);
-            Argument.IsNotNull(() => fileName);
+            ArgumentNullException.ThrowIfNull(filters);
+            ArgumentNullException.ThrowIfNull(fileName);
 
             foreach (var filter in filters)
             {
-                var mask = new Regex(filter.Replace(".", "[.]").Replace("*", ".*").Replace("?", "."), RegexOptions.IgnoreCase);
+                var mask = new Regex(filter.Replace(".", "[.]").Replace("*", ".*").Replace("?", "."), RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
                 if (mask.IsMatch(fileName))
                 {
                     return true;

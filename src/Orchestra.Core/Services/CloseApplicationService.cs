@@ -16,8 +16,8 @@
 
         public CloseApplicationService(IEnsureStartupService ensureStartupService, IMainWindowService mainWindowService)
         {
-            Argument.IsNotNull(() => ensureStartupService);
-            Argument.IsNotNull(() => mainWindowService);
+            ArgumentNullException.ThrowIfNull(ensureStartupService);
+            ArgumentNullException.ThrowIfNull(mainWindowService);
 
             _ensureStartupService = ensureStartupService;
             _mainWindowService = mainWindowService;
@@ -37,7 +37,7 @@
 
         public async Task CloseAsync(bool force)
         {
-            _ensureStartupService.ConfirmApplicationStartedSuccessfully();
+            await _ensureStartupService.ConfirmApplicationStartedSuccessfullyAsync();
 
             await LogManager.FlushAllAsync();
 

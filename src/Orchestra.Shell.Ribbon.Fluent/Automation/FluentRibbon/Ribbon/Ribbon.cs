@@ -16,11 +16,16 @@
 
         private RibbonMap Map => Map<RibbonMap>();
 
-        public Backstage OpenBackstage()
+        public Backstage? OpenBackstage()
         {
             var map = Map;
 
             var backstage = map.Backstage;
+            if (backstage is null)
+            {
+                return null;
+            }
+
             backstage.IsOpen = true;
 
             return backstage;
@@ -31,10 +36,15 @@
             var map = Map;
 
             var backstage = map.Backstage;
+            if (backstage is null)
+            {
+                return;
+            }
+
             backstage.IsOpen = false;
         }
         
-        public RibbonGroupBox GetGroupBox(string tabName, string viewName)
+        public RibbonGroupBox? GetGroupBox(string tabName, string viewName)
         {
             var map = Map;
 

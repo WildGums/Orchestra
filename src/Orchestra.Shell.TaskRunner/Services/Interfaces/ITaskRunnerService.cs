@@ -1,14 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ITaskRunnerService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
-    using System.ComponentModel;
     using System.Threading.Tasks;
     using System.Windows;
 
@@ -23,7 +15,7 @@ namespace Orchestra.Services
         /// <summary>
         /// Notifies when the title of the runner changes
         /// </summary>
-        event EventHandler TitleChanged;
+        event EventHandler? TitleChanged;
 
         /// <summary>
         /// Gets a value indicating whether to show the customize shortcuts button.
@@ -35,19 +27,19 @@ namespace Orchestra.Services
         /// Gets the data context that will be set to the view.
         /// </summary>
         /// <returns>The data context or <c>null</c>.</returns>
-        object GetViewDataContext();
+        object? GetViewDataContext();
 
         /// <summary>
         /// Gets the view to show in the configuration.
         /// </summary>
         /// <returns>FrameworkElement.</returns>
-        FrameworkElement GetView();
+        FrameworkElement? GetView();
 
         /// <summary>
         /// Runs the logic when the run button is clicked.
         /// </summary>
         /// <param name="dataContext">The data context retrieved earlier using the <see cref="GetViewDataContext"/> method.</param>
-        Task RunAsync(object dataContext);
+        Task RunAsync(object? dataContext);
 
         /// <summary>
         /// Gets the desired startup size.

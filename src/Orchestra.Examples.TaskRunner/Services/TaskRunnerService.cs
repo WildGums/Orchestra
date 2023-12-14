@@ -1,20 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TaskRunnerService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.TaskRunner.Services
+﻿namespace Orchestra.Examples.TaskRunner.Services
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
-    using Catel;
     using Catel.Logging;
     using Models;
-    using Orchestra.Models;
     using Orchestra.Services;
     using Views;
 
@@ -38,17 +29,17 @@ namespace Orchestra.Examples.TaskRunner.Services
 
         public bool ShowCustomizeShortcutsButton { get { return true; }}
 
-        public object GetViewDataContext()
+        public object? GetViewDataContext()
         {
             return new Settings();
         }
 
-        public FrameworkElement GetView()
+        public FrameworkElement? GetView()
         {
             return new SettingsView();
         }
 
-        public async Task RunAsync(object dataContext)
+        public async Task RunAsync(object? dataContext)
         {
             var settings = (Settings) dataContext;
 
@@ -73,7 +64,7 @@ namespace Orchestra.Examples.TaskRunner.Services
             return Size.Empty;
         }
 
-        public AboutInfo GetAboutInfo()
+        public async Task<AboutInfo> GetAboutInfoAsync()
         {
             return new AboutInfo();
         }

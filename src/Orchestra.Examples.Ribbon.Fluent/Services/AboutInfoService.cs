@@ -1,19 +1,12 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AboutInfoService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.Ribbon.Services
+﻿namespace Orchestra.Examples.Ribbon.Services
 {
     using System;
-    using Models;
+    using System.Threading.Tasks;
     using Orchestra.Services;
 
     internal class AboutInfoService : IAboutInfoService
     {
-        public AboutInfo GetAboutInfo()
+        public async Task<AboutInfo> GetAboutInfoAsync()
         {
             var aboutInfo = new AboutInfo(new Uri($"pack://application:,,,/{Catel.Reflection.AssemblyHelper.GetEntryAssembly().GetName().Name};component/Resources/Images/CompanyLogo.png", UriKind.RelativeOrAbsolute),
                 uriInfo: new UriInfo("https://www.catelproject.com", "Product website"));

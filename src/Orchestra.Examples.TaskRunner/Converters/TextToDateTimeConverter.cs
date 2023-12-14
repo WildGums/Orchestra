@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TextToDateTimeConverter.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.TaskRunner.Converters
+﻿namespace Orchestra.Examples.TaskRunner.Converters
 {
     using System;
     using Catel.MVVM.Converters;

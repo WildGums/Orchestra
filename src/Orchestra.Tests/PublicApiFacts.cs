@@ -1,71 +1,46 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PublicApiFacts.cs" company="WildGums">
-//   Copyright (c) 2008 - 2017 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Tests
+﻿namespace Orchestra.Tests
 {
-    using System.IO;
     using System.Reflection;
     using System.Runtime.CompilerServices;
-    using ApprovalTests;
-    using ApprovalTests.Namers;
+    using System.Threading.Tasks;
     using NUnit.Framework;
     using PublicApiGenerator;
     using Services;
+    using VerifyNUnit;
 
     [TestFixture]
     public class PublicApiFacts
     {
         [Test, MethodImpl(MethodImplOptions.NoInlining)]
-        public void Orchestra_Core_HasNoBreakingChanges()
+        public async Task Orchestra_Core_HasNoBreakingChanges_Async()
         {
             var assembly = typeof(AboutService).Assembly;
 
-            PublicApiApprover.ApprovePublicApi(assembly);
+            await PublicApiApprover.ApprovePublicApiAsync(assembly);
         }
 
         [Test, MethodImpl(MethodImplOptions.NoInlining)]
-        public void Orchestra_Shell_MahApps_HasNoBreakingChanges()
+        public async Task Orchestra_Shell_MahApps_HasNoBreakingChanges_Async()
         {
             var assembly = typeof(MahAppsAboutService).Assembly;
 
-            PublicApiApprover.ApprovePublicApi(assembly);
+            await PublicApiApprover.ApprovePublicApiAsync(assembly);
         }
 
         [Test, MethodImpl(MethodImplOptions.NoInlining)]
-        public void Orchestra_Shell_Ribbon_Fluent_HasNoBreakingChanges()
+        public async Task Orchestra_Shell_Ribbon_Fluent_HasNoBreakingChanges_Async()
         {
             var assembly = typeof(RibbonExtensions).Assembly;
 
-            PublicApiApprover.ApprovePublicApi(assembly);
+            await PublicApiApprover.ApprovePublicApiAsync(assembly);
         }
 
         internal static class PublicApiApprover
         {
-            public static void ApprovePublicApi(Assembly assembly)
+            public static async Task ApprovePublicApiAsync(Assembly assembly)
             {
                 var publicApi = ApiGenerator.GeneratePublicApi(assembly, new ApiGeneratorOptions());
-                var writer = new ApprovalTextWriter(publicApi, "cs");
-                var approvalNamer = new AssemblyPathNamer(assembly.Location);
-                Approvals.Verify(writer, approvalNamer, Approvals.GetReporter());
-            }
-        }
-
-        internal class AssemblyPathNamer : UnitTestFrameworkNamer
-        {
-            private readonly string _name;
-
-            public AssemblyPathNamer(string assemblyPath)
-            {
-                _name = Path.GetFileNameWithoutExtension(assemblyPath);
-
-            }
-            public override string Name
-            {
-                get { return _name; }
+                await Verifier.Verify(publicApi);
             }
         }
     }

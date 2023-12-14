@@ -1,21 +1,14 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ApplicationInitializationService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.Ribbon.Services
+﻿namespace Orchestra.Examples.Ribbon.Services
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Catel;
+    using Catel.Configuration;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
-    using Models;
     using Orchestra.Services;
     using InputGesture = Catel.Windows.Input.InputGesture;
 
@@ -23,17 +16,15 @@ namespace Orchestra.Examples.Ribbon.Services
     {
         private readonly IServiceLocator _serviceLocator;
 
-        #region Constants
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        #endregion
-
+        
         public override bool ShowSplashScreen => true;
 
         public override bool ShowShell => true;
 
         public ApplicationInitializationService(IServiceLocator serviceLocator)
         {
-            Argument.IsNotNull(() => serviceLocator);
+            ArgumentNullException.ThrowIfNull(serviceLocator);
 
             _serviceLocator = serviceLocator;
         }
@@ -52,8 +43,8 @@ namespace Orchestra.Examples.Ribbon.Services
 
         private async Task InitializeCommandsAsync()
         {
-            var commandManager = ServiceLocator.Default.ResolveType<ICommandManager>();
-            var commandInfoService = ServiceLocator.Default.ResolveType<ICommandInfoService>();
+            var commandManager = ServiceLocator.Default.ResolveRequiredType<ICommandManager>();
+            var commandInfoService = ServiceLocator.Default.ResolveRequiredType<ICommandInfoService>();
 
             commandManager.CreateCommandWithGesture(typeof(Commands.Application), "Exit");
             commandManager.CreateCommandWithGesture(typeof(Commands.Application), "About");
@@ -67,7 +58,7 @@ namespace Orchestra.Examples.Ribbon.Services
             commandManager.CreateCommand("File.SaveToImage", new InputGesture(Key.I, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.Print", new InputGesture(Key.P, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
 
-            var keyboardMappingsService = _serviceLocator.ResolveType<IKeyboardMappingsService>();
+            var keyboardMappingsService = _serviceLocator.ResolveRequiredType<IKeyboardMappingsService>();
             keyboardMappingsService.AdditionalKeyboardMappings.Add(new KeyboardMapping("MyGroup.Zoom", "Mousewheel", ModifierKeys.Control));
         }
 

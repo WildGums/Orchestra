@@ -1,25 +1,12 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AboutWindow.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
     using System.Windows;
-    using Catel.IoC;
-    using Catel.Services;
     using Catel.Windows;
     using ViewModels;
     using Windows;
 
-    /// <summary>
-    /// Interaction logic for AboutWindow.xaml.
-    /// </summary>
-    public partial class AboutWindow : DataWindow
+    public partial class AboutWindow
     {
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="AboutWindow"/> class.
         /// </summary>
@@ -35,16 +22,15 @@ namespace Orchestra.Views
         /// <remarks>
         /// This constructor can be used to use view-model injection.
         /// </remarks>
-        public AboutWindow(AboutViewModel viewModel)
+        public AboutWindow(AboutViewModel? viewModel)
             : base(viewModel, DataWindowMode.Custom)
         {
             InitializeComponent();
 
             this.ApplyApplicationIcon();
         }
-        #endregion
 
-        private void Close_OnClick(object sender, RoutedEventArgs e)
+        private void Close_OnClick(object? sender, RoutedEventArgs e)
         {
             Close();
         }

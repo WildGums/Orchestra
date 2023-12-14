@@ -1,6 +1,6 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows</TargetFrameworks>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <SelfContained>true</SelfContained>
@@ -8,6 +8,7 @@
     <RootNamespace>Orchestra.Examples.Ribbon</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <SonarQubeExclude>true</SonarQubeExclude>
+    <Nullable>annotations</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -26,19 +27,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Catel.Fody" Version="4.7.0" PrivateAssets="all" />
-    <PackageReference Include="Fluent.Ribbon" Version="9.0.4" />
-    <PackageReference Include="Fody" Version="6.6.3" PrivateAssets="all">
+    <PackageReference Include="Catel.Fody" Version="4.9.0" PrivateAssets="all" />
+    <PackageReference Include="Fluent.Ribbon" Version="10.0.4" />
+    <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.6.0" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="all" />
-    <PackageReference Include="Orc.Notifications" Version="4.3.1" />
+    <PackageReference Include="Orc.Notifications" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Orchestra.Core\Orchestra.Core.csproj" />
     <ProjectReference Include="..\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.csproj" />
   </ItemGroup>
 

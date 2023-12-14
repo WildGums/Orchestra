@@ -25,6 +25,11 @@ public class DependenciesContext : BuildContextWithItemsBase
 
     public bool ShouldBuildDependency(string dependencyProject)
     {
+        return ShouldBuildDependency(dependencyProject, Array.Empty<string>());
+    }
+
+    public bool ShouldBuildDependency(string dependencyProject, IEnumerable<string> knownDependenciesToBeBuilt)
+    {
         if (!Dependencies.TryGetValue(dependencyProject, out var dependencyInfo))
         {
             return false;
@@ -38,9 +43,31 @@ public class DependenciesContext : BuildContextWithItemsBase
 
         foreach (var projectRequiringDependency in dependencyInfo)
         {
+             CakeContext.Information($"Checking whether '{projectRequiringDependency}' is in the list to be processed");
+
+            // Check dependencies of dependencies
+            if (knownDependenciesToBeBuilt.Any(x => string.Equals(x, projectRequiringDependency, StringComparison.OrdinalIgnoreCase)))
+            {
+                CakeContext.Information($"Dependency '{dependencyProject}' is a dependency of dependency project '{projectRequiringDependency}', including this in the build");
+                return true;
+            }
+
+            // Special case: *if* this is the 2nd round we check, and the project requiring this dependency is a test project,
+            // we should check whether the test project is not already excluded. If so, the Deploy[SomeProject]Tests will return true
+            // and this logic will still include it, so we need to exclude it explicitly
+            if (IsTestProject((BuildContext)ParentContext, projectRequiringDependency) &&
+                !knownDependenciesToBeBuilt.Contains(projectRequiringDependency))
+            {
+                CakeContext.Information($"Dependency '{dependencyProject}' is a dependency of '{projectRequiringDependency}', but that is an already excluded test project, not yet including in the build");
+
+                // Important: don't return, there might be other projects
+                continue;
+            }
+
             // Check if we should build this project
             if (ShouldProcessProject((BuildContext)ParentContext, projectRequiringDependency))
             {
+                CakeContext.Information($"Dependency '{dependencyProject}' is a dependency of '{projectRequiringDependency}', including this in the build");
                 return true;
             }
         }

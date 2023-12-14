@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CommandManagerExtensionsFacts.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Tests
+﻿namespace Orchestra.Tests
 {
     using System.Linq;
     using System.Security.Cryptography.X509Certificates;
@@ -31,7 +24,7 @@ namespace Orchestra.Tests
             var inputGesture = new InputGesture(key, modifierKeys);
             var existingCommands = commandManager.FindCommandsByGesture(inputGesture);
 
-            Assert.AreEqual(expectedToBeAvailable, existingCommands.Any());
+            Assert.That(existingCommands.Any(), Is.EqualTo(expectedToBeAvailable));
         }
     }
 }

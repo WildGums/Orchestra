@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ExampleDialogOkCancelApplyView.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.MahApps.Views
+﻿namespace Orchestra.Examples.MahApps.Views
 {
     using Catel.Windows;
 

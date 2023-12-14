@@ -1,13 +1,14 @@
 ﻿namespace Orchestra
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
     public class ThirdPartyNotice
     {
+        public ThirdPartyNotice()
+        {
+            Title = string.Empty;
+            Content = string.Empty;
+            Url = string.Empty;
+        }
+
         public string Title { get; protected set; }
 
         public string Content { get; protected set; }

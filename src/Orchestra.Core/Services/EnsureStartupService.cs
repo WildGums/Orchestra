@@ -1,12 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="EnsureStartupService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
+    using System;
     using System.IO;
     using System.Threading.Tasks;
     using Catel;
@@ -17,45 +11,39 @@ namespace Orchestra.Services
 
     public class EnsureStartupService : IEnsureStartupService
     {
-        #region Fields
+        private const string EnsureStartupCheckFile = "startupfailed.txt";
+
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         private readonly IAppDataService _appDataService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IFileService _fileService;
 
 #pragma warning disable IDISP006 // Implement IDisposable.
-        private Stream _fileStream;
+        private Stream? _fileStream;
 #pragma warning restore IDISP006 // Implement IDisposable.
-        #endregion
 
-        #region Constructors
         public EnsureStartupService(IAppDataService appDataService, IUIVisualizerService uiVisualizerService, IFileService fileService)
         {
-            Argument.IsNotNull(() => appDataService);
-            Argument.IsNotNull(() => uiVisualizerService);
-            Argument.IsNotNull(() => fileService);
+            ArgumentNullException.ThrowIfNull(appDataService);
+            ArgumentNullException.ThrowIfNull(uiVisualizerService);
+            ArgumentNullException.ThrowIfNull(fileService);
 
             _appDataService = appDataService;
             _uiVisualizerService = uiVisualizerService;
             _fileService = fileService;
         }
-        #endregion
 
-        #region Constants
-        private const string EnsureStartupCheckFile = "startupfailed.txt";
-
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        #endregion
-
-        #region IEnsureStartupService Members
         public bool SuccessfullyStarted { get; private set; }
 
-        public virtual void ConfirmApplicationStartedSuccessfully()
+        public virtual async Task ConfirmApplicationStartedSuccessfullyAsync()
         {
             Log.Debug("Confirming application started successfully, deleting fail safe file check");
 
             if (_fileStream is not null)
             {
-                _fileStream.Dispose();
+                await _fileStream.DisposeAsync();
+                _fileStream = null;
 
                 var checkFile = GetCheckFileName();
                 _fileService.Delete(checkFile);
@@ -122,7 +110,6 @@ namespace Orchestra.Services
 
             return false;
         }
-        #endregion
 
         private string GetCheckFileName()
         {

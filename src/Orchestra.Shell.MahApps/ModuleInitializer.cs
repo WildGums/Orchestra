@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ModuleInitializer.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Catel.IoC;
 using Catel.MVVM;
 using Catel.Services;
@@ -27,12 +20,12 @@ public static partial class ModuleInitializer
         serviceLocator.RegisterType<IMessageService, MahAppsMessageService>();
         serviceLocator.RegisterType<IUIVisualizerService, MahAppsUIVisualizerService>();
 
-        var commandManager = serviceLocator.ResolveType<ICommandManager>();
+        var commandManager = serviceLocator.ResolveRequiredType<ICommandManager>();
 
         commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
         commandManager.CreateCommand("Close", new InputGesture(Key.Escape), throwExceptionWhenCommandIsAlreadyCreated: false);
 
-        var thirdPartyNoticesService = serviceLocator.ResolveType<IThirdPartyNoticesService>();
+        var thirdPartyNoticesService = serviceLocator.ResolveRequiredType<IThirdPartyNoticesService>();
         thirdPartyNoticesService.AddWithTryCatch(() => new ResourceBasedThirdPartyNotice("MahApps", "https://mahapps.com/", "Orchestra.Shell.MahApps", "Orchestra", "Resources.ThirdPartyNotices.mahapps.txt"));
     }
 }

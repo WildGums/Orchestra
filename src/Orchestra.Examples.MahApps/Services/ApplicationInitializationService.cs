@@ -1,16 +1,10 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ApplicationInitializationService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Examples.MahApps.Services
+﻿namespace Orchestra.Examples.MahApps.Services
 {
     using System;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Catel;
+    using Catel.Configuration;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
@@ -29,7 +23,7 @@ namespace Orchestra.Examples.MahApps.Services
 
         public ApplicationInitializationService(IServiceLocator serviceLocator)
         {
-            Argument.IsNotNull(() => serviceLocator);
+            ArgumentNullException.ThrowIfNull(serviceLocator);
 
             _serviceLocator = serviceLocator;
         }

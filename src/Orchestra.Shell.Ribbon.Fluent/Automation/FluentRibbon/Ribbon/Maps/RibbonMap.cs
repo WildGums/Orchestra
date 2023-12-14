@@ -12,7 +12,7 @@
         {
         }
 
-        public Backstage Backstage => By.One<Backstage>();
+        public Backstage? Backstage => By.One<Backstage>();
         public List<TabItem> TabItems => By.ClassName("RibbonTabItem").Many<TabItem>();
     }
 }

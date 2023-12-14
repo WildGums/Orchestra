@@ -1,7 +1,7 @@
 #l "docker-variables.cake"
 #l "lib-octopusdeploy.cake"
 
-#addin "nuget:?package=Cake.Docker&version=1.1.2"
+#addin "nuget:?package=Cake.Docker&version=1.2.3"
 
 //-------------------------------------------------------------
 
@@ -18,19 +18,19 @@ public class DockerImagesProcessor : ProcessorBase
         return BuildContext.DockerImages.Items.Count > 0;
     }
 
-    private string GetDockerRegistryUrl(string projectName)
+    public string GetDockerRegistryUrl(string projectName)
     {
         // Allow per project overrides via "DockerRegistryUrlFor[ProjectName]"
         return GetProjectSpecificConfigurationValue(BuildContext, projectName, "DockerRegistryUrlFor", BuildContext.DockerImages.DockerRegistryUrl);
     }
 
-    private string GetDockerRegistryUserName(string projectName)
+    public string GetDockerRegistryUserName(string projectName)
     {
         // Allow per project overrides via "DockerRegistryUserNameFor[ProjectName]"
         return GetProjectSpecificConfigurationValue(BuildContext, projectName, "DockerRegistryUserNameFor", BuildContext.DockerImages.DockerRegistryUserName);
     }
 
-    private string GetDockerRegistryPassword(string projectName)
+    public string GetDockerRegistryPassword(string projectName)
     {
         // Allow per project overrides via "DockerRegistryPasswordFor[ProjectName]"
         return GetProjectSpecificConfigurationValue(BuildContext, projectName, "DockerRegistryPasswordFor", BuildContext.DockerImages.DockerRegistryPassword);
@@ -172,7 +172,8 @@ public class DockerImagesProcessor : ProcessorBase
 
             var projectFileName = GetProjectFileName(BuildContext, dockerImage);
             
-            var msBuildSettings = new MSBuildSettings {
+            var msBuildSettings = new MSBuildSettings 
+            {
                 Verbosity = Verbosity.Quiet, // Verbosity.Diagnostic
                 ToolVersion = MSBuildToolVersion.Default,
                 Configuration = BuildContext.General.Solution.ConfigurationName,
@@ -200,12 +201,11 @@ public class DockerImagesProcessor : ProcessorBase
         // ./output => output of the publish step
         // ./config => docker image and config files, in case they need to be packed as well
 
-
         foreach (var dockerImage in BuildContext.DockerImages.Items)
         {
-            if (!ShouldDeployProject(BuildContext, dockerImage))
+            if (!ShouldPackageProject(BuildContext, dockerImage))
             {
-                CakeContext.Information("Docker image '{0}' should not be deployed", dockerImage);
+                CakeContext.Information("Docker image '{0}' should not be packaged", dockerImage);
                 continue;
             }
 

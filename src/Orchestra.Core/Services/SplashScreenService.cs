@@ -1,12 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SplashScreenService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
+    using System.Threading.Tasks;
     using System.Windows;
 
     public class SplashScreenService : ISplashScreenService
@@ -15,7 +9,7 @@ namespace Orchestra.Services
         /// Creates the splash screen.
         /// </summary>
         /// <returns>The window.</returns>
-        public Window CreateSplashScreen()
+        public virtual async Task<Window> CreateSplashScreenAsync()
         {
             var splashScreen = new Views.SplashScreen();
 

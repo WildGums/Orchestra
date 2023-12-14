@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="FlyoutService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Collections.Generic;
@@ -22,26 +15,21 @@ namespace Orchestra.Services
 
     public class FlyoutService : IFlyoutService
     {
-        #region Fields
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private readonly ICommandManager _commandManager;
         private readonly Dictionary<string, FlyoutInfo> _flyouts = new Dictionary<string, FlyoutInfo>();
         private readonly ITypeFactory _typeFactory;
-        #endregion
 
-        #region Constructors
         public FlyoutService(ITypeFactory typeFactory, ICommandManager commandManager)
         {
-            Argument.IsNotNull(() => typeFactory);
-            Argument.IsNotNull(() => commandManager);
+            ArgumentNullException.ThrowIfNull(typeFactory);
+            ArgumentNullException.ThrowIfNull(commandManager);
 
             _typeFactory = typeFactory;
             _commandManager = commandManager;
         }
-        #endregion
 
-        #region Methods
         public IEnumerable<Flyout> GetFlyouts()
         {
             return (from flyout in _flyouts.Values
@@ -51,11 +39,11 @@ namespace Orchestra.Services
         public void AddFlyout(string name, Type viewType, Position position, UnloadBehavior unloadBehavior = UnloadBehavior.SaveAndCloseViewModel, FlyoutTheme flyoutTheme = FlyoutTheme.Adapt)
         {
             Argument.IsNotNullOrWhitespace(() => name);
-            Argument.IsNotNull(() => viewType);
+            ArgumentNullException.ThrowIfNull(viewType);
 
             Log.Info("Adding flyout '{0}' with view type '{1}'", name, viewType.FullName);
 
-            var content = (UIElement)_typeFactory.CreateInstance(viewType);
+            var content = (UIElement)_typeFactory.CreateRequiredInstance(viewType);
 
             var flyout = new Flyout();
             flyout.Theme = flyoutTheme;
@@ -66,11 +54,20 @@ namespace Orchestra.Services
             // See https://github.com/WildGums/Orchestra/issues/278, we cannot bind this, use workaround for now, see workaround below as well!!!
             //flyout.SetBinding(Flyout.HeaderProperty, new Binding("ViewModel.Title") { Source = content });
 
-            ((ICompositeCommand)_commandManager.GetCommand("Close")).RegisterAction(() => { flyout.IsOpen = false; });
+            var command = _commandManager.GetCommand("Close") as ICompositeCommand;
+            if (command is not null)
+            {
+                command.RegisterAction(() => { flyout.IsOpen = false; });
+            }
 
             // ViewModelChanged handler (Workaround for https://github.com/WildGums/Orchestra/issues/278)
             var vmContainer = content as IViewModelContainer;
-            EventHandler<EventArgs> viewModelChangedHandler = null;
+            if (vmContainer is null)
+            {
+                return;
+            }
+
+            EventHandler<EventArgs>? viewModelChangedHandler = null;
             viewModelChangedHandler = (sender, e) =>
             {
                 var title = vmContainer?.ViewModel?.Title;
@@ -86,7 +83,7 @@ namespace Orchestra.Services
             vmContainer.ViewModelChanged += viewModelChangedHandler;
 
             // IsOpenChanged handler
-            RoutedEventHandler isOpenHandler = null;
+            RoutedEventHandler? isOpenHandler = null;
 #pragma warning disable AvoidAsyncVoid
             isOpenHandler = async (sender, e) =>
 #pragma warning restore AvoidAsyncVoid
@@ -113,7 +110,7 @@ namespace Orchestra.Services
                                 break;
 
                             default:
-                                throw new ArgumentOutOfRangeException(nameof(unloadBehavior));
+                                throw Log.ErrorAndCreateException(_ => new ArgumentOutOfRangeException(nameof(unloadBehavior)), string.Empty);
                         }
                     }
 
@@ -121,7 +118,7 @@ namespace Orchestra.Services
                     flyout.DataContext = null;
 
                     flyout.IsOpenChanged -= isOpenHandler;
-                    vmContainer.ViewModelChanged -= viewModelChangedHandler;
+                    vmContainer!.ViewModelChanged -= viewModelChangedHandler;
                 }
             };
 
@@ -129,7 +126,6 @@ namespace Orchestra.Services
 
             _flyouts[name] = flyoutInfo;
         }
-
 
         public void ShowFlyout(string name, object dataContext)
         {
@@ -184,6 +180,5 @@ namespace Orchestra.Services
                 flyout.SetCurrentValue(Flyout.IsOpenProperty, false);
             });
         }
-        #endregion
     }
 }

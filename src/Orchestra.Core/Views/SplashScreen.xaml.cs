@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SplashScreen.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Views
+﻿namespace Orchestra.Views
 {
     using System.Windows;
     using System.Windows.Media;
@@ -14,9 +7,8 @@ namespace Orchestra.Views
     /// <summary>
     /// Interaction logic for SplashScreen.xaml
     /// </summary>
-    public partial class SplashScreen
+    public partial class SplashScreen : DataWindow
     {
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="SplashScreen" /> class.
         /// </summary>
@@ -29,6 +21,5 @@ namespace Orchestra.Views
 
             Background = (application is not null) ? Orc.Theming.ThemeManager.Current.GetAccentColorBrush() : Brushes.DodgerBlue;
         }
-        #endregion
     }
 }

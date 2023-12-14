@@ -1,12 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ShellViewModel.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels
 {
+    using System;
     using Catel;
     using Catel.MVVM;
     using Orchestra.Services;
@@ -15,7 +9,7 @@ namespace Orchestra.ViewModels
     {
         public ShellViewModel(IShellConfigurationService shellConfigurationService)
         {
-            Argument.IsNotNull(() => shellConfigurationService);
+            ArgumentNullException.ThrowIfNull(shellConfigurationService);
 
             DeferValidationUntilFirstSaveCall = shellConfigurationService.DeferValidationUntilFirstSaveCall;
         }

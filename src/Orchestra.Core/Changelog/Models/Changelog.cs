@@ -6,6 +6,7 @@
     {
         public Changelog()
         {
+            Title = string.Empty;
             Items = new List<ChangelogItem>();
         }
 

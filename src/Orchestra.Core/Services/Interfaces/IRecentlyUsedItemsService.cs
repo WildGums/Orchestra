@@ -1,15 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IRecentlyUsedItemService.cs" company="WildGums">
-//   Copyright (c) 2008 - 2014 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra.Services
+﻿namespace Orchestra.Services
 {
     using System;
     using System.Collections.Generic;
-    using Models;
 
     public interface IRecentlyUsedItemsService
     {
@@ -34,16 +26,16 @@ namespace Orchestra.Services
         IEnumerable<RecentlyUsedItem> PinnedItems { get; }
 
         /// <summary>
+        /// Occurs when the <see cref="RecentlyUsedItemsService.Items"/> property has been updated.
+        /// </summary>
+        event EventHandler<EventArgs>? Updated;
+
+        /// <summary>
         /// Adds the item to the list of recently used items.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="item"/> is <c>null</c>.</exception>
         void AddItem(RecentlyUsedItem item);
-
-        /// <summary>
-        /// Occurs when the <see cref="RecentlyUsedItemsService.Items"/> property has been updated.
-        /// </summary>
-        event EventHandler<EventArgs> Updated;
 
         /// <summary>
         /// Pins the item with the specified name.

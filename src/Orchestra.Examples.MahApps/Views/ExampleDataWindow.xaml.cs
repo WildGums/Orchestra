@@ -1,10 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ExampleDataWindow.xaml.cs" company="WildGums">
-//   Copyright (c) 2008 - 2015 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace Orchestra.Examples.MahApps.Views
+﻿namespace Orchestra.Examples.MahApps.Views
 {
     public sealed partial class ExampleDataWindow
     {

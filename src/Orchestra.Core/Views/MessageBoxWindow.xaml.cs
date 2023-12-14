@@ -8,23 +8,21 @@
 
     public partial class MessageBoxWindow
     {
-        #region Constructors
         public MessageBoxWindow()
             : this(null)
         {
         }
 
-        public MessageBoxWindow(MessageBoxViewModel viewModel)
+        public MessageBoxWindow(MessageBoxViewModel? viewModel)
             : base(viewModel, DataWindowMode.Custom)
         {
             InitializeComponent();
 
-            if (viewModel.Button == MessageButton.YesNo)
+            if (viewModel?.Button == MessageButton.YesNo)
             {
                 this.DisableCloseButton();
             }
         }
-        #endregion
 
         protected override AutomationPeer OnCreateAutomationPeer()
         {

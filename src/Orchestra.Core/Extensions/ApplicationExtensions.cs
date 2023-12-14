@@ -1,14 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ApplicationExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2017 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace Orchestra
+﻿namespace Orchestra
 {
+    using System;
     using System.Windows;
-    using Catel;
     using Catel.IoC;
     using Catel.Reflection;
     using Orchestra.Theming;
@@ -17,10 +10,10 @@ namespace Orchestra
     {
         public static void ApplyTheme(this Application application, bool createStyleForwarders = true)
         {
-            Argument.IsNotNull(() => application);
+            ArgumentNullException.ThrowIfNull(application);
 
             var serviceLocator = ServiceLocator.Default;
-            var themeManager = serviceLocator.ResolveType<IThemeManager>();
+            var themeManager = serviceLocator.ResolveRequiredType<IThemeManager>();
             themeManager.EnsureApplicationThemes(application.GetType().GetAssemblyEx(), createStyleForwarders);
         }
     }
