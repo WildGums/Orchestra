@@ -27,6 +27,8 @@
 
             var backstage = ribbon.OpenBackstage();
 
+            Wait.UntilInputProcessed(1000);
+
             view = backstage?.GetContent<TBackstageContentView>();
 
             return new DisposableToken(DummyScopeObject, _ => { }, _ => ribbon.CloseBackstage());
