@@ -39,6 +39,8 @@
 
             var backstageScope = ribbon.OpenBackstageView<BackstageTabControl>(out var tabControl);
 
+            Wait.UntilInputProcessed(1000);
+
             view = tabControl?.GetItemContent<TBackstageTabItemContentView>(header);
 
             return backstageScope;
