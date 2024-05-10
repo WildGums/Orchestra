@@ -196,6 +196,7 @@ namespace Orchestra.Automation.FluentRibbon
         public bool IsExpanded { get; set; }
         public void Invoke() { }
     }
+    [Orc.Automation.ActiveAutomationModel]
     public class SplitButtonModel : Orchestra.Automation.FluentRibbon.DropDownButtonModel
     {
         public SplitButtonModel(Orc.Automation.AutomationElementAccessor accessor) { }
