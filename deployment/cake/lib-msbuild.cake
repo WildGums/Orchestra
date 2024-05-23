@@ -1,5 +1,5 @@
-#addin "nuget:?package=Cake.Issues&version=4.1.0"
-#addin "nuget:?package=Cake.Issues.MsBuild&version=4.1.0"
+#addin "nuget:?package=Cake.Issues&version=4.4.0"
+#addin "nuget:?package=Cake.Issues.MsBuild&version=4.4.0"
 
 #tool "nuget:?package=MSBuild.Extension.Pack&version=1.9.1"
 
@@ -67,7 +67,7 @@ private static void ConfigureMsBuild(BuildContext buildContext, MSBuildSettings 
     }
     else
     {
-        buildContext.CakeContext.Information("This is a local build, disabling building of project references");
+        buildContext.CakeContext.Information("This is a local build, not disabling building of project references");
     }
 
     // Continuous integration build
@@ -154,7 +154,7 @@ private static void ConfigureMsBuildForDotNet(BuildContext buildContext, DotNetM
     }
     else
     {
-        buildContext.CakeContext.Information($"This is a local build, disabling building of project references");
+        buildContext.CakeContext.Information($"This is a local build, not disabling building of project references");
     }
 
     // Continuous integration build
