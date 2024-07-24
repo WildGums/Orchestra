@@ -97,7 +97,7 @@
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
         [Time]
-        public async Task<TShell> CreateAsync<TShell>()
+        public virtual async Task<TShell> CreateAsync<TShell>()
             where TShell : class, IShell
         {
             await _applicationInitializationService.InitializeBeforeShowingSplashScreenAsync();
