@@ -138,7 +138,7 @@
         /// <param name="postShowShellCallback">The shell created callback.</param>
         /// <returns>The created shell.</returns>
         /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        public virtual async Task<TShell> CreateShellInternalAsync<TShell>(Action? postShowShellCallback = null)
+        private async Task<TShell> CreateShellInternalAsync<TShell>(Action? postShowShellCallback = null)
             where TShell : IShell
         {
             if (Shell is not null)
@@ -234,7 +234,7 @@
         partial void OnCreatingShell();
 
         [Time]
-        private async Task<TShell> CreateShellAsync<TShell>()
+        protected virtual async Task<TShell> CreateShellAsync<TShell>()
             where TShell : IShell
         {
             Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName(false));
