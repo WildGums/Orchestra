@@ -126,6 +126,8 @@ namespace Orchestra.Services
         public Orchestra.Views.IShell? Shell { get; }
         public virtual System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }
+        public virtual System.Threading.Tasks.Task<TShell> CreateShellInternalAsync<TShell>(System.Action? postShowShellCallback = null)
+            where TShell : Orchestra.Views.IShell { }
     }
     public class XamlResourceService : Orchestra.Services.IXamlResourceService
     {
