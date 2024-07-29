@@ -281,7 +281,7 @@
         partial void OnCreatedShell();
 
         [Time]
-        private void ShowShell(IShell shell)
+        protected virtual void ShowShell(IShell shell)
         {
             if (!_applicationInitializationService.ShowShell)
             {
