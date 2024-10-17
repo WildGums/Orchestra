@@ -189,6 +189,14 @@ namespace Orchestra.Automation.FluentRibbon
         public Orchestra.Automation.FluentRibbon.Backstage? Backstage { get; }
         public System.Collections.Generic.List<Orc.Automation.Controls.TabItem> TabItems { get; }
     }
+    [Orc.Automation.Control(ClassName="RibbonToggleButton")]
+    public class RibbonToggleButton : Orc.Automation.Controls.FrameworkElement<Orc.Automation.ButtonModel>
+    {
+        public RibbonToggleButton(System.Windows.Automation.AutomationElement element) { }
+        public string? Content { get; }
+        public bool? IsChecked { get; set; }
+        public bool Click() { }
+    }
     [Orc.Automation.Control(ClassName="SplitButton")]
     public class SplitButton : Orc.Automation.Controls.FrameworkElement<Orchestra.Automation.FluentRibbon.SplitButtonModel>
     {
@@ -305,8 +313,11 @@ namespace Orchestra.Services
     {
         public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver, Catel.IoC.IServiceLocator serviceLocator, Orchestra.Services.IConfigurationBackupService configurationBackupService) { }
         public Orchestra.Views.IShell? Shell { get; }
-        public System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
+        public virtual System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
             where TShell :  class, Orchestra.Views.IShell { }
+        protected virtual System.Threading.Tasks.Task<TShell> CreateShellAsync<TShell>()
+            where TShell : Orchestra.Views.IShell { }
+        protected virtual void ShowShell(Orchestra.Views.IShell shell) { }
     }
     public class XamlResourceService : Orchestra.Services.IXamlResourceService
     {

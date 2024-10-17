@@ -83,7 +83,7 @@
 
         protected override Visual GetVisualChild(int index)
         {
-            Argument.IsNotOutOfRange("index", index, 0, 0);
+            Argument.IsNotOutOfRange(nameof(index), index, 0, 0);
 
             return _tooltip;
         }

@@ -4,30 +4,50 @@
                   xmlns:catel="http://schemas.catelproject.com"
                   xmlns:orccontrols="clr-namespace:Orc.Controls;assembly=Orc.Controls"
                   xmlns:converters="clr-namespace:Orchestra.Converters"
-                  WindowStartupLocation="CenterScreen" WindowStyle="None" SnapsToDevicePixels="True"
-                  SizeToContent="WidthAndHeight" Background="{x:Null}" ResizeMode="NoResize" AllowsTransparency="True"
-                  ShowInTaskbar="True" Margin="0" UseLayoutRounding="True">
+                  xmlns:orctheming="http://schemas.wildgums.com/orc/theming"
+                  WindowStartupLocation="CenterScreen"
+                  WindowStyle="None"
+                  SnapsToDevicePixels="True"
+                  SizeToContent="WidthAndHeight"
+                  Background="{x:Null}"
+                  ResizeMode="NoResize"
+                  AllowsTransparency="True"
+                  ShowInTaskbar="True"
+                  Margin="0"
+                  UseLayoutRounding="True">
 
     <Window.Resources>
         <!--
             Style overrides to prevent flickering when Catel.Extensions.Controls and style forwarders are
             used, do not remove (even when not used)
         -->
-        <Style x:Key="WindowGridStyle" TargetType="{x:Type Grid}">
-            <Setter Property="Margin" Value="6" />
+        <Style x:Key="WindowGridStyle"
+               TargetType="{x:Type Grid}">
+            <Setter Property="Margin"
+                    Value="6" />
         </Style>
 
-        <Style x:Key="SplashTextBlockStyle" TargetType="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Bottom" />
-            <Setter Property="FontWeight" Value="Light" />
-            <Setter Property="Opacity" Value="0.8" />
-            <Setter Property="Margin" Value="8" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="Foreground" Value="White" />
+        <Style x:Key="SplashTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="VerticalAlignment"
+                    Value="Bottom" />
+            <Setter Property="FontWeight"
+                    Value="Light" />
+            <Setter Property="Opacity"
+                    Value="0.8" />
+            <Setter Property="Margin"
+                    Value="8" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="Foreground"
+                    Value="White" />
         </Style>
     </Window.Resources>
 
-    <Grid MinWidth="390" MaxWidth="450" Height="230" Margin="-3">
+    <Grid MinWidth="390"
+          MaxWidth="450"
+          Height="230"
+          Margin="-3">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
@@ -40,32 +60,55 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.RowSpan="4" Grid.ColumnSpan="2" BorderThickness="4" Margin="-3" >
+        <Border Grid.RowSpan="4"
+                Grid.ColumnSpan="2"
+                BorderThickness="4"
+                Margin="-3">
             <Border.BorderBrush>
-                <SolidColorBrush Color="#FFFFFF" Opacity="0.2"/>
+                <SolidColorBrush Color="#FFFFFF"
+                                 Opacity="0.2" />
             </Border.BorderBrush>
         </Border>
 
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Title}" HorizontalAlignment="Center"
-                   VerticalAlignment="Center" TextAlignment="Center" FontSize="36" TextWrapping="Wrap" Margin="70 0 70 0"
+        <TextBlock Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   Text="{Binding Title}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   FontSize="{orctheming:FontSize 36}"
+                   TextWrapping="Wrap"
+                   Margin="70 0 70 0"
                    Style="{StaticResource SplashTextBlockStyle}" />
 
-        <orccontrols:BusyIndicator Grid.Row="2" Grid.ColumnSpan="2" 
-                                   Foreground="White" Margin="8" 
+        <orccontrols:BusyIndicator Grid.Row="2"
+                                   Grid.ColumnSpan="2"
+                                   Foreground="White"
+                                   Margin="8"
                                    IgnoreUnloadedEventCount="0" />
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding ProducedBy}"
-                   HorizontalAlignment="Left" Style="{StaticResource SplashTextBlockStyle}"
+        <TextBlock Grid.Row="3"
+                   Grid.Column="0"
+                   Text="{Binding ProducedBy}"
+                   HorizontalAlignment="Left"
+                   Style="{StaticResource SplashTextBlockStyle}"
                    Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}, ConverterParameter=True}" />
 
-        <Image Grid.Row="3" Grid.Column="0" 
-               Source="{Binding CompanyLogoForSplashScreenUri, Converter={converters:NullImageSourceConverter}}" 
+        <Image Grid.Row="3"
+               Grid.Column="0"
+               Source="{Binding CompanyLogoForSplashScreenUri, Converter={converters:NullImageSourceConverter}}"
                HorizontalAlignment="Left"
-               Margin="10" VerticalAlignment="Bottom" Stretch="Uniform" Opacity="0.7"
-               Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}"/>
+               Margin="10"
+               VerticalAlignment="Bottom"
+               Stretch="Uniform"
+               Opacity="0.7"
+               Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}" />
 
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Version, StringFormat= v{0}}"
-                   HorizontalAlignment="Right" Style="{StaticResource SplashTextBlockStyle}" />
+        <TextBlock Grid.Row="3"
+                   Grid.Column="1"
+                   Text="{Binding Version, StringFormat= v{0}}"
+                   HorizontalAlignment="Right"
+                   Style="{StaticResource SplashTextBlockStyle}" />
     </Grid>
 
 </catel:DataWindow>

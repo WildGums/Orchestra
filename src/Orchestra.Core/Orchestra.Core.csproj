@@ -25,6 +25,7 @@
   <ItemGroup>
     <PackageReference Include="Catel.Fody" Version="4.9.0" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="6.8.1" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="6.8.2" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.6.0" PrivateAssets="all" />
@@ -36,6 +37,10 @@
     <PackageReference Include="Obsolete.Fody" Version="5.3.0" PrivateAssets="all" />
     <PackageReference Include="Orc.Controls" Version="5.0.7" />
     <PackageReference Include="Orc.SystemInfo" Version="5.0.0" />
+    <PackageReference Include="Orc.Automation" Version="5.0.5" />
+    <PackageReference Include="Orc.Controls" Version="5.0.7" />
+    <PackageReference Include="Orc.SystemInfo" Version="5.0.1" />
+    <PackageReference Include="Orc.Theming" Version="5.1.1" />
   </ItemGroup>
 
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props')" />

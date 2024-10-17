@@ -23,6 +23,7 @@
     <PackageReference Include="Catel.Fody" Version="4.9.0" PrivateAssets="all" />
     <PackageReference Include="ControlzEx" Version="6.0.0" />
     <PackageReference Include="Fody" Version="6.8.1" PrivateAssets="all">
+    <PackageReference Include="Fody" Version="6.8.2" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />

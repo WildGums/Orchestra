@@ -9,6 +9,8 @@
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
+    using Catel.Services;
+    using Orchestra.Examples.Ribbon.ViewModels;
     using Orchestra.Services;
     using InputGesture = Catel.Windows.Input.InputGesture;
 
@@ -39,6 +41,9 @@
             {
                 InitializePerformanceAsync
             });
+
+            var uiVisualizerService = _serviceLocator.ResolveRequiredType<IUIVisualizerService>();
+            await uiVisualizerService.ShowDialogAsync<FontSizeSelectorViewModel>();
         }
 
         private async Task InitializeCommandsAsync()
