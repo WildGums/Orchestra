@@ -3,8 +3,11 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:catel="http://schemas.catelproject.com"
                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
-                  ResizeMode="CanResizeWithGrip" SizeToContent="Manual"
-                  MinWidth="600" MinHeight="400">
+                  xmlns:orctheming="http://schemas.wildgums.com/orc/theming"
+                  ResizeMode="CanResizeWithGrip"
+                  SizeToContent="Manual"
+                  MinWidth="600"
+                  MinHeight="400">
 
     <orccontrols:StackGrid>
         <Grid.RowDefinitions>
@@ -14,10 +17,14 @@
         </Grid.RowDefinitions>
 
         <Label>
-            <TextBlock TextWrapping="Wrap" Text="{Binding Explanation}" />
+            <TextBlock TextWrapping="Wrap"
+                       Text="{Binding Explanation}" />
         </Label>
 
-        <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Gray" Margin="4,6,4,6" />
+        <Rectangle HorizontalAlignment="Stretch"
+                   Height="1"
+                   Fill="Gray"
+                   Margin="4,6,4,6" />
 
         <ScrollViewer>
             <ItemsControl ItemsSource="{Binding ThirdPartyNotices}">
@@ -30,14 +37,21 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <orccontrols:LinkLabel Content="{Binding Title}" Url="{Binding Url}" ClickBehavior="OpenUrlInBrowser"
-                                                   FontSize="16" FontWeight="SemiBold"/>
-                            
+                            <orccontrols:LinkLabel Content="{Binding Title}"
+                                                   Url="{Binding Url}"
+                                                   ClickBehavior="OpenUrlInBrowser"
+                                                   FontSize="{orctheming:FontSize 16}"
+                                                   FontWeight="SemiBold" />
+
                             <Label Visibility="{Binding Content, Converter={catel:ReferenceToCollapsingVisibilityConverter}}">
-                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Content}"
+                                           TextWrapping="Wrap" />
                             </Label>
 
-                            <Rectangle HorizontalAlignment="Stretch" Height="1" Fill="Gray" Margin="4,6,4,6" />
+                            <Rectangle HorizontalAlignment="Stretch"
+                                       Height="1"
+                                       Fill="Gray"
+                                       Margin="4,6,4,6" />
                         </orccontrols:StackGrid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

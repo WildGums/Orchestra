@@ -3,7 +3,8 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:catel="http://schemas.catelproject.com"
                    xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
-                   xmlns:local="clr-namespace:Orchestra.Changelog">
+                   xmlns:local="clr-namespace:Orchestra.Changelog"
+                   xmlns:orctheming="http://schemas.wildgums.com/orc/theming">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -32,7 +33,7 @@
                                        TextWrapping="Wrap"
                                        Text="{Binding Name}"
                                        ToolTip="{Binding Name}"
-                                       FontSize="16"
+                                       FontSize="{orctheming:FontSize 16}"
                                        FontWeight="Bold"
                                        VerticalAlignment="Center" />
 
@@ -68,7 +69,7 @@
                                                        TextWrapping="Wrap"
                                                        Text="{Binding Name}"
                                                        ToolTip="{Binding Name}"
-                                                       FontSize="14"
+                                                       FontSize="{orctheming:FontSize 14}"
                                                        FontWeight="Normal"
                                                        VerticalAlignment="Center" />
 
