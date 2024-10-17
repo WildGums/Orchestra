@@ -6,6 +6,7 @@
                     xmlns:converters="http://schemas.wildgums.com/orchestra"
                     xmlns:fluent="urn:fluent-ribbon"
                     xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
+                    xmlns:orctheming="http://schemas.wildgums.com/orc/theming"
                     mc:Ignorable="d">
 
     <Style x:Key="RibbonBorderStyle" TargetType="Border">
@@ -26,20 +27,23 @@
 
     <Style x:Key="RibbonBackstageHeaderLabelStyle" TargetType="Label">
         <Setter Property="Margin" Value="-8,0,6,16" />
-        <Setter Property="FontSize" Value="40" />
+        <Setter Property="FontSize"
+                Value="{orctheming:FontSize 40}" />
         <Setter Property="FontWeight" Value="Light" />
     </Style>
 
     <Style x:Key="RibbonBackstageSubHeaderLabelStyle" TargetType="Label">
         <Setter Property="Margin" Value="0,0,6,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontSize"
+                Value="{orctheming:FontSize 18}" />
         <Setter Property="FontWeight" Value="Normal" />
     </Style>
 
     <Style x:Key="RibbonBackstageTabItemHeaderLabelStyle" TargetType="Label">
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontSize"
+                Value="{orctheming:FontSize 18}" />
         <Setter Property="FontWeight" Value="Normal" />
     </Style>
 

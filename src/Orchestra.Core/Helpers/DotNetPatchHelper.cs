@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Threading;
+    using Catel;
     using Catel.Logging;
 
     /// <summary>
@@ -28,6 +29,11 @@
         /// </summary>
         public static void Initialize()
         {
+            if (CatelEnvironment.IsInDesignMode)
+            {
+                return;
+            }
+
             Attach();
         }
         
@@ -45,6 +51,11 @@
 
         private static void AttachToAppDomain()
         {
+            if (CatelEnvironment.IsInDesignMode)
+            {
+                return;
+            }
+
             if (_isAppDomainInitialized)
             {
                 return;
@@ -77,6 +88,11 @@
 
         private static void AttachToApplication()
         {
+            if (CatelEnvironment.IsInDesignMode)
+            {
+                return;
+            }
+
             if (_isApplicationInitialized)
             {
                 return;

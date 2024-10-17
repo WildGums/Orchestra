@@ -4,6 +4,7 @@
                   xmlns:catel="http://schemas.catelproject.com"
                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
                   xmlns:converters="clr-namespace:Orchestra.Converters"
+                  xmlns:orctheming="http://schemas.wildgums.com/orc/theming"
                   ResizeMode="NoResize"
                   WindowStyle="None">
 
@@ -57,22 +58,22 @@
         </Image>
 
         <TextBlock Grid.Row="2"
-                   FontSize="19"
+                   FontSize="{orctheming:FontSize 19}"
                    FontWeight="Medium"
                    HorizontalAlignment="Center"
                    Margin="0 0 0 10"
                    Text="{Binding Title}" />
         <TextBlock Grid.Row="3"
-                   FontSize="13"
+                   FontSize="{orctheming:FontSize 13}"
                    HorizontalAlignment="Center"
                    Text="{catel:LanguageBinding Orchestra_ReleasedOn}"
                    Visibility="Collapsed" />
         <TextBlock Grid.Row="4"
-                   FontSize="13"
+                   FontSize="{orctheming:FontSize 13}"
                    HorizontalAlignment="Center"
                    Text="{Binding Version}" />
         <TextBlock Grid.Row="5"
-                   FontSize="13"
+                   FontSize="{orctheming:FontSize 13}"
                    HorizontalAlignment="Center"
                    Text="{Binding BuildDateTime}" />
 
@@ -86,7 +87,7 @@
                Visibility="{Binding CompanyLogoUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}" />
 
         <orccontrols:LinkLabel Grid.Row="7"
-                               FontSize="13"
+                               FontSize="{orctheming:FontSize 13}"
                                HorizontalAlignment="Center"
                                LinkLabelBehavior="AlwaysUnderline"
                                Url="{Binding UriInfo.Uri}"
@@ -96,13 +97,13 @@
                                Visibility="{Binding UriInfo, Converter={catel:ReferenceToCollapsingVisibilityConverter}}" />
 
         <TextBlock Grid.Row="8"
-                   FontSize="13"
+                   FontSize="{orctheming:FontSize 13}"
                    HorizontalAlignment="Center"
                    Text="{Binding Copyright}"
                    Visibility="{Binding CopyrightUrl, Converter={catel:BooleanToCollapsingVisibilityConverter Link={catel:BooleanToOppositeBooleanConverter Link={catel:ReferenceToBooleanConverter}}}}" />
 
         <orccontrols:LinkLabel Grid.Row="8"
-                               FontSize="13"
+                               FontSize="{orctheming:FontSize 13}"
                                HorizontalAlignment="Center"
                                LinkLabelBehavior="AlwaysUnderline"
                                Url="{Binding CopyrightUrl}"
@@ -112,7 +113,7 @@
                                Visibility="{Binding CopyrightUrl, Converter={catel:ReferenceToCollapsingVisibilityConverter}}" />
 
         <orccontrols:LinkLabel Grid.Row="9"
-                               FontSize="13"
+                               FontSize="{orctheming:FontSize 13}"
                                HorizontalAlignment="Center"
                                LinkLabelBehavior="AlwaysUnderline"
                                Command="{Binding ShowThirdPartyNotices}"
@@ -120,12 +121,12 @@
                                Margin="0" />
 
         <TextBlock Grid.Row="10"
-                   FontSize="13"
+                   FontSize="{orctheming:FontSize 13}"
                    HorizontalAlignment="Center"
                    Text="{catel:LanguageBinding Orchestra_AllRightsReserved}" />
 
         <TextBlock Grid.Row="11"
-                   FontSize="13"
+                   FontSize="{orctheming:FontSize 13}"
                    HorizontalAlignment="Center"
                    Margin="0 15 0 0"
                    Text="{catel:LanguageBinding Orchestra_DebugLoggingIsEnabled}"
