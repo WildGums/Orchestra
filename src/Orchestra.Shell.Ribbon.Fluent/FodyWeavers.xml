@@ -13,10 +13,4 @@
   <ModuleInit />
   <Obsolete />
   <Catel />
-  <Costura>
-    <IncludeAssemblies>
-    </IncludeAssemblies>
-    <IncludeRuntimeAssemblies>
-    </IncludeRuntimeAssemblies>
-  </Costura>
 </Weavers>
