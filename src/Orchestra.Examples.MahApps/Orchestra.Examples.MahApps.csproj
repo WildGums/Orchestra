@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net9.0-windows</TargetFrameworks>
     <AssemblyName>Orchestra.Examples.MahApps</AssemblyName>
     <RootNamespace>Orchestra.Examples.MahApps</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
