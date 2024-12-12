@@ -37,7 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.csproj" />
     <ProjectReference Include="..\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.csproj" />
     <ProjectReference Include="..\Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.csproj" />
   </ItemGroup>
