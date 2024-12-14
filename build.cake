@@ -25,7 +25,6 @@ Parameters["UseVisualStudioPrerelease"] = "true";
 //=======================================================
 
 Components.Add("Orchestra.Core");
-Components.Add("Orchestra.Shell.MahApps");
 Components.Add("Orchestra.Shell.Ribbon.Fluent");
 Components.Add("Orchestra.Shell.TaskRunner");
 
