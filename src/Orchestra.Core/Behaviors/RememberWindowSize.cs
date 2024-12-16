@@ -2,7 +2,9 @@
 {
     using System;
     using System.Windows;
+    using Catel.IoC;
     using Catel.Logging;
+    using Catel.Services;
     using Catel.Windows.Interactivity;
     using Orc.Controls;
 
@@ -44,7 +46,8 @@
                 window.SetCurrentValue(Window.ResizeModeProperty, ResizeMode.CanResize);
             }
 
-            window.LoadWindowSize(RememberWindowState);
+            var appDataService = ServiceLocator.Default.ResolveType<IAppDataService>();
+            appDataService?.LoadWindowSize(window, RememberWindowState);
 
             switch (window.WindowStartupLocation)
             {
@@ -77,7 +80,9 @@
 
         private void OnWindowClosed(object? sender, EventArgs e)
         {
-            AssociatedObject.SaveWindowSize();
+            var window = AssociatedObject;
+            var appDataService = ServiceLocator.Default.ResolveType<IAppDataService>();
+            appDataService?.SaveWindowSize(window);
         }
     }
 }
