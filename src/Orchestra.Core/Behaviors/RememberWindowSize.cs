@@ -46,8 +46,8 @@
                 window.SetCurrentValue(Window.ResizeModeProperty, ResizeMode.CanResize);
             }
 
-            var appDataService = ServiceLocator.Default.ResolveType<IAppDataService>();
-            appDataService?.LoadWindowSize(window, RememberWindowState);
+            var appDataService = ServiceLocator.Default.ResolveRequiredType<IAppDataService>();
+            appDataService.LoadWindowSize(window, RememberWindowState);
 
             switch (window.WindowStartupLocation)
             {
@@ -81,8 +81,8 @@
         private void OnWindowClosed(object? sender, EventArgs e)
         {
             var window = AssociatedObject;
-            var appDataService = ServiceLocator.Default.ResolveType<IAppDataService>();
-            appDataService?.SaveWindowSize(window);
+            var appDataService = ServiceLocator.Default.ResolveRequiredType<IAppDataService>();
+            appDataService.SaveWindowSize(window);
         }
     }
 }

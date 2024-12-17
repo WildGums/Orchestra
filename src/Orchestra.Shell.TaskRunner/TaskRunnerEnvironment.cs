@@ -7,6 +7,6 @@
 
     public static class TaskRunnerEnvironment
     {
-        public static readonly string CurrentLogFileName = Path.Combine(ServiceLocator.Default.ResolveType<IAppDataService>()?.GetApplicationDataDirectory(ApplicationDataTarget.UserRoaming) ?? Catel.IO.Path.GetApplicationDataDirectory(), "current.log");
+        public static readonly string CurrentLogFileName = Path.Combine(ServiceLocator.Default.ResolveRequiredType<IAppDataService>().GetApplicationDataDirectory(ApplicationDataTarget.UserRoaming), "current.log");
     }
 }
