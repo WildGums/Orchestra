@@ -5,10 +5,10 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Threading;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
+    using Catel.Windows.Threading;
     using Orchestra.Services;
 
     public abstract class ApplicationWatcherBase
@@ -18,7 +18,7 @@
         protected static readonly IDispatcherService DispatcherService;
         protected static readonly IMainWindowService MainWindowService;
 
-        private static readonly DispatcherTimer DispatcherTimer;
+        private static readonly DispatcherTimerEx DispatcherTimer;
         private static readonly Queue<Action<Window>> ShellActivatedActions;
         private static readonly object Lock = new object();
 
@@ -30,7 +30,7 @@
             DispatcherService = serviceLocator.ResolveRequiredType<IDispatcherService>();
             MainWindowService = serviceLocator.ResolveRequiredType<IMainWindowService>();
 
-            DispatcherTimer = new DispatcherTimer();
+            DispatcherTimer = new DispatcherTimerEx(DispatcherService);
             DispatcherTimer.Interval = TimeSpan.FromMilliseconds(5);
             DispatcherTimer.Tick += async (sender, e) => await EnsureMainWindowAsync();
             DispatcherTimer.Start();

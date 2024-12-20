@@ -245,13 +245,22 @@
 
             if (await MessageService.ShowAsync(closingDetails.Message, "Error", messageButton, MessageImage.Error) == MessageResult.OK)
             {
-                await CloseWindowAsync(window).ConfigureAwait(false);
+                await CloseWindowAsync(window);
             }
         }
 
         private static async Task CloseWindowAsync(Window window)
         {
-            await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
+            try
+            {
+                // Note: always use window dispatcher
+                await window.Dispatcher.InvokeAsync(window.Close);
+                //await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+                // ignore
+            }
         }
 
         private static void NotifyClosingCanceled()
