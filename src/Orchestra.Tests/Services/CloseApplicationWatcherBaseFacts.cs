@@ -38,6 +38,7 @@
             ArgumentNullException.ThrowIfNull(watcher);
 
             bool isWatcherCompleted = false;
+
             using (var cts = new CancellationTokenSource(timeout))
             {
                 // Use a semaphore to prevent the [TestMethod] from returning prematurely.
