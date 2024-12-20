@@ -538,8 +538,9 @@ namespace Orchestra.Logging
 {
     public class FileLogListener : Catel.Logging.FileLogListener
     {
-        public FileLogListener(System.Reflection.Assembly? assembly = null) { }
-        public FileLogListener(string filePath, int maxSizeInKiloBytes, System.Reflection.Assembly? assembly = null) { }
+        public FileLogListener(Catel.Services.IAppDataService appDataService, System.Reflection.Assembly? assembly = null) { }
+        public FileLogListener(Catel.Services.IAppDataService appDataService, string filePath, int maxSizeInKiloBytes, System.Reflection.Assembly? assembly = null) { }
+        protected override string GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget target, string company, string product) { }
         protected override bool ShouldIgnoreLogMessage(Catel.Logging.ILog log, string message, Catel.Logging.LogEvent logEvent, object? extraData, Catel.Logging.LogData? logData, System.DateTime time) { }
     }
     public class RichTextBoxLogListener : Catel.Logging.LogListenerBase
