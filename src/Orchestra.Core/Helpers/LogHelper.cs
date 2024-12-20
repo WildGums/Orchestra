@@ -104,8 +104,10 @@
                 Directory.CreateDirectory(directory);
             }
 
+            var appDataService = ServiceLocator.Default.ResolveRequiredType<IAppDataService>();
+
             var fileName = Path.Combine(directory, prefix + "_{Date}_{Time}_{ProcessId}");
-            var fileLogListener = new Orchestra.Logging.FileLogListener(fileName, MaxFileLogSize);
+            var fileLogListener = new Orchestra.Logging.FileLogListener(appDataService, fileName, MaxFileLogSize);
 
             return fileLogListener;
         }
