@@ -133,8 +133,6 @@
     <value>Diese Software basiert auf oder enthält Material aus den unten aufgeführten Projekten (zusammenfassend "Code Dritter"). {0} ist möglicherweise nicht der ursprüngliche Autor des Drittanbieter-Codes. Der ursprüngliche Copyright-Hinweis und die Lizenz, unter der {0} diesen Drittanbietercode erhalten hat, sind unten aufgeführt. Diese Lizenzen und Hinweise werden nur zu Informationszwecken bereitgestellt. {0} lizenziert den Drittanbietercode an Sie unter den in der EULA für {1} dargelegten Bedingungen. {0} behält sich alle anderen Rechte vor, die nicht ausdrücklich im Rahmen dieser Vereinbarung gewährt werden, sei es stillschweigend, durch Rechtsverwirkung oder anderweitig.
 
 Diese (alphabetisch geordneten) Hinweise für Dritte wurden mit Sorgfalt zusammengestellt. Sollte ein Hinweis Dritter fehlen oder falsch aufgeführt sein, teilen Sie uns dies bitte mit, damit wir die Hinweise entsprechend aktualisieren können.</value>
-    <comment>{0} = company name
-{1} = product name</comment>
   </data>
   <data name="Orchestra_ThirdPartyNotices_Title" xml:space="preserve">
     <value>Hinweise für Drittanbieter</value>
