@@ -31,7 +31,9 @@
             MainWindowService = serviceLocator.ResolveRequiredType<IMainWindowService>();
 
             DispatcherTimer = new DispatcherTimerEx(DispatcherService);
-            DispatcherTimer.Interval = TimeSpan.FromMilliseconds(5);
+
+            // Hotfix: changed from 5 => 100, otherwise it will cause too much CPU usage
+            DispatcherTimer.Interval = TimeSpan.FromMilliseconds(100);
             DispatcherTimer.Tick += async (sender, e) => await EnsureMainWindowAsync();
             DispatcherTimer.Start();
 
