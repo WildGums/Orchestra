@@ -900,8 +900,8 @@ namespace Orchestra.Theming
     public interface IThemeManager
     {
         void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = false);
-        void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false);
         void EnsureApplicationThemes(System.Windows.ResourceDictionary resourceDictionary, bool createStyleForwarders = false);
+        void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false);
         bool IsResourceDictionaryAvailable(string resourceDictionaryUri);
         void SynchronizeTheme();
     }
@@ -911,8 +911,8 @@ namespace Orchestra.Theming
         public ThemeManager(Orc.Theming.IAccentColorService accentColorService, Orc.Theming.IBaseColorSchemeService baseColorSchemeService) { }
         protected virtual void AddResourceDictionary(System.Windows.ResourceDictionary applicationResourcesDictionary, System.Windows.ResourceDictionary resourceDictionary) { }
         public virtual void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = false) { }
-        public virtual void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false) { }
         public virtual void EnsureApplicationThemes(System.Windows.ResourceDictionary resourceDictionary, bool createStyleForwarders = false) { }
+        public virtual void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false) { }
         protected virtual void EnsureOrchestraTheme(bool createStyleForwarders) { }
         protected virtual System.Reflection.Assembly? GetAssembly(string assemblyName) { }
         protected virtual System.Windows.ResourceDictionary GetTargetApplicationResourceDictionary() { }
