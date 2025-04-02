@@ -20,14 +20,6 @@
         }
 
         [Test, MethodImpl(MethodImplOptions.NoInlining)]
-        public async Task Orchestra_Shell_MahApps_HasNoBreakingChanges_Async()
-        {
-            var assembly = typeof(MahAppsAboutService).Assembly;
-
-            await PublicApiApprover.ApprovePublicApiAsync(assembly);
-        }
-
-        [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public async Task Orchestra_Shell_Ribbon_Fluent_HasNoBreakingChanges_Async()
         {
             var assembly = typeof(RibbonExtensions).Assembly;

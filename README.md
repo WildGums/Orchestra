@@ -23,15 +23,14 @@ In other words, we wanted to create a shell that dramatically speeds up the time
 
 ## Available Shells
 
-Orchestra provides support for two different shells:
+Orchestra provides support for the following shells:
 
 - Fluent ribbon
-- MahApps
 
-|  Fluent ribbon shell                                       | MahApps shell                                   |
-|------------------------------------------------------------|-------------------------------------------------|
-| ![Fluent Ribbon 01](doc/images/shell_fluentribbon_01.png)  | ![MahApps 01](doc/images/shell_mahapps_01.png)  |
-| ![Fluent Ribbon 02](doc/images/shell_fluentribbon_02.png)  |                                                 |
+|  Fluent ribbon shell                                       |
+|------------------------------------------------------------|
+| ![Fluent Ribbon 01](doc/images/shell_fluentribbon_01.png)  |
+| ![Fluent Ribbon 02](doc/images/shell_fluentribbon_02.png)  |
 
 ## Project Templates
 
@@ -39,11 +38,9 @@ Want to get up and running fast? Grab the project templates from the [Visual Stu
 
 ![](doc/images/templates_project_marketplace.png)
 
-You can pick either the Fluent.Ribbon or MahApps shell and have a fully running project within seconds:
+You can pick the Fluent.Ribbon shell and have a fully running project within seconds:
 
 ![](doc/images/templates_project_fluentribbon.png)
-
-![](doc/images/templates_project_mahapps.png)
 
 ## Sample Applications
 
@@ -63,7 +60,6 @@ Other examples of commercial applications built with Orchestra can be found on o
 
 - [Orchestra.Core](https://www.nuget.org/packages/Orchestra.Core)
 - [Orchestra.Shell.Ribbon.Fluent](https://www.nuget.org/packages/Orchestra.Shell.Ribbon.Fluent)
-- [Orchestra.Shell.MahApps](https://www.nuget.org/packages/Orchestra.Shell.MahApp)
 
 ## Prerequisites
 

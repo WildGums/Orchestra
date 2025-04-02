@@ -1,6 +1,6 @@
 <Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net9.0-windows</TargetFrameworks>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <SelfContained>true</SelfContained>
@@ -28,14 +28,14 @@
 
   <ItemGroup>
     <PackageReference Include="Catel.Fody" Version="4.9.0" PrivateAssets="all" />
-    <PackageReference Include="Fluent.Ribbon" Version="10.1.0" />
-    <PackageReference Include="Fody" Version="6.8.2" PrivateAssets="all">
+    <PackageReference Include="Fluent.Ribbon" Version="11.0.0" />
+    <PackageReference Include="Fody" Version="6.9.2" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.6.0" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="all" />
-    <PackageReference Include="Orc.Notifications" Version="5.0.0" />
+    <PackageReference Include="Orc.Notifications" Version="5.1.0" />
   </ItemGroup>
 
   <ItemGroup>

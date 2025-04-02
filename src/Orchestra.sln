@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29319.158
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35605.110 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E502625D-7CC7-401B-ACDF-678B68F59005}"
 EndProject
@@ -28,13 +28,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Core", "Orchestra
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Shell.Shared", "Orchestra.Shell.Shared\Orchestra.Shell.Shared.shproj", "{BC10FCE0-C843-4592-802D-BB800A514CA0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Shell.MahApps", "Orchestra.Shell.MahApps\Orchestra.Shell.MahApps.csproj", "{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Shell.Ribbon.Fluent", "Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.csproj", "{BD65929C-36C0-4935-8D03-9AB82684C56D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Shell.TaskRunner", "Orchestra.Shell.TaskRunner\Orchestra.Shell.TaskRunner.csproj", "{D93A4322-36E1-4F2E-851A-FF2C7F6373C7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Examples.MahApps", "Orchestra.Examples.MahApps\Orchestra.Examples.MahApps.csproj", "{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orchestra.Examples.Ribbon.Fluent", "Orchestra.Examples.Ribbon.Fluent\Orchestra.Examples.Ribbon.Fluent.csproj", "{E1584C1C-2434-480D-A98E-617E42ED8021}"
 EndProject
@@ -45,10 +41,6 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Orchestra.Examples.Shared", "Orchestra.Examples.Shared\Orchestra.Examples.Shared.shproj", "{0F4EE33D-8E27-43BA-BCF7-1C61CDCA09EC}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Orchestra.Examples.Shared\Orchestra.Examples.Shared.projitems*{0f4ee33d-8e27-43ba-bcf7-1c61cdca09ec}*SharedItemsImports = 13
-		Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{bc10fce0-c843-4592-802d-bb800a514ca0}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -76,22 +68,6 @@ Global
 		{C7049E9C-D258-4E3F-8DE3-17D8C50145CA}.Release|x64.Build.0 = Release|Any CPU
 		{C7049E9C-D258-4E3F-8DE3-17D8C50145CA}.Release|x86.ActiveCfg = Release|Any CPU
 		{C7049E9C-D258-4E3F-8DE3-17D8C50145CA}.Release|x86.Build.0 = Release|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Debug|ARM.Build.0 = Debug|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Debug|x64.Build.0 = Debug|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Debug|x86.Build.0 = Debug|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Release|ARM.ActiveCfg = Release|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Release|ARM.Build.0 = Release|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Release|x64.ActiveCfg = Release|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Release|x64.Build.0 = Release|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Release|x86.ActiveCfg = Release|Any CPU
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2}.Release|x86.Build.0 = Release|Any CPU
 		{BD65929C-36C0-4935-8D03-9AB82684C56D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD65929C-36C0-4935-8D03-9AB82684C56D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD65929C-36C0-4935-8D03-9AB82684C56D}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -124,22 +100,6 @@ Global
 		{D93A4322-36E1-4F2E-851A-FF2C7F6373C7}.Release|x64.Build.0 = Release|Any CPU
 		{D93A4322-36E1-4F2E-851A-FF2C7F6373C7}.Release|x86.ActiveCfg = Release|Any CPU
 		{D93A4322-36E1-4F2E-851A-FF2C7F6373C7}.Release|x86.Build.0 = Release|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Debug|ARM.Build.0 = Debug|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Debug|x64.Build.0 = Debug|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Debug|x86.Build.0 = Debug|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Release|ARM.ActiveCfg = Release|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Release|ARM.Build.0 = Release|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Release|x64.ActiveCfg = Release|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Release|x64.Build.0 = Release|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Release|x86.ActiveCfg = Release|Any CPU
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D}.Release|x86.Build.0 = Release|Any CPU
 		{E1584C1C-2434-480D-A98E-617E42ED8021}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E1584C1C-2434-480D-A98E-617E42ED8021}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1584C1C-2434-480D-A98E-617E42ED8021}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -198,10 +158,8 @@ Global
 		{90FDC9B8-335D-49AF-99F2-E826E2A40F69} = {E502625D-7CC7-401B-ACDF-678B68F59005}
 		{C7049E9C-D258-4E3F-8DE3-17D8C50145CA} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{BC10FCE0-C843-4592-802D-BB800A514CA0} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
-		{084B7CDB-15B4-400A-B1EE-9596F1CBE6B2} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{BD65929C-36C0-4935-8D03-9AB82684C56D} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
 		{D93A4322-36E1-4F2E-851A-FF2C7F6373C7} = {90FDC9B8-335D-49AF-99F2-E826E2A40F69}
-		{BE068F99-1A40-4A4D-BF5E-80B2F1DD485D} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
 		{E1584C1C-2434-480D-A98E-617E42ED8021} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
 		{E291C61C-F854-42FD-90DF-A1BA53B6E24B} = {DBEB5ED3-4622-408E-92D9-EC60F316A5C9}
 		{46EE84D7-0EF8-46CD-8E0D-31C8BFBA06FF} = {250CAB0E-A7F8-495B-B090-DB0AF1D51514}
@@ -209,5 +167,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {073E8F75-4201-49A3-BFBD-1B40D0B2E38A}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Orchestra.Examples.Shared\Orchestra.Examples.Shared.projitems*{0f4ee33d-8e27-43ba-bcf7-1c61cdca09ec}*SharedItemsImports = 13
+		Orchestra.Shell.Shared\Orchestra.Shell.Shared.projitems*{bc10fce0-c843-4592-802d-bb800a514ca0}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

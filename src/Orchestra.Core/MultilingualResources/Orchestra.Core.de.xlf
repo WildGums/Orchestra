@@ -8,232 +8,193 @@
       <group id="ORCHESTRA.CORE/PROPERTIES/RESOURCES.RESX" datatype="resx">
         <trans-unit id="Orchestra_AllRightsReserved" translate="yes" xml:space="preserve">
           <source>All rights reserved</source>
-          <target state="needs-review-translation">All rights reserved</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Alle Rechte vorbehalten</target>
         </trans-unit>
         <trans-unit id="Orchestra_Assign" translate="yes" xml:space="preserve">
           <source>Assign</source>
-          <target state="needs-review-translation">Assign</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Zuweisen</target>
         </trans-unit>
         <trans-unit id="Orchestra_AssignInputGestureAreYouSure" translate="yes" xml:space="preserve">
           <source>Are you sure you want to assign the input gesture to '{0}'. It will be removed from the other commands.</source>
-          <target state="needs-review-translation">Are you sure you want to assign the input gesture to '{0}'. It will be removed from the other commands.</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Sind Sie sicher, dass Sie die Geste '{0}' zuweisen wollen. Sie wird aus den anderen Befehlen entfernt.</target>
         </trans-unit>
         <trans-unit id="Orchestra_AssignInputGestureUsedByFollowCommands" translate="yes" xml:space="preserve">
           <source>The input gesture '{0}' is currently being used by the following commands:</source>
-          <target state="needs-review-translation">The input gesture '{0}' is currently being used by the following commands:</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Die Geste '{0}' wird derzeit von den folgenden Befehlen verwendet:</target>
         </trans-unit>
         <trans-unit id="Orchestra_BackupAndReset" translate="yes" xml:space="preserve">
           <source>Backup and Reset</source>
-          <target state="needs-review-translation">Backup and Reset</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Sichern und Zurücksetzen</target>
         </trans-unit>
         <trans-unit id="Orchestra_BackupCreated" translate="yes" xml:space="preserve">
           <source>Backup has been succesfully created.</source>
-          <target state="needs-review-translation">Backup has been succesfully created.</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Die Sicherung wurde erfolgreich erstellt.</target>
         </trans-unit>
         <trans-unit id="Orchestra_BuiltOn" translate="yes" xml:space="preserve">
           <source>Built on {0}</source>
-          <target state="needs-review-translation">Built on {0}</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Erstellt am {0}</target>
         </trans-unit>
         <trans-unit id="Orchestra_Close" translate="yes" xml:space="preserve">
           <source>Close</source>
-          <target state="needs-review-translation">Close</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Schließen</target>
         </trans-unit>
         <trans-unit id="Orchestra_Command" translate="yes" xml:space="preserve">
           <source>Command</source>
-          <target state="needs-review-translation">Command</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Befehl</target>
         </trans-unit>
         <trans-unit id="Orchestra_Continue" translate="yes" xml:space="preserve">
           <source>Continue</source>
-          <target state="needs-review-translation">Continue</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Fortsetzen</target>
         </trans-unit>
         <trans-unit id="Orchestra_Copy" translate="yes" xml:space="preserve">
           <source>Copy</source>
-          <target state="needs-review-translation">Copy</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Kopieren</target>
         </trans-unit>
         <trans-unit id="Orchestra_Customize" translate="yes" xml:space="preserve">
           <source>Customize</source>
-          <target state="needs-review-translation">Customize</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Anpassen</target>
         </trans-unit>
         <trans-unit id="Orchestra_DebugLoggingIsEnabled" translate="yes" xml:space="preserve">
           <source>Debug logging is enabled for this application instance</source>
-          <target state="needs-review-translation">Debug logging is enabled for this application instance</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Die Debug-Protokollierung ist für diese Anwendungsinstanz aktiviert</target>
         </trans-unit>
         <trans-unit id="Orchestra_DeletedUserDataSettings" translate="yes" xml:space="preserve">
           <source>User data settings have been successfully deleted.</source>
-          <target state="needs-review-translation">User data settings have been successfully deleted.</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Die Benutzerdaten-Einstellungen wurden erfolgreich gelöscht.</target>
         </trans-unit>
         <trans-unit id="Orchestra_EnableDetailedLogging" translate="yes" xml:space="preserve">
           <source>Enable detailed logging</source>
-          <target state="needs-review-translation">Enable detailed logging</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Detaillierte Protokollierung einschalten</target>
         </trans-unit>
         <trans-unit id="Orchestra_EnableLogging" translate="yes" xml:space="preserve">
           <source>Enable logging</source>
-          <target state="needs-review-translation">Enable logging</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Protokollierung einschalten</target>
         </trans-unit>
         <trans-unit id="Orchestra_FailedToCreateBackup" translate="yes" xml:space="preserve">
           <source>Failed to created a backup. To prevent data loss, the application will now exit and not delete any files. Please contact support so they can guide you through the process.</source>
-          <target state="needs-review-translation">Failed to created a backup. To prevent data loss, the application will now exit and not delete any files. Please contact support so they can guide you through the process.</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Es konnte keine Sicherung erstellt werden. Um Datenverluste zu vermeiden, wird die Anwendung jetzt beendet und es werden keine Dateien gelöscht. Wenden Sie sich bitte an den Support, damit dieser Sie durch den Prozess führen kann.</target>
         </trans-unit>
         <trans-unit id="Orchestra_InputGesture" translate="yes" xml:space="preserve">
           <source>Input gesture</source>
-          <target state="needs-review-translation">Input gesture</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Geste</target>
         </trans-unit>
         <trans-unit id="Orchestra_KeyboardShortcuts" translate="yes" xml:space="preserve">
           <source>Keyboard shortcuts</source>
-          <target state="needs-review-translation">Keyboard shortcuts</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Tastaturkürzel</target>
         </trans-unit>
         <trans-unit id="Orchestra_NoLogListenerAvailable" translate="yes" xml:space="preserve">
           <source>No log listener available that can be opened. Please contact support.</source>
-          <target state="needs-review-translation">No log listener available that can be opened. Please contact support.</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Es ist kein Log Listener verfügbar, der geöffnet werden kann. Bitte kontaktieren Sie den Support.</target>
         </trans-unit>
         <trans-unit id="Orchestra_NotStartedCorrectly_01" translate="yes" xml:space="preserve">
           <source>It seems that the application failed to start correctly the last time it was started.</source>
-          <target state="needs-review-translation">It seems that the application failed to start correctly the last time it was started.</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Es scheint, dass die Anwendung beim letzten Start nicht korrekt gestartet wurde.</target>
         </trans-unit>
         <trans-unit id="Orchestra_NotStartedCorrectly_02" translate="yes" xml:space="preserve">
           <source>If this happens again, try to reset the user data settings. The left button will allow you to reset (and optionally backup) your settings.</source>
-          <target state="needs-review-translation">If this happens again, try to reset the user data settings. The left button will allow you to reset (and optionally backup) your settings.</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Wenn dies erneut geschieht, versuchen Sie, die Benutzerdateneinstellungen zurückzusetzen. Mit der linken Taste können Sie Ihre Einstellungen zurücksetzen (und optional sichern).</target>
         </trans-unit>
         <trans-unit id="Orchestra_NotStartedCorrectly_03" translate="yes" xml:space="preserve">
           <source>When ready, click continue to start the application.</source>
-          <target state="needs-review-translation">When ready, click continue to start the application.</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Wenn Sie fertig sind, klicken Sie auf Weiter, um die Anwendung zu starten.</target>
         </trans-unit>
         <trans-unit id="Orchestra_PressShortcutKeys" translate="yes" xml:space="preserve">
           <source>Press shortcut keys:</source>
-          <target state="needs-review-translation">Press shortcut keys:</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Drücken Sie die Tastenkombinationen:</target>
         </trans-unit>
         <trans-unit id="Orchestra_Print" translate="yes" xml:space="preserve">
           <source>Print</source>
-          <target state="needs-review-translation">Print</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Drucken</target>
         </trans-unit>
         <trans-unit id="Orchestra_ProducedBy" translate="yes" xml:space="preserve">
           <source>Produced by {0}</source>
-          <target state="needs-review-translation">Produced by {0}</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Erstellt von {0}</target>
         </trans-unit>
         <trans-unit id="Orchestra_ReleasedOn" translate="yes" xml:space="preserve">
           <source>Released on</source>
-          <target state="needs-review-translation">Released on</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Veröffentlicht am</target>
         </trans-unit>
         <trans-unit id="Orchestra_Remove" translate="yes" xml:space="preserve">
           <source>Remove</source>
-          <target state="needs-review-translation">Remove</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Entfernen</target>
         </trans-unit>
         <trans-unit id="Orchestra_ReplaceInputGesture" translate="yes" xml:space="preserve">
           <source>Replace input gesture?</source>
-          <target state="needs-review-translation">Replace input gesture?</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Geste ersetzen?</target>
         </trans-unit>
         <trans-unit id="Orchestra_Reset" translate="yes" xml:space="preserve">
           <source>Reset</source>
-          <target state="needs-review-translation">Reset</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Zurücksetzen</target>
         </trans-unit>
         <trans-unit id="Orchestra_ResetKeyboardShortcutsAreYouSure" translate="yes" xml:space="preserve">
           <source>Resetting shortcuts will delete all your current shortcuts. This action cannot be undone. Are you sure you want to reset the shortcuts?</source>
-          <target state="needs-review-translation">Resetting shortcuts will delete all your current shortcuts. This action cannot be undone. Are you sure you want to reset the shortcuts?</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Beim Zurücksetzen von Tastenkürzeln werden alle Ihre aktuellen Tastenkürzel gelöscht. Dieser Vorgang kann nicht rückgängig gemacht werden. Sind Sie sicher, dass Sie die Tastaturkürzel zurücksetzen möchten?</target>
         </trans-unit>
         <trans-unit id="Orchestra_RetrievingSystemInfo" translate="yes" xml:space="preserve">
           <source>Retrieving system information...</source>
-          <target state="needs-review-translation">Retrieving system information...</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Systeminformationen abrufen...</target>
         </trans-unit>
         <trans-unit id="Orchestra_ShortcutForSelectedCommand" translate="yes" xml:space="preserve">
           <source>Shortcut for selected command:</source>
-          <target state="needs-review-translation">Shortcut for selected command:</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Tastaturkürzel für den ausgewählten Befehl:</target>
         </trans-unit>
         <trans-unit id="Orchestra_ShortcutsForApplication" translate="yes" xml:space="preserve">
           <source>Keyboard shortcuts for {0}</source>
-          <target state="needs-review-translation">Keyboard shortcuts for {0}</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Tastaturkürzel für {0}</target>
         </trans-unit>
         <trans-unit id="Orchestra_ShowCommandsContaining" translate="yes" xml:space="preserve">
           <source>Show commands containing:</source>
-          <target state="needs-review-translation">Show commands containing:</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Befehle anzeigen, die enthalten:</target>
         </trans-unit>
         <trans-unit id="Orchestra_ShowLog" translate="yes" xml:space="preserve">
           <source>Show log...</source>
-          <target state="needs-review-translation">Show log...</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Protokoll anzeigen...</target>
         </trans-unit>
         <trans-unit id="Orchestra_ShowSystemInfo" translate="yes" xml:space="preserve">
           <source>Show system info</source>
-          <target state="needs-review-translation">Show system info</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Systeminformationen anzeigen</target>
         </trans-unit>
         <trans-unit id="Orchestra_SystemInfo" translate="yes" xml:space="preserve">
           <source>System information</source>
-          <target state="needs-review-translation">System information</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Systeminformationen</target>
         </trans-unit>
         <trans-unit id="Orchestra_UserDataSettings" translate="yes" xml:space="preserve">
           <source>User data settings</source>
-          <target state="needs-review-translation">User data settings</target>
-          <note from="MultilingualUpdate" priority="2">When the XLIFF file support was added via MAT, existing resources were found and auto-imported.  This source and target string contained the same value so the resource was marked as 'Needs review' to ensure the translation could be easily reviewed.</note>
+          <target state="translated">Benutzerdaten-Einstellungen</target>
         </trans-unit>
         <trans-unit id="Orchestra_ThirdPartyNotices_Explanation" translate="yes" xml:space="preserve">
           <source>This software is based on or incorporates material from the projects listed below (collectively, Third Party Code). {0} might not be the original author of the Third Party Code. The original copyright notice and the license under which {0} received such Third Party Code, are set forth below. Such licenses and notices are provided for informational purposes only. {0} licenses the Third Party Code to you under the terms set forth in the EULA for {1}. {0} reserves all other rights not expressly grated under this agreement, whether by implication, estoppel or otherwhise.
 
 These (alphabetically ordered) Third Party Notices have been put together with care. In the event that a Third Party Notice is missing or incorrectly listed, please let us know so we can update the notices accordingly.</source>
-          <target state="new">This software is based on or incorporates material from the projects listed below (collectively, Third Party Code). {0} might not be the original author of the Third Party Code. The original copyright notice and the license under which {0} received such Third Party Code, are set forth below. Such licenses and notices are provided for informational purposes only. {0} licenses the Third Party Code to you under the terms set forth in the EULA for {1}. {0} reserves all other rights not expressly grated under this agreement, whether by implication, estoppel or otherwhise.
+          <target state="translated">Diese Software basiert auf oder enthält Material aus den unten aufgeführten Projekten (zusammenfassend "Code Dritter"). {0} ist möglicherweise nicht der ursprüngliche Autor des Drittanbieter-Codes. Der ursprüngliche Copyright-Hinweis und die Lizenz, unter der {0} diesen Drittanbietercode erhalten hat, sind unten aufgeführt. Diese Lizenzen und Hinweise werden nur zu Informationszwecken bereitgestellt. {0} lizenziert den Drittanbietercode an Sie unter den in der EULA für {1} dargelegten Bedingungen. {0} behält sich alle anderen Rechte vor, die nicht ausdrücklich im Rahmen dieser Vereinbarung gewährt werden, sei es stillschweigend, durch Rechtsverwirkung oder anderweitig.
 
-These (alphabetically ordered) Third Party Notices have been put together with care. In the event that a Third Party Notice is missing or incorrectly listed, please let us know so we can update the notices accordingly.</target>
+Diese (alphabetisch geordneten) Hinweise für Dritte wurden mit Sorgfalt zusammengestellt. Sollte ein Hinweis Dritter fehlen oder falsch aufgeführt sein, teilen Sie uns dies bitte mit, damit wir die Hinweise entsprechend aktualisieren können.</target>
           <note from="MultilingualBuild" annotates="source" priority="2">{0} = company name
 {1} = product name</note>
         </trans-unit>
         <trans-unit id="Orchestra_ThirdPartyNotices_Title" translate="yes" xml:space="preserve">
           <source>Third Party Notices</source>
-          <target state="new">Third Party Notices</target>
+          <target state="translated">Hinweise für Drittanbieter</target>
         </trans-unit>
         <trans-unit id="Orchestra_ThirdPartyNotices" translate="yes" xml:space="preserve">
           <source>Third Party Notices</source>
-          <target state="new">Third Party Notices</target>
+          <target state="translated">Hinweise für Drittanbieter</target>
         </trans-unit>
         <trans-unit id="Orchestra_Changelog" translate="yes" xml:space="preserve">
           <source>Changelog</source>
-          <target state="new">Changelog</target>
+          <target state="translated">Änderungs­protokoll</target>
         </trans-unit>
         <trans-unit id="Orchestra_ChangelogWhatsNew" translate="yes" xml:space="preserve">
           <source>What's new since the last time?</source>
-          <target state="new">What's new since the last time?</target>
+          <target state="translated">Was gibt es Neues seit dem letzten Mal?</target>
         </trans-unit>
         <trans-unit id="Orchestra_ShowChangeLog" translate="yes" xml:space="preserve">
           <source>Show changelog...</source>
-          <target state="new">Show changelog...</target>
+          <target state="translated">Änderungsprotokoll anzeigen...</target>
         </trans-unit>
         <trans-unit id="Orchestra_ChangelogRemindMeLater" translate="yes" xml:space="preserve">
           <source>Remind me later</source>
-          <target state="new">Remind me later</target>
+          <target state="translated">Erinnere mich später</target>
         </trans-unit>
       </group>
     </body>

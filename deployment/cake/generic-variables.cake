@@ -39,6 +39,7 @@ public class GeneralContext : BuildContextWithItemsBase
     public SolutionContext Solution { get; set; }
     public SourceLinkContext SourceLink { get; set; }
     public CodeSignContext CodeSign { get; set; }
+    public AzureCodeSignContext AzureCodeSign { get; set; }
     public RepositoryContext Repository { get; set; }
     public SonarQubeContext SonarQube { get; set; }
 
@@ -338,6 +339,19 @@ public class CodeSignContext : BuildContextBase
     public string TimeStampUri { get; set; }
     public string HashAlgorithm { get; set; }
 
+    public bool IsAvailable
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(CertificateSubjectName))
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
     protected override void ValidateContext()
     {
     
@@ -345,7 +359,7 @@ public class CodeSignContext : BuildContextBase
     
     protected override void LogStateInfoForContext()
     {
-        if (string.IsNullOrWhiteSpace(CertificateSubjectName))
+        if (!IsAvailable)
         {
             CakeContext.Information($"Code signing is not configured");
             return;
@@ -354,6 +368,62 @@ public class CodeSignContext : BuildContextBase
         CakeContext.Information($"Code signing subject name: '{CertificateSubjectName}'");
         CakeContext.Information($"Code signing timestamp uri: '{TimeStampUri}'");
         CakeContext.Information($"Code signing hash algorithm: '{HashAlgorithm}'");
+    }
+}
+
+//-------------------------------------------------------------
+
+public class AzureCodeSignContext : BuildContextBase
+{
+    public AzureCodeSignContext(IBuildContext parentBuildContext)
+        : base(parentBuildContext)
+    {
+    }
+
+    public string VaultName { get; set; }
+    public string VaultUrl { get { return $"https://{VaultName}.vault.azure.net"; } }
+    public string CertificateName { get; set; }
+    public string TimeStampUri { get; set; }
+    public string HashAlgorithm { get; set; }
+    public string TenantId { get; set; }
+    public string ClientId { get; set; }
+    public string ClientSecret { get; set; }
+
+    public bool IsAvailable
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(VaultName) ||
+                string.IsNullOrWhiteSpace(CertificateName) ||
+                string.IsNullOrWhiteSpace(TenantId) ||
+                string.IsNullOrWhiteSpace(ClientId) ||
+                string.IsNullOrWhiteSpace(ClientSecret))
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    protected override void ValidateContext()
+    {
+    
+    }
+    
+    protected override void LogStateInfoForContext()
+    {
+        if (!IsAvailable)
+        {
+            CakeContext.Information($"Azure Code signing is not configured");
+            return;
+        }
+
+        CakeContext.Information($"Azure Code vault name: '{VaultName}'");
+        CakeContext.Information($"Azure Code vault URL: '{VaultUrl}'");
+        CakeContext.Information($"Azure Code signing certificate name: '{CertificateName}'");
+        CakeContext.Information($"Azure Code signing timestamp uri: '{TimeStampUri}'");
+        CakeContext.Information($"Azure Code signing hash algorithm: '{HashAlgorithm}'");
     }
 }
 
@@ -400,7 +470,7 @@ public class SonarQubeContext : BuildContextBase
     public string Url { get; set; }
     public string Organization { get; set; }
     public string Username { get; set; }
-    public string Password { get; set; }
+    public string Token { get; set; }
     public string Project { get; set; }
 
     protected override void ValidateContext()
@@ -498,6 +568,17 @@ private GeneralContext InitializeGeneralContext(BuildContext buildContext, IBuil
         HashAlgorithm = buildContext.BuildServer.GetVariable("CodeSignHashAlgorithm", "SHA256", showValue: true)
     };
 
+    data.AzureCodeSign = new AzureCodeSignContext(data)
+    {
+        VaultName = buildContext.BuildServer.GetVariable("AzureCodeSignVaultName", showValue: true),
+        CertificateName = buildContext.BuildServer.GetVariable("AzureCodeSignCertificateName", showValue: true),
+        TimeStampUri = buildContext.BuildServer.GetVariable("AzureCodeSignTimeStampUri", "http://timestamp.digicert.com", showValue: true),
+        HashAlgorithm = buildContext.BuildServer.GetVariable("AzureCodeSignHashAlgorithm", "SHA256", showValue: true),
+        TenantId = buildContext.BuildServer.GetVariable("AzureCodeSignTenantId", showValue: false),
+        ClientId = buildContext.BuildServer.GetVariable("AzureCodeSignClientId", showValue: false),
+        ClientSecret = buildContext.BuildServer.GetVariable("AzureCodeSignClientSecret", showValue: false),
+    };
+
     data.Repository = new RepositoryContext(data)
     {
         Url = buildContext.BuildServer.GetVariable("RepositoryUrl", showValue: true),
@@ -514,7 +595,7 @@ private GeneralContext InitializeGeneralContext(BuildContext buildContext, IBuil
         Url = buildContext.BuildServer.GetVariable("SonarUrl", showValue: true),
         Organization = buildContext.BuildServer.GetVariable("SonarOrganization", showValue: true),
         Username = buildContext.BuildServer.GetVariable("SonarUsername", showValue: false),
-        Password = buildContext.BuildServer.GetVariable("SonarPassword", showValue: false),
+        Token = buildContext.BuildServer.GetVariable("SonarToken", showValue: false),
         Project = buildContext.BuildServer.GetVariable("SonarProject", data.Solution.Name, showValue: true)
     };
 

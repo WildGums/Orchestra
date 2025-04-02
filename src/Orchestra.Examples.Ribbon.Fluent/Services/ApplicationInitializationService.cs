@@ -42,8 +42,9 @@
                 InitializePerformanceAsync
             });
 
-            var uiVisualizerService = _serviceLocator.ResolveRequiredType<IUIVisualizerService>();
-            await uiVisualizerService.ShowDialogAsync<FontSizeSelectorViewModel>();
+            // Note: uncomment to show font size selection at startup
+            //var uiVisualizerService = _serviceLocator.ResolveRequiredType<IUIVisualizerService>();
+            //await uiVisualizerService.ShowDialogAsync<FontSizeSelectorViewModel>();
         }
 
         private async Task InitializeCommandsAsync()

@@ -133,6 +133,11 @@
             <fluent:Ribbon.Tabs>
                 <fluent:RibbonTabItem Header="View">
 
+                    <fluent:RibbonGroupBox Header="Theming">
+                        <orctheming:ThemeSwitcherView />
+                        <orctheming:FontSizeSwitcherView />
+                    </fluent:RibbonGroupBox>
+
                     <fluent:RibbonGroupBox Header="Workspace">
                         <fluent:Button Header="Refresh" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Refresh}}" 
                                    Command="{Binding RefreshWorkspace}" />

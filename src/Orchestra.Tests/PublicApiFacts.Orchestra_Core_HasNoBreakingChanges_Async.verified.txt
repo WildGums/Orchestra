@@ -254,9 +254,9 @@ namespace Orchestra
     public class ThirdPartyNotice
     {
         public ThirdPartyNotice() { }
-        public string Content { get; set; }
-        public string Title { get; set; }
-        public string Url { get; set; }
+        public string Content { get; protected set; }
+        public string Title { get; protected set; }
+        public string Url { get; protected set; }
     }
     public abstract class ToggleConfigurationCommandContainerBase : Orchestra.ToggleConfigurationCommandContainerBase<object>
     {
@@ -641,7 +641,7 @@ namespace Orchestra.Services
     {
         public ConfigurationBackupService(Catel.Configuration.IConfigurationService configurationService, Catel.Services.IAppDataService appDataService, Orc.FileSystem.IFileService fileService, Orc.FileSystem.IDirectoryService directoryService) { }
         public string BackupTimeStampFormat { get; set; }
-        public int NumberOfBackups { get; set; }
+        public int NumberOfBackups { get; protected set; }
         public virtual System.Threading.Tasks.Task BackupAsync() { }
         protected virtual System.Threading.Tasks.Task BackupConfigurationAsync(string configurationFilePath, Catel.IO.ApplicationDataTarget applicationDataTarget) { }
     }
@@ -900,8 +900,8 @@ namespace Orchestra.Theming
     public interface IThemeManager
     {
         void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = false);
-        void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false);
         void EnsureApplicationThemes(System.Windows.ResourceDictionary resourceDictionary, bool createStyleForwarders = false);
+        void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false);
         bool IsResourceDictionaryAvailable(string resourceDictionaryUri);
         void SynchronizeTheme();
     }
@@ -911,8 +911,8 @@ namespace Orchestra.Theming
         public ThemeManager(Orc.Theming.IAccentColorService accentColorService, Orc.Theming.IBaseColorSchemeService baseColorSchemeService) { }
         protected virtual void AddResourceDictionary(System.Windows.ResourceDictionary applicationResourcesDictionary, System.Windows.ResourceDictionary resourceDictionary) { }
         public virtual void EnsureApplicationThemes(System.Reflection.Assembly assembly, bool createStyleForwarders = false) { }
-        public virtual void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false) { }
         public virtual void EnsureApplicationThemes(System.Windows.ResourceDictionary resourceDictionary, bool createStyleForwarders = false) { }
+        public virtual void EnsureApplicationThemes(string resourceDictionaryUri, bool createStyleForwarders = false) { }
         protected virtual void EnsureOrchestraTheme(bool createStyleForwarders) { }
         protected virtual System.Reflection.Assembly? GetAssembly(string assemblyName) { }
         protected virtual System.Windows.ResourceDictionary GetTargetApplicationResourceDictionary() { }
@@ -982,7 +982,7 @@ namespace Orchestra.ViewModels
         public bool ShowLogButton { get; }
         public Catel.MVVM.TaskCommand ShowSystemInfo { get; }
         public Catel.MVVM.TaskCommand ShowThirdPartyNotices { get; }
-        public override string Title { get; set; }
+        public override string Title { get; protected set; }
         public Orchestra.UriInfo? UriInfo { get; }
         public string Version { get; }
         protected override System.Threading.Tasks.Task InitializeAsync() { }
@@ -1201,7 +1201,7 @@ namespace Orchestra.Windows
         public System.Windows.Rect GetDpiAwareWorkingArea() { }
         public static Orchestra.Windows.MonitorInfo[] GetAllMonitors(bool throwErrorsForWrongAppManifest = true) { }
         public static Orchestra.Windows.MonitorInfo? GetMonitorFromWindow(System.Windows.Window window) { }
-        public static Orchestra.Windows.MonitorInfo? GetMonitorFromWindowHandle(System.IntPtr handle) { }
+        public static Orchestra.Windows.MonitorInfo? GetMonitorFromWindowHandle(nint handle) { }
         public static Orchestra.Windows.MonitorInfo? GetPrimaryMonitor() { }
     }
     public sealed class Taskbar
@@ -1225,17 +1225,5 @@ namespace Orchestra.Windows
     public static class WindowExtensions
     {
         public static void ApplyApplicationIcon(this System.Windows.Window window) { }
-    }
-}
-namespace XamlGeneratedNamespace
-{
-    public sealed class GeneratedInternalTypeHelper : System.Windows.Markup.InternalTypeHelper
-    {
-        public GeneratedInternalTypeHelper() { }
-        protected override void AddEventHandler(System.Reflection.EventInfo eventInfo, object target, System.Delegate handler) { }
-        protected override System.Delegate CreateDelegate(System.Type delegateType, object target, string handler) { }
-        protected override object CreateInstance(System.Type type, System.Globalization.CultureInfo culture) { }
-        protected override object GetPropertyValue(System.Reflection.PropertyInfo propertyInfo, object target, System.Globalization.CultureInfo culture) { }
-        protected override void SetPropertyValue(System.Reflection.PropertyInfo propertyInfo, object target, object value, System.Globalization.CultureInfo culture) { }
     }
 }
