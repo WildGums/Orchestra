@@ -21,6 +21,8 @@
             _systemInfoService = systemInfoService;
             _clipboardService = clipboardService;
 
+            ValidateUsingDataAnnotations = false;
+
             SystemInfo = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>(string.Empty, string.Empty) };
 
             CopyToClipboard = new Command(OnCopyToClipboardExecute);

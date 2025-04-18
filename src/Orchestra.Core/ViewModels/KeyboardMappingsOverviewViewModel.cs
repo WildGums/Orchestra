@@ -38,6 +38,8 @@
             _languageService = languageService;
             _keyboardMappingsService = keyboardMappingsService;
 
+            ValidateUsingDataAnnotations = false;
+
             Customize = new TaskCommand(OnCustomizeExecuteAsync);
             KeyboardMappings = new List<KeyboardMappings>();
         }

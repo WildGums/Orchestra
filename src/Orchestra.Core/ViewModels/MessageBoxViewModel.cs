@@ -20,6 +20,8 @@
             _messageService = messageService;
             _clipboardService = clipboardService;
 
+            ValidateUsingDataAnnotations = false;
+
             CopyToClipboard = new Command(OnCopyToClipboardExecute);
 
             OkCommand = new TaskCommand(OnOkCommandExecuteAsync);

@@ -33,6 +33,8 @@
             _navigationService = navigationService;
             _languageService = languageService;
 
+            ValidateUsingDataAnnotations = false;
+
             _assembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
 
             Continue = new TaskCommand(OnContinueExecuteAsync);

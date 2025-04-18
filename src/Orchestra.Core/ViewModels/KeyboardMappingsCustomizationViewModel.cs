@@ -35,6 +35,8 @@
             _languageService = languageService;
             _messageService = messageService;
 
+            ValidateUsingDataAnnotations = false;
+
             Commands = new FastObservableCollection<ICommandInfo>();
             CommandFilter = string.Empty;
             SelectedCommand = string.Empty;

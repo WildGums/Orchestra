@@ -21,6 +21,8 @@
 
             _aboutInfoService = aboutInfoService;
             _languageService = languageService;
+
+            ValidateUsingDataAnnotations = false;
         }
 
         public static bool IsActive { get; private set; }

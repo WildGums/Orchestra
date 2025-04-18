@@ -11,6 +11,7 @@
         {
             ArgumentNullException.ThrowIfNull(shellConfigurationService);
 
+            ValidateUsingDataAnnotations = shellConfigurationService.ValidateUsingDataAnnotations;
             DeferValidationUntilFirstSaveCall = shellConfigurationService.DeferValidationUntilFirstSaveCall;
 
             var assembly = AssemblyHelper.GetRequiredEntryAssembly();

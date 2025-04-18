@@ -34,6 +34,8 @@
             _languageService = languageService;
             _changelogService = changelogService;
 
+            ValidateUsingDataAnnotations = false;
+
             var buildDateTime = aboutInfo.BuildDateTime;
 
             Title = aboutInfo.Name ?? string.Empty;
