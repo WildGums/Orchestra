@@ -20,6 +20,8 @@
             ArgumentNullException.ThrowIfNull(changelogService);
             ArgumentNullException.ThrowIfNull(changelogSnapshotService);
 
+            ValidateUsingDataAnnotations = false;
+
             Changelog = changelog;
             _changelogService = changelogService;
             _changelogSnapshotService = changelogSnapshotService;
