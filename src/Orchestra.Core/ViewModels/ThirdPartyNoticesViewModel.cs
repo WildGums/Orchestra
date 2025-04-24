@@ -21,6 +21,8 @@
             _aboutInfoService = aboutInfoService;
             _thirdPartyNoticesService = thirdPartyNoticesService;
 
+            ValidateUsingDataAnnotations = false;
+
             Title = LanguageHelper.GetRequiredString("Orchestra_ThirdPartyNotices_Title");
             Explanation = string.Empty;
             ThirdPartyNotices = new List<ThirdPartyNotice>();
