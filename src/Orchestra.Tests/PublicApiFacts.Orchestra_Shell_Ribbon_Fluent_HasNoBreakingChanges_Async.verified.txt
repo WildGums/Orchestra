@@ -292,6 +292,7 @@ namespace Orchestra.Services
     public interface IShellConfigurationService
     {
         bool DeferValidationUntilFirstSaveCall { get; set; }
+        bool ValidateUsingDataAnnotations { get; set; }
     }
     public interface IShellContentService
     {
@@ -308,6 +309,7 @@ namespace Orchestra.Services
     {
         public ShellConfigurationService() { }
         public virtual bool DeferValidationUntilFirstSaveCall { get; set; }
+        public virtual bool ValidateUsingDataAnnotations { get; set; }
     }
     public class ShellService : Orchestra.Services.IShellService
     {
