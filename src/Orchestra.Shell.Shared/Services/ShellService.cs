@@ -155,6 +155,7 @@
             await _configurationBackupService.BackupAsync();
 
             TShell? shell = default;
+            Exception? exception = null;
             var successfullyStarted = true;
 
             try
@@ -193,18 +194,22 @@
                 Log.Error(ex, "An unexpected error occurred, shutting down the application");
 
                 successfullyStarted = false;
+                exception = ex;
             }
 
             if (!successfullyStarted)
             {
-                var entryAssembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
-                var assemblyTitle = entryAssembly.Title();
+                // Allow custom shell recovery process, but end app anyway
+                var shellRecoveryService = _dependencyResolver.ResolveRequired<IShellRecoveryService>();
 
-                // Late resolve so user might change the message service
-                var messageService = _dependencyResolver.ResolveRequired<IMessageService>();
-                await messageService.ShowErrorAsync(string.Format("An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.\n\nPlease try restarting the application. If this error keeps coming up while starting the application, please contact support.", assemblyTitle), string.Format("Failed to start {0}", assemblyTitle));
+                await shellRecoveryService.StartRecoveryAsync(new ShellRecoveryContext
+                {
+                    Exception = exception,
+                    Shell = shell
+                });
 
                 Application.Current.Shutdown(-1);
+                return default!;
             }
 
             if (shell is null)

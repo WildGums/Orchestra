@@ -15,6 +15,7 @@ public static partial class ModuleInitializer
         var serviceLocator = ServiceLocator.Default;
 
         serviceLocator.RegisterType<IShellService, ShellService>();
+        serviceLocator.RegisterType<IShellRecoveryService, ShellRecoveryService>();
         serviceLocator.RegisterType<IApplicationInitializationService, ApplicationInitializationServiceBase>();
         serviceLocator.RegisterType<IShellConfigurationService, ShellConfigurationService>();
         serviceLocator.RegisterType<IBusyIndicatorService, ProgressBusyIndicatorService>();
