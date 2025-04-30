@@ -254,6 +254,12 @@ namespace Orchestra
         public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Uri imageUri, System.Action action) { }
         public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Windows.Media.ImageSource? imageSource, System.Action action) { }
     }
+    public class ShellRecoveryContext
+    {
+        public ShellRecoveryContext() { }
+        public System.Exception? Exception { get; init; }
+        public Orchestra.Views.IShell? Shell { get; init; }
+    }
 }
 namespace Orchestra.Services
 {
@@ -299,6 +305,10 @@ namespace Orchestra.Services
         System.Windows.FrameworkElement? GetMainView();
         System.Windows.FrameworkElement? GetStatusBar();
     }
+    public interface IShellRecoveryService
+    {
+        System.Threading.Tasks.Task StartRecoveryAsync(Orchestra.ShellRecoveryContext shellRecoveryContext);
+    }
     public interface IShellService
     {
         Orchestra.Views.IShell? Shell { get; }
@@ -310,6 +320,11 @@ namespace Orchestra.Services
         public ShellConfigurationService() { }
         public virtual bool DeferValidationUntilFirstSaveCall { get; set; }
         public virtual bool ValidateUsingDataAnnotations { get; set; }
+    }
+    public class ShellRecoveryService : Orchestra.Services.IShellRecoveryService
+    {
+        public ShellRecoveryService(Catel.Services.IMessageService messageService) { }
+        public System.Threading.Tasks.Task StartRecoveryAsync(Orchestra.ShellRecoveryContext shellRecoveryContext) { }
     }
     public class ShellService : Orchestra.Services.IShellService
     {
