@@ -51,6 +51,7 @@ public static class ModuleInitializer
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusFilterService, StatusFilterService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<IStatusService, StatusService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<Orchestra.Services.ISplashScreenService, Orchestra.Services.SplashScreenService>();
+        serviceLocator.RegisterTypeIfNotYetRegistered<Orchestra.Services.ISplashScreenStatusService, Orchestra.Services.SplashScreenStatusService>();
 
         serviceLocator.RegisterTypeIfNotYetRegistered<IMainWindowService, MainWindowService>();
         serviceLocator.RegisterTypeIfNotYetRegistered<ICommandInfoService, CommandInfoService>();

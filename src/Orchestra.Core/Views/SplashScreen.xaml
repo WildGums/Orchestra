@@ -42,6 +42,22 @@
             <Setter Property="Foreground"
                     Value="White" />
         </Style>
+
+        <Style x:Key="SplashStatusTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="VerticalAlignment"
+                    Value="Bottom" />
+            <Setter Property="FontWeight"
+                    Value="Light" />
+            <Setter Property="Margin"
+                    Value="8" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="Foreground"
+                    Value="White" />
+            <Setter Property="FontSize"
+                    Value="{orctheming:FontSize 16}" />
+        </Style>
     </Window.Resources>
 
     <Grid MinWidth="390"
@@ -50,6 +66,8 @@
           Margin="-3">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -60,7 +78,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.RowSpan="4"
+        <Border Grid.RowSpan="6"
                 Grid.ColumnSpan="2"
                 BorderThickness="4"
                 Margin="-3">
@@ -81,20 +99,26 @@
                    Margin="70 0 70 0"
                    Style="{StaticResource SplashTextBlockStyle}" />
 
-        <orccontrols:BusyIndicator Grid.Row="2"
+        <orccontrols:VisualWrapper Grid.Row="2"
+                                   Grid.ColumnSpan="2"
+                                   x:Name="AnimatingTextBlockVisualWrapper">
+           <!-- Created on separate thread in code-behind -->
+        </orccontrols:VisualWrapper>
+        
+        <orccontrols:BusyIndicator Grid.Row="4"
                                    Grid.ColumnSpan="2"
                                    Foreground="White"
                                    Margin="8"
                                    IgnoreUnloadedEventCount="0" />
 
-        <TextBlock Grid.Row="3"
+        <TextBlock Grid.Row="5"
                    Grid.Column="0"
                    Text="{Binding ProducedBy}"
                    HorizontalAlignment="Left"
                    Style="{StaticResource SplashTextBlockStyle}"
                    Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}, ConverterParameter=True}" />
 
-        <Image Grid.Row="3"
+        <Image Grid.Row="5"
                Grid.Column="0"
                Source="{Binding CompanyLogoForSplashScreenUri, Converter={converters:NullImageSourceConverter}}"
                HorizontalAlignment="Left"
@@ -104,7 +128,7 @@
                Opacity="0.7"
                Visibility="{Binding CompanyLogoForSplashScreenUri, Converter={catel:ReferenceToCollapsingVisibilityConverter}}" />
 
-        <TextBlock Grid.Row="3"
+        <TextBlock Grid.Row="5"
                    Grid.Column="1"
                    Text="{Binding Version, StringFormat= v{0}}"
                    HorizontalAlignment="Right"

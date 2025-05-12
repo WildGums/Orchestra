@@ -763,6 +763,11 @@ namespace Orchestra.Services
     {
         System.Threading.Tasks.Task<System.Windows.Window> CreateSplashScreenAsync();
     }
+    public interface ISplashScreenStatusService
+    {
+        void Initialize(Orc.Controls.Services.IStatusRepresenter statusRepresenter);
+        void UpdateStatus(string status);
+    }
     public interface IStatusFilterService
     {
         bool IsSuspended { get; set; }
@@ -863,8 +868,14 @@ namespace Orchestra.Services
     }
     public class SplashScreenService : Orchestra.Services.ISplashScreenService
     {
-        public SplashScreenService() { }
+        public SplashScreenService(Orchestra.Services.ISplashScreenStatusService splashScreenStatusService) { }
         public virtual System.Threading.Tasks.Task<System.Windows.Window> CreateSplashScreenAsync() { }
+    }
+    public class SplashScreenStatusService : Orchestra.Services.ISplashScreenStatusService
+    {
+        public SplashScreenStatusService() { }
+        public void Initialize(Orc.Controls.Services.IStatusRepresenter statusRepresenter) { }
+        public void UpdateStatus(string status) { }
     }
     public class StatusFilterService : Orchestra.Services.IStatusFilterService
     {
@@ -1121,10 +1132,14 @@ namespace Orchestra.Views
         public void InitializeComponent() { }
         protected override System.Windows.Automation.Peers.AutomationPeer OnCreateAutomationPeer() { }
     }
-    public class SplashScreen : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
+    public class SplashScreen : Catel.Windows.DataWindow, Orc.Controls.Services.IStatusRepresenter, System.Windows.Markup.IComponentConnector
     {
         public SplashScreen() { }
         public void InitializeComponent() { }
+        protected override void OnLoaded(System.EventArgs e) { }
+        protected override void OnRenderSizeChanged(System.Windows.SizeChangedInfo sizeInfo) { }
+        protected override void OnUnloaded(System.EventArgs e) { }
+        public void UpdateStatus(string status) { }
     }
     public class SystemInfoWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
     {

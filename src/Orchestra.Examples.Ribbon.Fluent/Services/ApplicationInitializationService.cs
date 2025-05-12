@@ -5,30 +5,30 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Catel;
-    using Catel.Configuration;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
-    using Catel.Services;
-    using Orchestra.Examples.Ribbon.ViewModels;
     using Orchestra.Services;
     using InputGesture = Catel.Windows.Input.InputGesture;
 
     public class ApplicationInitializationService : ApplicationInitializationServiceBase
     {
-        private readonly IServiceLocator _serviceLocator;
-
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        private readonly IServiceLocator _serviceLocator;
+        private readonly ISplashScreenStatusService _splashScreenStatusService;
         
         public override bool ShowSplashScreen => true;
 
         public override bool ShowShell => true;
 
-        public ApplicationInitializationService(IServiceLocator serviceLocator)
+        public ApplicationInitializationService(IServiceLocator serviceLocator,
+            ISplashScreenStatusService splashScreenStatusService)
         {
             ArgumentNullException.ThrowIfNull(serviceLocator);
 
             _serviceLocator = serviceLocator;
+            _splashScreenStatusService = splashScreenStatusService;
         }
 
         public override async Task InitializeBeforeCreatingShellAsync()
@@ -49,6 +49,8 @@
 
         private async Task InitializeCommandsAsync()
         {
+            _splashScreenStatusService.UpdateStatus("Initializing commands");
+
             var commandManager = ServiceLocator.Default.ResolveRequiredType<ICommandManager>();
             var commandInfoService = ServiceLocator.Default.ResolveRequiredType<ICommandInfoService>();
 
@@ -70,14 +72,20 @@
 
         public override async Task InitializeAfterCreatingShellAsync()
         {
-            Log.Info("Delay to show the splash screen");
+            _splashScreenStatusService.UpdateStatus("Delaying splash screen for demo purposes");
 
+            // Note: use thread.sleep to show a blocking thread but still allows
+            // running status updates since the splash screen textblock runs on a
+            // separate thread
             Thread.Sleep(2500);
+            //await Task.Delay(2500);
         }
 
         private async Task InitializePerformanceAsync()
         {
-            Log.Info("Improving performance");
+            _splashScreenStatusService.UpdateStatus("Improving performance");
+
+            await Task.Delay(1000);
 
             Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
             Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
@@ -85,6 +93,10 @@
 
         private async Task RegisterTypesAsync()
         {
+            _splashScreenStatusService.UpdateStatus("Registering types");
+
+            await Task.Delay(1000);
+
             var serviceLocator = _serviceLocator;
 
             serviceLocator.RegisterType<IAboutInfoService, AboutInfoService>();
