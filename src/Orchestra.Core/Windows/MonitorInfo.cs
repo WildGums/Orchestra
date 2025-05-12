@@ -12,26 +12,7 @@
     using Catel.Logging;
     using Orchestra.Win32;
 
-    public class DpiScale
-    {
-        private const double BasicAbsoluteDpi = 96;
-
-        public double X { get; set; } = BasicAbsoluteDpi;
-        public double Y { get; set; } = BasicAbsoluteDpi;
-
-        public void SetScaleFromAbsolute(uint absoluteDpiX, uint absoluteDpiY)
-        {
-            X = absoluteDpiX / BasicAbsoluteDpi;
-            Y = absoluteDpiY / BasicAbsoluteDpi;
-        }
-
-        public override string ToString()
-        {
-            return $"X:{X} Y:{Y}";
-        }
-    }
-
-    public partial class MonitorInfo
+    public partial class MonitorInfo : IMonitorInfo
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
@@ -87,7 +68,12 @@
             return new Rect(WorkingArea.X * DpiScale.X, WorkingArea.Y * DpiScale.Y, (int)(WorkingArea.Width * DpiScale.X), (int)(WorkingArea.Height * DpiScale.Y));
         }
 
-        public static MonitorInfo[] GetAllMonitors(bool throwErrorsForWrongAppManifest = true)
+        public override string ToString()
+        {
+            return $"{Id} {FriendlyName} {DeviceName}";
+        }
+
+        public static IMonitorInfo[] GetAllMonitors(bool throwErrorsForWrongAppManifest = true)
         {
             if (throwErrorsForWrongAppManifest)
             {
@@ -107,7 +93,7 @@
                 //GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness);
             }
 
-            var monitorInfos = new List<MonitorInfo>();
+            var monitorInfos = new List<IMonitorInfo>();
             var videoAdapters = new List<DisplayDevice>();
 
             var adapterIndex = -1;
@@ -218,12 +204,12 @@
             return monitorInfos.ToArray();
         }
 
-        public static MonitorInfo? GetPrimaryMonitor()
+        public static IMonitorInfo? GetPrimaryMonitor()
         {
             return GetAllMonitors().FirstOrDefault(x => x.IsPrimary);
         }
 
-        public static MonitorInfo? GetMonitorFromWindow(Window window)
+        public static IMonitorInfo? GetMonitorFromWindow(Window window)
         {
             ArgumentNullException.ThrowIfNull(window);
 
@@ -231,12 +217,13 @@
             return GetMonitorFromWindowHandle(windowInteropHelper.Handle);
         }
 
-        public static MonitorInfo? GetMonitorFromWindowHandle(IntPtr handle)
+        public static IMonitorInfo? GetMonitorFromWindowHandle(IntPtr handle)
         {
             if (handle == IntPtr.Zero)
             {
                 throw Log.ErrorAndCreateException((string errorMessage) => new ArgumentException(errorMessage, nameof(handle)), "Pointer has been initialized to zero");
             }
+
             // Get screen from window handle
             var monitorHandle = User32.MonitorFromWindow(handle, 0);
 
