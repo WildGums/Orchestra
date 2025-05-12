@@ -51,8 +51,8 @@
         {
             _splashScreenStatusService.UpdateStatus("Initializing commands");
 
-            var commandManager = ServiceLocator.Default.ResolveRequiredType<ICommandManager>();
-            var commandInfoService = ServiceLocator.Default.ResolveRequiredType<ICommandInfoService>();
+            var commandManager = _serviceLocator.ResolveRequiredType<ICommandManager>();
+            var commandInfoService = _serviceLocator.ResolveRequiredType<ICommandInfoService>();
 
             commandManager.CreateCommandWithGesture(typeof(Commands.Application), "Exit");
             commandManager.CreateCommandWithGesture(typeof(Commands.Application), "About");
