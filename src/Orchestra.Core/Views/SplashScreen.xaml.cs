@@ -96,6 +96,7 @@
 
             var grid = new Grid
             {
+                Width = ActualWidth,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
