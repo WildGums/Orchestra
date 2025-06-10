@@ -32,10 +32,12 @@
 
             DispatcherTimer = new DispatcherTimerEx(DispatcherService);
 
-            // Hotfix: changed from 5 => 100, otherwise it will cause too much CPU usage
-            DispatcherTimer.Interval = TimeSpan.FromMilliseconds(100);
+            // Hotfix: changed from 5 => 250, otherwise it will cause too much CPU usage
+            DispatcherTimer.Interval = TimeSpan.FromMilliseconds(250);
             DispatcherTimer.Tick += async (sender, e) => await EnsureMainWindowAsync();
-            DispatcherTimer.Start();
+
+            // Note: starting the timer here is useless since it's immediately stopped in EnsureMainWindowAsync
+            //DispatcherTimer.Start();
 
             _ = EnsureMainWindowAsync();
         }
