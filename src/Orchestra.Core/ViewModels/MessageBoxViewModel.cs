@@ -11,14 +11,14 @@
     {
         private readonly IMessageService _messageService;
         private readonly IClipboardService _clipboardService;
+        private readonly ILanguageService _languageService;
 
-        public MessageBoxViewModel(IMessageService messageService, IClipboardService clipboardService)
+        public MessageBoxViewModel(IMessageService messageService, 
+            IClipboardService clipboardService, ILanguageService languageService)
         {
-            ArgumentNullException.ThrowIfNull(messageService);
-            ArgumentNullException.ThrowIfNull(clipboardService);
-
             _messageService = messageService;
             _clipboardService = clipboardService;
+            _languageService = languageService;
 
             ValidateUsingDataAnnotations = false;
 
@@ -31,9 +31,22 @@
             EscapeCommand = new TaskCommand(OnEscapeCommandExecuteAsync);
 
             Result = MessageResult.None;
+
+            OkText = _languageService.GetRequiredString("OK");
+            YesText = _languageService.GetRequiredString("Yes");
+            NoText = _languageService.GetRequiredString("No");
+            CancelText = _languageService.GetRequiredString("Cancel");
         }
 
         public string? Message { get; set; }
+
+        public string OkText { get; set; }
+
+        public string YesText { get; set; }
+
+        public string NoText { get; set; }
+
+        public string CancelText { get; set; }
 
         public MessageResult Result { get; set; }
 
