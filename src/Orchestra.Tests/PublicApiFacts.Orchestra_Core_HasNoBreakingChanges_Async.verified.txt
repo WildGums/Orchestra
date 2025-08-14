@@ -839,7 +839,7 @@ namespace Orchestra.Services
     }
     public class MessageService : Catel.Services.MessageService
     {
-        public MessageService(Catel.Services.IDispatcherService dispatcherService, Catel.Services.IUIVisualizerService uiVisualizerService, Catel.MVVM.IViewModelFactory viewModelFactory, Catel.Services.ILanguageService languageService) { }
+        public MessageService(Catel.Services.IDispatcherService dispatcherService, Catel.Services.IUIVisualizerService uiVisualizerService, Catel.MVVM.IViewModelFactory viewModelFactory, Catel.Services.ILanguageService languageService, Orchestra.Services.IClipboardService clipboardService) { }
         public override System.Threading.Tasks.Task<Catel.Services.MessageResult> ShowAsync(string message, string caption = "", Catel.Services.MessageButton button = 1, Catel.Services.MessageImage icon = 0) { }
     }
     public class MicrosoftApiSelectDirectoryService : Catel.Services.ISelectDirectoryService
@@ -1029,20 +1029,28 @@ namespace Orchestra.ViewModels
     public class MessageBoxViewModel : Catel.MVVM.ViewModelBase
     {
         public static readonly Catel.Data.IPropertyData ButtonProperty;
+        public static readonly Catel.Data.IPropertyData CancelTextProperty;
         public static readonly Catel.Data.IPropertyData IconProperty;
         public static readonly Catel.Data.IPropertyData MessageProperty;
+        public static readonly Catel.Data.IPropertyData NoTextProperty;
+        public static readonly Catel.Data.IPropertyData OkTextProperty;
         public static readonly Catel.Data.IPropertyData ResultProperty;
-        public MessageBoxViewModel(Catel.Services.IMessageService messageService, Orchestra.Services.IClipboardService clipboardService) { }
+        public static readonly Catel.Data.IPropertyData YesTextProperty;
+        public MessageBoxViewModel(Catel.Services.IMessageService messageService, Orchestra.Services.IClipboardService clipboardService, Catel.Services.ILanguageService languageService) { }
         public Catel.Services.MessageButton Button { get; set; }
         public Catel.MVVM.TaskCommand CancelCommand { get; }
+        public string CancelText { get; set; }
         public Catel.MVVM.Command CopyToClipboard { get; }
         public Catel.MVVM.TaskCommand EscapeCommand { get; }
         public Catel.Services.MessageImage Icon { get; set; }
         public string? Message { get; set; }
         public Catel.MVVM.TaskCommand NoCommand { get; }
+        public string NoText { get; set; }
         public Catel.MVVM.TaskCommand OkCommand { get; }
+        public string OkText { get; set; }
         public Catel.Services.MessageResult Result { get; set; }
         public Catel.MVVM.TaskCommand YesCommand { get; }
+        public string YesText { get; set; }
         protected override System.Threading.Tasks.Task CloseAsync() { }
         public void SetTitle(string title) { }
     }

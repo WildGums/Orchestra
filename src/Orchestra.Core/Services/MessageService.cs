@@ -16,18 +16,18 @@
         private readonly IDispatcherService _dispatcherService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IViewModelFactory _viewModelFactory;
+        private readonly ILanguageService _languageService;
+        private readonly IClipboardService _clipboardService;
 
         public MessageService(IDispatcherService dispatcherService, IUIVisualizerService uiVisualizerService,
-            IViewModelFactory viewModelFactory, ILanguageService languageService)
+            IViewModelFactory viewModelFactory, ILanguageService languageService, IClipboardService clipboardService)
             : base(dispatcherService, languageService)
         {
-            ArgumentNullException.ThrowIfNull(dispatcherService);
-            ArgumentNullException.ThrowIfNull(uiVisualizerService);
-            ArgumentNullException.ThrowIfNull(viewModelFactory);
-
             _dispatcherService = dispatcherService;
             _uiVisualizerService = uiVisualizerService;
             _viewModelFactory = viewModelFactory;
+            _languageService = languageService;
+            _clipboardService = clipboardService;
         }
 
         public override Task<MessageResult> ShowAsync(string message, string caption = "", MessageButton button = MessageButton.OK, MessageImage icon = MessageImage.None)
@@ -40,7 +40,7 @@
 
             _dispatcherService.BeginInvokeIfRequired(async () =>
             {
-                var vm = _viewModelFactory.CreateRequiredViewModel<MessageBoxViewModel>(null, null);
+                var vm = new MessageBoxViewModel(this, _clipboardService, _languageService);
 
                 using (new DisposableToken<CursorMemory>(new CursorMemory(),
                     x =>
