@@ -1,0 +1,34 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/misc/">
+    <File Path="Directory.build.project.props" />
+    <File Path="Directory.build.props" />
+    <File Path="Directory.build.shared.explicit.props" />
+    <File Path="Directory.build.shared.implicit.props" />
+    <File Path="Directory.build.shared.mat.props" />
+    <File Path="Directory.build.targets" />
+    <File Path="GlobalSuppressions.cs" />
+    <File Path="MethodTimeLogger.cs" />
+    <File Path="SolutionAssemblyInfo.cs" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Core/">
+    <Project Path="Orchestra.Core/Orchestra.Core.csproj" />
+    <Project Path="Orchestra.Shell.Ribbon.Fluent/Orchestra.Shell.Ribbon.Fluent.csproj" />
+    <Project Path="Orchestra.Shell.Shared/Orchestra.Shell.Shared.shproj" />
+    <Project Path="Orchestra.Shell.TaskRunner/Orchestra.Shell.TaskRunner.csproj" />
+  </Folder>
+  <Folder Name="/src/Examples/">
+    <Project Path="Orchestra.Examples.Ribbon.Fluent/Orchestra.Examples.Ribbon.Fluent.csproj" />
+    <Project Path="Orchestra.Examples.Shared/Orchestra.Examples.Shared.shproj" />
+    <Project Path="Orchestra.Examples.TaskRunner/Orchestra.Examples.TaskRunner.csproj" />
+  </Folder>
+  <Folder Name="/src/Orchestra.Tests/">
+    <Project Path="Orchestra.Tests/Orchestra.Tests.csproj" />
+  </Folder>
+</Solution>
