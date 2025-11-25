@@ -7,7 +7,6 @@
       Orc.*
     </IncludeAssemblies>
   </LoadAssembliesOnStartup>
-  <ModuleInit />
   <Obsolete />
   <Catel />
 </Weavers>
