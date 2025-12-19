@@ -34,7 +34,7 @@
       <IncludeAssets>build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.7.0" PrivateAssets="all" />
-    <PackageReference Include="Orc.Notifications" Version="5.2.0-alpha0419" />
+    <PackageReference Include="Orc.Notifications" Version="5.2.0" />
   </ItemGroup>
 
   <ItemGroup>
