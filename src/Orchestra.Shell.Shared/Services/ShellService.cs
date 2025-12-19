@@ -3,13 +3,11 @@
     using System;
     using System.Threading.Tasks;
     using System.Windows;
-    using Catel;
     using Catel.Configuration;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
-    using Catel.Services;
     using MethodTimer;
     using Orc.Theming;
     using Orchestra.Theming;

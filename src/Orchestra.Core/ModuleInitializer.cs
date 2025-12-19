@@ -1,4 +1,5 @@
-﻿using Catel;
+using System.Runtime.CompilerServices;
+using Catel;
 using Catel.IoC;
 using Catel.Services;
 using Orchestra;
@@ -21,6 +22,7 @@ public static class ModuleInitializer
     /// <summary>
     /// Initializes the module.
     /// </summary>
+    [ModuleInitializer]
     public static void Initialize()
     {
         if (EnvironmentHelper.IsProcessHostedByTool)
