@@ -8,7 +8,7 @@
     /// <summary>
     /// Converts a command name to a string.
     /// </summary>
-    public class CommandNameToStringConverter : ValueConverterBase
+    public partial class CommandNameToStringConverter : ValueConverterBase
     {
         /// <summary>
         /// Modifies the source data before passing it to the target for display in the UI.

@@ -1,10 +1,6 @@
-﻿namespace Orchestra.Changelog.Views
+﻿namespace Orchestra.ChangeLogger.LogViews
 {
     public partial class ChangelogView
     {
-        public ChangelogView()
-        {
-            InitializeComponent();
-        }
     }
 }

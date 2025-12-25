@@ -1,23 +1,20 @@
 ﻿namespace Orchestra.Services
 {
-    using System;
     using System.Threading.Tasks;
-    using Catel.Logging;
     using Catel.Services;
+    using Microsoft.Extensions.Logging;
     using ViewModels;
 
     public class AboutService : IAboutService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        private readonly ILogger<AboutService> _logger;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IAboutInfoService _aboutInfoService;
 
-        public AboutService(IUIVisualizerService uiVisualizerService, IAboutInfoService aboutInfoService)
+        public AboutService(ILogger<AboutService> logger, IUIVisualizerService uiVisualizerService, 
+            IAboutInfoService aboutInfoService)
         {
-            ArgumentNullException.ThrowIfNull(uiVisualizerService);
-            ArgumentNullException.ThrowIfNull(aboutInfoService);
-
+            _logger = logger;
             _uiVisualizerService = uiVisualizerService;
             _aboutInfoService = aboutInfoService;
         }
@@ -27,13 +24,13 @@
             var aboutInfo = await _aboutInfoService.GetAboutInfoAsync();
             if (aboutInfo is not null)
             {
-                Log.Info("Showing about dialog");
+                _logger.LogInformation("Showing about dialog");
 
                 await _uiVisualizerService.ShowDialogAsync<AboutViewModel>(aboutInfo);
             }
             else
             {
-                Log.Warning("IAboutInfoService.GetAboutInfo() returned null, cannot show about window");
+                _logger.LogWarning("IAboutInfoService.GetAboutInfo() returned null, cannot show about window");
             }
         }
     }

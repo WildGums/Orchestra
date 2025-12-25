@@ -6,15 +6,14 @@
     using Catel;
     using Catel.Logging;
     using Catel.Services;
+    using Microsoft.Extensions.Logging;
     using Orc.FileSystem;
     using Views;
 
     public class EnsureStartupService : IEnsureStartupService
     {
         private const string EnsureStartupCheckFile = "startupfailed.txt";
-
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        private readonly ILogger<EnsureStartupService> _logger;
         private readonly IAppDataService _appDataService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IFileService _fileService;
@@ -23,12 +22,10 @@
         private Stream? _fileStream;
 #pragma warning restore IDISP006 // Implement IDisposable.
 
-        public EnsureStartupService(IAppDataService appDataService, IUIVisualizerService uiVisualizerService, IFileService fileService)
+        public EnsureStartupService(ILogger<EnsureStartupService> logger, IAppDataService appDataService,
+            IUIVisualizerService uiVisualizerService, IFileService fileService)
         {
-            ArgumentNullException.ThrowIfNull(appDataService);
-            ArgumentNullException.ThrowIfNull(uiVisualizerService);
-            ArgumentNullException.ThrowIfNull(fileService);
-
+            _logger = logger;
             _appDataService = appDataService;
             _uiVisualizerService = uiVisualizerService;
             _fileService = fileService;
@@ -38,7 +35,7 @@
 
         public virtual async Task ConfirmApplicationStartedSuccessfullyAsync()
         {
-            Log.Debug("Confirming application started successfully, deleting fail safe file check");
+            _logger.LogDebug("Confirming application started successfully, deleting fail safe file check");
 
             if (_fileStream is not null)
             {
@@ -60,13 +57,13 @@
             var fileExists = _fileService.Exists(checkFile);
             if (!fileExists)
             {
-                Log.Debug("No check file exists, assuming app started successfully last time");
+                _logger.LogDebug("No check file exists, assuming app started successfully last time");
 
                 SuccessfullyStarted = true;
             }
             else if (IsFileLocked(checkFile))
             {
-                Log.Debug("Check file exists, but is locked so assuming there are multiple instances starting at the same time");
+                _logger.LogDebug("Check file exists, but is locked so assuming there are multiple instances starting at the same time");
 
                 SuccessfullyStarted = true;
                 createFailSafeFile = false;
@@ -75,7 +72,7 @@
             if (createFailSafeFile)
             {
                 // Always create the file, but not if the file is currently locked
-                Log.Debug("Creating fail safe file check for current instance");
+                _logger.LogDebug("Creating fail safe file check for current instance");
 
                 _fileStream?.Dispose();
 
@@ -85,11 +82,11 @@
 
             if (SuccessfullyStarted)
             {
-                Log.Debug("Application was successfully started previously, starting application in normal mode");
+                _logger.LogDebug("Application was successfully started previously, starting application in normal mode");
                 return;
             }
 
-            Log.Info("Application was not successfully started previously, starting application in fail-safe mode");
+            _logger.LogInformation("Application was not successfully started previously, starting application in fail-safe mode");
 
             await _uiVisualizerService.ShowDialogAsync<CrashWarningViewModel>();
         }

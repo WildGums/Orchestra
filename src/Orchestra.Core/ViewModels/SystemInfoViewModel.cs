@@ -13,7 +13,8 @@
         private readonly ISystemInfoService _systemInfoService;
         private readonly IClipboardService _clipboardService;
 
-        public SystemInfoViewModel(ISystemInfoService systemInfoService, IClipboardService clipboardService)
+        public SystemInfoViewModel(IServiceProvider serviceProvider,
+            ISystemInfoService systemInfoService, IClipboardService clipboardService)
         {
             ArgumentNullException.ThrowIfNull(systemInfoService);
             ArgumentNullException.ThrowIfNull(clipboardService);
@@ -25,7 +26,7 @@
 
             SystemInfo = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>(string.Empty, string.Empty) };
 
-            CopyToClipboard = new Command(OnCopyToClipboardExecute);
+            CopyToClipboard = new Command(serviceProvider, OnCopyToClipboardExecute);
         }
 
         public List<KeyValuePair<string, string>> SystemInfo { get; private set; }

@@ -10,13 +10,14 @@
     using System.Windows.Threading;
     using Catel;
     using Catel.Logging;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Class that makes sure to inform the user if a bug occurs due to a missing .net patch.
     /// </summary>
     public static class DotNetPatchHelper
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(DotNetPatchHelper));
 
         private static readonly Queue<Exception> LastFirstChanceExceptions = new Queue<Exception>();
 
@@ -61,7 +62,7 @@
                 return;
             }
 
-            Log.Debug("Attaching from AppDomain");
+            Logger.LogDebug("Attaching from AppDomain");
 
             _isAppDomainInitialized = true;
 
@@ -77,7 +78,7 @@
                 return;
             }
 
-            Log.Debug("Detaching from AppDomain");
+            Logger.LogDebug("Detaching from AppDomain");
 
             var appDomain = AppDomain.CurrentDomain;
             appDomain.UnhandledException -= OnAppDomainUnhandledException;
@@ -101,7 +102,7 @@
             var application = Application.Current;
             if (application is not null)
             {
-                Log.Debug("Attaching to Application");
+                Logger.LogDebug("Attaching to Application");
 
                 application.DispatcherUnhandledException += OnDispatcherUnhandledException;
                 _isApplicationInitialized = true;
@@ -118,7 +119,7 @@
             var application = Application.Current;
             if (application is not null)
             {
-                Log.Debug("Detaching from Application");
+                Logger.LogDebug("Detaching from Application");
 
                 application.DispatcherUnhandledException -= OnDispatcherUnhandledException;
                 _isApplicationInitialized = false;
@@ -127,11 +128,11 @@
 
         private static async void OnAppDomainUnhandledException(object? sender, UnhandledExceptionEventArgs e)
         {
-            Log.Debug("AppDomain unhandled exception");
+            Logger.LogDebug("AppDomain unhandled exception");
 
             if (_handledException)
             {
-                Log.Debug("Already handled an unhandled exception");
+                Logger.LogDebug("Already handled an unhandled exception");
                 return;
             }
 
@@ -160,11 +161,11 @@
 
         private static async void OnDispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            Log.Debug("Dispatcher unhandled exception");
+            Logger.LogDebug("Dispatcher unhandled exception");
 
             if (_handledException)
             {
-                Log.Debug("Already handled an unhandled exception");
+                Logger.LogDebug("Already handled an unhandled exception");
                 return;
             }
 
@@ -179,9 +180,9 @@
         {
             ArgumentNullException.ThrowIfNull(ex);
 
-            await LogHelper.AddLogListenerForUnhandledExceptionAsync(ex);
+            //await LogHelper.AddLogListenerForUnhandledExceptionAsync(ex);
 
-            Log.Info("An unhandled exception occurred, checking if it is a known KB issue: {0}", ex.Message);
+            Logger.LogInformation("An unhandled exception occurred, checking if it is a known KB issue: {0}", ex.Message);
 
             var fileLoadException = ex as FileLoadException;
             if (fileLoadException is not null)
@@ -194,13 +195,11 @@
 
                     ShowMessage(message);
 
-                    await LogManager.FlushAllAsync();
-
                     return false;
                 }
             }
 
-            Log.Info("Below is a list of the last first chance exceptions that occurred. It might provide more information to the issue.");
+            Logger.LogInformation("Below is a list of the last first chance exceptions that occurred. It might provide more information to the issue.");
 
             lock (LastFirstChanceExceptions)
             {
@@ -208,14 +207,12 @@
                 {
                     var firstChanceException = LastFirstChanceExceptions.Dequeue();
 
-                    Log.Info("================================================================================================");
-                    Log.Info();
-                    Log.Info(firstChanceException);
-                    Log.Info();
+                    Logger.LogInformation("================================================================================================");
+                    Logger.LogInformation(string.Empty);
+                    Logger.LogInformation(firstChanceException, null);
+                    Logger.LogInformation(string.Empty);
                 }
             }
-
-            await LogManager.FlushAllAsync();
 
             return true;
         }
@@ -224,7 +221,7 @@
         {
             ArgumentNullException.ThrowIfNull(content);
 
-            Log.Error(content);
+            Logger.LogError(content);
 
             var finalMessage = $"{content}\n\nNote: you can use CTRL + C to copy this message into the clipboard";
 

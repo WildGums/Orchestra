@@ -7,7 +7,7 @@
     /// <summary>
     /// Converts an input gesture to a string.
     /// </summary>
-    public class InputGestureToStringConverter : ValueConverterBase
+    public partial class InputGestureToStringConverter : ValueConverterBase
     {
         /// <summary>
         /// Modifies the source data before passing it to the target for display in the UI.

@@ -7,27 +7,29 @@
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using Services;
 
     public class CrashWarningViewModel : ViewModelBase
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        
+        private readonly ILogger<CrashWarningViewModel> _logger;
         private readonly IManageAppDataService _manageAppDataService;
         private readonly Assembly _assembly;
         private readonly IMessageService _messageService;
         private readonly INavigationService _navigationService;
         private readonly ILanguageService _languageService;
 
-        public CrashWarningViewModel(IManageAppDataService manageAppDataService, IMessageService messageService, INavigationService navigationService,
-            ILanguageService languageService)
+        public CrashWarningViewModel(ILogger<CrashWarningViewModel> logger, IServiceProvider serviceProvider, 
+            IManageAppDataService manageAppDataService, IMessageService messageService, 
+            INavigationService navigationService, ILanguageService languageService)
         {
             ArgumentNullException.ThrowIfNull(messageService);
             ArgumentNullException.ThrowIfNull(navigationService);
             ArgumentNullException.ThrowIfNull(navigationService);
             ArgumentNullException.ThrowIfNull(manageAppDataService);
             ArgumentNullException.ThrowIfNull(languageService);
-
+            _logger = logger;
             _manageAppDataService = manageAppDataService;
             _messageService = messageService;
             _navigationService = navigationService;
@@ -37,9 +39,9 @@
 
             _assembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
 
-            Continue = new TaskCommand(OnContinueExecuteAsync);
-            ResetUserSettings = new TaskCommand(OnResetUserSettingsExecuteAsync);
-            BackupAndReset = new TaskCommand(OnResetAndBackupExecuteAsync);
+            Continue = new TaskCommand(serviceProvider, OnContinueExecuteAsync);
+            ResetUserSettings = new TaskCommand(serviceProvider, OnResetUserSettingsExecuteAsync);
+            BackupAndReset = new TaskCommand(serviceProvider, OnResetAndBackupExecuteAsync);
         }
 
         public override string Title
@@ -51,11 +53,11 @@
 
         private async Task OnResetAndBackupExecuteAsync()
         {
-            Log.Info("User choose to create a backup");
+            _logger.LogInformation("User choose to create a backup");
 
             if (!await _manageAppDataService.BackupUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming))
             {
-                Log.Warning("User canceled the backup, exit application");
+                _logger.LogWarning("User canceled the backup, exit application");
 
                 await _messageService.ShowErrorAsync(_languageService.GetRequiredString("Orchestra_FailedToCreateBackup"), _assembly.Title() ?? string.Empty);
 
@@ -75,7 +77,7 @@
 
         private async Task OnResetUserSettingsExecuteAsync()
         {
-            Log.Info("User choose NOT to create a backup");
+            _logger.LogInformation("User choose NOT to create a backup");
 
             await _manageAppDataService.DeleteUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming);
 
@@ -88,14 +90,14 @@
 
         private async Task OnContinueExecuteAsync()
         {
-            Log.Info("User choose NOT to delete any data and continue (living on the edge)");
+            _logger.LogInformation("User choose NOT to delete any data and continue (living on the edge)");
 
             await CloseViewModelAsync(false);
         }
 
         protected override Task<bool> CancelAsync()
         {
-            Log.Info("User choose NOT to delete any data and continue (living on the edge)");
+            _logger.LogInformation("User choose NOT to delete any data and continue (living on the edge)");
 
             return base.CancelAsync();
         }

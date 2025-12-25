@@ -18,9 +18,9 @@
 
             _statusFilterService = statusFilterService;
 
-            var statusLogListener = new Orchestra.Logging.StatusLogListener(this);
+            //var statusLogListener = new Orchestra.Logging.StatusLogListener(this);
 
-            LogManager.AddListener(statusLogListener);
+            //LogManager.AddListener(statusLogListener);
         }
 
         public void UpdateStatus(string status)

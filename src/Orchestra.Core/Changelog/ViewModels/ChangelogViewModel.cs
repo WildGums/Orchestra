@@ -1,33 +1,30 @@
 ﻿namespace Orchestra.Changelog.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Catel;
-    using Catel.Logging;
     using Catel.MVVM;
+    using Catel.Services;
+    using Microsoft.Extensions.Logging;
 
     public class ChangelogViewModel : ViewModelBase
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        private readonly ILogger<ChangelogViewModel> _logger;
         private readonly IChangelogService _changelogService;
         private readonly IChangelogSnapshotService _changelogSnapshotService;
 
-        public ChangelogViewModel(Changelog changelog, IChangelogService changelogService, IChangelogSnapshotService changelogSnapshotService)
+        public ChangelogViewModel(Changelog changelog, ILogger<ChangelogViewModel> logger, 
+            IChangelogService changelogService, IChangelogSnapshotService changelogSnapshotService,
+            ILanguageService languageService)
         {
-            ArgumentNullException.ThrowIfNull(changelog);
-            ArgumentNullException.ThrowIfNull(changelogService);
-            ArgumentNullException.ThrowIfNull(changelogSnapshotService);
-
             ValidateUsingDataAnnotations = false;
 
             Changelog = changelog;
+            _logger = logger;
             _changelogService = changelogService;
             _changelogSnapshotService = changelogSnapshotService;
 
             Groups = changelog.CreateGroups();
-            Title = changelog.Title ?? LanguageHelper.GetRequiredString("Orchestra_Changelog");
+            Title = changelog.Title ?? languageService.GetRequiredString("Orchestra_Changelog");
         }
 
         public Changelog Changelog { get; }

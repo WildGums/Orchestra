@@ -4,10 +4,9 @@
 
     public partial class ThirdPartyNoticesWindow
     {
-        public ThirdPartyNoticesWindow()
-            : base(DataWindowMode.Close)
+        partial void OnInitializedComponent()
         {
-            InitializeComponent();
+            Mode = DataWindowMode.Close;
         }
     }
 }

@@ -7,6 +7,6 @@
     {
         void Add(ThirdPartyNotice thirdPartyNotice);
 
-        Task<List<ThirdPartyNotice>> GetThirdPartyNoticesAsync();
+        Task<IReadOnlyList<ThirdPartyNotice>> GetThirdPartyNoticesAsync();
     }
 }

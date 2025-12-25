@@ -4,32 +4,27 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
-    using Catel.Logging;
     using Catel.MVVM;
-    using Catel.Runtime.Serialization.Xml;
     using Catel.Services;
+    using Microsoft.Extensions.Logging;
     using Orc.FileSystem;
 
     public class KeyboardMappingsService : IKeyboardMappingsService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        private readonly ILogger<KeyboardMappingsService> _logger;
         private readonly ICommandManager _commandManager;
-        private readonly IXmlSerializer _xmlSerializer;
+        //private readonly IXmlSerializer _xmlSerializer;
         private readonly IFileService _fileService;
         private readonly IAppDataService _appDataService;
         private readonly string _fileName;
 
-        public KeyboardMappingsService(ICommandManager commandManager, IXmlSerializer xmlSerializer, 
+        public KeyboardMappingsService(ILogger<KeyboardMappingsService> logger, 
+            ICommandManager commandManager, /* IXmlSerializer xmlSerializer, */
             IFileService fileService, IAppDataService appDataService)
         {
-            ArgumentNullException.ThrowIfNull(commandManager);
-            ArgumentNullException.ThrowIfNull(xmlSerializer);
-            ArgumentNullException.ThrowIfNull(fileService);
-            ArgumentNullException.ThrowIfNull(appDataService);
-
+            _logger = logger;
             _commandManager = commandManager;
-            _xmlSerializer = xmlSerializer;
+            //_xmlSerializer = xmlSerializer;
             _fileService = fileService;
             _appDataService = appDataService;
 
@@ -42,45 +37,45 @@
 
         public async Task LoadAsync()
         {
-            Log.Debug("Loading keyboard mappings");
+            _logger.LogDebug("Loading keyboard mappings");
 
             try
             {
                 if (!_fileService.Exists(_fileName))
                 {
-                    Log.Debug("Keyboard mapping file not found at '{0}'", _fileName);
+                    _logger.LogDebug("Keyboard mapping file not found at '{0}'", _fileName);
                     return;
                 }
 
-                using (var fileStream = _fileService.OpenRead(_fileName))
-                {
-                    var keyboardMappings = _xmlSerializer.Deserialize(typeof (KeyboardMappings), fileStream, null) as KeyboardMappings;
-                    if (keyboardMappings is not null)
-                    {
-                        foreach (var keyboardMapping in keyboardMappings.Mappings)
-                        {
-                            Log.Debug("Updating keyboard mapping for command '{0}' to '{1}'", keyboardMapping.CommandName, keyboardMapping.InputGesture);
+                //using (var fileStream = _fileService.OpenRead(_fileName))
+                //{
+                //    var keyboardMappings = _xmlSerializer.Deserialize(typeof (KeyboardMappings), fileStream, null) as KeyboardMappings;
+                //    if (keyboardMappings is not null)
+                //    {
+                //        foreach (var keyboardMapping in keyboardMappings.Mappings)
+                //        {
+                //            _logger.LogDebug("Updating keyboard mapping for command '{0}' to '{1}'", keyboardMapping.CommandName, keyboardMapping.InputGesture);
 
-                            if (!_commandManager.IsCommandCreated(keyboardMapping.CommandName))
-                            {
-                                Log.Debug("Command '{0}' is not created in the CommandManager, cannot update input gesture", keyboardMapping.CommandName);
-                                continue;
-                            }
+                //            if (!_commandManager.IsCommandCreated(keyboardMapping.CommandName))
+                //            {
+                //                _logger.LogDebug("Command '{0}' is not created in the CommandManager, cannot update input gesture", keyboardMapping.CommandName);
+                //                continue;
+                //            }
 
-                            _commandManager.UpdateInputGesture(keyboardMapping.CommandName, keyboardMapping.InputGesture);
-                        }
-                    }
-                }
+                //            _commandManager.UpdateInputGesture(keyboardMapping.CommandName, keyboardMapping.InputGesture);
+                //        }
+                //    }
+                //}
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to load the keyboard mappings");
+                _logger.LogError(ex, "Failed to load the keyboard mappings");
             }
         }
 
         public async Task SaveAsync()
         {
-            Log.Debug("Saving keyboard mappings");
+            _logger.LogDebug("Saving keyboard mappings");
 
             try
             {
@@ -94,20 +89,20 @@
                     keyboardMappings.Mappings.Add(keyboardMapping);
                 }
 
-                using (var fileStream = _fileService.Create(_fileName))
-                {
-                    _xmlSerializer.Serialize(keyboardMappings, fileStream, null);
-                }
+                //using (var fileStream = _fileService.Create(_fileName))
+                //{
+                //    _xmlSerializer.Serialize(keyboardMappings, fileStream, null);
+                //}
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to save the keyboard mappings");
+                _logger.LogError(ex, "Failed to save the keyboard mappings");
             }
         }
 
         public async Task ResetAsync()
         {
-            Log.Debug("Resetting keyboard mappings");
+            _logger.LogDebug("Resetting keyboard mappings");
 
             _commandManager.ResetInputGestures();
         }

@@ -5,6 +5,7 @@
     using Catel.IoC;
     using Catel.MVVM;
     using Catel.Services;
+    using Microsoft.Extensions.DependencyInjection;
 
     public static class IViewActivationServiceExtensions
     {
@@ -23,12 +24,12 @@
 
             if (!viewActivationService.Activate(viewModelType))
             {
-                var dependencyResolver = viewActivationService.GetDependencyResolver();
+                var serviceProvider = IoCContainer.ServiceProvider;
 
-                var viewModelFactory = dependencyResolver.ResolveRequired<IViewModelFactory>();
-                var uiVisualizerService = dependencyResolver.ResolveRequired<IUIVisualizerService>();
+                var viewModelFactory = serviceProvider.GetRequiredService<IViewModelFactory>();
+                var uiVisualizerService = serviceProvider.GetRequiredService<IUIVisualizerService>();
 
-                var vm = viewModelFactory.CreateRequiredViewModel(viewModelType, null, null);
+                var vm = viewModelFactory.CreateRequiredViewModel(viewModelType, null);
                 await uiVisualizerService.ShowAsync(vm);
             }
         }
@@ -40,9 +41,9 @@
 
             if (!viewActivationService.Activate(viewModel))
             {
-                var dependencyResolver = viewActivationService.GetDependencyResolver();
+                var serviceProvider = IoCContainer.ServiceProvider;
 
-                var uiVisualizerService = dependencyResolver.ResolveRequired<IUIVisualizerService>();
+                var uiVisualizerService = serviceProvider.GetRequiredService<IUIVisualizerService>();
 
                 await uiVisualizerService.ShowAsync(viewModel);
             }

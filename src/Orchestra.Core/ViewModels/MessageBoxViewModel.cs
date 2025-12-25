@@ -13,7 +13,7 @@
         private readonly IClipboardService _clipboardService;
         private readonly ILanguageService _languageService;
 
-        public MessageBoxViewModel(IMessageService messageService, 
+        public MessageBoxViewModel(IServiceProvider serviceProvider, IMessageService messageService, 
             IClipboardService clipboardService, ILanguageService languageService)
         {
             _messageService = messageService;
@@ -22,13 +22,13 @@
 
             ValidateUsingDataAnnotations = false;
 
-            CopyToClipboard = new Command(OnCopyToClipboardExecute);
+            CopyToClipboard = new Command(serviceProvider, OnCopyToClipboardExecute);
 
-            OkCommand = new TaskCommand(OnOkCommandExecuteAsync);
-            YesCommand = new TaskCommand(OnYesCommandExecuteAsync);
-            NoCommand = new TaskCommand(OnNoCommandExecuteAsync);
-            CancelCommand = new TaskCommand(OnCancelCommandExecuteAsync);
-            EscapeCommand = new TaskCommand(OnEscapeCommandExecuteAsync);
+            OkCommand = new TaskCommand(serviceProvider, OnOkCommandExecuteAsync);
+            YesCommand = new TaskCommand(serviceProvider, OnYesCommandExecuteAsync);
+            NoCommand = new TaskCommand(serviceProvider, OnNoCommandExecuteAsync);
+            CancelCommand = new TaskCommand(serviceProvider, OnCancelCommandExecuteAsync);
+            EscapeCommand = new TaskCommand(serviceProvider, OnEscapeCommandExecuteAsync);
 
             Result = MessageResult.None;
 

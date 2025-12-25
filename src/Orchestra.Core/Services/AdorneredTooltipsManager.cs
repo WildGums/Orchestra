@@ -17,11 +17,6 @@
         public AdorneredTooltipsManager(IAdornerTooltipGenerator adornerTooltipGenerator, IHintsProvider hintsProviderProvider,
             IAdornerLayer adornerLayer, IAdorneredTooltipsCollection adorneredTooltipsCollection)
         {
-            ArgumentNullException.ThrowIfNull(adornerTooltipGenerator);
-            ArgumentNullException.ThrowIfNull(hintsProviderProvider);
-            ArgumentNullException.ThrowIfNull(adornerLayer);
-            ArgumentNullException.ThrowIfNull(adorneredTooltipsCollection);
-
             _adornerTooltipGenerator = adornerTooltipGenerator;
             _hintsProvider = hintsProviderProvider;
             _adornerLayer = adornerLayer;

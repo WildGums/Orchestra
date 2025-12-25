@@ -5,6 +5,6 @@
 
     public interface IChangelogProvider
     {
-        Task<IEnumerable<ChangelogItem>> GetChangelogAsync();
+        Task<IReadOnlyList<ChangelogItem>> GetChangelogAsync();
     }
 }

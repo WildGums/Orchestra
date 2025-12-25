@@ -17,17 +17,11 @@
         private Grid? _grid;
         private Orc.Controls.AnimatingTextBlock? _animatingTextBlock;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SplashScreen" /> class.
-        /// </summary>
-        public SplashScreen()
-            : base(DataWindowMode.Custom)
+        partial void OnInitializedComponent()
         {
-            InitializeComponent();
-
             var application = Application.Current;
 
-            Background = (application is not null) ? Orc.Theming.ThemeManager.Current.GetAccentColorBrush() : Brushes.DodgerBlue;
+            SetCurrentValue(BackgroundProperty, (application is not null) ? Orc.Theming.ThemeManager.Current.GetAccentColorBrush() : Brushes.DodgerBlue);
         }
 
         public void UpdateStatus(string status)

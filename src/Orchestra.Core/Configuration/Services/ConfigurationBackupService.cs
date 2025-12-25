@@ -11,24 +11,21 @@
     using Catel.Reflection;
     using Catel.Services;
     using MethodTimer;
+    using Microsoft.Extensions.Logging;
     using Orc.FileSystem;
 
     public class ConfigurationBackupService : IConfigurationBackupService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        private readonly ILogger<ConfigurationBackupService> _logger;
         private readonly IConfigurationService _configurationService;
         private readonly IAppDataService _appDataService;
         private readonly IFileService _fileService;
         private readonly IDirectoryService _directoryService;
 
-        public ConfigurationBackupService(IConfigurationService configurationService, IAppDataService appDataService, IFileService fileService, IDirectoryService directoryService)
+        public ConfigurationBackupService(ILogger<ConfigurationBackupService> logger, IConfigurationService configurationService, 
+            IAppDataService appDataService, IFileService fileService, IDirectoryService directoryService)
         {
-            ArgumentNullException.ThrowIfNull(configurationService);
-            ArgumentNullException.ThrowIfNull(appDataService);
-            ArgumentNullException.ThrowIfNull(fileService);
-            ArgumentNullException.ThrowIfNull(directoryService);
-
+            _logger = logger;
             _configurationService = configurationService;
             _appDataService = appDataService;
             _fileService = fileService;
@@ -50,13 +47,13 @@
                 var roamingConfigFilePathField = configurationServiceType.GetFieldEx("_roamingConfigFilePath", true, false);
                 if (roamingConfigFilePathField is null)
                 {
-                    throw Log.ErrorAndCreateException<OrchestraException>($"Roaming config file path field not found on the configuration service");
+                    throw _logger.LogErrorAndCreateException<OrchestraException>($"Roaming config file path field not found on the configuration service");
                 }
 
                 var localConfigFilePathField = configurationServiceType.GetFieldEx("_localConfigFilePath", true, false);
                 if (localConfigFilePathField is null)
                 {
-                    throw Log.ErrorAndCreateException<OrchestraException>($"Local config file path field not found on the configuration service");
+                    throw _logger.LogErrorAndCreateException<OrchestraException>($"Local config file path field not found on the configuration service");
                 }
 
                 var roamingConfigFilePath = roamingConfigFilePathField.GetValue(_configurationService)?.ToString();
@@ -73,7 +70,7 @@
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to create configuration backup");
+                _logger.LogError(ex, "Failed to create configuration backup");
                 throw;
             }
         }
@@ -82,7 +79,7 @@
         {
             if (!_fileService.Exists(configurationFilePath))
             {
-                Log.Debug($"Configuration file not found on path {configurationFilePath}, skipping backup");
+                _logger.LogDebug($"Configuration file not found on path {configurationFilePath}, skipping backup");
                 return;
             }
 
@@ -101,11 +98,11 @@
                 return;
             }
 
-            Log.Info($"Creating configuration backup, {applicationDataTarget}");
+            _logger.LogInformation($"Creating configuration backup, {applicationDataTarget}");
 
             _fileService.Copy(configurationFilePath, targetFileName, true);
 
-            Log.Info($"Created configuration backup, {applicationDataTarget}");
+            _logger.LogInformation($"Created configuration backup, {applicationDataTarget}");
 
             var backupConfigurationFiles = _directoryService.GetFiles(configBackupFolderPath, "configuration*").OrderBy(f => f).ToList();
             if (backupConfigurationFiles.Count >= NumberOfBackups)

@@ -6,19 +6,18 @@
     using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
+    using Microsoft.Extensions.Logging;
 
     public class CloseApplicationService : ICloseApplicationService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        private readonly ILogger<CloseApplicationService> _logger;
         private readonly IEnsureStartupService _ensureStartupService;
         private readonly IMainWindowService _mainWindowService;
 
-        public CloseApplicationService(IEnsureStartupService ensureStartupService, IMainWindowService mainWindowService)
+        public CloseApplicationService(ILogger<CloseApplicationService> logger, 
+            IEnsureStartupService ensureStartupService, IMainWindowService mainWindowService)
         {
-            ArgumentNullException.ThrowIfNull(ensureStartupService);
-            ArgumentNullException.ThrowIfNull(mainWindowService);
-
+            _logger = logger;
             _ensureStartupService = ensureStartupService;
             _mainWindowService = mainWindowService;
         }
@@ -39,7 +38,7 @@
         {
             await _ensureStartupService.ConfirmApplicationStartedSuccessfullyAsync();
 
-            await LogManager.FlushAllAsync();
+            //await LogManager.FlushAllAsync();
 
             if (!force)
             {
@@ -48,7 +47,7 @@
                 var mainWindow = await _mainWindowService.GetMainWindowAsync();
                 if (mainWindow is not null)
                 {
-                    Log.Debug("Handling closing of app via main window");
+                    _logger.LogDebug("Handling closing of app via main window");
 
                     mainWindow.Close();
                     return;
@@ -57,7 +56,7 @@
 
             try
             {
-                Log.Debug("Allowing all close application watchers to run their ClosedAsync methods");
+                _logger.LogDebug("Allowing all close application watchers to run their ClosedAsync methods");
 
                 CloseApplicationWatcherBase.SkipClosing = force;
                 await CloseApplicationWatcherBase.PerformClosedOperationsAsync();
@@ -67,9 +66,9 @@
                 // Always continue closing the app
             }
 
-            Log.Debug("Handling closing of app via process");
+            _logger.LogDebug("Handling closing of app via process");
 
-            await LogManager.FlushAllAsync();
+            //await LogManager.FlushAllAsync();
 
             // Very dirty, but allow app to write the file
             Thread.Sleep(50);

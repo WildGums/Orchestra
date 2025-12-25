@@ -4,7 +4,7 @@
     using System.Windows;
     using Catel.MVVM.Converters;
 
-    public class BooleanToThicknessConverter : ValueConverterBase<bool>
+    public partial class BooleanToThicknessConverter : ValueConverterBase<bool>
     {
         protected override object? Convert(bool value, Type targetType, object? parameter)
         {

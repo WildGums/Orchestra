@@ -10,11 +10,12 @@
     using System.Windows.Interop;
     using Catel;
     using Catel.Logging;
+    using Microsoft.Extensions.Logging;
     using Orchestra.Win32;
 
     public partial class MonitorInfo : IMonitorInfo
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(MonitorInfo));
 
         public MonitorInfo()
         {
@@ -82,7 +83,7 @@
 
                 if (awareness != DpiAwareness.ProcessPerMonitor)
                 {
-                    throw Log.ErrorAndCreateException<NotSupportedException>("Application manifest is incorrect to retrieve reliable monitor info, see https://github.com/wildgums/orchestra/364 for more info");
+                    throw Logger.LogErrorAndCreateException<NotSupportedException>("Application manifest is incorrect to retrieve reliable monitor info, see https://github.com/wildgums/orchestra/364 for more info");
                 }
 
                 // Step 2: check whether app is dpi-aware (should be false)
@@ -221,7 +222,7 @@
         {
             if (handle == IntPtr.Zero)
             {
-                throw Log.ErrorAndCreateException((string errorMessage) => new ArgumentException(errorMessage, nameof(handle)), "Pointer has been initialized to zero");
+                throw Logger.LogErrorAndCreateException((string errorMessage) => new ArgumentException(errorMessage, nameof(handle)), "Pointer has been initialized to zero");
             }
 
             // Get screen from window handle
@@ -306,7 +307,7 @@
 
             if (error != 0)
             {
-                throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(User32.GetDisplayConfigBufferSizes)} returns error code '{error}'");
+                throw Logger.LogErrorAndCreateException<Win32Exception>($"Function {nameof(User32.GetDisplayConfigBufferSizes)} returns error code '{error}'");
             }
 
             var displayConfigs = new List<DisplayConfigTargetDeviceName>();
@@ -319,7 +320,7 @@
 
             if (error != 0)
             {
-                throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(User32.QueryDisplayConfig)} returns error code '{error}'");
+                throw Logger.LogErrorAndCreateException<Win32Exception>($"Function {nameof(User32.QueryDisplayConfig)} returns error code '{error}'");
             }
 
             foreach (var pathInfo in displayConfigPathInfos)
@@ -340,14 +341,14 @@
                 {
                     if (error != 0)
                     {
-                        throw Log.ErrorAndCreateException<Win32Exception>($"Function {nameof(User32.DisplayConfigGetDeviceInfo)} returns error code '{error}'");
+                        throw Logger.LogErrorAndCreateException<Win32Exception>($"Function {nameof(User32.DisplayConfigGetDeviceInfo)} returns error code '{error}'");
                     }
 
                     displayConfigs.Add(targetDeviceName);
                 }
                 catch (Win32Exception ex)
                 {
-                    Log.Error(ex);
+                    Logger.LogError(ex, null);
                 }
             }
 

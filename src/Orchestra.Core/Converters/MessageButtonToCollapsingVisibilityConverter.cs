@@ -5,7 +5,7 @@
     using Catel.MVVM.Converters;
     using Catel.Services;
 
-    internal class MessageButtonToCollapsingVisibilityConverter : VisibilityConverterBase
+    internal partial class MessageButtonToCollapsingVisibilityConverter : VisibilityConverterBase
     {
         public MessageButtonToCollapsingVisibilityConverter()
             : base(Visibility.Collapsed)

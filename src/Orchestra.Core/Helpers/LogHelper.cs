@@ -7,6 +7,8 @@
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
 
     public static class LogFilePrefixes
     {
@@ -41,7 +43,7 @@
     /// </summary>
     public static class LogHelper
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(LogHelper));
 
         /// <summary>
         /// Maximum Log file size in KBs
@@ -51,66 +53,6 @@
         public static int MaxLogFileArchiveDays { get; set; } = 14;
 
         public static int MaxLogFileArchiveFilesCount { get; set; } = 20;
-
-        /// <summary>
-        /// Adds a file log listener.
-        /// </summary>
-        public static void AddFileLogListener(string? prefix = null)
-        {
-            var fileLogListener = CreateFileLogListener(prefix) as Catel.Logging.FileLogListener;
-            if (fileLogListener is null)
-            {
-                return;
-            }
-
-            if (File.Exists(fileLogListener.FilePath))
-            {
-                // Already creating a log here, no need to do it again
-                return;
-            }
-
-            LogManager.AddListener(fileLogListener);
-
-            Log.LogProductInfo();
-            Log.LogDeviceInfo();
-        }
-
-        /// <summary>
-        /// Adds a file log listener for an unhandled exception.
-        /// </summary>
-        /// <param name="ex">The unhandled exception.</param>
-        public static async Task AddLogListenerForUnhandledExceptionAsync(Exception ex)
-        {
-            ArgumentNullException.ThrowIfNull(ex);
-
-            AddFileLogListener(LogFilePrefixes.CrashReport);
-
-            Log.Error(ex, "Application crashed");
-
-            await LogManager.FlushAllAsync();
-        }
-
-        public static ILogListener CreateFileLogListener(string? prefix = null)
-        {
-            if (string.IsNullOrWhiteSpace(prefix))
-            {
-                prefix = LogFilePrefixes.EntryAssemblyName;
-            }
-            
-            var directory = GetLogDirectory();
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            var appDataService = ServiceLocator.Default.ResolveRequiredType<IAppDataService>();
-
-            var fileName = Path.Combine(directory, prefix + "_{Date}_{Time}_{ProcessId}");
-            var fileLogListener = new Orchestra.Logging.FileLogListener(appDataService, fileName, MaxFileLogSize);
-
-            return fileLogListener;
-        }
 
         public static void CleanUpAllLogTypeFiles(bool keepCleanInRealTime = false)
         {
@@ -131,7 +73,7 @@
 
         private static string GetLogDirectory()
         {
-            var appDataService = ServiceLocator.Default.ResolveRequiredType<IAppDataService>();
+            var appDataService = IoCContainer.ServiceProvider.GetRequiredService<IAppDataService>();
 
             var directory = Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "log");
 

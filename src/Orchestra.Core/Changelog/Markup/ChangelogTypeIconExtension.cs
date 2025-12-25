@@ -6,7 +6,7 @@
     using System.Windows.Markup;
 
     [MarkupExtensionReturnType(typeof(object))]
-    public class ChangelogTypeIconExtension : Catel.Windows.Markup.UpdatableMarkupExtension
+    public partial class ChangelogTypeIconExtension : Catel.Windows.Markup.UpdatableMarkupExtension
     {
         public ChangelogType? ChangelogType { get; set; }
 
@@ -48,7 +48,7 @@
                 return resource;
             }
 
-            return base.ProvideDynamicValue(serviceProvider);
+            return base.ProvideDynamicValue(serviceProvider!);
         }
 
         protected override void OnTargetObjectLoaded()

@@ -1,8 +1,12 @@
 ﻿namespace Orchestra.Views
 {
+    using System;
     using System.Windows.Input;
     using Catel;
     using Catel.IoC;
+    using Catel.MVVM;
+    using Catel.MVVM.Views;
+    using Catel.Services;
     using Catel.Windows.Controls;
     using Catel.Windows.Input;
     using Orchestra.Services;
@@ -16,11 +20,14 @@
     {
         private readonly IKeyboardMappingsAllowedKeysService _keyboardMappingsAllowedKeysService;
 
-        public KeyboardMappingsCustomizationView()
+        public KeyboardMappingsCustomizationView(IServiceProvider serviceProvider,
+            IViewModelWrapperService viewModelWrapperService, IDataContextSubscriptionService dataContextSubscriptionService,
+            IKeyboardMappingsAllowedKeysService keyboardMappingsAllowedKeysService)
+            : base(serviceProvider, viewModelWrapperService, dataContextSubscriptionService)
         {
-            InitializeComponent();
+            _keyboardMappingsAllowedKeysService = keyboardMappingsAllowedKeysService;
 
-            _keyboardMappingsAllowedKeysService = ServiceLocator.Default.ResolveRequiredType<IKeyboardMappingsAllowedKeysService>();
+            InitializeComponent();
         }
 
         private void OnNewInputGestureTextBoxKeyDown(object? sender, KeyEventArgs e)

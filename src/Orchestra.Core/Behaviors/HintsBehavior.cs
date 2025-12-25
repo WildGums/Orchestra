@@ -7,11 +7,12 @@
     using Catel.Logging;
     using Catel.Windows.Input;
     using Catel.Windows.Interactivity;
+    using Microsoft.Extensions.Logging;
     using Services;
 
-    public class HintsBehavior : BehaviorBase<FrameworkElement>
+    public partial class HintsBehavior : BehaviorBase<FrameworkElement>
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(HintsBehavior));
 
         private readonly IAdorneredTooltipsManagerFactory _adorneredTooltipsManagerFactory;
 
@@ -39,7 +40,7 @@
             var adornerLayer = AdornerLayer.GetAdornerLayer(Adorner ?? AssociatedObject);
             if (adornerLayer is null)
             {
-                Log.Error("Cannot find AdornerLayer. Use the Adorner property to specify a specific instance to use when searching for an adorner layer");
+                Logger.LogError("Cannot find AdornerLayer. Use the Adorner property to specify a specific instance to use when searching for an adorner layer");
                 return;
             }
 

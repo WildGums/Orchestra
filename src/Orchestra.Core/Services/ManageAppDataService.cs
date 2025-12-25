@@ -8,32 +8,30 @@
     using Catel.Logging;
     using Catel.Reflection;
     using Catel.Services;
+    using Microsoft.Extensions.Logging;
     using Orc.FileSystem;
 
     public class ManageAppDataService : Orchestra.Services.IManageAppDataService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        private readonly ILogger<ManageAppDataService> _logger;
         private readonly ISaveFileService _saveFileService;
         private readonly IProcessService _processService;
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
         private readonly IAppDataService _appDataService;
+        private readonly IEntryAssemblyResolver _entryAssemblyResolver;
 
-        public ManageAppDataService(ISaveFileService saveFileService, IProcessService processService,
-            IDirectoryService directoryService, IFileService fileService, IAppDataService appDataService)
+        public ManageAppDataService(ILogger<ManageAppDataService> logger, ISaveFileService saveFileService, 
+            IProcessService processService, IDirectoryService directoryService, IFileService fileService, 
+            IAppDataService appDataService, IEntryAssemblyResolver entryAssemblyResolver)
         {
-            ArgumentNullException.ThrowIfNull(saveFileService);
-            ArgumentNullException.ThrowIfNull(processService);
-            ArgumentNullException.ThrowIfNull(directoryService);
-            ArgumentNullException.ThrowIfNull(fileService);
-            ArgumentNullException.ThrowIfNull(appDataService);
-
+            _logger = logger;
             _saveFileService = saveFileService;
             _processService = processService;
             _directoryService = directoryService;
             _fileService = fileService;
             _appDataService = appDataService;
+            _entryAssemblyResolver = entryAssemblyResolver;
 
             ExclusionFilters = new List<string>(new[]
             {
@@ -46,7 +44,7 @@
 
         public bool OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget applicationDataTarget)
         {
-            Log.Info("Opening data directory");
+            _logger.LogInformation("Opening data directory");
 
             var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
 
@@ -68,7 +66,7 @@
         {
             var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
 
-            Log.Debug("Deleting user data from '{0}'", applicationDataDirectory);
+            _logger.LogDebug("Deleting user data from '{0}'", applicationDataDirectory);
 
             var exclusionFilters = ExclusionFilters;
 
@@ -84,7 +82,7 @@
 
         public async Task<bool> BackupUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget)
         {
-            var assembly = AssemblyHelper.GetRequiredEntryAssembly();
+            var assembly = _entryAssemblyResolver.Resolve();
             var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
 
             var result = await _saveFileService.DetermineFileAsync(new DetermineSaveFileContext
@@ -101,7 +99,7 @@
 
             var zipFileName = result.FileName;
 
-            Log.Debug("Writing zip file to '{0}'", zipFileName);
+            _logger.LogDebug("Writing zip file to '{0}'", zipFileName);
 
             using (var fileStream = _fileService.Create(zipFileName))
             {

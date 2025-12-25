@@ -4,7 +4,7 @@
     using System.Windows;
     using Catel.MVVM.Converters;
 
-    public class NullImageSourceConverter : ValueConverterBase
+    public partial class NullImageSourceConverter : ValueConverterBase
     {
         protected override object? Convert(object? value, Type targetType, object? parameter)
         {

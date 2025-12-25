@@ -6,7 +6,7 @@
     /// <summary>
     /// Converts a path to a string.
     /// </summary>
-    public class PathToStringConverter : ValueConverterBase<string>
+    public partial class PathToStringConverter : ValueConverterBase<string>
     {
         /// <summary>
         /// Modifies the source data before passing it to the target for display in the UI.

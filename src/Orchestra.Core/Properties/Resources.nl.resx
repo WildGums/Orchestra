@@ -118,7 +118,7 @@
     <value>Toon commando's met:</value>
   </data>
   <data name="Orchestra_ShowLog" xml:space="preserve">
-    <value>Toon log...</value>
+    <value>Toon Logger.Log..</value>
   </data>
   <data name="Orchestra_ShowSystemInfo" xml:space="preserve">
     <value>Toon systeem info</value>
@@ -147,7 +147,7 @@ These (alphabetically ordered) Third Party Notices have been put together with c
     <value>What's new since the last time?</value>
   </data>
   <data name="Orchestra_ShowChangeLog" xml:space="preserve">
-    <value>Show changelog...</value>
+    <value>Show changeLogger.Log..</value>
   </data>
   <data name="Orchestra_ChangelogRemindMeLater" xml:space="preserve">
     <value>Remind me later</value>

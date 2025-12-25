@@ -8,16 +8,20 @@
 
     public abstract class ToggleConfigurationCommandContainerBase : ToggleConfigurationCommandContainerBase<object>
     {
-        protected ToggleConfigurationCommandContainerBase(string commandName, string configurationKey, bool defaultValue, ICommandManager commandManager, IConfigurationService configurationService)
-            : base(commandName, configurationKey, defaultValue, commandManager, configurationService)
+        protected ToggleConfigurationCommandContainerBase(string commandName, string configurationKey, 
+            bool defaultValue, ICommandManager commandManager, IConfigurationService configurationService,
+            IServiceProvider serviceProvider)
+            : base(commandName, configurationKey, defaultValue, commandManager, configurationService, serviceProvider)
         {
         }
     }
 
     public abstract class ToggleConfigurationCommandContainerBase<TParameter> : ToggleConfigurationCommandContainerBase<TParameter, TParameter>
     {
-        protected ToggleConfigurationCommandContainerBase(string commandName, string configurationKey, bool defaultValue, ICommandManager commandManager, IConfigurationService configurationService)
-            : base(commandName, configurationKey, defaultValue, commandManager, configurationService)
+        protected ToggleConfigurationCommandContainerBase(string commandName, string configurationKey, 
+            bool defaultValue, ICommandManager commandManager, IConfigurationService configurationService,
+            IServiceProvider serviceProvider)
+            : base(commandName, configurationKey, defaultValue, commandManager, configurationService, serviceProvider)
         {
         }
     }
@@ -27,8 +31,10 @@
         private readonly string _configurationKey;
         private readonly bool _defaultValue;
 
-        protected ToggleConfigurationCommandContainerBase(string commandName, string configurationKey, bool defaultValue, ICommandManager commandManager, IConfigurationService configurationService)
-            : base(commandName, commandManager)
+        protected ToggleConfigurationCommandContainerBase(string commandName, string configurationKey, 
+            bool defaultValue, ICommandManager commandManager, IConfigurationService configurationService, 
+            IServiceProvider serviceProvider)
+            : base(commandName, commandManager, serviceProvider)
         {
             Argument.IsNotNullOrWhitespace(() => configurationKey);
             ArgumentNullException.ThrowIfNull(configurationService);

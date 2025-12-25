@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
+    using Microsoft.Extensions.Logging;
     using Services;
 
     /// <summary>
@@ -15,23 +15,18 @@
     /// </summary>
     public class KeyboardMappingsOverviewViewModel : ViewModelBase
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        private readonly ILogger<KeyboardMappingsOverviewViewModel> _logger;
         private readonly ICommandManager _commandManager;
         private readonly ICommandInfoService _commandInfoService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly ILanguageService _languageService;
         private readonly IKeyboardMappingsService _keyboardMappingsService;
 
-        public KeyboardMappingsOverviewViewModel(ICommandManager commandManager, ICommandInfoService commandInfoService, IUIVisualizerService uiVisualizerService,
+        public KeyboardMappingsOverviewViewModel(ILogger<KeyboardMappingsOverviewViewModel> logger, IServiceProvider serviceProvider, 
+            ICommandManager commandManager, ICommandInfoService commandInfoService, IUIVisualizerService uiVisualizerService,
             ILanguageService languageService, IKeyboardMappingsService keyboardMappingsService)
         {
-            ArgumentNullException.ThrowIfNull(commandManager);
-            ArgumentNullException.ThrowIfNull(commandInfoService);
-            ArgumentNullException.ThrowIfNull(uiVisualizerService);
-            ArgumentNullException.ThrowIfNull(languageService);
-            ArgumentNullException.ThrowIfNull(keyboardMappingsService);
-
+            _logger = logger;
             _commandManager = commandManager;
             _commandInfoService = commandInfoService;
             _uiVisualizerService = uiVisualizerService;
@@ -40,7 +35,7 @@
 
             ValidateUsingDataAnnotations = false;
 
-            Customize = new TaskCommand(OnCustomizeExecuteAsync);
+            Customize = new TaskCommand(serviceProvider, OnCustomizeExecuteAsync);
             KeyboardMappings = new List<KeyboardMappings>();
         }
 
@@ -86,7 +81,7 @@
                 var commandInfo = _commandInfoService.GetCommandInfo(command);
                 if (commandInfo.IsHidden)
                 {
-                    Log.Debug("Command '{0}' is hidden, not showing in keyboard mappings overview", command);
+                    _logger.LogDebug("Command '{0}' is hidden, not showing in keyboard mappings overview", command);
                     continue;
                 }
 

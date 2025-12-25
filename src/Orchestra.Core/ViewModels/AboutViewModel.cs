@@ -18,16 +18,10 @@
         private readonly ILanguageService _languageService;
         private readonly IChangelogService _changelogService;
 
-        public AboutViewModel(AboutInfo aboutInfo, IProcessService processService, IUIVisualizerService uiVisualizerService,
-            IMessageService messageService, ILanguageService languageService, IChangelogService changelogService)
+        public AboutViewModel(AboutInfo aboutInfo, IServiceProvider serviceProvider, IProcessService processService,
+            IUIVisualizerService uiVisualizerService, IMessageService messageService, ILanguageService languageService, 
+            IChangelogService changelogService)
         {
-            ArgumentNullException.ThrowIfNull(aboutInfo);
-            ArgumentNullException.ThrowIfNull(processService);
-            ArgumentNullException.ThrowIfNull(uiVisualizerService);
-            ArgumentNullException.ThrowIfNull(messageService);
-            ArgumentNullException.ThrowIfNull(languageService);
-            ArgumentNullException.ThrowIfNull(changelogService);
-
             _processService = processService;
             _uiVisualizerService = uiVisualizerService;
             _messageService = messageService;
@@ -49,13 +43,13 @@
             ShowLogButton = aboutInfo.ShowLogButton;
             AppIcon = aboutInfo.AppIcon;
 
-            OpenUrl = new Command(OnOpenUrlExecute, OnOpenUrlCanExecute);
-            OpenCopyrightUrl = new Command(OnOpenCopyrightUrlExecute, OnOpenCopyrightUrlCanExecute);
-            ShowThirdPartyNotices = new TaskCommand(OnShowThirdPartyNoticesExecuteAsync);
-            OpenLog = new TaskCommand(OnOpenLogExecuteAsync);
-            ShowChangelog = new TaskCommand(OnShowChangelogExecuteAsync);
-            ShowSystemInfo = new TaskCommand(OnShowSystemInfoExecuteAsync);
-            EnableDetailedLogging = new Command(OnEnableDetailedLoggingExecute);
+            OpenUrl = new Command(serviceProvider, OnOpenUrlExecute, OnOpenUrlCanExecute);
+            OpenCopyrightUrl = new Command(serviceProvider, OnOpenCopyrightUrlExecute, OnOpenCopyrightUrlCanExecute);
+            ShowThirdPartyNotices = new TaskCommand(serviceProvider, OnShowThirdPartyNoticesExecuteAsync);
+            OpenLog = new TaskCommand(serviceProvider, OnOpenLogExecuteAsync);
+            ShowChangelog = new TaskCommand(serviceProvider, OnShowChangelogExecuteAsync);
+            ShowSystemInfo = new TaskCommand(serviceProvider, OnShowSystemInfoExecuteAsync);
+            EnableDetailedLogging = new Command(serviceProvider, OnEnableDetailedLoggingExecute);
         }
 
         public override string Title { get; protected set; }
@@ -141,23 +135,23 @@
 
         private async Task OnOpenLogExecuteAsync()
         {
-            var fileLogListener = (from logListener in LogManager.GetListeners()
-                                   where logListener is FileLogListener
-                                   select logListener).FirstOrDefault();
-            if (fileLogListener is not null)
-            {
-                var filePath = ((FileLogListener)fileLogListener).FilePath;
+            //var fileLogListener = (from logListener in LogManager.GetListeners()
+            //                       where logListener is FileLogListener
+            //                       select logListener).FirstOrDefault();
+            //if (fileLogListener is not null)
+            //{
+            //    var filePath = ((FileLogListener)fileLogListener).FilePath;
 
-                _processService.StartProcess(new ProcessContext
-                {
-                    UseShellExecute = true,
-                    FileName = filePath
-                });
-            }
-            else
-            {
-                await _messageService.ShowErrorAsync(_languageService.GetRequiredString("Orchestra_NoLogListenerAvailable"));
-            }
+            //    _processService.StartProcess(new ProcessContext
+            //    {
+            //        UseShellExecute = true,
+            //        FileName = filePath
+            //    });
+            //}
+            //else
+            //{
+            //    await _messageService.ShowErrorAsync(_languageService.GetRequiredString("Orchestra_NoLogListenerAvailable"));
+            //}
         }
 
         public TaskCommand ShowChangelog { get; private set; }
@@ -180,12 +174,12 @@
 
         private void OnEnableDetailedLoggingExecute()
         {
-            LogManager.IsDebugEnabled = true;
+            //LogManager.IsDebugEnabled = true;
 
-            foreach (var logListener in LogManager.GetListeners())
-            {
-                logListener.IsDebugEnabled = true;
-            }
+            //foreach (var logListener in LogManager.GetListeners())
+            //{
+            //    logListener.IsDebugEnabled = true;
+            //}
 
             UpdateLoggingInfo();
         }
@@ -201,14 +195,14 @@
         {
             var isDebugLoggingEnabled = true;
 
-            foreach (var logListener in LogManager.GetListeners())
-            {
-                if (!logListener.IsDebugEnabled)
-                {
-                    isDebugLoggingEnabled = false;
-                    break;
-                }
-            }
+            //foreach (var logListener in LogManager.GetListeners())
+            //{
+            //    if (!logListener.IsDebugEnabled)
+            //    {
+            //        isDebugLoggingEnabled = false;
+            //        break;
+            //    }
+            //}
 
             IsDebugLoggingEnabled = isDebugLoggingEnabled;
         }

@@ -6,6 +6,7 @@
     using System.Windows.Media;
     using System.Windows.Shapes;
     using Catel.Logging;
+    using Microsoft.Extensions.Logging;
     using Path = System.Windows.Shapes.Path;
 
     /// <summary>
@@ -13,7 +14,7 @@
     /// </summary>
     public class CanvasViewbox : Catel.Windows.Markup.UpdatableMarkupExtension
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(CanvasViewbox));
 
         private string? _pathName;
 
@@ -93,7 +94,7 @@
 
                 if (canvas is null)
                 {
-                    Log.Warning("Could not find a resource named '{0}'", pathName);
+                    Logger.LogWarning("Could not find a resource named '{0}'", pathName);
                 }
             }
 

@@ -27,18 +27,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Catel.Fody" Version="4.11.0" PrivateAssets="all" />
+    <PackageReference Include="Catel.Fody" Version="4.12.0-alpha0118" PrivateAssets="all" />
+    <PackageReference Include="Catel.SourceGenerators" Version="1.0.0-alpha0028" PrivateAssets="all" />
     <PackageReference Include="Fluent.Ribbon" Version="11.0.1" />
     <PackageReference Include="Fody" Version="6.9.3" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.7.0" PrivateAssets="all" />
-    <PackageReference Include="Orc.Notifications" Version="5.2.0" />
+    <!--<PackageReference Include="Orc.Notifications" Version="5.2.0" />-->
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Orchestra.Shell.Ribbon.Fluent\Orchestra.Shell.Ribbon.Fluent.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Orc.Notifications\src\Orc.Notifications\Orc.Notifications.csproj" />
   </ItemGroup>
 
   <ItemGroup>

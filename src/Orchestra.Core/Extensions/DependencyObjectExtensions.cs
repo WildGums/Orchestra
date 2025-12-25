@@ -30,7 +30,7 @@
         /// Get the parent window for this visual object or null when not exists.
         /// </summary>
         /// <param name="visualObject">Reference to visual object.</param>
-        /// <returns>Reference to partent window or null when not exists.</returns>
+        /// <returns>Reference to parent window or null when not exists.</returns>
         public static System.Windows.Window? GetParentWindow(this DependencyObject visualObject)
         {
             return visualObject?.FindLogicalOrVisualAncestorByType<System.Windows.Window>();

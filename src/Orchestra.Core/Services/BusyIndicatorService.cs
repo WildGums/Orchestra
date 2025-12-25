@@ -4,19 +4,18 @@
     using System.Windows.Input;
     using Catel.Logging;
     using Catel.Services;
+    using Microsoft.Extensions.Logging;
 
     public class BusyIndicatorService : IBusyIndicatorService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        protected readonly ILogger<BusyIndicatorService> _logger;
         protected readonly IDispatcherService _dispatcherService;
 
         private Cursor? _previousCursor;
 
-        public BusyIndicatorService(IDispatcherService dispatcherService)
+        public BusyIndicatorService(ILogger<BusyIndicatorService> logger, IDispatcherService dispatcherService)
         {
-            ArgumentNullException.ThrowIfNull(dispatcherService);
-
+            _logger = logger;
             _dispatcherService = dispatcherService;
         }
 
@@ -50,7 +49,7 @@
 
         public virtual void Show(string status = "")
         {
-            Log.Debug("Showing busy indicator");
+            _logger.LogDebug("Showing busy indicator");
 
             if (ShowCounter <= 0)
             {
@@ -102,7 +101,7 @@
         {
             if (!string.IsNullOrWhiteSpace(status))
             {
-                Log.Info(status);
+                _logger.LogInformation(status);
             }
         }
 
@@ -127,7 +126,7 @@
 
         public virtual void Hide()
         {
-            Log.Debug("Hiding busy indicator");
+            _logger.LogDebug("Hiding busy indicator");
 
             CurrentItem = -1;
             ShowCounter = 0;
@@ -151,14 +150,14 @@
                 ShowCounter++;
             }
 
-            Log.Debug($"Pushed busy indicator, counter is '{ShowCounter}'");
+            _logger.LogDebug($"Pushed busy indicator, counter is '{ShowCounter}'");
         }
 
         public virtual void Pop()
         {
             ShowCounter--;
 
-            Log.Debug($"Popped busy indicator, counter is '{ShowCounter}'");
+            _logger.LogDebug($"Popped busy indicator, counter is '{ShowCounter}'");
 
             HideIfRequired();
         }

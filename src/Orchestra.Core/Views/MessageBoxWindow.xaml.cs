@@ -3,21 +3,13 @@
     using System.Windows.Automation.Peers;
     using Automation.Views;
     using Catel.Services;
-    using Catel.Windows;
     using ViewModels;
 
     public partial class MessageBoxWindow
     {
-        public MessageBoxWindow()
-            : this(null)
+        partial void OnInitializedComponent()
         {
-        }
-
-        public MessageBoxWindow(MessageBoxViewModel? viewModel)
-            : base(viewModel, DataWindowMode.Custom)
-        {
-            InitializeComponent();
-
+            var viewModel = ViewModel as MessageBoxViewModel;
             if (viewModel?.Button == MessageButton.YesNo)
             {
                 this.DisableCloseButton();

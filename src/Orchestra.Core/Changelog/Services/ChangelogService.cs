@@ -4,26 +4,26 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Catel;
+    using Catel.Collections;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Reflection;
+    using Microsoft.Extensions.Logging;
 
     public class ChangelogService : IChangelogService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private readonly List<IChangelogProvider> _providers = new List<IChangelogProvider>();
 
-        private readonly Dictionary<Type, IChangelogProvider> _providers = new Dictionary<Type, IChangelogProvider>();
-
-        private readonly ITypeFactory _typeFactory;
+        private readonly ILogger<ChangelogService> _logger;
         private readonly IChangelogSnapshotService _changelogSnapshotService;
 
-        public ChangelogService(ITypeFactory typeFactory, IChangelogSnapshotService changelogSnapshotService)
+        public ChangelogService(ILogger<ChangelogService> logger, IChangelogSnapshotService changelogSnapshotService,
+            IEnumerable<IChangelogProvider> changelogProviders)
         {
-            ArgumentNullException.ThrowIfNull(typeFactory);
-            ArgumentNullException.ThrowIfNull(changelogSnapshotService);
-
-            _typeFactory = typeFactory;
+            _logger = logger;
             _changelogSnapshotService = changelogSnapshotService;
+
+            _providers.AddRange(changelogProviders);
         }
 
         public virtual async Task<Changelog> GetChangelogSinceSnapshotAsync()
@@ -45,45 +45,25 @@
         {
             var changelog = new Changelog();
 
-            var providerTypes = TypeCache.GetTypesImplementingInterface(typeof(IChangelogProvider));
-
-            foreach (var providerType in providerTypes)
+            foreach (var provider in _providers)
             {
-                if (!providerType.IsClassEx() ||
-                    providerType.IsAbstractEx())
-                {
-                    continue;
-                }
-
-                if (!_providers.TryGetValue(providerType, out var provider))
-                {
-                    provider = _typeFactory.CreateInstance(providerType) as IChangelogProvider;
-
-                    if (provider is null)
-                    {
-                        continue;
-                    }
-
-                    _providers[providerType] = provider;
-                }
-
                 try
                 {
-                    Log.Debug($"Retrieving changelog from '{provider.GetType().FullName}'");
+                    _logger.LogDebug($"Retrieving changelog from '{provider.GetType().FullName}'");
 
                     var providerItems = await GetChangelogAsync(provider);
                     changelog.Items.AddRange(providerItems);
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, $"Failed to get changelog from provider '{provider.GetType().FullName}'");
+                    _logger.LogError(ex, $"Failed to get changelog from provider '{provider.GetType().FullName}'");
                 }
             }
 
             return changelog;
         }
 
-        protected virtual Task<IEnumerable<ChangelogItem>> GetChangelogAsync(IChangelogProvider provider)
+        protected virtual Task<IReadOnlyList<ChangelogItem>> GetChangelogAsync(IChangelogProvider provider)
         {
             return provider.GetChangelogAsync();
         }

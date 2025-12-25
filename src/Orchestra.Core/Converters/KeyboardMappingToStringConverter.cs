@@ -6,7 +6,7 @@
     /// <summary>
     /// Converts an keyboard mapping to a string.
     /// </summary>
-    public class KeyboardMappingToStringConverter : ValueConverterBase
+    public partial class KeyboardMappingToStringConverter : ValueConverterBase
     {
         /// <summary>
         /// Modifies the source data before passing it to the target for display in the UI.

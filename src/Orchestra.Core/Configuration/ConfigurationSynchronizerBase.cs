@@ -4,21 +4,23 @@
     using System.Threading.Tasks;
     using Catel;
     using Catel.Configuration;
-    using Catel.IoC;
-    using Catel.Logging;
+    using Microsoft.Extensions.Logging;
 
-    public abstract class ConfigurationSynchronizerBase<T> : INeedCustomInitialization
+    public abstract class ConfigurationSynchronizerBase<T>
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private readonly ILogger _logger;
 
         private T? _lastKnownValue;
 
-        protected ConfigurationSynchronizerBase(string key, T defaultValue,  IConfigurationService configurationService)
-            : this(key, defaultValue, ConfigurationContainer.Roaming, configurationService)
+        protected ConfigurationSynchronizerBase(string key, T defaultValue, ILogger logger, 
+            IConfigurationService configurationService)
+            : this(key, defaultValue, ConfigurationContainer.Roaming, logger, configurationService)
         {
+            // Note: leave empty
         }
 
-        protected ConfigurationSynchronizerBase(string key, T defaultValue, ConfigurationContainer container, IConfigurationService configurationService)
+        protected ConfigurationSynchronizerBase(string key, T defaultValue, ConfigurationContainer container, 
+            ILogger logger, IConfigurationService configurationService)
         {
             Argument.IsNotNullOrWhitespace(() => key);
             ArgumentNullException.ThrowIfNull(configurationService);
@@ -28,8 +30,17 @@
             Container = container;
             DefaultValue = defaultValue;
             ConfigurationService = configurationService;
+            _logger = logger;
 
             ConfigurationService.ConfigurationChanged += OnConfigurationChanged;
+
+            // Note: important to apply first, otherwise the check for values might be equal (which we don't want during first apply)
+            if (ApplyAtStartup)
+            {
+                _ = ApplyConfigurationInternalAsync(true);
+            }
+
+            _lastKnownValue = ConfigurationService.GetValue(Container, Key, DefaultValue);
         }
 
         protected IConfigurationService ConfigurationService { get; private set; }
@@ -62,19 +73,6 @@
         protected abstract string GetStatus(T value);
 
 #pragma warning disable AvoidAsyncVoid
-        async void INeedCustomInitialization.Initialize()
-#pragma warning restore AvoidAsyncVoid
-        {
-            // Note: important to apply first, otherwise the check for values might be equal (which we don't want during first apply)
-            if (ApplyAtStartup)
-            {
-                await ApplyConfigurationInternalAsync(true);
-            }
-
-            _lastKnownValue = ConfigurationService.GetValue(Container, Key, DefaultValue);
-        }
-
-#pragma warning disable AvoidAsyncVoid
         private async void OnConfigurationChanged(object? sender, ConfigurationChangedEventArgs e)
 #pragma warning restore AvoidAsyncVoid
         {
@@ -100,14 +98,14 @@
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"Failed to apply configuration value for '{Key}'");
+                _logger.LogError(ex, $"Failed to apply configuration value for '{Key}'");
                 throw;
             }
 
             var status = GetStatus(value);
             if (!string.IsNullOrWhiteSpace(status))
             {
-                Log.Info(status);
+                _logger.LogInformation(status);
             }
         }
     }

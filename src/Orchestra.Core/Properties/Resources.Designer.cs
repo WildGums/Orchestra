@@ -124,7 +124,7 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changelog.
+        ///   Looks up a localized string similar to ChangeLogger.Log
         /// </summary>
         internal static string Orchestra_Changelog {
             get {
@@ -394,7 +394,7 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show changelog....
+        ///   Looks up a localized string similar to Show changeLogger.Log...
         /// </summary>
         internal static string Orchestra_ShowChangeLog {
             get {
@@ -412,7 +412,7 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show log....
+        ///   Looks up a localized string similar to Show Logger.Log...
         /// </summary>
         internal static string Orchestra_ShowLog {
             get {

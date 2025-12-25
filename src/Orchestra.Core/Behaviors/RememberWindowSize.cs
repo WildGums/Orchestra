@@ -6,11 +6,19 @@
     using Catel.Logging;
     using Catel.Services;
     using Catel.Windows.Interactivity;
+    using Microsoft.Extensions.Logging;
     using Orc.Controls;
 
-    public class RememberWindowSize : BehaviorBase<Window>
+    public partial class RememberWindowSize : BehaviorBase<Window>
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(RememberWindowSize));
+
+        private readonly IAppDataService _appDataService;
+
+        public RememberWindowSize(IAppDataService appDataService)
+        {
+            _appDataService = appDataService;
+        }
 
         public bool MakeWindowResizable
         {
@@ -18,7 +26,7 @@
             set { SetValue(MakeWindowResizableProperty, value); }
         }
 
-        public static readonly DependencyProperty MakeWindowResizableProperty = DependencyProperty.Register(nameof(MakeWindowResizable), 
+        public static readonly DependencyProperty MakeWindowResizableProperty = DependencyProperty.Register(nameof(MakeWindowResizable),
             typeof(bool), typeof(RememberWindowSize), new PropertyMetadata(true));
 
 
@@ -28,8 +36,9 @@
             set { SetValue(RememberWindowStateProperty, value); }
         }
 
-        public static readonly DependencyProperty RememberWindowStateProperty = DependencyProperty.Register(nameof(RememberWindowState), 
+        public static readonly DependencyProperty RememberWindowStateProperty = DependencyProperty.Register(nameof(RememberWindowState),
             typeof(bool), typeof(RememberWindowSize), new PropertyMetadata(true));
+
 
         protected override void OnAssociatedObjectLoaded()
         {
@@ -40,14 +49,13 @@
 
             if (MakeWindowResizable && window.ResizeMode == ResizeMode.NoResize)
             {
-                Log.Debug($"Setting window ResizeMode to CanResize and SizeToContent to Manual of '{windowType}'");
+                Logger.LogDebug($"Setting window ResizeMode to CanResize and SizeToContent to Manual of '{windowType}'");
 
                 window.SetCurrentValue(Window.SizeToContentProperty, SizeToContent.Manual);
                 window.SetCurrentValue(Window.ResizeModeProperty, ResizeMode.CanResize);
             }
 
-            var appDataService = ServiceLocator.Default.ResolveRequiredType<IAppDataService>();
-            appDataService.LoadWindowSize(window, RememberWindowState);
+            _appDataService.LoadWindowSize(window, RememberWindowState);
 
             switch (window.WindowStartupLocation)
             {
@@ -63,7 +71,7 @@
                     break;
 
                 default:
-                    throw Log.ErrorAndCreateException(_ => new ArgumentOutOfRangeException(nameof(window.WindowStartupLocation)), string.Empty);
+                    throw Logger.LogErrorAndCreateException(_ => new ArgumentOutOfRangeException(nameof(window.WindowStartupLocation)), string.Empty);
             }
 
             window.Closed += OnWindowClosed;
@@ -81,8 +89,7 @@
         private void OnWindowClosed(object? sender, EventArgs e)
         {
             var window = AssociatedObject;
-            var appDataService = ServiceLocator.Default.ResolveRequiredType<IAppDataService>();
-            appDataService.SaveWindowSize(window);
+            _appDataService.SaveWindowSize(window);
         }
     }
 }

@@ -12,7 +12,7 @@
             ArgumentNullException.ThrowIfNull(changelog1);
             ArgumentNullException.ThrowIfNull(changelog2);
 
-            // Note: we do simple delta comparsion, only the ones we added should be part
+            // Note: we do simple delta comparison, only the ones we added should be part
 
             var delta = new Changelog();
 

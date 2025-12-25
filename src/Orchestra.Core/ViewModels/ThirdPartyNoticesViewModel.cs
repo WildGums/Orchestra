@@ -15,9 +15,6 @@
         public ThirdPartyNoticesViewModel(IAboutInfoService aboutInfoService,
             IThirdPartyNoticesService thirdPartyNoticesService)
         {
-            ArgumentNullException.ThrowIfNull(aboutInfoService);
-            ArgumentNullException.ThrowIfNull(thirdPartyNoticesService);
-
             _aboutInfoService = aboutInfoService;
             _thirdPartyNoticesService = thirdPartyNoticesService;
 
@@ -30,7 +27,7 @@
 
         public string Explanation { get; private set; }
 
-        public List<ThirdPartyNotice> ThirdPartyNotices { get; private set; }
+        public IReadOnlyList<ThirdPartyNotice> ThirdPartyNotices { get; private set; }
 
         protected override async Task InitializeAsync()
         {

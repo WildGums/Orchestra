@@ -2,17 +2,18 @@
 {
     using System;
     using Catel.Logging;
+    using Microsoft.Extensions.Logging;
     using Orc.Controls.Services;
 
     public class SplashScreenStatusService : ISplashScreenStatusService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private readonly ILogger<SplashScreenStatusService> _logger;
 
         private IStatusRepresenter? _statusRepresenter;
 
-        public SplashScreenStatusService()
+        public SplashScreenStatusService(ILogger<SplashScreenStatusService> logger)
         {
-
+            _logger = logger;
         }
 
         public void UpdateStatus(string status)
@@ -38,7 +39,7 @@
                 }
             }
 
-            Log.Info($"Updating status to: {status}");
+            _logger.LogInformation($"Updating status to: {status}");
 
             _statusRepresenter?.UpdateStatus(status);
         }

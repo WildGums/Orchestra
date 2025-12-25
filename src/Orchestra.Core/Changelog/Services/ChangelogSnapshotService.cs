@@ -5,25 +5,22 @@
     using System.Threading.Tasks;
     using Catel.Logging;
     using Catel.Services;
+    using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Orc.FileSystem;
 
     public class ChangelogSnapshotService : IChangelogSnapshotService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        private readonly ILogger<ChangelogSnapshotService> _logger;
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
         private readonly IAppDataService _appDataService;
 
-        public ChangelogSnapshotService(IDirectoryService directoryService, IFileService fileService,
-            IAppDataService appDataService)
+        public ChangelogSnapshotService(ILogger<ChangelogSnapshotService> logger, IDirectoryService directoryService, 
+            IFileService fileService, IAppDataService appDataService)
         {
-            ArgumentNullException.ThrowIfNull(directoryService);
-            ArgumentNullException.ThrowIfNull(fileService);
-            ArgumentNullException.ThrowIfNull(appDataService);
-
+            _logger = logger;
             _directoryService = directoryService;
             _fileService = fileService;
             _appDataService = appDataService;
@@ -35,7 +32,7 @@
 
             var fileName = GetFilename();
 
-            Log.Debug($"Serializing changelog snapshot to '{fileName}'");
+            _logger.LogDebug($"Serializing changelog snapshot to '{fileName}'");
 
             var json = JsonConvert.SerializeObject(changelog, GetSerializerSettings());
 
@@ -48,7 +45,7 @@
 
             var fileName = GetFilename();
 
-            Log.Debug($"Deserializing changelog snapshot from '{fileName}'");
+            _logger.LogDebug($"Deserializing changelog snapshot from '{fileName}'");
 
             if (!_fileService.Exists(fileName))
             {

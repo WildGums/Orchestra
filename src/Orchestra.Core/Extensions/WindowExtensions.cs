@@ -7,13 +7,14 @@
     using System.Windows.Interop;
     using Catel.Logging;
     using Catel.Windows;
+    using Microsoft.Extensions.Logging;
     using Orc.Controls;
     using Orchestra.Win32;
     using Window = System.Windows.Window;
 
     public static partial class WindowExtensions
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(WindowExtensions));
 
         public static void DisableCloseButton(this Window window)
         {
@@ -119,7 +120,7 @@
 
             if (!User32.AttachThreadInput(foregroundWindowThreadID, currentThreadID, true))
             {
-                Log.Warning("Failed to attach to input thread (Win32 code '{0}')", Marshal.GetLastWin32Error());
+                Logger.LogWarning("Failed to attach to input thread (Win32 code '{0}')", Marshal.GetLastWin32Error());
                 return;
             }
 
@@ -128,7 +129,7 @@
 
             if (!User32.AttachThreadInput(foregroundWindowThreadID, currentThreadID, false))
             {
-                Log.Warning("Failed to detach from input thread");
+                Logger.LogWarning("Failed to detach from input thread");
                 return;
             }
 

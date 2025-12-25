@@ -20,7 +20,8 @@
         private readonly ILanguageService _languageService;
         private readonly IMessageService _messageService;
 
-        public KeyboardMappingsCustomizationViewModel(IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
+        public KeyboardMappingsCustomizationViewModel(IServiceProvider serviceProvider, 
+            IDispatcherService dispatcherService, IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
             ICommandInfoService commandInfoService, ILanguageService languageService, IMessageService messageService)
         {
             ArgumentNullException.ThrowIfNull(keyboardMappingsService);
@@ -37,13 +38,13 @@
 
             ValidateUsingDataAnnotations = false;
 
-            Commands = new FastObservableCollection<ICommandInfo>();
+            Commands = new FastObservableCollection<ICommandInfo>(dispatcherService);
             CommandFilter = string.Empty;
             SelectedCommand = string.Empty;
 
-            Reset = new TaskCommand(OnResetExecuteAsync);
-            Remove = new Command(OnRemoveExecute, OnRemoveCanExecute);
-            Assign = new TaskCommand(OnAssignExecuteAsync, OnAssignCanExecute);
+            Reset = new TaskCommand(serviceProvider, OnResetExecuteAsync);
+            Remove = new Command(serviceProvider, OnRemoveExecute, OnRemoveCanExecute);
+            Assign = new TaskCommand(serviceProvider, OnAssignExecuteAsync, OnAssignCanExecute);
         }
 
         public override string Title

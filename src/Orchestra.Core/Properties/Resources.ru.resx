@@ -147,7 +147,7 @@ These (alphabetically ordered) Third Party Notices have been put together with c
     <value>What's new since the last time?</value>
   </data>
   <data name="Orchestra_ShowChangeLog" xml:space="preserve">
-    <value>Show changelog...</value>
+    <value>Show changeLogger.Log..</value>
   </data>
   <data name="Orchestra_ChangelogRemindMeLater" xml:space="preserve">
     <value>Remind me later</value>

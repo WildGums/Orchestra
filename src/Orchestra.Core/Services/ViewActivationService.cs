@@ -3,20 +3,18 @@
     using System;
     using System.Windows;
     using System.Windows.Controls;
-    using Catel;
-    using Catel.Logging;
     using Catel.MVVM;
     using Catel.MVVM.Views;
+    using Microsoft.Extensions.Logging;
 
     public class ViewActivationService : IViewActivationService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private readonly ILogger<ViewActivationService> _logger;
         private readonly IViewManager _viewManager;
 
-        public ViewActivationService(IViewManager viewManager)
+        public ViewActivationService(ILogger<ViewActivationService> logger, IViewManager viewManager)
         {
-            ArgumentNullException.ThrowIfNull(viewManager);
-
+            _logger = logger;
             _viewManager = viewManager;
         }
 
@@ -46,7 +44,7 @@
                     var userControl = view as UserControl;
                     if (userControl is not null)
                     {
-                        Log.Debug("View already exists, activating existing instance");
+                        _logger.LogDebug("View already exists, activating existing instance");
 
                         userControl.Focus();
                         return true;
@@ -55,7 +53,7 @@
                     var window = view as Window;
                     if (window is not null)
                     {
-                        Log.Debug("View already exists, activating existing instance");
+                        _logger.LogDebug("View already exists, activating existing instance");
 
                         window.Focus();
                         return true;
@@ -63,7 +61,7 @@
                 }
             }
 
-            Log.Debug("Existing view not found");
+            _logger.LogDebug("Existing view not found");
 
             return false;
         }

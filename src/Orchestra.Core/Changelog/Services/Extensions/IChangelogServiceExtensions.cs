@@ -8,7 +8,7 @@
 
     public static class IChangelogServiceExtensions
     {
-        public static async Task<List<ChangelogItem>> GetChangelogItemsForGroupAsync(this IChangelogService changelogService,
+        public static async Task<IReadOnlyList<ChangelogItem>> GetChangelogItemsForGroupAsync(this IChangelogService changelogService,
             string groupName)
         {
             ArgumentNullException.ThrowIfNull(changelogService);

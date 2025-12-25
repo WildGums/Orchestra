@@ -9,11 +9,13 @@
     using Catel.Logging;
     using Catel.Services;
     using Catel.Windows.Threading;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using Orchestra.Services;
 
     public abstract class ApplicationWatcherBase
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(ApplicationWatcherBase));
 
         protected static readonly IDispatcherService DispatcherService;
         protected static readonly IMainWindowService MainWindowService;
@@ -26,9 +28,9 @@
         {
             ShellActivatedActions = new Queue<Action<Window>>();
 
-            var serviceLocator = ServiceLocator.Default;
-            DispatcherService = serviceLocator.ResolveRequiredType<IDispatcherService>();
-            MainWindowService = serviceLocator.ResolveRequiredType<IMainWindowService>();
+            var serviceProvider = IoCContainer.ServiceProvider;
+            DispatcherService = serviceProvider.GetRequiredService<IDispatcherService>();
+            MainWindowService = serviceProvider.GetRequiredService<IMainWindowService>();
 
             DispatcherTimer = new DispatcherTimerEx(DispatcherService);
 
@@ -94,7 +96,7 @@
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(ex, "Failed to execute ApplicationWatcher action");
+                        Logger.LogError(ex, "Failed to execute ApplicationWatcher action");
                     }
                 }
             }

@@ -10,12 +10,12 @@
     using Catel.Logging;
     using ControlzEx.Theming;
     using MethodTimer;
+    using Microsoft.Extensions.Logging;
     using Orc.Theming;
 
     public class ThemeManager : IThemeManager
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
+        private readonly ILogger<ThemeManager> _logger;
         private readonly IAccentColorService _accentColorService;
         private readonly IBaseColorSchemeService _baseColorSchemeService;
         private readonly ControlzEx.Theming.ThemeManager _themeManager;
@@ -25,11 +25,10 @@
 
         protected bool _ensuredOrchestraThemes;
 
-        public ThemeManager(IAccentColorService accentColorService, IBaseColorSchemeService baseColorSchemeService)
+        public ThemeManager(ILogger<ThemeManager> logger, IAccentColorService accentColorService, 
+            IBaseColorSchemeService baseColorSchemeService)
         {
-            ArgumentNullException.ThrowIfNull(accentColorService);
-            ArgumentNullException.ThrowIfNull(baseColorSchemeService);
-
+            _logger = logger;
             _accentColorService = accentColorService;
             _baseColorSchemeService = baseColorSchemeService;
             _themeManager = ControlzEx.Theming.ThemeManager.Current;
@@ -50,7 +49,7 @@
 
         public virtual void SynchronizeTheme()
         {
-            Log.Debug("Synchronizing theme");
+            _logger.LogDebug("Synchronizing theme");
 
             EnsureOrchestraTheme(false);
 
@@ -59,7 +58,7 @@
             var generatedTheme = themeGenerator.GenerateRuntimeTheme(_baseColorSchemeService.GetBaseColorScheme(), _accentColorService.GetAccentColor());
             if (generatedTheme is null)
             {
-                throw Log.ErrorAndCreateException<InvalidOperationException>($"Failed to generate runtime theme");
+                throw _logger.LogErrorAndCreateException<InvalidOperationException>($"Failed to generate runtime theme");
             }
 
             ChangeTheme(generatedTheme);
@@ -139,7 +138,7 @@
             }
             catch (Exception ex)
             {
-                Log.Warning(ex, $"Failed to add application theme '{resourceDictionary?.Source}'");
+                _logger.LogWarning(ex, $"Failed to add application theme '{resourceDictionary?.Source}'");
             }
         }
 
@@ -153,11 +152,11 @@
             {
                 if (_addedResourceDictionaries.Contains(uri))
                 {
-                    Log.Debug("Returning IsResourceDictionaryAlreadyAdded from cache");
+                    _logger.LogDebug("Returning IsResourceDictionaryAlreadyAdded from cache");
                     return true;
                 }
 
-                Log.Debug("Returning IsResourceDictionaryAlreadyAdded by checking source");
+                _logger.LogDebug("Returning IsResourceDictionaryAlreadyAdded by checking source");
 
                 // Defined, check by uri
                 return (from dic in applicationResourcesDictionary.MergedDictionaries
@@ -165,7 +164,7 @@
                         select dic).Any();
             }
 
-            Log.Debug("Returning IsResourceDictionaryAlreadyAdded by checking reference");
+            _logger.LogDebug("Returning IsResourceDictionaryAlreadyAdded by checking reference");
 
             // Runtime, check by instance since source is null
             return (from dic in applicationResourcesDictionary.MergedDictionaries
@@ -192,7 +191,7 @@
             var application = Application.Current;
             if (application is null)
             {
-                throw Log.ErrorAndCreateException<OrchestraException>("Application.Current is null, cannot ensure application themes");
+                throw _logger.LogErrorAndCreateException<OrchestraException>("Application.Current is null, cannot ensure application themes");
             }
 
             // Convenience fix. *If* the only merged dictionary is /themes/generic.xaml, we
@@ -210,11 +209,11 @@
             //        //if (appGenericThemesDictionaryName.EqualsIgnoreCase(resourceDictionaryUri))
             //        //{
             //        //    // Already included
-            //        //    Log.Debug($"No need to merge '{appGenericThemesDictionaryName}', already merged");
+            //        //    Logger.LogDebug($"No need to merge '{appGenericThemesDictionaryName}', already merged");
             //        //    return null;
             //        //}
 
-            //        Log.Debug($"Falling back to '/themes/generic.xaml' instead of app resource dictionary");
+            //        Logger.LogDebug($"Falling back to '/themes/generic.xaml' instead of app resource dictionary");
             //    }
             //}
 
@@ -263,7 +262,7 @@
                 }
             }
 
-            Log.Debug($"Failed to confirm that resource '{resourceDictionaryUri}' exists");
+            _logger.LogDebug($"Failed to confirm that resource '{resourceDictionaryUri}' exists");
 
             return false;
         }
@@ -278,7 +277,7 @@
             {
                 if (resourceStream is null)
                 {
-                    Log.Debug($"Could not find generated resources @ '{generatedResourceName}', assuming the resource dictionary '{resourceDictionaryUri}' does not exist");
+                    _logger.LogDebug($"Could not find generated resources @ '{generatedResourceName}', assuming the resource dictionary '{resourceDictionaryUri}' does not exist");
 
                     return false;
                 }
@@ -291,7 +290,7 @@
                     {
                         if (((string)resource.Key).EqualsIgnoreCase(relativeResourceName))
                         {
-                            Log.Debug($"Resource '{resourceDictionaryUri}' exists");
+                            _logger.LogDebug($"Resource '{resourceDictionaryUri}' exists");
                             return true;
                         }
                     }
