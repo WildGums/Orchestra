@@ -6,20 +6,19 @@
     using Catel.IoC;
     using Catel.Logging;
     using Fluent;
-    using Services;
+    using Microsoft.Extensions.Logging;
     using FluentButton = Fluent.Button;
 
     public static class RibbonExtensions
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(RibbonExtensions));
 
-        public static void AddAboutButton(this Ribbon ribbon)
+        public static void AddAboutButton(this Ribbon ribbon, IAboutService aboutService)
         {
             ArgumentNullException.ThrowIfNull(ribbon);
 
             ribbon.AddRibbonButton(GetImageUri("/Resources/Images/about.png"), () =>
             {
-                var aboutService = ServiceLocator.Default.ResolveRequiredType<IAboutService>();
                 aboutService.ShowAboutAsync();
             });
         }
@@ -53,7 +52,7 @@
             ArgumentNullException.ThrowIfNull(ribbon);
             ArgumentNullException.ThrowIfNull(action);
 
-            Log.Debug("Adding button to ribbon");
+            Logger.LogDebug("Adding button to ribbon");
 
             var ribbonButton = new Button();
             ribbonButton.Size = RibbonControlSize.Small;

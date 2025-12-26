@@ -1,30 +1,20 @@
 ﻿namespace Orchestra.Views
 {
-    using Catel.IoC;
+    using System;
     using Catel.Windows;
-    using Services;
+    using Microsoft.Extensions.DependencyInjection;
 
-    /// <summary>
-    /// Interaction logic for ShellWindow.xaml.
-    /// </summary>
     public partial class ShellWindow : IShell
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ShellWindow"/> class.
-        /// </summary>
-        public ShellWindow()
+        public ShellWindow(IServiceProvider serviceProvider)
+            : base(serviceProvider)
         {
-            var serviceLocator = ServiceLocator.Default;
-
             InitializeComponent();
 
-            serviceLocator.RegisterInstance(pleaseWaitProgressBar, "busyIndicatorService");
-
-            var statusService = serviceLocator.ResolveRequiredType<IStatusService>();
+            var statusService = serviceProvider.GetRequiredService<IStatusService>();
             statusService.Initialize(statusTextBlock);
 
-            var dependencyResolver = this.GetDependencyResolver();
-            var ribbonService = dependencyResolver.ResolveRequired<IRibbonService>();
+            var ribbonService = serviceProvider.GetRequiredService<IRibbonService>();
 
             var ribbonContent = ribbonService.GetRibbon();
             if (ribbonContent is not null)
@@ -34,7 +24,7 @@
                 var ribbon = ribbonContent.FindVisualDescendantByType<Fluent.Ribbon>();
                 if (ribbon is not null)
                 {
-                    serviceLocator.RegisterInstance<Fluent.Ribbon>(ribbon);
+                    //serviceLocator.RegisterInstance<Fluent.Ribbon>(ribbon);
                 }
             }
 

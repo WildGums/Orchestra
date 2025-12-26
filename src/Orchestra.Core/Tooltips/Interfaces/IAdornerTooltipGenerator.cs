@@ -1,4 +1,4 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra
 {
     using System.Windows;
     using System.Windows.Documents;

@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     using Catel;
     using Catel.MVVM;
-    using Orchestra.Services;
+    using Orchestra;
 
     public class ThirdPartyNoticesViewModel : ViewModelBase
     {

@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
     using Catel.MVVM;
     using Orc.SystemInfo;
-    using Services;
 
     public class SystemInfoViewModel : ViewModelBase
     {

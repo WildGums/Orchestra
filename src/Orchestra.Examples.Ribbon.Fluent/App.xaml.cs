@@ -8,7 +8,7 @@
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
-    using Orchestra.Services;
+    using Orchestra.Examples.Ribbon.Services;
     using Orchestra.Views;
 
     /// <summary>
@@ -42,6 +42,9 @@
 
             Orc.Theming.FontImage.RegisterFont("FontAwesome", new FontFamily(new Uri("pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Fonts/", UriKind.RelativeOrAbsolute), "./#FontAwesome"));
             Orc.Theming.FontImage.DefaultFontFamily = "FontAwesome";
+
+            serviceLocator.RegisterType<IAboutInfoService, AboutInfoService>();
+            serviceLocator.RegisterTypeAndInstantiate<UserMessageCloseApplicationWatcher>();
 
             var serviceLocator = ServiceLocator.Default;
             var shellService = serviceLocator.ResolveType<IShellService>();

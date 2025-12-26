@@ -11,7 +11,7 @@
     using Catel.Windows.Threading;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using Orchestra.Services;
+    using Orchestra;
 
     public abstract class ApplicationWatcherBase
     {

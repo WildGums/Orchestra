@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
     using Catel.MVVM;
     using Catel.Services;
-    using Services;
 
     /// <summary>
     /// The splash screen view model.

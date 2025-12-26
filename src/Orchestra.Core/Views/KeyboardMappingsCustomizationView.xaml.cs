@@ -9,7 +9,7 @@
     using Catel.Services;
     using Catel.Windows.Controls;
     using Catel.Windows.Input;
-    using Orchestra.Services;
+    using Orchestra;
     using ViewModels;
     using InputGesture = Catel.Windows.Input.InputGesture;
 

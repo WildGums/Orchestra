@@ -1,4 +1,4 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra
 {
     using System.Collections.Generic;
     using System.Windows;

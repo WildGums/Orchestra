@@ -8,7 +8,6 @@
     using Catel.Reflection;
     using Catel.Services;
     using Microsoft.Extensions.Logging;
-    using Services;
 
     /// <summary>
     /// View model for keyboard mappings overview.

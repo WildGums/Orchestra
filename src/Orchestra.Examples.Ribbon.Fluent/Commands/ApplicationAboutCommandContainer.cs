@@ -2,14 +2,14 @@
 {
     using System;
     using Catel.MVVM;
-    using Orchestra.Services;
 
     public class ApplicationAboutCommandContainer : Catel.MVVM.CommandContainerBase
     {
         private readonly IAboutService _aboutService;
 
-        public ApplicationAboutCommandContainer(ICommandManager commandManager, IAboutService aboutService)
-            : base(Commands.Application.About, commandManager)
+        public ApplicationAboutCommandContainer(ICommandManager commandManager, 
+            IServiceProvider serviceProvider, IAboutService aboutService)
+            : base(Commands.Application.About, commandManager, serviceProvider)
         {
             ArgumentNullException.ThrowIfNull(aboutService);
 

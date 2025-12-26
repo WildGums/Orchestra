@@ -1,7 +1,6 @@
 ﻿namespace Orchestra.Examples.Ribbon.Services
 {
     using System.Windows;
-    using Orchestra.Services;
     using Views;
 
     public class RibbonService : IRibbonService

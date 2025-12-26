@@ -8,7 +8,6 @@
     using Catel.Windows.Input;
     using Catel.Windows.Interactivity;
     using Microsoft.Extensions.Logging;
-    using Services;
 
     public partial class HintsBehavior : BehaviorBase<FrameworkElement>
     {

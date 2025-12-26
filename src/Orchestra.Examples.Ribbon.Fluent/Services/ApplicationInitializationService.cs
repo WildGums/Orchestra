@@ -5,36 +5,24 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Catel;
-    using Catel.IoC;
-    using Catel.Logging;
     using Catel.MVVM;
-    using Orchestra.Services;
+    using Microsoft.Extensions.DependencyInjection;
     using InputGesture = Catel.Windows.Input.InputGesture;
 
     public class ApplicationInitializationService : ApplicationInitializationServiceBase
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
-        private readonly IServiceLocator _serviceLocator;
-        private readonly ISplashScreenStatusService _splashScreenStatusService;
-        
         public override bool ShowSplashScreen => true;
 
         public override bool ShowShell => true;
 
-        public ApplicationInitializationService(IServiceLocator serviceLocator,
-            ISplashScreenStatusService splashScreenStatusService)
+        public ApplicationInitializationService(IServiceProvider serviceProvider)
+            : base(serviceProvider)
         {
-            ArgumentNullException.ThrowIfNull(serviceLocator);
-
-            _serviceLocator = serviceLocator;
-            _splashScreenStatusService = splashScreenStatusService;
         }
 
         public override async Task InitializeBeforeCreatingShellAsync()
         {
             // Non-async first
-            await RegisterTypesAsync();
             await InitializeCommandsAsync();
 
             await RunAndWaitAsync(new Func<Task>[]
@@ -43,16 +31,17 @@
             });
 
             // Note: uncomment to show font size selection at startup
-            //var uiVisualizerService = _serviceLocator.ResolveRequiredType<IUIVisualizerService>();
+            //var uiVisualizerService = _serviceLocator.GetRequiredService<IUIVisualizerService>();
             //await uiVisualizerService.ShowDialogAsync<FontSizeSelectorViewModel>();
         }
 
         private async Task InitializeCommandsAsync()
         {
-            _splashScreenStatusService.UpdateStatus("Initializing commands");
+            var splashScreenStatusService = ServiceProvider.GetRequiredService<ISplashScreenStatusService>();
+            splashScreenStatusService.UpdateStatus("Initializing commands");
 
-            var commandManager = _serviceLocator.ResolveRequiredType<ICommandManager>();
-            var commandInfoService = _serviceLocator.ResolveRequiredType<ICommandInfoService>();
+            var commandManager = ServiceProvider.GetRequiredService<ICommandManager>();
+            var commandInfoService = ServiceProvider.GetRequiredService<ICommandInfoService>();
 
             commandManager.CreateCommandWithGesture(typeof(Commands.Application), "Exit");
             commandManager.CreateCommandWithGesture(typeof(Commands.Application), "About");
@@ -66,13 +55,14 @@
             commandManager.CreateCommand("File.SaveToImage", new InputGesture(Key.I, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
             commandManager.CreateCommand("File.Print", new InputGesture(Key.P, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
 
-            var keyboardMappingsService = _serviceLocator.ResolveRequiredType<IKeyboardMappingsService>();
+            var keyboardMappingsService = ServiceProvider.GetRequiredService<IKeyboardMappingsService>();
             keyboardMappingsService.AdditionalKeyboardMappings.Add(new KeyboardMapping("MyGroup.Zoom", "Mousewheel", ModifierKeys.Control));
         }
 
         public override async Task InitializeAfterCreatingShellAsync()
         {
-            _splashScreenStatusService.UpdateStatus("Delaying splash screen for demo purposes");
+            var splashScreenStatusService = ServiceProvider.GetRequiredService<ISplashScreenStatusService>();
+            splashScreenStatusService.UpdateStatus("Delaying splash screen for demo purposes");
 
             // Note: use thread.sleep to show a blocking thread but still allows
             // running status updates since the splash screen textblock runs on a
@@ -83,7 +73,8 @@
 
         private async Task InitializePerformanceAsync()
         {
-            _splashScreenStatusService.UpdateStatus("Improving performance");
+            var splashScreenStatusService = ServiceProvider.GetRequiredService<ISplashScreenStatusService>();
+            splashScreenStatusService.UpdateStatus("Improving performance");
 
             await Task.Delay(1000);
 
@@ -93,14 +84,12 @@
 
         private async Task RegisterTypesAsync()
         {
-            _splashScreenStatusService.UpdateStatus("Registering types");
+            var splashScreenStatusService = ServiceProvider.GetRequiredService<ISplashScreenStatusService>();
+            splashScreenStatusService.UpdateStatus("Registering types");
 
             await Task.Delay(1000);
 
             var serviceLocator = _serviceLocator;
-
-            serviceLocator.RegisterType<IAboutInfoService, AboutInfoService>();
-            serviceLocator.RegisterTypeAndInstantiate<UserMessageCloseApplicationWatcher>();
 
             //throw new Exception("this is a test exception");
         }

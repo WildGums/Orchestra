@@ -3,13 +3,10 @@
     using System;
     using System.Reflection;
     using System.Threading.Tasks;
-    using Catel.Logging;
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using Services;
 
     public class CrashWarningViewModel : ViewModelBase
     {

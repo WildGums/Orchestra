@@ -1,4 +1,4 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra
 {
     public class ShellConfigurationService : IShellConfigurationService
     {

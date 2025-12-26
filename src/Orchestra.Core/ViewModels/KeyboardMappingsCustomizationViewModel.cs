@@ -10,7 +10,7 @@
     using Catel.Services;
     using Catel.Text;
     using Catel.Windows.Input;
-    using Orchestra.Services;
+    using Orchestra;
 
     public class KeyboardMappingsCustomizationViewModel : ViewModelBase
     {

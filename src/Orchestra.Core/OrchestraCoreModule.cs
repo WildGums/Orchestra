@@ -6,7 +6,7 @@
     using Orchestra.Changelog;
     using Orchestra.Collections;
     using Orchestra.Layers;
-    using Orchestra.Services;
+    using Orchestra;
     using Orchestra.Theming;
     using Orchestra.Tooltips;
 
@@ -15,12 +15,12 @@
     /// </summary>
     public static class OrchestraCoreModule
     {
-        public static IServiceCollection AddOrcFileSystemServices(this IServiceCollection serviceCollection)
+        public static IServiceCollection AddOrchestraCoreServices(this IServiceCollection serviceCollection)
         {
             // Overrides of existing services
-            serviceCollection.AddSingleton<IBusyIndicatorService, Orchestra.Services.BusyIndicatorService>();
+            serviceCollection.AddSingleton<IBusyIndicatorService, Orchestra.BusyIndicatorService>();
             serviceCollection.AddSingleton<ISelectDirectoryService, MicrosoftApiSelectDirectoryService>();
-            serviceCollection.AddSingleton<IMessageService, Orchestra.Services.MessageService>();
+            serviceCollection.AddSingleton<IMessageService, Orchestra.MessageService>();
 
             // Regular services
             serviceCollection.TryAddSingleton<IChangelogService, ChangelogService>();
@@ -36,8 +36,8 @@
 
             serviceCollection.TryAddSingleton<IStatusFilterService, StatusFilterService>();
             serviceCollection.TryAddSingleton<IStatusService, StatusService>();
-            serviceCollection.TryAddSingleton<Orchestra.Services.ISplashScreenService, Orchestra.Services.SplashScreenService>();
-            serviceCollection.TryAddSingleton<Orchestra.Services.ISplashScreenStatusService, Orchestra.Services.SplashScreenStatusService>();
+            serviceCollection.TryAddSingleton<Orchestra.ISplashScreenService, Orchestra.SplashScreenService>();
+            serviceCollection.TryAddSingleton<Orchestra.ISplashScreenStatusService, Orchestra.SplashScreenStatusService>();
 
             serviceCollection.TryAddSingleton<IMainWindowService, MainWindowService>();
             serviceCollection.TryAddSingleton<ICommandInfoService, CommandInfoService>();

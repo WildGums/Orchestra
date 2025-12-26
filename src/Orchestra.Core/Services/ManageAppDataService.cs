@@ -1,4 +1,4 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +11,7 @@
     using Microsoft.Extensions.Logging;
     using Orc.FileSystem;
 
-    public class ManageAppDataService : Orchestra.Services.IManageAppDataService
+    public class ManageAppDataService : Orchestra.IManageAppDataService
     {
         private readonly ILogger<ManageAppDataService> _logger;
         private readonly ISaveFileService _saveFileService;

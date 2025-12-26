@@ -10,7 +10,6 @@
     using Catel.Services;
     using Orc.FileSystem;
     using Orchestra.Examples.ViewModels;
-    using Orchestra.Services;
     using Orchestra.ViewModels;
     using Orchestra.Windows;
 

@@ -3,7 +3,6 @@
     using System;
     using Catel.MVVM;
     using Catel.Reflection;
-    using Orchestra.Services;
 
     public class ShellViewModel : ViewModelBase
     {
@@ -12,7 +11,6 @@
             ArgumentNullException.ThrowIfNull(shellConfigurationService);
 
             ValidateUsingDataAnnotations = shellConfigurationService.ValidateUsingDataAnnotations;
-            DeferValidationUntilFirstSaveCall = shellConfigurationService.DeferValidationUntilFirstSaveCall;
 
             var assembly = AssemblyHelper.GetRequiredEntryAssembly();
             Title = assembly.Title() ?? string.Empty;

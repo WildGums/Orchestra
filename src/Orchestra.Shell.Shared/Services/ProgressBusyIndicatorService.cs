@@ -1,32 +1,29 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra
 {
     using System;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media.Animation;
     using System.Windows.Threading;
-    using Catel.IoC;
-    using Catel.Logging;
     using Catel.Services;
+    using Catel.Windows.Threading;
+    using Microsoft.Extensions.Logging;
 
     internal class ProgressBusyIndicatorService : BusyIndicatorService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-
-        private readonly IDependencyResolver _dependencyResolver;
         private ProgressBar? _progressBar;
         private ResourceDictionary? _resourceDictionary;
 
-        private readonly DispatcherTimer _hidingTimer;
+        private readonly DispatcherTimerEx _hidingTimer;
+        private readonly IProgressBarProvider _progressBarProvider;
 
-        public ProgressBusyIndicatorService(IDispatcherService dispatcherService, IDependencyResolver dependencyResolver)
-            : base(dispatcherService)
+        public ProgressBusyIndicatorService(ILogger<BusyIndicatorService> logger, 
+            IDispatcherService dispatcherService, IProgressBarProvider progressBarProvider)
+            : base(logger, dispatcherService)
         {
-            ArgumentNullException.ThrowIfNull(dependencyResolver);
+            _progressBarProvider = progressBarProvider;
 
-            _dependencyResolver = dependencyResolver;
-
-            _hidingTimer = new DispatcherTimer
+            _hidingTimer = new DispatcherTimerEx(dispatcherService)
             {
                 Interval = TimeSpan.FromMilliseconds(10)
             };
@@ -60,7 +57,7 @@
                     }
                     else if (progressBar.Visibility != Visibility.Visible)
                     {
-                        Log.Debug("Showing progress bar");
+                        _logger.LogDebug("Showing progress bar");
 
                         _hidingTimer.Stop();
 
@@ -72,7 +69,7 @@
 
         private void OnHideTimerTick(object? sender, EventArgs eventArgs)
         {
-            Log.Debug("Hiding progress bar");
+            _logger.LogDebug("Hiding progress bar");
 
             _hidingTimer.Stop();
 
@@ -96,11 +93,11 @@
         {
             if (_progressBar is null)
             {
-                _progressBar = _dependencyResolver.Resolve<ProgressBar>("busyIndicatorService");
+                _progressBar = _progressBarProvider.GetProgressBar();
 
                 if (_progressBar is not null)
                 {
-                    Log.Debug("Found progress bar that will represent progress inside the ProgressBusyIndicatorService");
+                    _logger.LogDebug("Found progress bar that will represent progress inside the ProgressBusyIndicatorService");
                 }
             }
 

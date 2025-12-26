@@ -1,4 +1,4 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra
 {
     using System.Threading.Tasks;
     using Catel.Services;

@@ -1,16 +1,15 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra
 {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Markup;
-    using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using Orc.Theming;
     using Orchestra.Changelog;
     using Orchestra.Changelog.ViewModels;
@@ -18,13 +17,20 @@
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(ApplicationInitializationServiceBase));
+
+        public ApplicationInitializationServiceBase(IServiceProvider serviceProvider)
+        {
+            ServiceProvider = serviceProvider;
+        }
 
         public virtual bool ShowSplashScreen => true;
 
         public virtual bool ShowShell => true;
 
         public virtual bool ShowChangelog => true;
+
+        public IServiceProvider ServiceProvider { get; }
 
         public virtual async Task InitializeBeforeShowingSplashScreenAsync()
         {
@@ -33,28 +39,24 @@
             var xmlLanguage = GetApplicationLanguage();
             InitializeApplicationLanguage(xmlLanguage);
 
-#pragma warning disable IDISP001 // Dispose created.
-            var serviceLocator = this.GetServiceLocator();
-#pragma warning restore IDISP001 // Dispose created.
-
-            var xamlResourceService = serviceLocator.ResolveRequiredType<IXamlResourceService>();
-            var themeService = serviceLocator.ResolveRequiredType<IThemeService>();
-            var orchestraThemeManager = serviceLocator.ResolveRequiredType<IThemeManager>();
-            var orcThemingThemeManager = serviceLocator.ResolveRequiredType<Orc.Theming.ThemeManager>();
-
             // Note: we only have to create style forwarders once
+            var xamlResourceService = ServiceProvider.GetRequiredService<IXamlResourceService>();
             var xamlResourceDictionaries = xamlResourceService.GetApplicationResourceDictionaries();
+
+            var orchestraThemeManager = ServiceProvider.GetRequiredService<IThemeManager>();
 
             foreach (var xamlResourceDictionary in xamlResourceDictionaries)
             {
                 orchestraThemeManager.EnsureApplicationThemes(xamlResourceDictionary, false);
             }
 
+            var themeService = ServiceProvider.GetRequiredService<IThemeService>();
             if (themeService.ShouldCreateStyleForwarders())
             {
                 StyleHelper.CreateStyleForwardersForDefaultStyles();
             }
 
+            var orcThemingThemeManager = ServiceProvider.GetRequiredService<Orc.Theming.ThemeManager>();
             orcThemingThemeManager.SynchronizeTheme();
         }
 
@@ -107,7 +109,7 @@
         {
             ArgumentNullException.ThrowIfNull(xmlLanguage);
 
-            Log.Debug($"Setting application language to '{xmlLanguage.IetfLanguageTag}'");
+            Logger.LogDebug($"Setting application language to '{xmlLanguage.IetfLanguageTag}'");
 
             // Ensure that we are using the right culture
 #pragma warning disable WPF0011 // Containing type should be used as registered owner.
@@ -117,33 +119,17 @@
 
         protected virtual void InitializeLogging()
         {
-            LogHelper.CleanUpAllLogTypeFiles();
 
-            var existingFileLogListener = LogManager.GetListeners()
-                .FirstOrDefault(x => x is FileLogListener fileLogListener && 
-                                     Path.GetFileName(fileLogListener.FilePath).StartsWith(LogFilePrefixes.EntryAssemblyName));
-            if (existingFileLogListener is null)
-            {
-                var fileLogListener = LogHelper.CreateFileLogListener(LogFilePrefixes.EntryAssemblyName);
-
-                fileLogListener.IsDebugEnabled = false;
-                fileLogListener.IsInfoEnabled = true;
-                fileLogListener.IsWarningEnabled = true;
-                fileLogListener.IsErrorEnabled = true;
-
-                LogManager.AddListener(fileLogListener);
-            }
         }
 
         protected virtual async Task ShowChangelogAsync()
         {
-            var serviceLocator = ServiceLocator.Default;
-            var changelogService = serviceLocator.ResolveRequiredType<IChangelogService>();
-            var uiVisualizerService = serviceLocator.ResolveRequiredType<IUIVisualizerService>();
+            var changelogService = ServiceProvider.GetRequiredService<IChangelogService>();
 
             var changelog = await changelogService.GetChangelogSinceSnapshotAsync();
             if (!changelog.IsEmpty)
             {
+                var uiVisualizerService = ServiceProvider.GetRequiredService<IUIVisualizerService>();
                 await uiVisualizerService.ShowDialogAsync<ChangelogViewModel>(changelog);
             }
         }

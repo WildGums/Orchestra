@@ -1,4 +1,4 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra
 {
     using System;
     using System.Threading.Tasks;
@@ -9,74 +9,39 @@
     using Catel.MVVM;
     using Catel.Reflection;
     using MethodTimer;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using Orc.Theming;
     using Orchestra.Theming;
     using Views;
 
     public partial class ShellService : IShellService
     {
-        /// <summary>
-        /// The log.
-        /// </summary>
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(ShellService));
 
-        private readonly ITypeFactory _typeFactory;
         private readonly ICommandManager _commandManager;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IKeyboardMappingsService _keyboardMappingsService;
         private readonly ISplashScreenService _splashScreenService;
         private readonly IEnsureStartupService _ensureStartupService;
         private readonly IApplicationInitializationService _applicationInitializationService;
-        private readonly IDependencyResolver _dependencyResolver;
-        private readonly IServiceLocator _serviceLocator;
         private readonly IConfigurationBackupService _configurationBackupService;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ShellService" /> class.
-        /// </summary>
-        /// <param name="typeFactory">The type factory.</param>
-        /// <param name="keyboardMappingsService">The keyboard mappings service.</param>
-        /// <param name="commandManager">The command manager.</param>
-        /// <param name="splashScreenService">The splash screen service.</param>
-        /// <param name="ensureStartupService">The ensure startup service.</param>
-        /// <param name="applicationInitializationService">The application initialization service.</param>
-        /// <param name="dependencyResolver">The dependency resolver.</param>
-        /// <param name="serviceLocator">The service locator.</param>
-        /// <param name="configurationBackupService">The configuration backup service</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="typeFactory" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="keyboardMappingsService" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="commandManager" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="splashScreenService" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="applicationInitializationService" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="dependencyResolver" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="serviceLocator" /> is <c>null</c>.</exception>
-        public ShellService(ITypeFactory typeFactory, IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
+        public ShellService(IServiceProvider serviceProvider, IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
             ISplashScreenService splashScreenService, IEnsureStartupService ensureStartupService,
-            IApplicationInitializationService applicationInitializationService, IDependencyResolver dependencyResolver,
-            IServiceLocator serviceLocator, IConfigurationBackupService configurationBackupService)
+            IApplicationInitializationService applicationInitializationService, IConfigurationBackupService configurationBackupService)
         {
-            ArgumentNullException.ThrowIfNull(typeFactory);
-            ArgumentNullException.ThrowIfNull(keyboardMappingsService);
-            ArgumentNullException.ThrowIfNull(commandManager);
-            ArgumentNullException.ThrowIfNull(splashScreenService);
-            ArgumentNullException.ThrowIfNull(ensureStartupService);
-            ArgumentNullException.ThrowIfNull(applicationInitializationService);
-            ArgumentNullException.ThrowIfNull(dependencyResolver);
-            ArgumentNullException.ThrowIfNull(serviceLocator);
-            ArgumentNullException.ThrowIfNull(configurationBackupService);
-
-            _typeFactory = typeFactory;
+            _serviceProvider = serviceProvider;
             _keyboardMappingsService = keyboardMappingsService;
             _commandManager = commandManager;
             _splashScreenService = splashScreenService;
             _ensureStartupService = ensureStartupService;
             _applicationInitializationService = applicationInitializationService;
-            _dependencyResolver = dependencyResolver;
-            _serviceLocator = serviceLocator;
             _configurationBackupService = configurationBackupService;
 
             var entryAssembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
 
-            Log.Info("Starting {0} v{1} ({2})", entryAssembly.Title() ?? string.Empty, entryAssembly.Version() ?? string.Empty, entryAssembly.InformationalVersion() ?? string.Empty);
+            Logger.LogInformation("Starting {0} v{1} ({2})", entryAssembly.Title() ?? string.Empty, entryAssembly.Version() ?? string.Empty, entryAssembly.InformationalVersion() ?? string.Empty);
 
             // Initialize (now we have an application)
             DotNetPatchHelper.Initialize();
@@ -104,7 +69,7 @@
 
             if (_applicationInitializationService.ShowSplashScreen)
             {
-                Log.Debug("Showing splash screen");
+                Logger.LogDebug("Showing splash screen");
 
                 var splashScreen = await _splashScreenService.CreateSplashScreenAsync();
                 splashScreen.Show();
@@ -113,7 +78,7 @@
             }
             else
             {
-                Log.Debug("Not showing splash screen");
+                Logger.LogDebug("Not showing splash screen");
 
                 // Note: it's important to change the application mode. If we are not showing a splash screen,
                 // the app won't have a window and will immediately close (if we start any task that is awaited)
@@ -141,10 +106,10 @@
         {
             if (Shell is not null)
             {
-                throw Log.ErrorAndCreateException<OrchestraException>("The shell is already created and cannot be created again");
+                throw Logger.LogErrorAndCreateException<OrchestraException>("The shell is already created and cannot be created again");
             }
 
-            Log.Info("Checking if software was correctly closed previously");
+            Logger.LogInformation("Checking if software was correctly closed previously");
 
             await _ensureStartupService.EnsureFailSafeStartupAsync();
 
@@ -158,7 +123,7 @@
 
             try
             {
-                var configurationService = _serviceLocator.ResolveRequiredType<IConfigurationService>();
+                var configurationService = _serviceProvider.GetRequiredService<IConfigurationService>();
                 await configurationService.LoadAsync();
 
                 await InitializeBeforeCreatingShellAsync();
@@ -172,7 +137,7 @@
 
                 await InitializeAfterCreatingShellAsync();
 
-                Log.Info("Confirming that application was started successfully");
+                Logger.LogInformation("Confirming that application was started successfully");
 
                 await _ensureStartupService.ConfirmApplicationStartedSuccessfullyAsync();
 
@@ -189,7 +154,7 @@
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "An unexpected error occurred, shutting down the application");
+                Logger.LogError(ex, "An unexpected error occurred, shutting down the application");
 
                 successfullyStarted = false;
                 exception = ex;
@@ -198,7 +163,7 @@
             if (!successfullyStarted)
             {
                 // Allow custom shell recovery process, but end app anyway
-                var shellRecoveryService = _dependencyResolver.ResolveRequired<IShellRecoveryService>();
+                var shellRecoveryService = _serviceProvider.GetRequiredService<IShellRecoveryService>();
 
                 await shellRecoveryService.StartRecoveryAsync(new ShellRecoveryContext
                 {
@@ -212,7 +177,7 @@
 
             if (shell is null)
             {
-                throw Log.ErrorAndCreateException<OrchestraException>("Failed to create shell, cannot start application");
+                throw Logger.LogErrorAndCreateException<OrchestraException>("Failed to create shell, cannot start application");
             }
 
             return shell;
@@ -221,7 +186,7 @@
         [Time]
         private async Task InitializeBeforeCreatingShellAsync()
         {
-            Log.Debug("Calling IApplicationInitializationService.InitializeBeforeCreatingShell");
+            Logger.LogDebug("Calling IApplicationInitializationService.InitializeBeforeCreatingShell");
 
             await _applicationInitializationService.InitializeBeforeCreatingShellAsync();
         }
@@ -229,7 +194,7 @@
         [Time]
         private async Task InitializeAfterCreatingShellAsync()
         {
-            Log.Debug("Calling IApplicationInitializationService.InitializeAfterCreatingShell");
+            Logger.LogDebug("Calling IApplicationInitializationService.InitializeAfterCreatingShell");
 
             await _applicationInitializationService.InitializeAfterCreatingShellAsync();
         }
@@ -240,35 +205,35 @@
         protected virtual async Task<TShell> CreateShellAsync<TShell>()
             where TShell : IShell
         {
-            Log.Debug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName(false));
+            Logger.LogDebug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName(false));
 
             // Late resolve so user might change the message service
-            var themeService = _dependencyResolver.ResolveRequired<IThemeService>();
+            var themeService = _serviceProvider.GetRequiredService<IThemeService>();
             var themeInfo = themeService.GetThemeInfo();
 
             var shellThemeTypes = TypeCache.GetTypesImplementingInterface(typeof(IShellTheme));
 
             foreach (var shellThemeType in shellThemeTypes)
             {
-                Log.Debug($"Creating shell theme using '{shellThemeType.FullName}'");
+                Logger.LogDebug($"Creating shell theme using '{shellThemeType.FullName}'");
 
-                var instance = (IShellTheme)_typeFactory.CreateRequiredInstance(shellThemeType);
+                var instance = (IShellTheme)ActivatorUtilities.CreateInstance(_serviceProvider, shellThemeType);
 
-                // Register so it stays alive and can subscribe to events
-                _serviceLocator.RegisterInstance(instance);
+                //// Register so it stays alive and can subscribe to events
+                //_serviceLocator.RegisterInstance(instance);
 
                 instance.ApplyTheme(themeInfo);
             }
 
             OnCreatingShell();
 
-            var shell = _typeFactory.CreateRequiredInstance<TShell>();
+            var shell = ActivatorUtilities.CreateInstance<TShell>(_serviceProvider);
             Shell = shell;
 
             var shellAsWindow = Shell as Window;
             if (shellAsWindow is not null)
             {
-                Log.Debug("Setting the new shell as Application.MainWindow");
+                Logger.LogDebug("Setting the new shell as Application.MainWindow");
 
                 shellAsWindow.Owner = null;
 
@@ -288,11 +253,11 @@
         {
             if (!_applicationInitializationService.ShowShell)
             {
-                Log.Debug("Not showing shell");
+                Logger.LogDebug("Not showing shell");
                 return;
             }
 
-            Log.Debug("Showing shell");
+            Logger.LogDebug("Showing shell");
 
             shell.Show();
         }
@@ -300,7 +265,7 @@
         [Time]
         private async Task InitializeBeforeShowingShellAsync()
         {
-            Log.Debug("Calling IApplicationInitializationService.InitializeBeforeShowingShell");
+            Logger.LogDebug("Calling IApplicationInitializationService.InitializeBeforeShowingShell");
 
             await _applicationInitializationService.InitializeBeforeShowingShellAsync();
         }
@@ -308,7 +273,7 @@
         [Time]
         private async Task InitializeAfterShowingShellAsync()
         {
-            Log.Debug("Calling IApplicationInitializationService.InitializeAfterShowingShell");
+            Logger.LogDebug("Calling IApplicationInitializationService.InitializeAfterShowingShell");
 
             await _applicationInitializationService.InitializeAfterShowingShellAsync();
         }

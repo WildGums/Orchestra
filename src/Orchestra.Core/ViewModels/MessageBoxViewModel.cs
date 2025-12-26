@@ -5,7 +5,6 @@
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
-    using Services;
 
     public class MessageBoxViewModel : ViewModelBase
     {

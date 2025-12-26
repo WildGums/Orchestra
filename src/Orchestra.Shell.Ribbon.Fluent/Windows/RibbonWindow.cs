@@ -10,7 +10,7 @@
     using Catel.MVVM.Views;
     using Catel.Windows;
 
-    public class RibbonWindow : Fluent.RibbonWindow, IDataWindow
+    public partial class RibbonWindow : Fluent.RibbonWindow, IDataWindow
     {
         private readonly WindowLogic _logic;
 
@@ -18,19 +18,12 @@
         private event EventHandler<EventArgs>? _viewUnloaded;
         private event EventHandler<DataContextChangedEventArgs>? _viewDataContextChanged;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RibbonWindow"/> class.
-        /// </summary>
-        public RibbonWindow()
-            : this(null) { }
+        public RibbonWindow(IServiceProvider serviceProvider)
+            : this(null, serviceProvider) { }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RibbonWindow"/> class.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        public RibbonWindow(IViewModel? viewModel)
+        public RibbonWindow(IViewModel? viewModel, IServiceProvider serviceProvider)
         {
-            _logic = new WindowLogic(this, null, viewModel);
+            _logic = new WindowLogic(serviceProvider, this, null, viewModel);
             _logic.ViewModelChanged += (sender, e) => ViewModelChanged?.Invoke(this, e);
             _logic.PropertyChanged += (sender, e) => PropertyChanged?.Invoke(this, e);
 
