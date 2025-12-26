@@ -13,7 +13,10 @@
     using Orc.Theming;
     using Orchestra.Changelog;
     using Orchestra.Changelog.ViewModels;
+    using Orchestra.Changelog.Views;
     using Orchestra.Theming;
+    using Orchestra.ViewModels;
+    using Orchestra.Views;
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService
     {
@@ -62,6 +65,10 @@
 
         public virtual async Task InitializeBeforeCreatingShellAsync()
         {
+            var uiVisualizerService = ServiceProvider.GetRequiredService<IUIVisualizerService>(); 
+            uiVisualizerService.Register<ChangelogViewModel, ChangelogWindow>(false);
+            uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
+            uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
         }
 
         public virtual async Task InitializeAfterCreatingShellAsync()

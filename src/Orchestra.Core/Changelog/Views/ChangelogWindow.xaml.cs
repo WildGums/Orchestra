@@ -1,4 +1,4 @@
-﻿namespace Orchestra.ChangeLogger.LogViews
+﻿namespace Orchestra.Changelog.Views
 {
     using Catel;
     using Catel.IoC;
@@ -6,7 +6,7 @@
 
     public partial class ChangelogWindow
     {
-        partial void OnInitializedComponent()
+        partial void OnInitializingComponent()
         { 
             Mode = DataWindowMode.Custom;
 

@@ -6,7 +6,7 @@
 
     public partial class AboutWindow
     {
-        partial void OnInitializedComponent()
+        partial void OnInitializingComponent()
         {
             Mode = DataWindowMode.Custom;
 

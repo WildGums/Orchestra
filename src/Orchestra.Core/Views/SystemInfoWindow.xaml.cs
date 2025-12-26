@@ -9,7 +9,7 @@
     /// </summary>
     public partial class SystemInfoWindow
     {
-        partial void OnInitializedComponent()
+        partial void OnInitializingComponent()
         {
             Mode = DataWindowMode.Custom;
         }

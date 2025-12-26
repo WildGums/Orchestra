@@ -8,7 +8,7 @@
     /// </summary>
     public partial class KeyboardMappingsOverviewWindow
     {
-        partial void OnInitializedComponent()
+        partial void OnInitializingComponent()
         {
             Mode = DataWindowMode.Custom;
 

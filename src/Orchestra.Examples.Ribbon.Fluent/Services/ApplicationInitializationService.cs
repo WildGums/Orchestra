@@ -22,6 +22,8 @@
 
         public override async Task InitializeBeforeCreatingShellAsync()
         {
+            await base.InitializeBeforeCreatingShellAsync();
+
             // Non-async first
             await InitializeCommandsAsync();
 
@@ -61,6 +63,8 @@
 
         public override async Task InitializeAfterCreatingShellAsync()
         {
+            await base.InitializeAfterCreatingShellAsync();
+
             var splashScreenStatusService = ServiceProvider.GetRequiredService<ISplashScreenStatusService>();
             splashScreenStatusService.UpdateStatus("Delaying splash screen for demo purposes");
 
