@@ -15,7 +15,7 @@
     /// </summary>
     public static class OrchestraCoreModule
     {
-        public static IServiceCollection AddOrchestraCoreServices(this IServiceCollection serviceCollection)
+        public static IServiceCollection AddOrchestraCore(this IServiceCollection serviceCollection)
         {
             // Overrides of existing services
             serviceCollection.AddSingleton<IBusyIndicatorService, Orchestra.BusyIndicatorService>();

@@ -8,7 +8,7 @@
     /// </summary>
     public static partial class OrchestraShellRibbonFluentModule
     {
-        public static IServiceCollection AddOrchestraShellRibbonFluentServices(this IServiceCollection serviceCollection)
+        public static IServiceCollection AddOrchestraShellRibbonFluent(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<IShellService, ShellService>();
             serviceCollection.AddSingleton<IShellRecoveryService, ShellRecoveryService>();

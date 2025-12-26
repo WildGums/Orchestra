@@ -31,16 +31,16 @@
             var hostBuilder = new HostBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddCatelCoreServices();
-                    services.AddCatelMvvmServices();
-                    services.AddOrcAutomationServices();
-                    services.AddOrcControlsServices();
-                    services.AddOrcFileSystemServices();
-                    services.AddOrcNotificationsServices();
-                    services.AddOrcSystemInfoServices();
-                    services.AddOrcThemingServices();
-                    services.AddOrchestraCoreServices();
-                    services.AddOrchestraShellRibbonFluentServices();
+                    services.AddCatelCore();
+                    services.AddCatelMvvm();
+                    services.AddOrcAutomation();
+                    services.AddOrcControls();
+                    services.AddOrcFileSystem();
+                    services.AddOrcNotifications();
+                    services.AddOrcSystemInfo();
+                    services.AddOrcTheming();
+                    services.AddOrchestraCore();
+                    services.AddOrchestraShellRibbonFluent();
 
                     services.AddSingleton<IAboutInfoService, AboutInfoService>();
                     services.AddSingleton<IRibbonService, RibbonService>();
