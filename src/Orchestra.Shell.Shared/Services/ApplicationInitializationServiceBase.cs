@@ -13,10 +13,7 @@
     using Orc.Theming;
     using Orchestra.Changelog;
     using Orchestra.Changelog.ViewModels;
-    using Orchestra.Changelog.Views;
     using Orchestra.Theming;
-    using Orchestra.ViewModels;
-    using Orchestra.Views;
 
     public class ApplicationInitializationServiceBase : IApplicationInitializationService
     {
