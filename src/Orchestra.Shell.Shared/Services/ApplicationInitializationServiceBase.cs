@@ -65,10 +65,7 @@
 
         public virtual async Task InitializeBeforeCreatingShellAsync()
         {
-            var uiVisualizerService = ServiceProvider.GetRequiredService<IUIVisualizerService>(); 
-            uiVisualizerService.Register<ChangelogViewModel, ChangelogWindow>(false);
-            uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
-            uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
+
         }
 
         public virtual async Task InitializeAfterCreatingShellAsync()

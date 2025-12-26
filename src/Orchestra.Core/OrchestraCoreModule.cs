@@ -9,6 +9,11 @@
     using Orchestra;
     using Orchestra.Theming;
     using Orchestra.Tooltips;
+    using Catel.IoC;
+    using Orchestra.ViewModels;
+    using Orchestra.Views;
+    using Orchestra.Changelog.ViewModels;
+    using Orchestra.Changelog.Views;
 
     /// <summary>
     /// Core module which allows the registration of default services in the service collection.
@@ -62,11 +67,8 @@
             serviceCollection.TryAddTransient<IAdorneredTooltipFactory, AdorneredTooltipFactory>();
             serviceCollection.TryAddTransient<IAdorneredTooltipsCollection, AdorneredTooltipsCollection>();
 
-            //// Custom views (sharing same view model)
-            //var uiVisualizerService = serviceLocator.ResolveRequiredType<IUIVisualizerService>();
-            //uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
-            //uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
-            //uiVisualizerService.Register<ChangelogViewModel, ChangelogWindow>(false);
+            // Custom views (sharing same view model)
+            serviceCollection.TryAddSingleton<UIVisualizerInitializer>();
 
             serviceCollection.AddSingleton<ThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("Catel", "https://www.catelproject.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.catel.txt"));
             serviceCollection.AddSingleton<ThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx/", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.controlzex.txt"));
@@ -79,6 +81,16 @@
             DotNetPatchHelper.Initialize();
 
             return serviceCollection;
+        }
+
+        private class UIVisualizerInitializer : IConstructAtStartup
+        {
+            public UIVisualizerInitializer(IUIVisualizerService uiVisualizerService) 
+            {
+                uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
+                uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
+                uiVisualizerService.Register<ChangelogViewModel, ChangelogWindow>(false);
+            }
         }
     }
 }
