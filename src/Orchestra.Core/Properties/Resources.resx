@@ -229,7 +229,7 @@
     <value>Keyboard shortcuts for {0}</value>
   </data>
   <data name="Orchestra_ShowChangeLog" xml:space="preserve">
-    <value>Show changeLogger.Log..</value>
+    <value>Show changelog...</value>
   </data>
   <data name="Orchestra_ShowCommandsContaining" xml:space="preserve">
     <value>Show commands containing:</value>
