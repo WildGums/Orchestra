@@ -46,7 +46,6 @@
                     services.AddSingleton<IRibbonService, RibbonService>();
                     services.AddSingleton<IApplicationInitializationService, ApplicationInitializationService>();
 
-                    // TODO: How to instantiate?
                     services.AddSingleton<UserMessageCloseApplicationWatcher>();
 
                     services.AddLogging(x =>
