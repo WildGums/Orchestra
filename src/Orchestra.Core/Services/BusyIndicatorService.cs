@@ -1,8 +1,6 @@
 ﻿namespace Orchestra
 {
-    using System;
     using System.Windows.Input;
-    using Catel.Logging;
     using Catel.Services;
     using Microsoft.Extensions.Logging;
 

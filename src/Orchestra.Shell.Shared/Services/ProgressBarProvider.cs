@@ -7,7 +7,7 @@
     {
         public virtual ProgressBar? GetProgressBar()
         {
-            return Application.Current.MainWindow?.FindName("busyIndicatorService") as ProgressBar;
+            return Application.Current.MainWindow?.FindName("pleaseWaitProgressBar") as ProgressBar;
         }
     }
 }

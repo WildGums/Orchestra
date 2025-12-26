@@ -17,7 +17,7 @@
         private readonly DispatcherTimerEx _hidingTimer;
         private readonly IProgressBarProvider _progressBarProvider;
 
-        public ProgressBusyIndicatorService(ILogger<BusyIndicatorService> logger, 
+        public ProgressBusyIndicatorService(ILogger<BusyIndicatorService> logger,
             IDispatcherService dispatcherService, IProgressBarProvider progressBarProvider)
             : base(logger, dispatcherService)
         {
@@ -42,10 +42,10 @@
         {
             base.UpdateStatus(currentItem, totalItems, statusFormat);
 
-            var progressBar = InitializeProgressBar();
-            if (progressBar is not null)
+            _dispatcherService.BeginInvoke(() =>
             {
-                _dispatcherService.BeginInvoke(() =>
+                var progressBar = InitializeProgressBar();
+                if (progressBar is not null)
                 {
                     progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MinimumProperty, (double)0);
                     progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MaximumProperty, (double)totalItems);
@@ -62,9 +62,9 @@
                         _hidingTimer.Stop();
 
                         progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Visible);
-                    }                    
-                }, true);
-            }
+                    }
+                }
+            }, true);
         }
 
         private void OnHideTimerTick(object? sender, EventArgs eventArgs)
