@@ -9,8 +9,9 @@
     {
         private readonly IMessageService _messageService;
 
-        public DemoHiddenCommandContainer(ICommandManager commandManager, IMessageService messageService)
-            : base(Commands.Demo.Hidden, commandManager)
+        public DemoHiddenCommandContainer(ICommandManager commandManager, IMessageService messageService,
+            IServiceProvider serviceProvider)
+            : base(Commands.Demo.Hidden, commandManager, serviceProvider)
         {
             ArgumentNullException.ThrowIfNull(messageService);
 

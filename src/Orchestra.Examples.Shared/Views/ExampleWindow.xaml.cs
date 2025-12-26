@@ -2,9 +2,5 @@
 {
     public partial class ExampleWindow
     {
-        public ExampleWindow()
-        {
-            InitializeComponent();
-        }
     }
 }

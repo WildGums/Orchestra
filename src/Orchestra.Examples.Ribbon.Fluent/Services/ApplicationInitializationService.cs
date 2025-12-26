@@ -43,12 +43,12 @@
             var commandManager = ServiceProvider.GetRequiredService<ICommandManager>();
             var commandInfoService = ServiceProvider.GetRequiredService<ICommandInfoService>();
 
-            commandManager.CreateCommandWithGesture(typeof(Commands.Application), "Exit");
-            commandManager.CreateCommandWithGesture(typeof(Commands.Application), "About");
+            commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Application), "Exit");
+            commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Application), "About");
 
-            commandManager.CreateCommandWithGesture(typeof(Commands.Demo), "LongOperation");
-            commandManager.CreateCommandWithGesture(typeof(Commands.Demo), "ShowMessageBox");
-            commandManager.CreateCommandWithGesture(typeof(Commands.Demo), "Hidden");
+            commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Demo), "LongOperation");
+            commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Demo), "ShowMessageBox");
+            commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Demo), "Hidden");
             commandInfoService.UpdateCommandInfo(Commands.Demo.Hidden, x => x.IsHidden = true);
 
             commandManager.CreateCommand("File.Open", new InputGesture(Key.O, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
@@ -80,18 +80,6 @@
 
             Catel.Windows.Controls.UserControl.DefaultCreateWarningAndErrorValidatorForViewModelValue = false;
             Catel.Windows.Controls.UserControl.DefaultSkipSearchingForInfoBarMessageControlValue = true;
-        }
-
-        private async Task RegisterTypesAsync()
-        {
-            var splashScreenStatusService = ServiceProvider.GetRequiredService<ISplashScreenStatusService>();
-            splashScreenStatusService.UpdateStatus("Registering types");
-
-            await Task.Delay(1000);
-
-            var serviceLocator = _serviceLocator;
-
-            //throw new Exception("this is a test exception");
         }
     }
 }

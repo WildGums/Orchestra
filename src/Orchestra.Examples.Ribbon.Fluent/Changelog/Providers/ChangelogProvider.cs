@@ -6,7 +6,7 @@
 
     public class ChangelogProvider : ChangelogProviderBase
     {
-        public override async Task<IEnumerable<ChangelogItem>> GetChangelogAsync()
+        public override async Task<IReadOnlyList<ChangelogItem>> GetChangelogAsync()
         {
             var items = new List<ChangelogItem>();
 

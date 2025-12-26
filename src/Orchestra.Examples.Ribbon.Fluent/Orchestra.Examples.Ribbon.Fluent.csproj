@@ -35,6 +35,9 @@
       <IncludeAssets>build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.7.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.1" />
     <!--<PackageReference Include="Orc.Notifications" Version="5.2.0" />-->
   </ItemGroup>
 

@@ -1,17 +1,15 @@
 ﻿namespace Orchestra.Examples.Ribbon.Views
 {
+    using Catel.IoC;
+    using Microsoft.Extensions.DependencyInjection;
+
     public partial class RibbonView 
     {
-        #region Constructors
-        public RibbonView()
+        partial void OnInitializedComponent()
         {
-            InitializeComponent();
-
-            ribbon.AddAboutButton();
+            ribbon.AddAboutButton(IoCContainer.ServiceProvider.GetRequiredService<IAboutService>());
         }
-        #endregion
 
-        #region Methods
         protected override void OnViewModelChanged()
         {
             base.OnViewModelChanged();
@@ -20,6 +18,5 @@
             backstageTabControl.DataContext = ViewModel;
 #pragma warning restore WPF0041
         }
-        #endregion
     }
 }

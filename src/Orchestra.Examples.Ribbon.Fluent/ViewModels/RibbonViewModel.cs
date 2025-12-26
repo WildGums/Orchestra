@@ -8,6 +8,7 @@
     using Catel.MVVM;
     using Catel.Reflection;
     using Catel.Services;
+    using Microsoft.Extensions.Logging;
     using Orc.FileSystem;
     using Orchestra.Examples.ViewModels;
     using Orchestra.ViewModels;
@@ -15,7 +16,7 @@
 
     public class RibbonViewModel : ViewModelBase
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(RibbonViewModel));
 
         private readonly INavigationService _navigationService;
         private readonly IUIVisualizerService _uiVisualizerService;
@@ -29,18 +30,8 @@
         public RibbonViewModel(INavigationService navigationService, IUIVisualizerService uiVisualizerService,
             ICommandManager commandManager, IRecentlyUsedItemsService recentlyUsedItemsService, IProcessService processService,
             IMessageService messageService, ISelectDirectoryService selectDirectoryService, IDirectoryService directoryService,
-            IManageAppDataService manageAppDataService)
+            IManageAppDataService manageAppDataService, IServiceProvider serviceProvider)
         {
-            ArgumentNullException.ThrowIfNull(navigationService);
-            ArgumentNullException.ThrowIfNull(uiVisualizerService);
-            ArgumentNullException.ThrowIfNull(commandManager);
-            ArgumentNullException.ThrowIfNull(recentlyUsedItemsService);
-            ArgumentNullException.ThrowIfNull(processService);
-            ArgumentNullException.ThrowIfNull(messageService);
-            ArgumentNullException.ThrowIfNull(selectDirectoryService);
-            ArgumentNullException.ThrowIfNull(directoryService);
-            ArgumentNullException.ThrowIfNull(manageAppDataService);
-
             _navigationService = navigationService;
             _uiVisualizerService = uiVisualizerService;
             _recentlyUsedItemsService = recentlyUsedItemsService;
@@ -50,16 +41,16 @@
             _directoryService = directoryService;
             _manageAppDataService = manageAppDataService;
 
-            OpenDataDirectory = new TaskCommand(OnOpenDataDirectoryExecuteAsync);
-            OpenWindow = new TaskCommand(OnOpenWindowExecuteAsync);
-            OpenProject = new TaskCommand(OnOpenProjectExecuteAsync);
-            OpenRecentlyUsedItem = new TaskCommand<string>(OnOpenRecentlyUsedItemExecuteAsync);
-            OpenInExplorer = new TaskCommand<string>(OnOpenInExplorerExecuteAsync);
-            UnpinItem = new Command<string>(OnUnpinItemExecute);
-            PinItem = new Command<string>(OnPinItemExecute);
-            ShowAllMonitorInfo = new TaskCommand(OnShowAllMonitorInfoExecuteAsync);
+            OpenDataDirectory = new TaskCommand(serviceProvider, OnOpenDataDirectoryExecuteAsync);
+            OpenWindow = new TaskCommand(serviceProvider, OnOpenWindowExecuteAsync);
+            OpenProject = new TaskCommand(serviceProvider, OnOpenProjectExecuteAsync);
+            OpenRecentlyUsedItem = new TaskCommand<string>(serviceProvider, OnOpenRecentlyUsedItemExecuteAsync);
+            OpenInExplorer = new TaskCommand<string>(serviceProvider, OnOpenInExplorerExecuteAsync);
+            UnpinItem = new Command<string>(serviceProvider, OnUnpinItemExecute);
+            PinItem = new Command<string>(serviceProvider, OnPinItemExecute);
+            ShowAllMonitorInfo = new TaskCommand(serviceProvider, OnShowAllMonitorInfoExecuteAsync);
 
-            ShowKeyboardMappings = new TaskCommand(OnShowKeyboardMappingsExecuteAsync);
+            ShowKeyboardMappings = new TaskCommand(serviceProvider, OnShowKeyboardMappingsExecuteAsync);
 
             commandManager.RegisterCommand("File.Open", OpenProject, this);
 
@@ -199,7 +190,7 @@
             }
             catch(Exception ex)
             {
-                Log.Error(ex);
+                Logger.LogError(ex, null);
             }
         }
 

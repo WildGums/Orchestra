@@ -12,6 +12,7 @@
         private readonly INotificationService _notificationService;
 
         public UserMessageCloseApplicationWatcher(IMessageService messageService, INotificationService notificationService)
+            : base(messageService)
         {
             ArgumentNullException.ThrowIfNull(messageService);
             ArgumentNullException.ThrowIfNull(notificationService);

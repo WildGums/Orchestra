@@ -2,9 +2,6 @@
 {
     public partial class FontSizeSelectorWindow
     {
-        public FontSizeSelectorWindow()
-        {
-            InitializeComponent();
-        }
+
     }
 }

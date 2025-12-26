@@ -1,38 +1,75 @@
 ﻿namespace Orchestra.Examples.Ribbon
 {
     using System;
-    using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Media;
+    using Catel;
     using Catel.IoC;
-    using Catel.Logging;
     using Catel.Services;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using Orc.Automation;
+    using Orc.Controls;
+    using Orc.FileSystem;
+    using Orc.Notifications;
+    using Orc.SystemInfo;
+    using Orc.Theming;
+    using Orchestra.Changelog;
     using Orchestra.Examples.Ribbon.Services;
     using Orchestra.Views;
 
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+#pragma warning disable IDISP006 // Implement IDisposable
+        private readonly IHost _host;
+#pragma warning restore IDISP006 // Implement IDisposable
 
-        private readonly Stopwatch _stopwatch;
- 
         public App()
         {
-            _stopwatch = new Stopwatch();
-            _stopwatch.Start();
+            var hostBuilder = new HostBuilder()
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddCatelCoreServices();
+                    services.AddCatelMvvmServices();
+                    services.AddOrcAutomationServices();
+                    services.AddOrcControlsServices();
+                    services.AddOrcFileSystemServices();
+                    services.AddOrcNotificationsServices();
+                    services.AddOrcSystemInfoServices();
+                    services.AddOrcThemingServices();
+                    services.AddOrchestraCoreServices();
+                    services.AddOrchestraShellRibbonFluentServices();
+
+                    services.AddSingleton<IAboutInfoService, AboutInfoService>();
+                    services.AddSingleton<IRibbonService, RibbonService>();
+                    services.AddSingleton<IApplicationInitializationService, ApplicationInitializationService>();
+
+                    // TODO: How to instantiate?
+                    services.AddSingleton<UserMessageCloseApplicationWatcher>();
+
+                    services.AddLogging(x =>
+                    {
+                        x.AddConsole();
+                        x.AddDebug();
+                    });
+
+                    services.AddSingleton<IChangelogProvider, Orchestra.Examples.Ribbon.Changelog.Providers.ChangelogProvider>();
+                });
+
+            _host = hostBuilder.Build();
+
+            IoCContainer.ServiceProvider = _host.Services;
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-#if DEBUG
-            LogManager.AddDebugListener(true);
-#endif
+            base.OnStartup(e);
 
-            var languageService = ServiceLocator.Default.ResolveRequiredType<ILanguageService>();
+            var serviceProvider = IoCContainer.ServiceProvider;
+
+            var languageService = serviceProvider.GetRequiredService<ILanguageService>();
 
             // Note: it's best to use .CurrentUICulture in actual apps since it will use the preferred language
             // of the user. But in order to demo multilingual features for devs (who mostly have en-US as .CurrentUICulture),
@@ -43,17 +80,18 @@
             Orc.Theming.FontImage.RegisterFont("FontAwesome", new FontFamily(new Uri("pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Fonts/", UriKind.RelativeOrAbsolute), "./#FontAwesome"));
             Orc.Theming.FontImage.DefaultFontFamily = "FontAwesome";
 
-            serviceLocator.RegisterType<IAboutInfoService, AboutInfoService>();
-            serviceLocator.RegisterTypeAndInstantiate<UserMessageCloseApplicationWatcher>();
-
-            var serviceLocator = ServiceLocator.Default;
-            var shellService = serviceLocator.ResolveType<IShellService>();
+            var shellService = serviceProvider.GetRequiredService<IShellService>();
             shellService.CreateAsync<ShellWindow>();
+        }
 
-            _stopwatch.Stop();
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            using (_host)
+            {
+                await _host.StopAsync();
+            }
 
-            Log.Info("Elapsed startup stopwatch time: {0}", _stopwatch.Elapsed);
-            
+            base.OnExit(e);
         }
     }
 }

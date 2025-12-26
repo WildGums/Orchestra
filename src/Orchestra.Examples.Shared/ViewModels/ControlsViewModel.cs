@@ -1,20 +1,19 @@
 ﻿namespace Orchestra.Examples.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using Catel.Data;
     using Catel.MVVM;
 
-    public class ControlsViewModel : ViewModelBase
+    public class ControlsViewModel : FeaturedViewModelBase
     {
-        public ControlsViewModel()
+        public ControlsViewModel(IServiceProvider serviceProvider)
+            : base(serviceProvider)
         {
         }
 
-        #region Properties
         public string Text { get; set; }
-        #endregion
 
-        #region Methods
         protected override void ValidateFields(List<IFieldValidationResult> validationResults)
         {
             if (string.IsNullOrEmpty(Text))
@@ -24,6 +23,5 @@
 
             base.ValidateFields(validationResults);
         }
-        #endregion
     }
 }

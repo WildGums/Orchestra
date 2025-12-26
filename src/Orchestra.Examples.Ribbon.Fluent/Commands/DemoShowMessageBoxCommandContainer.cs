@@ -10,8 +10,9 @@
     {
         private readonly IMessageService _messageService;
 
-        public DemoShowMessageBoxCommandContainer(ICommandManager commandManager, IMessageService messageService)
-            : base(Commands.Demo.ShowMessageBox, commandManager)
+        public DemoShowMessageBoxCommandContainer(ICommandManager commandManager, 
+            IMessageService messageService, IServiceProvider serviceProvider)
+            : base(Commands.Demo.ShowMessageBox, commandManager, serviceProvider)
         {
             ArgumentNullException.ThrowIfNull(messageService);
 

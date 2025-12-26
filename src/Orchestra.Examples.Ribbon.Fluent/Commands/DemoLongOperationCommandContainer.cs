@@ -11,8 +11,9 @@
         private readonly IBusyIndicatorService _busyIndicatorService;
         private readonly IMessageService _messageService;
 
-        public DemoLongOperationCommandContainer(ICommandManager commandManager, IBusyIndicatorService busyIndicatorService, IMessageService messageService)
-            : base(Commands.Demo.LongOperation, commandManager)
+        public DemoLongOperationCommandContainer(ICommandManager commandManager, IBusyIndicatorService busyIndicatorService,
+            IMessageService messageService, IServiceProvider serviceProvider)
+            : base(Commands.Demo.LongOperation, commandManager, serviceProvider)
         {
             ArgumentNullException.ThrowIfNull(busyIndicatorService);
             ArgumentNullException.ThrowIfNull(messageService);
