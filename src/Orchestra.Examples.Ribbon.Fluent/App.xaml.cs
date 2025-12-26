@@ -69,6 +69,8 @@
 
             var serviceProvider = IoCContainer.ServiceProvider;
 
+            serviceProvider.CreateTypesThatMustBeConstructedAtStartup();
+
             var languageService = serviceProvider.GetRequiredService<ILanguageService>();
 
             // Note: it's best to use .CurrentUICulture in actual apps since it will use the preferred language

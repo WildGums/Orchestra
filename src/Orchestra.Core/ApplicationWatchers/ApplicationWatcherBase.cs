@@ -13,7 +13,7 @@
     using Microsoft.Extensions.Logging;
     using Orchestra;
 
-    public abstract class ApplicationWatcherBase
+    public abstract class ApplicationWatcherBase : IConstructAtStartup
     {
         private static readonly ILogger Logger = LogManager.GetLogger(typeof(ApplicationWatcherBase));
 
