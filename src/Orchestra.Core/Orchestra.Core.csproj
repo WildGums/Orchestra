@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Orc.Controls\src\Orc.Controls\Orc.Controls.csproj" />
+    <ProjectReference Include="..\..\..\Orc.Serialization\src\Orc.Serialization.Json\Orc.Serialization.Json.csproj" />
     <ProjectReference Include="..\..\..\Orc.SystemInfo\src\Orc.SystemInfo\Orc.SystemInfo.csproj" />
     <ProjectReference Include="..\..\..\Orc.Theming\src\Orc.Theming\Orc.Theming.csproj" />
   </ItemGroup>

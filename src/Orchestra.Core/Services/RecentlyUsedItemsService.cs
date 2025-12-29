@@ -8,26 +8,27 @@
     using Catel.Services;
     using Microsoft.Extensions.Logging;
     using Orc.FileSystem;
+    using Orc.Serialization.Json;
 
     public class RecentlyUsedItemsService : IRecentlyUsedItemsService
     {
         private readonly ILogger<RecentlyUsedItemsService> _logger;
-        //private readonly IXmlSerializer _xmlSerializer;
+        private readonly IJsonSerializerFactory _jsonSerializerFactory;
         private readonly IFileService _fileService;
         private readonly IAppDataService _appDataService;
 
         private readonly string _fileName;
-        private readonly RecentlyUsedItems _items;
+        private RecentlyUsedItems _items;
 
         public RecentlyUsedItemsService(ILogger<RecentlyUsedItemsService> logger, 
-            /*IXmlSerializer xmlSerializer, */ IFileService fileService, IAppDataService appDataService)
+            IJsonSerializerFactory jsonSerializerFactory, IFileService fileService, IAppDataService appDataService)
         {
             _logger = logger;
-            //_xmlSerializer = xmlSerializer;
+            _jsonSerializerFactory = jsonSerializerFactory;
             _fileService = fileService;
             _appDataService = appDataService;
 
-            _fileName = Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "recentlyused.xml");
+            _fileName = Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "recentlyused.json");
             _items = new RecentlyUsedItems();
 
             MaximumItemCount = 10;
@@ -241,10 +242,12 @@
                     return;
                 }
 
-                //using (var fileStream = _fileService.OpenRead(_fileName))
-                //{
-                //    _xmlSerializer.Deserialize(_items, fileStream, null);
-                //}
+                using (var fileStream = _fileService.OpenRead(_fileName))
+                {
+                    var serializer = _jsonSerializerFactory.CreateSerializer();
+
+                    _items = serializer.Deserialize<RecentlyUsedItems>(fileStream) ?? new RecentlyUsedItems();
+                }
             }
             catch (Exception ex)
             {
@@ -258,10 +261,12 @@
 
             try
             {
-                //using (var fileStream = _fileService.Create(_fileName))
-                //{
-                //    _xmlSerializer.Serialize(_items, fileStream, null);
-                //}
+                using (var fileStream = _fileService.Create(_fileName))
+                {
+                    var serializer = _jsonSerializerFactory.CreateSerializer();
+
+                    serializer.Serialize(fileStream, _items);
+                }
             }
             catch (Exception ex)
             {

@@ -14,6 +14,7 @@
     using Orc.Controls;
     using Orc.FileSystem;
     using Orc.Notifications;
+    using Orc.Serialization.Json;
     using Orc.SystemInfo;
     using Orc.Theming;
     using Orchestra.Changelog;
@@ -37,6 +38,7 @@
                     services.AddOrcControls();
                     services.AddOrcFileSystem();
                     services.AddOrcNotifications();
+                    services.AddOrcSerializationJson();
                     services.AddOrcSystemInfo();
                     services.AddOrcTheming();
                     services.AddOrchestraCore();

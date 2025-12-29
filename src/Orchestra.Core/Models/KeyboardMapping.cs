@@ -5,7 +5,7 @@
     using Catel.Data;
     using InputGesture = Catel.Windows.Input.InputGesture;
 
-    public class KeyboardMapping : ModelBase
+    public class KeyboardMapping : ObservableObject
     {
         public KeyboardMapping()
         {

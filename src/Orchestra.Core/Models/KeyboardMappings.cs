@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Catel.Data;
 
-    public class KeyboardMappings : ModelBase
+    public class KeyboardMappings : ObservableObject
     {
         public KeyboardMappings()
         {
@@ -13,6 +13,6 @@
 
         public string GroupName { get; set; }
 
-        public List<KeyboardMapping> Mappings { get; private set; }
+        public List<KeyboardMapping> Mappings { get; init; }
     }
 }
