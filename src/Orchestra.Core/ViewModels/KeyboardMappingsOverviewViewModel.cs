@@ -24,6 +24,7 @@
         public KeyboardMappingsOverviewViewModel(ILogger<KeyboardMappingsOverviewViewModel> logger, IServiceProvider serviceProvider, 
             ICommandManager commandManager, ICommandInfoService commandInfoService, IUIVisualizerService uiVisualizerService,
             ILanguageService languageService, IKeyboardMappingsService keyboardMappingsService)
+            : base(serviceProvider)
         {
             _logger = logger;
             _commandManager = commandManager;

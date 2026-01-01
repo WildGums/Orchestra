@@ -14,6 +14,7 @@
 
         public SystemInfoViewModel(IServiceProvider serviceProvider,
             ISystemInfoService systemInfoService, IClipboardService clipboardService)
+            : base(serviceProvider)
         {
             ArgumentNullException.ThrowIfNull(systemInfoService);
             ArgumentNullException.ThrowIfNull(clipboardService);

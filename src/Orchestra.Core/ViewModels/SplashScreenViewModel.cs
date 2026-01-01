@@ -13,7 +13,9 @@
         private readonly IAboutInfoService _aboutInfoService;
         private readonly ILanguageService _languageService;
 
-        public SplashScreenViewModel(IAboutInfoService aboutInfoService, ILanguageService languageService)
+        public SplashScreenViewModel(IServiceProvider serviceProvider, 
+            IAboutInfoService aboutInfoService, ILanguageService languageService)
+            : base(serviceProvider)
         {
             ArgumentNullException.ThrowIfNull(aboutInfoService);
             ArgumentNullException.ThrowIfNull(languageService);

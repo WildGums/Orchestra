@@ -21,6 +21,7 @@
         public AboutViewModel(AboutInfo aboutInfo, IServiceProvider serviceProvider, IProcessService processService,
             IUIVisualizerService uiVisualizerService, IMessageService messageService, ILanguageService languageService, 
             IChangelogService changelogService)
+            : base(serviceProvider)
         {
             _processService = processService;
             _uiVisualizerService = uiVisualizerService;

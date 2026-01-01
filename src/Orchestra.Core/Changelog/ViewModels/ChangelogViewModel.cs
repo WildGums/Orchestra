@@ -1,5 +1,6 @@
 ﻿namespace Orchestra.Changelog.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Catel.MVVM;
@@ -12,9 +13,10 @@
         private readonly IChangelogService _changelogService;
         private readonly IChangelogSnapshotService _changelogSnapshotService;
 
-        public ChangelogViewModel(Changelog changelog, ILogger<ChangelogViewModel> logger, 
-            IChangelogService changelogService, IChangelogSnapshotService changelogSnapshotService,
-            ILanguageService languageService)
+        public ChangelogViewModel(Changelog changelog, IServiceProvider serviceProvider,
+            ILogger<ChangelogViewModel> logger, IChangelogService changelogService, 
+            IChangelogSnapshotService changelogSnapshotService, ILanguageService languageService)
+            : base(serviceProvider)
         {
             ValidateUsingDataAnnotations = false;
 

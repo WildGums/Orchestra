@@ -6,7 +6,8 @@
 
     public class ShellViewModel : ViewModelBase
     {
-        public ShellViewModel(IShellConfigurationService shellConfigurationService)
+        public ShellViewModel(IServiceProvider serviceProvider, IShellConfigurationService shellConfigurationService)
+            : base(serviceProvider)
         {
             ArgumentNullException.ThrowIfNull(shellConfigurationService);
 

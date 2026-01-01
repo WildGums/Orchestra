@@ -20,6 +20,7 @@
         public CrashWarningViewModel(ILogger<CrashWarningViewModel> logger, IServiceProvider serviceProvider, 
             IManageAppDataService manageAppDataService, IMessageService messageService, 
             INavigationService navigationService, ILanguageService languageService)
+            : base(serviceProvider)
         {
             ArgumentNullException.ThrowIfNull(messageService);
             ArgumentNullException.ThrowIfNull(navigationService);

@@ -31,6 +31,7 @@
             ICommandManager commandManager, IRecentlyUsedItemsService recentlyUsedItemsService, IProcessService processService,
             IMessageService messageService, ISelectDirectoryService selectDirectoryService, IDirectoryService directoryService,
             IManageAppDataService manageAppDataService, IServiceProvider serviceProvider)
+            : base(serviceProvider)
         {
             _navigationService = navigationService;
             _uiVisualizerService = uiVisualizerService;

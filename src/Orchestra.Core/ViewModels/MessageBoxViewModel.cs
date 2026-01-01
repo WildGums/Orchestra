@@ -14,6 +14,7 @@
 
         public MessageBoxViewModel(IServiceProvider serviceProvider, IMessageService messageService, 
             IClipboardService clipboardService, ILanguageService languageService)
+            : base(serviceProvider)
         {
             _messageService = messageService;
             _clipboardService = clipboardService;

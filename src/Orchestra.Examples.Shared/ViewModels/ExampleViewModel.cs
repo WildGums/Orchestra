@@ -1,11 +1,13 @@
 ﻿namespace Orchestra.Examples.ViewModels
 {
     using Catel.MVVM;
+    using System;
     using System.Threading.Tasks;
 
     public class ExampleViewModel : ViewModelBase
     {
-        public ExampleViewModel(/* dependency injection here */)
+        public ExampleViewModel(IServiceProvider serviceProvider)
+            : base(serviceProvider)
         {
         }
 

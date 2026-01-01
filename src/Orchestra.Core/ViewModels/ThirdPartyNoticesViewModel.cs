@@ -12,8 +12,9 @@
         private readonly IAboutInfoService _aboutInfoService;
         private readonly IThirdPartyNoticesService _thirdPartyNoticesService;
 
-        public ThirdPartyNoticesViewModel(IAboutInfoService aboutInfoService,
+        public ThirdPartyNoticesViewModel(IServiceProvider serviceProvider, IAboutInfoService aboutInfoService,
             IThirdPartyNoticesService thirdPartyNoticesService)
+            : base(serviceProvider)
         {
             _aboutInfoService = aboutInfoService;
             _thirdPartyNoticesService = thirdPartyNoticesService;

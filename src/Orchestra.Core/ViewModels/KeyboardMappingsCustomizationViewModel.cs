@@ -23,6 +23,7 @@
         public KeyboardMappingsCustomizationViewModel(IServiceProvider serviceProvider, 
             IDispatcherService dispatcherService, IKeyboardMappingsService keyboardMappingsService, ICommandManager commandManager,
             ICommandInfoService commandInfoService, ILanguageService languageService, IMessageService messageService)
+            : base(serviceProvider)
         {
             ArgumentNullException.ThrowIfNull(keyboardMappingsService);
             ArgumentNullException.ThrowIfNull(commandManager);
