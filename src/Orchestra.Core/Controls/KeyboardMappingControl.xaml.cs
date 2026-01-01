@@ -2,6 +2,9 @@
 {
     public partial class KeyboardMappingControl
     {
-
+        public KeyboardMappingControl()
+        {
+            InitializeComponent();
+        }
     }
 }

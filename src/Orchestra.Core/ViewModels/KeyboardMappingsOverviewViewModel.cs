@@ -21,7 +21,7 @@
         private readonly ILanguageService _languageService;
         private readonly IKeyboardMappingsService _keyboardMappingsService;
 
-        public KeyboardMappingsOverviewViewModel(ILogger<KeyboardMappingsOverviewViewModel> logger, IServiceProvider serviceProvider, 
+        public KeyboardMappingsOverviewViewModel(ILogger<KeyboardMappingsOverviewViewModel> logger, IServiceProvider serviceProvider,
             ICommandManager commandManager, ICommandInfoService commandInfoService, IUIVisualizerService uiVisualizerService,
             ILanguageService languageService, IKeyboardMappingsService keyboardMappingsService)
             : base(serviceProvider)
@@ -65,7 +65,10 @@
             Title = string.Format(_languageService.GetRequiredString("Orchestra_ShortcutsForApplication"), AssemblyHelper.GetRequiredEntryAssembly().Title());
 
             var mappingsByGroup = new Dictionary<string, KeyboardMappings>();
-            mappingsByGroup.Add(string.Empty, new KeyboardMappings { GroupName = string.Empty });
+            mappingsByGroup.Add(string.Empty, new KeyboardMappings
+            {
+                GroupName = string.Empty
+            });
 
             var commands = _commandManager.GetCommands();
             var groups = (from command in commands
@@ -73,7 +76,10 @@
 
             foreach (var group in groups)
             {
-                mappingsByGroup[group] = new KeyboardMappings { GroupName = group };
+                mappingsByGroup[group] = new KeyboardMappings
+                {
+                    GroupName = group
+                };
             }
 
             foreach (var command in commands.OrderBy(x => x.GetCommandName()))
@@ -101,7 +107,10 @@
 
                 if (!mappingsByGroup.ContainsKey(groupName))
                 {
-                    mappingsByGroup[groupName] = new KeyboardMappings { GroupName = groupName };
+                    mappingsByGroup[groupName] = new KeyboardMappings 
+                    { 
+                        GroupName = groupName 
+                    };
                 }
 
                 mappingsByGroup[groupName].Mappings.Add(additionalKeyboardMapping);

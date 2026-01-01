@@ -5,7 +5,8 @@
                    xmlns:controls="clr-namespace:Orchestra.Controls">
 
     <Grid>
-        <ItemsControl Grid.Row="0" ItemsSource="{Binding KeyboardMappings}">
+        <ItemsControl Grid.Row="0"
+                      ItemsSource="{Binding KeyboardMappings}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Vertical" />
@@ -14,8 +15,10 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <GroupBox Header="{Binding GroupName}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                            Style="{StaticResource GroupBoxWithoutLine}">
+                    <GroupBox Header="{Binding GroupName}"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              Style="{StaticResource GroupBoxWithoutLine}">
                         <ItemsControl ItemsSource="{Binding Mappings}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
