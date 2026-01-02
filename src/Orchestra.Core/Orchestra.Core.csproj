@@ -24,7 +24,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Catel.Fody" Version="4.12.0-alpha0118" PrivateAssets="all" />
+    <PackageReference Include="Catel.Fody" Version="4.12.0-alpha0121" PrivateAssets="all" />
     <!--<PackageReference Include="Catel.MVVM" Version="6.2.0" />-->
     <PackageReference Include="Catel.SourceGenerators" Version="1.0.0-alpha0029" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="6.9.3" PrivateAssets="all">
