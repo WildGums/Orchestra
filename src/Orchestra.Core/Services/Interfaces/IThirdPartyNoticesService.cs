@@ -2,11 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Catel.ThirdPartyNotices;
 
     public interface IThirdPartyNoticesService
     {
-        void Add(ThirdPartyNotice thirdPartyNotice);
+        void Add(IThirdPartyNotice thirdPartyNotice);
 
-        Task<IReadOnlyList<ThirdPartyNotice>> GetThirdPartyNoticesAsync();
+        Task<IReadOnlyList<IThirdPartyNotice>> GetThirdPartyNoticesAsync();
     }
 }

@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Catel;
     using Catel.MVVM;
+    using Catel.ThirdPartyNotices;
     using Orchestra;
 
     public class ThirdPartyNoticesViewModel : ViewModelBase
@@ -23,12 +24,12 @@
 
             Title = LanguageHelper.GetRequiredString("Orchestra_ThirdPartyNotices_Title");
             Explanation = string.Empty;
-            ThirdPartyNotices = new List<ThirdPartyNotice>();
+            ThirdPartyNotices = new List<IThirdPartyNotice>();
         }
 
         public string Explanation { get; private set; }
 
-        public IReadOnlyList<ThirdPartyNotice> ThirdPartyNotices { get; private set; }
+        public IReadOnlyList<IThirdPartyNotice> ThirdPartyNotices { get; private set; }
 
         protected override async Task InitializeAsync()
         {

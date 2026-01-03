@@ -39,17 +39,9 @@ Note: if you feel an item is missing in this list, please let us know!
   https://github.com/controlzex/controlzex
   Original license: MIT  
   
-* DotNetZip
-  https://dotnetzip.codeplex.com/
-  Original license: Ms-PL (compatible with MIT)
-
 * Fluent.Ribbon
   https://github.com/fluentribbon/fluent.ribbon
   Original license: MIT    
-  
-* MahApps.Metro
-  https://github.com/mahapps/mahapps.metro
-  Original license: Ms-PL (compatible with MIT)
   
 * Orc.Controls
   https://github.com/wildgums/orc.controls

@@ -199,17 +199,9 @@ namespace Orchestra
         public virtual System.Threading.Tasks.Task EnsureFailSafeStartupAsync() { }
         protected bool IsFileLocked(string fileName) { }
     }
-    public class FileBasedThirdPartyNotice : Orchestra.ThirdPartyNotice
-    {
-        public FileBasedThirdPartyNotice(string title, string url, string fileName) { }
-    }
     public static class FilterHelper
     {
         public static bool MatchesFilters(System.Collections.Generic.IEnumerable<string> filters, string fileName) { }
-    }
-    public class FontThirdPartyNotice : Orchestra.ThirdPartyNotice
-    {
-        public FontThirdPartyNotice(string fontName, string fontUrl) { }
     }
     public static class FrameworkElementExtensions { }
     public class Hint : Orchestra.IHint
@@ -360,8 +352,8 @@ namespace Orchestra
     }
     public interface IThirdPartyNoticesService
     {
-        void Add(Orchestra.ThirdPartyNotice thirdPartyNotice);
-        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Orchestra.ThirdPartyNotice>> GetThirdPartyNoticesAsync();
+        void Add(Catel.ThirdPartyNotices.IThirdPartyNotice thirdPartyNotice);
+        System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Catel.ThirdPartyNotices.IThirdPartyNotice>> GetThirdPartyNoticesAsync();
     }
     public interface IViewActivationService
     {
@@ -524,13 +516,6 @@ namespace Orchestra
         public void RemoveItem(Orchestra.RecentlyUsedItem item) { }
         public void UnpinItem(string name) { }
     }
-    public class ResourceBasedThirdPartyNotice : Orchestra.ThirdPartyNotice
-    {
-        public ResourceBasedThirdPartyNotice(string title, string url, System.Reflection.Assembly assembly, string relativeResourceName) { }
-        public ResourceBasedThirdPartyNotice(string title, string url, string assemblyName, string relativeResourceName) { }
-        public ResourceBasedThirdPartyNotice(string title, string url, System.Reflection.Assembly assembly, string rootNamespace, string relativeResourceName) { }
-        public ResourceBasedThirdPartyNotice(string title, string url, string assemblyName, string rootNamespace, string relativeResourceName) { }
-    }
     public class SplashScreenService : Orchestra.ISplashScreenService
     {
         public SplashScreenService(Orchestra.ISplashScreenStatusService splashScreenStatusService) { }
@@ -559,18 +544,11 @@ namespace Orchestra
         public static string GetCommandGroup(this string commandName) { }
         public static string GetCommandName(this string commandName) { }
     }
-    public class ThirdPartyNotice
-    {
-        public ThirdPartyNotice() { }
-        public string Content { get; protected set; }
-        public string Title { get; protected set; }
-        public string Url { get; protected set; }
-    }
     public class ThirdPartyNoticesService : Orchestra.IThirdPartyNoticesService
     {
-        public ThirdPartyNoticesService(Microsoft.Extensions.Logging.ILogger<Orchestra.ThirdPartyNoticesService> logger, System.Collections.Generic.IEnumerable<Orchestra.ThirdPartyNotice> thirdPartyNotices) { }
-        public void Add(Orchestra.ThirdPartyNotice thirdPartyNotice) { }
-        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Orchestra.ThirdPartyNotice>> GetThirdPartyNoticesAsync() { }
+        public ThirdPartyNoticesService(Microsoft.Extensions.Logging.ILogger<Orchestra.ThirdPartyNoticesService> logger, System.Collections.Generic.IEnumerable<Catel.ThirdPartyNotices.IThirdPartyNotice> thirdPartyNotices) { }
+        public void Add(Catel.ThirdPartyNotices.IThirdPartyNotice thirdPartyNotice) { }
+        public System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<Catel.ThirdPartyNotices.IThirdPartyNotice>> GetThirdPartyNoticesAsync() { }
     }
     public abstract class ToggleConfigurationCommandContainerBase : Orchestra.ToggleConfigurationCommandContainerBase<object>
     {
@@ -1057,7 +1035,7 @@ namespace Orchestra.ViewModels
         public static readonly Catel.Data.IPropertyData ThirdPartyNoticesProperty;
         public ThirdPartyNoticesViewModel(System.IServiceProvider serviceProvider, Orchestra.IAboutInfoService aboutInfoService, Orchestra.IThirdPartyNoticesService thirdPartyNoticesService) { }
         public string Explanation { get; }
-        public System.Collections.Generic.IReadOnlyList<Orchestra.ThirdPartyNotice> ThirdPartyNotices { get; }
+        public System.Collections.Generic.IReadOnlyList<Catel.ThirdPartyNotices.IThirdPartyNotice> ThirdPartyNotices { get; }
         protected override System.Threading.Tasks.Task InitializeAsync() { }
     }
 }

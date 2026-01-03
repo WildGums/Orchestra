@@ -14,6 +14,7 @@
     using Orchestra.Views;
     using Orchestra.Changelog.ViewModels;
     using Orchestra.Changelog.Views;
+    using Catel.ThirdPartyNotices;
 
     /// <summary>
     /// Core module which allows the registration of default services in the service collection.
@@ -70,11 +71,9 @@
             // Custom views (sharing same view model)
             serviceCollection.TryAddSingleton<UIVisualizerInitializer>();
 
-            serviceCollection.AddSingleton<ThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("Catel", "https://www.catelproject.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.catel.txt"));
-            serviceCollection.AddSingleton<ThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx/", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.controlzex.txt"));
-            serviceCollection.AddSingleton<ThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("Material Design Icons", "https://github.com/Templarian/MaterialDesign", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.materialdesignicons.txt"));
-            serviceCollection.AddSingleton<ThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("Newtonsoft.Json", "https://github.com/JamesNK/Newtonsoft.Json", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.newtonsoft.json.txt"));
-            serviceCollection.AddSingleton<ThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("Orchestra", "https://opensource.wildgums.com", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.orchestra.txt"));
+            serviceCollection.AddSingleton<IThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx/", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.controlzex.txt"));
+            serviceCollection.AddSingleton<IThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("Newtonsoft.Json", "https://www.newtonsoft.com/json", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.newtonsoft.json.txt"));
+            serviceCollection.AddSingleton<IThirdPartyNotice>((x) => new LibraryThirdPartyNotice("Orchestra", "https://github.com/wildgums/orchestra", "Orchestra.Core", "Orchestra"));
 
             serviceCollection.AddSingleton<ILanguageSource>(new LanguageResourceSource("Orchestra.Core", "Orchestra.Properties", "Resources"));
 

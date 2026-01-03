@@ -1,6 +1,7 @@
 ﻿namespace Orchestra
 {
     using Catel.Services;
+    using Catel.ThirdPartyNotices;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -19,7 +20,7 @@
             serviceCollection.TryAddSingleton<IProgressBarProvider, ProgressBarProvider>();
             serviceCollection.TryAddSingleton<IXamlResourceService, XamlResourceService>();
 
-            serviceCollection.AddSingleton<ThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("Fluent.Ribbon", "https://github.com/fluentribbon/Fluent.Ribbon", "Orchestra.Shell.Ribbon.Fluent", "Orchestra", "Resources.ThirdPartyNotices.fluent.ribbon.txt"));
+            serviceCollection.AddSingleton<IThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("Fluent.Ribbon", "https://github.com/fluentribbon/Fluent.Ribbon", "Orchestra.Shell.Ribbon.Fluent", "Orchestra", "Resources.ThirdPartyNotices.fluent.ribbon.txt"));
 
             serviceCollection.AddSingleton<ILanguageSource>(new LanguageResourceSource("Orchestra.Shell.Ribbon.Fluent", "Orchestra.Properties", "Resources"));
 

@@ -5,22 +5,24 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Catel.Collections;
+    using Catel.ThirdPartyNotices;
     using Microsoft.Extensions.Logging;
 
     public class ThirdPartyNoticesService : IThirdPartyNoticesService
     {
         private readonly ILogger<ThirdPartyNoticesService> _logger;
 
-        private readonly Dictionary<string, ThirdPartyNotice> _thirdPartyNotices = new Dictionary<string, ThirdPartyNotice>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, IThirdPartyNotice> _thirdPartyNotices = new Dictionary<string, IThirdPartyNotice>(StringComparer.OrdinalIgnoreCase);
 
-        public ThirdPartyNoticesService(ILogger<ThirdPartyNoticesService> logger, IEnumerable<ThirdPartyNotice> thirdPartyNotices)
+        public ThirdPartyNoticesService(ILogger<ThirdPartyNoticesService> logger, 
+            IEnumerable<IThirdPartyNotice> thirdPartyNotices)
         {
             _logger = logger;
 
             thirdPartyNotices.ForEach(x => Add(x));
         }
 
-        public void Add(ThirdPartyNotice thirdPartyNotice)
+        public void Add(IThirdPartyNotice thirdPartyNotice)
         {
             ArgumentNullException.ThrowIfNull(thirdPartyNotice);
 
@@ -32,13 +34,13 @@
             }
         }
 
-        public async Task<IReadOnlyList<ThirdPartyNotice>> GetThirdPartyNoticesAsync()
+        public async Task<IReadOnlyList<IThirdPartyNotice>> GetThirdPartyNoticesAsync()
         {
             lock (_thirdPartyNotices)
             {
                 return (from x in _thirdPartyNotices.Values
                         orderby x.Title
-                        select x).ToList();
+                        select x).ToArray();
             }
         }
     }
