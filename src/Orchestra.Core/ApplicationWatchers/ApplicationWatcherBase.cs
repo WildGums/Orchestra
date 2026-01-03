@@ -9,34 +9,44 @@
     using Catel.Logging;
     using Catel.Services;
     using Catel.Windows.Threading;
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using Orchestra;
 
     public abstract class ApplicationWatcherBase : IConstructAtStartup
     {
         private static readonly ILogger Logger = LogManager.GetLogger(typeof(ApplicationWatcherBase));
 
-        protected static readonly IDispatcherService DispatcherService;
-        protected static readonly IMainWindowService MainWindowService;
+        protected static IDispatcherService DispatcherService = default!;
+        protected static IMainWindowService MainWindowService = default!;
 
-        private static readonly DispatcherTimerEx DispatcherTimer;
+        private static DispatcherTimerEx? DispatcherTimer;
         private static readonly Queue<Action<Window>> ShellActivatedActions;
         private static readonly object Lock = new object();
 
         static ApplicationWatcherBase()
         {
             ShellActivatedActions = new Queue<Action<Window>>();
+        }
 
-            var serviceProvider = IoCContainer.ServiceProvider;
-            DispatcherService = serviceProvider.GetRequiredService<IDispatcherService>();
-            MainWindowService = serviceProvider.GetRequiredService<IMainWindowService>();
+        protected ApplicationWatcherBase(IDispatcherService dispatcherService, IMainWindowService mainWindowService)
+        {
+            if (DispatcherService is null)
+            {
+                DispatcherService = dispatcherService;;
+            }
 
-            DispatcherTimer = new DispatcherTimerEx(DispatcherService);
+            if (MainWindowService is null)
+            {
+                MainWindowService = mainWindowService;
+            }
 
-            // Hotfix: changed from 5 => 250, otherwise it will cause too much CPU usage
-            DispatcherTimer.Interval = TimeSpan.FromMilliseconds(250);
-            DispatcherTimer.Tick += async (sender, e) => await EnsureMainWindowAsync();
+            if (DispatcherTimer is null)
+            {
+                DispatcherTimer = new DispatcherTimerEx(DispatcherService);
+
+                // Hotfix: changed from 5 => 250, otherwise it will cause too much CPU usage
+                DispatcherTimer.Interval = TimeSpan.FromMilliseconds(250);
+                DispatcherTimer.Tick += async (sender, e) => await EnsureMainWindowAsync();
+            }
 
             // Note: starting the timer here is useless since it's immediately stopped in EnsureMainWindowAsync
             //DispatcherTimer.Start();
@@ -51,12 +61,12 @@
                 ShellActivatedActions.Enqueue(action);
             }
 
-            DispatcherTimer.Start();
+            DispatcherTimer?.Start();
         }
 
         public static async Task EnsureMainWindowAsync()
         {
-            DispatcherTimer.Stop();
+            DispatcherTimer?.Stop();
 
             if (NoShell())
             {
@@ -74,13 +84,13 @@
 
             if (mainWindow is null)
             {
-                DispatcherTimer.Start();
+                DispatcherTimer?.Start();
                 return;
             }
 
             if (ShellActivatedActions is null)
             {
-                DispatcherTimer.Start();
+                DispatcherTimer?.Start();
                 return;
             }
 

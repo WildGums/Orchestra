@@ -13,7 +13,7 @@
         [TestCase(Key.A, ModifierKeys.None, false)]
         [TestCase(Key.None, ModifierKeys.Control, false)]
         [TestCase(Key.None, ModifierKeys.None, true)]
-        public void TheIsEmptyMethod(Key key, ModifierKeys modifierKeys, bool expectedValue)
+        public void The_IsEmpty_Method(Key key, ModifierKeys modifierKeys, bool expectedValue)
         {
             var inputGesture = new InputGesture(key, modifierKeys);
 

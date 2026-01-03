@@ -4,12 +4,14 @@
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Input;
+    using Catel.Services;
 
     public abstract class KeyPressApplicationWatcherBase : ApplicationWatcherBase
     {
         private static readonly IList<KeyPressApplicationWatcherBase> Watchers = new List<KeyPressApplicationWatcherBase>();
 
-        public KeyPressApplicationWatcherBase()
+        public KeyPressApplicationWatcherBase(IDispatcherService dispatcherService, IMainWindowService mainWindowService)
+            : base(dispatcherService, mainWindowService)
         {
             Watchers.Add(this);
 

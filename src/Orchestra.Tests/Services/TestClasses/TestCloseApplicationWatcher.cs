@@ -1,12 +1,15 @@
 ﻿namespace Orchestra.Tests
 {
     using System.Threading.Tasks;
+    using Catel.Services;
 
     internal class TestCloseApplicationWatcher : CloseApplicationWatcherBase
     {
         private readonly bool _cancel;
 
-        public TestCloseApplicationWatcher(bool cancel)
+        public TestCloseApplicationWatcher(bool cancel, IMessageService messageService,
+            IDispatcherService dispatcherService, IMainWindowService mainWindowService)
+            : base(messageService, dispatcherService, mainWindowService)
         {
             _cancel = cancel;
 

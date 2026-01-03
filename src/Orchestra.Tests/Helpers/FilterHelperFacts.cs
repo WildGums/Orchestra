@@ -5,7 +5,7 @@
     public class FilterHelperFacts
     {
         [TestFixture]
-        public class TheMatchesFilterMethod
+        public class The_MatchesFilter_Method
         {
             [TestCase("mytest.log", true)]
             [TestCase("subdirectory\\test.log", true)]

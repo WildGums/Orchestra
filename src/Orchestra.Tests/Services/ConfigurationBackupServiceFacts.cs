@@ -1,17 +1,15 @@
 ﻿namespace Orchestra.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using Catel.Configuration;
     using Catel.IO;
-    using Catel.IoC;
     using Catel.Services;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging.Abstractions;
     using NUnit.Framework;
     using Orc.FileSystem;
-    using Orchestra.Services;
 
     [TestFixture]
     public class ConfigurationBackupServiceFacts
@@ -20,17 +18,20 @@
        
         [Explicit("Because we use current process start date/time for file formatting, we cannot run this multiple times in the same instance of a test")]
         [TestCase(
-            @"C:\Users\{0}\AppData\Roaming\WildGums\Orchestra.Examples.Ribbon.Fluent\testconfiguration.xml",
-            @"C:\Users\{0}\AppData\Local\WildGums\Orchestra.Examples.Ribbon.Fluent\testconfiguration.xml",
+            @"C:\Users\{0}\AppData\Roaming\WildGums\Orchestra.Examples.Ribbon.Fluent\testconfiguration.json",
+            @"C:\Users\{0}\AppData\Local\WildGums\Orchestra.Examples.Ribbon.Fluent\testconfiguration.json",
             15
         )]
         public async Task TestBackupConfigurationAsyncCleanupExpectedAsync(string roamingConfigPath, string localConfigPath, int numberOfRuns)
         {
-            var sl = ServiceLocator.Default;
-            var configurationService = sl.ResolveType<IConfigurationService>();
-            var appDataService = sl.ResolveType<IAppDataService>();
-            var fileService = sl.ResolveType<IFileService>();
-            var directoryService = sl.ResolveType<IDirectoryService>();
+            var serviceCollection = ServiceCollectionHelper.CreateServiceCollection();
+
+            using var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var configurationService = serviceProvider.GetRequiredService<IConfigurationService>();
+            var appDataService = serviceProvider.GetRequiredService<IAppDataService>();
+            var fileService = serviceProvider.GetRequiredService<IFileService>();
+            var directoryService = serviceProvider.GetRequiredService<IDirectoryService>();
 
             // Initialize paths
             roamingConfigPath = string.Format(roamingConfigPath, Environment.UserName);
@@ -77,7 +78,7 @@
         public class TestConfigurationBackupService : ConfigurationBackupService
         {
             public TestConfigurationBackupService(IConfigurationService configurationService, IAppDataService appDataService, IFileService fileService, IDirectoryService directoryService)
-                : base(configurationService, appDataService, fileService, directoryService)
+                : base(NullLogger<TestConfigurationBackupService>.Instance, configurationService, appDataService, fileService, directoryService)
             {
             }
 

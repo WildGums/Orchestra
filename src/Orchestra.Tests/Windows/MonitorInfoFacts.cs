@@ -1,11 +1,7 @@
 ﻿namespace Orchestra.Tests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Windows;
-    using Catel.Windows;
     using NUnit.Framework;
     using Orchestra.Windows;
 
@@ -28,7 +24,7 @@
         }
 
         [TestCase]
-        public void MonitorInfoWorkingAreaAndResolutionScalesOnDpiCorrectly()
+        public void MonitorInfo_WorkingArea_And_Resolution_Scales_O_nDpi_Correctly()
         {
             var testMonitorInfo = new MonitorInfo()
             {

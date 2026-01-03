@@ -7,7 +7,6 @@
     using System.Threading.Tasks;
     using System.Windows;
     using Catel;
-    using Catel.IoC;
     using Catel.Logging;
     using Catel.Services;
     using Microsoft.Extensions.Logging;
@@ -25,7 +24,9 @@
 
         private readonly IMessageService _messageService;
 
-        protected CloseApplicationWatcherBase(IMessageService messageService)
+        protected CloseApplicationWatcherBase(IMessageService messageService, 
+            IDispatcherService dispatcherService, IMainWindowService mainWindowService)
+            : base(dispatcherService, mainWindowService)
         {
             _messageService = messageService;
 

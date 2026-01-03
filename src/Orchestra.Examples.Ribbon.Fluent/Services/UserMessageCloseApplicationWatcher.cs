@@ -2,7 +2,6 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Catel;
     using Catel.Services;
     using Orc.Notifications;
 
@@ -11,12 +10,10 @@
         private readonly IMessageService _messageService;
         private readonly INotificationService _notificationService;
 
-        public UserMessageCloseApplicationWatcher(IMessageService messageService, INotificationService notificationService)
-            : base(messageService)
+        public UserMessageCloseApplicationWatcher(IMessageService messageService, INotificationService notificationService,
+            IDispatcherService dispatcherService, IMainWindowService mainWindowService)
+            : base(messageService, dispatcherService, mainWindowService)
         {
-            ArgumentNullException.ThrowIfNull(messageService);
-            ArgumentNullException.ThrowIfNull(notificationService);
-
             _messageService = messageService;
             _notificationService = notificationService;
         }

@@ -5,7 +5,9 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Catel;
+    using Catel.Reflection;
+    using Catel.Services;
+    using Moq;
     using NUnit.Framework;
 
     [TestFixture]
@@ -16,7 +18,12 @@
         [TestCase]
         public async Task Verify_Closing_Allows_Cancel_When_Returning_False_Async()
         {
-            var watcher = new TestCloseApplicationWatcher(true);
+            var messageServiceMock = new Mock<IMessageService>();
+            var dispatcherServiceMock = new Mock<IDispatcherService>();
+            var mainWindowServiceMock = new Mock<IMainWindowService>();
+
+            var watcher = new TestCloseApplicationWatcher(true, messageServiceMock.Object,
+                dispatcherServiceMock.Object, mainWindowServiceMock.Object);
             await RunOnWindowClosingAndWaitForFinishAsync(watcher, OnWindowClosingWaitingTimeout);
 
             Assert.That(watcher.IsClosingRun, Is.True, "Closing did not run");
@@ -26,7 +33,12 @@
         [TestCase]
         public async Task Verify_Closing_Closed_Operations_Are_Executing_Async()
         {
-            var watcher = new TestCloseApplicationWatcher(false);
+            var messageServiceMock = new Mock<IMessageService>();
+            var dispatcherServiceMock = new Mock<IDispatcherService>();
+            var mainWindowServiceMock = new Mock<IMainWindowService>();
+
+            var watcher = new TestCloseApplicationWatcher(false, messageServiceMock.Object,
+                dispatcherServiceMock.Object, mainWindowServiceMock.Object);
             await RunOnWindowClosingAndWaitForFinishAsync(watcher, OnWindowClosingWaitingTimeout);
 
             Assert.That(watcher.IsClosingRun, Is.True, "Closing did not run");
@@ -47,7 +59,7 @@
                     var window = new System.Windows.Window();
 
                     // access handler method
-                    var onWindowClosing = typeof(CloseApplicationWatcherBase).GetMethod("OnWindowClosing", BindingFlags.Static | BindingFlags.NonPublic);
+                    var onWindowClosing = typeof(CloseApplicationWatcherBase).GetMethodEx("OnWindowClosing", BindingFlags.Instance | BindingFlags.NonPublic);
 
                     Assert.That(onWindowClosing, Is.Not.Null);
 

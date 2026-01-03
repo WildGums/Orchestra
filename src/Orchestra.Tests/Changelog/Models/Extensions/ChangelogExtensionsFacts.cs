@@ -6,10 +6,10 @@
     public class ChangelogExtensionsFacts
     {
         [TestFixture]
-        public class TheGetDeltaMethod
+        public class The_GetDelta_Method
         {
             [TestCase]
-            public void ReturnsEmptySnapshot()
+            public void Returns_Empty_Snapshot()
             {
                 var changelog1 = new Changelog();
                 var changelog2 = new Changelog();
@@ -21,7 +21,7 @@
             }
 
             [TestCase]
-            public void ReturnsValidSnapshot()
+            public void Returns_Valid_Snapshot()
             {
                 var changelog1 = new Changelog();
 

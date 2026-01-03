@@ -6,10 +6,114 @@
 [assembly: System.Windows.Markup.XmlnsPrefix("http://schemas.wildgums.com/orchestra", "orchestra")]
 [assembly: System.Windows.ThemeInfo(System.Windows.ResourceDictionaryLocation.None, System.Windows.ResourceDictionaryLocation.SourceAssembly)]
 public static class LoadAssembliesOnStartup { }
-public static class ModuleInitializer
+public static class ModuleInitializer { }
+namespace Orchestra
 {
-    [System.Runtime.CompilerServices.ModuleInitializer]
-    public static void Initialize() { }
+    public class ApplicationInitializationServiceBase : Orchestra.IApplicationInitializationService
+    {
+        public ApplicationInitializationServiceBase(System.IServiceProvider serviceProvider) { }
+        public System.IServiceProvider ServiceProvider { get; }
+        public virtual bool ShowChangelog { get; }
+        public virtual bool ShowShell { get; }
+        public virtual bool ShowSplashScreen { get; }
+        protected virtual System.Globalization.CultureInfo GetApplicationCulture() { }
+        protected virtual System.Windows.Markup.XmlLanguage GetApplicationLanguage() { }
+        public virtual System.Threading.Tasks.Task InitializeAfterCreatingShellAsync() { }
+        public virtual System.Threading.Tasks.Task InitializeAfterShowingShellAsync() { }
+        protected virtual void InitializeApplicationLanguage(System.Windows.Markup.XmlLanguage xmlLanguage) { }
+        public virtual System.Threading.Tasks.Task InitializeBeforeCreatingShellAsync() { }
+        public virtual System.Threading.Tasks.Task InitializeBeforeShowingShellAsync() { }
+        public virtual System.Threading.Tasks.Task InitializeBeforeShowingSplashScreenAsync() { }
+        protected virtual System.Threading.Tasks.Task ShowChangelogAsync() { }
+        protected static System.Threading.Tasks.Task RunAndWaitAsync(params System.Func<System.Threading.Tasks.Task>[] actions) { }
+    }
+    public interface IApplicationInitializationService
+    {
+        bool ShowShell { get; }
+        bool ShowSplashScreen { get; }
+        System.Threading.Tasks.Task InitializeAfterCreatingShellAsync();
+        System.Threading.Tasks.Task InitializeAfterShowingShellAsync();
+        System.Threading.Tasks.Task InitializeBeforeCreatingShellAsync();
+        System.Threading.Tasks.Task InitializeBeforeShowingShellAsync();
+        System.Threading.Tasks.Task InitializeBeforeShowingSplashScreenAsync();
+    }
+    public interface IProgressBarProvider
+    {
+        System.Windows.Controls.ProgressBar? GetProgressBar();
+    }
+    public interface IRibbonService : Orchestra.IShellContentService
+    {
+        System.Windows.FrameworkElement? GetRibbon();
+    }
+    public interface IShellConfigurationService
+    {
+        bool DeferValidationUntilFirstSaveCall { get; set; }
+        bool ValidateUsingDataAnnotations { get; set; }
+    }
+    public interface IShellContentService
+    {
+        System.Windows.FrameworkElement? GetMainView();
+        System.Windows.FrameworkElement? GetStatusBar();
+    }
+    public interface IShellRecoveryService
+    {
+        System.Threading.Tasks.Task StartRecoveryAsync(Orchestra.ShellRecoveryContext shellRecoveryContext);
+    }
+    public interface IShellService
+    {
+        Orchestra.Views.IShell? Shell { get; }
+        System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
+            where TShell :  class, Orchestra.Views.IShell;
+    }
+    public static class OrchestraShellRibbonFluentModule
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddOrchestraShellRibbonFluent(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
+    }
+    public class ProgressBarProvider : Orchestra.IProgressBarProvider
+    {
+        public ProgressBarProvider() { }
+        public virtual System.Windows.Controls.ProgressBar? GetProgressBar() { }
+    }
+    public static class RibbonExtensions
+    {
+        public static void AddAboutButton(this Fluent.Ribbon ribbon, Orchestra.IAboutService aboutService) { }
+        public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Uri imageUri, System.Action action) { }
+        public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Windows.Media.ImageSource? imageSource, System.Action action) { }
+    }
+    public class ShellConfigurationService : Orchestra.IShellConfigurationService
+    {
+        public ShellConfigurationService() { }
+        public virtual bool DeferValidationUntilFirstSaveCall { get; set; }
+        public virtual bool ValidateUsingDataAnnotations { get; set; }
+    }
+    public class ShellRecoveryContext
+    {
+        public ShellRecoveryContext() { }
+        public System.Exception? Exception { get; init; }
+        public Orchestra.Views.IShell? Shell { get; init; }
+    }
+    public class ShellRecoveryService : Orchestra.IShellRecoveryService
+    {
+        public ShellRecoveryService(Catel.Services.IMessageService messageService, Catel.Reflection.IEntryAssemblyResolver entryAssemblyResolver) { }
+        public System.Threading.Tasks.Task StartRecoveryAsync(Orchestra.ShellRecoveryContext shellRecoveryContext) { }
+    }
+    public class ShellService : Orchestra.IShellService
+    {
+        public ShellService(System.IServiceProvider serviceProvider, Orchestra.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.ISplashScreenService splashScreenService, Orchestra.IEnsureStartupService ensureStartupService, Orchestra.IApplicationInitializationService applicationInitializationService, Orchestra.IConfigurationBackupService configurationBackupService) { }
+        public Orchestra.Views.IShell? Shell { get; }
+        public virtual System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
+            where TShell :  class, Orchestra.Views.IShell { }
+        protected virtual System.Threading.Tasks.Task<TShell> CreateShellAsync<TShell>()
+            where TShell : Orchestra.Views.IShell { }
+        protected virtual void ShowShell(Orchestra.Views.IShell shell) { }
+    }
+    public class XamlResourceService : Orchestra.IXamlResourceService
+    {
+        public XamlResourceService() { }
+        public virtual System.Collections.Generic.IEnumerable<System.Windows.ResourceDictionary> GetApplicationResourceDictionaries() { }
+        protected virtual System.Windows.ResourceDictionary GetResourceDictionaryFromAssembly(System.Reflection.Assembly assembly) { }
+        protected virtual System.Uri GetResourceDictionaryUriFromAssembly(System.Reflection.Assembly assembly) { }
+    }
 }
 namespace Orchestra.Automation
 {
@@ -247,109 +351,11 @@ namespace Orchestra.Controls
         public bool KeepIconSizeWithoutIcon { get; set; }
     }
 }
-namespace Orchestra
-{
-    public static class RibbonExtensions
-    {
-        public static void AddAboutButton(this Fluent.Ribbon ribbon) { }
-        public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Uri imageUri, System.Action action) { }
-        public static Fluent.Button AddRibbonButton(this Fluent.Ribbon ribbon, System.Windows.Media.ImageSource? imageSource, System.Action action) { }
-    }
-    public class ShellRecoveryContext
-    {
-        public ShellRecoveryContext() { }
-        public System.Exception? Exception { get; init; }
-        public Orchestra.Views.IShell? Shell { get; init; }
-    }
-}
-namespace Orchestra.Services
-{
-    public class ApplicationInitializationServiceBase : Orchestra.Services.IApplicationInitializationService
-    {
-        public ApplicationInitializationServiceBase() { }
-        public virtual bool ShowChangelog { get; }
-        public virtual bool ShowShell { get; }
-        public virtual bool ShowSplashScreen { get; }
-        protected virtual System.Globalization.CultureInfo GetApplicationCulture() { }
-        protected virtual System.Windows.Markup.XmlLanguage GetApplicationLanguage() { }
-        public virtual System.Threading.Tasks.Task InitializeAfterCreatingShellAsync() { }
-        public virtual System.Threading.Tasks.Task InitializeAfterShowingShellAsync() { }
-        protected virtual void InitializeApplicationLanguage(System.Windows.Markup.XmlLanguage xmlLanguage) { }
-        public virtual System.Threading.Tasks.Task InitializeBeforeCreatingShellAsync() { }
-        public virtual System.Threading.Tasks.Task InitializeBeforeShowingShellAsync() { }
-        public virtual System.Threading.Tasks.Task InitializeBeforeShowingSplashScreenAsync() { }
-        protected virtual void InitializeLogging() { }
-        protected virtual System.Threading.Tasks.Task ShowChangelogAsync() { }
-        protected static System.Threading.Tasks.Task RunAndWaitAsync(params System.Func<System.Threading.Tasks.Task>[] actions) { }
-    }
-    public interface IApplicationInitializationService
-    {
-        bool ShowShell { get; }
-        bool ShowSplashScreen { get; }
-        System.Threading.Tasks.Task InitializeAfterCreatingShellAsync();
-        System.Threading.Tasks.Task InitializeAfterShowingShellAsync();
-        System.Threading.Tasks.Task InitializeBeforeCreatingShellAsync();
-        System.Threading.Tasks.Task InitializeBeforeShowingShellAsync();
-        System.Threading.Tasks.Task InitializeBeforeShowingSplashScreenAsync();
-    }
-    public interface IRibbonService : Orchestra.Services.IShellContentService
-    {
-        System.Windows.FrameworkElement? GetRibbon();
-    }
-    public interface IShellConfigurationService
-    {
-        bool DeferValidationUntilFirstSaveCall { get; set; }
-        bool ValidateUsingDataAnnotations { get; set; }
-    }
-    public interface IShellContentService
-    {
-        System.Windows.FrameworkElement? GetMainView();
-        System.Windows.FrameworkElement? GetStatusBar();
-    }
-    public interface IShellRecoveryService
-    {
-        System.Threading.Tasks.Task StartRecoveryAsync(Orchestra.ShellRecoveryContext shellRecoveryContext);
-    }
-    public interface IShellService
-    {
-        Orchestra.Views.IShell? Shell { get; }
-        System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
-            where TShell :  class, Orchestra.Views.IShell;
-    }
-    public class ShellConfigurationService : Orchestra.Services.IShellConfigurationService
-    {
-        public ShellConfigurationService() { }
-        public virtual bool DeferValidationUntilFirstSaveCall { get; set; }
-        public virtual bool ValidateUsingDataAnnotations { get; set; }
-    }
-    public class ShellRecoveryService : Orchestra.Services.IShellRecoveryService
-    {
-        public ShellRecoveryService(Catel.Services.IMessageService messageService) { }
-        public System.Threading.Tasks.Task StartRecoveryAsync(Orchestra.ShellRecoveryContext shellRecoveryContext) { }
-    }
-    public class ShellService : Orchestra.Services.IShellService
-    {
-        public ShellService(Catel.IoC.ITypeFactory typeFactory, Orchestra.Services.IKeyboardMappingsService keyboardMappingsService, Catel.MVVM.ICommandManager commandManager, Orchestra.Services.ISplashScreenService splashScreenService, Orchestra.Services.IEnsureStartupService ensureStartupService, Orchestra.Services.IApplicationInitializationService applicationInitializationService, Catel.IoC.IDependencyResolver dependencyResolver, Catel.IoC.IServiceLocator serviceLocator, Orchestra.Services.IConfigurationBackupService configurationBackupService) { }
-        public Orchestra.Views.IShell? Shell { get; }
-        public virtual System.Threading.Tasks.Task<TShell> CreateAsync<TShell>()
-            where TShell :  class, Orchestra.Views.IShell { }
-        protected virtual System.Threading.Tasks.Task<TShell> CreateShellAsync<TShell>()
-            where TShell : Orchestra.Views.IShell { }
-        protected virtual void ShowShell(Orchestra.Views.IShell shell) { }
-    }
-    public class XamlResourceService : Orchestra.Services.IXamlResourceService
-    {
-        public XamlResourceService() { }
-        public virtual System.Collections.Generic.IEnumerable<System.Windows.ResourceDictionary> GetApplicationResourceDictionaries() { }
-        protected virtual System.Windows.ResourceDictionary GetResourceDictionaryFromAssembly(System.Reflection.Assembly assembly) { }
-        protected virtual System.Uri GetResourceDictionaryUriFromAssembly(System.Reflection.Assembly assembly) { }
-    }
-}
 namespace Orchestra.ViewModels
 {
     public class ShellViewModel : Catel.MVVM.ViewModelBase
     {
-        public ShellViewModel(Orchestra.Services.IShellConfigurationService shellConfigurationService) { }
+        public ShellViewModel(System.IServiceProvider serviceProvider, Orchestra.IShellConfigurationService shellConfigurationService) { }
     }
 }
 namespace Orchestra.Views
@@ -361,6 +367,7 @@ namespace Orchestra.Views
     public class ShellWindow : Orchestra.Windows.RibbonWindow, Orchestra.Views.IShell, System.Windows.Markup.IComponentConnector
     {
         public ShellWindow() { }
+        public ShellWindow(System.IServiceProvider serviceProvider) { }
         public void InitializeComponent() { }
     }
 }
@@ -369,7 +376,8 @@ namespace Orchestra.Windows
     public class RibbonWindow : Fluent.RibbonWindow, Catel.MVVM.IViewModelContainer, Catel.MVVM.Views.IDataWindow, Catel.MVVM.Views.IView, System.ComponentModel.INotifyPropertyChanged
     {
         public RibbonWindow() { }
-        public RibbonWindow(Catel.MVVM.IViewModel? viewModel) { }
+        public RibbonWindow(System.IServiceProvider serviceProvider) { }
+        public RibbonWindow(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider) { }
         public Catel.MVVM.IViewModel? ViewModel { get; }
         public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
         public event System.EventHandler<System.EventArgs>? ViewModelChanged;

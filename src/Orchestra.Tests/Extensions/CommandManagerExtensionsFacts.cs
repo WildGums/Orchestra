@@ -1,9 +1,10 @@
 ﻿namespace Orchestra.Tests
 {
     using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
     using System.Windows.Input;
     using Catel;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging.Abstractions;
     using NUnit.Framework;
     using CommandManager = Catel.MVVM.CommandManager;
     using InputGesture = Catel.Windows.Input.InputGesture;
@@ -15,9 +16,13 @@
         [TestCase(Key.A, ModifierKeys.Shift, false)]
         [TestCase(Key.A, ModifierKeys.None, false)]
         [TestCase(Key.B, ModifierKeys.Control, false)]
-        public void TheFindCommandsByGestureMethod(Key key, ModifierKeys modifierKeys, bool expectedToBeAvailable)
+        public void The_FindCommandsByGesture_Method(Key key, ModifierKeys modifierKeys, bool expectedToBeAvailable)
         {
-            var commandManager = new CommandManager();
+            var serviceCollection = ServiceCollectionHelper.CreateServiceCollection();
+
+            using var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var commandManager = new CommandManager(NullLogger<CommandManager>.Instance, serviceProvider);
 
             commandManager.CreateCommand("CtrlA", new InputGesture(Key.A, ModifierKeys.Control));
 
