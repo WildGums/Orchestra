@@ -13,6 +13,7 @@
     using Orc.Automation;
     using Orc.Controls;
     using Orc.FileSystem;
+    using Orc.LogViewer;
     using Orc.Notifications;
     using Orc.Serialization.Json;
     using Orc.SystemInfo;
@@ -37,6 +38,7 @@
                     services.AddOrcAutomation();
                     services.AddOrcControls();
                     services.AddOrcFileSystem();
+                    services.AddOrcLogViewer();
                     services.AddOrcNotifications();
                     services.AddOrcSerializationJson();
                     services.AddOrcSystemInfo();

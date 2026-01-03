@@ -2,6 +2,7 @@
 {
     using Catel.Services;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.DependencyInjection.Extensions;
 
     /// <summary>
     /// Core module which allows the registration of default services in the service collection.
@@ -10,13 +11,13 @@
     {
         public static IServiceCollection AddOrchestraShellRibbonFluent(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IShellService, ShellService>();
-            serviceCollection.AddSingleton<IShellRecoveryService, ShellRecoveryService>();
-            serviceCollection.AddSingleton<IApplicationInitializationService, ApplicationInitializationServiceBase>();
-            serviceCollection.AddSingleton<IShellConfigurationService, ShellConfigurationService>();
-            serviceCollection.AddSingleton<IBusyIndicatorService, ProgressBusyIndicatorService>();
-            serviceCollection.AddSingleton<IProgressBarProvider, ProgressBarProvider>();
-            serviceCollection.AddSingleton<IXamlResourceService, XamlResourceService>();
+            serviceCollection.TryAddSingleton<IShellService, ShellService>();
+            serviceCollection.TryAddSingleton<IShellRecoveryService, ShellRecoveryService>();
+            serviceCollection.TryAddSingleton<IApplicationInitializationService, ApplicationInitializationServiceBase>();
+            serviceCollection.TryAddSingleton<IShellConfigurationService, ShellConfigurationService>();
+            serviceCollection.TryAddSingleton<IBusyIndicatorService, ProgressBusyIndicatorService>();
+            serviceCollection.TryAddSingleton<IProgressBarProvider, ProgressBarProvider>();
+            serviceCollection.TryAddSingleton<IXamlResourceService, XamlResourceService>();
 
             serviceCollection.AddSingleton<ThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("Fluent.Ribbon", "https://github.com/fluentribbon/Fluent.Ribbon", "Orchestra.Shell.Ribbon.Fluent", "Orchestra", "Resources.ThirdPartyNotices.fluent.ribbon.txt"));
 

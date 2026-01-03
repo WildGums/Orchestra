@@ -1,10 +1,7 @@
 ﻿namespace Orchestra
 {
-    using System;
     using System.IO;
     using System.Threading.Tasks;
-    using Catel;
-    using Catel.Logging;
     using Catel.Services;
     using Microsoft.Extensions.Logging;
     using Orc.FileSystem;
@@ -13,22 +10,25 @@
     public class EnsureStartupService : IEnsureStartupService
     {
         private const string EnsureStartupCheckFile = "startupfailed.txt";
+
         private readonly ILogger<EnsureStartupService> _logger;
         private readonly IAppDataService _appDataService;
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IFileService _fileService;
+        private readonly IDirectoryService _directoryService;
 
 #pragma warning disable IDISP006 // Implement IDisposable.
         private Stream? _fileStream;
 #pragma warning restore IDISP006 // Implement IDisposable.
 
         public EnsureStartupService(ILogger<EnsureStartupService> logger, IAppDataService appDataService,
-            IUIVisualizerService uiVisualizerService, IFileService fileService)
+            IUIVisualizerService uiVisualizerService, IFileService fileService, IDirectoryService directoryService)
         {
             _logger = logger;
             _appDataService = appDataService;
             _uiVisualizerService = uiVisualizerService;
             _fileService = fileService;
+            _directoryService = directoryService;
         }
 
         public bool SuccessfullyStarted { get; private set; }
@@ -77,7 +77,13 @@
                 _fileStream?.Dispose();
 
                 // Don't dispose yet, keep exclusive lock
-                _fileStream = _fileService.Open(checkFile, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+                var directory = Path.GetDirectoryName(checkFile);
+                if (!string.IsNullOrWhiteSpace(directory))
+                {
+                    _directoryService.Create(directory);
+
+                    _fileStream = _fileService.Open(checkFile, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+                }
             }
 
             if (SuccessfullyStarted)

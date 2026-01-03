@@ -34,8 +34,6 @@
 
         public virtual async Task InitializeBeforeShowingSplashScreenAsync()
         {
-            InitializeLogging();
-
             var xmlLanguage = GetApplicationLanguage();
             InitializeApplicationLanguage(xmlLanguage);
 
@@ -116,11 +114,6 @@
 #pragma warning disable WPF0011 // Containing type should be used as registered owner.
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(xmlLanguage));
 #pragma warning restore WPF0011 // Containing type should be used as registered owner.
-        }
-
-        protected virtual void InitializeLogging()
-        {
-
         }
 
         protected virtual async Task ShowChangelogAsync()

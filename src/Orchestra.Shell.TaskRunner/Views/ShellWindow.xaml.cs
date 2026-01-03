@@ -1,17 +1,15 @@
 ﻿namespace Orchestra.Views
 {
-    using System.IO;
+    using System;
     using System.Windows;
     using Catel.IoC;
-    using Catel.Logging;
     using Catel.MVVM;
     using Catel.MVVM.Views;
     using Catel.Services;
     using Catel.Windows;
-    using ViewModels;
-
+    using Microsoft.Extensions.DependencyInjection;
     using Services;
-    using System;
+    using ViewModels;
 
     /// <summary>
     /// Interaction logic for ShellWindow.xaml.
@@ -24,58 +22,32 @@
 
         static ShellWindow()
         {
-            typeof(ShellWindow).AutoDetectViewPropertiesToSubscribe();
+            typeof(ShellWindow).AutoDetectViewPropertiesToSubscribe(IoCContainer.ServiceProvider.GetRequiredService<IViewPropertySelector>());
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ShellWindow"/> class.
-        /// </summary>
-        /// <remarks>This method is required for design time support.</remarks>
-        public ShellWindow()
-            : base(DataWindowMode.Custom, setOwnerAndFocus: false)
+        public ShellWindow(IServiceProvider serviceProvider, IWrapControlService wrapControlService, 
+            ILanguageService languageService, IUIVisualizerService uiVisualizerService,
+            ITaskRunnerService taskRunnerService, ICommandManager commandManager,
+            IAboutService aboutService)
+            : base(serviceProvider, wrapControlService, languageService)
         {
-            var currentLogFileName = TaskRunnerEnvironment.CurrentLogFileName;
-            if (File.Exists(currentLogFileName))
-            {
-                File.Delete(currentLogFileName);
-            }
+            Mode = DataWindowMode.Custom;
 
-            var fileLogListener = new FileLogListener(currentLogFileName, 25 * 1000)
-            {
-                IgnoreCatelLogging = true,
-                IsDebugEnabled = false
-            };
-
-            LogManager.AddListener(fileLogListener);
-
-#pragma warning disable IDISP001 // Dispose created.
-            var serviceLocator = this.GetServiceLocator();
-#pragma warning restore IDISP001 // Dispose created.
-
-            var uiVisualizerService = serviceLocator.ResolveRequiredType<IUIVisualizerService>();
-            _taskRunnerService = serviceLocator.ResolveRequiredType<ITaskRunnerService>();
-
+            _taskRunnerService = taskRunnerService;
             if (_taskRunnerService.ShowCustomizeShortcutsButton)
             {
-                AddCustomButton(DataWindowButton.FromAsync("Keyboard shortcuts", () => uiVisualizerService.ShowDialogAsync<KeyboardMappingsOverviewViewModel>(), null));
+                AddCustomButton(DataWindowButton.FromAsync(serviceProvider, "Keyboard shortcuts", () => uiVisualizerService.ShowDialogAsync<KeyboardMappingsOverviewViewModel>(), null));
             }
-
-            serviceLocator.RegisterInstance<IAboutInfoService>(_taskRunnerService);
-
-            var commandManager = serviceLocator.ResolveRequiredType<ICommandManager>();
 
             var helpAboutCommand = commandManager.GetCommand("Help.About");
             if (helpAboutCommand is not null)
             {
-                var aboutService = serviceLocator.ResolveRequiredType<IAboutService>();
                 commandManager.RegisterAction("Help.About", async () => await aboutService.ShowAboutAsync());
 
                 AddCustomButton(new DataWindowButton("About", helpAboutCommand));
             }
 
             InitializeComponent();
-
-            serviceLocator.RegisterInstance<ILogControlService>(new LogControlService(traceOutputControl));
 
             ConfigurationContext = _taskRunnerService.GetViewDataContext();
 

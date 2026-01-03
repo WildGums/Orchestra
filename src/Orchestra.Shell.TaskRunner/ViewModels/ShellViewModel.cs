@@ -4,23 +4,22 @@
     using System.Threading.Tasks;
     using Catel.Logging;
     using Catel.MVVM;
+    using Microsoft.Extensions.Logging;
     using Services;
 
-    public class ShellViewModel : ViewModelBase
+    public class ShellViewModel : FeaturedViewModelBase
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetLogger(typeof(ShellViewModel));
 
         private readonly ITaskRunnerService _taskRunnerService;
 
-        public ShellViewModel(ITaskRunnerService taskRunnerService, ICommandManager commandManager, IShellConfigurationService shellConfigurationService)
+        public ShellViewModel(IServiceProvider serviceProvider, ITaskRunnerService taskRunnerService,
+            ICommandManager commandManager, IShellConfigurationService shellConfigurationService)
+            : base(serviceProvider)
         {
-            ArgumentNullException.ThrowIfNull(taskRunnerService);
-            ArgumentNullException.ThrowIfNull(commandManager);
-            ArgumentNullException.ThrowIfNull(shellConfigurationService);
-
             _taskRunnerService = taskRunnerService;
 
-            Run = new TaskCommand(OnRunExecuteAsync, OnRunCanExecute);
+            Run = new TaskCommand(serviceProvider, OnRunExecuteAsync, OnRunCanExecute);
 
             commandManager.RegisterCommand("Runner.Run", Run, this);
 
@@ -58,17 +57,17 @@
 
             if (HasErrors)
             {
-                Log.Warning("There are errors that need to be fixed, please do that before running.");
+                Logger.LogWarning("There are errors that need to be fixed, please do that before running.");
 
                 var validationSummary = this.GetValidationSummary(true);
                 foreach (var error in validationSummary.FieldErrors)
                 {
-                    Log.Warning("  * {0}", error.Message);
+                    Logger.LogWarning("  * {0}", error.Message);
                 }
 
                 foreach (var error in validationSummary.BusinessRuleErrors)
                 {
-                    Log.Warning("  * {0}", error.Message);
+                    Logger.LogWarning("  * {0}", error.Message);
                 }
 
                 return;
@@ -82,7 +81,7 @@
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to execute the command");
+                Logger.LogError(ex, "Failed to execute the command");
             }
             finally
             {

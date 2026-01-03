@@ -1,47 +1,69 @@
 ﻿namespace Orchestra.Examples.TaskRunner
 {
     using System;
-    using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
+    using Catel;
     using Catel.IoC;
-    using Catel.Logging;
     using Catel.Services;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using Orc.Controls;
+    using Orc.FileSystem;
+    using Orc.LogViewer;
+    using Orc.Serialization.Json;
+    using Orc.SystemInfo;
+    using Orc.Theming;
+    using Orchestra.Examples.TaskRunner.Services;
     using Orchestra.Services;
     using Orchestra.Views;
-    using Services;
 
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        #region Constants
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        #endregion
+#pragma warning disable IDISP006 // Implement IDisposable
+        private readonly IHost _host;
+#pragma warning restore IDISP006 // Implement IDisposable
 
-        #region Fields
-        private readonly DateTime _start;
-        private readonly Stopwatch _stopwatch;
-        private DateTime _end;
-        #endregion
-
-        #region Constructors
         public App()
         {
-            _stopwatch = new Stopwatch();
-            _stopwatch.Start();
-            _start = DateTime.Now;
+            var hostBuilder = new HostBuilder()
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddCatelCore();
+                    services.AddCatelMvvm();
+                    services.AddOrcControls();
+                    services.AddOrcFileSystem();
+                    services.AddOrcLogViewer();
+                    services.AddOrcSerializationJson();
+                    services.AddOrcSystemInfo();
+                    services.AddOrcTheming();
+                    services.AddOrchestraCore();
+                    services.AddOrchestraShellTaskRunner();
+
+                    services.AddLogging(x =>
+                    {
+                        x.AddConsole();
+                        x.AddDebug();
+                    });
+
+                    services.AddSingleton<ITaskRunnerService, TaskRunnerService>();
+                });
+
+            _host = hostBuilder.Build();
+
+            IoCContainer.ServiceProvider = _host.Services;
         }
-        #endregion
 
         protected override void OnStartup(StartupEventArgs e)
         {
-#if DEBUG
-            LogManager.AddDebugListener(true);
-#endif
+            base.OnStartup(e);
 
-            var languageService = ServiceLocator.Default.ResolveType<ILanguageService>();
+            var serviceProvider = IoCContainer.ServiceProvider;
+
+            serviceProvider.CreateTypesThatMustBeConstructedAtStartup();
+
+            var languageService = serviceProvider.GetRequiredService<ILanguageService>();
 
             // Note: it's best to use .CurrentUICulture in actual apps since it will use the preferred language
             // of the user. But in order to demo multilingual features for devs (who mostly have en-US as .CurrentUICulture),
@@ -49,15 +71,18 @@
             languageService.PreferredCulture = CultureInfo.CurrentCulture;
             languageService.FallbackCulture = new CultureInfo("en-US");
 
-            var serviceLocator = ServiceLocator.Default;
-            var shellService = serviceLocator.ResolveType<IShellService>();
+            var shellService = serviceProvider.GetRequiredService<IShellService>();
             shellService.CreateAsync<ShellWindow>();
+        }
 
-            _end = DateTime.Now;
-            _stopwatch.Stop();
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            using (_host)
+            {
+                await _host.StopAsync();
+            }
 
-            Log.Info("Elapsed startup stopwatch time: {0}", _stopwatch.Elapsed);
-            Log.Info("Elapsed startup time: {0}", _end - _start);
+            base.OnExit(e);
         }
     }
 }
