@@ -2,6 +2,7 @@
 {
     using System;
     using System.Windows;
+    using Catel;
     using Catel.IoC;
     using Catel.MVVM;
     using Catel.MVVM.Views;
@@ -22,6 +23,11 @@
 
         static ShellWindow()
         {
+            if (CatelEnvironment.IsInDesignMode)
+            {
+                return;
+            }
+
             typeof(ShellWindow).AutoDetectViewPropertiesToSubscribe(IoCContainer.ServiceProvider.GetRequiredService<IViewPropertySelector>());
         }
 
