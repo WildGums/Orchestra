@@ -91,7 +91,7 @@
             var process = Process.GetCurrentProcess();
             var dateTime = process.StartTime;
 
-            var targetFileName = Path.Combine(configBackupFolderPath, $"configuration.{string.Format(BackupTimeStampFormat, dateTime)}.xml");
+            var targetFileName = Path.Combine(configBackupFolderPath, $"configuration.{string.Format(BackupTimeStampFormat, dateTime)}.json");
             if (_fileService.Exists(targetFileName))
             {
                 // Already created
