@@ -21,16 +21,6 @@
 
         private bool _hasUpdatedViewModel;
 
-        static ShellWindow()
-        {
-            if (CatelEnvironment.IsInDesignMode)
-            {
-                return;
-            }
-
-            typeof(ShellWindow).AutoDetectViewPropertiesToSubscribe(IoCContainer.ServiceProvider.GetRequiredService<IViewPropertySelector>());
-        }
-
         public ShellWindow(IServiceProvider serviceProvider, IWrapControlService wrapControlService, 
             ILanguageService languageService, IUIVisualizerService uiVisualizerService,
             ITaskRunnerService taskRunnerService, ICommandManager commandManager,
