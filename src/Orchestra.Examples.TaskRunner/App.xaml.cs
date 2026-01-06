@@ -9,12 +9,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using Orc.Controls;
-    using Orc.FileSystem;
-    using Orc.LogViewer;
-    using Orc.Serialization.Json;
-    using Orc.SystemInfo;
-    using Orc.Theming;
+    using Orc;
     using Orchestra.Examples.TaskRunner.Services;
     using Orchestra.Services;
     using Orchestra.Views;

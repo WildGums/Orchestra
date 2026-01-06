@@ -10,14 +10,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using Orc.Automation;
-    using Orc.Controls;
-    using Orc.FileSystem;
-    using Orc.LogViewer;
-    using Orc.Notifications;
-    using Orc.Serialization.Json;
-    using Orc.SystemInfo;
-    using Orc.Theming;
+    using Orc;
     using Orchestra.Changelog;
     using Orchestra.Examples.Ribbon.Services;
     using Orchestra.Views;
