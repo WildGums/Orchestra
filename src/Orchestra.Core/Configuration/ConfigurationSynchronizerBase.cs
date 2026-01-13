@@ -4,9 +4,10 @@
     using System.Threading.Tasks;
     using Catel;
     using Catel.Configuration;
+    using Catel.IoC;
     using Microsoft.Extensions.Logging;
 
-    public abstract class ConfigurationSynchronizerBase<T>
+    public abstract class ConfigurationSynchronizerBase<T> : IConstructAtStartup
     {
         private readonly ILogger _logger;
 
