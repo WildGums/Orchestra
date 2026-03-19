@@ -38,7 +38,7 @@
             // Note: important to apply first, otherwise the check for values might be equal (which we don't want during first apply)
             if (ApplyAtStartup)
             {
-                _ = ApplyConfigurationInternalAsync(true);
+                _ = ApplyConfigurationInternalAsync(true, true);
             }
 
             _lastKnownValue = ConfigurationService.GetValue(Container, Key, DefaultValue);
@@ -53,6 +53,8 @@
         protected T DefaultValue { get; private set; }
 
         protected bool ApplyAtStartup { get; set; }
+
+        protected bool IsApplyingAtStartup { get; private set; }
 
         public virtual async Task<T> GetCurrentValueAsync()
         {
@@ -83,11 +85,17 @@
             }
         }
 
-        private async Task ApplyConfigurationInternalAsync(bool force = false)
+        private async Task ApplyConfigurationInternalAsync(bool applyingAtStartup = false, bool force = false)
         {
+            if (applyingAtStartup)
+            {
+                IsApplyingAtStartup = true;
+            }
+
             var value = await GetCurrentValueAsync();
             if (!force && ObjectHelper.AreEqual(value, _lastKnownValue))
             {
+                IsApplyingAtStartup = false;
                 return;
             }
 
@@ -101,6 +109,10 @@
             {
                 _logger.LogError(ex, $"Failed to apply configuration value for '{Key}'");
                 throw;
+            }
+            finally
+            {
+                IsApplyingAtStartup = false;
             }
 
             var status = GetStatus(value);
