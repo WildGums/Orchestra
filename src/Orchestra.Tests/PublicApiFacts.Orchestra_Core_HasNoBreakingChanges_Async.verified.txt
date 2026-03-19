@@ -725,7 +725,6 @@ namespace Orchestra.Changelog.Views
     public class ChangelogView : Catel.Windows.Controls.UserControl, System.Windows.Markup.IComponentConnector
     {
         public ChangelogView() { }
-        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
         public ChangelogView(System.IServiceProvider serviceProvider, Catel.Services.IViewModelWrapperService viewModelWrapperService, Catel.MVVM.IDataContextSubscriptionService dataContextSubscriptionService) { }
         public ChangelogView(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IViewModelWrapperService viewModelWrapperService, Catel.MVVM.IDataContextSubscriptionService dataContextSubscriptionService) { }
         public void InitializeComponent() { }
@@ -733,7 +732,6 @@ namespace Orchestra.Changelog.Views
     public class ChangelogWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
     {
         public ChangelogWindow() { }
-        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
         public ChangelogWindow(System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public ChangelogWindow(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public void InitializeComponent() { }
@@ -770,7 +768,7 @@ namespace Orchestra.Configuration
         public static bool IsConfigurationKey(this Catel.Configuration.ConfigurationChangedEventArgs e, string expectedKey) { }
         public static bool IsConfigurationKey(this string key, string expectedKey) { }
     }
-    public abstract class ConfigurationSynchronizerBase<T>
+    public abstract class ConfigurationSynchronizerBase<T> : Catel.IoC.IConstructAtStartup, Catel.IoC.IInitializeAtStartup
     {
         protected ConfigurationSynchronizerBase(string key, T defaultValue, Microsoft.Extensions.Logging.ILogger logger, Catel.Configuration.IConfigurationService configurationService) { }
         protected ConfigurationSynchronizerBase(string key, T defaultValue, Catel.Configuration.ConfigurationContainer container, Microsoft.Extensions.Logging.ILogger logger, Catel.Configuration.IConfigurationService configurationService) { }
@@ -778,11 +776,13 @@ namespace Orchestra.Configuration
         protected Catel.Configuration.IConfigurationService ConfigurationService { get; }
         protected Catel.Configuration.ConfigurationContainer Container { get; }
         protected T DefaultValue { get; }
+        protected bool IsApplyingAtStartup { get; }
         protected string Key { get; }
         public virtual System.Threading.Tasks.Task ApplyConfigurationAsync() { }
         protected virtual System.Threading.Tasks.Task ApplyConfigurationAsync(T value) { }
         public virtual System.Threading.Tasks.Task<T> GetCurrentValueAsync() { }
         protected abstract string GetStatus(T value);
+        public void Initialize() { }
     }
 }
 namespace Orchestra.Controls
@@ -1044,7 +1044,6 @@ namespace Orchestra.Views
     public class AboutWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
     {
         public AboutWindow() { }
-        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
         public AboutWindow(System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public AboutWindow(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public void InitializeComponent() { }
@@ -1061,8 +1060,8 @@ namespace Orchestra.Views
     public class CrashWarningWindow : Catel.Windows.Window, System.Windows.Markup.IComponentConnector
     {
         public CrashWarningWindow() { }
-        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
         public CrashWarningWindow(System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
+        public CrashWarningWindow(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public void InitializeComponent() { }
     }
     public class KeyboardMappingsCustomizationView : Catel.Windows.Controls.UserControl, System.Windows.Markup.IComponentConnector
@@ -1074,7 +1073,6 @@ namespace Orchestra.Views
     public class KeyboardMappingsCustomizationWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
     {
         public KeyboardMappingsCustomizationWindow() { }
-        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
         public KeyboardMappingsCustomizationWindow(System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public KeyboardMappingsCustomizationWindow(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public void InitializeComponent() { }
@@ -1082,7 +1080,6 @@ namespace Orchestra.Views
     public class KeyboardMappingsOverviewView : Catel.Windows.Controls.UserControl, System.Windows.Markup.IComponentConnector
     {
         public KeyboardMappingsOverviewView() { }
-        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
         public KeyboardMappingsOverviewView(System.IServiceProvider serviceProvider, Catel.Services.IViewModelWrapperService viewModelWrapperService, Catel.MVVM.IDataContextSubscriptionService dataContextSubscriptionService) { }
         public KeyboardMappingsOverviewView(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IViewModelWrapperService viewModelWrapperService, Catel.MVVM.IDataContextSubscriptionService dataContextSubscriptionService) { }
         public void InitializeComponent() { }
@@ -1090,7 +1087,6 @@ namespace Orchestra.Views
     public class KeyboardMappingsOverviewWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
     {
         public KeyboardMappingsOverviewWindow() { }
-        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
         public KeyboardMappingsOverviewWindow(System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public KeyboardMappingsOverviewWindow(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public void InitializeComponent() { }
@@ -1098,7 +1094,6 @@ namespace Orchestra.Views
     public class MessageBoxWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
     {
         public MessageBoxWindow() { }
-        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
         public MessageBoxWindow(System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public MessageBoxWindow(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public void InitializeComponent() { }
@@ -1107,7 +1102,6 @@ namespace Orchestra.Views
     public class SplashScreen : Catel.Windows.DataWindow, Orc.Controls.Services.IStatusRepresenter, System.Windows.Markup.IComponentConnector
     {
         public SplashScreen() { }
-        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
         public SplashScreen(System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public SplashScreen(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public void InitializeComponent() { }
@@ -1119,7 +1113,6 @@ namespace Orchestra.Views
     public class SystemInfoWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
     {
         public SystemInfoWindow() { }
-        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
         public SystemInfoWindow(System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public SystemInfoWindow(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public void InitializeComponent() { }
@@ -1127,7 +1120,6 @@ namespace Orchestra.Views
     public class ThirdPartyNoticesWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
     {
         public ThirdPartyNoticesWindow() { }
-        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
         public ThirdPartyNoticesWindow(System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public ThirdPartyNoticesWindow(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public void InitializeComponent() { }
