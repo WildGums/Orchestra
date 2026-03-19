@@ -7,11 +7,12 @@
     using Catel.IoC;
     using Microsoft.Extensions.Logging;
 
-    public abstract class ConfigurationSynchronizerBase<T> : IConstructAtStartup
+    public abstract class ConfigurationSynchronizerBase<T> : IInitializeAtStartup
     {
         private readonly ILogger _logger;
 
         private T? _lastKnownValue;
+        private bool _isInitialized;
 
         protected ConfigurationSynchronizerBase(string key, T defaultValue, ILogger logger, 
             IConfigurationService configurationService)
@@ -35,13 +36,7 @@
 
             ConfigurationService.ConfigurationChanged += OnConfigurationChanged;
 
-            // Note: important to apply first, otherwise the check for values might be equal (which we don't want during first apply)
-            if (ApplyAtStartup)
-            {
-                _ = ApplyConfigurationInternalAsync(true, true);
-            }
-
-            _lastKnownValue = ConfigurationService.GetValue(Container, Key, DefaultValue);
+            // Other initialization will be done in Initialize so derived classes can use injected dependencies
         }
 
         protected IConfigurationService ConfigurationService { get; private set; }
@@ -55,6 +50,27 @@
         protected bool ApplyAtStartup { get; set; }
 
         protected bool IsApplyingAtStartup { get; private set; }
+
+        public void Initialize()
+        {
+            if (_isInitialized)
+            {
+                return;
+            }
+
+            _isInitialized = true;
+
+            // Note: important to apply first, otherwise the check for values might be equal (which we don't want during first apply)
+            if (ApplyAtStartup)
+            {
+                var task = ApplyConfigurationInternalAsync(true, true);
+                task.ContinueWith((t) => _lastKnownValue = ConfigurationService.GetValue(Container, Key, DefaultValue));
+            }
+            else
+            {
+                _lastKnownValue = ConfigurationService.GetValue(Container, Key, DefaultValue);
+            }
+        }
 
         public virtual async Task<T> GetCurrentValueAsync()
         {
