@@ -1,134 +1,133 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System;
+using System.Windows;
+using System.Windows.Documents;
+using Catel.Windows;
+using Collections;
+using Layers;
+
+public class AdorneredTooltipsManager : IAdorneredTooltipsManager
 {
-    using System;
-    using System.Windows;
-    using System.Windows.Documents;
-    using Catel.Windows;
-    using Collections;
-    using Layers;
+    private readonly IAdornerLayer _adornerLayer;
+    private readonly IAdornerTooltipGenerator _adornerTooltipGenerator;
+    private readonly IAdorneredTooltipsCollection _adorneredTooltipsCollection;
+    private readonly IHintsProvider _hintsProvider;
 
-    public class AdorneredTooltipsManager : IAdorneredTooltipsManager
+    public AdorneredTooltipsManager(IAdornerTooltipGenerator adornerTooltipGenerator, IHintsProvider hintsProviderProvider,
+        IAdornerLayer adornerLayer, IAdorneredTooltipsCollection adorneredTooltipsCollection)
     {
-        private readonly IAdornerLayer _adornerLayer;
-        private readonly IAdornerTooltipGenerator _adornerTooltipGenerator;
-        private readonly IAdorneredTooltipsCollection _adorneredTooltipsCollection;
-        private readonly IHintsProvider _hintsProvider;
+        _adornerTooltipGenerator = adornerTooltipGenerator;
+        _hintsProvider = hintsProviderProvider;
+        _adornerLayer = adornerLayer;
+        _adorneredTooltipsCollection = adorneredTooltipsCollection;
 
-        public AdorneredTooltipsManager(IAdornerTooltipGenerator adornerTooltipGenerator, IHintsProvider hintsProviderProvider,
-            IAdornerLayer adornerLayer, IAdorneredTooltipsCollection adorneredTooltipsCollection)
+        IsEnabled = true;
+    }
+
+    public void AddHintsFor(FrameworkElement element)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+
+        var triggerHints = _hintsProvider.GetHintsFor(element);
+        if (triggerHints is null)
         {
-            _adornerTooltipGenerator = adornerTooltipGenerator;
-            _hintsProvider = hintsProviderProvider;
-            _adornerLayer = adornerLayer;
-            _adorneredTooltipsCollection = adorneredTooltipsCollection;
-
-            IsEnabled = true;
+            return;
         }
 
-        public void AddHintsFor(FrameworkElement element)
+        foreach (var hint in triggerHints)
         {
-            ArgumentNullException.ThrowIfNull(element);
+            AddAdorneredTooltip(element, hint);
+        }
+    }
 
-            var triggerHints = _hintsProvider.GetHintsFor(element);
-            if (triggerHints is null)
-            {
-                return;
-            }
+    public void HideHints()
+    {
+        _adorneredTooltipsCollection.HideAll();
+    }
 
-            foreach (var hint in triggerHints)
-            {
-                AddAdorneredTooltip(element, hint);
-            }
+    public void ShowHints()
+    {
+        _adorneredTooltipsCollection.ShowAll();
+    }
+
+    public void Enable()
+    {
+        IsEnabled = true;
+
+        _adorneredTooltipsCollection.AdornerLayerEnabled();
+    }
+
+    public void Disable()
+    {
+        IsEnabled = false;
+
+        _adorneredTooltipsCollection.AdornerLayerDisabled();
+    }
+
+    public bool IsEnabled { get; private set; }
+
+    private UIElement? FindElement(FrameworkElement element, IHint hint)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+        ArgumentNullException.ThrowIfNull(hint);
+
+        var dependencyObject = (DependencyObject) element;
+
+        return dependencyObject.FindVisualDescendant(o => (o is FrameworkElement) && string.Equals(((FrameworkElement)o).Name, hint.ControlName)) as UIElement;
+    }
+
+    private void AddAdorneredTooltip(FrameworkElement element, IHint hint)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+        ArgumentNullException.ThrowIfNull(hint);
+
+        var elementWithHint = FindElement(element, hint);
+        if (elementWithHint is null)
+        {
+            return;
         }
 
-        public void HideHints()
+        if (!CanAddAdorner(elementWithHint))
         {
-            _adorneredTooltipsCollection.HideAll();
+            return;
         }
 
-        public void ShowHints()
+        var adornerTooltip = CreateAdornerTooltip(hint, elementWithHint);
+        _adornerLayer.Add(adornerTooltip);
+        _adorneredTooltipsCollection.Add(element, adornerTooltip, IsEnabled);
+    }
+
+    private bool CanAddAdorner(UIElement adornedElement)
+    {
+        if (adornedElement is null)
         {
-            _adorneredTooltipsCollection.ShowAll();
+            return false;
         }
 
-        public void Enable()
+        var adorners = _adornerLayer.GetAdorners(adornedElement);
+        if (adorners is null)
         {
-            IsEnabled = true;
-
-            _adorneredTooltipsCollection.AdornerLayerEnabled();
-        }
-
-        public void Disable()
-        {
-            IsEnabled = false;
-
-            _adorneredTooltipsCollection.AdornerLayerDisabled();
-        }
-
-        public bool IsEnabled { get; private set; }
-
-        private UIElement? FindElement(FrameworkElement element, IHint hint)
-        {
-            ArgumentNullException.ThrowIfNull(element);
-            ArgumentNullException.ThrowIfNull(hint);
-
-            var dependencyObject = (DependencyObject) element;
-
-            return dependencyObject.FindVisualDescendant(o => (o is FrameworkElement) && string.Equals(((FrameworkElement)o).Name, hint.ControlName)) as UIElement;
-        }
-
-        private void AddAdorneredTooltip(FrameworkElement element, IHint hint)
-        {
-            ArgumentNullException.ThrowIfNull(element);
-            ArgumentNullException.ThrowIfNull(hint);
-
-            var elementWithHint = FindElement(element, hint);
-            if (elementWithHint is null)
-            {
-                return;
-            }
-
-            if (!CanAddAdorner(elementWithHint))
-            {
-                return;
-            }
-
-            var adornerTooltip = CreateAdornerTooltip(hint, elementWithHint);
-            _adornerLayer.Add(adornerTooltip);
-            _adorneredTooltipsCollection.Add(element, adornerTooltip, IsEnabled);
-        }
-
-        private bool CanAddAdorner(UIElement adornedElement)
-        {
-            if (adornedElement is null)
-            {
-                return false;
-            }
-
-            var adorners = _adornerLayer.GetAdorners(adornedElement);
-            if (adorners is null)
-            {
-                return true;
-            }
-
-            if (adorners.Length != 0)
-            {
-                return false;
-            }
-
             return true;
         }
 
-        private Adorner CreateAdornerTooltip(IHint hint, UIElement adornedElement)
+        if (adorners.Length != 0)
         {
-            ArgumentNullException.ThrowIfNull(hint);
-            ArgumentNullException.ThrowIfNull(adornedElement);
-
-            var adorner = _adornerTooltipGenerator.GetAdornerTooltip(hint, adornedElement);
-
-            adorner.SetCurrentValue(UIElement.VisibilityProperty, !IsEnabled ? Visibility.Collapsed : Visibility.Visible);
-
-            return adorner;
+            return false;
         }
+
+        return true;
+    }
+
+    private Adorner CreateAdornerTooltip(IHint hint, UIElement adornedElement)
+    {
+        ArgumentNullException.ThrowIfNull(hint);
+        ArgumentNullException.ThrowIfNull(adornedElement);
+
+        var adorner = _adornerTooltipGenerator.GetAdornerTooltip(hint, adornedElement);
+
+        adorner.SetCurrentValue(UIElement.VisibilityProperty, !IsEnabled ? Visibility.Collapsed : Visibility.Visible);
+
+        return adorner;
     }
 }

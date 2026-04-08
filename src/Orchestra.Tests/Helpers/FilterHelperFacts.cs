@@ -1,28 +1,27 @@
-﻿namespace Orchestra.Tests
+﻿namespace Orchestra.Tests;
+
+using NUnit.Framework;
+
+public class FilterHelperFacts
 {
-    using NUnit.Framework;
-
-    public class FilterHelperFacts
+    [TestFixture]
+    public class The_MatchesFilter_Method
     {
-        [TestFixture]
-        public class The_MatchesFilter_Method
+        [TestCase("mytest.log", true)]
+        [TestCase("subdirectory\\test.log", true)]
+        [TestCase("licenseinfo.xml", true)]
+        [TestCase("LicenseInfo.xml", true)]
+        [TestCase("license.xml", false)]
+        [TestCase("license\\info.xml", false)]
+        public void TheMatchesFilter(string file, bool expectedValue)
         {
-            [TestCase("mytest.log", true)]
-            [TestCase("subdirectory\\test.log", true)]
-            [TestCase("licenseinfo.xml", true)]
-            [TestCase("LicenseInfo.xml", true)]
-            [TestCase("license.xml", false)]
-            [TestCase("license\\info.xml", false)]
-            public void TheMatchesFilter(string file, bool expectedValue)
+            var filters = new[]
             {
-                var filters = new[]
-                {
-                    "licenseinfo.xml",
-                    "*.log"
-                };
+                "licenseinfo.xml",
+                "*.log"
+            };
 
-                Assert.That(FilterHelper.MatchesFilters(filters, file), Is.EqualTo(expectedValue));
-            }
+            Assert.That(FilterHelper.MatchesFilters(filters, file), Is.EqualTo(expectedValue));
         }
     }
 }

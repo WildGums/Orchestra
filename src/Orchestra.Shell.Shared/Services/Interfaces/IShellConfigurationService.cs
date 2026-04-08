@@ -1,8 +1,7 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+public interface IShellConfigurationService
 {
-    public interface IShellConfigurationService
-    {
-        public bool ValidateUsingDataAnnotations { get; set; }
-        public bool DeferValidationUntilFirstSaveCall { get; set; }
-    }
+    public bool ValidateUsingDataAnnotations { get; set; }
+    public bool DeferValidationUntilFirstSaveCall { get; set; }
 }

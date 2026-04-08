@@ -1,13 +1,12 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System;
+using System.Threading.Tasks;
+using System.Windows;
+
+public interface IMainWindowService
 {
-    using System;
-    using System.Threading.Tasks;
-    using System.Windows;
+    event EventHandler<EventArgs>? MainWindowChanged;
 
-    public interface IMainWindowService
-    {
-        event EventHandler<EventArgs>? MainWindowChanged;
-
-        Task<Window> GetMainWindowAsync();
-    }
+    Task<Window> GetMainWindowAsync();
 }

@@ -1,6 +1,5 @@
-﻿namespace Orchestra.Examples.Ribbon.Views
+﻿namespace Orchestra.Examples.Ribbon.Views;
+
+public partial class StatusBarView
 {
-    public partial class StatusBarView
-    {
-    }
 }

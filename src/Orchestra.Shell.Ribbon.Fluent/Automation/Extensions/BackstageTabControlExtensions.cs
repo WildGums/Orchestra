@@ -1,32 +1,31 @@
-﻿namespace Orchestra.Automation
+﻿namespace Orchestra.Automation;
+
+using System;
+using FluentRibbon;
+using Orc.Automation;
+
+public static class BackstageTabControlExtensions
 {
-    using System;
-    using FluentRibbon;
-    using Orc.Automation;
-
-    public static class BackstageTabControlExtensions
+    public static TView? GetItemContent<TView>(this BackstageTabControl tabControl, string header)
+        where TView : AutomationControl
     {
-        public static TView? GetItemContent<TView>(this BackstageTabControl tabControl, string header)
-            where TView : AutomationControl
-        {
-            ArgumentNullException.ThrowIfNull(tabControl);
+        ArgumentNullException.ThrowIfNull(tabControl);
 
-            tabControl.SelectItem(header);
+        tabControl.SelectItem(header);
 
-            var tabItem = tabControl.GetItem<BackstageTabItem>(header);
-            var content = tabItem?.GetContent<TView>();
+        var tabItem = tabControl.GetItem<BackstageTabItem>(header);
+        var content = tabItem?.GetContent<TView>();
 
-            return content;
-        }
+        return content;
+    }
 
-        public static void SelectItem(this BackstageTabControl tabControl, string header)
-        {
-            ArgumentNullException.ThrowIfNull(tabControl);
+    public static void SelectItem(this BackstageTabControl tabControl, string header)
+    {
+        ArgumentNullException.ThrowIfNull(tabControl);
 
-            var tabItem = tabControl.GetItem<BackstageTabItem>(header);
+        var tabItem = tabControl.GetItem<BackstageTabItem>(header);
 
-            //There is no pattern select/Invoke/toggle etc in BackstageTabItem
-            tabItem?.MouseClick();
-        }
+        //There is no pattern select/Invoke/toggle etc in BackstageTabItem
+        tabItem?.MouseClick();
     }
 }

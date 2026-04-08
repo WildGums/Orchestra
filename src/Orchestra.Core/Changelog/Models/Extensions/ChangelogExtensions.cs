@@ -1,58 +1,57 @@
-﻿namespace Orchestra.Changelog
+﻿namespace Orchestra.Changelog;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Catel;
+
+public static class ChangelogExtensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Catel;
-
-    public static class ChangelogExtensions
+    public static Changelog GetDelta(this Changelog changelog1, Changelog changelog2)
     {
-        public static Changelog GetDelta(this Changelog changelog1, Changelog changelog2)
+        ArgumentNullException.ThrowIfNull(changelog1);
+        ArgumentNullException.ThrowIfNull(changelog2);
+
+        // Note: we do simple delta comparison, only the ones we added should be part
+
+        var delta = new Changelog();
+
+        foreach (var item in changelog2.Items)
         {
-            ArgumentNullException.ThrowIfNull(changelog1);
-            ArgumentNullException.ThrowIfNull(changelog2);
-
-            // Note: we do simple delta comparison, only the ones we added should be part
-
-            var delta = new Changelog();
-
-            foreach (var item in changelog2.Items)
+            if (changelog1.Items.Any(x => x.Name.Equals(item.Name)))
             {
-                if (changelog1.Items.Any(x => x.Name.Equals(item.Name)))
-                {
-                    continue;
-                }
-
-                delta.Items.Add(item);
+                continue;
             }
 
-            return delta;
+            delta.Items.Add(item);
         }
 
-        public static List<ChangelogGroup> CreateGroups(this Changelog changelog)
+        return delta;
+    }
+
+    public static List<ChangelogGroup> CreateGroups(this Changelog changelog)
+    {
+        ArgumentNullException.ThrowIfNull(changelog);
+
+        var groups = new Dictionary<string, ChangelogGroup>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var item in changelog.Items)
         {
-            ArgumentNullException.ThrowIfNull(changelog);
+            var groupName = item.Group ?? string.Empty;
 
-            var groups = new Dictionary<string, ChangelogGroup>(StringComparer.OrdinalIgnoreCase);
-
-            foreach (var item in changelog.Items)
+            if (!groups.TryGetValue(groupName, out var group))
             {
-                var groupName = item.Group ?? string.Empty;
-
-                if (!groups.TryGetValue(groupName, out var group))
+                group = new ChangelogGroup
                 {
-                    group = new ChangelogGroup
-                    {
-                        Name = groupName
-                    };
+                    Name = groupName
+                };
 
-                    groups[groupName] = group;
-                }
-
-                group.Items.Add(item);
+                groups[groupName] = group;
             }
 
-            return groups.Values.OrderBy(x => x.Name).ToList();
+            group.Items.Add(item);
         }
+
+        return groups.Values.OrderBy(x => x.Name).ToList();
     }
 }

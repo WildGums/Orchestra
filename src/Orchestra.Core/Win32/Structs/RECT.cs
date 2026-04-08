@@ -1,40 +1,39 @@
-﻿namespace Orchestra.Win32
+﻿namespace Orchestra.Win32;
+
+using System.Runtime.InteropServices;
+using System.Windows;
+
+[StructLayout(LayoutKind.Sequential, Pack = 0)]
+internal struct RECT
 {
-    using System.Runtime.InteropServices;
-    using System.Windows;
+    public int left;
+    public int top;
+    public int right;
+    public int bottom;
 
-    [StructLayout(LayoutKind.Sequential, Pack = 0)]
-    internal struct RECT
+    public int GetWidth()
     {
-        public int left;
-        public int top;
-        public int right;
-        public int bottom;
+        return right - left;
+    }
 
-        public int GetWidth()
-        {
-            return right - left;
-        }
+    public int GetHeight()
+    {
+        return bottom - top;
+    }
 
-        public int GetHeight()
+    public Int32Rect ToInt32Rect()
+    {
+        return new Int32Rect
         {
-            return bottom - top;
-        }
+            X = left,
+            Y = top,
+            Width = GetWidth(),
+            Height = GetHeight()
+        };
+    }
 
-        public Int32Rect ToInt32Rect()
-        {
-            return new Int32Rect
-            {
-                X = left,
-                Y = top,
-                Width = GetWidth(),
-                Height = GetHeight()
-            };
-        }
-
-        public override string ToString()
-        {
-            return $"Left:{left} Top:{top} Right:{right} Bottom:{bottom}";
-        }
+    public override string ToString()
+    {
+        return $"Left:{left} Top:{top} Right:{right} Bottom:{bottom}";
     }
 }

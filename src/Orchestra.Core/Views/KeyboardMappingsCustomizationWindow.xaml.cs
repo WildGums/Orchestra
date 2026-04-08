@@ -1,16 +1,15 @@
-﻿namespace Orchestra.Views
-{
-    using Catel.Windows;
-    using Orchestra.ViewModels;
+﻿namespace Orchestra.Views;
 
-    /// <summary>
-    /// Interaction logic for KeyboardMappingsWindow.xaml.
-    /// </summary>
-    public partial class KeyboardMappingsCustomizationWindow
+using Catel.Windows;
+using Orchestra.ViewModels;
+
+/// <summary>
+/// Interaction logic for KeyboardMappingsWindow.xaml.
+/// </summary>
+public partial class KeyboardMappingsCustomizationWindow
+{
+    partial void OnInitializingComponent()
     {
-        partial void OnInitializingComponent()
-        {
-            Mode = DataWindowMode.Close;
-        }
+        Mode = DataWindowMode.Close;
     }
 }

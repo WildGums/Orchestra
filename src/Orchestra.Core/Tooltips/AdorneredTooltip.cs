@@ -1,47 +1,46 @@
-﻿namespace Orchestra.Tooltips
+﻿namespace Orchestra.Tooltips;
+
+using System;
+using System.Windows;
+using System.Windows.Documents;
+
+public class AdorneredTooltip : IAdorneredTooltip
 {
-    using System;
-    using System.Windows;
-    using System.Windows.Documents;
+    private readonly Adorner _adorner;
+    private bool _adornerLayerVisible;
+    private bool _visible;
 
-    public class AdorneredTooltip : IAdorneredTooltip
+    public AdorneredTooltip(Adorner adorner, bool adornerLayerVisible)
     {
-        private readonly Adorner _adorner;
-        private bool _adornerLayerVisible;
-        private bool _visible;
+        ArgumentNullException.ThrowIfNull(adorner);
 
-        public AdorneredTooltip(Adorner adorner, bool adornerLayerVisible)
+        _adornerLayerVisible = adornerLayerVisible;
+        _adorner = adorner;
+        _visible = _adorner.Visibility == Visibility.Visible;
+    }
+
+    public bool Visible
+    {
+        get { return _visible; }
+        set
         {
-            ArgumentNullException.ThrowIfNull(adorner);
-
-            _adornerLayerVisible = adornerLayerVisible;
-            _adorner = adorner;
-            _visible = _adorner.Visibility == Visibility.Visible;
+            _visible = value;
+            UpdateVisibility();
         }
+    }
 
-        public bool Visible
+    public bool AdornerLayerVisible
+    {
+        get { return _adornerLayerVisible; }
+        set
         {
-            get { return _visible; }
-            set
-            {
-                _visible = value;
-                UpdateVisibility();
-            }
+            _adornerLayerVisible = value;
+            UpdateVisibility();
         }
+    }
 
-        public bool AdornerLayerVisible
-        {
-            get { return _adornerLayerVisible; }
-            set
-            {
-                _adornerLayerVisible = value;
-                UpdateVisibility();
-            }
-        }
-
-        private void UpdateVisibility()
-        {
-            _adorner.SetCurrentValue(UIElement.VisibilityProperty, _visible && _adornerLayerVisible ? Visibility.Visible : Visibility.Collapsed);
-        }
+    private void UpdateVisibility()
+    {
+        _adorner.SetCurrentValue(UIElement.VisibilityProperty, _visible && _adornerLayerVisible ? Visibility.Visible : Visibility.Collapsed);
     }
 }

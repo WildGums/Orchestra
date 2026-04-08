@@ -1,6 +1,5 @@
-﻿namespace Orchestra.Examples.Views
+﻿namespace Orchestra.Examples.Views;
+
+public partial class ExampleWindow
 {
-    public partial class ExampleWindow
-    {
-    }
 }

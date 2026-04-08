@@ -1,11 +1,10 @@
-﻿namespace Orchestra
-{
-    using System;
-    using Catel.MVVM;
+﻿namespace Orchestra;
 
-    public interface IViewActivationService
-    {
-        bool Activate(IViewModel viewModel);
-        bool Activate(Type viewModelType);
-    }
+using System;
+using Catel.MVVM;
+
+public interface IViewActivationService
+{
+    bool Activate(IViewModel viewModel);
+    bool Activate(Type viewModelType);
 }

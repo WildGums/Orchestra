@@ -1,7 +1,6 @@
-﻿namespace Orchestra.Examples.Views
-{
-    public sealed partial class ControlsView
-    {
+﻿namespace Orchestra.Examples.Views;
 
-    }
+public sealed partial class ControlsView
+{
+
 }

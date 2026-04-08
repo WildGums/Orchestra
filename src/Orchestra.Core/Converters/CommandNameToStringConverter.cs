@@ -1,34 +1,33 @@
-﻿namespace Orchestra.Converters
+﻿namespace Orchestra.Converters;
+
+using System;
+using System.Linq;
+using Catel;
+using Catel.MVVM.Converters;
+
+/// <summary>
+/// Converts a command name to a string.
+/// </summary>
+public partial class CommandNameToStringConverter : ValueConverterBase
 {
-    using System;
-    using System.Linq;
-    using Catel;
-    using Catel.MVVM.Converters;
-
     /// <summary>
-    /// Converts a command name to a string.
+    /// Modifies the source data before passing it to the target for display in the UI.
     /// </summary>
-    public partial class CommandNameToStringConverter : ValueConverterBase
+    /// <param name="value">The source data being passed to the target.</param>
+    /// <param name="targetType">The <see cref="T:System.Type" /> of data expected by the target dependency property.</param>
+    /// <param name="parameter">An optional parameter to be used in the converter logic.</param>
+    /// <returns>The value to be passed to the target dependency property.</returns>
+    protected override object? Convert(object? value, Type targetType, object? parameter)
     {
-        /// <summary>
-        /// Modifies the source data before passing it to the target for display in the UI.
-        /// </summary>
-        /// <param name="value">The source data being passed to the target.</param>
-        /// <param name="targetType">The <see cref="T:System.Type" /> of data expected by the target dependency property.</param>
-        /// <param name="parameter">An optional parameter to be used in the converter logic.</param>
-        /// <returns>The value to be passed to the target dependency property.</returns>
-        protected override object? Convert(object? value, Type targetType, object? parameter)
+        var stringValue = value as string;
+        if (string.IsNullOrWhiteSpace(stringValue))
         {
-            var stringValue = value as string;
-            if (string.IsNullOrWhiteSpace(stringValue))
-            {
-                return stringValue;
-            }
-
-            var splittedStrings = (from x in stringValue.Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries)
-                                   select x.SplitCamelCase());
-
-            return string.Join(" ➝ ", splittedStrings);
+            return stringValue;
         }
+
+        var splittedStrings = (from x in stringValue.Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries)
+                               select x.SplitCamelCase());
+
+        return string.Join(" ➝ ", splittedStrings);
     }
 }

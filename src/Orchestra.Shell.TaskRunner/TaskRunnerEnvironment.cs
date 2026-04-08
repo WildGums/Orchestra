@@ -1,6 +1,5 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+public static class TaskRunnerEnvironment
 {
-    public static class TaskRunnerEnvironment
-    {
-    }
 }

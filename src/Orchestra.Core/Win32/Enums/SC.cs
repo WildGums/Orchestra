@@ -1,7 +1,6 @@
-﻿namespace Orchestra.Win32
+﻿namespace Orchestra.Win32;
+
+internal static class SC
 {
-    internal static class SC
-    {
-        public const uint CLOSE = 0xF060;
-    }
+    public const uint CLOSE = 0xF060;
 }

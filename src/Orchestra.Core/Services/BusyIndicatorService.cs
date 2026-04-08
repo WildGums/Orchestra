@@ -1,172 +1,171 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System.Windows.Input;
+using Catel.Services;
+using Microsoft.Extensions.Logging;
+
+public class BusyIndicatorService : IBusyIndicatorService
 {
-    using System.Windows.Input;
-    using Catel.Services;
-    using Microsoft.Extensions.Logging;
+    protected readonly ILogger<BusyIndicatorService> _logger;
+    protected readonly IDispatcherService _dispatcherService;
 
-    public class BusyIndicatorService : IBusyIndicatorService
+    private Cursor? _previousCursor;
+
+    public BusyIndicatorService(ILogger<BusyIndicatorService> logger, IDispatcherService dispatcherService)
     {
-        protected readonly ILogger<BusyIndicatorService> _logger;
-        protected readonly IDispatcherService _dispatcherService;
+        _logger = logger;
+        _dispatcherService = dispatcherService;
+    }
 
-        private Cursor? _previousCursor;
+    public int ShowCounter { get; private set; }
 
-        public BusyIndicatorService(ILogger<BusyIndicatorService> logger, IDispatcherService dispatcherService)
+    /// <summary>
+    /// Gets the last set current item.
+    /// </summary>
+    protected int CurrentItem { get; private set; }
+
+    /// <summary>
+    /// Gets the last set total items.
+    /// </summary>
+    protected int TotalItems { get; private set; }
+
+    /// <summary>
+    /// Gets whether the <see cref="CurrentItem"/> equals the <see cref="TotalItems"/>.
+    /// </summary>
+    protected bool ReachedTotalItems
+    {
+        get
         {
-            _logger = logger;
-            _dispatcherService = dispatcherService;
+            if (CurrentItem < 0)
+            {
+                return true;
+            }
+
+            return CurrentItem >= TotalItems;
+        }
+    }
+
+    public virtual void Show(string status = "")
+    {
+        _logger.LogDebug("Showing busy indicator");
+
+        if (ShowCounter <= 0)
+        {
+            ShowCounter = 1;
         }
 
-        public int ShowCounter { get; private set; }
+        UpdateStatus(status);
 
-        /// <summary>
-        /// Gets the last set current item.
-        /// </summary>
-        protected int CurrentItem { get; private set; }
-
-        /// <summary>
-        /// Gets the last set total items.
-        /// </summary>
-        protected int TotalItems { get; private set; }
-
-        /// <summary>
-        /// Gets whether the <see cref="CurrentItem"/> equals the <see cref="TotalItems"/>.
-        /// </summary>
-        protected bool ReachedTotalItems
+        _dispatcherService.BeginInvokeIfRequired(() =>
         {
-            get
+            if (_previousCursor is null)
             {
-                if (CurrentItem < 0)
-                {
-                    return true;
-                }
-
-                return CurrentItem >= TotalItems;
+                _previousCursor = Mouse.OverrideCursor;
             }
+
+            Mouse.OverrideCursor = Cursors.Wait;
+        });
+    }
+
+    public virtual void Show(BusyIndicatorWorkDelegate workDelegate, string status = "")
+    {
+        Show(status);
+
+        try
+        {
+            workDelegate();
+        }
+        finally
+        {
+            Hide();
+        }
+    }
+
+    public virtual async void Show(BusyIndicatorWorkAsyncDelegate workDelegate, string status = "")
+    {
+        Show(status);
+
+        try
+        {
+            await workDelegate();
+        }
+        finally
+        {
+            Hide();
+        }
+    }
+
+    public virtual void UpdateStatus(string status)
+    {
+        if (!string.IsNullOrWhiteSpace(status))
+        {
+            _logger.LogInformation(status);
+        }
+    }
+
+    public virtual void UpdateStatus(int currentItem, int totalItems, string statusFormat = "")
+    {
+        CurrentItem = currentItem;
+        TotalItems = totalItems;
+
+        if (currentItem >= 0 && ShowCounter <= 0)
+        {
+            Show();
         }
 
-        public virtual void Show(string status = "")
-        {
-            _logger.LogDebug("Showing busy indicator");
-
-            if (ShowCounter <= 0)
-            {
-                ShowCounter = 1;
-            }
-
-            UpdateStatus(status);
-
-            _dispatcherService.BeginInvokeIfRequired(() =>
-            {
-                if (_previousCursor is null)
-                {
-                    _previousCursor = Mouse.OverrideCursor;
-                }
-
-                Mouse.OverrideCursor = Cursors.Wait;
-            });
-        }
-
-        public virtual void Show(BusyIndicatorWorkDelegate workDelegate, string status = "")
-        {
-            Show(status);
-
-            try
-            {
-                workDelegate();
-            }
-            finally
-            {
-                Hide();
-            }
-        }
-
-        public virtual async void Show(BusyIndicatorWorkAsyncDelegate workDelegate, string status = "")
-        {
-            Show(status);
-
-            try
-            {
-                await workDelegate();
-            }
-            finally
-            {
-                Hide();
-            }
-        }
-
-        public virtual void UpdateStatus(string status)
-        {
-            if (!string.IsNullOrWhiteSpace(status))
-            {
-                _logger.LogInformation(status);
-            }
-        }
-
-        public virtual void UpdateStatus(int currentItem, int totalItems, string statusFormat = "")
-        {
-            CurrentItem = currentItem;
-            TotalItems = totalItems;
-
-            if (currentItem >= 0 && ShowCounter <= 0)
-            {
-                Show();
-            }
-
-            // If we reached the end, count 1 down
-            if (currentItem > 0 && ReachedTotalItems)
-            {
-                ShowCounter--;
-            }
-
-            HideIfRequired();
-        }
-
-        public virtual void Hide()
-        {
-            _logger.LogDebug("Hiding busy indicator");
-
-            CurrentItem = -1;
-            ShowCounter = 0;
-
-            _dispatcherService.BeginInvokeIfRequired(() =>
-            {
-                Mouse.OverrideCursor = _previousCursor;
-
-                _previousCursor = null;
-            });
-        }
-
-        public virtual void Push(string status = "")
-        {
-            if (ShowCounter == 0)
-            {
-                Show(status);
-            }
-            else
-            {
-                ShowCounter++;
-            }
-
-            _logger.LogDebug($"Pushed busy indicator, counter is '{ShowCounter}'");
-        }
-
-        public virtual void Pop()
+        // If we reached the end, count 1 down
+        if (currentItem > 0 && ReachedTotalItems)
         {
             ShowCounter--;
-
-            _logger.LogDebug($"Popped busy indicator, counter is '{ShowCounter}'");
-
-            HideIfRequired();
         }
 
-        protected virtual void HideIfRequired()
+        HideIfRequired();
+    }
+
+    public virtual void Hide()
+    {
+        _logger.LogDebug("Hiding busy indicator");
+
+        CurrentItem = -1;
+        ShowCounter = 0;
+
+        _dispatcherService.BeginInvokeIfRequired(() =>
         {
-            // If we are popping, we should respect the total items (of the progress) as well
-            if (ShowCounter <= 0 && ReachedTotalItems)
-            {
-                Hide();
-            }
+            Mouse.OverrideCursor = _previousCursor;
+
+            _previousCursor = null;
+        });
+    }
+
+    public virtual void Push(string status = "")
+    {
+        if (ShowCounter == 0)
+        {
+            Show(status);
+        }
+        else
+        {
+            ShowCounter++;
+        }
+
+        _logger.LogDebug($"Pushed busy indicator, counter is '{ShowCounter}'");
+    }
+
+    public virtual void Pop()
+    {
+        ShowCounter--;
+
+        _logger.LogDebug($"Popped busy indicator, counter is '{ShowCounter}'");
+
+        HideIfRequired();
+    }
+
+    protected virtual void HideIfRequired()
+    {
+        // If we are popping, we should respect the total items (of the progress) as well
+        if (ShowCounter <= 0 && ReachedTotalItems)
+        {
+            Hide();
         }
     }
 }

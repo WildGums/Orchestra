@@ -1,9 +1,8 @@
-﻿namespace Orchestra.Tooltips
-{
-    public interface IAdorneredTooltip
-    {
-        bool Visible { get; set; }
+﻿namespace Orchestra.Tooltips;
 
-        bool AdornerLayerVisible { get; set; }
-    }
+public interface IAdorneredTooltip
+{
+    bool Visible { get; set; }
+
+    bool AdornerLayerVisible { get; set; }
 }

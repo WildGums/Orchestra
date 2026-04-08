@@ -1,9 +1,8 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+public interface IStatusFilterService
 {
-    public interface IStatusFilterService
-    {
-        bool IsSuspended { get; set; }
-        
-        string? GetStatus(string status);
-    }
+    bool IsSuspended { get; set; }
+    
+    string? GetStatus(string status);
 }

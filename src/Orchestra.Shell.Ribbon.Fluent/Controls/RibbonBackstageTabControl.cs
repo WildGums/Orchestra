@@ -1,8 +1,7 @@
-﻿namespace Orchestra.Controls
-{
-    using System.Windows.Controls;
+﻿namespace Orchestra.Controls;
 
-    public class RibbonBackstageTabControl : TabControl
-    {
-    }
+using System.Windows.Controls;
+
+public class RibbonBackstageTabControl : TabControl
+{
 }

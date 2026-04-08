@@ -1,13 +1,12 @@
-﻿namespace Orchestra.Automation.FluentRibbon
-{
-    using Orc.Automation;
+﻿namespace Orchestra.Automation.FluentRibbon;
 
-    [ActiveAutomationModel]
-    public class BackstageTabItemModel : HeaderedContentControlModel
+using Orc.Automation;
+
+[ActiveAutomationModel]
+public class BackstageTabItemModel : HeaderedContentControlModel
+{
+    public BackstageTabItemModel(AutomationElementAccessor accessor) 
+        : base(accessor)
     {
-        public BackstageTabItemModel(AutomationElementAccessor accessor) 
-            : base(accessor)
-        {
-        }
     }
 }

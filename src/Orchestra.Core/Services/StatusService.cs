@@ -1,87 +1,86 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System;
+using System.Windows.Threading;
+using Catel.Logging;
+using Orc.Controls.Services;
+
+public class StatusService : IStatusService
 {
-    using System;
-    using System.Windows.Threading;
-    using Catel.Logging;
-    using Orc.Controls.Services;
+    private readonly IStatusFilterService _statusFilterService;
 
-    public class StatusService : IStatusService
+    private IStatusRepresenter? _statusRepresenter;
+    private string? _lastStatus;
+
+    public StatusService(IStatusFilterService statusFilterService)
     {
-        private readonly IStatusFilterService _statusFilterService;
+        ArgumentNullException.ThrowIfNull(statusFilterService);
 
-        private IStatusRepresenter? _statusRepresenter;
-        private string? _lastStatus;
+        _statusFilterService = statusFilterService;
 
-        public StatusService(IStatusFilterService statusFilterService)
+        //var statusLogListener = new Orchestra.Logging.StatusLogListener(this);
+
+        //LogManager.AddListener(statusLogListener);
+    }
+
+    public void UpdateStatus(string status)
+    {
+        var finalStatus = _statusFilterService.GetStatus(status);
+        if (string.IsNullOrWhiteSpace(finalStatus))
         {
-            ArgumentNullException.ThrowIfNull(statusFilterService);
-
-            _statusFilterService = statusFilterService;
-
-            //var statusLogListener = new Orchestra.Logging.StatusLogListener(this);
-
-            //LogManager.AddListener(statusLogListener);
+            return;
         }
 
-        public void UpdateStatus(string status)
+        SetStatus(status);
+
+        _lastStatus = finalStatus;
+
+        var resetTimer = new DispatcherTimer
         {
-            var finalStatus = _statusFilterService.GetStatus(status);
-            if (string.IsNullOrWhiteSpace(finalStatus))
+            Interval = TimeSpan.FromSeconds(8)
+        };
+        resetTimer.Tick += OnResetTimerTick;
+        resetTimer.Tag = finalStatus;
+        resetTimer.Start();
+    }
+
+    public void Initialize(IStatusRepresenter statusRepresenter)
+    {
+        ArgumentNullException.ThrowIfNull(statusRepresenter);
+
+        _statusRepresenter = statusRepresenter;
+    }
+
+    private void OnResetTimerTick(object? sender, EventArgs e)
+    {
+        var timer = sender as DispatcherTimer;
+        if (timer is null)
+        {
+            return;
+        }
+
+        var finalStatus = (string?)timer.Tag;
+
+        timer.Stop();
+        timer.Tick -= OnResetTimerTick;
+
+        if (string.Equals(_lastStatus, finalStatus))
+        {
+            SetStatus("Ready");
+        }
+    }
+
+    private void SetStatus(string status)
+    {
+        if (!string.IsNullOrWhiteSpace(status))
+        {
+            var statusLines = status.Split(new[] { "\n", "\r\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            if (statusLines.Length > 0)
             {
-                return;
+                status = statusLines[0];
             }
-
-            SetStatus(status);
-
-            _lastStatus = finalStatus;
-
-            var resetTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(8)
-            };
-            resetTimer.Tick += OnResetTimerTick;
-            resetTimer.Tag = finalStatus;
-            resetTimer.Start();
         }
 
-        public void Initialize(IStatusRepresenter statusRepresenter)
-        {
-            ArgumentNullException.ThrowIfNull(statusRepresenter);
-
-            _statusRepresenter = statusRepresenter;
-        }
-
-        private void OnResetTimerTick(object? sender, EventArgs e)
-        {
-            var timer = sender as DispatcherTimer;
-            if (timer is null)
-            {
-                return;
-            }
-
-            var finalStatus = (string?)timer.Tag;
-
-            timer.Stop();
-            timer.Tick -= OnResetTimerTick;
-
-            if (string.Equals(_lastStatus, finalStatus))
-            {
-                SetStatus("Ready");
-            }
-        }
-
-        private void SetStatus(string status)
-        {
-            if (!string.IsNullOrWhiteSpace(status))
-            {
-                var statusLines = status.Split(new[] { "\n", "\r\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                if (statusLines.Length > 0)
-                {
-                    status = statusLines[0];
-                }
-            }
-
-            _statusRepresenter?.UpdateStatus(status);
-        }
+        _statusRepresenter?.UpdateStatus(status);
     }
 }

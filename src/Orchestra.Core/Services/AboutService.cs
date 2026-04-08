@@ -1,37 +1,36 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System.Threading.Tasks;
+using Catel.Services;
+using Microsoft.Extensions.Logging;
+using ViewModels;
+
+public class AboutService : IAboutService
 {
-    using System.Threading.Tasks;
-    using Catel.Services;
-    using Microsoft.Extensions.Logging;
-    using ViewModels;
+    private readonly ILogger<AboutService> _logger;
+    private readonly IUIVisualizerService _uiVisualizerService;
+    private readonly IAboutInfoService _aboutInfoService;
 
-    public class AboutService : IAboutService
+    public AboutService(ILogger<AboutService> logger, IUIVisualizerService uiVisualizerService, 
+        IAboutInfoService aboutInfoService)
     {
-        private readonly ILogger<AboutService> _logger;
-        private readonly IUIVisualizerService _uiVisualizerService;
-        private readonly IAboutInfoService _aboutInfoService;
+        _logger = logger;
+        _uiVisualizerService = uiVisualizerService;
+        _aboutInfoService = aboutInfoService;
+    }
 
-        public AboutService(ILogger<AboutService> logger, IUIVisualizerService uiVisualizerService, 
-            IAboutInfoService aboutInfoService)
+    public virtual async Task ShowAboutAsync()
+    {
+        var aboutInfo = await _aboutInfoService.GetAboutInfoAsync();
+        if (aboutInfo is not null)
         {
-            _logger = logger;
-            _uiVisualizerService = uiVisualizerService;
-            _aboutInfoService = aboutInfoService;
+            _logger.LogInformation("Showing about dialog");
+
+            await _uiVisualizerService.ShowDialogAsync<AboutViewModel>(aboutInfo);
         }
-
-        public virtual async Task ShowAboutAsync()
+        else
         {
-            var aboutInfo = await _aboutInfoService.GetAboutInfoAsync();
-            if (aboutInfo is not null)
-            {
-                _logger.LogInformation("Showing about dialog");
-
-                await _uiVisualizerService.ShowDialogAsync<AboutViewModel>(aboutInfo);
-            }
-            else
-            {
-                _logger.LogWarning("IAboutInfoService.GetAboutInfo() returned null, cannot show about window");
-            }
+            _logger.LogWarning("IAboutInfoService.GetAboutInfo() returned null, cannot show about window");
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace Orchestra.Examples.TaskRunner.Views
-{
-    public partial class SettingsView
-    {
+﻿namespace Orchestra.Examples.TaskRunner.Views;
 
-    }
+public partial class SettingsView
+{
+
 }

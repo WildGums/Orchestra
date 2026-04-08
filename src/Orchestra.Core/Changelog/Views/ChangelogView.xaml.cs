@@ -1,6 +1,5 @@
-﻿namespace Orchestra.Changelog.Views
+﻿namespace Orchestra.Changelog.Views;
+
+public partial class ChangelogView
 {
-    public partial class ChangelogView
-    {
-    }
 }

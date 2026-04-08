@@ -1,22 +1,21 @@
-﻿namespace Orchestra.Automation.FluentRibbon
+﻿namespace Orchestra.Automation.FluentRibbon;
+
+using System.Windows.Automation;
+using Orc.Automation;
+using Orc.Automation.Controls;
+
+[Control(ClassName = "RibbonButton")]
+public class RibbonButton : FrameworkElement<ButtonModel>
 {
-    using System.Windows.Automation;
-    using Orc.Automation;
-    using Orc.Automation.Controls;
-    
-    [Control(ClassName = "RibbonButton")]
-    public class RibbonButton : FrameworkElement<ButtonModel>
+    public RibbonButton(AutomationElement element)
+        : base(element)
     {
-        public RibbonButton(AutomationElement element)
-            : base(element)
-        {
-        }
+    }
 
-        public string? Content => Element.Current.Name;
+    public string? Content => Element.Current.Name;
 
-        public bool Click()
-        {
-            return Element.TryInvoke();
-        }
+    public bool Click()
+    {
+        return Element.TryInvoke();
     }
 }

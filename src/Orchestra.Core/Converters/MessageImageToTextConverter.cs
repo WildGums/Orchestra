@@ -1,14 +1,13 @@
-﻿namespace Orchestra.Converters
-{
-    using System;
-    using Catel.MVVM.Converters;
-    using Catel.Services;
+﻿namespace Orchestra.Converters;
 
-    internal partial class MessageImageToTextConverter : ValueConverterBase<MessageImage>
+using System;
+using Catel.MVVM.Converters;
+using Catel.Services;
+
+internal partial class MessageImageToTextConverter : ValueConverterBase<MessageImage>
+{
+    protected override object? Convert(MessageImage value, Type targetType, object? parameter)
     {
-        protected override object? Convert(MessageImage value, Type targetType, object? parameter)
-        {
-            return value.ToString();
-        }
+        return value.ToString();
     }
 }

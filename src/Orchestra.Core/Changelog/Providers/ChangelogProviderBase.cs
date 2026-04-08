@@ -1,10 +1,9 @@
-﻿namespace Orchestra.Changelog
-{
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+﻿namespace Orchestra.Changelog;
 
-    public abstract class ChangelogProviderBase : IChangelogProvider
-    {
-        public abstract Task<IReadOnlyList<ChangelogItem>> GetChangelogAsync();
-    }
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public abstract class ChangelogProviderBase : IChangelogProvider
+{
+    public abstract Task<IReadOnlyList<ChangelogItem>> GetChangelogAsync();
 }

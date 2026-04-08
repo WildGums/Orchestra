@@ -1,24 +1,23 @@
-﻿namespace Orchestra.Views
+﻿namespace Orchestra.Views;
+
+using System.Windows.Automation.Peers;
+using Automation.Views;
+using Catel.Services;
+using ViewModels;
+
+public partial class MessageBoxWindow
 {
-    using System.Windows.Automation.Peers;
-    using Automation.Views;
-    using Catel.Services;
-    using ViewModels;
-
-    public partial class MessageBoxWindow
+    partial void OnInitializingComponent()
     {
-        partial void OnInitializingComponent()
+        var viewModel = ViewModel as MessageBoxViewModel;
+        if (viewModel?.Button == MessageButton.YesNo)
         {
-            var viewModel = ViewModel as MessageBoxViewModel;
-            if (viewModel?.Button == MessageButton.YesNo)
-            {
-                this.DisableCloseButton();
-            }
+            this.DisableCloseButton();
         }
+    }
 
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new MessageBoxWindowAutomationPeer(this);
-        }
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+        return new MessageBoxWindowAutomationPeer(this);
     }
 }

@@ -1,6 +1,5 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+public partial interface IShellService
 {
-    public partial interface IShellService
-    {
-    }
 }

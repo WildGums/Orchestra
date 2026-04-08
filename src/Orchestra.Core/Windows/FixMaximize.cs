@@ -1,136 +1,135 @@
-﻿namespace Orchestra.Windows
+﻿namespace Orchestra.Windows;
+
+using System;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Interop;
+using Orchestra.Win32;
+
+/// <summary>
+/// Attachable properties to fix the maximized state of a window.
+/// <para />
+/// The code comes from http://connect.microsoft.com/VisualStudio/feedback/details/775972/wpf-ribbon-window-the-border-is-too-thin.
+/// </summary>
+public partial class FixMaximize : DependencyObject
 {
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Windows;
-    using System.Windows.Interop;
-    using Orchestra.Win32;
+    public static readonly DependencyProperty FixMaximizeProperty = DependencyProperty.RegisterAttached(
+            "FixMaximize", typeof(bool), typeof(FixMaximize), new FrameworkPropertyMetadata(false, OnFixMaximizeChanged));
 
-    /// <summary>
-    /// Attachable properties to fix the maximized state of a window.
-    /// <para />
-    /// The code comes from http://connect.microsoft.com/VisualStudio/feedback/details/775972/wpf-ribbon-window-the-border-is-too-thin.
-    /// </summary>
-    public partial class FixMaximize : DependencyObject
+    public static void SetFixMaximize(Window ribbonWindow, bool value)
     {
-        public static readonly DependencyProperty FixMaximizeProperty = DependencyProperty.RegisterAttached(
-                "FixMaximize", typeof(bool), typeof(FixMaximize), new FrameworkPropertyMetadata(false, OnFixMaximizeChanged));
+        ribbonWindow.SetValue(FixMaximizeProperty, value);
+    }
 
-        public static void SetFixMaximize(Window ribbonWindow, bool value)
+    public static bool GetFixMaximize(Window ribbonWindow)
+    {
+        return (bool)ribbonWindow.GetValue(FixMaximizeProperty);
+    }
+
+    private static void OnFixMaximizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var ribbonWindow = (Window)d;
+        if ((bool)e.NewValue)
         {
-            ribbonWindow.SetValue(FixMaximizeProperty, value);
+            ribbonWindow.SourceInitialized += FixMaximize_RibbonWindow_SourceInitialized;
+        }
+    }
+
+    private static void FixMaximize_RibbonWindow_SourceInitialized(object? sender, EventArgs e)
+    {
+        var ribbonWindow = sender as Window;
+        if (ribbonWindow is null)
+        {
+            return;
         }
 
-        public static bool GetFixMaximize(Window ribbonWindow)
+        var source = HwndSource.FromHwnd(new WindowInteropHelper(ribbonWindow).Handle);
+        source.AddHook(FixMaximize_RibbonWindow_WndProc);
+    }
+
+    private static IntPtr FixMaximize_RibbonWindow_WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+    {
+        const int AllowedNegativeOffset = 4;
+
+        const int WM_GETMINMAXINFO = 0x0024;
+        const uint SWP_NOOWNERZORDER = 0x0200;
+        const uint SWP_NOSIZE = 0x0001;
+        const int SIZE_MAXIMIZED = 0x2;
+        const int WM_SIZE = 0x0005;
+
+        if (msg == WM_SIZE && wParam.ToInt32() == SIZE_MAXIMIZED)
         {
-            return (bool)ribbonWindow.GetValue(FixMaximizeProperty);
-        }
+            User32.GetWindowRect(hwnd, out var rect);
 
-        private static void OnFixMaximizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ribbonWindow = (Window)d;
-            if ((bool)e.NewValue)
+            var newRect = new RECT();
+
+            var xDiff = (rect.left < 0) ? rect.left * -1 : 0;
+            var yDiff = (rect.top < 0) ? rect.top * -1 : 0;
+
+            // we need to go from (de)fault (-8,-8) to (-4,-4) we are currently at (1,1)
+            newRect.left = rect.left + xDiff - 1 - AllowedNegativeOffset;
+            newRect.right = newRect.left + Math.Abs(rect.right - rect.left);
+            newRect.top = rect.top + yDiff - 1 - AllowedNegativeOffset;
+            newRect.bottom = newRect.top + Math.Abs(rect.bottom - rect.top);
+
+            // Step 1: resize so we have the right size the first time
+            int height = newRect.bottom - newRect.top;
+            int width = newRect.right - newRect.left;
+
+            var window = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
+
+            var windowSize = GetWindowSize(hwnd);
+            height = (height > (int)windowSize.Height) ? (int)windowSize.Height : 0;
+            width = (width > (int)windowSize.Width) ? (int)windowSize.Width : 0;
+            if (height != 0 || width != 0)
             {
-                ribbonWindow.SourceInitialized += FixMaximize_RibbonWindow_SourceInitialized;
-            }
-        }
+                height = (int)windowSize.Height;
+                width = (int)windowSize.Width;
 
-        private static void FixMaximize_RibbonWindow_SourceInitialized(object? sender, EventArgs e)
-        {
-            var ribbonWindow = sender as Window;
-            if (ribbonWindow is null)
-            {
-                return;
-            }
-
-            var source = HwndSource.FromHwnd(new WindowInteropHelper(ribbonWindow).Handle);
-            source.AddHook(FixMaximize_RibbonWindow_WndProc);
-        }
-
-        private static IntPtr FixMaximize_RibbonWindow_WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            const int AllowedNegativeOffset = 4;
-
-            const int WM_GETMINMAXINFO = 0x0024;
-            const uint SWP_NOOWNERZORDER = 0x0200;
-            const uint SWP_NOSIZE = 0x0001;
-            const int SIZE_MAXIMIZED = 0x2;
-            const int WM_SIZE = 0x0005;
-
-            if (msg == WM_SIZE && wParam.ToInt32() == SIZE_MAXIMIZED)
-            {
-                User32.GetWindowRect(hwnd, out var rect);
-
-                var newRect = new RECT();
-
-                var xDiff = (rect.left < 0) ? rect.left * -1 : 0;
-                var yDiff = (rect.top < 0) ? rect.top * -1 : 0;
-
-                // we need to go from (de)fault (-8,-8) to (-4,-4) we are currently at (1,1)
-                newRect.left = rect.left + xDiff - 1 - AllowedNegativeOffset;
-                newRect.right = newRect.left + Math.Abs(rect.right - rect.left);
-                newRect.top = rect.top + yDiff - 1 - AllowedNegativeOffset;
-                newRect.bottom = newRect.top + Math.Abs(rect.bottom - rect.top);
-
-                // Step 1: resize so we have the right size the first time
-                int height = newRect.bottom - newRect.top;
-                int width = newRect.right - newRect.left;
-
-                var window = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
-
-                var windowSize = GetWindowSize(hwnd);
-                height = (height > (int)windowSize.Height) ? (int)windowSize.Height : 0;
-                width = (width > (int)windowSize.Width) ? (int)windowSize.Width : 0;
-                if (height != 0 || width != 0)
-                {
-                    height = (int)windowSize.Height;
-                    width = (int)windowSize.Width;
-
-                    window.Dispatcher.BeginInvoke(() => User32.SetWindowPos(hwnd, IntPtr.Zero, newRect.left, newRect.top, width, height, SWP_NOOWNERZORDER));
-                }
-
-                // Step 2: fix the location, use dispatcher to make sure this code also works the first time an application
-                // is started in Maximize state
-                window.Dispatcher.BeginInvoke(() => User32.SetWindowPos(hwnd, IntPtr.Zero, newRect.left, newRect.top, 0, 0, SWP_NOOWNERZORDER | SWP_NOSIZE));
-            }
-            else if (msg == WM_GETMINMAXINFO)
-            {
-                var mmiMarchalled = Marshal.PtrToStructure(lParam, typeof(MINMAXINFO)) as MINMAXINFO?;
-                if (mmiMarchalled is null)
-                {
-                    throw new OrchestraException($"Failed to call PtrToStructure for MINMAXINFO");
-                }
-
-                var mmi = mmiMarchalled.Value;
-
-                //mmi.ptMaxSize.x -= 8; // we are missing 4 pixels left and right
-                //mmi.ptMaxSize.y -= 8; // we are missing 4 pixels top and bottom
-                mmi.ptMaxPosition.x = 1; // need to set this to positive value for MaxSize to have any effect, we will reposition later anyway
-                mmi.ptMaxPosition.y = 1; // need to set this to positive value for MaxSize to have any effect, we will reposition later anyway
-
-                var windowSize = GetWindowSize(hwnd);
-                mmi.ptMaxSize.x = (int)windowSize.Width;
-                mmi.ptMaxSize.y = (int)windowSize.Height;
-                mmi.ptMinTrackSize.x = mmi.ptMaxSize.x;
-                mmi.ptMinTrackSize.x = mmi.ptMaxSize.y;
-
-                Marshal.StructureToPtr(mmi, lParam, false);
+                window.Dispatcher.BeginInvoke(() => User32.SetWindowPos(hwnd, IntPtr.Zero, newRect.left, newRect.top, width, height, SWP_NOOWNERZORDER));
             }
 
-            return IntPtr.Zero;
+            // Step 2: fix the location, use dispatcher to make sure this code also works the first time an application
+            // is started in Maximize state
+            window.Dispatcher.BeginInvoke(() => User32.SetWindowPos(hwnd, IntPtr.Zero, newRect.left, newRect.top, 0, 0, SWP_NOOWNERZORDER | SWP_NOSIZE));
         }
-
-        private static Size GetWindowSize(IntPtr hWnd)
+        else if (msg == WM_GETMINMAXINFO)
         {
-            var window = (Window)HwndSource.FromHwnd(hWnd).RootVisual;
-            var screen = MonitorInfo.GetMonitorFromWindow(window);
-            if (screen is null)
+            var mmiMarchalled = Marshal.PtrToStructure(lParam, typeof(MINMAXINFO)) as MINMAXINFO?;
+            if (mmiMarchalled is null)
             {
-                return new Size(0, 0);
+                throw new OrchestraException($"Failed to call PtrToStructure for MINMAXINFO");
             }
 
-            var size = new Size(screen.WorkingArea.Width + 8, screen.WorkingArea.Height + 8);
-            return size;
+            var mmi = mmiMarchalled.Value;
+
+            //mmi.ptMaxSize.x -= 8; // we are missing 4 pixels left and right
+            //mmi.ptMaxSize.y -= 8; // we are missing 4 pixels top and bottom
+            mmi.ptMaxPosition.x = 1; // need to set this to positive value for MaxSize to have any effect, we will reposition later anyway
+            mmi.ptMaxPosition.y = 1; // need to set this to positive value for MaxSize to have any effect, we will reposition later anyway
+
+            var windowSize = GetWindowSize(hwnd);
+            mmi.ptMaxSize.x = (int)windowSize.Width;
+            mmi.ptMaxSize.y = (int)windowSize.Height;
+            mmi.ptMinTrackSize.x = mmi.ptMaxSize.x;
+            mmi.ptMinTrackSize.x = mmi.ptMaxSize.y;
+
+            Marshal.StructureToPtr(mmi, lParam, false);
         }
+
+        return IntPtr.Zero;
+    }
+
+    private static Size GetWindowSize(IntPtr hWnd)
+    {
+        var window = (Window)HwndSource.FromHwnd(hWnd).RootVisual;
+        var screen = MonitorInfo.GetMonitorFromWindow(window);
+        if (screen is null)
+        {
+            return new Size(0, 0);
+        }
+
+        var size = new Size(screen.WorkingArea.Width + 8, screen.WorkingArea.Height + 8);
+        return size;
     }
 }

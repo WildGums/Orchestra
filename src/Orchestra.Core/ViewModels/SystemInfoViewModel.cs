@@ -1,67 +1,66 @@
-﻿namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels;
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using Catel.MVVM;
+using Orc.SystemInfo;
+
+public class SystemInfoViewModel : ViewModelBase
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Catel.MVVM;
-    using Orc.SystemInfo;
+    private readonly ISystemInfoService _systemInfoService;
+    private readonly IClipboardService _clipboardService;
 
-    public class SystemInfoViewModel : ViewModelBase
+    public SystemInfoViewModel(IServiceProvider serviceProvider,
+        ISystemInfoService systemInfoService, IClipboardService clipboardService)
+        : base(serviceProvider)
     {
-        private readonly ISystemInfoService _systemInfoService;
-        private readonly IClipboardService _clipboardService;
+        ArgumentNullException.ThrowIfNull(systemInfoService);
+        ArgumentNullException.ThrowIfNull(clipboardService);
 
-        public SystemInfoViewModel(IServiceProvider serviceProvider,
-            ISystemInfoService systemInfoService, IClipboardService clipboardService)
-            : base(serviceProvider)
+        _systemInfoService = systemInfoService;
+        _clipboardService = clipboardService;
+
+        ValidateUsingDataAnnotations = false;
+
+        SystemInfo = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>(string.Empty, string.Empty) };
+
+        CopyToClipboard = new Command(serviceProvider, OnCopyToClipboardExecute);
+    }
+
+    public List<KeyValuePair<string, string>> SystemInfo { get; private set; }
+
+    public bool IsSystemInformationLoaded { get; private set; }
+
+    protected override async Task InitializeAsync()
+    {
+        await base.InitializeAsync();
+
+        var items = new List<KeyValuePair<string, string>>();
+
+        var systemInfo = await Task.Run(() => _systemInfoService.GetSystemInfo());
+
+        foreach (var item in systemInfo)
         {
-            ArgumentNullException.ThrowIfNull(systemInfoService);
-            ArgumentNullException.ThrowIfNull(clipboardService);
-
-            _systemInfoService = systemInfoService;
-            _clipboardService = clipboardService;
-
-            ValidateUsingDataAnnotations = false;
-
-            SystemInfo = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>(string.Empty, string.Empty) };
-
-            CopyToClipboard = new Command(serviceProvider, OnCopyToClipboardExecute);
+            items.Add(new KeyValuePair<string, string>(item.Name, item.Value));
         }
 
-        public List<KeyValuePair<string, string>> SystemInfo { get; private set; }
+        SystemInfo = items;
+        IsSystemInformationLoaded = true;
+    }
 
-        public bool IsSystemInformationLoaded { get; private set; }
+    public Command CopyToClipboard { get; private set; }
 
-        protected override async Task InitializeAsync()
+    private void OnCopyToClipboardExecute()
+    {
+        var sb = new StringBuilder();
+
+        foreach (var item in SystemInfo)
         {
-            await base.InitializeAsync();
-
-            var items = new List<KeyValuePair<string, string>>();
-
-            var systemInfo = await Task.Run(() => _systemInfoService.GetSystemInfo());
-
-            foreach (var item in systemInfo)
-            {
-                items.Add(new KeyValuePair<string, string>(item.Name, item.Value));
-            }
-
-            SystemInfo = items;
-            IsSystemInformationLoaded = true;
+            sb.AppendFormat("{0} {1} {2}", item.Key, item.Value, Environment.NewLine);
         }
 
-        public Command CopyToClipboard { get; private set; }
-
-        private void OnCopyToClipboardExecute()
-        {
-            var sb = new StringBuilder();
-
-            foreach (var item in SystemInfo)
-            {
-                sb.AppendFormat("{0} {1} {2}", item.Key, item.Value, Environment.NewLine);
-            }
-
-            _clipboardService.CopyToClipboard(sb.ToString());
-        }
+        _clipboardService.CopyToClipboard(sb.ToString());
     }
 }

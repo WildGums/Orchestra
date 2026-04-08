@@ -1,13 +1,12 @@
-﻿namespace Orchestra
-{
-    public class ShellConfigurationService : IShellConfigurationService
-    {
-        public ShellConfigurationService()
-        {
-            ValidateUsingDataAnnotations = false;
-        }
+﻿namespace Orchestra;
 
-        public virtual bool ValidateUsingDataAnnotations { get; set; }
-        public virtual bool DeferValidationUntilFirstSaveCall { get; set; }
+public class ShellConfigurationService : IShellConfigurationService
+{
+    public ShellConfigurationService()
+    {
+        ValidateUsingDataAnnotations = false;
     }
+
+    public virtual bool ValidateUsingDataAnnotations { get; set; }
+    public virtual bool DeferValidationUntilFirstSaveCall { get; set; }
 }

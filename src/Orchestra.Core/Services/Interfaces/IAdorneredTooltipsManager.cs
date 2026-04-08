@@ -1,17 +1,16 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System.Windows;
+
+public interface IAdorneredTooltipsManager
 {
-    using System.Windows;
+    bool IsEnabled { get; }
 
-    public interface IAdorneredTooltipsManager
-    {
-        bool IsEnabled { get; }
+    void AddHintsFor(FrameworkElement element);
 
-        void AddHintsFor(FrameworkElement element);
+    void HideHints();
+    void ShowHints();
 
-        void HideHints();
-        void ShowHints();
-
-        void Enable();
-        void Disable();
-    }
+    void Enable();
+    void Disable();
 }

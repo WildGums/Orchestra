@@ -1,9 +1,8 @@
-﻿namespace Orchestra
-{
-    using System.Windows.Controls;
+﻿namespace Orchestra;
 
-    public interface IProgressBarProvider
-    {
-        ProgressBar? GetProgressBar();
-    }
+using System.Windows.Controls;
+
+public interface IProgressBarProvider
+{
+    ProgressBar? GetProgressBar();
 }

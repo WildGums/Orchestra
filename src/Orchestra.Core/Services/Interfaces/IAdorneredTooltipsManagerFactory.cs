@@ -1,9 +1,8 @@
-﻿namespace Orchestra
-{
-    using System.Windows.Documents;
+﻿namespace Orchestra;
 
-    public interface IAdorneredTooltipsManagerFactory
-    {
-        IAdorneredTooltipsManager Create(AdornerLayer adornerLayer);
-    }
+using System.Windows.Documents;
+
+public interface IAdorneredTooltipsManagerFactory
+{
+    IAdorneredTooltipsManager Create(AdornerLayer adornerLayer);
 }

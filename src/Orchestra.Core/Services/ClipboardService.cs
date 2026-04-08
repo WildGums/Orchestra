@@ -1,12 +1,11 @@
-﻿namespace Orchestra
-{
-    using System.Windows;
+﻿namespace Orchestra;
 
-    public class ClipboardService : IClipboardService
+using System.Windows;
+
+public class ClipboardService : IClipboardService
+{
+    public void CopyToClipboard(string text)
     {
-        public void CopyToClipboard(string text)
-        {
-            Clipboard.SetText(text);
-        }
+        Clipboard.SetText(text);
     }
 }

@@ -1,57 +1,56 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System;
+using System.Text;
+using Catel.Services;
+
+public static class IMessageServiceExtensions
 {
-    using System;
-    using System.Text;
-    using Catel.Services;
-
-    public static class IMessageServiceExtensions
+    public static string GetAsText(this IMessageService messageService, string message, MessageButton messageButton)
     {
-        public static string GetAsText(this IMessageService messageService, string message, MessageButton messageButton)
+        ArgumentNullException.ThrowIfNull(messageService);
+        ArgumentNullException.ThrowIfNull(message);
+
+        string buttons;
+
+        switch (messageButton)
         {
-            ArgumentNullException.ThrowIfNull(messageService);
-            ArgumentNullException.ThrowIfNull(message);
+            case MessageButton.OK:
+                buttons = "[ OK ]";
+                break;
 
-            string buttons;
+            case MessageButton.OKCancel:
+                buttons = "[ OK ] | [ Cancel ]";
+                break;
 
-            switch (messageButton)
-            {
-                case MessageButton.OK:
-                    buttons = "[ OK ]";
-                    break;
+            case MessageButton.YesNo:
+                buttons = "[ Yes ] | [ No ]";
+                break;
 
-                case MessageButton.OKCancel:
-                    buttons = "[ OK ] | [ Cancel ]";
-                    break;
+            case MessageButton.YesNoCancel:
+                buttons = "[ Yes ] | [ No ] | [ Cancel ]";
+                break;
 
-                case MessageButton.YesNo:
-                    buttons = "[ Yes ] | [ No ]";
-                    break;
-
-                case MessageButton.YesNoCancel:
-                    buttons = "[ Yes ] | [ No ] | [ Cancel ]";
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(messageButton));
-            }
-
-            return messageService.GetAsText(message, buttons);
+            default:
+                throw new ArgumentOutOfRangeException(nameof(messageButton));
         }
 
-        public static string GetAsText(this IMessageService messageService, string message, string buttons)
-        {
-            ArgumentNullException.ThrowIfNull(messageService);
-            ArgumentNullException.ThrowIfNull(message);
+        return messageService.GetAsText(message, buttons);
+    }
 
-            var stringBuilder = new StringBuilder();
+    public static string GetAsText(this IMessageService messageService, string message, string buttons)
+    {
+        ArgumentNullException.ThrowIfNull(messageService);
+        ArgumentNullException.ThrowIfNull(message);
 
-            stringBuilder.AppendLine(message);
-            stringBuilder.AppendLine();
-            stringBuilder.AppendLine("--------------------------------------------");
-            stringBuilder.AppendLine();
-            stringBuilder.Append(buttons);
+        var stringBuilder = new StringBuilder();
 
-            return stringBuilder.ToString();
-        }
+        stringBuilder.AppendLine(message);
+        stringBuilder.AppendLine();
+        stringBuilder.AppendLine("--------------------------------------------");
+        stringBuilder.AppendLine();
+        stringBuilder.Append(buttons);
+
+        return stringBuilder.ToString();
     }
 }

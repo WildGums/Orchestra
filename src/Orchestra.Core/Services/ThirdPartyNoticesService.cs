@@ -1,47 +1,46 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Catel.Collections;
+using Catel.ThirdPartyNotices;
+using Microsoft.Extensions.Logging;
+
+public class ThirdPartyNoticesService : IThirdPartyNoticesService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Catel.Collections;
-    using Catel.ThirdPartyNotices;
-    using Microsoft.Extensions.Logging;
+    private readonly ILogger<ThirdPartyNoticesService> _logger;
 
-    public class ThirdPartyNoticesService : IThirdPartyNoticesService
+    private readonly Dictionary<string, IThirdPartyNotice> _thirdPartyNotices = new Dictionary<string, IThirdPartyNotice>(StringComparer.OrdinalIgnoreCase);
+
+    public ThirdPartyNoticesService(ILogger<ThirdPartyNoticesService> logger, 
+        IEnumerable<IThirdPartyNotice> thirdPartyNotices)
     {
-        private readonly ILogger<ThirdPartyNoticesService> _logger;
+        _logger = logger;
 
-        private readonly Dictionary<string, IThirdPartyNotice> _thirdPartyNotices = new Dictionary<string, IThirdPartyNotice>(StringComparer.OrdinalIgnoreCase);
+        thirdPartyNotices.ForEach(x => Add(x));
+    }
 
-        public ThirdPartyNoticesService(ILogger<ThirdPartyNoticesService> logger, 
-            IEnumerable<IThirdPartyNotice> thirdPartyNotices)
+    public void Add(IThirdPartyNotice thirdPartyNotice)
+    {
+        ArgumentNullException.ThrowIfNull(thirdPartyNotice);
+
+        lock (_thirdPartyNotices)
         {
-            _logger = logger;
+            _logger.LogDebug($"Adding third party notice '{thirdPartyNotice.Title}'");
 
-            thirdPartyNotices.ForEach(x => Add(x));
+            _thirdPartyNotices[thirdPartyNotice.Title] = thirdPartyNotice;
         }
+    }
 
-        public void Add(IThirdPartyNotice thirdPartyNotice)
+    public async Task<IReadOnlyList<IThirdPartyNotice>> GetThirdPartyNoticesAsync()
+    {
+        lock (_thirdPartyNotices)
         {
-            ArgumentNullException.ThrowIfNull(thirdPartyNotice);
-
-            lock (_thirdPartyNotices)
-            {
-                _logger.LogDebug($"Adding third party notice '{thirdPartyNotice.Title}'");
-
-                _thirdPartyNotices[thirdPartyNotice.Title] = thirdPartyNotice;
-            }
-        }
-
-        public async Task<IReadOnlyList<IThirdPartyNotice>> GetThirdPartyNoticesAsync()
-        {
-            lock (_thirdPartyNotices)
-            {
-                return (from x in _thirdPartyNotices.Values
-                        orderby x.Title
-                        select x).ToArray();
-            }
+            return (from x in _thirdPartyNotices.Values
+                    orderby x.Title
+                    select x).ToArray();
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿namespace Orchestra.Views
-{
-    using Catel.Windows;
+﻿namespace Orchestra.Views;
 
-    public partial class ThirdPartyNoticesWindow
+using Catel.Windows;
+
+public partial class ThirdPartyNoticesWindow
+{
+    partial void OnInitializingComponent()
     {
-        partial void OnInitializingComponent()
-        {
-            Mode = DataWindowMode.Close;
-        }
+        Mode = DataWindowMode.Close;
     }
 }

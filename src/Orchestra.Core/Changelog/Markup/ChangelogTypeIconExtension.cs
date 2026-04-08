@@ -1,61 +1,60 @@
-﻿namespace Orchestra.Changelog
+﻿namespace Orchestra.Changelog;
+
+using System;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Markup;
+
+[MarkupExtensionReturnType(typeof(object))]
+public partial class ChangelogTypeIconExtension : Catel.Windows.Markup.UpdatableMarkupExtension
 {
-    using System;
-    using System.Windows;
-    using System.Windows.Data;
-    using System.Windows.Markup;
+    public ChangelogType? ChangelogType { get; set; }
 
-    [MarkupExtensionReturnType(typeof(object))]
-    public partial class ChangelogTypeIconExtension : Catel.Windows.Markup.UpdatableMarkupExtension
+    public BindingBase? ChangelogTypeBinding { get; set; }
+
+    private static readonly DependencyProperty ChangelogTypeBindingBindingSinkProperty = DependencyProperty.RegisterAttached("ChangelogTypeBindingBindingSink",
+        typeof(object), typeof(ChangelogTypeIconExtension), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+
+    protected override object? ProvideDynamicValue(IServiceProvider? serviceProvider)
     {
-        public ChangelogType? ChangelogType { get; set; }
-
-        public BindingBase? ChangelogTypeBinding { get; set; }
-
-        private static readonly DependencyProperty ChangelogTypeBindingBindingSinkProperty = DependencyProperty.RegisterAttached("ChangelogTypeBindingBindingSink",
-            typeof(object), typeof(ChangelogTypeIconExtension), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
-
-        protected override object? ProvideDynamicValue(IServiceProvider? serviceProvider)
+        var application = Application.Current;
+        if (application is null)
         {
-            var application = Application.Current;
-            if (application is null)
-            {
-                return null;
-            }
+            return null;
+        }
 
-            var changeLogType = ChangelogType;
+        var changeLogType = ChangelogType;
 
-            var changelogTypeBinding = ChangelogTypeBinding;
-            if (changelogTypeBinding is not null)
+        var changelogTypeBinding = ChangelogTypeBinding;
+        if (changelogTypeBinding is not null)
+        {
+            if (TargetObject is DependencyObject targetObject)
             {
-                if (TargetObject is DependencyObject targetObject)
+                BindingOperations.SetBinding(targetObject, ChangelogTypeBindingBindingSinkProperty, changelogTypeBinding);
+
+                var changelogTypeBindingValue = targetObject.GetValue(ChangelogTypeBindingBindingSinkProperty);
+                if (changelogTypeBindingValue is ChangelogType boundChangelogType)
                 {
-                    BindingOperations.SetBinding(targetObject, ChangelogTypeBindingBindingSinkProperty, changelogTypeBinding);
-
-                    var changelogTypeBindingValue = targetObject.GetValue(ChangelogTypeBindingBindingSinkProperty);
-                    if (changelogTypeBindingValue is ChangelogType boundChangelogType)
-                    {
-                        changeLogType = boundChangelogType;
-                    }
+                    changeLogType = boundChangelogType;
                 }
             }
-
-            var keyName = $"{changeLogType}DataTemplate";
-
-            var resource = application.TryFindResource(keyName);
-            if (resource is not null)
-            {
-                return resource;
-            }
-
-            return base.ProvideDynamicValue(serviceProvider!);
         }
 
-        protected override void OnTargetObjectLoaded()
+        var keyName = $"{changeLogType}DataTemplate";
+
+        var resource = application.TryFindResource(keyName);
+        if (resource is not null)
         {
-            base.OnTargetObjectLoaded();
-
-            UpdateValue();
+            return resource;
         }
+
+        return base.ProvideDynamicValue(serviceProvider!);
+    }
+
+    protected override void OnTargetObjectLoaded()
+    {
+        base.OnTargetObjectLoaded();
+
+        UpdateValue();
     }
 }

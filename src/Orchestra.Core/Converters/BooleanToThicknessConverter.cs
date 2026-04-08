@@ -1,16 +1,15 @@
-﻿namespace Orchestra.Converters
+﻿namespace Orchestra.Converters;
+
+using System;
+using System.Windows;
+using Catel.MVVM.Converters;
+
+public partial class BooleanToThicknessConverter : ValueConverterBase<bool>
 {
-    using System;
-    using System.Windows;
-    using Catel.MVVM.Converters;
-
-    public partial class BooleanToThicknessConverter : ValueConverterBase<bool>
+    protected override object? Convert(bool value, Type targetType, object? parameter)
     {
-        protected override object? Convert(bool value, Type targetType, object? parameter)
-        {
-            var thickness = value ? 1d : 0d;
+        var thickness = value ? 1d : 0d;
 
-            return new Thickness(thickness);
-        }
+        return new Thickness(thickness);
     }
 }

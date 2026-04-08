@@ -1,77 +1,76 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Input;
+using Catel.Services;
+
+public abstract class KeyPressApplicationWatcherBase : ApplicationWatcherBase
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Windows;
-    using System.Windows.Input;
-    using Catel.Services;
+    private static readonly IList<KeyPressApplicationWatcherBase> Watchers = new List<KeyPressApplicationWatcherBase>();
 
-    public abstract class KeyPressApplicationWatcherBase : ApplicationWatcherBase
+    public KeyPressApplicationWatcherBase(IDispatcherService dispatcherService, IMainWindowService mainWindowService)
+        : base(dispatcherService, mainWindowService)
     {
-        private static readonly IList<KeyPressApplicationWatcherBase> Watchers = new List<KeyPressApplicationWatcherBase>();
+        Watchers.Add(this);
 
-        public KeyPressApplicationWatcherBase(IDispatcherService dispatcherService, IMainWindowService mainWindowService)
-            : base(dispatcherService, mainWindowService)
+        EnqueueShellActivatedAction(Subscribe);
+    }
+
+    private static void Subscribe(Window window)
+    {
+        ArgumentNullException.ThrowIfNull(window);
+
+        var windowWatcher = new KeyPressWindowWatcher();
+        windowWatcher.WatchWindow(window);
+
+        windowWatcher.SetPreviewKeyDownHandler(e =>
         {
-            Watchers.Add(this);
-
-            EnqueueShellActivatedAction(Subscribe);
-        }
-
-        private static void Subscribe(Window window)
-        {
-            ArgumentNullException.ThrowIfNull(window);
-
-            var windowWatcher = new KeyPressWindowWatcher();
-            windowWatcher.WatchWindow(window);
-
-            windowWatcher.SetPreviewKeyDownHandler(e =>
+            foreach (var watcher in Watchers)
             {
-                foreach (var watcher in Watchers)
-                {
-                    watcher.OnPreviewKeyDown(e);
-                }
-            });
+                watcher.OnPreviewKeyDown(e);
+            }
+        });
 
-            windowWatcher.SetKeyDownHandler(e =>
+        windowWatcher.SetKeyDownHandler(e =>
+        {
+            foreach (var watcher in Watchers)
             {
-                foreach (var watcher in Watchers)
-                {
-                    watcher.OnKeyDown(e);
-                }
-            });
+                watcher.OnKeyDown(e);
+            }
+        });
 
-            windowWatcher.SetPreviewKeyUpHandler(e =>
+        windowWatcher.SetPreviewKeyUpHandler(e =>
+        {
+            foreach (var watcher in Watchers)
             {
-                foreach (var watcher in Watchers)
-                {
-                    watcher.OnPreviewKeyUp(e);
-                }
-            });
+                watcher.OnPreviewKeyUp(e);
+            }
+        });
 
-            windowWatcher.SetKeyUpHandler(e =>
+        windowWatcher.SetKeyUpHandler(e =>
+        {
+            foreach (var watcher in Watchers)
             {
-                foreach (var watcher in Watchers)
-                {
-                    watcher.OnKeyUp(e);
-                }
-            });
-        }
+                watcher.OnKeyUp(e);
+            }
+        });
+    }
 
-        protected virtual void OnPreviewKeyDown(KeyEventArgs e)
-        {
-        }
+    protected virtual void OnPreviewKeyDown(KeyEventArgs e)
+    {
+    }
 
-        protected virtual void OnKeyDown(KeyEventArgs e)
-        {
-        }
+    protected virtual void OnKeyDown(KeyEventArgs e)
+    {
+    }
 
-        protected virtual void OnPreviewKeyUp(KeyEventArgs e)
-        {
-        }
+    protected virtual void OnPreviewKeyUp(KeyEventArgs e)
+    {
+    }
 
-        protected virtual void OnKeyUp(KeyEventArgs e)
-        {
-        }
+    protected virtual void OnKeyUp(KeyEventArgs e)
+    {
     }
 }

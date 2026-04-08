@@ -1,14 +1,13 @@
-﻿namespace Orchestra.Win32
-{
-    using System.Runtime.InteropServices;
+﻿namespace Orchestra.Win32;
 
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct MINMAXINFO
-    {
-        public POINT ptReserved;
-        public POINT ptMaxSize;
-        public POINT ptMaxPosition;
-        public POINT ptMinTrackSize;
-        public POINT ptMaxTrackSize;
-    };
-}
+using System.Runtime.InteropServices;
+
+[StructLayout(LayoutKind.Sequential)]
+internal struct MINMAXINFO
+{
+    public POINT ptReserved;
+    public POINT ptMaxSize;
+    public POINT ptMaxPosition;
+    public POINT ptMinTrackSize;
+    public POINT ptMaxTrackSize;
+};

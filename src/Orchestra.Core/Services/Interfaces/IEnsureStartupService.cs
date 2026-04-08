@@ -1,12 +1,11 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System.Threading.Tasks;
+
+public interface IEnsureStartupService
 {
-    using System.Threading.Tasks;
+    bool SuccessfullyStarted { get; }
 
-    public interface IEnsureStartupService
-    {
-        bool SuccessfullyStarted { get; }
-
-        Task ConfirmApplicationStartedSuccessfullyAsync();
-        Task EnsureFailSafeStartupAsync();
-    }
+    Task ConfirmApplicationStartedSuccessfullyAsync();
+    Task EnsureFailSafeStartupAsync();
 }

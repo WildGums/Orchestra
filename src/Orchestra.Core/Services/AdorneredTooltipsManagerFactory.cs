@@ -1,37 +1,36 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System;
+using System.Windows.Documents;
+using Catel.IoC;
+using Layers;
+using Microsoft.Extensions.DependencyInjection;
+using Tooltips;
+
+public class AdorneredTooltipsManagerFactory : IAdorneredTooltipsManagerFactory
 {
-    using System;
-    using System.Windows.Documents;
-    using Catel.IoC;
-    using Layers;
-    using Microsoft.Extensions.DependencyInjection;
-    using Tooltips;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IAdorneredTooltipFactory _adorneredTooltipFactory;
+    private readonly IAdornerTooltipGenerator _adornerTooltipGenerator;
+    private readonly IHintsProvider _hintsProvider;
 
-    public class AdorneredTooltipsManagerFactory : IAdorneredTooltipsManagerFactory
+    public AdorneredTooltipsManagerFactory(IServiceProvider serviceProvider,
+        IAdorneredTooltipFactory adorneredTooltipFactory, IAdornerTooltipGenerator adornerTooltipGenerator,
+        IHintsProvider hintsProvider)
     {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly IAdorneredTooltipFactory _adorneredTooltipFactory;
-        private readonly IAdornerTooltipGenerator _adornerTooltipGenerator;
-        private readonly IHintsProvider _hintsProvider;
+        _serviceProvider = serviceProvider;
+        _adorneredTooltipFactory = adorneredTooltipFactory;
+        _adornerTooltipGenerator = adornerTooltipGenerator;
+        _hintsProvider = hintsProvider;
+    }
 
-        public AdorneredTooltipsManagerFactory(IServiceProvider serviceProvider,
-            IAdorneredTooltipFactory adorneredTooltipFactory, IAdornerTooltipGenerator adornerTooltipGenerator,
-            IHintsProvider hintsProvider)
-        {
-            _serviceProvider = serviceProvider;
-            _adorneredTooltipFactory = adorneredTooltipFactory;
-            _adornerTooltipGenerator = adornerTooltipGenerator;
-            _hintsProvider = hintsProvider;
-        }
+    public IAdorneredTooltipsManager Create(AdornerLayer adornerLayer)
+    {
+        ArgumentNullException.ThrowIfNull(adornerLayer);
 
-        public IAdorneredTooltipsManager Create(AdornerLayer adornerLayer)
-        {
-            ArgumentNullException.ThrowIfNull(adornerLayer);
+        var hintsAdornerLayer = ActivatorUtilities.CreateInstance<IAdornerLayer>(_serviceProvider, new object[] { adornerLayer });
+        var adorneredHintsCollection = ActivatorUtilities.CreateInstance<IAdorneredTooltipFactory>(_serviceProvider, new object[] { _adorneredTooltipFactory });
 
-            var hintsAdornerLayer = ActivatorUtilities.CreateInstance<IAdornerLayer>(_serviceProvider, new object[] { adornerLayer });
-            var adorneredHintsCollection = ActivatorUtilities.CreateInstance<IAdorneredTooltipFactory>(_serviceProvider, new object[] { _adorneredTooltipFactory });
-
-            return ActivatorUtilities.CreateInstance<AdorneredTooltipsManager>(_serviceProvider, new object[] { _adornerTooltipGenerator, _hintsProvider, hintsAdornerLayer, adorneredHintsCollection });
-        }
+        return ActivatorUtilities.CreateInstance<AdorneredTooltipsManager>(_serviceProvider, new object[] { _adornerTooltipGenerator, _hintsProvider, hintsAdornerLayer, adorneredHintsCollection });
     }
 }

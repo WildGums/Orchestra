@@ -1,18 +1,17 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System.Collections.Generic;
+using Catel.Data;
+
+public class KeyboardMappings : ObservableObject
 {
-    using System.Collections.Generic;
-    using Catel.Data;
-
-    public class KeyboardMappings : ObservableObject
+    public KeyboardMappings()
     {
-        public KeyboardMappings()
-        {
-            GroupName = string.Empty;
-            Mappings = new List<KeyboardMapping>();
-        }
-
-        public string GroupName { get; set; }
-
-        public List<KeyboardMapping> Mappings { get; init; }
+        GroupName = string.Empty;
+        Mappings = new List<KeyboardMapping>();
     }
+
+    public string GroupName { get; set; }
+
+    public List<KeyboardMapping> Mappings { get; init; }
 }

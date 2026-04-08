@@ -1,12 +1,11 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System.Threading.Tasks;
+
+public interface IConfigurationBackupService
 {
-    using System.Threading.Tasks;
+    string BackupTimeStampFormat { get; set; }
+    int NumberOfBackups { get; }
 
-    public interface IConfigurationBackupService
-    {
-        string BackupTimeStampFormat { get; set; }
-        int NumberOfBackups { get; }
-
-        Task BackupAsync();
-    }
+    Task BackupAsync();
 }

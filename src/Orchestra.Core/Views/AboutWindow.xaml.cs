@@ -1,21 +1,20 @@
-﻿namespace Orchestra.Views
+﻿namespace Orchestra.Views;
+
+using System.Windows;
+using Catel.Windows;
+using Windows;
+
+public partial class AboutWindow
 {
-    using System.Windows;
-    using Catel.Windows;
-    using Windows;
-
-    public partial class AboutWindow
+    partial void OnInitializingComponent()
     {
-        partial void OnInitializingComponent()
-        {
-            Mode = DataWindowMode.Custom;
+        Mode = DataWindowMode.Custom;
 
-            this.ApplyApplicationIcon();
-        }
+        this.ApplyApplicationIcon();
+    }
 
-        private void Close_OnClick(object? sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+    private void Close_OnClick(object? sender, RoutedEventArgs e)
+    {
+        Close();
     }
 }

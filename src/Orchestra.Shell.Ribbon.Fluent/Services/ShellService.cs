@@ -1,10 +1,9 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+public partial class ShellService
 {
-    public partial class ShellService
+    partial void OnCreatingShell()
     {
-        partial void OnCreatingShell()
-        {
-            
-        }
+        
     }
 }
