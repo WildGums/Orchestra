@@ -1,8 +1,7 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Catel.Logging;
 using System;
 using System.Globalization;
-using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Note: do not rename this class or put it inside a namespace.
@@ -35,6 +34,6 @@ internal static class MethodTimeLogger
         }
 
         var logger = LogManager.GetLogger(type);
-        logger.LogDebug(finalMessage);
+        logger.Debug(finalMessage);
     }
 }
