@@ -24,20 +24,19 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Catel.Fody" Version="4.12.0-alpha0121" PrivateAssets="all" />
-    <PackageReference Include="Catel.SourceGenerators" Version="1.0.0-alpha0052" PrivateAssets="all" />
+    <PackageReference Include="Catel.Fody" Version="7.0.0" PrivateAssets="all" />
+    <PackageReference Include="Catel.SourceGenerators" Version="7.0.1" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="6.9.3" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.7.0" PrivateAssets="all" />
     <PackageReference Include="MethodTimer.Fody" Version="3.2.3" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="5.3.1" PrivateAssets="all" />
-    <!--<PackageReference Include="Orc.LogViewer" Version="5.2.0" />-->
+    <PackageReference Include="Orc.LogViewer" Version="6.0.0-alpha0094" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Orchestra.Core\Orchestra.Core.csproj" />
-    <ProjectReference Include="..\..\..\Orc.LogViewer\src\Orc.LogViewer\Orc.LogViewer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

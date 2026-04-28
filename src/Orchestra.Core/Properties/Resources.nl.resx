@@ -235,7 +235,7 @@
     <value>Toon commando's met:</value>
   </data>
   <data name="Orchestra_ShowLog" xml:space="preserve">
-    <value>Toon Logger.Log..</value>
+    <value>Toon log...</value>
   </data>
   <data name="Orchestra_ShowSystemInfo" xml:space="preserve">
     <value>Toon systeem info</value>
