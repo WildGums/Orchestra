@@ -1,108 +1,119 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using Catel.IoC;
+using Catel.Logging;
+using Catel.Services;
+using Catel.Windows.Threading;
+using Microsoft.Extensions.Logging;
+
+public abstract class ApplicationWatcherBase : IConstructAtStartup
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using System.Windows;
-    using Catel.IoC;
-    using Catel.Logging;
-    using Catel.Services;
-    using Catel.Windows.Threading;
-    using Orchestra.Services;
+    private static readonly ILogger Logger = LogManager.GetLogger(typeof(ApplicationWatcherBase));
 
-    public abstract class ApplicationWatcherBase
+    protected static IDispatcherService DispatcherService = default!;
+    protected static IMainWindowService MainWindowService = default!;
+
+    private static DispatcherTimerEx? DispatcherTimer;
+    private static readonly Queue<Action<Window>> ShellActivatedActions;
+    private static readonly object Lock = new object();
+
+    static ApplicationWatcherBase()
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        ShellActivatedActions = new Queue<Action<Window>>();
+    }
 
-        protected static readonly IDispatcherService DispatcherService;
-        protected static readonly IMainWindowService MainWindowService;
-
-        private static readonly DispatcherTimerEx DispatcherTimer;
-        private static readonly Queue<Action<Window>> ShellActivatedActions;
-        private static readonly object Lock = new object();
-
-        static ApplicationWatcherBase()
+    protected ApplicationWatcherBase(IDispatcherService dispatcherService, IMainWindowService mainWindowService)
+    {
+        if (DispatcherService is null)
         {
-            ShellActivatedActions = new Queue<Action<Window>>();
+            DispatcherService = dispatcherService;;
+        }
 
-            var serviceLocator = ServiceLocator.Default;
-            DispatcherService = serviceLocator.ResolveRequiredType<IDispatcherService>();
-            MainWindowService = serviceLocator.ResolveRequiredType<IMainWindowService>();
+        if (MainWindowService is null)
+        {
+            MainWindowService = mainWindowService;
+        }
 
+        if (DispatcherTimer is null)
+        {
             DispatcherTimer = new DispatcherTimerEx(DispatcherService);
 
             // Hotfix: changed from 5 => 250, otherwise it will cause too much CPU usage
             DispatcherTimer.Interval = TimeSpan.FromMilliseconds(250);
             DispatcherTimer.Tick += async (sender, e) => await EnsureMainWindowAsync();
-
-            // Note: starting the timer here is useless since it's immediately stopped in EnsureMainWindowAsync
-            //DispatcherTimer.Start();
-
-            _ = EnsureMainWindowAsync();
         }
 
-        protected void EnqueueShellActivatedAction(Action<Window> action)
-        {
-            lock (Lock)
-            {
-                ShellActivatedActions.Enqueue(action);
-            }
+        // Note: starting the timer here is useless since it's immediately stopped in EnsureMainWindowAsync
+        //DispatcherTimer.Start();
 
-            DispatcherTimer.Start();
+        _ = EnsureMainWindowAsync();
+    }
+
+    protected void EnqueueShellActivatedAction(Action<Window> action)
+    {
+        lock (Lock)
+        {
+            ShellActivatedActions.Enqueue(action);
         }
 
-        public static async Task EnsureMainWindowAsync()
+        DispatcherTimer?.Start();
+    }
+
+    public static async Task EnsureMainWindowAsync()
+    {
+        DispatcherTimer?.Stop();
+
+        if (NoShell())
         {
-            DispatcherTimer.Stop();
+            // Important for unit test compatibility
+            return;
+        }
 
-            if (NoShell())
-            {
-                // Important for unit test compatibility
-                return;
-            }
+        // Once the main window is visible, we can start running shell stuff, don't wait for the splash screen to be really hidden. So we
+        // only exit if the splash screen is still the main window *or* the main window (shell) is not visible yet
+        var mainWindow = await MainWindowService.GetMainWindowAsync();
+        if (mainWindow is Orchestra.Views.SplashScreen || !(mainWindow?.IsVisible ?? false)) 
+        {
+            mainWindow = null;
+        }
 
-            // Once the main window is visible, we can start running shell stuff, don't wait for the splash screen to be really hidden. So we
-            // only exit if the splash screen is still the main window *or* the main window (shell) is not visible yet
-            var mainWindow = await MainWindowService.GetMainWindowAsync();
-            if (mainWindow is Orchestra.Views.SplashScreen || !(mainWindow?.IsVisible ?? false)) 
-            {
-                mainWindow = null;
-            }
+        if (mainWindow is null)
+        {
+            DispatcherTimer?.Start();
+            return;
+        }
 
-            if (mainWindow is null)
-            {
-                DispatcherTimer.Start();
-                return;
-            }
+        if (ShellActivatedActions is null)
+        {
+            DispatcherTimer?.Start();
+            return;
+        }
 
-            if (ShellActivatedActions is null)
+        lock (Lock)
+        {
+            while (ShellActivatedActions.Any())
             {
-                DispatcherTimer.Start();
-                return;
-            }
+                var action = ShellActivatedActions.Dequeue();
 
-            lock (Lock)
-            {
-                while (ShellActivatedActions.Any())
+                try
                 {
-                    var action = ShellActivatedActions.Dequeue();
-
-                    try
-                    {
-                        action(mainWindow);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex, "Failed to execute ApplicationWatcher action");
-                    }
+                    action(mainWindow);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError(ex, "Failed to execute ApplicationWatcher action");
                 }
             }
         }
+    }
 
-        private static bool NoShell()
-        {
-            return Application.Current is null;
-        }
+    private static bool NoShell()
+    {
+        return Application.Current is null;
     }
 }

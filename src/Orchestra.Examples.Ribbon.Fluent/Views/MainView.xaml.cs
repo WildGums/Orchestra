@@ -1,15 +1,6 @@
-﻿namespace Orchestra.Examples.Ribbon.Views
+﻿namespace Orchestra.Examples.Ribbon.Views;
+
+public partial class MainView
 {
-    /// <summary>
-    /// Interaction logic for MainView.xaml
-    /// </summary>
-    public partial class MainView
-    {
-        #region Constructors
-        public MainView()
-        {
-            InitializeComponent();
-        }
-        #endregion
-    }
+
 }

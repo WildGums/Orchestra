@@ -1,45 +1,40 @@
-﻿namespace Orchestra.Examples.TaskRunner.ViewModels
+﻿namespace Orchestra.Examples.TaskRunner.ViewModels;
+
+using System;
+using System.Threading.Tasks;
+using Catel.Fody;
+using Catel.Logging;
+using Catel.MVVM;
+using Catel.Services;
+using Microsoft.Extensions.Logging;
+using Models;
+
+public class SettingsViewModel : FeaturedViewModelBase
 {
-    using System;
-    using System.Threading.Tasks;
-    using Catel.Fody;
-    using Catel.Logging;
-    using Catel.MVVM;
-    using Catel.Services;
-    using Models;
-    using Orchestra.Services;
+    //private readonly ILogControlService _logControlService;
+    private readonly IDispatcherService _dispatcherService;
 
-    public class SettingsViewModel : ViewModelBase
+    public SettingsViewModel(Settings settings, IServiceProvider serviceProvider, 
+        /*ILogControlService logControlService,*/ IDispatcherService dispatcherService)
+        : base(serviceProvider)
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        Settings = settings;
+        //_logControlService = logControlService;
+        _dispatcherService = dispatcherService;
+    }
 
-        private readonly ILogControlService _logControlService;
-        private readonly IDispatcherService _dispatcherService;
+    [Model]
+    [Expose("OutputDirectory")]
+    [Expose("WorkingDirectory")]
+    [Expose("CurrentTime")]
+    [Expose("HorizonStart")]
+    [Expose("HorizonEnd")]
+    public Settings Settings { get; private set; }
 
-        public SettingsViewModel(Settings settings, ILogControlService logControlService, IDispatcherService dispatcherService)
-        {
-            ArgumentNullException.ThrowIfNull(settings);
-            ArgumentNullException.ThrowIfNull(logControlService);
-            ArgumentNullException.ThrowIfNull(dispatcherService);
+    protected override async Task InitializeAsync()
+    {
+        await base.InitializeAsync();
 
-            Settings = settings;
-            _logControlService = logControlService;
-            _dispatcherService = dispatcherService;
-        }
-
-        [Model]
-        [Expose("OutputDirectory")]
-        [Expose("WorkingDirectory")]
-        [Expose("CurrentTime")]
-        [Expose("HorizonStart")]
-        [Expose("HorizonEnd")]
-        public Settings Settings { get; private set; }
-
-        protected override async Task InitializeAsync()
-        {
-            await base.InitializeAsync();
-
-            _dispatcherService.BeginInvoke(() => _logControlService.SelectedLevel = LogEvent.Debug | LogEvent.Info);
-        }
+        //_dispatcherService.BeginInvoke(() => _logControlService.SelectedLevel = LogLevel.Debug | LogLevel.Information);
     }
 }

@@ -1,29 +1,26 @@
-﻿namespace Orchestra.Examples.ViewModels
+﻿namespace Orchestra.Examples.ViewModels;
+
+using System;
+using System.Collections.Generic;
+using Catel.Data;
+using Catel.MVVM;
+
+public class ControlsViewModel : FeaturedViewModelBase
 {
-    using System.Collections.Generic;
-    using Catel.Data;
-    using Catel.MVVM;
-
-    public class ControlsViewModel : ViewModelBase
+    public ControlsViewModel(IServiceProvider serviceProvider)
+        : base(serviceProvider)
     {
-        public ControlsViewModel()
+    }
+
+    public string Text { get; set; }
+
+    protected override void ValidateFields(List<IFieldValidationResult> validationResults)
+    {
+        if (string.IsNullOrEmpty(Text))
         {
+            validationResults.Add(new FieldValidationResult(nameof(Text), ValidationResultType.Error, "Text cannot be empty"));
         }
 
-        #region Properties
-        public string Text { get; set; }
-        #endregion
-
-        #region Methods
-        protected override void ValidateFields(List<IFieldValidationResult> validationResults)
-        {
-            if (string.IsNullOrEmpty(Text))
-            {
-                validationResults.Add(new FieldValidationResult(nameof(Text), ValidationResultType.Error, "Text cannot be empty"));
-            }
-
-            base.ValidateFields(validationResults);
-        }
-        #endregion
+        base.ValidateFields(validationResults);
     }
 }

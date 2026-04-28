@@ -1,10 +1,9 @@
-﻿namespace Orchestra.Services
-{
-    using System.Threading.Tasks;
+﻿namespace Orchestra;
 
-    public interface ICloseApplicationService
-    {
-        Task CloseAsync();
-        Task CloseAsync(bool force);
-    }
+using System.Threading.Tasks;
+
+public interface ICloseApplicationService
+{
+    Task CloseAsync();
+    Task CloseAsync(bool force);
 }

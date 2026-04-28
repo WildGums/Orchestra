@@ -1,115 +1,115 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using Catel.MVVM;
+using Catel.Services;
+using Microsoft.Extensions.Logging;
+using Orc.FileSystem;
+using Orc.Serialization.Json;
+
+public class KeyboardMappingsService : IKeyboardMappingsService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading.Tasks;
-    using Catel.Logging;
-    using Catel.MVVM;
-    using Catel.Runtime.Serialization.Xml;
-    using Catel.Services;
-    using Orc.FileSystem;
+    private readonly ILogger<KeyboardMappingsService> _logger;
+    private readonly ICommandManager _commandManager;
+    private readonly IJsonSerializerFactory _jsonSerializerFactory;
+    private readonly IFileService _fileService;
+    private readonly IAppDataService _appDataService;
+    private readonly string _fileName;
 
-    public class KeyboardMappingsService : IKeyboardMappingsService
+    public KeyboardMappingsService(ILogger<KeyboardMappingsService> logger, 
+        ICommandManager commandManager, IJsonSerializerFactory jsonSerializerFactory,
+        IFileService fileService, IAppDataService appDataService)
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        _logger = logger;
+        _commandManager = commandManager;
+        _jsonSerializerFactory = jsonSerializerFactory;
+        _fileService = fileService;
+        _appDataService = appDataService;
 
-        private readonly ICommandManager _commandManager;
-        private readonly IXmlSerializer _xmlSerializer;
-        private readonly IFileService _fileService;
-        private readonly IAppDataService _appDataService;
-        private readonly string _fileName;
+        _fileName = Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "keyboardmappings.json");
 
-        public KeyboardMappingsService(ICommandManager commandManager, IXmlSerializer xmlSerializer, 
-            IFileService fileService, IAppDataService appDataService)
+        AdditionalKeyboardMappings = new List<KeyboardMapping>();
+    }
+
+    public List<KeyboardMapping> AdditionalKeyboardMappings { get; private set; } 
+
+    public async Task LoadAsync()
+    {
+        _logger.LogDebug("Loading keyboard mappings");
+
+        try
         {
-            ArgumentNullException.ThrowIfNull(commandManager);
-            ArgumentNullException.ThrowIfNull(xmlSerializer);
-            ArgumentNullException.ThrowIfNull(fileService);
-            ArgumentNullException.ThrowIfNull(appDataService);
-
-            _commandManager = commandManager;
-            _xmlSerializer = xmlSerializer;
-            _fileService = fileService;
-            _appDataService = appDataService;
-
-            _fileName = Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "keyboardmappings.xml");
-
-            AdditionalKeyboardMappings = new List<KeyboardMapping>();
-        }
-
-        public List<KeyboardMapping> AdditionalKeyboardMappings { get; private set; } 
-
-        public async Task LoadAsync()
-        {
-            Log.Debug("Loading keyboard mappings");
-
-            try
+            if (!_fileService.Exists(_fileName))
             {
-                if (!_fileService.Exists(_fileName))
-                {
-                    Log.Debug("Keyboard mapping file not found at '{0}'", _fileName);
-                    return;
-                }
+                _logger.LogDebug("Keyboard mapping file not found at '{0}'", _fileName);
+                return;
+            }
 
-                using (var fileStream = _fileService.OpenRead(_fileName))
+            using (var fileStream = _fileService.OpenRead(_fileName))
+            {
+                var serializer = _jsonSerializerFactory.CreateSerializer();
+
+                var keyboardMappings = serializer.Deserialize(fileStream, typeof(KeyboardMappings)) as KeyboardMappings;
+                if (keyboardMappings is not null)
                 {
-                    var keyboardMappings = _xmlSerializer.Deserialize(typeof (KeyboardMappings), fileStream, null) as KeyboardMappings;
-                    if (keyboardMappings is not null)
+                    foreach (var keyboardMapping in keyboardMappings.Mappings)
                     {
-                        foreach (var keyboardMapping in keyboardMappings.Mappings)
+                        _logger.LogDebug("Updating keyboard mapping for command '{0}' to '{1}'", keyboardMapping.CommandName, keyboardMapping.InputGesture);
+
+                        if (!_commandManager.IsCommandCreated(keyboardMapping.CommandName))
                         {
-                            Log.Debug("Updating keyboard mapping for command '{0}' to '{1}'", keyboardMapping.CommandName, keyboardMapping.InputGesture);
-
-                            if (!_commandManager.IsCommandCreated(keyboardMapping.CommandName))
-                            {
-                                Log.Debug("Command '{0}' is not created in the CommandManager, cannot update input gesture", keyboardMapping.CommandName);
-                                continue;
-                            }
-
-                            _commandManager.UpdateInputGesture(keyboardMapping.CommandName, keyboardMapping.InputGesture);
+                            _logger.LogDebug("Command '{0}' is not created in the CommandManager, cannot update input gesture", keyboardMapping.CommandName);
+                            continue;
                         }
+
+                        _commandManager.UpdateInputGesture(keyboardMapping.CommandName, keyboardMapping.InputGesture);
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Failed to load the keyboard mappings");
-            }
         }
-
-        public async Task SaveAsync()
+        catch (Exception ex)
         {
-            Log.Debug("Saving keyboard mappings");
-
-            try
-            {
-                var keyboardMappings = new KeyboardMappings();
-                foreach (var command in _commandManager.GetCommands())
-                {
-                    var keyboardMapping = new KeyboardMapping();
-                    keyboardMapping.CommandName = command;
-                    keyboardMapping.InputGesture = _commandManager.GetInputGesture(command);
-
-                    keyboardMappings.Mappings.Add(keyboardMapping);
-                }
-
-                using (var fileStream = _fileService.Create(_fileName))
-                {
-                    _xmlSerializer.Serialize(keyboardMappings, fileStream, null);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Failed to save the keyboard mappings");
-            }
+            _logger.LogError(ex, "Failed to load the keyboard mappings");
         }
+    }
 
-        public async Task ResetAsync()
+    public async Task SaveAsync()
+    {
+        _logger.LogDebug("Saving keyboard mappings");
+
+        try
         {
-            Log.Debug("Resetting keyboard mappings");
+            var keyboardMappings = new KeyboardMappings();
 
-            _commandManager.ResetInputGestures();
+            foreach (var command in _commandManager.GetCommands())
+            {
+                var keyboardMapping = new KeyboardMapping();
+                keyboardMapping.CommandName = command;
+                keyboardMapping.InputGesture = _commandManager.GetInputGesture(command);
+
+                keyboardMappings.Mappings.Add(keyboardMapping);
+            }
+
+            using (var fileStream = _fileService.Create(_fileName))
+            {
+                var serializer = _jsonSerializerFactory.CreateSerializer();
+
+                serializer.Serialize(fileStream, keyboardMappings);
+            }
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to save the keyboard mappings");
+        }
+    }
+
+    public async Task ResetAsync()
+    {
+        _logger.LogDebug("Resetting keyboard mappings");
+
+        _commandManager.ResetInputGestures();
     }
 }

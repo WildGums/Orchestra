@@ -1,16 +1,15 @@
-﻿namespace Orchestra.Win32
+﻿namespace Orchestra.Win32;
+
+using System.Runtime.InteropServices;
+
+[StructLayout(LayoutKind.Sequential)]
+internal struct LUID
 {
-    using System.Runtime.InteropServices;
+    public uint LowPart;
+    public int HighPart;
 
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct LUID
+    public override string ToString()
     {
-        public uint LowPart;
-        public int HighPart;
-
-        public override string ToString()
-        {
-            return string.Format("{0}{1}", LowPart, HighPart);
-        }
+        return string.Format("{0}{1}", LowPart, HighPart);
     }
 }

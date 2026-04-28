@@ -1,119 +1,116 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
+using System.Threading.Tasks;
+using Catel.Logging;
+using Catel.Reflection;
+using Catel.Services;
+using Microsoft.Extensions.Logging;
+using Orc.FileSystem;
+
+public class ManageAppDataService : Orchestra.IManageAppDataService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.IO.Compression;
-    using System.Threading.Tasks;
-    using Catel.Logging;
-    using Catel.Reflection;
-    using Catel.Services;
-    using Orc.FileSystem;
+    private readonly ILogger<ManageAppDataService> _logger;
+    private readonly ISaveFileService _saveFileService;
+    private readonly IProcessService _processService;
+    private readonly IDirectoryService _directoryService;
+    private readonly IFileService _fileService;
+    private readonly IAppDataService _appDataService;
+    private readonly IEntryAssemblyResolver _entryAssemblyResolver;
 
-    public class ManageAppDataService : Orchestra.Services.IManageAppDataService
+    public ManageAppDataService(ILogger<ManageAppDataService> logger, ISaveFileService saveFileService, 
+        IProcessService processService, IDirectoryService directoryService, IFileService fileService, 
+        IAppDataService appDataService, IEntryAssemblyResolver entryAssemblyResolver)
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        _logger = logger;
+        _saveFileService = saveFileService;
+        _processService = processService;
+        _directoryService = directoryService;
+        _fileService = fileService;
+        _appDataService = appDataService;
+        _entryAssemblyResolver = entryAssemblyResolver;
 
-        private readonly ISaveFileService _saveFileService;
-        private readonly IProcessService _processService;
-        private readonly IDirectoryService _directoryService;
-        private readonly IFileService _fileService;
-        private readonly IAppDataService _appDataService;
-
-        public ManageAppDataService(ISaveFileService saveFileService, IProcessService processService,
-            IDirectoryService directoryService, IFileService fileService, IAppDataService appDataService)
+        ExclusionFilters = new List<string>(new[]
         {
-            ArgumentNullException.ThrowIfNull(saveFileService);
-            ArgumentNullException.ThrowIfNull(processService);
-            ArgumentNullException.ThrowIfNull(directoryService);
-            ArgumentNullException.ThrowIfNull(fileService);
-            ArgumentNullException.ThrowIfNull(appDataService);
+            "licenseinfo.xml",
+            "*.log"
+        });
+    }
 
-            _saveFileService = saveFileService;
-            _processService = processService;
-            _directoryService = directoryService;
-            _fileService = fileService;
-            _appDataService = appDataService;
+    public List<string> ExclusionFilters { get; private set; }
 
-            ExclusionFilters = new List<string>(new[]
+    public bool OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget applicationDataTarget)
+    {
+        _logger.LogInformation("Opening data directory");
+
+        var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
+
+        _processService.StartProcess(new ProcessContext
+        {
+            FileName = "explorer.exe",
+            Arguments = applicationDataDirectory
+        });
+
+        return true;
+    }
+
+    protected virtual bool MatchesFilters(IEnumerable<string> filters, string fileName)
+    {
+        return FilterHelper.MatchesFilters(filters, fileName);
+    }
+
+    public async Task DeleteUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget)
+    {
+        var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
+
+        _logger.LogDebug("Deleting user data from '{0}'", applicationDataDirectory);
+
+        var exclusionFilters = ExclusionFilters;
+
+        var allFiles = _directoryService.GetFiles(applicationDataDirectory, "*.*", SearchOption.AllDirectories);
+        foreach (var fileName in allFiles)
+        {
+            if (!MatchesFilters(exclusionFilters, fileName))
             {
-                "licenseinfo.xml",
-                "*.log"
-            });
+                _fileService.Delete(fileName);
+            }
+        }
+    }
+
+    public async Task<bool> BackupUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget)
+    {
+        var assembly = _entryAssemblyResolver.Resolve();
+        var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
+
+        var result = await _saveFileService.DetermineFileAsync(new DetermineSaveFileContext
+        {
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+            FileName = string.Format("{0} backup {1}.zip", assembly.Title(), DateTime.Now.ToString("yyyyMMdd hhmmss")),
+            Filter = "Zip files|*.zip"
+        });
+
+        if (!result.Result || result.FileName is null)
+        {
+            return false;
         }
 
-        public List<string> ExclusionFilters { get; private set; }
+        var zipFileName = result.FileName;
 
-        public bool OpenApplicationDataDirectory(Catel.IO.ApplicationDataTarget applicationDataTarget)
+        _logger.LogDebug("Writing zip file to '{0}'", zipFileName);
+
+        using (var fileStream = _fileService.Create(zipFileName))
         {
-            Log.Info("Opening data directory");
-
-            var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
-
-            _processService.StartProcess(new ProcessContext
+            using (var zipArchive = new ZipArchive(fileStream, ZipArchiveMode.Create))
             {
-                FileName = "explorer.exe",
-                Arguments = applicationDataDirectory
-            });
+                zipArchive.CreateEntryFromDirectory(applicationDataDirectory, string.Empty, CompressionLevel.Optimal);
 
-            return true;
-        }
-
-        protected virtual bool MatchesFilters(IEnumerable<string> filters, string fileName)
-        {
-            return FilterHelper.MatchesFilters(filters, fileName);
-        }
-
-        public async Task DeleteUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget)
-        {
-            var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
-
-            Log.Debug("Deleting user data from '{0}'", applicationDataDirectory);
-
-            var exclusionFilters = ExclusionFilters;
-
-            var allFiles = _directoryService.GetFiles(applicationDataDirectory, "*.*", SearchOption.AllDirectories);
-            foreach (var fileName in allFiles)
-            {
-                if (!MatchesFilters(exclusionFilters, fileName))
-                {
-                    _fileService.Delete(fileName);
-                }
+                await fileStream.FlushAsync();
             }
         }
 
-        public async Task<bool> BackupUserDataAsync(Catel.IO.ApplicationDataTarget applicationDataTarget)
-        {
-            var assembly = AssemblyHelper.GetRequiredEntryAssembly();
-            var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
-
-            var result = await _saveFileService.DetermineFileAsync(new DetermineSaveFileContext
-            {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                FileName = string.Format("{0} backup {1}.zip", assembly.Title(), DateTime.Now.ToString("yyyyMMdd hhmmss")),
-                Filter = "Zip files|*.zip"
-            });
-
-            if (!result.Result || result.FileName is null)
-            {
-                return false;
-            }
-
-            var zipFileName = result.FileName;
-
-            Log.Debug("Writing zip file to '{0}'", zipFileName);
-
-            using (var fileStream = _fileService.Create(zipFileName))
-            {
-                using (var zipArchive = new ZipArchive(fileStream, ZipArchiveMode.Create))
-                {
-                    zipArchive.CreateEntryFromDirectory(applicationDataDirectory, string.Empty, CompressionLevel.Optimal);
-
-                    await fileStream.FlushAsync();
-                }
-            }
-
-            return true;
-        }
+        return true;
     }
 }

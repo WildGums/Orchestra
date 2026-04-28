@@ -1,35 +1,18 @@
-﻿namespace Orchestra.Views
+﻿namespace Orchestra.Views;
+
+using Catel.IoC;
+using Catel.Windows;
+
+/// <summary>
+/// Interaction logic for KeyboardMappingsOverviewWindow.xaml.
+/// </summary>
+public partial class KeyboardMappingsOverviewWindow
 {
-    using Catel.Windows;
-    using ViewModels;
-
-    /// <summary>
-    /// Interaction logic for KeyboardMappingsOverviewWindow.xaml.
-    /// </summary>
-    public partial class KeyboardMappingsOverviewWindow
+    partial void OnInitializingComponent()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardMappingsOverviewWindow"/> class.
-        /// </summary>
-        public KeyboardMappingsOverviewWindow()
-            : this(null)
-        {
-        }
+        Mode = DataWindowMode.Custom;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardMappingsOverviewWindow"/> class.
-        /// </summary>
-        /// <param name="viewModel">The view model to inject.</param>
-        /// <remarks>
-        /// This constructor can be used to use view-model injection.
-        /// </remarks>
-        public KeyboardMappingsOverviewWindow(KeyboardMappingsOverviewViewModel? viewModel)
-            : base(viewModel, DataWindowMode.Custom)
-        {
-            AddCustomButton(new DataWindowButton("Customize", "Customize"));
-            AddCustomButton(DataWindowButton.FromSync("Close", Close, null));
-
-            InitializeComponent();
-        }
+        AddCustomButton(new DataWindowButton("Customize", "Customize"));
+        AddCustomButton(DataWindowButton.FromSync(IoCContainer.ServiceProvider, "Close", Close, null));
     }
 }

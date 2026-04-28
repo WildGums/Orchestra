@@ -1,124 +1,120 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
+using Catel.Services;
+using Catel.Windows.Threading;
+using Microsoft.Extensions.Logging;
+
+internal class ProgressBusyIndicatorService : BusyIndicatorService
 {
-    using System;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Media.Animation;
-    using System.Windows.Threading;
-    using Catel.IoC;
-    using Catel.Logging;
-    using Catel.Services;
+    private ProgressBar? _progressBar;
+    private ResourceDictionary? _resourceDictionary;
 
-    internal class ProgressBusyIndicatorService : BusyIndicatorService
+    private readonly DispatcherTimerEx _hidingTimer;
+    private readonly IProgressBarProvider _progressBarProvider;
+
+    public ProgressBusyIndicatorService(ILogger<BusyIndicatorService> logger,
+        IDispatcherService dispatcherService, IProgressBarProvider progressBarProvider)
+        : base(logger, dispatcherService)
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        _progressBarProvider = progressBarProvider;
 
-        private readonly IDependencyResolver _dependencyResolver;
-        private ProgressBar? _progressBar;
-        private ResourceDictionary? _resourceDictionary;
-
-        private readonly DispatcherTimer _hidingTimer;
-
-        public ProgressBusyIndicatorService(IDispatcherService dispatcherService, IDependencyResolver dependencyResolver)
-            : base(dispatcherService)
+        _hidingTimer = new DispatcherTimerEx(dispatcherService)
         {
-            ArgumentNullException.ThrowIfNull(dependencyResolver);
+            Interval = TimeSpan.FromMilliseconds(10)
+        };
 
-            _dependencyResolver = dependencyResolver;
+        _hidingTimer.Tick += OnHideTimerTick;
+    }
 
-            _hidingTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(10)
-            };
+    public override void Hide()
+    {
+        base.Hide();
 
-            _hidingTimer.Tick += OnHideTimerTick;
-        }
+        _hidingTimer.Start();
+    }
 
-        public override void Hide()
+    public override void UpdateStatus(int currentItem, int totalItems, string statusFormat = "")
+    {
+        base.UpdateStatus(currentItem, totalItems, statusFormat);
+
+        _dispatcherService.BeginInvoke(() =>
         {
-            base.Hide();
-
-            _hidingTimer.Start();
-        }
-
-        public override void UpdateStatus(int currentItem, int totalItems, string statusFormat = "")
-        {
-            base.UpdateStatus(currentItem, totalItems, statusFormat);
-
             var progressBar = InitializeProgressBar();
             if (progressBar is not null)
             {
-                _dispatcherService.BeginInvoke(() =>
+                progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MinimumProperty, (double)0);
+                progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MaximumProperty, (double)totalItems);
+                progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.ValueProperty, (double)currentItem);
+
+                if (currentItem < 0 || currentItem >= totalItems)
                 {
-                    progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MinimumProperty, (double)0);
-                    progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.MaximumProperty, (double)totalItems);
-                    progressBar.SetCurrentValue(System.Windows.Controls.Primitives.RangeBase.ValueProperty, (double)currentItem);
-
-                    if (currentItem < 0 || currentItem >= totalItems)
-                    {
-                        Hide();
-                    }
-                    else if (progressBar.Visibility != Visibility.Visible)
-                    {
-                        Log.Debug("Showing progress bar");
-
-                        _hidingTimer.Stop();
-
-                        progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Visible);
-                    }                    
-                }, true);
-            }
-        }
-
-        private void OnHideTimerTick(object? sender, EventArgs eventArgs)
-        {
-            Log.Debug("Hiding progress bar");
-
-            _hidingTimer.Stop();
-
-            var progressBar = InitializeProgressBar();
-            if (progressBar is null)
-            {
-                return;
-            }
-
-            var storyboard = GetHideProgressBarStoryboard();
-
-            storyboard.Completed += (s, e) =>
-            {
-                progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
-            };
-
-            storyboard.Begin(progressBar);
-        }
-
-        private ProgressBar? InitializeProgressBar()
-        {
-            if (_progressBar is null)
-            {
-                _progressBar = _dependencyResolver.Resolve<ProgressBar>("busyIndicatorService");
-
-                if (_progressBar is not null)
+                    Hide();
+                }
+                else if (progressBar.Visibility != Visibility.Visible)
                 {
-                    Log.Debug("Found progress bar that will represent progress inside the ProgressBusyIndicatorService");
+                    _logger.LogDebug("Showing progress bar");
+
+                    _hidingTimer.Stop();
+
+                    progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Visible);
                 }
             }
+        }, true);
+    }
 
-            return _progressBar;
-        }
+    private void OnHideTimerTick(object? sender, EventArgs eventArgs)
+    {
+        _logger.LogDebug("Hiding progress bar");
 
-        private Storyboard GetHideProgressBarStoryboard()
+        _hidingTimer.Stop();
+
+        var progressBar = InitializeProgressBar();
+        if (progressBar is null)
         {
-            if (_resourceDictionary is null)
-            {
-                _resourceDictionary = new ResourceDictionary
-                {
-                    Source = new Uri("/Orchestra.Core;Component/Themes/Generic.xaml", UriKind.RelativeOrAbsolute)
-                };
-            }
-
-            var storyBoard = (Storyboard)_resourceDictionary["FadeOutStoryboard"];
-            return storyBoard;
+            return;
         }
+
+        var storyboard = GetHideProgressBarStoryboard();
+
+        storyboard.Completed += (s, e) =>
+        {
+            progressBar.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
+        };
+
+        storyboard.Begin(progressBar);
+    }
+
+    private ProgressBar? InitializeProgressBar()
+    {
+        if (_progressBar is null)
+        {
+            _progressBar = _progressBarProvider.GetProgressBar();
+
+            if (_progressBar is not null)
+            {
+                _logger.LogDebug("Found progress bar that will represent progress inside the ProgressBusyIndicatorService");
+            }
+        }
+
+        return _progressBar;
+    }
+
+    private Storyboard GetHideProgressBarStoryboard()
+    {
+        if (_resourceDictionary is null)
+        {
+            _resourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri("/Orchestra.Core;Component/Themes/Generic.xaml", UriKind.RelativeOrAbsolute)
+            };
+        }
+
+        var storyBoard = (Storyboard)_resourceDictionary["FadeOutStoryboard"];
+        return storyBoard;
     }
 }

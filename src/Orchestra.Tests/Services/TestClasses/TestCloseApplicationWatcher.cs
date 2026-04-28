@@ -1,32 +1,34 @@
-﻿namespace Orchestra.Tests
+﻿namespace Orchestra.Tests;
+
+using System.Threading.Tasks;
+using Catel.Services;
+
+internal class TestCloseApplicationWatcher : CloseApplicationWatcherBase
 {
-    using System.Threading.Tasks;
+    private readonly bool _cancel;
 
-    internal class TestCloseApplicationWatcher : CloseApplicationWatcherBase
+    public TestCloseApplicationWatcher(bool cancel, IMessageService messageService,
+        IDispatcherService dispatcherService, IMainWindowService mainWindowService)
+        : base(messageService, dispatcherService, mainWindowService)
     {
-        private readonly bool _cancel;
+        _cancel = cancel;
 
-        public TestCloseApplicationWatcher(bool cancel)
-        {
-            _cancel = cancel;
+        // Required for unit testing
+        Reset();
+    }
 
-            // Required for unit testing
-            Reset();
-        }
+    public bool IsClosedRun { get; set; }
 
-        public bool IsClosedRun { get; set; }
+    public bool IsClosingRun { get; set; }
 
-        public bool IsClosingRun { get; set; }
+    protected override async Task ClosedAsync()
+    {
+        IsClosedRun = true;
+    }
 
-        protected override async Task ClosedAsync()
-        {
-            IsClosedRun = true;
-        }
-
-        protected override async Task<bool> ClosingAsync()
-        {
-            IsClosingRun = true;
-            return !_cancel;
-        }
+    protected override async Task<bool> ClosingAsync()
+    {
+        IsClosingRun = true;
+        return !_cancel;
     }
 }

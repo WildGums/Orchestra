@@ -1,21 +1,19 @@
-﻿namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels;
+
+using System;
+using Catel.MVVM;
+using Catel.Reflection;
+
+public class ShellViewModel : ViewModelBase
 {
-    using System;
-    using Catel.MVVM;
-    using Catel.Reflection;
-    using Orchestra.Services;
-
-    public class ShellViewModel : ViewModelBase
+    public ShellViewModel(IServiceProvider serviceProvider, IShellConfigurationService shellConfigurationService)
+        : base(serviceProvider)
     {
-        public ShellViewModel(IShellConfigurationService shellConfigurationService)
-        {
-            ArgumentNullException.ThrowIfNull(shellConfigurationService);
+        ArgumentNullException.ThrowIfNull(shellConfigurationService);
 
-            ValidateUsingDataAnnotations = shellConfigurationService.ValidateUsingDataAnnotations;
-            DeferValidationUntilFirstSaveCall = shellConfigurationService.DeferValidationUntilFirstSaveCall;
+        ValidateUsingDataAnnotations = shellConfigurationService.ValidateUsingDataAnnotations;
 
-            var assembly = AssemblyHelper.GetRequiredEntryAssembly();
-            Title = assembly.Title() ?? string.Empty;
-        }
+        var assembly = AssemblyHelper.GetRequiredEntryAssembly();
+        Title = assembly.Title() ?? string.Empty;
     }
 }

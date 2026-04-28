@@ -1,23 +1,22 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+using System.Threading.Tasks;
+using Views;
+
+public partial interface IShellService
 {
-    using System.Threading.Tasks;
-    using Views;
+    /// <summary>
+    /// Gets the shell.
+    /// </summary>
+    /// <value>The shell.</value>
+    IShell? Shell { get; }
 
-    public partial interface IShellService
-    {
-        /// <summary>
-        /// Gets the shell.
-        /// </summary>
-        /// <value>The shell.</value>
-        IShell? Shell { get; }
-
-        /// <summary>
-        /// Creates a new shell.
-        /// </summary>
-        /// <typeparam name="TShell">The type of the shell.</typeparam>
-        /// <returns>The created shell.</returns>
-        /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
-        Task<TShell> CreateAsync<TShell>()
-            where TShell : class, IShell;
-    }
+    /// <summary>
+    /// Creates a new shell.
+    /// </summary>
+    /// <typeparam name="TShell">The type of the shell.</typeparam>
+    /// <returns>The created shell.</returns>
+    /// <exception cref="OrchestraException">The shell is already created and cannot be created again.</exception>
+    Task<TShell> CreateAsync<TShell>()
+        where TShell : class, IShell;
 }

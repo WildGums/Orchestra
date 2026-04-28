@@ -1,10 +1,9 @@
-﻿namespace Orchestra.Services
-{
-    using Orc.Controls.Services;
+﻿namespace Orchestra;
 
-    public interface IStatusService
-    {
-        void Initialize(IStatusRepresenter statusRepresenter);
-        void UpdateStatus(string status);
-    }
+using Orc.Controls.Services;
+
+public interface IStatusService
+{
+    void Initialize(IStatusRepresenter statusRepresenter);
+    void UpdateStatus(string status);
 }

@@ -1,9 +1,8 @@
-﻿namespace Orchestra.Services
-{
-    using System.Windows;
+﻿namespace Orchestra;
 
-    public interface IHintsProvider
-    {
-        IHint[] GetHintsFor(FrameworkElement element);
-    }
+using System.Windows;
+
+public interface IHintsProvider
+{
+    IHint[] GetHintsFor(FrameworkElement element);
 }

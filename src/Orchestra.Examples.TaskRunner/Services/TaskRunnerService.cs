@@ -1,72 +1,75 @@
-﻿namespace Orchestra.Examples.TaskRunner.Services
+﻿namespace Orchestra.Examples.TaskRunner.Services;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using Microsoft.Extensions.Logging;
+using Models;
+using Orchestra.Services;
+using Views;
+
+public class TaskRunnerService : ITaskRunnerService
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Windows;
-    using Catel.Logging;
-    using Models;
-    using Orchestra.Services;
-    using Views;
+    private readonly ILogger<TaskRunnerService> _logger;
 
-    public class TaskRunnerService : ITaskRunnerService
+    private string _title = "Custom TaskRunner demo";
+
+    public TaskRunnerService(ILogger<TaskRunnerService> logger)
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        _logger = logger;
+    }
 
-        private string _title = "Custom TaskRunner demo";
-
-        public string Title
+    public string Title
+    {
+        get { return _title; }
+        set
         {
-            get { return _title; }
-            set
-            {
-                _title = value;
-                TitleChanged?.Invoke(this, EventArgs.Empty);
-            }
+            _title = value;
+            TitleChanged?.Invoke(this, EventArgs.Empty);
         }
+    }
 
-        public event EventHandler TitleChanged;
+    public event EventHandler TitleChanged;
 
-        public bool ShowCustomizeShortcutsButton { get { return true; }}
+    public bool ShowCustomizeShortcutsButton { get { return true; }}
 
-        public object? GetViewDataContext()
-        {
-            return new Settings();
-        }
+    public object? GetViewDataContext()
+    {
+        return new Settings();
+    }
 
-        public FrameworkElement? GetView()
-        {
-            return new SettingsView();
-        }
+    public FrameworkElement? GetView()
+    {
+        return new SettingsView();
+    }
 
-        public async Task RunAsync(object? dataContext)
-        {
-            var settings = (Settings) dataContext;
+    public async Task RunAsync(object? dataContext)
+    {
+        var settings = (Settings) dataContext;
 
-            Log.Info("Running action with the following settings:");
-            Log.Indent();
-            Log.Info("Working directory => {0}", settings.WorkingDirectory);
-            Log.Info("Output directory => {0}", settings.OutputDirectory);
-            Log.Info("Current time => {0}", settings.CurrentTime);
-            Log.Info("Horizon start => {0}", settings.HorizonStart);
-            Log.Info("Horizon end => {0}", settings.HorizonEnd);
-            Log.Unindent();
+        _logger.LogInformation("Running action with the following settings:");
 
-            Log.Info("Sleeping to show long running action with blocking thread");
+        _logger.LogInformation("  Working directory => {0}", settings.WorkingDirectory);
+        _logger.LogInformation("  Output directory => {0}", settings.OutputDirectory);
+        _logger.LogInformation("  Current time => {0}", settings.CurrentTime);
+        _logger.LogInformation("  Horizon start => {0}", settings.HorizonStart);
+        _logger.LogInformation("  Horizon end => {0}", settings.HorizonEnd);
 
-            Thread.Sleep(2500);
+        _logger.LogInformation("Sleeping to show long running action with blocking thread");
 
-            Log.Info("Action is complete!");
-        }
+        Thread.Sleep(2500);
 
-        public Size GetInitialWindowSize()
-        {
-            return Size.Empty;
-        }
+        _logger.LogInformation("Action is complete!");
+    }
 
-        public async Task<AboutInfo> GetAboutInfoAsync()
-        {
-            return new AboutInfo();
-        }
+    public Size GetInitialWindowSize()
+    {
+        return Size.Empty;
+    }
+
+    public async Task<AboutInfo> GetAboutInfoAsync()
+    {
+        return new AboutInfo();
     }
 }

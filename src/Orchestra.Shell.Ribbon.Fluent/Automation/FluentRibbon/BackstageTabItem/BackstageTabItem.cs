@@ -1,31 +1,30 @@
-﻿namespace Orchestra.Automation.FluentRibbon
+﻿namespace Orchestra.Automation.FluentRibbon;
+
+using System.Linq;
+using System.Windows.Automation;
+using Orc.Automation;
+using Orc.Automation.Controls;
+
+[Control(ClassName = nameof(Fluent.BackstageTabItem))]
+public class BackstageTabItem : FrameworkElement<BackstageTabItemModel>
 {
-    using System.Linq;
-    using System.Windows.Automation;
-    using Orc.Automation;
-    using Orc.Automation.Controls;
-
-    [Control(ClassName = nameof(Fluent.BackstageTabItem))]
-    public class BackstageTabItem : FrameworkElement<BackstageTabItemModel>
+    public BackstageTabItem(AutomationElement element)
+        : base(element)
     {
-        public BackstageTabItem(AutomationElement element)
-            : base(element)
-        {
-        }
+    }
 
-        public string Header => Element.Current.Name;
+    public string Header => Element.Current.Name;
 
-        public AutomationElement? Content => Element.GetChildElements().FirstOrDefault();
+    public AutomationElement? Content => Element.GetChildElements().FirstOrDefault();
 
-        public bool IsSelected
-        {
-            get => Element.GetIsSelected();
-            set => Element.TrySetSelection(value);
-        }
+    public bool IsSelected
+    {
+        get => Element.GetIsSelected();
+        set => Element.TrySetSelection(value);
+    }
 
-        public bool TrySelect()
-        {
-            return Element.TrySelect();
-        }
+    public bool TrySelect()
+    {
+        return Element.TrySelect();
     }
 }

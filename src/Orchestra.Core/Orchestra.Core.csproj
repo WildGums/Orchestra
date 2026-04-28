@@ -24,8 +24,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Catel.Fody" Version="4.11.0" PrivateAssets="all" />
-    <PackageReference Include="Catel.MVVM" Version="6.2.0" />
+    <PackageReference Include="Catel.Fody" Version="7.0.0" PrivateAssets="all" />
+    <PackageReference Include="Catel.SourceGenerators" Version="7.0.1" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="6.9.3" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -35,10 +35,10 @@
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="Obsolete.Fody" Version="5.3.1" PrivateAssets="all" />
-    <PackageReference Include="Orc.Automation" Version="5.1.0" />
-    <PackageReference Include="Orc.Controls" Version="5.4.1" />
-    <PackageReference Include="Orc.SystemInfo" Version="5.1.0" />
-    <PackageReference Include="Orc.Theming" Version="5.4.0" />
+    <PackageReference Include="Orc.Controls" Version="6.0.0-alpha0113" />
+    <PackageReference Include="Orc.Serialization.Json" Version="6.0.0-alpha0049" />
+    <PackageReference Include="Orc.SystemInfo" Version="6.0.0-alpha0092" />
+    <PackageReference Include="Orc.Theming" Version="6.0.0-alpha0106" />
   </ItemGroup>
 
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.Build.nullable.props')" />

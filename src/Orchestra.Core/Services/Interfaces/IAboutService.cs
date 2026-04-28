@@ -1,9 +1,8 @@
-﻿namespace Orchestra.Services
-{
-    using System.Threading.Tasks;
+﻿namespace Orchestra;
 
-    public interface IAboutService
-    {
-        Task ShowAboutAsync();
-    }
+using System.Threading.Tasks;
+
+public interface IAboutService
+{
+    Task ShowAboutAsync();
 }

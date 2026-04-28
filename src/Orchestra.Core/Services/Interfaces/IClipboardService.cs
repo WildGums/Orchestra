@@ -1,7 +1,6 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+public interface IClipboardService
 {
-    public interface IClipboardService
-    {
-        void CopyToClipboard(string text);
-    }
+    void CopyToClipboard(string text);
 }

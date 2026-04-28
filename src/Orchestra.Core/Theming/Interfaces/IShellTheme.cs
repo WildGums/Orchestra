@@ -1,9 +1,8 @@
-﻿namespace Orchestra.Theming
-{
-    using Orc.Theming;
+﻿namespace Orchestra.Theming;
 
-    public interface IShellTheme
-    {
-        void ApplyTheme(ThemeInfo themeInfo);
-    }
+using Orc.Theming;
+
+public interface IShellTheme
+{
+    void ApplyTheme(ThemeInfo themeInfo);
 }

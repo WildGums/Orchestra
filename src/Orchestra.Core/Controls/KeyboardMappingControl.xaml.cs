@@ -1,10 +1,9 @@
-﻿namespace Orchestra.Controls
+﻿namespace Orchestra.Controls;
+
+public partial class KeyboardMappingControl
 {
-    public partial class KeyboardMappingControl
+    public KeyboardMappingControl()
     {
-        public KeyboardMappingControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

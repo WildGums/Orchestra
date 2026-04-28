@@ -1,12 +1,12 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Catel.ThirdPartyNotices;
+
+public interface IThirdPartyNoticesService
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+    void Add(IThirdPartyNotice thirdPartyNotice);
 
-    public interface IThirdPartyNoticesService
-    {
-        void Add(ThirdPartyNotice thirdPartyNotice);
-
-        Task<List<ThirdPartyNotice>> GetThirdPartyNoticesAsync();
-    }
+    Task<IReadOnlyList<IThirdPartyNotice>> GetThirdPartyNoticesAsync();
 }

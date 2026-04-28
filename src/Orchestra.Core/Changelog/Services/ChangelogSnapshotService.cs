@@ -1,86 +1,82 @@
-﻿namespace Orchestra.Changelog
+﻿namespace Orchestra.Changelog;
+
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using Catel.Logging;
+using Catel.Services;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Orc.FileSystem;
+
+public class ChangelogSnapshotService : IChangelogSnapshotService
 {
-    using System;
-    using System.IO;
-    using System.Threading.Tasks;
-    using Catel.Logging;
-    using Catel.Services;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Orc.FileSystem;
+    private readonly ILogger<ChangelogSnapshotService> _logger;
+    private readonly IDirectoryService _directoryService;
+    private readonly IFileService _fileService;
+    private readonly IAppDataService _appDataService;
 
-    public class ChangelogSnapshotService : IChangelogSnapshotService
+    public ChangelogSnapshotService(ILogger<ChangelogSnapshotService> logger, IDirectoryService directoryService, 
+        IFileService fileService, IAppDataService appDataService)
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        _logger = logger;
+        _directoryService = directoryService;
+        _fileService = fileService;
+        _appDataService = appDataService;
+    }
 
-        private readonly IDirectoryService _directoryService;
-        private readonly IFileService _fileService;
-        private readonly IAppDataService _appDataService;
+    public virtual async Task SerializeSnapshotAsync(Changelog changelog)
+    {
+        ArgumentNullException.ThrowIfNull(changelog);
 
-        public ChangelogSnapshotService(IDirectoryService directoryService, IFileService fileService,
-            IAppDataService appDataService)
+        var fileName = GetFilename();
+
+        _logger.LogDebug($"Serializing changelog snapshot to '{fileName}'");
+
+        var json = JsonConvert.SerializeObject(changelog, GetSerializerSettings());
+
+        await _fileService.WriteAllTextAsync(fileName, json);
+    }
+
+    public virtual async Task<Changelog> DeserializeSnapshotAsync()
+    {
+        var snapshot = new Changelog();
+
+        var fileName = GetFilename();
+
+        _logger.LogDebug($"Deserializing changelog snapshot from '{fileName}'");
+
+        if (!_fileService.Exists(fileName))
         {
-            ArgumentNullException.ThrowIfNull(directoryService);
-            ArgumentNullException.ThrowIfNull(fileService);
-            ArgumentNullException.ThrowIfNull(appDataService);
-
-            _directoryService = directoryService;
-            _fileService = fileService;
-            _appDataService = appDataService;
+            return new Changelog();
         }
 
-        public virtual async Task SerializeSnapshotAsync(Changelog changelog)
+        var json = await _fileService.ReadAllTextAsync(fileName);
+        JsonConvert.PopulateObject(json, snapshot, GetSerializerSettings());
+
+        return snapshot;
+    }
+
+    protected virtual string GetFilename()
+    {
+        var rootDirectory = _appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming);
+        var changelogDirectory = Path.Combine(rootDirectory, "changelog");
+
+        _directoryService.Create(changelogDirectory);
+
+        return Path.Combine(changelogDirectory, "changelog.json");
+    }
+
+    protected virtual JsonSerializerSettings GetSerializerSettings()
+    {
+        var settings = new JsonSerializerSettings
         {
-            ArgumentNullException.ThrowIfNull(changelog);
+            Formatting = Formatting.Indented
+        };
 
-            var fileName = GetFilename();
+        settings.Converters.Add(new StringEnumConverter());
 
-            Log.Debug($"Serializing changelog snapshot to '{fileName}'");
-
-            var json = JsonConvert.SerializeObject(changelog, GetSerializerSettings());
-
-            await _fileService.WriteAllTextAsync(fileName, json);
-        }
-
-        public virtual async Task<Changelog> DeserializeSnapshotAsync()
-        {
-            var snapshot = new Changelog();
-
-            var fileName = GetFilename();
-
-            Log.Debug($"Deserializing changelog snapshot from '{fileName}'");
-
-            if (!_fileService.Exists(fileName))
-            {
-                return new Changelog();
-            }
-
-            var json = await _fileService.ReadAllTextAsync(fileName);
-            JsonConvert.PopulateObject(json, snapshot, GetSerializerSettings());
-
-            return snapshot;
-        }
-
-        protected virtual string GetFilename()
-        {
-            var rootDirectory = _appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming);
-            var changelogDirectory = Path.Combine(rootDirectory, "changelog");
-
-            _directoryService.Create(changelogDirectory);
-
-            return Path.Combine(changelogDirectory, "changelog.json");
-        }
-
-        protected virtual JsonSerializerSettings GetSerializerSettings()
-        {
-            var settings = new JsonSerializerSettings
-            {
-                Formatting = Formatting.Indented
-            };
-
-            settings.Converters.Add(new StringEnumConverter());
-
-            return settings;
-        }
+        return settings;
     }
 }

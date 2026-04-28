@@ -1,60 +1,60 @@
-﻿namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels;
+
+using System;
+using System.Threading.Tasks;
+using Catel.MVVM;
+using Catel.Services;
+
+/// <summary>
+/// The splash screen view model.
+/// </summary>
+public class SplashScreenViewModel : ViewModelBase
 {
-    using System;
-    using System.Threading.Tasks;
-    using Catel.MVVM;
-    using Catel.Services;
-    using Services;
+    private readonly IAboutInfoService _aboutInfoService;
+    private readonly ILanguageService _languageService;
 
-    /// <summary>
-    /// The splash screen view model.
-    /// </summary>
-    public class SplashScreenViewModel : ViewModelBase
+    public SplashScreenViewModel(IServiceProvider serviceProvider, 
+        IAboutInfoService aboutInfoService, ILanguageService languageService)
+        : base(serviceProvider)
     {
-        private readonly IAboutInfoService _aboutInfoService;
-        private readonly ILanguageService _languageService;
+        ArgumentNullException.ThrowIfNull(aboutInfoService);
+        ArgumentNullException.ThrowIfNull(languageService);
 
-        public SplashScreenViewModel(IAboutInfoService aboutInfoService, ILanguageService languageService)
-        {
-            ArgumentNullException.ThrowIfNull(aboutInfoService);
-            ArgumentNullException.ThrowIfNull(languageService);
+        _aboutInfoService = aboutInfoService;
+        _languageService = languageService;
 
-            _aboutInfoService = aboutInfoService;
-            _languageService = languageService;
+        ValidateUsingDataAnnotations = false;
+    }
 
-            ValidateUsingDataAnnotations = false;
-        }
+    public static bool IsActive { get; private set; }
 
-        public static bool IsActive { get; private set; }
+    public Uri? CompanyLogoForSplashScreenUri { get; private set; }
 
-        public Uri? CompanyLogoForSplashScreenUri { get; private set; }
+    public string? Company { get; private set; }
 
-        public string? Company { get; private set; }
+    public string? ProducedBy { get; private set; }
 
-        public string? ProducedBy { get; private set; }
+    public string? Version { get; private set; }        
 
-        public string? Version { get; private set; }        
+    protected override async Task InitializeAsync()
+    {
+        IsActive = true;
 
-        protected override async Task InitializeAsync()
-        {
-            IsActive = true;
+        await base.InitializeAsync();
 
-            await base.InitializeAsync();
+        var aboutInfo = await _aboutInfoService.GetAboutInfoAsync();
 
-            var aboutInfo = await _aboutInfoService.GetAboutInfoAsync();
+        Title = aboutInfo.Name ?? string.Empty;
+        Company = aboutInfo.Company;
+        CompanyLogoForSplashScreenUri = aboutInfo.CompanyLogoForSplashScreenUri;
+        ProducedBy = string.Format(_languageService.GetRequiredString("Orchestra_ProducedBy"), Company);
+        Version = aboutInfo.DisplayVersion;
+    }
 
-            Title = aboutInfo.Name ?? string.Empty;
-            Company = aboutInfo.Company;
-            CompanyLogoForSplashScreenUri = aboutInfo.CompanyLogoForSplashScreenUri;
-            ProducedBy = string.Format(_languageService.GetRequiredString("Orchestra_ProducedBy"), Company);
-            Version = aboutInfo.DisplayVersion;
-        }
+    protected override Task OnClosedAsync(bool? result)
+    {
+        IsActive = false;
 
-        protected override Task OnClosedAsync(bool? result)
-        {
-            IsActive = false;
-
-            return base.OnClosedAsync(result);
-        }
+        return base.OnClosedAsync(result);
     }
 }

@@ -1,109 +1,120 @@
-﻿namespace Orchestra.Tests
+﻿namespace Orchestra.Tests;
+
+using System;
+using System.ComponentModel;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using Catel.Reflection;
+using Catel.Services;
+using Moq;
+using NUnit.Framework;
+
+[TestFixture]
+public class CloseApplicationWatcherBaseFacts
 {
-    using System;
-    using System.ComponentModel;
-    using System.Reflection;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Catel;
-    using NUnit.Framework;
+    private const int OnWindowClosingWaitingTimeout = 5000;
 
-    [TestFixture]
-    public class CloseApplicationWatcherBaseFacts
+    [TestCase]
+    public async Task Verify_Closing_Allows_Cancel_When_Returning_False_Async()
     {
-        private const int OnWindowClosingWaitingTimeout = 5000;
+        var messageServiceMock = new Mock<IMessageService>();
+        var dispatcherServiceMock = new Mock<IDispatcherService>();
+        var mainWindowServiceMock = new Mock<IMainWindowService>();
 
-        [TestCase]
-        public async Task Verify_Closing_Allows_Cancel_When_Returning_False_Async()
+        var watcher = new TestCloseApplicationWatcher(true, messageServiceMock.Object,
+            dispatcherServiceMock.Object, mainWindowServiceMock.Object);
+        await RunOnWindowClosingAndWaitForFinishAsync(watcher, OnWindowClosingWaitingTimeout);
+
+        Assert.That(watcher.IsClosingRun, Is.True, "Closing did not run");
+        Assert.That(watcher.IsClosedRun, Is.False, "Closed did run");
+    }
+
+    [TestCase]
+    public async Task Verify_Closing_Closed_Operations_Are_Executing_Async()
+    {
+        var messageServiceMock = new Mock<IMessageService>();
+        var dispatcherServiceMock = new Mock<IDispatcherService>();
+        var mainWindowServiceMock = new Mock<IMainWindowService>();
+
+        var watcher = new TestCloseApplicationWatcher(false, messageServiceMock.Object,
+            dispatcherServiceMock.Object, mainWindowServiceMock.Object);
+        await RunOnWindowClosingAndWaitForFinishAsync(watcher, OnWindowClosingWaitingTimeout);
+
+        Assert.That(watcher.IsClosingRun, Is.True, "Closing did not run");
+        Assert.That(watcher.IsClosedRun, Is.True, "Closed did not run");
+    }
+
+    private async Task RunOnWindowClosingAndWaitForFinishAsync(TestCloseApplicationWatcher watcher, int timeout)
+    {
+        ArgumentNullException.ThrowIfNull(watcher);
+
+        bool isWatcherCompleted = false;
+
+        using (var cts = new CancellationTokenSource(timeout))
         {
-            var watcher = new TestCloseApplicationWatcher(true);
-            await RunOnWindowClosingAndWaitForFinishAsync(watcher, OnWindowClosingWaitingTimeout);
-
-            Assert.That(watcher.IsClosingRun, Is.True, "Closing did not run");
-            Assert.That(watcher.IsClosedRun, Is.False, "Closed did run");
-        }
-
-        [TestCase]
-        public async Task Verify_Closing_Closed_Operations_Are_Executing_Async()
-        {
-            var watcher = new TestCloseApplicationWatcher(false);
-            await RunOnWindowClosingAndWaitForFinishAsync(watcher, OnWindowClosingWaitingTimeout);
-
-            Assert.That(watcher.IsClosingRun, Is.True, "Closing did not run");
-            Assert.That(watcher.IsClosedRun, Is.True, "Closed did not run");
-        }
-
-        private async Task RunOnWindowClosingAndWaitForFinishAsync(TestCloseApplicationWatcher watcher, int timeout)
-        {
-            ArgumentNullException.ThrowIfNull(watcher);
-
-            bool isWatcherCompleted = false;
-
-            using (var cts = new CancellationTokenSource(timeout))
+            // Use a semaphore to prevent the [TestMethod] from returning prematurely.
+            using (var semaphore = await RunStaThreadAsync(() =>
             {
-                // Use a semaphore to prevent the [TestMethod] from returning prematurely.
-                using (var semaphore = await RunStaThreadAsync(() =>
+                var window = new System.Windows.Window();
+
+                // access handler method
+                var onWindowClosing = typeof(CloseApplicationWatcherBase).GetMethodEx("OnWindowClosing", BindingFlags.Instance | BindingFlags.NonPublic);
+
+                Assert.That(onWindowClosing, Is.Not.Null);
+
+                var cancelEventArgs = new CancelEventArgs();
+                var cancelEventArgsRetry = new CancelEventArgs();
+
+                window.Closing += (sender, e) =>
                 {
-                    var window = new System.Windows.Window();
+                    onWindowClosing.Invoke(watcher, new object[] { window, cancelEventArgsRetry });
+                };
 
-                    // access handler method
-                    var onWindowClosing = typeof(CloseApplicationWatcherBase).GetMethod("OnWindowClosing", BindingFlags.Static | BindingFlags.NonPublic);
+                onWindowClosing.Invoke(watcher, new object[] { window, cancelEventArgs });
 
-                    Assert.That(onWindowClosing, Is.Not.Null);
-
-                    var cancelEventArgs = new CancelEventArgs();
-                    var cancelEventArgsRetry = new CancelEventArgs();
-
-                    window.Closing += (sender, e) =>
+                while (!cts.IsCancellationRequested)
+                {
+                    // Note: we do await IsClosedRun, even when we expect it to be false. This will
+                    // allow the engine to await whether it is ran or not
+                    isWatcherCompleted = watcher.IsClosedRun && watcher.IsClosingRun;
+                    if (isWatcherCompleted)
                     {
-                        onWindowClosing.Invoke(watcher, new object[] { window, cancelEventArgsRetry });
-                    };
-
-                    onWindowClosing.Invoke(watcher, new object[] { window, cancelEventArgs });
-
-                    while (!cts.IsCancellationRequested)
-                    {
-                        // Note: we do await IsClosedRun, even when we expect it to be false. This will
-                        // allow the engine to await whether it is ran or not
-                        isWatcherCompleted = watcher.IsClosedRun && watcher.IsClosingRun;
-                        if (isWatcherCompleted)
-                        {
-                            break;
-                        }
+                        break;
                     }
-                }))
-                {
-                    await semaphore.WaitAsync();
                 }
+            }))
+            {
+                await semaphore.WaitAsync();
             }
         }
+    }
 
-        private async Task<SemaphoreSlim> RunStaThreadAsync(Action action)
+    private async Task<SemaphoreSlim> RunStaThreadAsync(Action action)
+    {
+        var semaphore = new SemaphoreSlim(1);
+        await semaphore.WaitAsync();
+
+        var thread = new Thread(() =>
         {
-            var semaphore = new SemaphoreSlim(1);
-            await semaphore.WaitAsync();
-
-            var thread = new Thread(() =>
+            try
             {
-                try
-                {
-                    // Verify new thread able to host UI component
-                    Assert.That(Thread.CurrentThread.GetApartmentState() == ApartmentState.STA, Is.True);
+                // Verify new thread able to host UI component
+                Assert.That(Thread.CurrentThread.GetApartmentState() == ApartmentState.STA, Is.True);
 
-                    action();
+                action();
 
-                    semaphore.Release();
-                }
-                catch (InvalidOperationException)
-                {
-                    // Handle dispatcher access exception happens in test
-                }
-            });
+                semaphore.Release();
+            }
+            catch (InvalidOperationException)
+            {
+                // Handle dispatcher access exception happens in test
+            }
+        });
 
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+        thread.SetApartmentState(ApartmentState.STA);
+        thread.Start();
 
-            return semaphore;
-        }
+        return semaphore;
     }
 }

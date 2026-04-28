@@ -1,18 +1,17 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System.Collections.Generic;
+using Catel.Data;
+
+public class RecentlyUsedItems : ModelBase
 {
-    using System.Collections.Generic;
-    using Catel.Data;
-
-    public class RecentlyUsedItems : ModelBase
+    public RecentlyUsedItems()
     {
-        public RecentlyUsedItems()
-        {
-            Items = new List<RecentlyUsedItem>();
-            PinnedItems = new List<RecentlyUsedItem>();
-        }
-
-        public List<RecentlyUsedItem> Items { get; private set; }
-
-        public List<RecentlyUsedItem> PinnedItems { get; private set; }
+        Items = new List<RecentlyUsedItem>();
+        PinnedItems = new List<RecentlyUsedItem>();
     }
+
+    public List<RecentlyUsedItem> Items { get; init; }
+
+    public List<RecentlyUsedItem> PinnedItems { get; init; }
 }

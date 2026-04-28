@@ -1,14 +1,13 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public interface IKeyboardMappingsService
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+    List<KeyboardMapping> AdditionalKeyboardMappings { get; }
 
-    public interface IKeyboardMappingsService
-    {
-        List<KeyboardMapping> AdditionalKeyboardMappings { get; }
-
-        Task LoadAsync();
-        Task SaveAsync();
-        Task ResetAsync();
-    }
+    Task LoadAsync();
+    Task SaveAsync();
+    Task ResetAsync();
 }

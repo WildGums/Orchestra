@@ -1,12 +1,13 @@
-﻿namespace Orchestra.Examples.Ribbon.ViewModels
-{
-    using Catel.MVVM;
+﻿namespace Orchestra.Examples.Ribbon.ViewModels;
 
-    public class FontSizeSelectorViewModel : ViewModelBase
+using System;
+using Catel.MVVM;
+
+public class FontSizeSelectorViewModel : ViewModelBase
+{
+    public FontSizeSelectorViewModel(IServiceProvider serviceProvider)
+        : base(serviceProvider)
     {
-        public FontSizeSelectorViewModel()
-        {
-            Title = "Please select the base font size";            
-        }
+        Title = "Please select the base font size";            
     }
 }

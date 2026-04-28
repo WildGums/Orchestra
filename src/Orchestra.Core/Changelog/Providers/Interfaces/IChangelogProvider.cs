@@ -1,10 +1,9 @@
-﻿namespace Orchestra.Changelog
-{
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+﻿namespace Orchestra.Changelog;
 
-    public interface IChangelogProvider
-    {
-        Task<IEnumerable<ChangelogItem>> GetChangelogAsync();
-    }
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public interface IChangelogProvider
+{
+    Task<IReadOnlyList<ChangelogItem>> GetChangelogAsync();
 }

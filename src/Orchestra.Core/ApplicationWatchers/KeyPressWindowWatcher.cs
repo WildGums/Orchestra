@@ -1,163 +1,162 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System;
+using System.Windows;
+using System.Windows.Input;
+
+public class KeyPressWindowWatcher
 {
-    using System;
-    using System.Windows;
-    using System.Windows.Input;
+    private static readonly bool[] _heldDown = new bool[256];
 
-    public class KeyPressWindowWatcher
+    private Action<KeyEventArgs>? _keyDownHandler;
+    private Action<KeyEventArgs>? _keyUpHandler;
+    private Action<KeyEventArgs>? _previewKeyDownHandler;
+    private Action<KeyEventArgs>? _previewKeyUpHandler;
+
+    public void WatchWindow(Window window)
     {
-        private static readonly bool[] _heldDown = new bool[256];
+        window.PreviewKeyDown += OnPreviewKeyDown;
+        window.KeyDown += OnKeyDown;
+        window.PreviewKeyUp += OnPreviewKeyUp;
+        window.KeyUp += OnKeyUp;
+    }
 
-        private Action<KeyEventArgs>? _keyDownHandler;
-        private Action<KeyEventArgs>? _keyUpHandler;
-        private Action<KeyEventArgs>? _previewKeyDownHandler;
-        private Action<KeyEventArgs>? _previewKeyUpHandler;
+    public void UnWatchWindow(Window window)
+    {
+        window.PreviewKeyDown -= OnPreviewKeyDown;
+        window.KeyDown -= OnKeyDown;
+        window.PreviewKeyUp -= OnPreviewKeyUp;
+        window.KeyUp -= OnKeyUp;
+    }
 
-        public void WatchWindow(Window window)
+    public static bool IsKeyHeldDown(Key key)
+    {
+        var virtualKey = KeyInterop.VirtualKeyFromKey(key);
+        return _heldDown[virtualKey];
+    }
+
+    public static bool IsCtrlHeldDown()
+    {
+        return IsKeyHeldDown(Key.LeftCtrl) || IsKeyHeldDown(Key.RightCtrl);
+    }
+
+    public static bool IsShiftHeldDown()
+    {
+        return IsKeyHeldDown(Key.LeftShift) || IsKeyHeldDown(Key.RightShift);
+    }
+
+    public static bool IsAltHeldDown()
+    {
+        return IsKeyHeldDown(Key.LeftAlt) || IsKeyHeldDown(Key.RightAlt);
+    }
+
+    private void OnKeyUp(object? sender, KeyEventArgs e)
+    {
+        var virtualKey = KeyInterop.VirtualKeyFromKey(e.Key);
+        _heldDown[virtualKey] = false;
+
+        if (e.Handled)
         {
-            window.PreviewKeyDown += OnPreviewKeyDown;
-            window.KeyDown += OnKeyDown;
-            window.PreviewKeyUp += OnPreviewKeyUp;
-            window.KeyUp += OnKeyUp;
+            return;
         }
 
-        public void UnWatchWindow(Window window)
+        if (_keyUpHandler is null)
         {
-            window.PreviewKeyDown -= OnPreviewKeyDown;
-            window.KeyDown -= OnKeyDown;
-            window.PreviewKeyUp -= OnPreviewKeyUp;
-            window.KeyUp -= OnKeyUp;
+            return;
         }
 
-        public static bool IsKeyHeldDown(Key key)
+        var window = sender as Window;
+        if (window is null)
         {
-            var virtualKey = KeyInterop.VirtualKeyFromKey(key);
-            return _heldDown[virtualKey];
+            return;
         }
 
-        public static bool IsCtrlHeldDown()
+        _keyUpHandler(e);
+    }
+
+    private void OnPreviewKeyUp(object? sender, KeyEventArgs e)
+    {
+        if (e.Handled)
         {
-            return IsKeyHeldDown(Key.LeftCtrl) || IsKeyHeldDown(Key.RightCtrl);
+            return;
         }
 
-        public static bool IsShiftHeldDown()
+        if (_previewKeyUpHandler is null)
         {
-            return IsKeyHeldDown(Key.LeftShift) || IsKeyHeldDown(Key.RightShift);
+            return;
         }
 
-        public static bool IsAltHeldDown()
+        var window = sender as Window;
+        if (window is null)
         {
-            return IsKeyHeldDown(Key.LeftAlt) || IsKeyHeldDown(Key.RightAlt);
+            return;
         }
 
-        private void OnKeyUp(object? sender, KeyEventArgs e)
+        _previewKeyUpHandler(e);
+    }
+
+    private void OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Handled)
         {
-            var virtualKey = KeyInterop.VirtualKeyFromKey(e.Key);
-            _heldDown[virtualKey] = false;
-
-            if (e.Handled)
-            {
-                return;
-            }
-
-            if (_keyUpHandler is null)
-            {
-                return;
-            }
-
-            var window = sender as Window;
-            if (window is null)
-            {
-                return;
-            }
-
-            _keyUpHandler(e);
+            return;
         }
 
-        private void OnPreviewKeyUp(object? sender, KeyEventArgs e)
+        if (_keyDownHandler is null)
         {
-            if (e.Handled)
-            {
-                return;
-            }
-
-            if (_previewKeyUpHandler is null)
-            {
-                return;
-            }
-
-            var window = sender as Window;
-            if (window is null)
-            {
-                return;
-            }
-
-            _previewKeyUpHandler(e);
+            return;
         }
 
-        private void OnKeyDown(object? sender, KeyEventArgs e)
+        var window = sender as Window;
+        if (window is null)
         {
-            if (e.Handled)
-            {
-                return;
-            }
-
-            if (_keyDownHandler is null)
-            {
-                return;
-            }
-
-            var window = sender as Window;
-            if (window is null)
-            {
-                return;
-            }
-
-            _keyDownHandler(e);
+            return;
         }
 
-        private void OnPreviewKeyDown(object? sender, KeyEventArgs e)
+        _keyDownHandler(e);
+    }
+
+    private void OnPreviewKeyDown(object? sender, KeyEventArgs e)
+    {
+        var virtualKey = KeyInterop.VirtualKeyFromKey(e.Key);
+        _heldDown[virtualKey] = true;
+
+        if (e.Handled)
         {
-            var virtualKey = KeyInterop.VirtualKeyFromKey(e.Key);
-            _heldDown[virtualKey] = true;
-
-            if (e.Handled)
-            {
-                return;
-            }
-
-            if (_previewKeyDownHandler is null)
-            {
-                return;
-            }
-
-            var window = sender as Window;
-            if (window is null)
-            {
-                return;
-            }
-
-            _previewKeyDownHandler(e);
+            return;
         }
 
-        public void SetPreviewKeyDownHandler(Action<KeyEventArgs>? handler)
+        if (_previewKeyDownHandler is null)
         {
-            _previewKeyDownHandler = handler;
+            return;
         }
 
-        public void SetKeyDownHandler(Action<KeyEventArgs>? handler)
+        var window = sender as Window;
+        if (window is null)
         {
-            _keyDownHandler = handler;
+            return;
         }
 
-        public void SetPreviewKeyUpHandler(Action<KeyEventArgs>? handler)
-        {
-            _previewKeyUpHandler = handler;
-        }
+        _previewKeyDownHandler(e);
+    }
 
-        public void SetKeyUpHandler(Action<KeyEventArgs>? handler)
-        {
-            _keyUpHandler = handler;
-        }
+    public void SetPreviewKeyDownHandler(Action<KeyEventArgs>? handler)
+    {
+        _previewKeyDownHandler = handler;
+    }
+
+    public void SetKeyDownHandler(Action<KeyEventArgs>? handler)
+    {
+        _keyDownHandler = handler;
+    }
+
+    public void SetPreviewKeyUpHandler(Action<KeyEventArgs>? handler)
+    {
+        _previewKeyUpHandler = handler;
+    }
+
+    public void SetKeyUpHandler(Action<KeyEventArgs>? handler)
+    {
+        _keyUpHandler = handler;
     }
 }

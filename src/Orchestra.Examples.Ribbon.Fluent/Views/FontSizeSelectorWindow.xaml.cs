@@ -1,10 +1,6 @@
-﻿namespace Orchestra.Examples.Ribbon.Views
+﻿namespace Orchestra.Examples.Ribbon.Views;
+
+public partial class FontSizeSelectorWindow
 {
-    public partial class FontSizeSelectorWindow
-    {
-        public FontSizeSelectorWindow()
-        {
-            InitializeComponent();
-        }
-    }
+
 }

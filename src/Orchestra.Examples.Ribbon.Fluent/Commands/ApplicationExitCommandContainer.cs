@@ -1,25 +1,26 @@
-﻿namespace Orchestra.Examples.Ribbon
+﻿namespace Orchestra.Examples.Ribbon;
+
+using System;
+using System.Threading.Tasks;
+using Catel.MVVM;
+using Catel.Services;
+using Microsoft.Extensions.DependencyInjection;
+
+public class ApplicationExitCommandContainer : Catel.MVVM.CommandContainerBase
 {
-    using System;
-    using System.Threading.Tasks;
-    using Catel.MVVM;
-    using Catel.Services;
+    private readonly INavigationService _navigationService;
 
-    public class ApplicationExitCommandContainer : Catel.MVVM.CommandContainerBase
+    public ApplicationExitCommandContainer(ICommandManager commandManager, INavigationService navigationService,
+        IServiceProvider serviceProvider)
+        : base(Commands.Application.Exit, commandManager, serviceProvider)
     {
-        private readonly INavigationService _navigationService;
+        ArgumentNullException.ThrowIfNull(navigationService);
 
-        public ApplicationExitCommandContainer(ICommandManager commandManager, INavigationService navigationService)
-            : base(Commands.Application.Exit, commandManager)
-        {
-            ArgumentNullException.ThrowIfNull(navigationService);
+        _navigationService = navigationService;
+    }
 
-            _navigationService = navigationService;
-        }
-
-        public override async Task ExecuteAsync(object parameter)
-        {
-            await _navigationService.CloseApplicationAsync();
-        }
+    public override async Task ExecuteAsync(object parameter)
+    {
+        await _navigationService.CloseApplicationAsync();
     }
 }

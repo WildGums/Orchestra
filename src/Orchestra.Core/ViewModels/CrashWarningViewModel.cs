@@ -1,103 +1,102 @@
-﻿namespace Orchestra.Views
+﻿namespace Orchestra.Views;
+
+using System;
+using System.Reflection;
+using System.Threading.Tasks;
+using Catel.MVVM;
+using Catel.Reflection;
+using Catel.Services;
+using Microsoft.Extensions.Logging;
+
+public class CrashWarningViewModel : ViewModelBase
 {
-    using System;
-    using System.Reflection;
-    using System.Threading.Tasks;
-    using Catel.Logging;
-    using Catel.MVVM;
-    using Catel.Reflection;
-    using Catel.Services;
-    using Services;
+    private readonly ILogger<CrashWarningViewModel> _logger;
+    private readonly IManageAppDataService _manageAppDataService;
+    private readonly Assembly _assembly;
+    private readonly IMessageService _messageService;
+    private readonly INavigationService _navigationService;
+    private readonly ILanguageService _languageService;
 
-    public class CrashWarningViewModel : ViewModelBase
+    public CrashWarningViewModel(ILogger<CrashWarningViewModel> logger, IServiceProvider serviceProvider, 
+        IManageAppDataService manageAppDataService, IMessageService messageService, 
+        INavigationService navigationService, ILanguageService languageService)
+        : base(serviceProvider)
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        
-        private readonly IManageAppDataService _manageAppDataService;
-        private readonly Assembly _assembly;
-        private readonly IMessageService _messageService;
-        private readonly INavigationService _navigationService;
-        private readonly ILanguageService _languageService;
+        ArgumentNullException.ThrowIfNull(messageService);
+        ArgumentNullException.ThrowIfNull(navigationService);
+        ArgumentNullException.ThrowIfNull(navigationService);
+        ArgumentNullException.ThrowIfNull(manageAppDataService);
+        ArgumentNullException.ThrowIfNull(languageService);
+        _logger = logger;
+        _manageAppDataService = manageAppDataService;
+        _messageService = messageService;
+        _navigationService = navigationService;
+        _languageService = languageService;
 
-        public CrashWarningViewModel(IManageAppDataService manageAppDataService, IMessageService messageService, INavigationService navigationService,
-            ILanguageService languageService)
+        ValidateUsingDataAnnotations = false;
+
+        _assembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
+
+        Continue = new TaskCommand(serviceProvider, OnContinueExecuteAsync);
+        ResetUserSettings = new TaskCommand(serviceProvider, OnResetUserSettingsExecuteAsync);
+        BackupAndReset = new TaskCommand(serviceProvider, OnResetAndBackupExecuteAsync);
+    }
+
+    public override string Title
+    {
+        get { return _assembly.Title() ?? string.Empty; }
+    }
+
+    public TaskCommand BackupAndReset { get; set; }
+
+    private async Task OnResetAndBackupExecuteAsync()
+    {
+        _logger.LogInformation("User choose to create a backup");
+
+        if (!await _manageAppDataService.BackupUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming))
         {
-            ArgumentNullException.ThrowIfNull(messageService);
-            ArgumentNullException.ThrowIfNull(navigationService);
-            ArgumentNullException.ThrowIfNull(navigationService);
-            ArgumentNullException.ThrowIfNull(manageAppDataService);
-            ArgumentNullException.ThrowIfNull(languageService);
+            _logger.LogWarning("User canceled the backup, exit application");
 
-            _manageAppDataService = manageAppDataService;
-            _messageService = messageService;
-            _navigationService = navigationService;
-            _languageService = languageService;
+            await _messageService.ShowErrorAsync(_languageService.GetRequiredString("Orchestra_FailedToCreateBackup"), _assembly.Title() ?? string.Empty);
 
-            ValidateUsingDataAnnotations = false;
+            await _navigationService.CloseApplicationAsync();
 
-            _assembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
-
-            Continue = new TaskCommand(OnContinueExecuteAsync);
-            ResetUserSettings = new TaskCommand(OnResetUserSettingsExecuteAsync);
-            BackupAndReset = new TaskCommand(OnResetAndBackupExecuteAsync);
+            return;
         }
 
-        public override string Title
-        {
-            get { return _assembly.Title() ?? string.Empty; }
-        }
+        await _manageAppDataService.DeleteUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming);
 
-        public TaskCommand BackupAndReset { get; set; }
+        await _messageService.ShowInformationAsync(_languageService.GetRequiredString("Orchestra_BackupCreated"), _assembly.Title() ?? string.Empty);
 
-        private async Task OnResetAndBackupExecuteAsync()
-        {
-            Log.Info("User choose to create a backup");
+        await CloseViewModelAsync(false);
+    }
 
-            if (!await _manageAppDataService.BackupUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming))
-            {
-                Log.Warning("User canceled the backup, exit application");
+    public TaskCommand ResetUserSettings { get; set; }
 
-                await _messageService.ShowErrorAsync(_languageService.GetRequiredString("Orchestra_FailedToCreateBackup"), _assembly.Title() ?? string.Empty);
+    private async Task OnResetUserSettingsExecuteAsync()
+    {
+        _logger.LogInformation("User choose NOT to create a backup");
 
-                await _navigationService.CloseApplicationAsync();
+        await _manageAppDataService.DeleteUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming);
 
-                return;
-            }
+        await _messageService.ShowInformationAsync(_languageService.GetRequiredString("Orchestra_DeletedUserDataSettings"), _assembly.Title() ?? string.Empty);
 
-            await _manageAppDataService.DeleteUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming);
+        await CloseViewModelAsync(false);
+    }
 
-            await _messageService.ShowInformationAsync(_languageService.GetRequiredString("Orchestra_BackupCreated"), _assembly.Title() ?? string.Empty);
+    public TaskCommand Continue { get; set; }
 
-            await CloseViewModelAsync(false);
-        }
+    private async Task OnContinueExecuteAsync()
+    {
+        _logger.LogInformation("User choose NOT to delete any data and continue (living on the edge)");
 
-        public TaskCommand ResetUserSettings { get; set; }
+        await CloseViewModelAsync(false);
+    }
 
-        private async Task OnResetUserSettingsExecuteAsync()
-        {
-            Log.Info("User choose NOT to create a backup");
+    protected override Task<bool> CancelAsync()
+    {
+        _logger.LogInformation("User choose NOT to delete any data and continue (living on the edge)");
 
-            await _manageAppDataService.DeleteUserDataAsync(Catel.IO.ApplicationDataTarget.UserRoaming);
-
-            await _messageService.ShowInformationAsync(_languageService.GetRequiredString("Orchestra_DeletedUserDataSettings"), _assembly.Title() ?? string.Empty);
-
-            await CloseViewModelAsync(false);
-        }
-
-        public TaskCommand Continue { get; set; }
-
-        private async Task OnContinueExecuteAsync()
-        {
-            Log.Info("User choose NOT to delete any data and continue (living on the edge)");
-
-            await CloseViewModelAsync(false);
-        }
-
-        protected override Task<bool> CancelAsync()
-        {
-            Log.Info("User choose NOT to delete any data and continue (living on the edge)");
-
-            return base.CancelAsync();
-        }
+        return base.CancelAsync();
     }
 }

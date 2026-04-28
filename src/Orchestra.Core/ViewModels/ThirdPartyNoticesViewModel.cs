@@ -1,46 +1,44 @@
-﻿namespace Orchestra.ViewModels
+﻿namespace Orchestra.ViewModels;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Catel;
+using Catel.MVVM;
+using Catel.ThirdPartyNotices;
+using Orchestra;
+
+public class ThirdPartyNoticesViewModel : ViewModelBase
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Catel;
-    using Catel.MVVM;
-    using Orchestra.Services;
+    private readonly IAboutInfoService _aboutInfoService;
+    private readonly IThirdPartyNoticesService _thirdPartyNoticesService;
 
-    public class ThirdPartyNoticesViewModel : ViewModelBase
+    public ThirdPartyNoticesViewModel(IServiceProvider serviceProvider, IAboutInfoService aboutInfoService,
+        IThirdPartyNoticesService thirdPartyNoticesService)
+        : base(serviceProvider)
     {
-        private readonly IAboutInfoService _aboutInfoService;
-        private readonly IThirdPartyNoticesService _thirdPartyNoticesService;
+        _aboutInfoService = aboutInfoService;
+        _thirdPartyNoticesService = thirdPartyNoticesService;
 
-        public ThirdPartyNoticesViewModel(IAboutInfoService aboutInfoService,
-            IThirdPartyNoticesService thirdPartyNoticesService)
-        {
-            ArgumentNullException.ThrowIfNull(aboutInfoService);
-            ArgumentNullException.ThrowIfNull(thirdPartyNoticesService);
+        ValidateUsingDataAnnotations = false;
 
-            _aboutInfoService = aboutInfoService;
-            _thirdPartyNoticesService = thirdPartyNoticesService;
+        Title = LanguageHelper.GetRequiredString("Orchestra_ThirdPartyNotices_Title");
+        Explanation = string.Empty;
+        ThirdPartyNotices = new List<IThirdPartyNotice>();
+    }
 
-            ValidateUsingDataAnnotations = false;
+    public string Explanation { get; private set; }
 
-            Title = LanguageHelper.GetRequiredString("Orchestra_ThirdPartyNotices_Title");
-            Explanation = string.Empty;
-            ThirdPartyNotices = new List<ThirdPartyNotice>();
-        }
+    public IReadOnlyList<IThirdPartyNotice> ThirdPartyNotices { get; private set; }
 
-        public string Explanation { get; private set; }
+    protected override async Task InitializeAsync()
+    {
+        await base.InitializeAsync();
 
-        public List<ThirdPartyNotice> ThirdPartyNotices { get; private set; }
+        var aboutInfo = await _aboutInfoService.GetAboutInfoAsync();
+        var explanation = LanguageHelper.GetRequiredString("Orchestra_ThirdPartyNotices_Explanation");
+        Explanation = string.Format(explanation, aboutInfo.Company, aboutInfo.ProductName);
 
-        protected override async Task InitializeAsync()
-        {
-            await base.InitializeAsync();
-
-            var aboutInfo = await _aboutInfoService.GetAboutInfoAsync();
-            var explanation = LanguageHelper.GetRequiredString("Orchestra_ThirdPartyNotices_Explanation");
-            Explanation = string.Format(explanation, aboutInfo.Company, aboutInfo.ProductName);
-
-            ThirdPartyNotices = await _thirdPartyNoticesService.GetThirdPartyNoticesAsync();
-        }
+        ThirdPartyNotices = await _thirdPartyNoticesService.GetThirdPartyNoticesAsync();
     }
 }

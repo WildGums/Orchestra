@@ -1,11 +1,10 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+using System.Windows;
+
+public interface IShellContentService
 {
-    using System.Windows;
+    FrameworkElement? GetMainView();
 
-    public interface IShellContentService
-    {
-        FrameworkElement? GetMainView();
-
-        FrameworkElement? GetStatusBar();
-    }
+    FrameworkElement? GetStatusBar();
 }

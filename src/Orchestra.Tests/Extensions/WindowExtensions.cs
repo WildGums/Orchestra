@@ -1,6 +1,5 @@
-﻿namespace Orchestra.Tests
+﻿namespace Orchestra.Tests;
+
+public static class WindowExtensions
 {
-    public static class WindowExtensions
-    {
-    }
 }
