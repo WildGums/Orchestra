@@ -120,7 +120,7 @@ public static partial class WindowExtensions
 
         if (!User32.AttachThreadInput(foregroundWindowThreadID, currentThreadID, true))
         {
-            Logger.LogWarning("Failed to attach to input thread (Win32 code '{0}')", Marshal.GetLastWin32Error());
+            Logger.LogWarning("Failed to attach to input thread (Win32 code '{Win32Code}')", Marshal.GetLastWin32Error());
             return;
         }
 

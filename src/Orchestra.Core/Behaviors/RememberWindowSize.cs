@@ -49,7 +49,7 @@ public partial class RememberWindowSize : BehaviorBase<Window>
 
         if (MakeWindowResizable && window.ResizeMode == ResizeMode.NoResize)
         {
-            Logger.LogDebug($"Setting window ResizeMode to CanResize and SizeToContent to Manual of '{windowType}'");
+            Logger.LogDebug("Setting window ResizeMode to CanResize and SizeToContent to Manual of '{WindowType}'", windowType);
 
             window.SetCurrentValue(Window.SizeToContentProperty, SizeToContent.Manual);
             window.SetCurrentValue(Window.ResizeModeProperty, ResizeMode.CanResize);

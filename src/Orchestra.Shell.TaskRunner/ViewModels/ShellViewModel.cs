@@ -62,12 +62,12 @@ public class ShellViewModel : FeaturedViewModelBase
             var validationSummary = this.GetValidationSummary(true);
             foreach (var error in validationSummary.FieldErrors)
             {
-                Logger.LogWarning("  * {0}", error.Message);
+                Logger.LogWarning("  * {ErrorMessage}", error.Message);
             }
 
             foreach (var error in validationSummary.BusinessRuleErrors)
             {
-                Logger.LogWarning("  * {0}", error.Message);
+                Logger.LogWarning("  * {ErrorMessage}", error.Message);
             }
 
             return;

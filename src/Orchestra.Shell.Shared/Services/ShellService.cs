@@ -41,7 +41,7 @@ public partial class ShellService : IShellService
 
         var entryAssembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
 
-        Logger.LogInformation("Starting {0} v{1} ({2})", entryAssembly.Title() ?? string.Empty, entryAssembly.Version() ?? string.Empty, entryAssembly.InformationalVersion() ?? string.Empty);
+        Logger.LogInformation("Starting {Title} v{Version} ({InformationalVersion})", entryAssembly.Title() ?? string.Empty, entryAssembly.Version() ?? string.Empty, entryAssembly.InformationalVersion() ?? string.Empty);
 
         // Initialize (now we have an application)
         DotNetPatchHelper.Initialize();
@@ -205,7 +205,7 @@ public partial class ShellService : IShellService
     protected virtual async Task<TShell> CreateShellAsync<TShell>()
         where TShell : IShell
     {
-        Logger.LogDebug("Creating shell using type '{0}'", typeof(TShell).GetSafeFullName(false));
+        Logger.LogDebug("Creating shell using type '{ShellType}'", typeof(TShell).GetSafeFullName(false));
 
         // Late resolve so user might change the message service
         var themeService = _serviceProvider.GetRequiredService<IThemeService>();
@@ -215,7 +215,7 @@ public partial class ShellService : IShellService
 
         foreach (var shellThemeType in shellThemeTypes)
         {
-            Logger.LogDebug($"Creating shell theme using '{shellThemeType.FullName}'");
+            Logger.LogDebug("Creating shell theme using '{ShellThemeType}'", shellThemeType.FullName);
 
             var instance = (IShellTheme)ActivatorUtilities.CreateInstance(_serviceProvider, shellThemeType);
 

@@ -58,7 +58,7 @@ public class ThemeManager : IThemeManager
         var generatedTheme = themeGenerator.GenerateRuntimeTheme(_baseColorSchemeService.GetBaseColorScheme(), _accentColorService.GetAccentColor());
         if (generatedTheme is null)
         {
-            throw _logger.LogErrorAndCreateException<InvalidOperationException>($"Failed to generate runtime theme");
+            throw _logger.LogErrorAndCreateException<InvalidOperationException>("Failed to generate runtime theme");
         }
 
         ChangeTheme(generatedTheme);
@@ -138,7 +138,7 @@ public class ThemeManager : IThemeManager
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, $"Failed to add application theme '{resourceDictionary?.Source}'");
+            _logger.LogWarning(ex, "Failed to add application theme '{ThemeSource}'", resourceDictionary?.Source);
         }
     }
 
@@ -262,7 +262,7 @@ public class ThemeManager : IThemeManager
             }
         }
 
-        _logger.LogDebug($"Failed to confirm that resource '{resourceDictionaryUri}' exists");
+        _logger.LogDebug("Failed to confirm that resource '{ResourceDictionaryUri}' exists", resourceDictionaryUri);
 
         return false;
     }
@@ -277,7 +277,7 @@ public class ThemeManager : IThemeManager
         {
             if (resourceStream is null)
             {
-                _logger.LogDebug($"Could not find generated resources @ '{generatedResourceName}', assuming the resource dictionary '{resourceDictionaryUri}' does not exist");
+                _logger.LogDebug("Could not find generated resources @ '{GeneratedResourceName}', assuming the resource dictionary '{ResourceDictionaryUri}' does not exist", generatedResourceName, resourceDictionaryUri);
 
                 return false;
             }
@@ -290,7 +290,7 @@ public class ThemeManager : IThemeManager
                 {
                     if (((string)resource.Key).EqualsIgnoreCase(relativeResourceName))
                     {
-                        _logger.LogDebug($"Resource '{resourceDictionaryUri}' exists");
+                        _logger.LogDebug("Resource '{ResourceDictionaryUri}' exists", resourceDictionaryUri);
                         return true;
                     }
                 }

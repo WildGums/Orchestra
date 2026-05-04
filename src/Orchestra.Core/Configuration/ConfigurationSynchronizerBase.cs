@@ -123,7 +123,7 @@ public abstract class ConfigurationSynchronizerBase<T> : IInitializeAtStartup
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Failed to apply configuration value for '{Key}'");
+            _logger.LogError(ex, "Failed to apply configuration value for '{Key}'", Key);
             throw;
         }
         finally

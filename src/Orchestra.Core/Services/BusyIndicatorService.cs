@@ -148,14 +148,14 @@ public class BusyIndicatorService : IBusyIndicatorService
             ShowCounter++;
         }
 
-        _logger.LogDebug($"Pushed busy indicator, counter is '{ShowCounter}'");
+        _logger.LogDebug("Pushed busy indicator, counter is '{ShowCounter}'", ShowCounter);
     }
 
     public virtual void Pop()
     {
         ShowCounter--;
 
-        _logger.LogDebug($"Popped busy indicator, counter is '{ShowCounter}'");
+        _logger.LogDebug("Popped busy indicator, counter is '{ShowCounter}'", ShowCounter);
 
         HideIfRequired();
     }

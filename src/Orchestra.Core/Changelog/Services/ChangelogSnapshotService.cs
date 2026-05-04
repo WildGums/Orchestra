@@ -32,7 +32,7 @@ public class ChangelogSnapshotService : IChangelogSnapshotService
 
         var fileName = GetFilename();
 
-        _logger.LogDebug($"Serializing changelog snapshot to '{fileName}'");
+        _logger.LogDebug("Serializing changelog snapshot to '{FileName}'", fileName);
 
         var json = JsonConvert.SerializeObject(changelog, GetSerializerSettings());
 
@@ -45,7 +45,7 @@ public class ChangelogSnapshotService : IChangelogSnapshotService
 
         var fileName = GetFilename();
 
-        _logger.LogDebug($"Deserializing changelog snapshot from '{fileName}'");
+        _logger.LogDebug("Deserializing changelog snapshot from '{FileName}'", fileName);
 
         if (!_fileService.Exists(fileName))
         {

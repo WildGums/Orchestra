@@ -38,7 +38,7 @@ public class MessageService : Catel.Services.MessageService
     {
         Argument.IsNotNullOrWhitespace("message", message);
 
-        _logger.LogInformation("Showing message to the user:\n\n{0}", this.GetAsText(message, button));
+        _logger.LogInformation("Showing message to the user:\n\n{Message}", this.GetAsText(message, button));
 
         var tcs = new TaskCompletionSource<MessageResult>();
 
@@ -67,7 +67,7 @@ public class MessageService : Catel.Services.MessageService
                 await _uiVisualizerService.ShowDialogAsync(vm);
             }
 
-            _logger.LogInformation("Result of message: {0}", vm.Result);
+            _logger.LogInformation("Result of message: {Result}", vm.Result);
 
             tcs.TrySetResult(vm.Result);
         });

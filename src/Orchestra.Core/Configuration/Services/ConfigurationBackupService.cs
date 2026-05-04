@@ -47,13 +47,13 @@ public class ConfigurationBackupService : IConfigurationBackupService
             var roamingConfigFilePathField = configurationServiceType.GetFieldEx("_roamingConfigFilePath", true, false);
             if (roamingConfigFilePathField is null)
             {
-                throw _logger.LogErrorAndCreateException<OrchestraException>($"Roaming config file path field not found on the configuration service");
+                throw _logger.LogErrorAndCreateException<OrchestraException>("Roaming config file path field not found on the configuration service");
             }
 
             var localConfigFilePathField = configurationServiceType.GetFieldEx("_localConfigFilePath", true, false);
             if (localConfigFilePathField is null)
             {
-                throw _logger.LogErrorAndCreateException<OrchestraException>($"Local config file path field not found on the configuration service");
+                throw _logger.LogErrorAndCreateException<OrchestraException>("Local config file path field not found on the configuration service");
             }
 
             var roamingConfigFilePath = roamingConfigFilePathField.GetValue(_configurationService)?.ToString();
@@ -79,7 +79,7 @@ public class ConfigurationBackupService : IConfigurationBackupService
     {
         if (!_fileService.Exists(configurationFilePath))
         {
-            _logger.LogDebug($"Configuration file not found on path {configurationFilePath}, skipping backup");
+            _logger.LogDebug("Configuration file not found on path {ConfigurationFilePath}, skipping backup", configurationFilePath);
             return;
         }
 
@@ -98,11 +98,11 @@ public class ConfigurationBackupService : IConfigurationBackupService
             return;
         }
 
-        _logger.LogInformation($"Creating configuration backup, {applicationDataTarget}");
+        _logger.LogInformation("Creating configuration backup, {ApplicationDataTarget}", applicationDataTarget);
 
         _fileService.Copy(configurationFilePath, targetFileName, true);
 
-        _logger.LogInformation($"Created configuration backup, {applicationDataTarget}");
+        _logger.LogInformation("Created configuration backup, {ApplicationDataTarget}", applicationDataTarget);
 
         var backupConfigurationFiles = _directoryService.GetFiles(configBackupFolderPath, "configuration*").OrderBy(f => f).ToList();
         if (backupConfigurationFiles.Count >= NumberOfBackups)

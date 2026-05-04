@@ -28,7 +28,7 @@ public class ThirdPartyNoticesService : IThirdPartyNoticesService
 
         lock (_thirdPartyNotices)
         {
-            _logger.LogDebug($"Adding third party notice '{thirdPartyNotice.Title}'");
+            _logger.LogDebug("Adding third party notice '{Title}'", thirdPartyNotice.Title);
 
             _thirdPartyNotices[thirdPartyNotice.Title] = thirdPartyNotice;
         }

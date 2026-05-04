@@ -182,7 +182,7 @@ public static class DotNetPatchHelper
 
         //await LogHelper.AddLogListenerForUnhandledExceptionAsync(ex);
 
-        Logger.LogInformation("An unhandled exception occurred, checking if it is a known KB issue: {0}", ex.Message);
+        Logger.LogInformation("An unhandled exception occurred, checking if it is a known KB issue: {ExceptionMessage}", ex.Message);
 
         var fileLoadException = ex as FileLoadException;
         if (fileLoadException is not null)

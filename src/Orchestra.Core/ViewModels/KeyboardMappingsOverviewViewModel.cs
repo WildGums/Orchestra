@@ -87,7 +87,7 @@ public class KeyboardMappingsOverviewViewModel : ViewModelBase
             var commandInfo = _commandInfoService.GetCommandInfo(command);
             if (commandInfo.IsHidden)
             {
-                _logger.LogDebug("Command '{0}' is hidden, not showing in keyboard mappings overview", command);
+                _logger.LogDebug("Command '{Command}' is hidden, not showing in keyboard mappings overview", command);
                 continue;
             }
 

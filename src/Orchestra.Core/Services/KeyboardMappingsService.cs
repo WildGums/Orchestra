@@ -44,7 +44,7 @@ public class KeyboardMappingsService : IKeyboardMappingsService
         {
             if (!_fileService.Exists(_fileName))
             {
-                _logger.LogDebug("Keyboard mapping file not found at '{0}'", _fileName);
+                _logger.LogDebug("Keyboard mapping file not found at '{FileName}'", _fileName);
                 return;
             }
 
@@ -57,11 +57,11 @@ public class KeyboardMappingsService : IKeyboardMappingsService
                 {
                     foreach (var keyboardMapping in keyboardMappings.Mappings)
                     {
-                        _logger.LogDebug("Updating keyboard mapping for command '{0}' to '{1}'", keyboardMapping.CommandName, keyboardMapping.InputGesture);
+                        _logger.LogDebug("Updating keyboard mapping for command '{CommandName}' to '{InputGesture}'", keyboardMapping.CommandName, keyboardMapping.InputGesture);
 
                         if (!_commandManager.IsCommandCreated(keyboardMapping.CommandName))
                         {
-                            _logger.LogDebug("Command '{0}' is not created in the CommandManager, cannot update input gesture", keyboardMapping.CommandName);
+                            _logger.LogDebug("Command '{CommandName}' is not created in the CommandManager, cannot update input gesture", keyboardMapping.CommandName);
                             continue;
                         }
 
