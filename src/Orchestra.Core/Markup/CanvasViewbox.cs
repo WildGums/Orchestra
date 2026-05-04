@@ -94,7 +94,7 @@ public class CanvasViewbox : Catel.Windows.Markup.UpdatableMarkupExtension
 
             if (canvas is null)
             {
-                Logger.LogWarning("Could not find a resource named '{0}'", pathName);
+                Logger.LogWarning("Could not find a resource named '{PathName}'", pathName);
             }
         }
 

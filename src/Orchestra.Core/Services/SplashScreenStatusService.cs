@@ -39,7 +39,7 @@ public class SplashScreenStatusService : ISplashScreenStatusService
             }
         }
 
-        _logger.LogInformation($"Updating status to: {status}");
+        _logger.LogInformation("Updating status to: {Status}", status);
 
         _statusRepresenter?.UpdateStatus(status);
     }

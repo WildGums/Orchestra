@@ -76,11 +76,11 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
     {
         ArgumentNullException.ThrowIfNull(item);
 
-        _logger.LogDebug("Adding new item '{0}' to the list of recently used items", item.Name);
+        _logger.LogDebug("Adding new item '{Name}' to the list of recently used items", item.Name);
 
         if (IsAvailableInCollection(_items.PinnedItems, item.Name))
         {
-            _logger.LogInformation("Item '{0}' is pinned, no need to add it to list of recently used items", item.Name);
+            _logger.LogInformation("Item '{Name}' is pinned, no need to add it to list of recently used items", item.Name);
             return;
         }
 
@@ -100,7 +100,7 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
     {
         ArgumentNullException.ThrowIfNull(item);
 
-        _logger.LogDebug("Removing item '{0}' to the list of recently used items", item.Name);
+        _logger.LogDebug("Removing item '{Name}' to the list of recently used items", item.Name);
 
         RemoveItemFromCollection(_items.PinnedItems, item.Name);
         RemoveItemFromCollection(_items.Items, item.Name);
@@ -116,7 +116,7 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
         {
             if (string.Equals(collection[i].Name, name, StringComparison.OrdinalIgnoreCase))
             {
-                _logger.LogDebug("Found item '{0}' in the list of items, removing it", name);
+                _logger.LogDebug("Found item '{Name}' in the list of items, removing it", name);
 
                 collection.RemoveAt(i);
             }
@@ -132,7 +132,7 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
     {
         Argument.IsNotNullOrWhitespace(() => name);
 
-        _logger.LogDebug("Pinning item '{0}'", name);
+        _logger.LogDebug("Pinning item '{Name}'", name);
 
         for (var i = 0; i < _items.Items.Count; i++)
         {
@@ -158,7 +158,7 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
     {
         Argument.IsNotNullOrWhitespace(() => name);
 
-        _logger.LogDebug("Unpinning item '{0}'", name);
+        _logger.LogDebug("Unpinning item '{Name}'", name);
 
         for (var i = 0; i < _items.PinnedItems.Count; i++)
         {
@@ -194,7 +194,7 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
         {
             if (string.Equals(collection[i].Name, item.Name, StringComparison.OrdinalIgnoreCase))
             {
-                _logger.LogDebug("Found item '{0}' in the list of items, removing it and adding it to top", item.Name);
+                _logger.LogDebug("Found item '{Name}' in the list of items, removing it and adding it to top", item.Name);
 
                 collection.RemoveAt(i);
                 break;
@@ -221,7 +221,7 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
 
         if (collection.Count > MaximumItemCount)
         {
-            _logger.LogDebug("Number of items is larger than allowed maximum of '{0}'", MaximumItemCount);
+            _logger.LogDebug("Number of items is larger than allowed maximum of '{MaximumItemCount}'", MaximumItemCount);
 
             for (int i = MaximumItemCount; i < collection.Count; i++)
             {
@@ -232,7 +232,7 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
 
     private void Load()
     {
-        _logger.LogInformation("Loading recently used items from '{0}'", _fileName);
+        _logger.LogInformation("Loading recently used items from '{FileName}'", _fileName);
 
         try
         {
@@ -257,7 +257,7 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
 
     private void Save()
     {
-        _logger.LogInformation("Saving recently used items to '{0}'", _fileName);
+        _logger.LogInformation("Saving recently used items to '{FileName}'", _fileName);
 
         try
         {

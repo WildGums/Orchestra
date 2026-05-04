@@ -50,11 +50,11 @@ public class TaskRunnerService : ITaskRunnerService
 
         _logger.LogInformation("Running action with the following settings:");
 
-        _logger.LogInformation("  Working directory => {0}", settings.WorkingDirectory);
-        _logger.LogInformation("  Output directory => {0}", settings.OutputDirectory);
-        _logger.LogInformation("  Current time => {0}", settings.CurrentTime);
-        _logger.LogInformation("  Horizon start => {0}", settings.HorizonStart);
-        _logger.LogInformation("  Horizon end => {0}", settings.HorizonEnd);
+        _logger.LogInformation("  Working directory => {WorkingDirectory}", settings.WorkingDirectory);
+        _logger.LogInformation("  Output directory => {OutputDirectory}", settings.OutputDirectory);
+        _logger.LogInformation("  Current time => {CurrentTime}", settings.CurrentTime);
+        _logger.LogInformation("  Horizon start => {HorizonStart}", settings.HorizonStart);
+        _logger.LogInformation("  Horizon end => {HorizonEnd}", settings.HorizonEnd);
 
         _logger.LogInformation("Sleeping to show long running action with blocking thread");
 

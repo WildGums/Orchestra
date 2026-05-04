@@ -66,7 +66,7 @@ public class ManageAppDataService : Orchestra.IManageAppDataService
     {
         var applicationDataDirectory = _appDataService.GetApplicationDataDirectory(applicationDataTarget);
 
-        _logger.LogDebug("Deleting user data from '{0}'", applicationDataDirectory);
+        _logger.LogDebug("Deleting user data from '{ApplicationDataDirectory}'", applicationDataDirectory);
 
         var exclusionFilters = ExclusionFilters;
 
@@ -99,7 +99,7 @@ public class ManageAppDataService : Orchestra.IManageAppDataService
 
         var zipFileName = result.FileName;
 
-        _logger.LogDebug("Writing zip file to '{0}'", zipFileName);
+        _logger.LogDebug("Writing zip file to '{ZipFileName}'", zipFileName);
 
         using (var fileStream = _fileService.Create(zipFileName))
         {

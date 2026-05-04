@@ -172,7 +172,7 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
     {
         try
         {
-            Logger.LogDebug($"Executing PrepareClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
+            Logger.LogDebug("Executing PrepareClosingAsync() for '{WatcherType}'", ObjectToStringHelper.ToFullTypeString(watcher));
 
             var result = await watcher.PrepareClosingAsync();
 
@@ -180,7 +180,7 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex, $"Failed to execute PrepareClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'. Continue to run all watchers left.");
+            Logger.LogError(ex, "Failed to execute PrepareClosingAsync() for '{WatcherType}'. Continue to run all watchers left.", ObjectToStringHelper.ToFullTypeString(watcher));
             return true;
         }
     }
@@ -189,7 +189,7 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
     {
         try
         {
-            Logger.LogDebug($"Executing ClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
+            Logger.LogDebug("Executing ClosingAsync() for '{WatcherType}'", ObjectToStringHelper.ToFullTypeString(watcher));
 
             var result = await watcher.ClosingAsync();
 
@@ -197,7 +197,7 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex, $"Failed to execute ClosingAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'. Continue to run all watchers left.");
+            Logger.LogError(ex, "Failed to execute ClosingAsync() for '{WatcherType}'. Continue to run all watchers left.", ObjectToStringHelper.ToFullTypeString(watcher));
             return true;
         }
     }
@@ -206,12 +206,12 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
     {
         try
         {
-            Logger.LogDebug($"Executing ClosedAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'");
+            Logger.LogDebug("Executing ClosedAsync() for '{WatcherType}'", ObjectToStringHelper.ToFullTypeString(watcher));
             await watcher.ClosedAsync();
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex, $"Failed to execute ClosedAsync() for '{ObjectToStringHelper.ToFullTypeString(watcher)}'. Continue to run all watchers left.");
+            Logger.LogError(ex, "Failed to execute ClosedAsync() for '{WatcherType}'. Continue to run all watchers left.", ObjectToStringHelper.ToFullTypeString(watcher));
         }
     }
 
@@ -278,7 +278,7 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
 
     private static async Task<bool> ExecuteClosingAsync(Func<CloseApplicationWatcherBase, Task<bool>> operation)
     {
-        Logger.LogDebug($"Execute operation for each of {Watchers.Count} watcher");
+        Logger.LogDebug("Execute operation for each of {WatcherCount} watcher", Watchers.Count);
 
         foreach (var watcher in Watchers)
         {
@@ -293,7 +293,7 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
 
     private static async Task ExecuteClosedAsync(Func<CloseApplicationWatcherBase, Task> operation)
     {
-        Logger.LogDebug($"Execute operation for each of {Watchers.Count} watcher");
+        Logger.LogDebug("Execute operation for each of {WatcherCount} watcher", Watchers.Count);
 
         foreach (var watcher in Watchers)
         {

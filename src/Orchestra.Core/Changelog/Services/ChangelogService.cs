@@ -49,14 +49,14 @@ public class ChangelogService : IChangelogService
         {
             try
             {
-                _logger.LogDebug($"Retrieving changelog from '{provider.GetType().FullName}'");
+                _logger.LogDebug("Retrieving changelog from '{ProviderType}'", provider.GetType().FullName);
 
                 var providerItems = await GetChangelogAsync(provider);
                 changelog.Items.AddRange(providerItems);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Failed to get changelog from provider '{provider.GetType().FullName}'");
+                _logger.LogError(ex, "Failed to get changelog from provider '{ProviderType}'", provider.GetType().FullName);
             }
         }
 

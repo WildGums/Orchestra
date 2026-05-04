@@ -108,7 +108,7 @@ public class ApplicationInitializationServiceBase : IApplicationInitializationSe
     {
         ArgumentNullException.ThrowIfNull(xmlLanguage);
 
-        Logger.LogDebug($"Setting application language to '{xmlLanguage.IetfLanguageTag}'");
+        Logger.LogDebug("Setting application language to '{Language}'", xmlLanguage.IetfLanguageTag);
 
         // Ensure that we are using the right culture
 #pragma warning disable WPF0011 // Containing type should be used as registered owner.
