@@ -1,5 +1,6 @@
 ﻿namespace Orchestra.Changelog;
 
+using System.Text;
 using System.Text.Json.Serialization;
 
 public class ChangelogItem
@@ -22,10 +23,26 @@ public class ChangelogItem
 
     public string Description { get; set; }
 
+    [JsonIgnore]
+    public string? Reference { get; set; }
+
+    [JsonIgnore]
+    public string? Url { get; set; }
+
+    [JsonIgnore]
     public object? Tag { get; set; }
 
     public override string ToString()
     {
-        return $"[{Group}] {Name}";
+        var stringBuilder = new StringBuilder($"[{Group}] ");
+
+        if (!string.IsNullOrWhiteSpace(Reference))
+        {
+            stringBuilder.Append($"[{Reference}] ");
+        }
+
+        stringBuilder.Append(Name);
+
+        return stringBuilder.ToString();
     }
 }

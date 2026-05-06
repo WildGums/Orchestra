@@ -15,6 +15,15 @@ public class ChangelogProvider : ChangelogProviderBase
             new ChangelogItem
             {
                 Group = "General",
+                Name = "Allow URL and Reference for Changelog",
+                Description = "The changelog feature supports an url and reference",
+                Url = "https://github.com/WildGums/Orchestra/issues/1145",
+                Reference = "1145",
+                Type = ChangelogType.Feature
+            },
+            new ChangelogItem
+            {
+                Group = "General",
                 Name = "Changelog feature",
                 Description = "The changelog feature will show a changelog of all components inside the application",
                 Type = ChangelogType.Feature

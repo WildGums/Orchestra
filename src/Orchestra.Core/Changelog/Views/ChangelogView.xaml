@@ -45,6 +45,7 @@
                                         <Grid Margin="0,0,0,6">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="24" />
+                                                <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
@@ -63,19 +64,57 @@
                                                             HorizontalAlignment="Left"
                                                             VerticalAlignment="Center" />
 
+                                            <!-- Reference (only allow url when reference is also set -->
+                                            <Grid Grid.Row="0"
+                                                  Grid.Column="1"
+                                                  ToolTip="{Binding Url}"
+                                                  VerticalAlignment="Center"
+                                                  Visibility="{Binding Reference, Converter={catel:EmptyStringToCollapsingVisibilityConverter}}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Grid.Column="0" 
+                                                           Text="["
+                                                           FontSize="{orctheming:FontSize 14}" />
+
+                                                <orccontrols:LinkLabel Grid.Column="1"
+                                                                       Url="{Binding Url}"
+                                                                       ClickBehavior="OpenUrlInBrowser"
+                                                                       Content="{Binding Reference, StringFormat='[{0}]'}"
+                                                                       FontSize="{orctheming:FontSize 14}"
+                                                                       FontWeight="Normal"
+                                                                       Margin="-6,0,-6,0"
+                                                                       Visibility="{Binding Url, Converter={catel:EmptyStringToCollapsingVisibilityConverter}}" />
+
+                                                <TextBlock Grid.Column="1"
+                                                           Text="{Binding Reference}"
+                                                           FontSize="{orctheming:FontSize 14}"
+                                                           FontWeight="Normal"
+                                                           VerticalAlignment="Center"
+                                                           Visibility="{Binding Url, Converter={catel:EmptyStringToCollapsingVisibilityConverter}, ConverterParameter=True}" />
+
+
+                                                <TextBlock Grid.Column="2"
+                                                           Text="]"
+                                                           FontSize="{orctheming:FontSize 14}" />
+                                            </Grid>
+
                                             <!-- Name -->
                                             <TextBlock Grid.Row="0"
-                                                       Grid.Column="1"
-                                                       TextWrapping="Wrap"
-                                                       Text="{Binding Name}"
+                                                       Grid.Column="2"
                                                        ToolTip="{Binding Name}"
+                                                       VerticalAlignment="Center"
+                                                       Text="{Binding Name}"
                                                        FontSize="{orctheming:FontSize 14}"
-                                                       FontWeight="Normal"
-                                                       VerticalAlignment="Center" />
+                                                       FontWeight="Normal" />
 
                                             <!-- Description -->
                                             <TextBlock Grid.Row="1"
                                                        Grid.Column="1"
+                                                       Grid.ColumnSpan="2"
                                                        TextWrapping="Wrap"
                                                        Text="{Binding Description}"
                                                        ToolTip="{Binding Description}"
