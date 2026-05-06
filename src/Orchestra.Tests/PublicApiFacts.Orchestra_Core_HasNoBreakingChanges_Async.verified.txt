@@ -631,7 +631,7 @@ namespace Orchestra.Changelog
     {
         public Changelog() { }
         public bool IsEmpty { get; }
-        public System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem> Items { get; }
+        public System.Collections.Generic.List<Orchestra.Changelog.ChangelogItem> Items { get; init; }
         public string Title { get; set; }
     }
     public static class ChangelogExtensions
@@ -651,8 +651,14 @@ namespace Orchestra.Changelog
         public string Description { get; set; }
         public string Group { get; set; }
         public string Name { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public string? Reference { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
         public object? Tag { get; set; }
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public Orchestra.Changelog.ChangelogType Type { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public string? Url { get; set; }
         public override string ToString() { }
     }
     public abstract class ChangelogProviderBase : Orchestra.Changelog.IChangelogProvider
@@ -669,10 +675,9 @@ namespace Orchestra.Changelog
     }
     public class ChangelogSnapshotService : Orchestra.Changelog.IChangelogSnapshotService
     {
-        public ChangelogSnapshotService(Microsoft.Extensions.Logging.ILogger<Orchestra.Changelog.ChangelogSnapshotService> logger, Orc.FileSystem.IDirectoryService directoryService, Orc.FileSystem.IFileService fileService, Catel.Services.IAppDataService appDataService) { }
+        public ChangelogSnapshotService(Microsoft.Extensions.Logging.ILogger<Orchestra.Changelog.ChangelogSnapshotService> logger, Orc.FileSystem.IDirectoryService directoryService, Orc.FileSystem.IFileService fileService, Catel.Services.IAppDataService appDataService, Orc.Serialization.Json.IJsonSerializerFactory jsonSerializerFactory) { }
         public virtual System.Threading.Tasks.Task<Orchestra.Changelog.Changelog> DeserializeSnapshotAsync() { }
         protected virtual string GetFilename() { }
-        protected virtual Newtonsoft.Json.JsonSerializerSettings GetSerializerSettings() { }
         public virtual System.Threading.Tasks.Task SerializeSnapshotAsync(Orchestra.Changelog.Changelog changelog) { }
     }
     public enum ChangelogType

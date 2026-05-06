@@ -73,7 +73,6 @@ public static class OrchestraCoreModule
 
         serviceCollection.AddSingleton<IThirdPartyNotice>((x) => new LibraryThirdPartyNotice("Orchestra", "https://github.com/wildgums/orchestra", "Orchestra.Core", "Orchestra"));
         serviceCollection.AddSingleton<IThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("ControlzEx", "https://github.com/ControlzEx/ControlzEx/", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.controlzex.txt"));
-        serviceCollection.AddSingleton<IThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("Newtonsoft.Json", "https://www.newtonsoft.com/json", "Orchestra.Core", "Orchestra", "Resources.ThirdPartyNotices.newtonsoft.json.txt"));
 
         serviceCollection.AddSingleton<ILanguageSource>(new LanguageResourceSource("Orchestra.Core", "Orchestra.Properties", "Resources"));
 
