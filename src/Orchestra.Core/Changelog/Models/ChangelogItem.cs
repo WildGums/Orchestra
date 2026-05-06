@@ -1,5 +1,7 @@
 ﻿namespace Orchestra.Changelog;
 
+using System.Text.Json.Serialization;
+
 public class ChangelogItem
 {
     public ChangelogItem()
@@ -13,6 +15,7 @@ public class ChangelogItem
 
     public string Group { get; set; }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public ChangelogType Type { get; set; }
 
     public string Name { get; set; }

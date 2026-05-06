@@ -12,7 +12,7 @@ public class Changelog
 
     public string Title { get; set; }
 
-    public List<ChangelogItem> Items { get; private set; }
+    public List<ChangelogItem> Items { get; init; }
 
     public bool IsEmpty => Items.Count == 0;
 }

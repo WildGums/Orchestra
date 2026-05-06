@@ -33,7 +33,6 @@
     <PackageReference Include="MethodTimer.Fody" Version="3.2.3" PrivateAssets="all" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Core" Version="1.1.5" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="Obsolete.Fody" Version="5.3.1" PrivateAssets="all" />
     <PackageReference Include="Orc.Controls" Version="6.0.0-alpha0160" />
     <PackageReference Include="Orc.Serialization.Json" Version="6.0.0-alpha0049" />
