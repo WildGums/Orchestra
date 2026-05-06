@@ -35,7 +35,7 @@
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
     <PackageReference Include="Obsolete.Fody" Version="5.3.1" PrivateAssets="all" />
     <PackageReference Include="Orc.Controls" Version="6.0.0-alpha0160" />
-    <PackageReference Include="Orc.Serialization.Json" Version="6.0.0-alpha0049" />
+    <PackageReference Include="Orc.Serialization.Json" Version="6.0.0-alpha0097" />
     <PackageReference Include="Orc.SystemInfo" Version="6.0.0-alpha0092" />
     <PackageReference Include="Orc.Theming" Version="6.0.0-alpha0133" />
   </ItemGroup>
