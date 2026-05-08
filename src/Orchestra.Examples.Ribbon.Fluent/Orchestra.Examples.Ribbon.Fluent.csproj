@@ -27,8 +27,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Catel.Fody" Version="7.0.0" PrivateAssets="all" />
-    <PackageReference Include="Catel.SourceGenerators" Version="7.0.1" PrivateAssets="all" />
+    <PackageReference Include="Catel.Fody" Version="7.1.0-alpha0016" PrivateAssets="all" />
+    <PackageReference Include="Catel.SourceGenerators" Version="7.1.0-alpha0052" PrivateAssets="all" />
     <PackageReference Include="Fluent.Ribbon" Version="11.0.2" />
     <PackageReference Include="Fody" Version="6.9.3" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
