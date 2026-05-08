@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Catel.MVVM;
 using Orc.SystemInfo;
 
-public class SystemInfoViewModel : ViewModelBase
+public partial class SystemInfoViewModel : ViewModelBase
 {
     private readonly ISystemInfoService _systemInfoService;
     private readonly IClipboardService _clipboardService;

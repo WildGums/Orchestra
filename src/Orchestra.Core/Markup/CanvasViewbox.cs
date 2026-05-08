@@ -12,7 +12,7 @@ using Path = System.Windows.Shapes.Path;
 /// <summary>
 /// Markup extension that can show a canvas inside a viewbox.
 /// </summary>
-public class CanvasViewbox : Catel.Windows.Markup.UpdatableMarkupExtension
+public partial class CanvasViewbox : Catel.Windows.Markup.UpdatableMarkupExtension
 {
     private static readonly ILogger Logger = LogManager.GetLogger(typeof(CanvasViewbox));
 

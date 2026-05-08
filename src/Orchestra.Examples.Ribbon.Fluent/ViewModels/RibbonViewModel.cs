@@ -14,7 +14,7 @@ using Orchestra.Examples.ViewModels;
 using Orchestra.ViewModels;
 using Orchestra.Windows;
 
-public class RibbonViewModel : ViewModelBase
+public partial class RibbonViewModel : ViewModelBase
 {
     private static readonly ILogger Logger = LogManager.GetLogger(typeof(RibbonViewModel));
 

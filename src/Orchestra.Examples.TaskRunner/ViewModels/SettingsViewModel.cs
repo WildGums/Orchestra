@@ -9,7 +9,7 @@ using Catel.Services;
 using Microsoft.Extensions.Logging;
 using Models;
 
-public class SettingsViewModel : FeaturedViewModelBase
+public partial class SettingsViewModel : FeaturedViewModelBase
 {
     //private readonly ILogControlService _logControlService;
     private readonly IDispatcherService _dispatcherService;

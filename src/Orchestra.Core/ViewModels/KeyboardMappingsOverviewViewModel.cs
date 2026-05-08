@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 /// <summary>
 /// View model for keyboard mappings overview.
 /// </summary>
-public class KeyboardMappingsOverviewViewModel : ViewModelBase
+public partial class KeyboardMappingsOverviewViewModel : ViewModelBase
 {
     private readonly ILogger<KeyboardMappingsOverviewViewModel> _logger;
     private readonly ICommandManager _commandManager;

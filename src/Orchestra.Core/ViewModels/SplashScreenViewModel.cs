@@ -8,7 +8,7 @@ using Catel.Services;
 /// <summary>
 /// The splash screen view model.
 /// </summary>
-public class SplashScreenViewModel : ViewModelBase
+public partial class SplashScreenViewModel : ViewModelBase
 {
     private readonly IAboutInfoService _aboutInfoService;
     private readonly ILanguageService _languageService;

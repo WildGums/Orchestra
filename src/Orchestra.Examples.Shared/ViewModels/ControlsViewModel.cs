@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Catel.Data;
 using Catel.MVVM;
 
-public class ControlsViewModel : FeaturedViewModelBase
+public partial class ControlsViewModel : FeaturedViewModelBase
 {
     public ControlsViewModel(IServiceProvider serviceProvider)
         : base(serviceProvider)

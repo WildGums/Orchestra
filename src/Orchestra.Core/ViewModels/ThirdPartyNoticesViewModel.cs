@@ -8,7 +8,7 @@ using Catel.MVVM;
 using Catel.ThirdPartyNotices;
 using Orchestra;
 
-public class ThirdPartyNoticesViewModel : ViewModelBase
+public partial class ThirdPartyNoticesViewModel : ViewModelBase
 {
     private readonly IAboutInfoService _aboutInfoService;
     private readonly IThirdPartyNoticesService _thirdPartyNoticesService;

@@ -4,7 +4,7 @@ using Catel.MVVM;
 using System;
 using System.Threading.Tasks;
 
-public class ExampleViewModel : ViewModelBase
+public partial class ExampleViewModel : ViewModelBase
 {
     public ExampleViewModel(IServiceProvider serviceProvider)
         : base(serviceProvider)

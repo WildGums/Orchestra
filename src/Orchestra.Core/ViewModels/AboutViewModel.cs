@@ -10,7 +10,7 @@ using Catel.Services;
 using Orchestra.Changelog;
 using Orchestra.Changelog.ViewModels;
 
-public class AboutViewModel : ViewModelBase
+public partial class AboutViewModel : ViewModelBase
 {
     private readonly IProcessService _processService;
     private readonly IUIVisualizerService _uiVisualizerService;

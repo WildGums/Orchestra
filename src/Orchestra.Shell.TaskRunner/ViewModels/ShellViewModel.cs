@@ -7,7 +7,7 @@ using Catel.MVVM;
 using Microsoft.Extensions.Logging;
 using Services;
 
-public class ShellViewModel : FeaturedViewModelBase
+public partial class ShellViewModel : FeaturedViewModelBase
 {
     private static readonly ILogger Logger = LogManager.GetLogger(typeof(ShellViewModel));
 

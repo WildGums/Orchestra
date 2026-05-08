@@ -7,7 +7,7 @@ using Catel.MVVM;
 using Catel.Services;
 using Microsoft.Extensions.Logging;
 
-public class ChangelogViewModel : ViewModelBase
+public partial class ChangelogViewModel : ViewModelBase
 {
     private readonly ILogger<ChangelogViewModel> _logger;
     private readonly IChangelogService _changelogService;

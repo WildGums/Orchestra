@@ -8,7 +8,7 @@ using Catel.Reflection;
 using Catel.Services;
 using Microsoft.Extensions.Logging;
 
-public class CrashWarningViewModel : ViewModelBase
+public partial class CrashWarningViewModel : ViewModelBase
 {
     private readonly ILogger<CrashWarningViewModel> _logger;
     private readonly IManageAppDataService _manageAppDataService;

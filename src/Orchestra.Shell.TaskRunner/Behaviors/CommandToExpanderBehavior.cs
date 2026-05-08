@@ -6,7 +6,7 @@ using System.Windows.Input;
 using Catel.MVVM;
 using Catel.Windows.Interactivity;
 
-public class CommandToExpanderBehavior : BehaviorBase<Expander>
+public partial class CommandToExpanderBehavior : BehaviorBase<Expander>
 {
     public ICommand? Command
     {

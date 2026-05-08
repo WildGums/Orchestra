@@ -12,7 +12,7 @@ using Catel.Text;
 using Catel.Windows.Input;
 using Orchestra;
 
-public class KeyboardMappingsCustomizationViewModel : ViewModelBase
+public partial class KeyboardMappingsCustomizationViewModel : ViewModelBase
 {
     private readonly IKeyboardMappingsService _keyboardMappingsService;
     private readonly ICommandManager _commandManager;

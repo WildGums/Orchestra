@@ -3,7 +3,7 @@
 using System;
 using Catel.MVVM.Converters;
 
-public class TextToDateTimeConverter : ValueConverterBase
+public partial class TextToDateTimeConverter : ValueConverterBase
 {
     #region Methods
     protected override object Convert(object value, Type targetType, object parameter)

@@ -3,7 +3,7 @@
 using System;
 using Catel.MVVM;
 
-public class FontSizeSelectorViewModel : ViewModelBase
+public partial class FontSizeSelectorViewModel : ViewModelBase
 {
     public FontSizeSelectorViewModel(IServiceProvider serviceProvider)
         : base(serviceProvider)

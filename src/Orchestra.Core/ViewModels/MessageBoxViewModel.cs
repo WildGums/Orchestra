@@ -6,7 +6,7 @@ using Catel.MVVM;
 using Catel.Reflection;
 using Catel.Services;
 
-public class MessageBoxViewModel : ViewModelBase
+public partial class MessageBoxViewModel : ViewModelBase
 {
     private readonly IMessageService _messageService;
     private readonly IClipboardService _clipboardService;

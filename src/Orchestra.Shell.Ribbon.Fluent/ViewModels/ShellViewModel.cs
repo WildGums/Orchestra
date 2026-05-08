@@ -4,7 +4,7 @@ using System;
 using Catel.MVVM;
 using Catel.Reflection;
 
-public class ShellViewModel : ViewModelBase
+public partial class ShellViewModel : ViewModelBase
 {
     public ShellViewModel(IServiceProvider serviceProvider, IShellConfigurationService shellConfigurationService)
         : base(serviceProvider)
