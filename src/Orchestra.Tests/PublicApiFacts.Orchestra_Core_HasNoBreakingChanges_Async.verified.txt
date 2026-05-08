@@ -493,8 +493,8 @@ namespace Orchestra
         public static readonly Catel.Data.IPropertyData NameProperty;
         public RecentlyUsedItem() { }
         public RecentlyUsedItem(string name, System.DateTime dateTime) { }
-        public System.DateTime DateTime { get; }
-        public string Name { get; }
+        public System.DateTime DateTime { get; init; }
+        public string Name { get; init; }
     }
     public class RecentlyUsedItems : Catel.Data.ModelBase
     {

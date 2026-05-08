@@ -9,7 +9,10 @@
                    xmlns:orctheming="http://schemas.wildgums.com/orc/theming">
 
     <Grid>
-        <fluent:Ribbon x:Name="ribbon" IsQuickAccessToolBarVisible="False" CanCustomizeRibbon="False" AutomaticStateManagement="False">
+        <fluent:Ribbon x:Name="ribbon"
+                       IsQuickAccessToolBarVisible="False"
+                       CanCustomizeRibbon="False"
+                       AutomaticStateManagement="False">
             <fluent:Ribbon.Menu>
                 <fluent:Backstage>
 
@@ -21,10 +24,13 @@
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
-                                <Label Grid.Row="0" Content="Open" Style="{DynamicResource RibbonBackstageHeaderLabelStyle}" />
+                                <Label Grid.Row="0"
+                                       Content="Open"
+                                       Style="{DynamicResource RibbonBackstageHeaderLabelStyle}" />
 
                                 <orchestra:RibbonBackstageTabControl  Grid.Row="1">
-                                    <orchestra:RibbonBackstageTabItem HeaderText="Recent documents" Icon="/Resources/Images/open.png">
+                                    <orchestra:RibbonBackstageTabItem HeaderText="Recent documents"
+                                                                      Icon="/Resources/Images/open.png">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
@@ -33,15 +39,20 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
 
-                                            <orchestra:RibbonBackstageTabItemHeader Grid.Row="0" HeaderText="Recent documents" 
-                                                                                 HeaderTextStyleKey="RibbonBackstageSubHeaderLabelStyle"
-                                                                                 Icon="/Resources/Images/open.png" />
+                                            <orchestra:RibbonBackstageTabItemHeader Grid.Row="0"
+                                                                                    HeaderText="Recent documents"
+                                                                                    HeaderTextStyleKey="RibbonBackstageSubHeaderLabelStyle"
+                                                                                    Icon="/Resources/Images/open.png" />
 
-                                            <ItemsControl Grid.Row="1" ItemsSource="{Binding PinnedItems}" Visibility="{Binding PinnedItems, Converter={catel:CollectionToCollapsingVisibilityConverter}}">
+                                            <ItemsControl Grid.Row="1"
+                                                          ItemsSource="{Binding PinnedItems}"
+                                                          Visibility="{Binding PinnedItems, Converter={catel:CollectionToCollapsingVisibilityConverter}}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <orchestra:RibbonBackstageButton Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenRecentlyUsedItem}" 
-                                                                                     CommandParameter="{Binding Name}" ToolTip="{Binding Name}" ShowBorder="False">
+                                                        <orchestra:RibbonBackstageButton Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenRecentlyUsedItem}"
+                                                                                         CommandParameter="{Binding Name}"
+                                                                                         ToolTip="{Binding Name}"
+                                                                                         ShowBorder="False">
                                                             <Grid>
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="Auto" />
@@ -50,15 +61,26 @@
                                                                     <ColumnDefinition Width="6" />
                                                                 </Grid.ColumnDefinitions>
 
-                                                                <orchestra:RibbonBackstageButton Grid.Column="0" Command="{Binding ElementName=backstageTabControl, Path=DataContext.UnpinItem}" CommandParameter="{Binding Name}" 
-                                                                                             ShowBorder="false" Width="24" Height="24" Style="{StaticResource AutoHidingRibbonBackstageButtonStyle}">
+                                                                <orchestra:RibbonBackstageButton Grid.Column="0"
+                                                                                                 Command="{Binding ElementName=backstageTabControl, Path=DataContext.UnpinItem}"
+                                                                                                 CommandParameter="{Binding Name}"
+                                                                                                 ShowBorder="false"
+                                                                                                 Width="24"
+                                                                                                 Height="24"
+                                                                                                 Style="{StaticResource AutoHidingRibbonBackstageButtonStyle}">
                                                                     <Image Source="pack://application:,,,/Orchestra.Core;component/Resources/Images/Pinned.png" />
                                                                 </orchestra:RibbonBackstageButton>
 
-                                                                <Label Grid.Column="1" Content="{Binding Name, Converter={orchestra:PathToStringConverter}, ConverterParameter=100}" />
+                                                                <Label Grid.Column="1"
+                                                                       Content="{Binding Name, Converter={orchestra:PathToStringConverter}, ConverterParameter=100}" />
 
-                                                                <orchestra:RibbonBackstageButton Grid.Column="2" Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenInExplorer}"
-                                                                                             CommandParameter="{Binding Name}" Width="24" Height="24" ToolTip="Open in explorer" ShowBorder="False">
+                                                                <orchestra:RibbonBackstageButton Grid.Column="2"
+                                                                                                 Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenInExplorer}"
+                                                                                                 CommandParameter="{Binding Name}"
+                                                                                                 Width="24"
+                                                                                                 Height="24"
+                                                                                                 ToolTip="Open in explorer"
+                                                                                                 ShowBorder="False">
                                                                     <Image Source="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/explorer.png" />
                                                                 </orchestra:RibbonBackstageButton>
                                                             </Grid>
@@ -67,13 +89,20 @@
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>
 
-                                            <Border Grid.Row="2" Height="1" Style="{StaticResource RibbonBorderStyle}" Visibility="{Binding PinnedItems, Converter={catel:CollectionToCollapsingVisibilityConverter}}" />
+                                            <Border Grid.Row="2"
+                                                    Height="1"
+                                                    Style="{StaticResource RibbonBorderStyle}"
+                                                    Visibility="{Binding PinnedItems, Converter={catel:CollectionToCollapsingVisibilityConverter}}" />
 
-                                            <ItemsControl Grid.Row="3" ItemsSource="{Binding RecentlyUsedItems}" Visibility="{Binding RecentlyUsedItems, Converter={catel:CollectionToCollapsingVisibilityConverter}}">
+                                            <ItemsControl Grid.Row="3"
+                                                          ItemsSource="{Binding RecentlyUsedItems}"
+                                                          Visibility="{Binding RecentlyUsedItems, Converter={catel:CollectionToCollapsingVisibilityConverter}}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <orchestra:RibbonBackstageButton Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenRecentlyUsedItem}" 
-                                                                                     CommandParameter="{Binding Name}" ToolTip="{Binding Name}" ShowBorder="False">
+                                                        <orchestra:RibbonBackstageButton Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenRecentlyUsedItem}"
+                                                                                         CommandParameter="{Binding Name}"
+                                                                                         ToolTip="{Binding Name}"
+                                                                                         ShowBorder="False">
                                                             <Grid>
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="Auto" />
@@ -82,15 +111,26 @@
                                                                     <ColumnDefinition Width="6" />
                                                                 </Grid.ColumnDefinitions>
 
-                                                                <orchestra:RibbonBackstageButton Grid.Column="0" Command="{Binding ElementName=backstageTabControl, Path=DataContext.PinItem}" CommandParameter="{Binding Name}" 
-                                                                                             ShowBorder="false" Width="24" Height="24" Style="{StaticResource AutoHidingRibbonBackstageButtonStyle}">
+                                                                <orchestra:RibbonBackstageButton Grid.Column="0"
+                                                                                                 Command="{Binding ElementName=backstageTabControl, Path=DataContext.PinItem}"
+                                                                                                 CommandParameter="{Binding Name}"
+                                                                                                 ShowBorder="false"
+                                                                                                 Width="24"
+                                                                                                 Height="24"
+                                                                                                 Style="{StaticResource AutoHidingRibbonBackstageButtonStyle}">
                                                                     <Image Source="pack://application:,,,/Orchestra.Core;component/Resources/Images/Unpinned.png" />
                                                                 </orchestra:RibbonBackstageButton>
 
-                                                                <Label Grid.Column="1" Content="{Binding Name, Converter={orchestra:PathToStringConverter}, ConverterParameter=100}" />
+                                                                <Label Grid.Column="1"
+                                                                       Content="{Binding Name, Converter={orchestra:PathToStringConverter}, ConverterParameter=100}" />
 
-                                                                <orchestra:RibbonBackstageButton Grid.Column="2" Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenInExplorer}"
-                                                                                             CommandParameter="{Binding Name}" Width="24" Height="24" ToolTip="Open in explorer" ShowBorder="False">
+                                                                <orchestra:RibbonBackstageButton Grid.Column="2"
+                                                                                                 Command="{Binding ElementName=backstageTabControl, Path=DataContext.OpenInExplorer}"
+                                                                                                 CommandParameter="{Binding Name}"
+                                                                                                 Width="24"
+                                                                                                 Height="24"
+                                                                                                 ToolTip="Open in explorer"
+                                                                                                 ShowBorder="False">
                                                                     <Image Source="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/explorer.png" />
                                                                 </orchestra:RibbonBackstageButton>
                                                             </Grid>
@@ -108,12 +148,16 @@
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
 
-                                            <orchestra:RibbonBackstageTabItemHeader Grid.Row="0" HeaderText="Computer" 
-                                                                                 HeaderTextStyleKey="RibbonBackstageSubHeaderLabelStyle" />
+                                            <orchestra:RibbonBackstageTabItemHeader Grid.Row="0"
+                                                                                    HeaderText="Computer"
+                                                                                    HeaderTextStyleKey="RibbonBackstageSubHeaderLabelStyle" />
 
-                                            <fluent:Button Grid.Row="1" Header="Open..." LargeIcon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/open.png" 
-                                               Command="{catel:CommandManagerBinding File.Open}" Style="{DynamicResource ButtonBackstageStyle}" 
-                                               HorizontalAlignment="Left" />
+                                            <fluent:Button Grid.Row="1"
+                                                           Header="Open..."
+                                                           LargeIcon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/open.png"
+                                                           Command="{catel:CommandManagerBinding File.Open}"
+                                                           Style="{DynamicResource ButtonBackstageStyle}"
+                                                           HorizontalAlignment="Left" />
                                         </Grid>
                                     </orchestra:RibbonBackstageTabItem>
 
@@ -122,10 +166,16 @@
                         </fluent:BackstageTabItem>
 
                         <!--<fluent:RibbonApplicationMenuItem Header="Save to pdf..." ImageSource="/Resources/Images/save_pdf.png" Command="{catel:CommandManagerBinding File.SaveToPdf}" />-->
-                        <fluent:Button Header="Save to image..." Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/save.png" Command="{catel:CommandManagerBinding File.SaveToImage}" />
-                        <fluent:Button Header="Print..." Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/print.png" Command="{catel:CommandManagerBinding File.Print}" />
+                        <fluent:Button Header="Save to image..."
+                                       Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/save.png"
+                                       Command="{catel:CommandManagerBinding File.SaveToImage}" />
+                        <fluent:Button Header="Print..."
+                                       Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/print.png"
+                                       Command="{catel:CommandManagerBinding File.Print}" />
                         <fluent:SeparatorTabItem />
-                        <fluent:Button Header="Exit" Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/exit.png" Command="{catel:CommandManagerBinding Application.Exit}" />
+                        <fluent:Button Header="Exit"
+                                       Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/exit.png"
+                                       Command="{catel:CommandManagerBinding Application.Exit}" />
                     </fluent:BackstageTabControl>
                 </fluent:Backstage>
             </fluent:Ribbon.Menu>
@@ -139,90 +189,125 @@
                     </fluent:RibbonGroupBox>
 
                     <fluent:RibbonGroupBox Header="Workspace">
-                        <fluent:Button Header="Refresh" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Refresh}}" 
-                                   Command="{Binding RefreshWorkspace}" />
+                        <fluent:Button Header="Refresh"
+                                       LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Refresh}}"
+                                       Command="{Binding RefreshWorkspace}" />
                     </fluent:RibbonGroupBox>
 
                     <fluent:RibbonGroupBox Header="Demo group">
-                        <fluent:Button Header="Windows" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Windows}}" />
+                        <fluent:Button Header="Windows"
+                                       LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Windows}}" />
 
-                        <fluent:Button Header="Open data directory..." 
+                        <fluent:Button Header="Open data directory..."
                                        Command="{Binding OpenDataDirectory}"
                                        LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.ExternalLink}}" />
 
-                        <fluent:Button Header="Window..." 
+                        <fluent:Button Header="Window..."
                                        Command="{Binding OpenWindow}"
                                        LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.ExternalLink}}" />
 
-                        <fluent:Button Header="Progress demo" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Play}}" 
-                                   Command="{catel:CommandManagerBinding Demo.LongOperation}" />
+                        <fluent:Button Header="Progress demo"
+                                       LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Play}}"
+                                       Command="{catel:CommandManagerBinding Demo.LongOperation}" />
 
-                        <fluent:SplitButton Header="Message box demo" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
-                                        HorizontalContentAlignment="Stretch">
+                        <fluent:SplitButton Header="Message box demo"
+                                            LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                            HorizontalContentAlignment="Stretch">
                             <StackPanel HorizontalAlignment="Stretch">
-                                <fluent:Button Header="Ok" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
-                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}" 
-                                           CommandParameter="{x:Static services:MessageButton.OK}" />
+                                <fluent:Button Header="Ok"
+                                               Size="Middle"
+                                               LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                               Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                               CommandParameter="{x:Static services:MessageButton.OK}" />
 
-                                <fluent:Button Header="Ok/Cancel" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
-                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
-                                           CommandParameter="{x:Static services:MessageButton.OKCancel}" />
+                                <fluent:Button Header="Ok/Cancel"
+                                               Size="Middle"
+                                               LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                               Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                               CommandParameter="{x:Static services:MessageButton.OKCancel}" />
 
-                                <fluent:Button Header="Yes/No" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
-                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
-                                           CommandParameter="{x:Static services:MessageButton.YesNo}" />
+                                <fluent:Button Header="Yes/No"
+                                               Size="Middle"
+                                               LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                               Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                               CommandParameter="{x:Static services:MessageButton.YesNo}" />
 
-                                <fluent:Button Header="Yes/No/Cancel" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
-                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
-                                           CommandParameter="{x:Static services:MessageButton.YesNoCancel}" />
+                                <fluent:Button Header="Yes/No/Cancel"
+                                               Size="Middle"
+                                               LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                               Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                               CommandParameter="{x:Static services:MessageButton.YesNoCancel}" />
 
-                                <fluent:Button Header="Icons - Stop" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
-                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
-                                           CommandParameter="{x:Static services:MessageImage.Stop}" />
+                                <fluent:Button Header="Icons - Stop"
+                                               Size="Middle"
+                                               LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                               Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                               CommandParameter="{x:Static services:MessageImage.Stop}" />
 
-                                <fluent:Button Header="Icons - Exclamation" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
-                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
-                                           CommandParameter="{x:Static services:MessageImage.Exclamation}" />
+                                <fluent:Button Header="Icons - Exclamation"
+                                               Size="Middle"
+                                               LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                               Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                               CommandParameter="{x:Static services:MessageImage.Exclamation}" />
 
-                                <fluent:Button Header="Icons - Error" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
-                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
-                                           CommandParameter="{x:Static services:MessageImage.Error}" />
+                                <fluent:Button Header="Icons - Error"
+                                               Size="Middle"
+                                               LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                               Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                               CommandParameter="{x:Static services:MessageImage.Error}" />
 
-                                <fluent:Button Header="Icons - Warning" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
-                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
-                                           CommandParameter="{x:Static services:MessageImage.Warning}" />
+                                <fluent:Button Header="Icons - Warning"
+                                               Size="Middle"
+                                               LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                               Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                               CommandParameter="{x:Static services:MessageImage.Warning}" />
 
-                                <fluent:Button Header="Icons - Information" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
-                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
-                                           CommandParameter="{x:Static services:MessageImage.Information}" />
+                                <fluent:Button Header="Icons - Information"
+                                               Size="Middle"
+                                               LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                               Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                               CommandParameter="{x:Static services:MessageImage.Information}" />
 
-                                <fluent:Button Header="Icons - Question" Size="Middle" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}" 
-                                           Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
-                                           CommandParameter="{x:Static services:MessageImage.Question}" />
+                                <fluent:Button Header="Icons - Question"
+                                               Size="Middle"
+                                               LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
+                                               Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
+                                               CommandParameter="{x:Static services:MessageImage.Question}" />
                             </StackPanel>
                         </fluent:SplitButton>
 
-                        <fluent:Button Header="Show Screen Devices" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Desktop}}"
-                                       Command="{Binding ShowAllMonitorInfo}"/>
+                        <fluent:Button Header="Show Screen Devices"
+                                       LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Desktop}}"
+                                       Command="{Binding ShowAllMonitorInfo}" />
 
-                        <fluent:ToggleButton Header="Toggle button" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Arrows}}"/>
+                        <fluent:ToggleButton Header="Toggle button"
+                                             LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Arrows}}" />
                     </fluent:RibbonGroupBox>
 
                     <fluent:RibbonGroupBox Header="Keyboard">
-                        <fluent:SplitButton Header="Shortcuts" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.KeyboardO}}"
-                                        Command="{Binding ShowKeyboardMappings}" IsCheckable="False">
+                        <fluent:SplitButton Header="Shortcuts"
+                                            LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.KeyboardO}}"
+                                            Command="{Binding ShowKeyboardMappings}"
+                                            IsCheckable="False">
                             <orchestra:KeyboardMappingsOverviewView />
                         </fluent:SplitButton>
                     </fluent:RibbonGroupBox>
 
                     <fluent:RibbonGroupBox>
-                        <fluent:SplitButton Header="Grid" LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Mobile}}"
-                                    IsCheckable="True" IsChecked="{Binding Settings.IsShowAllGridLines}" HorizontalContentAlignment="Stretch">
+                        <fluent:SplitButton Header="Grid"
+                                            LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Mobile}}"
+                                            IsCheckable="True"
+                                            IsChecked="{Binding Settings.IsShowAllGridLines}"
+                                            HorizontalContentAlignment="Stretch">
                             <StackPanel HorizontalAlignment="Stretch">
-                                <fluent:ToggleButton Header="Windows" Size="Middle" Icon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Windows}}"
-                                     IsChecked="{Binding Settings.IsShowVerticalGridLines}" />
-                                <fluent:ToggleButton Header="Apple" Size="Middle" Icon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Apple}}" 
-                                     IsChecked="{Binding Settings.IsShowHorizontalGridLines}" />
+                                <fluent:ToggleButton Header="Windows"
+                                                     Size="Middle"
+                                                     Icon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Windows}}"
+                                                     IsChecked="{Binding Settings.IsShowVerticalGridLines}" />
+                                <fluent:ToggleButton Header="Apple"
+                                                     Size="Middle"
+                                                     Icon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Apple}}"
+                                                     IsChecked="{Binding Settings.IsShowHorizontalGridLines}" />
                             </StackPanel>
                         </fluent:SplitButton>
                     </fluent:RibbonGroupBox>
@@ -237,8 +322,15 @@
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Slider Height="66" Orientation="Vertical" Margin="5,0,0,0" Minimum="150" Maximum="800" 
-                                SmallChange="1" LargeChange="5" AutoToolTipPrecision="0" AutoToolTipPlacement="BottomRight"/>
+                            <Slider Height="66"
+                                    Orientation="Vertical"
+                                    Margin="5,0,0,0"
+                                    Minimum="150"
+                                    Maximum="800"
+                                    SmallChange="1"
+                                    LargeChange="5"
+                                    AutoToolTipPrecision="0"
+                                    AutoToolTipPlacement="BottomRight" />
                         </StackPanel>
                     </fluent:RibbonGroupBox>
 

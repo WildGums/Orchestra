@@ -27,6 +27,7 @@ public partial class CrashWarningViewModel : ViewModelBase
         ArgumentNullException.ThrowIfNull(navigationService);
         ArgumentNullException.ThrowIfNull(manageAppDataService);
         ArgumentNullException.ThrowIfNull(languageService);
+
         _logger = logger;
         _manageAppDataService = manageAppDataService;
         _messageService = messageService;

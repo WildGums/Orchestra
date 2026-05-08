@@ -18,10 +18,13 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
     private readonly IAppDataService _appDataService;
 
     private readonly string _fileName;
+    private readonly IJsonSerializer _serializer;
+
     private RecentlyUsedItems _items;
 
     public RecentlyUsedItemsService(ILogger<RecentlyUsedItemsService> logger, 
-        IJsonSerializerFactory jsonSerializerFactory, IFileService fileService, IAppDataService appDataService)
+        IJsonSerializerFactory jsonSerializerFactory, IFileService fileService, 
+        IAppDataService appDataService)
     {
         _logger = logger;
         _jsonSerializerFactory = jsonSerializerFactory;
@@ -30,6 +33,11 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
 
         _fileName = Path.Combine(appDataService.GetApplicationDataDirectory(Catel.IO.ApplicationDataTarget.UserRoaming), "recentlyused.json");
         _items = new RecentlyUsedItems();
+
+        _serializer = _jsonSerializerFactory.CreateSerializer(new JsonSerializerSettings
+        {
+            PropertyNameCaseInsensitive = true
+        });
 
         MaximumItemCount = 10;
 
@@ -223,7 +231,7 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
         {
             _logger.LogDebug("Number of items is larger than allowed maximum of '{MaximumItemCount}'", MaximumItemCount);
 
-            for (int i = MaximumItemCount; i < collection.Count; i++)
+            for (var i = MaximumItemCount; i < collection.Count; i++)
             {
                 collection.RemoveAt(i);
             }
@@ -244,9 +252,7 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
 
             using (var fileStream = _fileService.OpenRead(_fileName))
             {
-                var serializer = _jsonSerializerFactory.CreateSerializer();
-
-                _items = serializer.Deserialize<RecentlyUsedItems>(fileStream) ?? new RecentlyUsedItems();
+                _items = _serializer.Deserialize<RecentlyUsedItems>(fileStream) ?? new RecentlyUsedItems();
             }
         }
         catch (Exception ex)
@@ -263,9 +269,7 @@ public class RecentlyUsedItemsService : IRecentlyUsedItemsService
         {
             using (var fileStream = _fileService.Create(_fileName))
             {
-                var serializer = _jsonSerializerFactory.CreateSerializer();
-
-                serializer.Serialize(fileStream, _items);
+                _serializer.Serialize(fileStream, _items);
             }
         }
         catch (Exception ex)

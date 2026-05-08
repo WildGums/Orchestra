@@ -19,7 +19,7 @@ public class RecentlyUsedItem : ModelBase
         DateTime = dateTime;
     }
 
-    public string Name { get; private set; }
+    public string Name { get; init; }
 
-    public DateTime DateTime { get; private set; }
+    public DateTime DateTime { get; init; }
 }
