@@ -932,7 +932,7 @@ namespace Orchestra.ViewModels
         public static readonly Catel.Data.IPropertyData TitleProperty;
         public static readonly Catel.Data.IPropertyData UriInfoProperty;
         public static readonly Catel.Data.IPropertyData VersionProperty;
-        public AboutViewModel(Orchestra.AboutInfo aboutInfo, System.IServiceProvider serviceProvider, Catel.Services.IProcessService processService, Catel.Services.IUIVisualizerService uiVisualizerService, Catel.Services.IMessageService messageService, Catel.Services.ILanguageService languageService, Orchestra.Changelog.IChangelogService changelogService) { }
+        public AboutViewModel(Orchestra.AboutInfo aboutInfo, System.IServiceProvider serviceProvider, Catel.Services.IProcessService processService, Catel.Services.IUIVisualizerService uiVisualizerService, Catel.Services.IMessageService messageService, Catel.Services.ILanguageService languageService, Orchestra.Changelog.IChangelogService changelogService, Orchestra.IViewActivationService viewActivationService) { }
         public System.Windows.Media.Imaging.BitmapSource? AppIcon { get; }
         public string BuildDateTime { get; }
         public System.Uri? CompanyLogoUri { get; }

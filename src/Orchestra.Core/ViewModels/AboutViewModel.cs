@@ -18,10 +18,11 @@ public partial class AboutViewModel : ViewModelBase
     private readonly IMessageService _messageService;
     private readonly ILanguageService _languageService;
     private readonly IChangelogService _changelogService;
+    private readonly IViewActivationService _viewActivationService;
 
     public AboutViewModel(AboutInfo aboutInfo, IServiceProvider serviceProvider, IProcessService processService,
         IUIVisualizerService uiVisualizerService, IMessageService messageService, ILanguageService languageService, 
-        IChangelogService changelogService)
+        IChangelogService changelogService, IViewActivationService viewActivationService)
         : base(serviceProvider)
     {
         _processService = processService;
@@ -29,6 +30,7 @@ public partial class AboutViewModel : ViewModelBase
         _messageService = messageService;
         _languageService = languageService;
         _changelogService = changelogService;
+        _viewActivationService = viewActivationService;
 
         ValidateUsingDataAnnotations = false;
 
@@ -137,7 +139,7 @@ public partial class AboutViewModel : ViewModelBase
 
     private async Task OnOpenLogExecuteAsync()
     {
-        _ = _uiVisualizerService.ShowAsync<LogViewModel>();
+        _ = _viewActivationService.ActivateOrShowAsync<LogViewModel>();
     }
 
     public TaskCommand ShowChangelog { get; private set; }
