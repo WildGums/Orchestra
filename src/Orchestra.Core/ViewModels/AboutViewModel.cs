@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using Catel.Logging;
 using Catel.MVVM;
 using Catel.Services;
+using Orc.Controls.ViewModels;
 using Orchestra.Changelog;
 using Orchestra.Changelog.ViewModels;
 
@@ -136,23 +137,7 @@ public partial class AboutViewModel : ViewModelBase
 
     private async Task OnOpenLogExecuteAsync()
     {
-        //var fileLogListener = (from logListener in LogManager.GetListeners()
-        //                       where logListener is FileLogListener
-        //                       select logListener).FirstOrDefault();
-        //if (fileLogListener is not null)
-        //{
-        //    var filePath = ((FileLogListener)fileLogListener).FilePath;
-
-        //    _processService.StartProcess(new ProcessContext
-        //    {
-        //        UseShellExecute = true,
-        //        FileName = filePath
-        //    });
-        //}
-        //else
-        //{
-        //    await _messageService.ShowErrorAsync(_languageService.GetRequiredString("Orchestra_NoLogListenerAvailable"));
-        //}
+        _ = _uiVisualizerService.ShowAsync<LogViewModel>();
     }
 
     public TaskCommand ShowChangelog { get; private set; }

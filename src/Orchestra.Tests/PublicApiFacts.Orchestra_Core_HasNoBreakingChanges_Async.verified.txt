@@ -981,6 +981,11 @@ namespace Orchestra.ViewModels
         public System.Collections.Generic.List<Orchestra.KeyboardMappings> KeyboardMappings { get; }
         protected override System.Threading.Tasks.Task InitializeAsync() { }
     }
+    public class LogViewModel : Catel.MVVM.ViewModelBase
+    {
+        public LogViewModel(System.IServiceProvider serviceProvider) { }
+        public override string Title { get; }
+    }
     public class MessageBoxViewModel : Catel.MVVM.ViewModelBase
     {
         public static readonly Catel.Data.IPropertyData ButtonProperty;
@@ -1094,6 +1099,13 @@ namespace Orchestra.Views
         public KeyboardMappingsOverviewWindow() { }
         public KeyboardMappingsOverviewWindow(System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public KeyboardMappingsOverviewWindow(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
+        public void InitializeComponent() { }
+    }
+    public class LogWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
+    {
+        public LogWindow() { }
+        public LogWindow(System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
+        public LogWindow(Catel.MVVM.IViewModel? viewModel, System.IServiceProvider serviceProvider, Catel.Services.IWrapControlService wrapControlService, Catel.Services.ILanguageService languageService) { }
         public void InitializeComponent() { }
     }
     public class MessageBoxWindow : Catel.Windows.DataWindow, System.Windows.Markup.IComponentConnector
