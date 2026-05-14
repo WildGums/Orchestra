@@ -1,13 +1,10 @@
 ﻿namespace Orchestra.ViewModels;
 
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using Catel.Logging;
 using Catel.MVVM;
 using Catel.Services;
-using Orc.Controls.ViewModels;
 using Orchestra.Changelog;
 using Orchestra.Changelog.ViewModels;
 

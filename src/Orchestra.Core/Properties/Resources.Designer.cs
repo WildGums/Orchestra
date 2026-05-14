@@ -412,7 +412,7 @@ namespace Orchestra.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Logger.Log...
+        ///   Looks up a localized string similar to Show log....
         /// </summary>
         internal static string Orchestra_ShowLog {
             get {

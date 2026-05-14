@@ -148,7 +148,7 @@
           <target state="translated">Toon commando's met:</target>
         </trans-unit>
         <trans-unit id="Orchestra_ShowLog" translate="yes" xml:space="preserve">
-          <source>Show Logger.Log..</source>
+          <source>Show log...</source>
           <target state="needs-review-translation">Toon log...</target>
         </trans-unit>
         <trans-unit id="Orchestra_ShowSystemInfo" translate="yes" xml:space="preserve">

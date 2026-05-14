@@ -148,7 +148,7 @@
         </trans-unit>
         <trans-unit id="Orchestra_ShowLog" translate="yes" xml:space="preserve">
           <source>Show log...</source>
-          <target state="translated">Protokoll anzeigen...</target>
+          <target state="needs-review-translation">Protokoll anzeigen...</target>
         </trans-unit>
         <trans-unit id="Orchestra_ShowSystemInfo" translate="yes" xml:space="preserve">
           <source>Show system info</source>
