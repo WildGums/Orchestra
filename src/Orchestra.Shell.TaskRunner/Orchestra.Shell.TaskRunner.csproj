@@ -6,7 +6,7 @@
     <RootNamespace>Orchestra</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <PackageId>Orchestra.Shell.TaskRunner</PackageId>
-    <PackageVersion>1.0.0-alpha0001</PackageVersion>
+    <PackageVersion>8.0.0-alpha0198</PackageVersion>
     <Description>Orchestra task runner shell library.</Description>
     <PackageTags>orc;orchestra;wpf;xaml;shell;task;runner</PackageTags>
   </PropertyGroup>

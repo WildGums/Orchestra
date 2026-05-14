@@ -6,7 +6,7 @@
     <RootNamespace>Orchestra</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <PackageId>Orchestra.Core</PackageId>
-    <PackageVersion>1.0.0-alpha0001</PackageVersion>
+    <PackageVersion>8.0.0-alpha0198</PackageVersion>
     <Description>Orchestra core library.</Description>
     <PackageTags>orc;orchestra;wpf;xaml</PackageTags>
   </PropertyGroup>
@@ -22,6 +22,7 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <PackageReference Include="Catel.MVVM" Version="7.0.0-alpha0331" />
     <PackageReference Include="Catel.Fody" Version="7.1.0-alpha0016" PrivateAssets="all" />
     <PackageReference Include="Catel.SourceGenerators" Version="7.1.0-alpha0059" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="6.9.3" PrivateAssets="all">

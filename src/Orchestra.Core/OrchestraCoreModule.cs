@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Orchestra.Changelog;
 using Orchestra.Collections;
 using Orchestra.Layers;
-using Orchestra;
 using Orchestra.Theming;
 using Orchestra.Tooltips;
 using Catel.IoC;
@@ -15,6 +14,7 @@ using Orchestra.Views;
 using Orchestra.Changelog.ViewModels;
 using Orchestra.Changelog.Views;
 using Catel.ThirdPartyNotices;
+using Orchestra.Logging;
 
 /// <summary>
 /// Core module which allows the registration of default services in the service collection.
@@ -27,6 +27,9 @@ public static class OrchestraCoreModule
         serviceCollection.AddSingleton<IBusyIndicatorService, Orchestra.BusyIndicatorService>();
         serviceCollection.AddSingleton<ISelectDirectoryService, MicrosoftApiSelectDirectoryService>();
         serviceCollection.AddSingleton<IMessageService, Orchestra.MessageService>();
+
+        // Logging
+        serviceCollection.TryAddSingleton<LogDirectoryProvider>();
 
         // Regular services
         serviceCollection.TryAddSingleton<IChangelogService, ChangelogService>();

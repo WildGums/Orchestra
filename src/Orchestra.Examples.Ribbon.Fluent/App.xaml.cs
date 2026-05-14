@@ -2,6 +2,7 @@
 
 using System;
 using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using Catel;
@@ -13,7 +14,10 @@ using Microsoft.Extensions.Logging;
 using Orc;
 using Orchestra.Changelog;
 using Orchestra.Examples.Ribbon.Services;
+using Orchestra.Logging;
 using Orchestra.Views;
+using Serilog;
+using Serilog.Core;
 
 public partial class App : Application
 {
@@ -26,6 +30,34 @@ public partial class App : Application
         var hostBuilder = new HostBuilder()
             .ConfigureServices((hostContext, services) =>
             {
+                services.AddLogging(x =>
+                {
+                    x.AddSerilog();
+                });
+
+                services.AddSingleton(x => new InitializeAtStartup(() =>
+                {
+                    var logDirectoryProvider = x.GetRequiredService<LogDirectoryProvider>();
+
+#pragma warning disable IDISP003 // Dispose previous before re-assigning
+                    Log.Logger = new LoggerConfiguration()
+                        .Enrich.FromLogContext()
+                        .MinimumLevel.Debug()
+                        .WriteTo.File(Path.Combine(logDirectoryProvider.ProvideDirectory(), "Application-.log"), 
+                            fileSizeLimitBytes: 25 * 1000 * 1024, // 25 MB
+                            rollingInterval: RollingInterval.Hour,
+                            rollOnFileSizeLimit: true,
+                            levelSwitch: new LoggingLevelSwitch(Serilog.Events.LogEventLevel.Debug))
+#if DEBUG
+                        .WriteTo.Debug()
+#endif
+                        .CreateLogger();
+#pragma warning restore IDISP003 // Dispose previous before re-assigning
+
+                    var logger = x.GetRequiredService<ILogger<App>>();
+                    logger.LogApplicationInfo<App>();
+                }));
+
                 services.AddCatelCore();
                 services.AddCatelMvvm();
                 services.AddOrcAutomation();
@@ -44,12 +76,6 @@ public partial class App : Application
                 services.AddSingleton<IApplicationInitializationService, ApplicationInitializationService>();
 
                 services.AddSingleton<UserMessageCloseApplicationWatcher>();
-
-                services.AddLogging(x =>
-                {
-                    x.AddConsole();
-                    x.AddDebug();
-                });
 
                 services.AddSingleton<IChangelogProvider, Orchestra.Examples.Ribbon.Changelog.Providers.ChangelogProvider>();
             });
