@@ -30,14 +30,15 @@ public partial class App : Application
         var hostBuilder = new HostBuilder()
             .ConfigureServices((hostContext, services) =>
             {
+                // Logging
                 services.AddLogging(x =>
                 {
                     x.AddSerilog();
                 });
 
-                services.AddSingleton(x => new InitializeAtStartup(() =>
+                services.AddKeyedSingleton("logging", (sp, k) => new InitializeAtStartup(() =>
                 {
-                    var logDirectoryProvider = x.GetRequiredService<LogDirectoryProvider>();
+                    var logDirectoryProvider = sp.GetRequiredService<LogDirectoryProvider>();
 
 #pragma warning disable IDISP003 // Dispose previous before re-assigning
                     Log.Logger = new LoggerConfiguration()
@@ -54,10 +55,22 @@ public partial class App : Application
                         .CreateLogger();
 #pragma warning restore IDISP003 // Dispose previous before re-assigning
 
-                    var logger = x.GetRequiredService<ILogger<App>>();
+                    var logger = sp.GetRequiredService<ILogger<App>>();
                     logger.LogApplicationInfo<App>();
                 }));
 
+
+                services.AddKeyedSingleton("a", (sp, k) => new InitializeAtStartup(() =>
+                {
+                    Console.WriteLine("A");
+                }));
+
+                services.AddKeyedSingleton("b", (sp, k) => new InitializeAtStartup(() =>
+                {
+                    Console.WriteLine("B");
+                }));
+
+                // Service registration
                 services.AddCatelCore();
                 services.AddCatelMvvm();
                 services.AddOrcAutomation();
