@@ -94,7 +94,7 @@ namespace Orchestra
     }
     public class ShellRecoveryService : Orchestra.IShellRecoveryService
     {
-        public ShellRecoveryService(Catel.Services.IMessageService messageService, Catel.Reflection.IEntryAssemblyResolver entryAssemblyResolver) { }
+        public ShellRecoveryService(Catel.Services.IMessageService messageService, Catel.Services.ILanguageService languageService, Catel.Reflection.IEntryAssemblyResolver entryAssemblyResolver) { }
         public System.Threading.Tasks.Task StartRecoveryAsync(Orchestra.ShellRecoveryContext shellRecoveryContext) { }
     }
     public class ShellService : Orchestra.IShellService
