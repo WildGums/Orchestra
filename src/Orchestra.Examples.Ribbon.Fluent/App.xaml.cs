@@ -91,6 +91,8 @@ public partial class App : Application
                 services.AddSingleton<UserMessageCloseApplicationWatcher>();
 
                 services.AddSingleton<IChangelogProvider, Orchestra.Examples.Ribbon.Changelog.Providers.ChangelogProvider>();
+
+                services.AddSingleton<ILanguageSource>(new LanguageResourceSource("Orchestra.Examples.Ribbon.Fluent", "Orchestra.Examples.Ribbon.Properties", "Resources"));
             });
 
         _host = hostBuilder.Build();

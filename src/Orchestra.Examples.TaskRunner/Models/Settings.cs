@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Catel;
 using Catel.Data;
 
 public class Settings : ValidatableModelBase
@@ -32,17 +33,17 @@ public class Settings : ValidatableModelBase
 
         if (!HorizonStart.HasValue)
         {
-            validationResults.Add(FieldValidationResult.CreateError("HorizonStart", "Horizon start date is required"));
+            validationResults.Add(FieldValidationResult.CreateError("HorizonStart", LanguageHelper.GetRequiredString("Orchestra_Examples_TaskRunner_Settings_HorizonStartRequired")));
         }
 
         if (!HorizonEnd.HasValue)
         {
-            validationResults.Add(FieldValidationResult.CreateError("HorizonEnd", "Horizon end date is required"));
+            validationResults.Add(FieldValidationResult.CreateError("HorizonEnd", LanguageHelper.GetRequiredString("Orchestra_Examples_TaskRunner_Settings_HorizonEndRequired")));
         }
 
         if (!CurrentTime.HasValue)
         {
-            validationResults.Add(FieldValidationResult.CreateError("CurrentTime", "Current time is required"));
+            validationResults.Add(FieldValidationResult.CreateError("CurrentTime", LanguageHelper.GetRequiredString("Orchestra_Examples_TaskRunner_Settings_CurrentTimeRequired")));
         }
         else
         {
@@ -50,19 +51,19 @@ public class Settings : ValidatableModelBase
             {
                 if (CurrentTime.Value < HorizonStart.Value || CurrentTime.Value > HorizonEnd.Value)
                 {
-                    validationResults.Add(FieldValidationResult.CreateError("CurrentTime", "Current time must be a date inside the horizon range"));
+                    validationResults.Add(FieldValidationResult.CreateError("CurrentTime", LanguageHelper.GetRequiredString("Orchestra_Examples_TaskRunner_Settings_CurrentTimeInsideHorizon")));
                 }
             }
         }
 
         if (string.IsNullOrWhiteSpace(OutputDirectory))
         {
-            validationResults.Add(FieldValidationResult.CreateError("OutputDirectory", "Output directory is required"));
+            validationResults.Add(FieldValidationResult.CreateError("OutputDirectory", LanguageHelper.GetRequiredString("Orchestra_Examples_TaskRunner_Settings_OutputDirectoryRequired")));
         }
 
         if (string.IsNullOrWhiteSpace(WorkingDirectory))
         {
-            validationResults.Add(FieldValidationResult.CreateError("WorkingDirectory", "Working directory is required"));
+            validationResults.Add(FieldValidationResult.CreateError("WorkingDirectory", LanguageHelper.GetRequiredString("Orchestra_Examples_TaskRunner_Settings_WorkingDirectoryRequired")));
         }
     }
 }

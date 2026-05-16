@@ -26,11 +26,12 @@ public partial class RibbonViewModel : ViewModelBase
     private readonly ISelectDirectoryService _selectDirectoryService;
     private readonly IDirectoryService _directoryService;
     private readonly IManageAppDataService _manageAppDataService;
+    private readonly ILanguageService _languageService;
 
     public RibbonViewModel(INavigationService navigationService, IUIVisualizerService uiVisualizerService,
         ICommandManager commandManager, IRecentlyUsedItemsService recentlyUsedItemsService, IProcessService processService,
         IMessageService messageService, ISelectDirectoryService selectDirectoryService, IDirectoryService directoryService,
-        IManageAppDataService manageAppDataService, IServiceProvider serviceProvider)
+        IManageAppDataService manageAppDataService, ILanguageService languageService, IServiceProvider serviceProvider)
         : base(serviceProvider)
     {
         _navigationService = navigationService;
@@ -41,6 +42,7 @@ public partial class RibbonViewModel : ViewModelBase
         _selectDirectoryService = selectDirectoryService;
         _directoryService = directoryService;
         _manageAppDataService = manageAppDataService;
+        _languageService = languageService;
 
         OpenDataDirectory = new TaskCommand(serviceProvider, OnOpenDataDirectoryExecuteAsync);
         OpenWindow = new TaskCommand(serviceProvider, OnOpenWindowExecuteAsync);
@@ -89,12 +91,12 @@ public partial class RibbonViewModel : ViewModelBase
     {
         var result = await _selectDirectoryService.DetermineDirectoryAsync(new DetermineDirectoryContext
         {
-            Title = "Select a project directory"
+            Title = _languageService.GetRequiredString("Orchestra_Examples_Ribbon_RibbonViewModel_SelectProjectDirectory")
         });
 
         if (result.Result)
         {
-            await _messageService.ShowAsync("You have chosen " + result.DirectoryName);
+            await _messageService.ShowAsync(string.Format(_languageService.GetRequiredString("Orchestra_Examples_Ribbon_RibbonViewModel_YouHaveChosen"), result.DirectoryName));
         }
     }
 

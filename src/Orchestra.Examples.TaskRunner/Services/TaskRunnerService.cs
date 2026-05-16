@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Catel.Services;
 using Microsoft.Extensions.Logging;
 using Models;
 using Orchestra.Services;
@@ -12,25 +13,22 @@ using Views;
 public class TaskRunnerService : ITaskRunnerService
 {
     private readonly ILogger<TaskRunnerService> _logger;
+    private readonly ILanguageService _languageService;
 
-    private string _title = "Custom TaskRunner demo";
-
-    public TaskRunnerService(ILogger<TaskRunnerService> logger)
+    public TaskRunnerService(ILogger<TaskRunnerService> logger, ILanguageService languageService)
     {
         _logger = logger;
+        _languageService = languageService;
     }
 
     public string Title
     {
-        get { return _title; }
-        set
-        {
-            _title = value;
-            TitleChanged?.Invoke(this, EventArgs.Empty);
-        }
+        get { return _languageService.GetRequiredString("Orchestra_Examples_TaskRunner_TaskRunnerService_Title"); }
     }
 
-    public event EventHandler TitleChanged;
+#pragma warning disable CS0067 // The event is never used - title is read-only from language service
+    public event EventHandler? TitleChanged;
+#pragma warning restore CS0067
 
     public bool ShowCustomizeShortcutsButton { get { return true; }}
 
@@ -63,9 +61,9 @@ public class TaskRunnerService : ITaskRunnerService
         _logger.LogInformation("Action is complete!");
     }
 
-    public Size GetInitialWindowSize()
+    public System.Windows.Size GetInitialWindowSize()
     {
-        return Size.Empty;
+        return System.Windows.Size.Empty;
     }
 
     public async Task<AboutInfo> GetAboutInfoAsync()

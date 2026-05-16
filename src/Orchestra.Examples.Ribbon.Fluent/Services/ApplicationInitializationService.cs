@@ -6,18 +6,22 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Catel;
 using Catel.MVVM;
+using Catel.Services;
 using Microsoft.Extensions.DependencyInjection;
 using InputGesture = Catel.Windows.Input.InputGesture;
 
 public class ApplicationInitializationService : ApplicationInitializationServiceBase
 {
+    private readonly ILanguageService _languageService;
+
     public override bool ShowSplashScreen => true;
 
     public override bool ShowShell => true;
 
-    public ApplicationInitializationService(IServiceProvider serviceProvider)
+    public ApplicationInitializationService(IServiceProvider serviceProvider, ILanguageService languageService)
         : base(serviceProvider)
     {
+        _languageService = languageService;
     }
 
     public override async Task InitializeBeforeCreatingShellAsync()
@@ -40,7 +44,7 @@ public class ApplicationInitializationService : ApplicationInitializationService
     private async Task InitializeCommandsAsync()
     {
         var splashScreenStatusService = ServiceProvider.GetRequiredService<ISplashScreenStatusService>();
-        splashScreenStatusService.UpdateStatus("Initializing commands");
+        splashScreenStatusService.UpdateStatus(_languageService.GetRequiredString("Orchestra_Examples_Ribbon_ApplicationInit_InitializingCommands"));
 
         var commandManager = ServiceProvider.GetRequiredService<ICommandManager>();
         var commandInfoService = ServiceProvider.GetRequiredService<ICommandInfoService>();
@@ -66,7 +70,7 @@ public class ApplicationInitializationService : ApplicationInitializationService
         await base.InitializeAfterCreatingShellAsync();
 
         var splashScreenStatusService = ServiceProvider.GetRequiredService<ISplashScreenStatusService>();
-        splashScreenStatusService.UpdateStatus("Delaying splash screen for demo purposes");
+        splashScreenStatusService.UpdateStatus(_languageService.GetRequiredString("Orchestra_Examples_Ribbon_ApplicationInit_DelayingSplashScreen"));
 
         // Note: use thread.sleep to show a blocking thread but still allows
         // running status updates since the splash screen textblock runs on a
@@ -78,7 +82,7 @@ public class ApplicationInitializationService : ApplicationInitializationService
     private async Task InitializePerformanceAsync()
     {
         var splashScreenStatusService = ServiceProvider.GetRequiredService<ISplashScreenStatusService>();
-        splashScreenStatusService.UpdateStatus("Improving performance");
+        splashScreenStatusService.UpdateStatus(_languageService.GetRequiredString("Orchestra_Examples_Ribbon_ApplicationInit_ImprovingPerformance"));
 
         await Task.Delay(1000);
 

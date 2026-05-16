@@ -117,40 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Orchestra_Examples_TaskRunner_SettingsView_Configuration" xml:space="preserve">
-    <value>Configuration</value>
-  </data>
-  <data name="Orchestra_Examples_TaskRunner_SettingsView_WorkingDirectory" xml:space="preserve">
-    <value>Working directory</value>
-  </data>
-  <data name="Orchestra_Examples_TaskRunner_SettingsView_OutputDirectory" xml:space="preserve">
-    <value>Output directory</value>
-  </data>
-  <data name="Orchestra_Examples_TaskRunner_SettingsView_Horizon" xml:space="preserve">
-    <value>Horizon</value>
-  </data>
-  <data name="Orchestra_Examples_TaskRunner_SettingsView_CurrentTime" xml:space="preserve">
-    <value>Current time</value>
-  </data>
-  <data name="Orchestra_Examples_TaskRunner_Settings_HorizonStartRequired" xml:space="preserve">
-    <value>Horizon start date is required</value>
-  </data>
-  <data name="Orchestra_Examples_TaskRunner_Settings_HorizonEndRequired" xml:space="preserve">
-    <value>Horizon end date is required</value>
-  </data>
-  <data name="Orchestra_Examples_TaskRunner_Settings_CurrentTimeRequired" xml:space="preserve">
-    <value>Current time is required</value>
-  </data>
-  <data name="Orchestra_Examples_TaskRunner_Settings_CurrentTimeInsideHorizon" xml:space="preserve">
-    <value>Current time must be a date inside the horizon range</value>
-  </data>
-  <data name="Orchestra_Examples_TaskRunner_Settings_OutputDirectoryRequired" xml:space="preserve">
-    <value>Output directory is required</value>
-  </data>
-  <data name="Orchestra_Examples_TaskRunner_Settings_WorkingDirectoryRequired" xml:space="preserve">
-    <value>Working directory is required</value>
-  </data>
-  <data name="Orchestra_Examples_TaskRunner_TaskRunnerService_Title" xml:space="preserve">
-    <value>Custom TaskRunner demo</value>
-  </data>
 </root>

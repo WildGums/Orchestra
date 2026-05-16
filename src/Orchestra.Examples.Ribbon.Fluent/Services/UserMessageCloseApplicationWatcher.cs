@@ -9,18 +9,23 @@ internal class UserMessageCloseApplicationWatcher : CloseApplicationWatcherBase
 {
     private readonly IMessageService _messageService;
     private readonly INotificationService _notificationService;
+    private readonly ILanguageService _languageService;
 
     public UserMessageCloseApplicationWatcher(IMessageService messageService, INotificationService notificationService,
-        IDispatcherService dispatcherService, IMainWindowService mainWindowService)
+        ILanguageService languageService, IDispatcherService dispatcherService, IMainWindowService mainWindowService)
         : base(messageService, dispatcherService, mainWindowService)
     {
         _messageService = messageService;
         _notificationService = notificationService;
+        _languageService = languageService;
     }
 
     protected override async Task<bool> ClosingAsync()
     {
-        var result = await _messageService.ShowAsync("Are you sure you want to close example?", "Closing", MessageButton.YesNo, MessageImage.Question);
+        var result = await _messageService.ShowAsync(
+            _languageService.GetRequiredString("Orchestra_Examples_Ribbon_UserMessage_AreYouSure"),
+            _languageService.GetRequiredString("Orchestra_Examples_Ribbon_UserMessage_ClosingTitle"),
+            MessageButton.YesNo, MessageImage.Question);
         return result == MessageResult.Yes;
     }
 
@@ -28,8 +33,8 @@ internal class UserMessageCloseApplicationWatcher : CloseApplicationWatcherBase
     {
         _notificationService.ShowNotification(new Notification
         {
-            Title = "Closing approved",
-            Message = "User approved closing the app, closing within 5 seconds",
+            Title = _languageService.GetRequiredString("Orchestra_Examples_Ribbon_UserMessage_ClosingApproved"),
+            Message = _languageService.GetRequiredString("Orchestra_Examples_Ribbon_UserMessage_ClosingApprovedMessage"),
         });
 
         await Task.Delay(TimeSpan.FromSeconds(5));
