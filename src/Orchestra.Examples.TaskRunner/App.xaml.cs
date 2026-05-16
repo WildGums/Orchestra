@@ -1,4 +1,4 @@
-﻿namespace Orchestra.Examples.TaskRunner;
+namespace Orchestra.Examples.TaskRunner;
 
 using System;
 using System.Globalization;
@@ -43,6 +43,8 @@ public partial class App : Application
                 });
 
                 services.AddSingleton<ITaskRunnerService, TaskRunnerService>();
+
+                services.AddSingleton<ILanguageSource>(new LanguageResourceSource("Orchestra.Examples.TaskRunner", "Orchestra.Examples.TaskRunner.Properties", "Resources"));
             });
 
         _host = hostBuilder.Build();

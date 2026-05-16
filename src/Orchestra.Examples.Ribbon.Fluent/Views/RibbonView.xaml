@@ -17,7 +17,7 @@
                 <fluent:Backstage>
 
                     <fluent:BackstageTabControl x:Name="backstageTabControl">
-                        <fluent:BackstageTabItem Header="Open">
+                        <fluent:BackstageTabItem Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Open}">
                             <Grid Style="{DynamicResource InnerBackstageGridStyle}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -25,11 +25,11 @@
                                 </Grid.RowDefinitions>
 
                                 <Label Grid.Row="0"
-                                       Content="Open"
+                                       Content="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Open}"
                                        Style="{DynamicResource RibbonBackstageHeaderLabelStyle}" />
 
                                 <orchestra:RibbonBackstageTabControl  Grid.Row="1">
-                                    <orchestra:RibbonBackstageTabItem HeaderText="Recent documents"
+                                    <orchestra:RibbonBackstageTabItem HeaderText="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_RecentDocuments}"
                                                                       Icon="/Resources/Images/open.png">
                                         <Grid>
                                             <Grid.RowDefinitions>
@@ -40,7 +40,7 @@
                                             </Grid.RowDefinitions>
 
                                             <orchestra:RibbonBackstageTabItemHeader Grid.Row="0"
-                                                                                    HeaderText="Recent documents"
+                                                                                    HeaderText="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_RecentDocuments}"
                                                                                     HeaderTextStyleKey="RibbonBackstageSubHeaderLabelStyle"
                                                                                     Icon="/Resources/Images/open.png" />
 
@@ -141,7 +141,7 @@
                                         </Grid>
                                     </orchestra:RibbonBackstageTabItem>
 
-                                    <orchestra:RibbonBackstageTabItem HeaderText="Computer">
+                                    <orchestra:RibbonBackstageTabItem HeaderText="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Computer}">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
@@ -149,11 +149,11 @@
                                             </Grid.RowDefinitions>
 
                                             <orchestra:RibbonBackstageTabItemHeader Grid.Row="0"
-                                                                                    HeaderText="Computer"
+                                                                                    HeaderText="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Computer}"
                                                                                     HeaderTextStyleKey="RibbonBackstageSubHeaderLabelStyle" />
 
                                             <fluent:Button Grid.Row="1"
-                                                           Header="Open..."
+                                                           Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_OpenFile}"
                                                            LargeIcon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/open.png"
                                                            Command="{catel:CommandManagerBinding File.Open}"
                                                            Style="{DynamicResource ButtonBackstageStyle}"
@@ -166,14 +166,14 @@
                         </fluent:BackstageTabItem>
 
                         <!--<fluent:RibbonApplicationMenuItem Header="Save to pdf..." ImageSource="/Resources/Images/save_pdf.png" Command="{catel:CommandManagerBinding File.SaveToPdf}" />-->
-                        <fluent:Button Header="Save to image..."
+                        <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_SaveToImage}"
                                        Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/save.png"
                                        Command="{catel:CommandManagerBinding File.SaveToImage}" />
-                        <fluent:Button Header="Print..."
+                        <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Print}"
                                        Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/print.png"
                                        Command="{catel:CommandManagerBinding File.Print}" />
                         <fluent:SeparatorTabItem />
-                        <fluent:Button Header="Exit"
+                        <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Exit}"
                                        Icon="pack://application:,,,/Orchestra.Examples.Ribbon.Fluent;component/Resources/Images/exit.png"
                                        Command="{catel:CommandManagerBinding Application.Exit}" />
                     </fluent:BackstageTabControl>
@@ -181,94 +181,94 @@
             </fluent:Ribbon.Menu>
 
             <fluent:Ribbon.Tabs>
-                <fluent:RibbonTabItem Header="View">
+                <fluent:RibbonTabItem Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_View}">
 
-                    <fluent:RibbonGroupBox Header="Theming">
+                    <fluent:RibbonGroupBox Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Theming}">
                         <orctheming:ThemeSwitcherView />
                         <orctheming:FontSizeSwitcherView />
                     </fluent:RibbonGroupBox>
 
-                    <fluent:RibbonGroupBox Header="Workspace">
-                        <fluent:Button Header="Refresh"
+                    <fluent:RibbonGroupBox Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Workspace}">
+                        <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Refresh}"
                                        LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Refresh}}"
                                        Command="{Binding RefreshWorkspace}" />
                     </fluent:RibbonGroupBox>
 
-                    <fluent:RibbonGroupBox Header="Demo group">
-                        <fluent:Button Header="Windows"
+                    <fluent:RibbonGroupBox Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_DemoGroup}">
+                        <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Windows}"
                                        LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Windows}}" />
 
-                        <fluent:Button Header="Open data directory..."
+                        <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_OpenDataDirectory}"
                                        Command="{Binding OpenDataDirectory}"
                                        LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.ExternalLink}}" />
 
-                        <fluent:Button Header="Window..."
+                        <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Window}"
                                        Command="{Binding OpenWindow}"
                                        LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.ExternalLink}}" />
 
-                        <fluent:Button Header="Progress demo"
+                        <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_ProgressDemo}"
                                        LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Play}}"
                                        Command="{catel:CommandManagerBinding Demo.LongOperation}" />
 
-                        <fluent:SplitButton Header="Message box demo"
+                        <fluent:SplitButton Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_MessageBoxDemo}"
                                             LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                             HorizontalContentAlignment="Stretch">
                             <StackPanel HorizontalAlignment="Stretch">
-                                <fluent:Button Header="Ok"
+                                <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Ok}"
                                                Size="Middle"
                                                LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                                Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                                CommandParameter="{x:Static services:MessageButton.OK}" />
 
-                                <fluent:Button Header="Ok/Cancel"
+                                <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_OkCancel}"
                                                Size="Middle"
                                                LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                                Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                                CommandParameter="{x:Static services:MessageButton.OKCancel}" />
 
-                                <fluent:Button Header="Yes/No"
+                                <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_YesNo}"
                                                Size="Middle"
                                                LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                                Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                                CommandParameter="{x:Static services:MessageButton.YesNo}" />
 
-                                <fluent:Button Header="Yes/No/Cancel"
+                                <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_YesNoCancel}"
                                                Size="Middle"
                                                LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                                Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                                CommandParameter="{x:Static services:MessageButton.YesNoCancel}" />
 
-                                <fluent:Button Header="Icons - Stop"
+                                <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_IconsStop}"
                                                Size="Middle"
                                                LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                                Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                                CommandParameter="{x:Static services:MessageImage.Stop}" />
 
-                                <fluent:Button Header="Icons - Exclamation"
+                                <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_IconsExclamation}"
                                                Size="Middle"
                                                LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                                Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                                CommandParameter="{x:Static services:MessageImage.Exclamation}" />
 
-                                <fluent:Button Header="Icons - Error"
+                                <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_IconsError}"
                                                Size="Middle"
                                                LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                                Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                                CommandParameter="{x:Static services:MessageImage.Error}" />
 
-                                <fluent:Button Header="Icons - Warning"
+                                <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_IconsWarning}"
                                                Size="Middle"
                                                LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                                Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                                CommandParameter="{x:Static services:MessageImage.Warning}" />
 
-                                <fluent:Button Header="Icons - Information"
+                                <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_IconsInformation}"
                                                Size="Middle"
                                                LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                                Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
                                                CommandParameter="{x:Static services:MessageImage.Information}" />
 
-                                <fluent:Button Header="Icons - Question"
+                                <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_IconsQuestion}"
                                                Size="Middle"
                                                LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Send}}"
                                                Command="{catel:CommandManagerBinding Demo.ShowMessageBox}"
@@ -276,16 +276,16 @@
                             </StackPanel>
                         </fluent:SplitButton>
 
-                        <fluent:Button Header="Show Screen Devices"
+                        <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_ShowScreenDevices}"
                                        LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Desktop}}"
                                        Command="{Binding ShowAllMonitorInfo}" />
 
-                        <fluent:ToggleButton Header="Toggle button"
+                        <fluent:ToggleButton Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_ToggleButton}"
                                              LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Arrows}}" />
                     </fluent:RibbonGroupBox>
 
-                    <fluent:RibbonGroupBox Header="Keyboard">
-                        <fluent:SplitButton Header="Shortcuts"
+                    <fluent:RibbonGroupBox Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Keyboard}">
+                        <fluent:SplitButton Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Shortcuts}"
                                             LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.KeyboardO}}"
                                             Command="{Binding ShowKeyboardMappings}"
                                             IsCheckable="False">
@@ -294,17 +294,17 @@
                     </fluent:RibbonGroupBox>
 
                     <fluent:RibbonGroupBox>
-                        <fluent:SplitButton Header="Grid"
+                        <fluent:SplitButton Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Grid}"
                                             LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Mobile}}"
                                             IsCheckable="True"
                                             IsChecked="{Binding Settings.IsShowAllGridLines}"
                                             HorizontalContentAlignment="Stretch">
                             <StackPanel HorizontalAlignment="Stretch">
-                                <fluent:ToggleButton Header="Windows"
+                                <fluent:ToggleButton Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Windows}"
                                                      Size="Middle"
                                                      Icon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Windows}}"
                                                      IsChecked="{Binding Settings.IsShowVerticalGridLines}" />
-                                <fluent:ToggleButton Header="Apple"
+                                <fluent:ToggleButton Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_Apple}"
                                                      Size="Middle"
                                                      Icon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Apple}}"
                                                      IsChecked="{Binding Settings.IsShowHorizontalGridLines}" />
@@ -312,7 +312,7 @@
                         </fluent:SplitButton>
                     </fluent:RibbonGroupBox>
 
-                    <fluent:RibbonGroupBox Header="Custom controls">
+                    <fluent:RibbonGroupBox Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_CustomControls}">
                         <StackPanel>
                             <ComboBox />
                             <StackPanel Orientation="Horizontal">
