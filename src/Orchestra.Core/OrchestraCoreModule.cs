@@ -91,6 +91,7 @@ public static class OrchestraCoreModule
             uiVisualizerService.Register<KeyboardMappingsCustomizationViewModel, KeyboardMappingsCustomizationWindow>(false);
             uiVisualizerService.Register<KeyboardMappingsOverviewViewModel, KeyboardMappingsOverviewWindow>(false);
             uiVisualizerService.Register<ChangelogViewModel, ChangelogWindow>(false);
+            uiVisualizerService.Register<ThirdPartyNoticesViewModel, ThirdPartyNoticesWindow>(false);
         }
     }
 }
