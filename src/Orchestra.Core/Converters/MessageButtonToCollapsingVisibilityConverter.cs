@@ -8,7 +8,6 @@ using Catel.Services;
 internal partial class MessageButtonToCollapsingVisibilityConverter : VisibilityConverterBase
 {
     public MessageButtonToCollapsingVisibilityConverter()
-        : base(Visibility.Collapsed)
     {
         SupportInversionUsingCommandParameter = false;
     }
