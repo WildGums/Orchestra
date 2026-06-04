@@ -96,7 +96,6 @@
                                                            VerticalAlignment="Center"
                                                            Visibility="{Binding Url, Converter={catel:EmptyStringToCollapsingVisibilityConverter}, ConverterParameter=True}" />
 
-
                                                 <TextBlock Grid.Column="2"
                                                            Text="]"
                                                            FontSize="{orctheming:FontSize 14}" />
