@@ -36,7 +36,7 @@
     <PackageReference Include="Orc.Controls" Version="6.0.0-alpha0265" />
     <PackageReference Include="Orc.LogViewer" Version="6.0.0-alpha0178" />
     <PackageReference Include="Orc.Serialization.Json" Version="6.0.0-alpha0164" />
-    <PackageReference Include="Orc.SystemInfo" Version="6.0.0-alpha0141" />
+    <PackageReference Include="Orc.SystemInfo" Version="6.0.0-alpha0213" />
     <PackageReference Include="Orc.Theming" Version="6.0.0-alpha0199" />
   </ItemGroup>
 
