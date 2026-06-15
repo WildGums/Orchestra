@@ -10,7 +10,7 @@ using Catel.Services;
 using Moq;
 using NUnit.Framework;
 
-[TestFixture]
+[TestFixture, RequiresThread(ApartmentState.STA)]
 public class CloseApplicationWatcherBaseFacts
 {
     private const int OnWindowClosingWaitingTimeout = 5000;
@@ -20,11 +20,15 @@ public class CloseApplicationWatcherBaseFacts
     {
         var messageServiceMock = new Mock<IMessageService>();
         var dispatcherServiceMock = new Mock<IDispatcherService>();
+
+        var window = new System.Windows.Window();
         var mainWindowServiceMock = new Mock<IMainWindowService>();
+        mainWindowServiceMock.Setup(x => x.GetMainWindowAsync())
+            .ReturnsAsync(window);
 
         var watcher = new TestCloseApplicationWatcher(true, messageServiceMock.Object,
             dispatcherServiceMock.Object, mainWindowServiceMock.Object);
-        await RunOnWindowClosingAndWaitForFinishAsync(watcher, OnWindowClosingWaitingTimeout);
+        await RunOnWindowClosingAndWaitForFinishAsync(window, watcher, OnWindowClosingWaitingTimeout);
 
         Assert.That(watcher.IsClosingRun, Is.True, "Closing did not run");
         Assert.That(watcher.IsClosedRun, Is.False, "Closed did run");
@@ -34,18 +38,23 @@ public class CloseApplicationWatcherBaseFacts
     public async Task Verify_Closing_Closed_Operations_Are_Executing_Async()
     {
         var messageServiceMock = new Mock<IMessageService>();
-        var dispatcherServiceMock = new Mock<IDispatcherService>();
+        var dispatcherServiceMock = new Mock<IDispatcherService>(); 
+        
+        var window = new System.Windows.Window();
         var mainWindowServiceMock = new Mock<IMainWindowService>();
+        mainWindowServiceMock.Setup(x => x.GetMainWindowAsync())
+            .ReturnsAsync(window);
 
         var watcher = new TestCloseApplicationWatcher(false, messageServiceMock.Object,
             dispatcherServiceMock.Object, mainWindowServiceMock.Object);
-        await RunOnWindowClosingAndWaitForFinishAsync(watcher, OnWindowClosingWaitingTimeout);
+        await RunOnWindowClosingAndWaitForFinishAsync(window, watcher, OnWindowClosingWaitingTimeout);
 
         Assert.That(watcher.IsClosingRun, Is.True, "Closing did not run");
         Assert.That(watcher.IsClosedRun, Is.True, "Closed did not run");
     }
 
-    private async Task RunOnWindowClosingAndWaitForFinishAsync(TestCloseApplicationWatcher watcher, int timeout)
+    private async Task RunOnWindowClosingAndWaitForFinishAsync(System.Windows.Window window,
+        TestCloseApplicationWatcher watcher, int timeout)
     {
         ArgumentNullException.ThrowIfNull(watcher);
 
@@ -56,8 +65,6 @@ public class CloseApplicationWatcherBaseFacts
             // Use a semaphore to prevent the [TestMethod] from returning prematurely.
             using (var semaphore = await RunStaThreadAsync(() =>
             {
-                var window = new System.Windows.Window();
-
                 // access handler method
                 var onWindowClosing = typeof(CloseApplicationWatcherBase).GetMethodEx("OnWindowClosing", BindingFlags.Instance | BindingFlags.NonPublic);
 
