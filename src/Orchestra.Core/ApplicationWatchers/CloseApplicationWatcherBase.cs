@@ -23,13 +23,14 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
     private static Window? SubscribedWindow;
 
     private readonly IMessageService _messageService;
+    private readonly IMainWindowService _mainWindowService;
 
     protected CloseApplicationWatcherBase(IMessageService messageService, 
         IDispatcherService dispatcherService, IMainWindowService mainWindowService)
         : base(dispatcherService, mainWindowService)
     {
         _messageService = messageService;
-
+        _mainWindowService = mainWindowService;
         Watchers.Add(this);
 
         EnqueueShellActivatedAction(Subscribe);
@@ -59,6 +60,18 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
     private async void OnWindowClosing(object? sender, CancelEventArgs e)
 #pragma warning restore AvoidAsyncVoid
     {
+        var mainWindow = await _mainWindowService.GetMainWindowAsync();
+        if (!ReferenceEquals(sender, mainWindow))
+        {
+            Logger.LogDebug("Received subscribed window closing event from a non-main window ({WindowType}), ignoring event",
+                sender?.GetType().Name);
+
+            // Safety check: are we actually subscribed to the main window?
+            Subscribe(mainWindow);
+
+            return;
+        }
+
         if (CanClose)
         {
             e.Cancel = false;
@@ -92,7 +105,7 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
             {
                 IsHandlingClosing = true;
 
-                Logger.LogDebug("Closing main window");
+                Logger.LogDebug("Closing main window ({WindowType})", window.GetType().Name);
 
                 if (!IsClosingConfirmed)
                 {
@@ -260,7 +273,6 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
         {
             // Note: always use window dispatcher
             await window.Dispatcher.InvokeAsync(window.Close);
-            //await DispatcherService.InvokeAsync(window.Close).ConfigureAwait(false);
         }
         catch (Exception)
         {
@@ -328,13 +340,15 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
 
     private void Subscribe(Window window)
     {
-        if (SubscribedWindow is not null && !SubscribedWindow.Equals(window))
+        if (SubscribedWindow is not null && 
+            !ReferenceEquals(SubscribedWindow, window))
         {
             SubscribedWindow.Closing -= OnWindowClosing;
             SubscribedWindow = null;
         }
 
-        if (SubscribedWindow is null)
+        if (SubscribedWindow is null && 
+            !ReferenceEquals(SubscribedWindow, window))
         {
             window.Closing += OnWindowClosing;
             SubscribedWindow = window;

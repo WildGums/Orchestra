@@ -31,7 +31,7 @@ public abstract class ApplicationWatcherBase : IConstructAtStartup
     {
         if (DispatcherService is null)
         {
-            DispatcherService = dispatcherService;;
+            DispatcherService = dispatcherService;
         }
 
         if (MainWindowService is null)
