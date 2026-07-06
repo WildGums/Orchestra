@@ -27,7 +27,13 @@ public class MainWindowService : IMainWindowService
 
     public virtual async Task<Window?> GetMainWindowAsync()
     {
-        return Application.Current.MainWindow;
+        var mainWindow = Application.Current.MainWindow; 
+        if (mainWindow is Views.SplashScreen)
+        {
+            return null;
+        }
+
+        return mainWindow;
     }
 
     private async void OnSizeChanged(object? sender, RoutedEventArgs e)
