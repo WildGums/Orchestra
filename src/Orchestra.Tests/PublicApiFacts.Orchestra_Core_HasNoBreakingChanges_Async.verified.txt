@@ -302,7 +302,7 @@ namespace Orchestra
     public interface IMainWindowService
     {
         event System.EventHandler<System.EventArgs>? MainWindowChanged;
-        System.Threading.Tasks.Task<System.Windows.Window> GetMainWindowAsync();
+        System.Threading.Tasks.Task<System.Windows.Window?> GetMainWindowAsync();
     }
     public interface IManageAppDataService
     {
@@ -439,7 +439,7 @@ namespace Orchestra
         public MainWindowService() { }
         public event System.EventHandler<System.EventArgs>? MainWindowChanged;
         protected virtual System.Threading.Tasks.Task CheckForUpdatedMainWindowAsync() { }
-        public virtual System.Threading.Tasks.Task<System.Windows.Window> GetMainWindowAsync() { }
+        public virtual System.Threading.Tasks.Task<System.Windows.Window?> GetMainWindowAsync() { }
     }
     public class ManageAppDataService : Orchestra.IManageAppDataService
     {

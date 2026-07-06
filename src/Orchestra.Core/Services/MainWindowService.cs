@@ -25,7 +25,7 @@ public class MainWindowService : IMainWindowService
 
     public event EventHandler<EventArgs>? MainWindowChanged;
 
-    public virtual async Task<Window> GetMainWindowAsync()
+    public virtual async Task<Window?> GetMainWindowAsync()
     {
         return Application.Current.MainWindow;
     }

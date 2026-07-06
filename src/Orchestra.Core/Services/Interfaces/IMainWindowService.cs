@@ -8,5 +8,5 @@ public interface IMainWindowService
 {
     event EventHandler<EventArgs>? MainWindowChanged;
 
-    Task<Window> GetMainWindowAsync();
+    Task<Window?> GetMainWindowAsync();
 }

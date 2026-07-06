@@ -61,6 +61,11 @@ public abstract class CloseApplicationWatcherBase : ApplicationWatcherBase
 #pragma warning restore AvoidAsyncVoid
     {
         var mainWindow = await _mainWindowService.GetMainWindowAsync();
+        if (mainWindow is null)
+        {
+            return;
+        }
+
         if (!ReferenceEquals(sender, mainWindow))
         {
             Logger.LogDebug("Received subscribed window closing event from a non-main window ({WindowType}), ignoring event",
