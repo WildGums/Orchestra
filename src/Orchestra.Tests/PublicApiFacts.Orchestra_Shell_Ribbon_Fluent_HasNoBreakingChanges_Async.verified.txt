@@ -74,6 +74,12 @@ namespace Orchestra
         public ProgressBarProvider() { }
         public virtual System.Windows.Controls.ProgressBar? GetProgressBar() { }
     }
+    public class ProgressBusyIndicatorService : Orchestra.BusyIndicatorService
+    {
+        public ProgressBusyIndicatorService(Microsoft.Extensions.Logging.ILogger<Orchestra.BusyIndicatorService> logger, Catel.Services.IDispatcherService dispatcherService, Orchestra.IProgressBarProvider progressBarProvider) { }
+        public override void Hide() { }
+        public override void UpdateStatus(int currentItem, int totalItems, string statusFormat = "") { }
+    }
     public static class RibbonExtensions
     {
         public static void AddAboutButton(this Fluent.Ribbon ribbon, Orchestra.IAboutService aboutService) { }

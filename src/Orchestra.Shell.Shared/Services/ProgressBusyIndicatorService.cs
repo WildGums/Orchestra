@@ -4,12 +4,11 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
 using Catel.Services;
 using Catel.Windows.Threading;
 using Microsoft.Extensions.Logging;
 
-internal class ProgressBusyIndicatorService : BusyIndicatorService
+public class ProgressBusyIndicatorService : BusyIndicatorService
 {
     private ProgressBar? _progressBar;
     private ResourceDictionary? _resourceDictionary;
