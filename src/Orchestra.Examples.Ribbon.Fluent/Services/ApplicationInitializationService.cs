@@ -49,12 +49,12 @@ public class ApplicationInitializationService : ApplicationInitializationService
         var commandManager = ServiceProvider.GetRequiredService<ICommandManager>();
         var commandInfoService = ServiceProvider.GetRequiredService<ICommandInfoService>();
 
-        commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Application), "Exit");
-        commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Application), "About");
+        commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Application), nameof(Commands.Application.Exit));
+        commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Application), nameof(Commands.Application.About));
 
-        commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Demo), "LongOperation");
-        commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Demo), "ShowMessageBox");
-        commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Demo), "Hidden");
+        commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Demo), nameof(Commands.Demo.LongOperation));
+        commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Demo), nameof(Commands.Demo.ShowMessageBox));
+        commandManager.CreateCommandWithGesture(ServiceProvider, typeof(Commands.Demo), nameof(Commands.Demo.Hidden));
         commandInfoService.UpdateCommandInfo(Commands.Demo.Hidden, x => x.IsHidden = true);
 
         commandManager.CreateCommand("File.Open", new InputGesture(Key.O, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);

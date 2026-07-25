@@ -6,7 +6,7 @@ using Catel;
 using Catel.MVVM;
 using Catel.Services;
 
-internal class DemoShowMessageBoxCommandContainer : CommandContainerBase
+public class DemoShowMessageBoxCommandContainer : CommandContainerBase
 {
     private readonly IMessageService _messageService;
 

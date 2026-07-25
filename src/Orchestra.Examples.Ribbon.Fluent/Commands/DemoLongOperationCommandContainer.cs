@@ -6,7 +6,7 @@ using Catel;
 using Catel.MVVM;
 using Catel.Services;
 
-internal class DemoLongOperationCommandContainer : CommandContainerBase
+public class DemoLongOperationCommandContainer : CommandContainerBase
 {
     private readonly IBusyIndicatorService _busyIndicatorService;
     private readonly IMessageService _messageService;

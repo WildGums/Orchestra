@@ -16,9 +16,10 @@ public static partial class OrchestraShellRibbonFluentModule
         serviceCollection.TryAddSingleton<IShellRecoveryService, ShellRecoveryService>();
         serviceCollection.TryAddSingleton<IApplicationInitializationService, ApplicationInitializationServiceBase>();
         serviceCollection.TryAddSingleton<IShellConfigurationService, ShellConfigurationService>();
-        serviceCollection.TryAddSingleton<IBusyIndicatorService, ProgressBusyIndicatorService>();
         serviceCollection.TryAddSingleton<IProgressBarProvider, ProgressBarProvider>();
         serviceCollection.TryAddSingleton<IXamlResourceService, XamlResourceService>();
+
+        serviceCollection.AddSingleton<IBusyIndicatorService, ProgressBusyIndicatorService>();
 
         serviceCollection.AddSingleton<IThirdPartyNotice>((x) => new ResourceBasedThirdPartyNotice("Fluent.Ribbon", "https://github.com/fluentribbon/Fluent.Ribbon", "Orchestra.Shell.Ribbon.Fluent", "Orchestra", "Resources.ThirdPartyNotices.fluent.ribbon.txt"));
 
