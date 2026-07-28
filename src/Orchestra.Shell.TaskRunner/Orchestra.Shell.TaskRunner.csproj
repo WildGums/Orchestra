@@ -30,7 +30,7 @@
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.7.0" PrivateAssets="all" />
     <PackageReference Include="MethodTimer.Fody" Version="3.2.3" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="5.3.1" PrivateAssets="all" />
-    <PackageReference Include="Orc.LogViewer" Version="6.0.0-alpha0178" />
+    <PackageReference Include="Orc.LogViewer" Version="6.0.0-alpha0233" />
   </ItemGroup>
 
   <ItemGroup>
