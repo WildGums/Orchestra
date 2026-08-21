@@ -25,8 +25,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Catel.Fody" Version="7.1.0-alpha0016" PrivateAssets="all" />
-    <PackageReference Include="Catel.SourceGenerators" Version="7.1.0-alpha0083" PrivateAssets="all" />
+    <PackageReference Include="Catel.Fody" Version="7.1.0" PrivateAssets="all" />
+    <PackageReference Include="Catel.SourceGenerators" Version="7.1.0" PrivateAssets="all" />
     <PackageReference Include="Fluent.Ribbon" Version="11.0.2" />
     <PackageReference Include="Fody" Version="6.9.3" PrivateAssets="all">
       <ExcludeAssets>runtime</ExcludeAssets>
@@ -34,8 +34,8 @@
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.7.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.*" />
-    <PackageReference Include="Orc.LogViewer" Version="6.0.0-alpha0233" />
-    <PackageReference Include="Orc.Notifications" Version="6.0.0-alpha0139" />
+    <PackageReference Include="Orc.LogViewer" Version="6.0.0" />
+    <PackageReference Include="Orc.Notifications" Version="6.0.0" />
     <PackageReference Include="Serilog" Version="4.4.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
