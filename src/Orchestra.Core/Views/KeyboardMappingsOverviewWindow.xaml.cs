@@ -1,7 +1,8 @@
 ﻿namespace Orchestra.Views;
 
-using Catel.IoC;
+using Catel.Services;
 using Catel.Windows;
+using Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
 /// Interaction logic for KeyboardMappingsOverviewWindow.xaml.
@@ -12,7 +13,9 @@ public partial class KeyboardMappingsOverviewWindow
     {
         Mode = DataWindowMode.Custom;
 
-        AddCustomButton(new DataWindowButton("Customize", "Customize"));
-        AddCustomButton(DataWindowButton.FromSync(IoCContainer.ServiceProvider, "Close", Close, null));
+        var languageService = ServiceProvider.GetRequiredService<ILanguageService>();
+
+        AddCustomButton(new DataWindowButton(languageService.GetRequiredString("Orchestra_Customize"), "Customize"));
+        AddCustomButton(DataWindowButton.FromSync(ServiceProvider, languageService.GetRequiredString("Orchestra_Close"), Close, null));
     }
 }

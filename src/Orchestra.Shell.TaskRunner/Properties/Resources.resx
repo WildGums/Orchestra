@@ -125,6 +125,9 @@ Please try restarting the application. If this error keeps coming up while start
   <data name="Orchestra_ShellRecovery_FailedToStart" xml:space="preserve">
     <value>Failed to start {0}</value>
   </data>
+  <data name="Orchestra_About" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="Orchestra_ShellWindow_Run" xml:space="preserve">
     <value>Run</value>
   </data>
