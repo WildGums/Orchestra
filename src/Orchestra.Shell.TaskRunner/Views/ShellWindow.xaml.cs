@@ -2,7 +2,6 @@
 
 using System;
 using System.Windows;
-using Catel;
 using Catel.IoC;
 using Catel.MVVM;
 using Catel.MVVM.Views;
@@ -32,7 +31,7 @@ public partial class ShellWindow : IShell
         _taskRunnerService = taskRunnerService;
         if (_taskRunnerService.ShowCustomizeShortcutsButton)
         {
-            AddCustomButton(DataWindowButton.FromAsync(serviceProvider, LanguageHelper.GetRequiredString("Orchestra_KeyboardShortcuts"), () => uiVisualizerService.ShowDialogAsync<KeyboardMappingsOverviewViewModel>(), null));
+            AddCustomButton(DataWindowButton.FromAsync(serviceProvider, languageService.GetRequiredString("Orchestra_KeyboardShortcuts"), () => uiVisualizerService.ShowDialogAsync<KeyboardMappingsOverviewViewModel>(), null));
         }
 
         var helpAboutCommand = commandManager.GetCommand("Help.About");
@@ -40,7 +39,7 @@ public partial class ShellWindow : IShell
         {
             commandManager.RegisterAction("Help.About", async () => await aboutService.ShowAboutAsync());
 
-            AddCustomButton(new DataWindowButton(LanguageHelper.GetRequiredString("Orchestra_About"), helpAboutCommand));
+            AddCustomButton(new DataWindowButton(languageService.GetRequiredString("Orchestra_About"), helpAboutCommand));
         }
 
         InitializeComponent();
