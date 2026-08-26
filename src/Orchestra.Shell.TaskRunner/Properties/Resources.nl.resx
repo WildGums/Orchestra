@@ -12,4 +12,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Orchestra_ShellRecovery_UnexpectedError" xml:space="preserve">
+    <value>Er deed zich een onverwachte fout op bij het starten van {0}. Helaas moet het gesloten worden.
+
+Probeer alsjeblieft de applicatie opnieuw op te starten. Als deze fout blijft verschijnen tijdens het starten van de applicatie, neem dan contact op met support.</value>
+  </data>
+  <data name="Orchestra_ShellRecovery_FailedToStart" xml:space="preserve">
+    <value>Het is niet gelukt om {0} te starten</value>
+  </data>
+  <data name="Orchestra_About" xml:space="preserve">
+    <value>Over</value>
+  </data>
+  <data name="Orchestra_ShellWindow_Run" xml:space="preserve">
+    <value>Ren</value>
+  </data>
+  <data name="Orchestra_ShellWindow_Results" xml:space="preserve">
+    <value>Resultaten</value>
+  </data>
 </root>

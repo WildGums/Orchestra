@@ -5,7 +5,32 @@
       <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6900.0" tool-company="Microsoft" />
     </header>
     <body>
-      <group id="ORCHESTRA.SHELL.TASKRUNNER/PROPERTIES/RESOURCES.RESX" datatype="resx" />
+      <group id="ORCHESTRA.SHELL.TASKRUNNER/PROPERTIES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="Orchestra_About" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="new">À propos</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShellRecovery_FailedToStart" translate="yes" xml:space="preserve">
+          <source>Failed to start {0}</source>
+          <target state="new">Échec à démarrer {0}</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShellRecovery_UnexpectedError" translate="yes" xml:space="preserve">
+          <source>An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.
+
+Please try restarting the application. If this error keeps coming up while starting the application, please contact support.</source>
+          <target state="new">Une erreur inattendue s’est produite au début de {0}. Malheureusement, il faut fermer.
+
+Veuillez essayer de redémarrer la demande. Si cette erreur revient au lancement de la demande, veuillez contacter le support.</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShellWindow_Results" translate="yes" xml:space="preserve">
+          <source>Results</source>
+          <target state="new">Résultats</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShellWindow_Run" translate="yes" xml:space="preserve">
+          <source>Run</source>
+          <target state="new">Cours</target>
+        </trans-unit>
+      </group>
     </body>
   </file>
 </xliff>

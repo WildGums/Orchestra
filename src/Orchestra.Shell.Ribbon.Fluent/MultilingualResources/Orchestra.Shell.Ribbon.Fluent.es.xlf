@@ -5,7 +5,20 @@
       <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6900.0" tool-company="Microsoft" />
     </header>
     <body>
-      <group id="ORCHESTRA.SHELL.RIBBON.FLUENT/PROPERTIES/RESOURCES.RESX" datatype="resx" />
+      <group id="ORCHESTRA.SHELL.RIBBON.FLUENT/PROPERTIES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="Orchestra_ShellRecovery_FailedToStart" translate="yes" xml:space="preserve">
+          <source>Failed to start {0}</source>
+          <target state="new">No pudo arrancar {0}</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShellRecovery_UnexpectedError" translate="yes" xml:space="preserve">
+          <source>An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.
+
+Please try restarting the application. If this error keeps coming up while starting the application, please contact support.</source>
+          <target state="new">Al iniciar {0} se produjo un error inesperado. Por desgracia, hay que cerrarla.
+
+Por favor, intenta reiniciar la solicitud. Si este error sigue apareciendo al iniciar la aplicación, por favor contacta con soporte.</target>
+        </trans-unit>
+      </group>
     </body>
   </file>
 </xliff>
