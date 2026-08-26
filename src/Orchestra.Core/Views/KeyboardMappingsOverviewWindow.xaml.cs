@@ -1,5 +1,6 @@
 ﻿namespace Orchestra.Views;
 
+using Catel;
 using Catel.IoC;
 using Catel.Windows;
 
@@ -12,7 +13,7 @@ public partial class KeyboardMappingsOverviewWindow
     {
         Mode = DataWindowMode.Custom;
 
-        AddCustomButton(new DataWindowButton("Customize", "Customize"));
-        AddCustomButton(DataWindowButton.FromSync(IoCContainer.ServiceProvider, "Close", Close, null));
+        AddCustomButton(new DataWindowButton(LanguageHelper.GetRequiredString("Orchestra_Customize"), "Customize"));
+        AddCustomButton(DataWindowButton.FromSync(IoCContainer.ServiceProvider, LanguageHelper.GetRequiredString("Orchestra_Close"), Close, null));
     }
 }

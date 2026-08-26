@@ -32,7 +32,7 @@ public partial class ShellWindow : IShell
         _taskRunnerService = taskRunnerService;
         if (_taskRunnerService.ShowCustomizeShortcutsButton)
         {
-            AddCustomButton(DataWindowButton.FromAsync(serviceProvider, "Keyboard shortcuts", () => uiVisualizerService.ShowDialogAsync<KeyboardMappingsOverviewViewModel>(), null));
+            AddCustomButton(DataWindowButton.FromAsync(serviceProvider, LanguageHelper.GetRequiredString("Orchestra_KeyboardShortcuts"), () => uiVisualizerService.ShowDialogAsync<KeyboardMappingsOverviewViewModel>(), null));
         }
 
         var helpAboutCommand = commandManager.GetCommand("Help.About");
@@ -40,7 +40,7 @@ public partial class ShellWindow : IShell
         {
             commandManager.RegisterAction("Help.About", async () => await aboutService.ShowAboutAsync());
 
-            AddCustomButton(new DataWindowButton("About", helpAboutCommand));
+            AddCustomButton(new DataWindowButton(LanguageHelper.GetRequiredString("Orchestra_About"), helpAboutCommand));
         }
 
         InitializeComponent();
