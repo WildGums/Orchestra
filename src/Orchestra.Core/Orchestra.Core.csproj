@@ -22,7 +22,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Catel.MVVM" Version="7.0.0" />
+    <PackageReference Include="Catel.MVVM" Version="7.0.1" />
     <PackageReference Include="Catel.Fody" Version="7.1.0" PrivateAssets="all" />
     <PackageReference Include="Catel.SourceGenerators" Version="7.1.0" PrivateAssets="all" />
     <PackageReference Include="Fody" Version="6.9.3" PrivateAssets="all">
