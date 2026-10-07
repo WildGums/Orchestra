@@ -1,12 +1,11 @@
-﻿namespace Orchestra.Win32
-{
-    using System.Runtime.InteropServices;
+﻿namespace Orchestra.Win32;
 
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct DisplayConfigPathInfo
-    {
-        public DisplayConfigPathSourceInfo SourceInfo;
-        public DisplayConfigPathTargetInfo TargetInfo;
-        public uint Flags;
-    }
+using System.Runtime.InteropServices;
+
+[StructLayout(LayoutKind.Sequential)]
+internal struct DisplayConfigPathInfo
+{
+    public DisplayConfigPathSourceInfo SourceInfo;
+    public DisplayConfigPathTargetInfo TargetInfo;
+    public uint Flags;
 }

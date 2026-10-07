@@ -1,25 +1,28 @@
-﻿namespace Orchestra.Examples.Ribbon
+﻿namespace Orchestra.Examples.Ribbon;
+
+using System;
+using System.Threading.Tasks;
+using Catel.MVVM;
+using Catel.Services;
+
+public class DemoHiddenCommandContainer : CommandContainerBase
 {
-    using System;
-    using System.Threading.Tasks;
-    using Catel.MVVM;
-    using Catel.Services;
+    private readonly IMessageService _messageService;
+    private readonly ILanguageService _languageService;
 
-    public class DemoHiddenCommandContainer : CommandContainerBase
+    public DemoHiddenCommandContainer(ICommandManager commandManager, IMessageService messageService,
+        ILanguageService languageService, IServiceProvider serviceProvider)
+        : base(Commands.Demo.Hidden, commandManager, serviceProvider)
     {
-        private readonly IMessageService _messageService;
+        ArgumentNullException.ThrowIfNull(messageService);
+        ArgumentNullException.ThrowIfNull(languageService);
 
-        public DemoHiddenCommandContainer(ICommandManager commandManager, IMessageService messageService)
-            : base(Commands.Demo.Hidden, commandManager)
-        {
-            ArgumentNullException.ThrowIfNull(messageService);
+        _messageService = messageService;
+        _languageService = languageService;
+    }
 
-            _messageService = messageService;
-        }
-
-        public override async Task ExecuteAsync(object parameter)
-        {
-            await _messageService.ShowAsync("You just executed a hidden command");
-        }
+    public override async Task ExecuteAsync(object parameter)
+    {
+        await _messageService.ShowAsync(_languageService.GetRequiredString("Orchestra_Examples_Ribbon_DemoHidden_ExecutedMessage"));
     }
 }

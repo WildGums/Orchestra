@@ -12,4 +12,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Orchestra_ShellRecovery_UnexpectedError" xml:space="preserve">
+    <value>Al iniciar {0} se produjo un error inesperado. Por desgracia, hay que cerrarla.
+
+Por favor, intenta reiniciar la solicitud. Si este error sigue apareciendo al iniciar la aplicación, por favor contacta con soporte.</value>
+  </data>
+  <data name="Orchestra_ShellRecovery_FailedToStart" xml:space="preserve">
+    <value>No pudo arrancar {0}</value>
+  </data>
+  <data name="Orchestra_About" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="Orchestra_ShellWindow_Run" xml:space="preserve">
+    <value>¡Corre</value>
+  </data>
+  <data name="Orchestra_ShellWindow_Results" xml:space="preserve">
+    <value>Resultados</value>
+  </data>
 </root>

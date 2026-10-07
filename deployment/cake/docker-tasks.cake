@@ -37,8 +37,29 @@ public class DockerImagesProcessor : ProcessorBase
 
     private string GetDockerImageName(string projectName)
     {
-        var name = projectName.Replace(".", "-");
-        return name.ToLower();
+        var imageName = string.Empty;
+
+        var appName = BuildContext.DockerImages.DockerAppName;
+        if (!string.IsNullOrWhiteSpace(appName))
+        {
+            imageName = appName.ToLower() + "/";
+
+            if (projectName.StartsWith(appName, StringComparison.OrdinalIgnoreCase))
+            {
+                projectName = projectName.Substring(appName.Length);
+            }
+        }
+
+        projectName = projectName.Trim('.', '-');
+
+        imageName += projectName.Replace(".", "-");
+
+        if (imageName.EndsWith("service", StringComparison.OrdinalIgnoreCase))
+        {
+            imageName = imageName.Substring(0, imageName.Length - "service".Length);
+        }
+
+        return imageName.ToLower();
     }
 
     private string GetDockerImageTag(string projectName, string version)
@@ -281,9 +302,9 @@ public class DockerImagesProcessor : ProcessorBase
 
             ConfigureDockerSettings(dockerSettings);
 
-            CakeContext.Information("Docker files source directory: '{0}'", outputRootDirectory);
+            CakeContext.Information("Docker files source directory: '{0}'", outputDirectory);
 
-            CakeContext.DockerBuild(dockerSettings, outputRootDirectory);
+            CakeContext.DockerBuild(dockerSettings, outputDirectory);
 
             BuildContext.CakeContext.LogSeparator();
         }        

@@ -1,9 +1,8 @@
-﻿namespace Orchestra.Tooltips
-{
-    using System.Windows.Documents;
+﻿namespace Orchestra.Tooltips;
 
-    public interface IAdorneredTooltipFactory
-    {
-        IAdorneredTooltip Create(Adorner adornered, bool adornerLayerVisibility);
-    }
+using System.Windows.Documents;
+
+public interface IAdorneredTooltipFactory
+{
+    IAdorneredTooltip Create(Adorner adornered, bool adornerLayerVisibility);
 }

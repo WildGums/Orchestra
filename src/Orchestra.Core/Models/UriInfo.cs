@@ -1,19 +1,18 @@
-﻿namespace Orchestra
+﻿namespace Orchestra;
+
+using System;
+
+public class UriInfo
 {
-    using System;
-    
-    public class UriInfo
+    public UriInfo(string uri, string? displayText = null)
     {
-        public UriInfo(string uri, string? displayText = null)
-        {
-            ArgumentNullException.ThrowIfNull(uri);
+        ArgumentNullException.ThrowIfNull(uri);
 
-            Uri = uri;
-            DisplayText = displayText ?? uri;
-        }
-
-        public string DisplayText { get; set; }
-
-        public string Uri { get; set; }
+        Uri = uri;
+        DisplayText = displayText ?? uri;
     }
+
+    public string DisplayText { get; set; }
+
+    public string Uri { get; set; }
 }

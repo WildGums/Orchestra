@@ -1,20 +1,6 @@
-﻿namespace Orchestra.Examples.TaskRunner.Views
-{
-    using Catel.Windows.Controls;
+﻿namespace Orchestra.Examples.TaskRunner.Views;
 
-    /// <summary>
-    /// Interaction logic for SettingsView.xaml.
-    /// </summary>
-    public partial class SettingsView : UserControl
-    {
-        #region Constructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SettingsView"/> class.
-        /// </summary>
-        public SettingsView()
-        {
-            InitializeComponent();
-        }
-        #endregion
-    }
+public partial class SettingsView
+{
+
 }

@@ -19,7 +19,7 @@ namespace Orchestra.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,53 @@ namespace Orchestra.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string Orchestra_About {
+            get {
+                return ResourceManager.GetString("Orchestra_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to start {0}.
+        /// </summary>
+        internal static string Orchestra_ShellRecovery_FailedToStart {
+            get {
+                return ResourceManager.GetString("Orchestra_ShellRecovery_FailedToStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.
+        ///
+        ///Please try restarting the application. If this error keeps coming up while starting the application, please contact support..
+        /// </summary>
+        internal static string Orchestra_ShellRecovery_UnexpectedError {
+            get {
+                return ResourceManager.GetString("Orchestra_ShellRecovery_UnexpectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        internal static string Orchestra_ShellWindow_Results {
+            get {
+                return ResourceManager.GetString("Orchestra_ShellWindow_Results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run.
+        /// </summary>
+        internal static string Orchestra_ShellWindow_Run {
+            get {
+                return ResourceManager.GetString("Orchestra_ShellWindow_Run", resourceCulture);
             }
         }
     }

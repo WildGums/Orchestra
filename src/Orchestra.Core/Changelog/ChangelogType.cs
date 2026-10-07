@@ -1,13 +1,12 @@
-﻿namespace Orchestra.Changelog
+﻿namespace Orchestra.Changelog;
+
+public enum ChangelogType
 {
-    public enum ChangelogType
-    {
-        Change,
+    Change,
 
-        Improvement,
+    Improvement,
 
-        Feature,
+    Feature,
 
-        Bug,
-    }
+    Bug,
 }

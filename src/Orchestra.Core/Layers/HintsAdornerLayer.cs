@@ -1,30 +1,29 @@
-﻿namespace Orchestra.Layers
+﻿namespace Orchestra.Layers;
+
+using System;
+using System.Windows;
+using System.Windows.Documents;
+
+public class HintsAdornerLayer : IAdornerLayer
 {
-    using System;
-    using System.Windows;
-    using System.Windows.Documents;
+    private readonly AdornerLayer _adornerLayer;
 
-    public class HintsAdornerLayer : IAdornerLayer
+    public HintsAdornerLayer(AdornerLayer adornerLayer)
     {
-        private readonly AdornerLayer _adornerLayer;
+        ArgumentNullException.ThrowIfNull(adornerLayer);
 
-        public HintsAdornerLayer(AdornerLayer adornerLayer)
-        {
-            ArgumentNullException.ThrowIfNull(adornerLayer);
+        _adornerLayer = adornerLayer;
+    }
 
-            _adornerLayer = adornerLayer;
-        }
+    public void Add(Adorner adorner)
+    {
+        ArgumentNullException.ThrowIfNull(adorner);
 
-        public void Add(Adorner adorner)
-        {
-            ArgumentNullException.ThrowIfNull(adorner);
+        _adornerLayer.Add(adorner);
+    }
 
-            _adornerLayer.Add(adorner);
-        }
-
-        public Adorner[] GetAdorners(UIElement adornedElement)
-        {
-            return _adornerLayer.GetAdorners(adornedElement);
-        }
+    public Adorner[] GetAdorners(UIElement adornedElement)
+    {
+        return _adornerLayer.GetAdorners(adornedElement);
     }
 }

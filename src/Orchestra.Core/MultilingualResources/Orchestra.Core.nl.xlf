@@ -149,7 +149,7 @@
         </trans-unit>
         <trans-unit id="Orchestra_ShowLog" translate="yes" xml:space="preserve">
           <source>Show log...</source>
-          <target state="translated">Toon log...</target>
+          <target state="needs-review-translation">Toon log...</target>
         </trans-unit>
         <trans-unit id="Orchestra_ShowSystemInfo" translate="yes" xml:space="preserve">
           <source>Show system info</source>

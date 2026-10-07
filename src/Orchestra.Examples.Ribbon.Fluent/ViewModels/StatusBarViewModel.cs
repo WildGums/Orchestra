@@ -1,14 +1,23 @@
-﻿namespace Orchestra.Examples.Ribbon.ViewModels
+﻿namespace Orchestra.Examples.Ribbon.ViewModels;
+
+using System;
+using Catel.MVVM;
+using Catel.Services;
+
+public partial class StatusBarViewModel : ViewModelBase
 {
-    using Catel.MVVM;
+    private readonly ILanguageService _languageService;
 
-    public class StatusBarViewModel : ViewModelBase
+    public StatusBarViewModel(IServiceProvider serviceProvider, ILanguageService languageService)
+        : base(serviceProvider)
     {
-        public override string Title
-        {
-            get { return "Status bar title binding"; }
-        }
-
-        public bool EnableAutomaticUpdates { get; set; }
+        _languageService = languageService;
     }
+
+    public override string Title
+    {
+        get { return _languageService.GetRequiredString("Orchestra_Examples_Ribbon_StatusBarViewModel_Title"); }
+    }
+
+    public bool EnableAutomaticUpdates { get; set; }
 }

@@ -162,3 +162,9 @@ package-lock.json
 # Azure / .NET Aspire
 .azure
 infra/
+
+# Docfx output
+doc/site
+
+# AI / agents
+.claude

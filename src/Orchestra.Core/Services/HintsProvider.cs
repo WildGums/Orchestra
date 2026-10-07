@@ -1,52 +1,51 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Windows;
+using Catel;
+
+public class HintsProvider : IHintsProvider
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq.Expressions;
-    using System.Windows;
-    using Catel;
+    private readonly Dictionary<Type, List<IHint>> _hints = new Dictionary<Type, List<IHint>>();
 
-    public class HintsProvider : IHintsProvider
+    public void AddHint<TControlType>(string hintText, Expression<Func<object>> userControlName)
     {
-        private readonly Dictionary<Type, List<IHint>> _hints = new Dictionary<Type, List<IHint>>();
+        ArgumentNullException.ThrowIfNull(hintText);
+        ArgumentNullException.ThrowIfNull(userControlName);
 
-        public void AddHint<TControlType>(string hintText, Expression<Func<object>> userControlName)
+        var controlName = string.Empty;
+        if (userControlName is not null)
         {
-            ArgumentNullException.ThrowIfNull(hintText);
-            ArgumentNullException.ThrowIfNull(userControlName);
-
-            var controlName = string.Empty;
-            if (userControlName is not null)
-            {
-                controlName = ExpressionHelper.GetPropertyName(userControlName);
-            }
-
-            AddHint<TControlType>(new Hint(hintText, controlName));
+            controlName = ExpressionHelper.GetPropertyName(userControlName);
         }
 
-        public void AddHint<TControlType>(IHint hint)
+        AddHint<TControlType>(new Hint(hintText, controlName));
+    }
+
+    public void AddHint<TControlType>(IHint hint)
+    {
+        ArgumentNullException.ThrowIfNull(hint);
+
+        var type = typeof(TControlType);
+        if (!_hints.ContainsKey(type))
         {
-            ArgumentNullException.ThrowIfNull(hint);
-
-            var type = typeof(TControlType);
-            if (!_hints.ContainsKey(type))
-            {
-                _hints.Add(type, new List<IHint>());
-            }
-
-            _hints[type].Add(hint);
+            _hints.Add(type, new List<IHint>());
         }
 
-        public IHint[] GetHintsFor(FrameworkElement element)
+        _hints[type].Add(hint);
+    }
+
+    public IHint[] GetHintsFor(FrameworkElement element)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+
+        if (_hints.TryGetValue(element.GetType(), out var hints))
         {
-            ArgumentNullException.ThrowIfNull(element);
-
-            if (_hints.TryGetValue(element.GetType(), out var hints))
-            {
-                return hints.ToArray();
-            }
-
-            return Array.Empty<IHint>();
+            return hints.ToArray();
         }
+
+        return Array.Empty<IHint>();
     }
 }

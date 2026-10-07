@@ -1,10 +1,9 @@
-﻿namespace Orchestra.Win32
-{
-    using System.Runtime.InteropServices;
+﻿namespace Orchestra.Win32;
 
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct DisplayConfigTargetMode
-    {
-        public DisplayConfigVideoSignalInfo TargetVideoSignalInfo;
-    }
+using System.Runtime.InteropServices;
+
+[StructLayout(LayoutKind.Sequential)]
+internal struct DisplayConfigTargetMode
+{
+    public DisplayConfigVideoSignalInfo TargetVideoSignalInfo;
 }

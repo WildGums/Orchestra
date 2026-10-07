@@ -1,9 +1,8 @@
-﻿namespace Orchestra.Services
-{
-    using System.Windows.Input;
+﻿namespace Orchestra;
 
-    public interface IKeyboardMappingsAllowedKeysService
-    {
-        bool IsAllowed(Key key);
-    }
+using System.Windows.Input;
+
+public interface IKeyboardMappingsAllowedKeysService
+{
+    bool IsAllowed(Key key);
 }

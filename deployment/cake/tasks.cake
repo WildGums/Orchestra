@@ -11,7 +11,6 @@
 #l "sourcecontrol.cake"
 #l "notifications.cake"
 #l "generic-tasks.cake"
-#l "apps-uwp-tasks.cake"
 #l "apps-wpf-tasks.cake"
 #l "aspire-tasks.cake"
 #l "codesigning-tasks.cake"
@@ -36,7 +35,7 @@
 // It probably means the tool is not correctly installed.
 // `dotnet tool install --global dotnet-sonarscanner --ignore-failed-sources`
 //#tool "nuget:?package=MSBuild.SonarQube.Runner.Tool&version=4.8.0"
-#tool "nuget:?package=dotnet-sonarscanner&version=11.0.0"
+#tool "nuget:?package=dotnet-sonarscanner&version=11.2.1"
 
 //-------------------------------------------------------------
 // BACKWARDS COMPATIBILITY CODE - START
@@ -104,7 +103,6 @@ public class BuildContext : BuildContextBase
     public GitHubPagesContext GitHubPages { get; set; }
     public TemplatesContext Templates { get; set; }
     public ToolsContext Tools { get; set; }
-    public UwpContext Uwp { get; set; }
     public VsExtensionsContext VsExtensions { get; set; }
     public WpfContext Wpf { get; set; }
 
@@ -152,7 +150,6 @@ Setup<BuildContext>(setupContext =>
     buildContext.GitHubPages = InitializeGitHubPagesContext(buildContext, buildContext);
     buildContext.Templates = InitializeTemplatesContext(buildContext, buildContext);
     buildContext.Tools = InitializeToolsContext(buildContext, buildContext);
-    buildContext.Uwp = InitializeUwpContext(buildContext, buildContext);
     buildContext.VsExtensions = InitializeVsExtensionsContext(buildContext, buildContext);
     buildContext.Wpf = InitializeWpfContext(buildContext, buildContext);
 
@@ -176,7 +173,6 @@ Setup<BuildContext>(setupContext =>
     buildContext.Processors.Add(new DockerImagesProcessor(buildContext));
     buildContext.Processors.Add(new GitHubPagesProcessor(buildContext));
     buildContext.Processors.Add(new ToolsProcessor(buildContext));
-    buildContext.Processors.Add(new UwpProcessor(buildContext));
     buildContext.Processors.Add(new VsExtensionsProcessor(buildContext));
     buildContext.Processors.Add(new WpfProcessor(buildContext));
     // !!! Note: we add test projects *after* preparing all the other processors, see Prepare task !!!
@@ -246,7 +242,6 @@ Task("Prepare")
     buildContext.RegisteredProjects.AddRange(buildContext.GitHubPages.Items);
     buildContext.RegisteredProjects.AddRange(buildContext.Tests.Items);
     buildContext.RegisteredProjects.AddRange(buildContext.Tools.Items);
-    buildContext.RegisteredProjects.AddRange(buildContext.Uwp.Items);
     buildContext.RegisteredProjects.AddRange(buildContext.VsExtensions.Items);
     buildContext.RegisteredProjects.AddRange(buildContext.Wpf.Items);
 
@@ -269,7 +264,6 @@ Task("Prepare")
     buildContext.AllProjects.AddRange(buildContext.DockerImages.Items);
     buildContext.AllProjects.AddRange(buildContext.GitHubPages.Items);
     buildContext.AllProjects.AddRange(buildContext.Tools.Items);
-    buildContext.AllProjects.AddRange(buildContext.Uwp.Items);
     buildContext.AllProjects.AddRange(buildContext.VsExtensions.Items);
     buildContext.AllProjects.AddRange(buildContext.Wpf.Items);
 
@@ -287,7 +281,7 @@ Task("Prepare")
     
     foreach (var test in buildContext.Tests.Items)
     {
-        buildContext.CakeContext.Information($"  - {test}");
+        buildContext.CakeContext.Information($"- {test}");
     }
 
     buildContext.AllProjects.AddRange(buildContext.Tests.Items);
@@ -303,7 +297,7 @@ Task("Prepare")
     
     foreach (var dependency in buildContext.Dependencies.Items)
     {
-        buildContext.CakeContext.Information($"  - {dependency}");
+        buildContext.CakeContext.Information($"- {dependency}");
     }
 
     // Add to the front, these are dependencies after all
@@ -323,6 +317,8 @@ Task("Prepare")
     }
     
     await buildContext.BuildServer.AfterPrepareAsync();
+
+    InitializeNuGetPackageSources(buildContext);
 });
 
 //-------------------------------------------------------------
@@ -347,7 +343,7 @@ Task("UpdateInfo")
 
 Task("Build")
     .IsDependentOn("Clean")
-    .IsDependentOn("RestorePackages")
+    .IsDependentOn("RestorePackagesForBuild")
     .IsDependentOn("UpdateInfo")
     //.IsDependentOn("VerifyDependencies")
     .IsDependentOn("CleanupCode")
@@ -624,9 +620,8 @@ Task("Package")
     .IsDependentOn("UpdateInfo")
     // Note: no dependency on 'build' since we might have already built the solution
     // Make sure we have the temporary "project.assets.json" in case we need to package with Visual Studio
-    .IsDependentOn("RestorePackages")
+    .IsDependentOn("RestorePackagesForPackage")
     // Make sure to update if we are running on a new agent so we can sign nuget packages
-    .IsDependentOn("UpdateNuGet")
     .IsDependentOn("CodeSign")
     .Does<BuildContext>(async buildContext =>
 {
@@ -689,7 +684,7 @@ Task("PackageLocal")
 Task("Deploy")
     // Note: no dependency on 'package' since we might have already packaged the solution
     // Make sure we have the temporary "project.assets.json" in case we need to package with Visual Studio
-    .IsDependentOn("RestorePackages")
+    .IsDependentOn("RestorePackagesForDeploy")
     .Does<BuildContext>(async buildContext =>
 {
     await buildContext.BuildServer.BeforeDeployAsync(); 
@@ -761,7 +756,8 @@ Task("BuildAndDeploy")
     .IsDependentOn("Build")
     .IsDependentOn("Test")
     .IsDependentOn("Package")
-    .IsDependentOn("Deploy");
+    .IsDependentOn("Deploy")
+    .IsDependentOn("Finalize");
 
 //-------------------------------------------------------------
 

@@ -84,38 +84,8 @@ private void UpdateSolutionAssemblyInfo(BuildContext buildContext)
 
 //-------------------------------------------------------------
 
-Task("UpdateNuGet")
-    .ContinueOnError()
-    .Does<BuildContext>(buildContext => 
-{
-    // DISABLED UNTIL NUGET GETS FIXED: https://github.com/NuGet/Home/issues/10853
-
-    // Information("Making sure NuGet is using the latest version");
-
-    // if (buildContext.General.IsLocalBuild && buildContext.General.MaximizePerformance)
-    // {
-    //     Information("Local build with maximized performance detected, skipping NuGet update check");
-    //     return;
-    // }
-
-    // var nuGetExecutable = buildContext.General.NuGet.Executable;
-
-    // var exitCode = StartProcess(nuGetExecutable, new ProcessSettings
-    // {
-    //     Arguments = "update -self"
-    // });
-
-    // var newNuGetVersionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(nuGetExecutable);
-    // var newNuGetVersion = newNuGetVersionInfo.FileVersion;
-
-    // Information("Updating NuGet.exe exited with '{0}', version is '{1}'", exitCode, newNuGetVersion);
-});
-
-//-------------------------------------------------------------
-
-Task("RestorePackages")
+Task("RestorePackagesForBuild")
     .IsDependentOn("Prepare")
-    .IsDependentOn("UpdateNuGet")
     .ContinueOnError()
     .Does<BuildContext>(buildContext =>
 {
@@ -127,7 +97,10 @@ Task("RestorePackages")
 
     //var csharpProjects = GetFiles("./**/*.csproj");
     // var cProjects = GetFiles("./**/*.vcxproj");
-    var solutions = GetFiles("./**/*.sln");
+    var solutions = new List<FilePath>();
+    solutions.AddRange(GetFiles("./**/*.sln"));
+    solutions.AddRange(GetFiles("./**/*.slnx"));
+    
     var csharpProjects = new List<FilePath>();
 
     foreach (var project in buildContext.AllProjects)
@@ -171,6 +144,92 @@ Task("RestorePackages")
             // For C++ projects, we must clean the project again after a package restore
             CleanProject(buildContext, project);
         }
+    }
+});
+
+//-------------------------------------------------------------
+
+Task("RestorePackagesForPackage")
+    .IsDependentOn("Prepare")
+    .ContinueOnError()
+    .Does<BuildContext>(buildContext =>
+{
+    if (buildContext.General.IsLocalBuild && buildContext.General.MaximizePerformance)
+    {
+        Information("Local build with maximized performance detected, skipping package restore");
+        return;
+    }
+
+    var csharpProjects = new List<FilePath>();
+
+    foreach (var project in buildContext.AllProjects)
+    {
+        if (!ShouldPackageProject(buildContext, project) ||
+            IsTestProject(buildContext, project))
+        {
+            continue;
+        }
+
+        var projectFileName = GetProjectFileName(buildContext, project);
+        if (projectFileName.EndsWith(".csproj"))
+        {
+            Information("Adding '{0}' as C# specific project to restore", project);
+
+            csharpProjects.Add(projectFileName);
+        }
+    }
+
+    var allFiles = new List<FilePath>();
+    allFiles.AddRange(csharpProjects);
+
+	Information($"Found '{allFiles.Count}' projects to restore");
+
+    foreach (var file in allFiles)
+    {
+        RestoreNuGetPackages(buildContext, file);
+    }
+});
+
+//-------------------------------------------------------------
+
+Task("RestorePackagesForDeploy")
+    .IsDependentOn("Prepare")
+    .ContinueOnError()
+    .Does<BuildContext>(buildContext =>
+{
+    if (buildContext.General.IsLocalBuild && buildContext.General.MaximizePerformance)
+    {
+        Information("Local build with maximized performance detected, skipping package restore");
+        return;
+    }
+
+    var csharpProjects = new List<FilePath>();
+
+    foreach (var project in buildContext.AllProjects)
+    {
+        if (!ShouldDeployProject(buildContext, project) ||
+            IsTestProject(buildContext, project))
+        {
+            continue;
+        }
+
+        var projectFileName = GetProjectFileName(buildContext, project);
+        if (projectFileName.EndsWith(".csproj"))
+        {
+            Information("Adding '{0}' as C# specific project to restore", project);
+
+            csharpProjects.Add(projectFileName);
+        }
+    }
+
+    var allFiles = new List<FilePath>();
+    allFiles.AddRange(csharpProjects);
+
+	Information($"Found '{allFiles.Count}' projects to restore");
+
+    foreach (var file in allFiles)
+    {
+        RestoreNuGetPackages(buildContext, file);
     }
 });
 
@@ -296,7 +355,7 @@ Task("CodeSign")
 
     var filesToSign = new List<FilePath>();
 
-    // Note: only code-sign components & wpf apps, skip test projects & uwp apps
+    // Note: only code-sign components & wpf apps, skip test projects
     var projectsToCodeSign = new List<string>();
     projectsToCodeSign.AddRange(buildContext.Components.Items);
     projectsToCodeSign.AddRange(buildContext.Wpf.Items);

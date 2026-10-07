@@ -5,7 +5,7 @@
                    xmlns:converters="clr-namespace:Orchestra.Examples.TaskRunner.Converters"
                    xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
-    <Expander IsExpanded="True" Header="Configuration" Style="{StaticResource GroupBoxExpander}">
+    <Expander IsExpanded="True" Header="{catel:LanguageBinding Orchestra_Examples_TaskRunner_SettingsView_Configuration}" Style="{StaticResource GroupBoxExpander}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -21,13 +21,13 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <orccontrols:DirectoryPicker Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,6,0" LabelText="Working directory"
+            <orccontrols:DirectoryPicker Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,6,0" LabelText="{catel:LanguageBinding Orchestra_Examples_TaskRunner_SettingsView_WorkingDirectory}"
                                  SelectedDirectory="{Binding WorkingDirectory, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
 
-            <orccontrols:DirectoryPicker Grid.Row="1" Grid.ColumnSpan="3" Margin="0,0,6,0" LabelText="Output directory"
+            <orccontrols:DirectoryPicker Grid.Row="1" Grid.ColumnSpan="3" Margin="0,0,6,0" LabelText="{catel:LanguageBinding Orchestra_Examples_TaskRunner_SettingsView_OutputDirectory}"
                                  SelectedDirectory="{Binding OutputDirectory, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
 
-            <Label Grid.Row="2" Grid.Column="0" Content="Horizon" />
+            <Label Grid.Row="2" Grid.Column="0" Content="{catel:LanguageBinding Orchestra_Examples_TaskRunner_SettingsView_Horizon}" />
             <orccontrols:DateTimePicker Grid.Row="2" Grid.Column="1" 
                                         HideTime="True"
                                         Value="{Binding HorizonStart, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
@@ -37,7 +37,7 @@
                                         Value="{Binding HorizonEnd, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
                                         Margin="3,0,6,0" />
 
-            <Label Grid.Row="3" Grid.Column="0" Content="Current time" />
+            <Label Grid.Row="3" Grid.Column="0" Content="{catel:LanguageBinding Orchestra_Examples_TaskRunner_SettingsView_CurrentTime}" />
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTime, Converter={converters:TextToDateTimeConverter}, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
         </Grid>
     </Expander>

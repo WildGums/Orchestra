@@ -1,11 +1,10 @@
-﻿namespace Orchestra
-{
-    using Catel.Windows.Input;
+﻿namespace Orchestra;
 
-    public interface ICommandInfo
-    {
-        string CommandName { get; }
-        InputGesture? InputGesture { get; set; }
-        bool IsHidden { get; set; }
-    }
+using Catel.Windows.Input;
+
+public interface ICommandInfo
+{
+    string CommandName { get; }
+    InputGesture? InputGesture { get; set; }
+    bool IsHidden { get; set; }
 }

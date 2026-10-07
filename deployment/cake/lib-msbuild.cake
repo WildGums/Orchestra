@@ -1,6 +1,6 @@
 #addin "nuget:?package=Cake.Issues&version=5.9.1"
 #addin "nuget:?package=Cake.Issues.MsBuild&version=5.9.1"
-#addin "nuget:?package=System.Configuration.ConfigurationManager&version=9.0.10"
+#addin "nuget:?package=System.Configuration.ConfigurationManager&version=10.0.7"
 
 #tool "nuget:?package=MSBuild.Extension.Pack&version=1.9.1"
 
@@ -76,7 +76,7 @@ private static void ConfigureMsBuild(BuildContext buildContext, MSBuildSettings 
     // msBuildSettings.WithProperty("SolutionPath", System.IO.Path.GetFullPath(buildContext.General.Solution.FileName));
     // msBuildSettings.WithProperty("SolutionDir", System.IO.Path.GetFullPath(buildContext.General.Solution.Directory));
     // msBuildSettings.WithProperty("SolutionName", buildContext.General.Solution.Name);
-    // msBuildSettings.WithProperty("SolutionExt", ".sln");
+    // msBuildSettings.WithProperty("SolutionExt", ".slnx");
     // msBuildSettings.WithProperty("DefineExplicitDefaults", "true");
 
     // Path maps
@@ -113,6 +113,64 @@ private static void ConfigureMsBuild(BuildContext buildContext, MSBuildSettings 
             FileName = System.IO.Path.Combine(buildContext.General.OutputRootDirectory, string.Format(@"MsBuild_{0}_{1}_log.binlog", projectName, action))
         };
     }
+
+}
+
+//-------------------------------------------------------------
+
+private static void ConfigureDotNetMsBuildTool(BuildContext buildContext, string projectFileName, MSBuildSettings msBuildSettings)
+{
+    if (!projectFileName.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
+    {
+        return;
+    }
+
+    buildContext.CakeContext.Information("Using 'dotnet msbuild' for project '{0}'", projectFileName);
+
+    msBuildSettings.ToolPath = GetDotNetToolPath(buildContext);
+
+    var previousArgumentCustomization = msBuildSettings.ArgumentCustomization;
+    msBuildSettings.ArgumentCustomization = args =>
+    {
+        if (previousArgumentCustomization is not null)
+        {
+            args = previousArgumentCustomization(args);
+        }
+
+        return args.Prepend("msbuild");
+    };
+}
+
+//-------------------------------------------------------------
+
+private static string GetDotNetToolPath(BuildContext buildContext)
+{
+    var dotNetHostPath = Environment.GetEnvironmentVariable("DOTNET_HOST_PATH");
+    if (!string.IsNullOrWhiteSpace(dotNetHostPath) &&
+        System.IO.File.Exists(dotNetHostPath))
+    {
+        return dotNetHostPath;
+    }
+
+    var dotNetExecutableName = buildContext.CakeContext.IsRunningOnWindows() ? "dotnet.exe" : "dotnet";
+    var pathVariable = Environment.GetEnvironmentVariable("PATH") ?? string.Empty;
+    var pathSeparator = buildContext.CakeContext.IsRunningOnWindows() ? ';' : ':';
+
+    foreach (var path in pathVariable.Split(pathSeparator))
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            continue;
+        }
+
+        var dotNetPath = System.IO.Path.Combine(path, dotNetExecutableName);
+        if (System.IO.File.Exists(dotNetPath))
+        {
+            return dotNetPath;
+        }
+    }
+
+    return "dotnet";
 }
 
 //-------------------------------------------------------------
@@ -160,7 +218,7 @@ private static void ConfigureMsBuildForDotNet(BuildContext buildContext, DotNetM
     // msBuildSettings.WithProperty("SolutionPath", System.IO.Path.GetFullPath(buildContext.General.Solution.FileName));
     // msBuildSettings.WithProperty("SolutionDir", System.IO.Path.GetFullPath(buildContext.General.Solution.Directory));
     // msBuildSettings.WithProperty("SolutionName", buildContext.General.Solution.Name);
-    // msBuildSettings.WithProperty("SolutionExt", ".sln");
+    // msBuildSettings.WithProperty("SolutionExt", ".slnx");
     // msBuildSettings.WithProperty("DefineExplicitDefaults", "true");
 
     // Path maps
@@ -234,6 +292,8 @@ private static void RunMsBuild(BuildContext buildContext, string projectName, st
             "XmlFileLogger", $"logfile=\"{logPath}\";verbosity=Detailed;encoding=UTF-8");
     }
 
+    ConfigureDotNetMsBuildTool(buildContext, projectFileName, msBuildSettings);
+
     var failBuild = false;
 
     try
@@ -243,8 +303,10 @@ private static void RunMsBuild(BuildContext buildContext, string projectName, st
             buildContext.CakeContext.MSBuild(projectFileName, msBuildSettings);
         //}
     }
-    catch (System.Exception)
+    catch (System.Exception ex)
     {
+        buildContext.CakeContext.Error(ex.ToString());
+
         // Accept for now, we will throw later
         failBuild = true;
     }
@@ -349,12 +411,17 @@ private static string GetVisualStudioDirectory(BuildContext buildContext, bool? 
 
     var prereleasePaths = new List<KeyValuePair<string, string>>(new [] 
     { 
+        new KeyValuePair<string, string>("Visual Studio 2026 Insiders", $@"{programFilesx64}\Microsoft Visual Studio\18\Insiders\"),
+        new KeyValuePair<string, string>("Visual Studio 2026 Preview", $@"{programFilesx64}\Microsoft Visual Studio\18\Preview\"),
         new KeyValuePair<string, string>("Visual Studio 2022 Preview", $@"{programFilesx64}\Microsoft Visual Studio\2022\Preview\"),
         new KeyValuePair<string, string>("Visual Studio 2019 Preview", $@"{programFilesx86}\Microsoft Visual Studio\2019\Preview\"),
     });
 
     var normalPaths = new List<KeyValuePair<string, string>> (new []
     {
+        new KeyValuePair<string, string>("Visual Studio 2026 Enterprise", $@"{programFilesx64}\Microsoft Visual Studio\18\Enterprise\"),
+        new KeyValuePair<string, string>("Visual Studio 2026 Professional", $@"{programFilesx64}\Microsoft Visual Studio\18\Professional\"),
+        new KeyValuePair<string, string>("Visual Studio 2026 Community", $@"{programFilesx64}\Microsoft Visual Studio\18\Community\"),
         new KeyValuePair<string, string>("Visual Studio 2022 Enterprise", $@"{programFilesx64}\Microsoft Visual Studio\2022\Enterprise\"),
         new KeyValuePair<string, string>("Visual Studio 2022 Professional", $@"{programFilesx64}\Microsoft Visual Studio\2022\Professional\"),
         new KeyValuePair<string, string>("Visual Studio 2022 Community", $@"{programFilesx64}\Microsoft Visual Studio\2022\Community\"),
@@ -411,6 +478,13 @@ private static string GetVisualStudioDirectory(BuildContext buildContext, bool? 
 
 private static string GetVisualStudioPath(BuildContext buildContext, bool? allowVsPrerelease = null)
 {
+    if (!buildContext.CakeContext.IsRunningOnWindows())
+    {
+        buildContext.CakeContext.Information("Visual Studio MSBuild is not available on this platform, using the default MSBuild tool resolution");
+
+        return null;
+    }
+
     var potentialPaths = new []
     {
         @"MSBuild\Current\Bin\msbuild.exe",
@@ -420,6 +494,12 @@ private static string GetVisualStudioPath(BuildContext buildContext, bool? allow
     };
 
     var directory = GetVisualStudioDirectory(buildContext, allowVsPrerelease);
+    if (string.IsNullOrWhiteSpace(directory))
+    {
+        buildContext.CakeContext.Information("Could not find Visual Studio MSBuild, using the default MSBuild tool resolution");
+
+        return null;
+    }
 
     foreach (var potentialPath in potentialPaths)
     {
@@ -430,7 +510,9 @@ private static string GetVisualStudioPath(BuildContext buildContext, bool? allow
         }
     }
 
-    throw new Exception("Could not find the path to Visual Studio (msbuild.exe)");
+    buildContext.CakeContext.Information("Could not find Visual Studio MSBuild, using the default MSBuild tool resolution");
+
+    return null;
 }
 
 //-------------------------------------------------------------

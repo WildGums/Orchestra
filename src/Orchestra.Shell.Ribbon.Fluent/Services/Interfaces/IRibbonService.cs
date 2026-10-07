@@ -1,9 +1,8 @@
-﻿namespace Orchestra.Services
-{
-    using System.Windows;
+﻿namespace Orchestra;
 
-    public interface IRibbonService : IShellContentService
-    {
-        FrameworkElement? GetRibbon();
-    }
+using System.Windows;
+
+public interface IRibbonService : IShellContentService
+{
+    FrameworkElement? GetRibbon();
 }

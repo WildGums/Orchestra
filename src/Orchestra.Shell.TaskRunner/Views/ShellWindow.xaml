@@ -24,7 +24,7 @@
 
         <ContentControl Grid.Row="0" Grid.ColumnSpan="2" x:Name="contentControl" />
 
-        <Expander Grid.Row="1" Header="Run" IsExpanded="True" Style="{StaticResource GroupBoxExpander}">
+        <Expander Grid.Row="1" Header="{catel:LanguageBinding Orchestra_ShellWindow_Run}" IsExpanded="True" Style="{StaticResource GroupBoxExpander}">
             <xamlbehaviors:Interaction.Behaviors>
                 <behaviors:CommandToExpanderBehavior Command="{catel:CommandManagerBinding Groups.Run}" />
             </xamlbehaviors:Interaction.Behaviors>
@@ -44,7 +44,7 @@
                     </TextBlock>
                 </Label>-->
 
-                <Button Grid.Column="1" Width="64" Height="64" ToolTip="Run" Command="{catel:CommandManagerBinding Runner.Run}">
+                <Button Grid.Column="1" Width="64" Height="64" ToolTip="{catel:LanguageBinding Orchestra_ShellWindow_Run}" Command="{catel:CommandManagerBinding Runner.Run}">
                     <Image Source="/Orchestra.Shell.TaskRunner;component/Resources/Images/Run.png" 
                            HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" />
                 </Button>
@@ -52,7 +52,7 @@
             </Grid>
         </Expander>
 
-        <GroupBox Grid.Row="2" Header="Results">
+        <GroupBox Grid.Row="2" Header="{catel:LanguageBinding Orchestra_ShellWindow_Results}">
             <orclogviewer:AdvancedLogViewerControl x:Name="traceOutputControl" 
                                                    AccentColorBrush="{orctheming:ThemeColorBrush ThemeColorStyle=AccentColor}" 
                                                    ShowFilterBox="False" 

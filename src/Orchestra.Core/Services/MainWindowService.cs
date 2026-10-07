@@ -1,49 +1,54 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+using System;
+using System.Threading.Tasks;
+using System.Windows;
+
+public class MainWindowService : IMainWindowService
 {
-    using System;
-    using System.Threading.Tasks;
-    using System.Windows;
+    private Window? _lastKnownMainWindow;
 
-    public class MainWindowService : IMainWindowService
+    public MainWindowService()
     {
-        private Window? _lastKnownMainWindow;
-
-        public MainWindowService()
+        var application = Application.Current;
+        if (application is null)
         {
-            var application = Application.Current;
-            if (application is null)
-            {
-                // Possible during unit tests
-                return;
-            }
-
-            _lastKnownMainWindow = application.MainWindow;
-
-            // Note: don't enable yet, we need to carefully test performance first
-            //EventManager.RegisterClassHandler(typeof(Window), FrameworkElement.SizeChangedEvent, new RoutedEventHandler(OnSizeChanged));
+            // Possible during unit tests
+            return;
         }
 
-        public event EventHandler<EventArgs>? MainWindowChanged;
+        _lastKnownMainWindow = application.MainWindow;
 
-        public virtual async Task<Window> GetMainWindowAsync()
+        // Note: don't enable yet, we need to carefully test performance first
+        //EventManager.RegisterClassHandler(typeof(Window), FrameworkElement.SizeChangedEvent, new RoutedEventHandler(OnSizeChanged));
+    }
+
+    public event EventHandler<EventArgs>? MainWindowChanged;
+
+    public virtual async Task<Window?> GetMainWindowAsync()
+    {
+        var mainWindow = Application.Current.MainWindow; 
+        if (mainWindow is Views.SplashScreen)
         {
-            return Application.Current.MainWindow;
+            return null;
         }
 
-        private async void OnSizeChanged(object? sender, RoutedEventArgs e)
-        {
-            await CheckForUpdatedMainWindowAsync();
-        }
+        return mainWindow;
+    }
 
-        protected virtual async Task CheckForUpdatedMainWindowAsync()
-        {
-            var mainWindow = await GetMainWindowAsync();
-            if (!ReferenceEquals(mainWindow, _lastKnownMainWindow))
-            {
-                _lastKnownMainWindow = mainWindow;
+    private async void OnSizeChanged(object? sender, RoutedEventArgs e)
+    {
+        await CheckForUpdatedMainWindowAsync();
+    }
 
-                MainWindowChanged?.Invoke(this, EventArgs.Empty);
-            }
+    protected virtual async Task CheckForUpdatedMainWindowAsync()
+    {
+        var mainWindow = await GetMainWindowAsync();
+        if (!ReferenceEquals(mainWindow, _lastKnownMainWindow))
+        {
+            _lastKnownMainWindow = mainWindow;
+
+            MainWindowChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

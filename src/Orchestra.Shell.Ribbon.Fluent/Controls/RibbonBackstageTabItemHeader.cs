@@ -1,91 +1,90 @@
-﻿namespace Orchestra.Controls
+﻿namespace Orchestra.Controls;
+
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+
+public class RibbonBackstageTabItemHeader : ContentControl
 {
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Media;
-
-    public class RibbonBackstageTabItemHeader : ContentControl
+    public RibbonBackstageTabItemHeader()
     {
-        public RibbonBackstageTabItemHeader()
+    }
+
+    public bool KeepIconSizeWithoutIcon
+    {
+        get { return (bool)GetValue(KeepIconSizeWithoutIconProperty); }
+        set { SetValue(KeepIconSizeWithoutIconProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for KeepIconSizeWithoutIcon.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty KeepIconSizeWithoutIconProperty = DependencyProperty.Register(nameof(KeepIconSizeWithoutIcon), typeof(bool), typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(false, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
+
+    public ImageSource? Icon
+    {
+        get { return (ImageSource?)GetValue(IconProperty); }
+        set { SetValue(IconProperty, value); }
+    }
+
+    public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource),
+        typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(null, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
+
+    public string? HeaderText
+    {
+        get { return (string?)GetValue(HeaderTextProperty); }
+        set { SetValue(HeaderTextProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for HeaderText.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.Register(nameof(HeaderText), typeof(string),
+        typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(string.Empty, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
+
+    public string? HeaderTextStyleKey
+    {
+        get { return (string?)GetValue(HeaderTextStyleKeyProperty); }
+        set { SetValue(HeaderTextStyleKeyProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for HeaderTextStyle.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty HeaderTextStyleKeyProperty = DependencyProperty.Register(nameof(HeaderTextStyleKey), typeof(string),
+        typeof(RibbonBackstageTabItemHeader), new PropertyMetadata("RibbonBackstageTabItemHeaderLabelStyle",
+            (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
+
+    private void BuildHeader()
+    {
+        var image = new Image
         {
-        }
+            Source = Icon,
+            Style = TryFindResource("RibbonBackstageTabItemHeaderImageStyle") as Style
+        };
 
-        public bool KeepIconSizeWithoutIcon
+        Grid.SetColumn(image, 0);
+
+        var label = new Label
         {
-            get { return (bool)GetValue(KeepIconSizeWithoutIconProperty); }
-            set { SetValue(KeepIconSizeWithoutIconProperty, value); }
-        }
+            Content = HeaderText,
+            Style = TryFindResource(HeaderTextStyleKey) as Style
+        };
 
-        // Using a DependencyProperty as the backing store for KeepIconSizeWithoutIcon.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty KeepIconSizeWithoutIconProperty = DependencyProperty.Register(nameof(KeepIconSizeWithoutIcon), typeof(bool), typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(false, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
+        Grid.SetColumn(label, 1);
 
-        public ImageSource? Icon
+        var size = (Icon is not null) || KeepIconSizeWithoutIcon ? 36 : 0;
+
+        var grid = new Grid();
+
+        grid.ColumnDefinitions.Add(new ColumnDefinition
         {
-            get { return (ImageSource?)GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
-        }
+            Width = new GridLength(size, GridUnitType.Pixel)
+        });
 
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource),
-            typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(null, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
-
-        public string? HeaderText
+        grid.ColumnDefinitions.Add(new ColumnDefinition
         {
-            get { return (string?)GetValue(HeaderTextProperty); }
-            set { SetValue(HeaderTextProperty, value); }
-        }
+            Width = new GridLength(1, GridUnitType.Star),
+            MinWidth = 200
+        });
 
-        // Using a DependencyProperty as the backing store for HeaderText.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.Register(nameof(HeaderText), typeof(string),
-            typeof(RibbonBackstageTabItemHeader), new PropertyMetadata(string.Empty, (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
+        grid.Children.Add(image);
+        grid.Children.Add(label);
 
-        public string? HeaderTextStyleKey
-        {
-            get { return (string?)GetValue(HeaderTextStyleKeyProperty); }
-            set { SetValue(HeaderTextStyleKeyProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for HeaderTextStyle.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty HeaderTextStyleKeyProperty = DependencyProperty.Register(nameof(HeaderTextStyleKey), typeof(string),
-            typeof(RibbonBackstageTabItemHeader), new PropertyMetadata("RibbonBackstageTabItemHeaderLabelStyle",
-                (sender, e) => ((RibbonBackstageTabItemHeader)sender).BuildHeader()));
-
-        private void BuildHeader()
-        {
-            var image = new Image
-            {
-                Source = Icon,
-                Style = TryFindResource("RibbonBackstageTabItemHeaderImageStyle") as Style
-            };
-
-            Grid.SetColumn(image, 0);
-
-            var label = new Label
-            {
-                Content = HeaderText,
-                Style = TryFindResource(HeaderTextStyleKey) as Style
-            };
-
-            Grid.SetColumn(label, 1);
-
-            var size = (Icon is not null) || KeepIconSizeWithoutIcon ? 36 : 0;
-
-            var grid = new Grid();
-
-            grid.ColumnDefinitions.Add(new ColumnDefinition
-            {
-                Width = new GridLength(size, GridUnitType.Pixel)
-            });
-
-            grid.ColumnDefinitions.Add(new ColumnDefinition
-            {
-                Width = new GridLength(1, GridUnitType.Star),
-                MinWidth = 200
-            });
-
-            grid.Children.Add(image);
-            grid.Children.Add(label);
-
-            SetCurrentValue(ContentProperty, grid);
-        }
+        SetCurrentValue(ContentProperty, grid);
     }
 }

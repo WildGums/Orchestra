@@ -1,24 +1,23 @@
-﻿namespace Orchestra.Examples.Ribbon
+﻿namespace Orchestra.Examples.Ribbon;
+
+using System;
+using Catel.MVVM;
+
+public class ApplicationAboutCommandContainer : Catel.MVVM.CommandContainerBase
 {
-    using System;
-    using Catel.MVVM;
-    using Orchestra.Services;
+    private readonly IAboutService _aboutService;
 
-    public class ApplicationAboutCommandContainer : Catel.MVVM.CommandContainerBase
+    public ApplicationAboutCommandContainer(ICommandManager commandManager, 
+        IServiceProvider serviceProvider, IAboutService aboutService)
+        : base(Commands.Application.About, commandManager, serviceProvider)
     {
-        private readonly IAboutService _aboutService;
+        ArgumentNullException.ThrowIfNull(aboutService);
 
-        public ApplicationAboutCommandContainer(ICommandManager commandManager, IAboutService aboutService)
-            : base(Commands.Application.About, commandManager)
-        {
-            ArgumentNullException.ThrowIfNull(aboutService);
+        _aboutService = aboutService;
+    }
 
-            _aboutService = aboutService;
-        }
-
-        public override void Execute(object parameter)
-        {
-            _aboutService.ShowAboutAsync();
-        }
+    public override void Execute(object parameter)
+    {
+        _aboutService.ShowAboutAsync();
     }
 }

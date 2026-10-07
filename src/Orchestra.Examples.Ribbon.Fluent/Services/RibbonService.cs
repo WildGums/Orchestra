@@ -1,24 +1,22 @@
-﻿namespace Orchestra.Examples.Ribbon.Services
+﻿namespace Orchestra.Examples.Ribbon.Services;
+
+using System.Windows;
+using Views;
+
+public class RibbonService : IRibbonService
 {
-    using System.Windows;
-    using Orchestra.Services;
-    using Views;
-
-    public class RibbonService : IRibbonService
+    public FrameworkElement GetRibbon()
     {
-        public FrameworkElement GetRibbon()
-        {
-            return new RibbonView();
-        }
+        return new RibbonView();
+    }
 
-        public FrameworkElement GetMainView()
-        {
-            return new MainView();
-        }
+    public FrameworkElement GetMainView()
+    {
+        return new MainView();
+    }
 
-        public FrameworkElement GetStatusBar()
-        {
-            return new StatusBarView();
-        }
+    public FrameworkElement GetStatusBar()
+    {
+        return new StatusBarView();
     }
 }

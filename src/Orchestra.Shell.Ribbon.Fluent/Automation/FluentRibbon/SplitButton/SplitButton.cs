@@ -1,26 +1,25 @@
-﻿namespace Orchestra.Automation.FluentRibbon
+﻿namespace Orchestra.Automation.FluentRibbon;
+
+using System.Windows.Automation;
+using Orc.Automation;
+using Orc.Automation.Controls;
+
+[Control(ClassName = "SplitButton")]
+public class SplitButton : FrameworkElement<SplitButtonModel>
 {
-    using System.Windows.Automation;
-    using Orc.Automation;
-    using Orc.Automation.Controls;
-
-    [Control(ClassName = "SplitButton")]
-    public class SplitButton : FrameworkElement<SplitButtonModel>
+    public SplitButton(AutomationElement element) 
+        : base(element)
     {
-        public SplitButton(AutomationElement element) 
-            : base(element)
-        {
-        }
+    }
 
-        public bool IsExpanded
-        {
-            get => Element.GetIsExpanded();
-            set => Element.SetIsExpanded(value);
-        }
+    public bool IsExpanded
+    {
+        get => Element.GetIsExpanded();
+        set => Element.SetIsExpanded(value);
+    }
 
-        public void Invoke()
-        {
-            Element.Invoke();
-        }
+    public void Invoke()
+    {
+        Element.Invoke();
     }
 }

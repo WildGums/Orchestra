@@ -198,11 +198,16 @@ public enum TargetType
 
     Tool,
 
-    UwpApp,
-
     VsExtension,
 
     WpfApp
+}
+
+//-------------------------------------------------------------
+
+private static string GetTime()
+{
+    return DateTime.Now.ToString("HH:mm:ss.fff");
 }
 
 //-------------------------------------------------------------
@@ -251,7 +256,29 @@ private static List<string> SplitSeparatedList(string value, params char[] separ
             
     if (!string.IsNullOrWhiteSpace(value))
     {
-        var splitted = value.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+        var splitted = SplitSeparatedListKeepEmptyEntries(value, separators);
+
+        foreach (var split in splitted)
+        {
+            if (!string.IsNullOrWhiteSpace(split))
+            {
+                list.Add(split.Trim());
+            }
+        }
+    }
+
+    return list;
+}
+
+//-------------------------------------------------------------
+
+private static List<string> SplitSeparatedListKeepEmptyEntries(string value, params char[] separators)
+{
+    var list = new List<string>();
+            
+    if (!string.IsNullOrWhiteSpace(value))
+    {
+        var splitted = value.Split(separators, StringSplitOptions.None);
 
         foreach (var split in splitted)
         {
@@ -693,7 +720,7 @@ private static bool ShouldProcessProject(BuildContext buildContext, string proje
 
 private static string CreateInlinedProjectXml(BuildContext buildContext, string projectName)
 {
-    buildContext.CakeContext.Information($"Running 'msbuild /pp' for project '{projectName}'");
+    buildContext.CakeContext.Information($"Running 'msbuild /pp' for project '{projectName}' to create inlined project XML");
 
     var projectInlinedFileName = System.IO.Path.Combine(GetProjectOutputDirectory(buildContext, projectName),
         "..", $"{projectName}.inlined.xml");
@@ -886,12 +913,6 @@ private static bool IsOnlyDependencyProject(BuildContext buildContext, string pr
         buildContext.CakeContext.Information($"Project is list of tools, assuming not dependency only");
         return false;
     }            
-
-    if (buildContext.Uwp.Items.Contains(projectName))
-    {
-        buildContext.CakeContext.Information($"Project is list of UWP apps, assuming not dependency only");
-        return false;
-    }   
 
     if (buildContext.VsExtensions.Items.Contains(projectName))
     {

@@ -1,7 +1,6 @@
-﻿namespace Orchestra.Views
+﻿namespace Orchestra.Views;
+
+public interface IShell
 {
-    public interface IShell
-    {
-        void Show();
-    }
+    void Show();
 }

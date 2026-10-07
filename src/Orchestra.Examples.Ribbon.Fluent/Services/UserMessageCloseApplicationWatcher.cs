@@ -1,40 +1,42 @@
-﻿namespace Orchestra.Examples.Ribbon.Services
+﻿namespace Orchestra.Examples.Ribbon.Services;
+
+using System;
+using System.Threading.Tasks;
+using Catel.Services;
+using Orc.Notifications;
+
+internal class UserMessageCloseApplicationWatcher : CloseApplicationWatcherBase
 {
-    using System;
-    using System.Threading.Tasks;
-    using Catel;
-    using Catel.Services;
-    using Orc.Notifications;
+    private readonly IMessageService _messageService;
+    private readonly INotificationService _notificationService;
+    private readonly ILanguageService _languageService;
 
-    internal class UserMessageCloseApplicationWatcher : CloseApplicationWatcherBase
+    public UserMessageCloseApplicationWatcher(IMessageService messageService, INotificationService notificationService,
+        ILanguageService languageService, IDispatcherService dispatcherService, IMainWindowService mainWindowService)
+        : base(messageService, dispatcherService, mainWindowService)
     {
-        private readonly IMessageService _messageService;
-        private readonly INotificationService _notificationService;
+        _messageService = messageService;
+        _notificationService = notificationService;
+        _languageService = languageService;
+    }
 
-        public UserMessageCloseApplicationWatcher(IMessageService messageService, INotificationService notificationService)
+    protected override async Task<bool> ClosingAsync()
+    {
+        var result = await _messageService.ShowAsync(
+            _languageService.GetRequiredString("Orchestra_Examples_Ribbon_UserMessage_AreYouSure"),
+            _languageService.GetRequiredString("Orchestra_Examples_Ribbon_UserMessage_ClosingTitle"),
+            MessageButton.YesNo, MessageImage.Question);
+        return result == MessageResult.Yes;
+    }
+
+    protected override async Task ClosedAsync()
+    {
+        _notificationService.ShowNotification(new Notification
         {
-            ArgumentNullException.ThrowIfNull(messageService);
-            ArgumentNullException.ThrowIfNull(notificationService);
+            Title = _languageService.GetRequiredString("Orchestra_Examples_Ribbon_UserMessage_ClosingApproved"),
+            Message = _languageService.GetRequiredString("Orchestra_Examples_Ribbon_UserMessage_ClosingApprovedMessage"),
+        });
 
-            _messageService = messageService;
-            _notificationService = notificationService;
-        }
-
-        protected override async Task<bool> ClosingAsync()
-        {
-            var result = await _messageService.ShowAsync("Are you sure you want to close example?", "Closing", MessageButton.YesNo, MessageImage.Question);
-            return result == MessageResult.Yes;
-        }
-
-        protected override async Task ClosedAsync()
-        {
-            _notificationService.ShowNotification(new Notification
-            {
-                Title = "Closing approved",
-                Message = "User approved closing the app, closing within 5 seconds",
-            });
-
-            await Task.Delay(TimeSpan.FromSeconds(5));
-        }
+        await Task.Delay(TimeSpan.FromSeconds(5));
     }
 }

@@ -1,46 +1,45 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+using System;
+using System.Collections.Generic;
+using Catel.MVVM;
+
+public class CommandInfoService : ICommandInfoService
 {
-    using System;
-    using System.Collections.Generic;
-    using Catel.MVVM;
+    private readonly ICommandManager _commandManager;
+    private readonly Dictionary<string, ICommandInfo> _commandInfo = new Dictionary<string, ICommandInfo>();
 
-    public class CommandInfoService : ICommandInfoService
+    public CommandInfoService(ICommandManager commandManager)
     {
-        private readonly ICommandManager _commandManager;
-        private readonly Dictionary<string, ICommandInfo> _commandInfo = new Dictionary<string, ICommandInfo>();
+        ArgumentNullException.ThrowIfNull(commandManager);
 
-        public CommandInfoService(ICommandManager commandManager)
+        _commandManager = commandManager;
+    }
+    
+    public ICommandInfo GetCommandInfo(string commandName)
+    {
+        ArgumentNullException.ThrowIfNull(commandName);
+
+        if (!_commandInfo.ContainsKey(commandName))
         {
-            ArgumentNullException.ThrowIfNull(commandManager);
+            var inputGesture = _commandManager.GetInputGesture(commandName);
 
-            _commandManager = commandManager;
-        }
-        
-        public ICommandInfo GetCommandInfo(string commandName)
-        {
-            ArgumentNullException.ThrowIfNull(commandName);
-
-            if (!_commandInfo.ContainsKey(commandName))
-            {
-                var inputGesture = _commandManager.GetInputGesture(commandName);
-
-                _commandInfo[commandName] = new CommandInfo(commandName, inputGesture);
-            }
-
-            return _commandInfo[commandName];
+            _commandInfo[commandName] = new CommandInfo(commandName, inputGesture);
         }
 
-        public void UpdateCommandInfo(string commandName, ICommandInfo commandInfo)
-        {
-            ArgumentNullException.ThrowIfNull(commandName);
-            ArgumentNullException.ThrowIfNull(commandInfo);
+        return _commandInfo[commandName];
+    }
 
-            _commandInfo[commandName] = commandInfo;
-        }
+    public void UpdateCommandInfo(string commandName, ICommandInfo commandInfo)
+    {
+        ArgumentNullException.ThrowIfNull(commandName);
+        ArgumentNullException.ThrowIfNull(commandInfo);
 
-        public void Invalidate()
-        {
-            _commandInfo.Clear();
-        }
+        _commandInfo[commandName] = commandInfo;
+    }
+
+    public void Invalidate()
+    {
+        _commandInfo.Clear();
     }
 }

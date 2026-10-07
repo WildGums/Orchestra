@@ -1,17 +1,18 @@
-﻿namespace Orchestra.Changelog.Views
+﻿namespace Orchestra.Changelog.Views;
+
+using Catel;
+using Catel.IoC;
+using Catel.Windows;
+
+public partial class ChangelogWindow
 {
-    using Catel;
-    using Catel.Windows;
+    partial void OnInitializingComponent()
+    { 
+        Mode = DataWindowMode.Custom;
 
-    public partial class ChangelogWindow
-    {
-        public ChangelogWindow()
-            : base(DataWindowMode.Custom)
-        {
-            AddCustomButton(DataWindowButton.FromAsync(LanguageHelper.GetRequiredString("OK"), OnOkExecuteAsync, OnOkCanExecute));
-            AddCustomButton(DataWindowButton.FromAsync(LanguageHelper.GetRequiredString("Orchestra_ChangelogRemindMeLater"), OnCancelExecuteAsync, OnCancelCanExecute));
+        var serviceProvider = IoCContainer.ServiceProvider;
 
-            InitializeComponent();
-        }
+        AddCustomButton(DataWindowButton.FromAsync(serviceProvider, LanguageHelper.GetRequiredString("OK"), OnOkExecuteAsync, OnOkCanExecute));
+        AddCustomButton(DataWindowButton.FromAsync(serviceProvider, LanguageHelper.GetRequiredString("Orchestra_ChangelogRemindMeLater"), OnCancelExecuteAsync, OnCancelCanExecute));
     }
 }

@@ -5,7 +5,32 @@
       <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6900.0" tool-company="Microsoft" />
     </header>
     <body>
-      <group id="ORCHESTRA.SHELL.TASKRUNNER/PROPERTIES/RESOURCES.RESX" datatype="resx" />
+      <group id="ORCHESTRA.SHELL.TASKRUNNER/PROPERTIES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="Orchestra_About" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="new">Over</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShellRecovery_FailedToStart" translate="yes" xml:space="preserve">
+          <source>Failed to start {0}</source>
+          <target state="new">Het is niet gelukt om {0} te starten</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShellRecovery_UnexpectedError" translate="yes" xml:space="preserve">
+          <source>An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.
+
+Please try restarting the application. If this error keeps coming up while starting the application, please contact support.</source>
+          <target state="new">Er deed zich een onverwachte fout op bij het starten van {0}. Helaas moet het gesloten worden.
+
+Probeer alsjeblieft de applicatie opnieuw op te starten. Als deze fout blijft verschijnen tijdens het starten van de applicatie, neem dan contact op met support.</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShellWindow_Results" translate="yes" xml:space="preserve">
+          <source>Results</source>
+          <target state="new">Resultaten</target>
+        </trans-unit>
+        <trans-unit id="Orchestra_ShellWindow_Run" translate="yes" xml:space="preserve">
+          <source>Run</source>
+          <target state="new">Ren</target>
+        </trans-unit>
+      </group>
     </body>
   </file>
 </xliff>

@@ -1,9 +1,8 @@
-﻿namespace Orchestra
-{
-    public interface IHint
-    {
-        string Text { get; }
+﻿namespace Orchestra;
 
-        string ControlName { get; }
-    }
+public interface IHint
+{
+    string Text { get; }
+
+    string ControlName { get; }
 }

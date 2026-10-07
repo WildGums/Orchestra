@@ -1,0 +1,12 @@
+﻿<catel:DataWindow x:Class="Orchestra.Views.LogWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:catel="http://schemas.catelproject.com"
+                  xmlns:orclogviewer="http://schemas.wildgums.com/orc/logviewer"
+                  Width="950" Height="500" ResizeMode="CanResize"
+                  SizeToContent="Manual">
+
+    <Grid>
+        <orclogviewer:AdvancedLogViewerControl />
+    </Grid>
+</catel:DataWindow>

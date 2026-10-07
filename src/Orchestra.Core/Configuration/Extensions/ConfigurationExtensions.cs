@@ -1,23 +1,22 @@
-﻿namespace Orchestra.Configuration
+﻿namespace Orchestra.Configuration;
+
+using Catel;
+using Catel.Configuration;
+
+public static class ConfigurationExtensions
 {
-    using Catel;
-    using Catel.Configuration;
-
-    public static class ConfigurationExtensions
+    public static bool IsConfigurationKey(this ConfigurationChangedEventArgs e, string expectedKey)
     {
-        public static bool IsConfigurationKey(this ConfigurationChangedEventArgs e, string expectedKey)
+        return IsConfigurationKey(e.Key, expectedKey);
+    }
+
+    public static bool IsConfigurationKey(this string key, string expectedKey)
+    {
+        if (string.IsNullOrWhiteSpace(key))
         {
-            return IsConfigurationKey(e.Key, expectedKey);
+            return true;
         }
 
-        public static bool IsConfigurationKey(this string key, string expectedKey)
-        {
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                return true;
-            }
-
-            return key.EqualsIgnoreCase(expectedKey);
-        }
+        return key.EqualsIgnoreCase(expectedKey);
     }
 }

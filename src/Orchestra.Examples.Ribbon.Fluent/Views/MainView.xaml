@@ -7,13 +7,13 @@
 
     <Grid>
         <orccontrols:TabControl LoadTabItems="LazyLoading">
-            <TabItem Header="Controls" >
+            <TabItem Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_MainView_Controls}" >
                 <ScrollViewer>
                     <views:ControlsView />
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Aggregate">
+            <TabItem Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_MainView_Aggregate}">
                 <ListBox>
                     <ListBoxItem Content="My string 1" />
                     <ListBoxItem Content="My string 2" />
@@ -28,7 +28,7 @@
                 </ListBox>
             </TabItem>
             
-            <TabItem Header="Overlay">
+            <TabItem Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_MainView_Overlay}">
                 <TextBlock Text="IT WORKS!" />
             </TabItem>
         </orccontrols:TabControl>

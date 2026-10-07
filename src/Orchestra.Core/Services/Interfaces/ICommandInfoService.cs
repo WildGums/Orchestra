@@ -1,9 +1,8 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+public interface ICommandInfoService
 {
-    public interface ICommandInfoService
-    {
-        ICommandInfo GetCommandInfo(string commandName);
-        void UpdateCommandInfo(string commandName, ICommandInfo commandInfo);
-        void Invalidate();
-    }
+    ICommandInfo GetCommandInfo(string commandName);
+    void UpdateCommandInfo(string commandName, ICommandInfo commandInfo);
+    void Invalidate();
 }

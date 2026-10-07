@@ -1,27 +1,34 @@
-﻿namespace Orchestra.Services
+﻿namespace Orchestra;
+
+using System.Threading.Tasks;
+using System.Windows;
+using Catel.Reflection;
+using Catel.Services;
+
+public partial class ShellRecoveryService : IShellRecoveryService
 {
-    using System.Threading.Tasks;
-    using System.Windows;
-    using Catel.Reflection;
-    using Catel.Services;
+    private readonly IMessageService _messageService;
+    private readonly ILanguageService _languageService;
+    private readonly IEntryAssemblyResolver _entryAssemblyResolver;
 
-    public partial class ShellRecoveryService : IShellRecoveryService
+    public ShellRecoveryService(IMessageService messageService, ILanguageService languageService,
+        IEntryAssemblyResolver entryAssemblyResolver)
     {
-        private readonly IMessageService _messageService;
+        _messageService = messageService;
+        _languageService = languageService;
+        _entryAssemblyResolver = entryAssemblyResolver;
+    }
 
-        public ShellRecoveryService(IMessageService messageService)
-        {
-            _messageService = messageService;
-        }
+    public async Task StartRecoveryAsync(ShellRecoveryContext shellRecoveryContext)
+    {
+        var entryAssembly = _entryAssemblyResolver.Resolve();
+        var assemblyTitle = entryAssembly.Title();
 
-        public async Task StartRecoveryAsync(ShellRecoveryContext shellRecoveryContext)
-        {
-            var entryAssembly = Catel.Reflection.AssemblyHelper.GetRequiredEntryAssembly();
-            var assemblyTitle = entryAssembly.Title();
+        var errorMessage = string.Format(_languageService.GetRequiredString("Orchestra_ShellRecovery_UnexpectedError"), assemblyTitle);
+        var errorTitle = string.Format(_languageService.GetRequiredString("Orchestra_ShellRecovery_FailedToStart"), assemblyTitle);
 
-            await _messageService.ShowErrorAsync(string.Format("An unexpected error occurred while starting {0}. Unfortunately it needs to be closed.\n\nPlease try restarting the application. If this error keeps coming up while starting the application, please contact support.", assemblyTitle), string.Format("Failed to start {0}", assemblyTitle));
+        await _messageService.ShowErrorAsync(errorMessage, errorTitle);
 
-            Application.Current.Shutdown(-1);
-        }
+        Application.Current.Shutdown(-1);
     }
 }

@@ -9,7 +9,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel x:Name="stackPanel" Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBlock Text="Receiving automatic updates: " />
+            <TextBlock Text="{catel:LanguageBinding Orchestra_Examples_Ribbon_StatusBarView_ReceivingAutomaticUpdates}" />
             <TextBlock Text="{Binding EnableAutomaticUpdates}" />
 
             <Separator Margin="3,0,3,0" Width="{Binding ElementName=stackPanel, Path=ActualHeight}">
@@ -18,7 +18,7 @@
                 </Separator.LayoutTransform>
             </Separator>
 
-            <TextBlock Text="Some other info" />
+            <TextBlock Text="{catel:LanguageBinding Orchestra_Examples_Ribbon_StatusBarView_SomeOtherInfo}" />
         </StackPanel>
     </Grid>
 

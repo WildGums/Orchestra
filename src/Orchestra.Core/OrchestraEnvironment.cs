@@ -1,9 +1,8 @@
-﻿namespace Orchestra
-{
-    using System.Windows.Media;
+﻿namespace Orchestra;
 
-    public static class OrchestraEnvironment
-    {
-        public static readonly SolidColorBrush DefaultAccentColorBrush = new SolidColorBrush(Colors.Orange);
-    }
+using System.Windows.Media;
+
+public static class OrchestraEnvironment
+{
+    public static readonly SolidColorBrush DefaultAccentColorBrush = new SolidColorBrush(Colors.Orange);
 }
