@@ -109,6 +109,8 @@ jobs:
               @{ VariableName = 'AzureCodeSignTenantId'; MaskValue = $true }
               @{ VariableName = 'AzureCodeSignClientId'; MaskValue = $true }
               @{ VariableName = 'AzureCodeSignClientSecret'; MaskValue = $true }
+              @{ VariableName = 'NuGetRepositoryUrl'; MaskValue = $false }
+              @{ VariableName = 'NuGetUser'; MaskValue = $false }
             )
           }
 
