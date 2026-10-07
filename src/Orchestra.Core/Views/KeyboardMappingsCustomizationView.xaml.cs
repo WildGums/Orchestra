@@ -38,7 +38,7 @@ public partial class KeyboardMappingsCustomizationView : UserControl
         if (vm is not null)
         {
             var modifiers = KeyboardHelper.GetCurrentlyPressedModifiers();
-            if (modifiers.Count == 0 && modifiers[0] == ModifierKeys.Shift)
+            if (modifiers.Count == 1 && modifiers[0] == ModifierKeys.Shift)
             {
                 // Only ignore just shift, control + shift is allowed
                 return;
