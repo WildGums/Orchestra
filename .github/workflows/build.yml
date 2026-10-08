@@ -30,7 +30,12 @@ jobs:
       AzureCodeSignTenantId: ''
       AzureCodeSignVaultName: ''
       Deploy: ${{ inputs.Deploy }}
+      NuGetPackageSources: ''
+      NuGetPackageSourcesNames: ''
+      NuGetPackageSourcesTokens: ''
+      NuGetPackageSourcesUsernames: ''
       NuGetRepositoryUrl: ''
+      NuGetRepositoryApiKey: ''
       NuGetUser: ''
       SonarOrganization: ''
       SonarUrl: ''
@@ -65,7 +70,7 @@ jobs:
           Add-Content -Path $env:GITHUB_OUTPUT -Value "majorMinorPatch=$($gitVersion.MajorMinorPatch)"
           Add-Content -Path $env:GITHUB_OUTPUT -Value "nuGetVersion=$($gitVersion.NuGetVersionV2)"
           Add-Content -Path $env:GITHUB_OUTPUT -Value "commitsSinceVersionSource=$($gitVersion.CommitsSinceVersionSource)"
-        
+    
           [string[]] $tags = @(
             if ($env:Deploy -eq 'true') { 'deploy' } else { 'ci' }
           )
@@ -98,9 +103,13 @@ jobs:
         shell: pwsh
         run: |
           $secretVariables = @(
-            @{ VariableName = 'SonarOrganization'; MaskValue = $false }
-            @{ VariableName = 'SonarUrl'; MaskValue = $false }
-            @{ VariableName = 'SonarToken'; MaskValue = $true }
+            @{ VariableName = 'NuGetPackageSources'; MaskValue = $false; IsOptional = $true }
+            @{ VariableName = 'NuGetPackageSourcesNames'; MaskValue = $false; IsOptional = $true }
+            @{ VariableName = 'NuGetPackageSourcesTokens'; MaskValue = $true; IsOptional = $true }
+            @{ VariableName = 'NuGetPackageSourcesUsernames'; MaskValue = $false; IsOptional = $true }
+            @{ VariableName = 'SonarOrganization'; MaskValue = $false; IsOptional = $true }
+            @{ VariableName = 'SonarUrl'; MaskValue = $false; IsOptional = $true }
+            @{ VariableName = 'SonarToken'; MaskValue = $true; IsOptional = $true }
           )
 
           if ($env:Deploy -eq 'true') {
@@ -109,8 +118,11 @@ jobs:
               @{ VariableName = 'AzureCodeSignTenantId'; MaskValue = $true }
               @{ VariableName = 'AzureCodeSignClientId'; MaskValue = $true }
               @{ VariableName = 'AzureCodeSignClientSecret'; MaskValue = $true }
-              @{ VariableName = 'NuGetRepositoryUrl'; MaskValue = $false }
-              @{ VariableName = 'NuGetUser'; MaskValue = $false }
+              @{ VariableName = 'AzureDeploymentsStorageConnectionString'; MaskValue = $true }
+              @{ VariableName = 'NuGetRepositoryUrl'; MaskValue = $false; IsOptional = $true }
+              @{ VariableName = 'NuGetRepositoryApiKey'; MaskValue = $true; IsOptional = $true }
+              @{ VariableName = 'NuGetUser'; MaskValue = $true; IsOptional = $true }
+              @{ VariableName = 'VeloPackUpdateUrl'; MaskValue = $false; IsOptional = $true }
             )
           }
 
@@ -150,7 +162,8 @@ jobs:
           function Resolve-SecretName {
             param(
               [Parameter(Mandatory = $true)]
-              [string] $VariableName
+              [string] $VariableName,
+              [bool] $IsOptional = $false
             )
 
             $secretName = $VariableName -replace '_', '--'
@@ -166,14 +179,26 @@ jobs:
               }
             }
 
+            if ($IsOptional) {
+              return $null
+            }
+
             throw "Unable to find a Key Vault secret for '$VariableName' in '$vaultName'. Tried: $($candidateNames -join ', ')"
           }
 
           $resolvedSecrets = foreach ($secretVariable in $secretVariables) {
-            [pscustomobject]@{
-              EnvName    = if ($secretVariable.EnvironmentVariableName) { $secretVariable.EnvironmentVariableName } else { $secretVariable.VariableName }
-              MaskValue  = $secretVariable.MaskValue
-              SecretName = Resolve-SecretName -VariableName $secretVariable.VariableName
+            $isOptional = $false
+            if ($null -ne $secretVariable.IsOptional) {
+              $isOptional = [bool]$secretVariable.IsOptional
+            }
+
+            $secretName = Resolve-SecretName -VariableName $secretVariable.VariableName -IsOptional $isOptional
+            if ($null -ne $secretName) {
+              [pscustomobject]@{
+                EnvName    = if ($secretVariable.EnvironmentVariableName) { $secretVariable.EnvironmentVariableName } else { $secretVariable.VariableName }
+                MaskValue  = $secretVariable.MaskValue
+                SecretName = $secretName
+              }
             }
           }
 
@@ -219,6 +244,25 @@ jobs:
           }
 
           Add-Content -Path $env:GITHUB_ENV -Value "AzureCodeSignVaultName=$env:AZURE_KEYVAULT_NAME"
+
+      - name: Calculate NuGet variables
+        id: calculate-nuget-variables
+        shell: pwsh
+        run: |
+          $nuGetPackageSourceDefinitions = @(
+            @{ Url = 'https://api.nuget.org/v3/index.json'; Name = 'nuget.org'; Token = ''; Username = '' }
+          )
+
+          $nuGetPackageSources = $nuGetPackageSourceDefinitions.Url -join ';'
+          $nuGetPackageSourcesNames = $nuGetPackageSourceDefinitions.Name -join ';'
+          $nuGetPackageSourcesTokens = $nuGetPackageSourceDefinitions.Token -join ';'
+          $nuGetPackageSourcesUsernames = $nuGetPackageSourceDefinitions.Username -join ';'
+
+          Add-Content -Path $env:GITHUB_ENV -Value "NuGetPackageSources=$nuGetPackageSources"
+          Add-Content -Path $env:GITHUB_ENV -Value "NuGetPackageSourcesNames=$nuGetPackageSourcesNames"
+          Add-Content -Path $env:GITHUB_ENV -Value "NuGetPackageSourcesTokens=$nuGetPackageSourcesTokens"
+          Add-Content -Path $env:GITHUB_ENV -Value "NuGetPackageSourcesUsernames=$nuGetPackageSourcesUsernames"
+
     
       # Get a short-lived NuGet API key
       - name: NuGet login (OIDC → temp API key)
@@ -244,6 +288,10 @@ jobs:
           AzureCodeSignClientSecret: ${{ env.AzureCodeSignClientSecret }}
           AzureCodeSignTenantId: ${{ env.AzureCodeSignTenantId }}
           AzureCodeSignVaultName: ${{ env.AzureCodeSignVaultName }}
+          NuGetPackageSources: ${{ env.NuGetPackageSources }}
+          NuGetPackageSourcesNames: ${{ env.NuGetPackageSourcesNames }}
+          NuGetPackageSourcesTokens: ${{ env.NuGetPackageSourcesTokens }}
+          NuGetPackageSourcesUsernames: ${{ env.NuGetPackageSourcesUsernames }}
           NuGetRepositoryUrl: ${{ env.NuGetRepositoryUrl }}
           NuGetRepositoryApiKey: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
           SonarOrganization: ${{ env.SonarOrganization }}
