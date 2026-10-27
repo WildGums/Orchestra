@@ -206,6 +206,10 @@
                                        Command="{Binding OpenWindow}"
                                        LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.ExternalLink}}" />
 
+                        <fluent:Button Header="Large dialog"
+                                       Click="OnLargeDialogClick"
+                                       LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.ExternalLink}}" />
+
                         <fluent:Button Header="{catel:LanguageBinding Orchestra_Examples_Ribbon_RibbonView_ProgressDemo}"
                                        LargeIcon="{orctheming:FontImage {x:Static ribbonexample:FontAwesome.Play}}"
                                        Command="{catel:CommandManagerBinding Demo.LongOperation}" />
