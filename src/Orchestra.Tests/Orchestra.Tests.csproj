@@ -22,7 +22,7 @@
     <PackageReference Include="Fody" Version="6.9.3" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="11.0.*" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.*" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
     <PackageReference Include="Moq" Version="4.21.0" />
